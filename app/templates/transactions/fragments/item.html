@@ -1,0 +1,38 @@
+<div class="row border-bottom border-top p-1 hover:tw-bg-zinc-900 font-monospace tw-text-sm transaction
+{% if transaction.account.is_asset %}tw-opacity-70{% endif %}">
+  <div class="col-lg-auto col-6">
+    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+
+    <a class="text-decoration-none"
+       role="button"
+       hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
+       hx-target="closest .transaction"
+       hx-swap="outerHTML">
+    {% if transaction.is_paid %}<i class="fa-regular fa-circle-check tw-text-green-400"></i>{% else %}<i
+            class="fa-regular fa-circle tw-text-red-400"></i>{% endif %}
+    </a>
+    <a class="text-decoration-none text-secondary"
+       role="button"
+       hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
+       hx-target="#generic-offcanvas"
+       data-bs-toggle="offcanvas"
+       data-bs-target="#generic-offcanvas">
+    <i class="fa-solid fa-pencil"></i>
+    </a>
+  </div>
+  <div class="col-lg-auto col-md-2 col-12 text-truncate">
+    {{ transaction.date|date:"SHORT_DATE_FORMAT" }}
+  </div>
+  <div class="col-lg-5 col-12 text-truncate" title="{{ transaction.description }}">
+    {{ transaction.description }}
+  </div>
+  <div class="col-lg-2 col-12 text-truncate">
+    {{ transaction.account.name }}
+  </div>
+  <div class="col-lg-auto col-md-2 col-12 {% if transaction.type == "EX" %}tw-text-red-400{% else %}tw-text-green-400{% endif %}
+  text-truncate">
+    {{ transaction.account.currency.prefix }}
+        {{ transaction.amount | floatformat:transaction.account.currency.decimal_places }}
+        {{ transaction.account.currency.suffix }}
+  </div>
+</div>
