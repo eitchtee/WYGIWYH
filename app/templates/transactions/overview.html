@@ -13,7 +13,10 @@
         {% url 'transactions_overview' month=previous_month year=previous_year %}"><i
             class="fa-solid fa-chevron-left"></i></a>
       </div>
-      <div class="tw-text-3xl fw-bold" hx-get="{% url 'available_dates' %}" hx-target="#generic-offcanvas">
+      <div class="tw-text-3xl fw-bold font-monospace tw-w-full xl:tw-w-72 text-center"
+           hx-get="{% url 'available_dates' %}"
+           hx-target="#generic-offcanvas-left"
+           hx-vals='{"month": {{ month }}, "year": {{ year }}}' role="button">
         {{ month|month_name }} {{ year }}
       </div>
       <div class="tw-text-base mx-2 h-100 align-items-center d-flex"><a role="button" href="
