@@ -334,19 +334,22 @@ def monthly_summary(request, month: int, year: int):
 
 @login_required
 def month_year_picker(request):
-    available_dates = (
-        Transaction.objects.annotate(
-            month=ExtractMonth("reference_date"), year=ExtractYear("reference_date")
-        )
-        .values("month", "year")
-        .distinct()
-        .order_by("year", "month")
+    current_month = int(
+        request.GET.get("month", timezone.localdate(timezone.now()).month)
     )
+    current_year = int(request.GET.get("year", timezone.localdate(timezone.now()).year))
+
+    available_years = Transaction.objects.dates("reference_date", "year", order="ASC")
 
     return render(
         request,
         "transactions/fragments/month_year_picker.html",
-        {"available_dates": available_dates},
+        {
+            "available_years": available_years,
+            "months": range(1, 13),
+            "current_month": current_month,
+            "current_year": current_year,
+        },
     )
 
 
