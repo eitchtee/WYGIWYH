@@ -1,0 +1,15 @@
+@import "_variables";
+@import "_font-awesome.scss";
+@import "_tailwind.scss";
+@import "_bootstrap.scss";
+@import "_tom-select.scss";
+
+.sticky-sidebar {
+  position: sticky;
+  top: 10px;
+}
+
+// Somewhat prevents flickering when replacing with Tom-select
+select[multiple] {
+  visibility: hidden;
+}

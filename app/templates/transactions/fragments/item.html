@@ -1,38 +1,123 @@
-<div class="row border-bottom border-top p-1 hover:tw-bg-zinc-900 font-monospace tw-text-sm transaction
-{% if transaction.account.is_asset %}tw-opacity-70{% endif %}">
-  <div class="col-lg-auto col-6">
-    <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="...">
+{% load i18n %}
+{% load currency_display %}
+<div class="tw-border-s-2 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
+hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
+{% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} transaction tw-relative"
+_="on mouseover remove .tw-invisible from the first .transaction-actions in me end
+   on mouseout add .tw-invisible to the first .transaction-actions in me end">
+  <div class="row font-monospace tw-text-sm align-items-center">
+    <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center">
+      <a class="text-decoration-none my-2 w-100"
+         role="button"
+         hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
+         hx-target="closest .transaction"
+         hx-swap="outerHTML">
+          {% if transaction.is_paid %}<i class="fa-regular fa-circle-check tw-text-green-400"></i>{% else %}<i
+              class="fa-regular fa-circle tw-text-red-400"></i>{% endif %}
+      </a>
+    </div>
+    <div class="col-lg-8 col-12">
+      <div class="mb-1 text-white tw-text-base">{{ transaction.description }}</div>
+      <div class="text-white-50 mb-2 d-flex align-items-center">
+        <i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i>
+        {{ transaction.date|date:"SHORT_DATE_FORMAT" }}</div>
+      <div class="text-white-50 mb-1 tw-text-xs">
+        {% for tag in transaction.tags.all %}
+          <span><i class="fa-solid fa-hashtag tw-text-gray-400"></i>{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+      <div class="tw-text-sm mb-1 mb-lg-0 tw-text-gray-400 font-normal">
+        <i class="fa-solid fa-note-sticky me-1"></i>{{ transaction.notes | linebreaksbr }}
+      </div>
+      <div class="tw-text-sm mb-1 mb-lg-0">
+        {% if transaction.category %}
+          <i class="fa-solid fa-icons text-primary"></i>
+        <span class="badge rounded-0
+                    {% if transaction.category.mute %}text-bg-secondary{% else %}text-bg-light{% endif %}">
+          {{ transaction.category.name }}
+        </span>
+        {% endif %}
+      </div>
 
-    <a class="text-decoration-none"
-       role="button"
-       hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
-       hx-target="closest .transaction"
-       hx-swap="outerHTML">
-    {% if transaction.is_paid %}<i class="fa-regular fa-circle-check tw-text-green-400"></i>{% else %}<i
-            class="fa-regular fa-circle tw-text-red-400"></i>{% endif %}
-    </a>
-    <a class="text-decoration-none text-secondary"
-       role="button"
-       hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
-       hx-target="#generic-offcanvas"
-       data-bs-toggle="offcanvas"
-       data-bs-target="#generic-offcanvas">
-    <i class="fa-solid fa-pencil"></i>
-    </a>
-  </div>
-  <div class="col-lg-auto col-md-2 col-12 text-truncate">
-    {{ transaction.date|date:"SHORT_DATE_FORMAT" }}
-  </div>
-  <div class="col-lg-5 col-12 text-truncate" title="{{ transaction.description }}">
-    {{ transaction.description }}
-  </div>
-  <div class="col-lg-2 col-12 text-truncate">
-    {{ transaction.account.name }}
-  </div>
-  <div class="col-lg-auto col-md-2 col-12 {% if transaction.type == "EX" %}tw-text-red-400{% else %}tw-text-green-400{% endif %}
-  text-truncate">
-    {{ transaction.account.currency.prefix }}
-        {{ transaction.amount | floatformat:transaction.account.currency.decimal_places }}
-        {{ transaction.account.currency.suffix }}
+    </div>
+    <div class="col-lg-3 col-12 text-lg-end align-self-end">
+        <div class="{% if transaction.type == "EX" %}tw-text-red-400{% else %}tw-text-green-400{% endif %}">
+          {% transaction_amount transaction %}
+        </div>
+        <div>{{ transaction.account.name }}</div>
+    </div>
+    <div>
+      <div class="transaction-actions !tw-absolute tw-top-0 tw-right-0 tw-invisible tw-text-base d-none
+      d-xl-flex">
+        <a class="text-danger text-decoration-none p-2 transaction-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Delete" %}"
+                hx-get="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                hx-trigger='confirmed'
+                _="on click send transaction_action_clicked to .transaction-action in the closest parent .transaction end
+                   on transaction_action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
+                    on click
+                     call Swal.fire({title: '{% translate 'Are you sure?' %}',
+                                    text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    cancelButtonText: '{% blocktranslate %}Cancel{% endblocktranslate %}',
+                                    confirmButtonText: '{% blocktranslate %}Yes, delete it!{% endblocktranslate %}',
+                                    customClass: {
+                                      confirmButton: 'btn btn-primary me-3',
+                                      cancelButton: 'btn btn-danger'
+                                    },
+                                    buttonsStyling: false})
+                     if result.isConfirmed trigger confirmed"><i class="fa-solid fa-trash fa-fw"></i></a>
+        <a class="text-decoration-none tw-text-gray-400 p-2 transaction-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Edit" %}"
+                hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
+                hx-target="#generic-offcanvas"
+                _="on click send transaction_action_clicked to .transaction-action in the closest parent .transaction end
+                   on transaction_action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end">
+          <i class="fa-solid fa-pencil fa-fw"></i></a>
+      </div>
+      <div class="dropdown !tw-absolute tw-top-0 tw-right-0 xl:tw-invisible">
+        <a class="btn tw-text-2xl lg:tw-text-sm lg:tw-border-none text-light" type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+          <i class="fa-solid fa-ellipsis fa-fw"></i>
+        </a>
+        <ul class="dropdown-menu tw-text-base">
+          <li><a class="dropdown-item"
+                 role="button"
+                 hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
+                 hx-target="#generic-offcanvas">
+            <i class="fa-solid fa-pencil me-3"></i>{% translate "Edit" %}
+          </a></li>
+          <li><a class="dropdown-item"
+                 role="button"
+                 hx-get="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                 hx-trigger='confirmed'
+                 _="on click
+                     call Swal.fire({title: '{% translate 'Are you sure?' %}',
+                                    text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    cancelButtonText: '{% blocktranslate %}Cancel{% endblocktranslate %}',
+                                    confirmButtonText: '{% blocktranslate %}Yes, delete it!{% endblocktranslate %}',
+                                    customClass: {
+                                      confirmButton: 'btn btn-primary me-3',
+                                      cancelButton: 'btn btn-danger'
+                                    },
+                                    buttonsStyling: false})
+                     if result.isConfirmed trigger confirmed">
+            <i class="fa-solid fa-trash me-3"></i>{% translate "Delete" %}
+          </a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

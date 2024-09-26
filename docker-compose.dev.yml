@@ -1,0 +1,93 @@
+version: '3.8'
+
+volumes:
+  wygiwyh_dev_postgres_data: {}
+  temp:
+
+services:
+  web: &django
+    build:
+      context: .
+      dockerfile: ./docker/dev/django/Dockerfile
+    image: wygiwyh_dev_server
+    container_name: wygiwyh_dev_server
+    command: /start
+    volumes:
+      - ./app/:/usr/src/app/:z
+      - ./frontend/:/usr/src/frontend:z
+      - temp:/temp
+    ports:
+      - "${OUTBOUND_PORT}:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - webpack
+    restart: unless-stopped
+
+  webpack:
+    build:
+      context: .
+      dockerfile: ./docker/dev/webpack/Dockerfile
+    image: wygiwyh_dev_node
+    container_name: wygiwyh_dev_node
+    volumes:
+      - ./frontend/:/usr/src/frontend
+      - ./app/:/usr/src/app/
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      - /usr/src/frontend/node_modules
+    command: npm run watch
+    ports:
+      - '${WEBPACK_OUTBOUND_PORT}:9091'
+    environment:
+      - WATCHPACK_POLLING=true
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: ${SQL_HOST}
+    volumes:
+      - wygiwyh_dev_postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+      - POSTGRES_DB=${SQL_DATABASE}
+    ports:
+      - '${SQL_PORT}:5432'
+    restart: unless-stopped
+
+  redis:
+    image: docker.io/redis:6
+    restart: unless-stopped
+    container_name: wygiwyh_dev_redis
+
+  celeryworker:
+    <<: *django
+    image: wygiwyh_dev_celeryworker
+    container_name: wygiwyh_dev_celeryworker
+    depends_on:
+      - redis
+      - db
+    ports: [ ]
+    command: /start-celeryworker
+    restart: unless-stopped
+
+  celerybeat:
+    <<: *django
+    image: wygiwyh_dev_celerybeat
+    container_name: wygiwyh_dev_celerybeat
+    depends_on:
+      - redis
+      - db
+    ports: [ ]
+    command: /start-celerybeat
+    restart: unless-stopped
+
+  flower:
+    <<: *django
+    image: wygiwyh_dev_flower
+    container_name: wygiwyh_dev_flower
+    ports:
+      - '${FLOWER_OUTBOUND_PORT}:5555'
+    command: /start-flower
+    restart: unless-stopped

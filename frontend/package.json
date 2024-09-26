@@ -1,0 +1,69 @@
+{
+  "name": "python-webpack-boilerplate",
+  "version": "1.0.1",
+  "description": "Webpack boilerplate for Django & Flask",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
+    "start": "webpack serve --config webpack/webpack.config.dev.js",
+    "watch": "webpack --watch --config webpack/webpack.config.watch.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AccordBox/python-webpack-boilerplate"
+  },
+  "keywords": [
+    "webpack",
+    "startkit",
+    "frontend"
+  ],
+  "author": "Michael Yin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AccordBox/python-webpack-boilerplate/issues"
+  },
+  "dependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.16.8",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@popperjs/core": "^2.11.8",
+    "alpinejs": "^3.14.1",
+    "autoprefixer": "^10.4.14",
+    "autosize": "^6.0.1",
+    "babel-loader": "^8.2.3",
+    "bootstrap": "^5.3.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "core-js": "^3.20.3",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.8.1",
+    "eslint": "^8.7.0",
+    "eslint-webpack-plugin": "^3.1.1",
+    "htmx.org": "^2.0.1",
+    "hyperscript.org": "^0.9.12",
+    "jquery": "^3.7.1",
+    "jquery-mask-plugin": "^1.14.16",
+    "mini-css-extract-plugin": "^2.5.1",
+    "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.2.3",
+    "sass": "~1.49.9",
+    "sass-loader": "^13.3.2",
+    "select2-bootstrap-5-theme": "^1.3.0",
+    "style-loader": "^3.3.3",
+    "stylelint": "^14.2.0",
+    "stylelint-config-standard-scss": "^6.1.0",
+    "stylelint-webpack-plugin": "^3.1.1",
+    "sweetalert2": "^11.14.1",
+    "tailwindcss": "^3.4.1",
+    "terser-webpack-plugin": "^5.3.10",
+    "tom-select": "^2.3.1",
+    "typer-dot-js": "^0.1.0",
+    "webpack": "^5.66.0",
+    "webpack-assets-manifest": "^5.1.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3",
+    "webpack-merge": "^5.8.0"
+  }
+}

@@ -1,0 +1,27 @@
+{% extends 'extends/offcanvas.html' %}
+{% load month_name %}
+{% load i18n %}
+
+{% block title %}{% translate 'Pick one' %}{% endblock %}
+
+{% block body %}
+<div class="form-floating mb-3">
+  <input type="search" class="form-control" id="floatingInput" placeholder="{% translate 'Search' %}"
+  _="on change or input
+         if the event's key is 'Escape'
+           set my value to ''
+           trigger keyup
+         else
+          show <li/> in #month-year-list when its textContent.toLowerCase() contains my value.toLowerCase()">
+  <label for="floatingInput">{% translate 'Search' %}</label>
+</div>
+<ul class="list-group list-group-flush" id="month-year-list">
+  {% for date in available_dates %}
+    <li class="list-group-item hover:tw-bg-zinc-900">
+      <a class="text-decoration-none stretched-link" href="{% url "transactions_overview" month=date.month year=date.year %}">
+        {{ date.month|month_name }} / {{ date.year }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

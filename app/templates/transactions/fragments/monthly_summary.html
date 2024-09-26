@@ -1,0 +1,123 @@
+{% load i18n %}
+{% load currency_display %}
+<div class="text-bg-secondary p-2 rounded-2 shadow tw-text-sm">
+  <p class="font-monospace text-light text-uppercase text-center fw-bold m-0 tw-text-base">{% translate "Summary" %}</p>
+  <hr class="my-1">
+  <div>
+    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Presente" %}</p>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Earned Income" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.paid_income %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="my-3"></div>
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Projected Income" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.projected_income %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <hr class="my-1">
+  <div>
+    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Projected" %}</p>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Total Expenses" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.paid_expense %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="my-3"></div>
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Projected Expenses" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.projected_expense %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <hr class="my-1">
+  <div>
+    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Total" %}</p>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Total Expenses" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.paid_expense %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="my-3"></div>
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Projected Expenses" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.projected_expense %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <hr class="my-1">
+  <div>
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Total Expenses" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.paid_expense %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="my-3"></div>
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Daily Spending Allowance" %}</div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.projected_expense %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

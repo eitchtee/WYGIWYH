@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  web: &django
+    build:
+      context: .
+      dockerfile: ./docker/prod/django/Dockerfile
+    image: ${SERVER_NAME}
+    container_name: ${SERVER_NAME}
+    command: /start
+    volumes:
+      - temp:/temp
+    ports:
+      - "${OUTBOUND_PORT}:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost:8000/ht/health || exit 1
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 360s
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+
+  db:
+    image: postgres:15
+    container_name: ${DB_NAME}
+    restart: unless-stopped
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+      - POSTGRES_DB=${SQL_DATABASE}
+
+  redis:
+    image: docker.io/redis:6
+    container_name: ${REDIS_NAME}
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - ./redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+
+  celeryworker:
+    <<: *django
+    image: ${CELERYWORKER_NAME}
+    container_name: ${CELERYWORKER_NAME}
+    depends_on:
+      - redis
+      - db
+    ports: [ ]
+    command: /start-celeryworker
+    restart: unless-stopped
+    healthcheck:
+      test: [ "NONE" ]
+
+  celerybeat:
+    <<: *django
+    image: ${CELERYBEAT_NAME}
+    container_name: ${CELERYBEAT_NAME}
+    depends_on:
+      - redis
+      - db
+    ports: [ ]
+    command: /start-celerybeat
+    restart: unless-stopped
+    healthcheck:
+      test: [ "NONE" ]
+
+  flower:
+    <<: *django
+    image: ${FLOWER_NAME}
+    container_name: ${FLOWER_NAME}
+    ports:
+      - '5556:5555'
+    command: /start-flower
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost:5555/healthcheck || exit 1
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 360s
+
+networks:
+ default:
+   name: compose_default
+   external: true
+
+volumes:
+  temp:

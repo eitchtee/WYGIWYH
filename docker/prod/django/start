@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+
+python manage.py collectstatic --noinput
+python manage.py compilemessages
+python manage.py migrate
+python manage.py loaddata ./fixtures/*.json
+
+exec gunicorn WYGIWYH.wsgi:application --bind 0.0.0.0:8000 --timeout 600

@@ -1,0 +1,15 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind"
+        ]
+      }
+    ],
+    "scss/at-import-partial-extension": null
+  }
+}

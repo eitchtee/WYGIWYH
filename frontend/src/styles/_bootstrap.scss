@@ -1,0 +1,101 @@
+@import 'bootstrap/scss/functions';
+
+@import "_variables";
+// Import all of Bootstrap's CSS
+@import "bootstrap/scss/bootstrap";
+
+.form-label {
+  font-size: $font-size-base; // Fixes crispy-bootstrap5 legend labels being too big
+  font-weight: bold;
+}
+//
+////body {
+////  background-color: $background-color;
+////}
+//
+
+//
+//// ===== Scrollbar CSS =====
+//* {
+//  scrollbar-width: thin;
+//  scrollbar-color: $scroll-thumb-color #dfe9eb;
+//}
+//
+//// Chrome, Edge and Safari
+//*::-webkit-scrollbar {
+//  height: 10px;
+//  width: 10px;
+//}
+//
+//*::-webkit-scrollbar-track {
+//  border-radius: 5px;
+//  background-color: $scroll-track-color;
+//}
+//
+//*::-webkit-scrollbar-track:hover {
+//  background-color: $scroll-thumb-active-color;
+//}
+//
+//*::-webkit-scrollbar-track:active {
+//  background-color: $scroll-thumb-active-color;
+//}
+//
+//*::-webkit-scrollbar-thumb {
+//  border-radius: 5px;
+//  background-color: $scroll-thumb-color;
+//}
+//
+//*::-webkit-scrollbar-thumb:hover {
+//  background-color: $scroll-thumb-active-color;
+//}
+//
+//*::-webkit-scrollbar-thumb:active {
+//  background-color: $scroll-thumb-active-color;
+//}
+//
+//// ===== Scrollbar CSS =====
+//
+//.gradient-background {
+//  background: linear-gradient(109deg, #652e7c, #1a7976);
+//  background-size: 120% 120%;
+//  animation: gradient-animation 8s ease infinite;
+//}
+//
+//@keyframes gradient-animation {
+//  0% {
+//    background-position: 0% 50%;
+//  }
+//
+//  50% {
+//    background-position: 100% 50%;
+//  }
+//
+//  100% {
+//    background-position: 0% 50%;
+//  }
+//}
+//
+
+//
+//.fade-me-in.htmx-added {
+//  opacity: 0;
+//}
+//
+//.fade-me-in {
+//  opacity: 1;
+//  transition: opacity 500ms ease-out;
+//}
+
+
+.offcanvas-size-xl {
+    --#{$prefix}offcanvas-width: min(95vw, 600px) !important;
+}
+.offcanvas-size-xxl {
+    --#{$prefix}offcanvas-width: min(95vw, 90vw) !important;
+}
+.offcanvas-size-md { /* add Responsivenes to default offcanvas */
+    --#{$prefix}offcanvas-width: min(95vw, 400px) !important;
+}
+.offcanvas-size-sm {
+    --#{$prefix}offcanvas-width: min(95vw, 250px) !important;
+}

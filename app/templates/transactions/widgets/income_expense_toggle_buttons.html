@@ -1,0 +1,16 @@
+{% load crispy_forms_field %}
+
+<div class="btn-group w-100 mb-3" role="group" aria-label="{{ field.label }}">
+    {% for choice in field.field.choices %}
+        <input type="radio"
+               class="btn-check"
+               name="{{ field.html_name }}"
+               id="{{ field.html_name }}_{{ forloop.counter }}"
+               value="{{ choice.0 }}"
+               {% if choice.0 == field.value %}checked{% endif %}>
+        <label class="btn {% if forloop.first %}btn-outline-success{% elif forloop.last %}btn-outline-danger{% else %}btn-outline-primary{% endif %}"
+               for="{{ field.html_name }}_{{ forloop.counter }}">
+            {{ choice.1 }}
+        </label>
+    {% endfor %}
+</div>

@@ -1,0 +1,26 @@
+{% load webpack_loader %}
+{% load tz_detect %}
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}WYGIWYH{% endblock %}</title>
+
+    {% include 'includes/styles.html' %}
+    {% block extra_styles %}{% endblock %}
+
+    {% tz_detect %}
+  </head>
+  <body>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+    
+    {% include 'includes/offcanvas.html' %}
+    {% include 'includes/toasts.html' %}
+
+    {% include 'includes/scripts.html' %}
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

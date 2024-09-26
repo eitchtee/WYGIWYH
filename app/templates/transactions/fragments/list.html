@@ -1,3 +1,5 @@
-{% for trans in transactions %}
-  {% include 'transactions/fragments/item.html' with transaction=trans %}
-{% endfor %}
+<div class="">
+  {% for trans in transactions %}
+    {% include 'transactions/fragments/item.html' with transaction=trans %}
+  {% endfor %}
+</div>
