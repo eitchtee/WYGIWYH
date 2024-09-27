@@ -65,7 +65,7 @@ class TransactionForm(forms.ModelForm):
                 css_class="form-row",
             ),
             "description",
-            "amount",
+            Field("amount", inputmode="decimal"),
             Field("category", css_class="select"),
             Field("tags", css_class="multiselect", size=1),
             "notes",
@@ -75,6 +75,10 @@ class TransactionForm(forms.ModelForm):
             decimal_places = self.instance.account.currency.decimal_places
             self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput(
                 decimal_places=decimal_places
+            )
+        else:
+            self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput(
+                decimal_places=2
             )
 
 
@@ -87,10 +91,15 @@ class TransferForm(forms.Form):
     )
 
     from_amount = forms.DecimalField(
-        max_digits=42, decimal_places=30, label="From Amount", step_size=1
+        max_digits=42,
+        decimal_places=30,
+        label="From Amount",
     )
     to_amount = forms.DecimalField(
-        max_digits=42, decimal_places=30, label="To Amount", required=False, step_size=1
+        max_digits=42,
+        decimal_places=30,
+        label="To Amount",
+        required=False,
     )
 
     from_category = forms.ModelChoiceField(
@@ -162,6 +171,14 @@ class TransferForm(forms.Form):
             Submit("submit", "Save", css_class="btn btn-primary"),
         )
 
+        self.fields["from_amount"].widget = ArbitraryDecimalDisplayNumberInput(
+            decimal_places=2
+        )
+
+        self.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput(
+            decimal_places=2
+        )
+
     def clean(self):
         cleaned_data = super().clean()
         from_account = cleaned_data.get("from_account")
@@ -180,6 +197,8 @@ class TransferForm(forms.Form):
         date = self.cleaned_data["date"]
         reference_date = self.cleaned_data["reference_date"]
         description = self.cleaned_data["description"]
+        from_category = self.cleaned_data.get("from_category")
+        to_category = self.cleaned_data.get("to_category")
 
         # Create "From" transaction
         from_transaction = Transaction.objects.create(
@@ -189,8 +208,8 @@ class TransferForm(forms.Form):
             date=date,
             reference_date=reference_date,
             amount=from_amount,
-            description=f"Transfer to {to_account}: {description}",
-            category=self.cleaned_data.get("from_category"),
+            description=description,
+            category=from_category,
         )
         from_transaction.tags.set(self.cleaned_data.get("from_tags", []))
 
@@ -202,8 +221,8 @@ class TransferForm(forms.Form):
             date=date,
             reference_date=reference_date,
             amount=to_amount,
-            description=f"Transfer from {from_account}: {description}",
-            category=self.cleaned_data.get("to_category"),
+            description=description,
+            category=to_category,
         )
         to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
 
