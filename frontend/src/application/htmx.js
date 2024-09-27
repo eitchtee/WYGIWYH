@@ -1,6 +1,11 @@
 import htmx from "htmx.org";
 import _hyperscript from 'hyperscript.org/dist/_hyperscript.min';
+import Alpine from "alpinejs";
+import mask from '@alpinejs/mask';
+window.Alpine = Alpine;
 
+Alpine.start();
+Alpine.plugin(mask);
 _hyperscript.browserInit();
 
 let modalEle = document.getElementById("modal");
