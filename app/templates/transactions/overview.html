@@ -19,10 +19,12 @@
            hx-vals='{"month": {{ month }}, "year": {{ year }}}' role="button">
         {{ month|month_name }} {{ year }}
       </div>
-      <div class="tw-text-base mx-2 h-100 align-items-center d-flex"><a role="button" href="
-        {% url 'transactions_overview' month=next_month year=next_year %}"><i
-          class="fa-solid
-      fa-chevron-right"></i></a></div>
+      <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
+        <a role="button"
+           href="{% url 'transactions_overview' month=next_month year=next_year %}">
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
     </div>
 
   </div>
