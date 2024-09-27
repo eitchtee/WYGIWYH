@@ -4,11 +4,12 @@
   <p class="font-monospace text-light text-uppercase text-center fw-bold m-0 tw-text-base">{% translate "Summary" %}</p>
   <hr class="my-1">
   <div>
-    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Presente" %}</p>
+    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Income" %}</p>
 
     <div class="row">
       <div class="col-6">
-        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Earned Income" %}</div>
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">
+          {% translate "Current Income" %}</div>
       </div>
       <div class="col-6 text-end font-monospace">
         {% for entry in totals.paid_income %}
@@ -21,7 +22,9 @@
     <div class="my-3"></div>
     <div class="row">
       <div class="col-6">
-        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Projected Income" %}</div>
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">
+          {% translate "Projected Income" %}
+        </div>
       </div>
       <div class="col-6 text-end font-monospace">
         {% for entry in totals.projected_income %}
@@ -34,14 +37,15 @@
   </div>
   <hr class="my-1">
   <div>
-    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Projected" %}</p>
+    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Expenses" %}</p>
 
     <div class="row">
       <div class="col-6">
-        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Total Expenses" %}</div>
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">
+          {% translate "Current Expenses" %}</div>
       </div>
       <div class="col-6 text-end font-monospace">
-        {% for entry in totals.paid_expense %}
+        {% for entry in totals.paid_expenses %}
           <div>{% entry_amount entry %}</div>
         {% empty %}
           <div>-</div>
@@ -51,10 +55,12 @@
     <div class="my-3"></div>
     <div class="row">
       <div class="col-6">
-        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Projected Expenses" %}</div>
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">
+          {% translate "Projected Expenses" %}
+        </div>
       </div>
       <div class="col-6 text-end font-monospace">
-        {% for entry in totals.projected_expense %}
+        {% for entry in totals.projected_expenses %}
           <div>{% entry_amount entry %}</div>
         {% empty %}
           <div>-</div>
@@ -64,14 +70,16 @@
   </div>
   <hr class="my-1">
   <div>
-    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Total" %}</p>
+    <p class="font-monospace text-uppercase text-center fw-bold m-0">{% translate "Totals" %}</p>
 
     <div class="row">
       <div class="col-6">
-        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Total Expenses" %}</div>
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">
+          {% translate "Current Total" %}
+        </div>
       </div>
       <div class="col-6 text-end font-monospace">
-        {% for entry in totals.paid_expense %}
+        {% for entry in totals.total_current %}
           <div>{% entry_amount entry %}</div>
         {% empty %}
           <div>-</div>
@@ -81,10 +89,27 @@
     <div class="my-3"></div>
     <div class="row">
       <div class="col-6">
-        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Projected Expenses" %}</div>
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">
+          {% translate "Projected Total" %}
+        </div>
       </div>
       <div class="col-6 text-end font-monospace">
-        {% for entry in totals.projected_expense %}
+        {% for entry in totals.total_projected %}
+          <div>{% entry_amount entry %}</div>
+        {% empty %}
+          <div>-</div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="my-3"></div>
+    <div class="row">
+      <div class="col-6">
+        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">
+          {% translate "Final Total" %}
+        </div>
+      </div>
+      <div class="col-6 text-end font-monospace">
+        {% for entry in totals.total_final %}
           <div>{% entry_amount entry %}</div>
         {% empty %}
           <div>-</div>
@@ -94,25 +119,12 @@
   </div>
   <hr class="my-1">
   <div>
-    <div class="row">
-      <div class="col-6">
-        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Total Expenses" %}</div>
-      </div>
-      <div class="col-6 text-end font-monospace">
-        {% for entry in totals.paid_expense %}
-          <div>{% entry_amount entry %}</div>
-        {% empty %}
-          <div>-</div>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="my-3"></div>
     <div class="row">
       <div class="col-6">
         <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{% translate "Daily Spending Allowance" %}</div>
       </div>
       <div class="col-6 text-end font-monospace">
-        {% for entry in totals.projected_expense %}
+        {% for entry in totals.daily_spending_allowance %}
           <div>{% entry_amount entry %}</div>
         {% empty %}
           <div>-</div>
