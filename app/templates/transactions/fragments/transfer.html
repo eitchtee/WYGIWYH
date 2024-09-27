@@ -1,0 +1,12 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Adding transaction' %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% url 'transactions_transfer' %}" hx-target="#generic-offcanvas" novalidate>
+    {% csrf_token %}
+    {% crispy form %}
+</form>
+{% endblock %}

@@ -44,4 +44,9 @@ urlpatterns = [
         views.month_year_picker,
         name="available_dates",
     ),
+    path(
+        "transactions/transfer",
+        views.transactions_transfer,
+        name="transactions_transfer",
+    ),
 ]

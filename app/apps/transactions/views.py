@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from unicodedata import category
 
-from apps.transactions.forms import TransactionForm
+from apps.transactions.forms import TransactionForm, TransferForm
 from apps.transactions.models import Transaction
 
 
@@ -168,6 +168,23 @@ def transaction_delete(request, transaction_id, **kwargs):
         status=204,
         headers={"HX-Trigger": "transaction_updated, toast"},
     )
+
+
+@login_required
+def transactions_transfer(request):
+    if request.method == "POST":
+        form = TransferForm(request.POST)
+        if form.is_valid():
+            from_transaction, to_transaction = form.save()
+            messages.success(request, "Transfer completed successfully.")
+            return HttpResponse(
+                status=204,
+                headers={"HX-Trigger": "transaction_updated, toast"},
+            )
+    else:
+        form = TransferForm()
+
+    return render(request, "transactions/fragments/transfer.html", {"form": form})
 
 
 @login_required
