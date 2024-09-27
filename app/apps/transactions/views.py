@@ -1,31 +1,36 @@
 import datetime
-from decimal import Decimal
-from itertools import groupby
-from operator import itemgetter
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, F, Case, When, DecimalField, Value, Q, CharField
-from django.db.models.functions import Coalesce, ExtractMonth, ExtractYear
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from unicodedata import category
+from django.db.models import Sum, Q, F, Case, When, DecimalField
+from django.db.models.functions import Coalesce
+from decimal import Decimal
 
 from apps.transactions.forms import TransactionForm, TransferForm
 from apps.transactions.models import Transaction
+from apps.common.functions.dates import remaining_days_in_month
 
 
 @login_required
 def index(request):
-    now = timezone.now()
+    now = timezone.localdate(timezone.now())
 
     return redirect(to="transactions_overview", month=now.month, year=now.year)
 
 
 @login_required
 def transactions_overview(request, month: int, year: int):
+    from django.utils.formats import get_format
+    from django.utils.translation import get_language
+
+    current_language = get_language()
+
+    thousand_separator = get_format("THOUSAND_SEPARATOR")
+    print(thousand_separator, current_language)
     if month < 1 or month > 12:
         from django.http import Http404
 
@@ -36,15 +41,6 @@ def transactions_overview(request, month: int, year: int):
 
     previous_month = 12 if month == 1 else month - 1
     previous_year = year - 1 if previous_month == 12 and month == 1 else year
-
-    print(
-        Transaction.objects.annotate(
-            month=ExtractMonth("reference_date"), year=ExtractYear("reference_date")
-        )
-        .values("month", "year")
-        .distinct()
-        .order_by("year", "month")
-    )
 
     return render(
         request,
@@ -172,17 +168,32 @@ def transaction_delete(request, transaction_id, **kwargs):
 
 @login_required
 def transactions_transfer(request):
+    month = int(request.GET.get("month", timezone.localdate(timezone.now()).month))
+    year = int(request.GET.get("year", timezone.localdate(timezone.now()).year))
+
+    now = timezone.localdate(timezone.now())
+    expected_date = datetime.datetime(
+        day=now.day if month == now.month and year == now.year else 1,
+        month=month,
+        year=year,
+    ).date()
+
     if request.method == "POST":
         form = TransferForm(request.POST)
         if form.is_valid():
-            from_transaction, to_transaction = form.save()
-            messages.success(request, "Transfer completed successfully.")
+            form.save()
+            messages.success(request, _("Transfer added successfully."))
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "transaction_updated, toast"},
+                headers={"HX-Trigger": "transaction_updated, toast, hide_offcanvas"},
             )
     else:
-        form = TransferForm()
+        form = TransferForm(
+            initial={
+                "reference_date": expected_date,
+                "date": expected_date,
+            }
+        )
 
     return render(request, "transactions/fragments/transfer.html", {"form": form})
 
@@ -203,150 +214,6 @@ def transaction_pay(request, transaction_id):
         f'{"paid" if new_is_paid else "unpaid"}, transaction_updated'
     )
     return response
-
-
-@login_required
-def monthly_summary(request, month: int, year: int):
-    queryset = (
-        Transaction.objects.filter(
-            Q(category__mute=False) | Q(category__isnull=True),
-            account__is_asset=False,
-            reference_date__year=year,
-            reference_date__month=month,
-        )
-        .annotate(
-            transaction_type=Value("expense", output_field=CharField()),
-            is_paid_status=Value("paid", output_field=CharField()),
-        )
-        .filter(type=Transaction.Type.EXPENSE, is_paid=True)
-        .values(
-            "account__currency__name",
-            "account__currency__prefix",
-            "account__currency__suffix",
-            "account__currency__decimal_places",
-            "transaction_type",
-            "is_paid_status",
-        )
-        .annotate(
-            total_amount=Coalesce(
-                Sum("amount"),
-                0,
-                output_field=DecimalField(max_digits=30, decimal_places=18),
-            )
-        )
-        .union(
-            Transaction.objects.filter(
-                Q(category__mute=False) | Q(category__isnull=True),
-                account__is_asset=False,
-                reference_date__year=year,
-                reference_date__month=month,
-            )
-            .annotate(
-                transaction_type=Value("expense", output_field=CharField()),
-                is_paid_status=Value("projected", output_field=CharField()),
-            )
-            .filter(type=Transaction.Type.EXPENSE, is_paid=False)
-            .values(
-                "account__currency__name",
-                "account__currency__prefix",
-                "account__currency__suffix",
-                "account__currency__decimal_places",
-                "transaction_type",
-                "is_paid_status",
-            )
-            .annotate(
-                total_amount=Coalesce(
-                    Sum("amount"),
-                    0,
-                    output_field=DecimalField(max_digits=30, decimal_places=18),
-                )
-            )
-        )
-        .union(
-            Transaction.objects.filter(
-                Q(category__mute=False) | Q(category__isnull=True),
-                account__is_asset=False,
-                reference_date__year=year,
-                reference_date__month=month,
-            )
-            .annotate(
-                transaction_type=Value("income", output_field=CharField()),
-                is_paid_status=Value("paid", output_field=CharField()),
-            )
-            .filter(type=Transaction.Type.INCOME, is_paid=True)
-            .values(
-                "account__currency__name",
-                "account__currency__prefix",
-                "account__currency__suffix",
-                "account__currency__decimal_places",
-                "transaction_type",
-                "is_paid_status",
-            )
-            .annotate(
-                total_amount=Coalesce(
-                    Sum("amount"),
-                    0,
-                    output_field=DecimalField(max_digits=30, decimal_places=18),
-                )
-            )
-        )
-        .union(
-            Transaction.objects.filter(
-                Q(category__mute=False) | Q(category__isnull=True),
-                account__is_asset=False,
-                reference_date__year=year,
-                reference_date__month=month,
-            )
-            .annotate(
-                transaction_type=Value("income", output_field=CharField()),
-                is_paid_status=Value("projected", output_field=CharField()),
-            )
-            .filter(type=Transaction.Type.INCOME, is_paid=False)
-            .values(
-                "account__currency__name",
-                "account__currency__prefix",
-                "account__currency__suffix",
-                "account__currency__decimal_places",
-                "transaction_type",
-                "is_paid_status",
-            )
-            .annotate(
-                total_amount=Coalesce(
-                    Sum("amount"),
-                    0,
-                    output_field=DecimalField(max_digits=30, decimal_places=18),
-                )
-            )
-        )
-        .order_by("account__currency__name", "transaction_type", "is_paid_status")
-    )
-
-    result = {}
-    for (transaction_type, is_paid_status), group in groupby(
-        queryset, key=itemgetter("transaction_type", "is_paid_status")
-    ):
-        key = f"{is_paid_status}_{transaction_type}"
-        result[key] = [
-            {
-                "name": item["account__currency__name"],
-                "prefix": item["account__currency__prefix"],
-                "suffix": item["account__currency__suffix"],
-                "decimal_places": item["account__currency__decimal_places"],
-                "total_amount": item["total_amount"],
-            }
-            for item in group
-        ]
-
-    # result["total_balance"] =
-    # result["projected_balance"] = calculate_total(
-    #     "projected_income", "projected_expenses"
-    # )
-
-    return render(
-        request,
-        "transactions/fragments/monthly_summary.html",
-        context={"totals": result},
-    )
 
 
 @login_required
@@ -372,38 +239,181 @@ def month_year_picker(request):
     )
 
 
-# @login_required
-# def monthly_income(request, month: int, year: int):
-#     situation = request.GET.get("s", "c")
-#
-#     income_sum_by_currency = (
-#         Transaction.objects.filter(
-#             type=Transaction.Type.INCOME,
-#             is_paid=True if situation == "c" else False,
-#             account__is_asset=False,
-#             reference_date__year=year,
-#             reference_date__month=month,
-#         )
-#         .values(
-#             "account__currency__name",
-#             "account__currency__prefix",
-#             "account__currency__suffix",
-#             "account__currency__decimal_places",
-#         )
-#         .annotate(
-#             total_amount=Coalesce(
-#                 Sum("amount"),
-#                 0,
-#                 output_field=DecimalField(max_digits=30, decimal_places=18),
-#             )
-#         )
-#         .order_by("account__currency__name")
-#     )
-#
-#     print(income_sum_by_currency)
-#
-#     return render(
-#         request,
-#         "transactions/fragments/income.html",
-#         context={"income": income_sum_by_currency},
-#     )
+@login_required
+def monthly_summary(request, month: int, year: int):
+    # Helper function to calculate sums for different transaction types
+    def calculate_sum(transaction_type, is_paid):
+        return (
+            base_queryset.filter(type=transaction_type, is_paid=is_paid)
+            .values(
+                "account__currency__name",
+                "account__currency__suffix",
+                "account__currency__prefix",
+                "account__currency__decimal_places",
+            )
+            .annotate(total=Sum("amount"))
+            .order_by("account__currency__name")
+        )
+
+        # Helper function to format currency sums
+
+    def format_currency_sum(queryset):
+        return [
+            {
+                "currency": item["account__currency__name"],
+                "suffix": item["account__currency__suffix"],
+                "prefix": item["account__currency__prefix"],
+                "decimal_places": item["account__currency__decimal_places"],
+                "amount": round(
+                    item["total"], item["account__currency__decimal_places"]
+                ),
+            }
+            for item in queryset
+        ]
+
+    # Calculate totals
+    def calculate_total(income, expenses):
+        totals = {}
+
+        # Process income
+        for item in income:
+            currency = item["account__currency__name"]
+            totals[currency] = totals.get(currency, Decimal("0")) + item["total"]
+
+        # Subtract expenses
+        for item in expenses:
+            currency = item["account__currency__name"]
+            totals[currency] = totals.get(currency, Decimal("0")) - item["total"]
+
+        return [
+            {
+                "currency": currency,
+                "suffix": next(
+                    (
+                        item["account__currency__suffix"]
+                        for item in list(income) + list(expenses)
+                        if item["account__currency__name"] == currency
+                    ),
+                    "",
+                ),
+                "prefix": next(
+                    (
+                        item["account__currency__prefix"]
+                        for item in list(income) + list(expenses)
+                        if item["account__currency__name"] == currency
+                    ),
+                    "",
+                ),
+                "decimal_places": next(
+                    (
+                        item["account__currency__decimal_places"]
+                        for item in list(income) + list(expenses)
+                        if item["account__currency__name"] == currency
+                    ),
+                    2,
+                ),
+                "amount": round(
+                    amount,
+                    next(
+                        (
+                            item["account__currency__decimal_places"]
+                            for item in list(income) + list(expenses)
+                            if item["account__currency__name"] == currency
+                        ),
+                        2,
+                    ),
+                ),
+            }
+            for currency, amount in totals.items()
+        ]
+
+    # Calculate total final
+    def sum_totals(total1, total2):
+        totals = {}
+        for item in total1 + total2:
+            currency = item["currency"]
+            totals[currency] = totals.get(currency, Decimal("0")) + item["amount"]
+        return [
+            {
+                "currency": currency,
+                "suffix": next(
+                    item["suffix"]
+                    for item in total1 + total2
+                    if item["currency"] == currency
+                ),
+                "prefix": next(
+                    item["prefix"]
+                    for item in total1 + total2
+                    if item["currency"] == currency
+                ),
+                "decimal_places": next(
+                    item["decimal_places"]
+                    for item in total1 + total2
+                    if item["currency"] == currency
+                ),
+                "amount": round(
+                    amount,
+                    next(
+                        item["decimal_places"]
+                        for item in total1 + total2
+                        if item["currency"] == currency
+                    ),
+                ),
+            }
+            for currency, amount in totals.items()
+        ]
+
+    # Base queryset with all required filters
+    base_queryset = Transaction.objects.filter(
+        reference_date__year=year, reference_date__month=month, account__is_asset=False
+    ).exclude(Q(category__mute=True) & ~Q(category=None))
+
+    # Calculate sums for different transaction types
+    paid_income = calculate_sum(Transaction.Type.INCOME, True)
+    projected_income = calculate_sum(Transaction.Type.INCOME, False)
+    paid_expenses = calculate_sum(Transaction.Type.EXPENSE, True)
+    projected_expenses = calculate_sum(Transaction.Type.EXPENSE, False)
+
+    total_current = calculate_total(paid_income, paid_expenses)
+    total_projected = calculate_total(projected_income, projected_expenses)
+
+    total_final = sum_totals(total_current, total_projected)
+
+    # Calculate daily spending allowance
+    remaining_days = remaining_days_in_month(
+        month=month, year=year, current_date=timezone.localdate(timezone.now())
+    )
+    daily_spending_allowance = [
+        {
+            "currency": item["currency"],
+            "suffix": item["suffix"],
+            "prefix": item["prefix"],
+            "decimal_places": item["decimal_places"],
+            "amount": (
+                amount
+                if (amount := item["amount"] / remaining_days) > 0
+                else Decimal("0")
+            ),
+        }
+        for item in total_final
+    ]
+
+    # Construct the response dictionary
+    response_data = {
+        "paid_income": format_currency_sum(paid_income),
+        "projected_income": format_currency_sum(projected_income),
+        "paid_expenses": format_currency_sum(paid_expenses),
+        "projected_expenses": format_currency_sum(projected_expenses),
+        "total_current": total_current,
+        "total_projected": total_projected,
+        "total_final": total_final,
+        "daily_spending_allowance": daily_spending_allowance,
+    }
+
+    return render(
+        request,
+        "transactions/fragments/monthly_summary.html",
+        context={
+            "totals": response_data,
+        },
+    )
