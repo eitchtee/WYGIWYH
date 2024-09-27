@@ -1,4 +1,3 @@
-import datetime
 from django import template
 from django.template.defaultfilters import floatformat
 
@@ -8,7 +7,11 @@ register = template.Library()
 
 
 def _format_string(prefix, amount, decimal_places, suffix):
-    return f"{prefix}{floatformat(amount, decimal_places)}{suffix}"
+    formatted_amount = floatformat(abs(amount), f"{decimal_places}g")
+    if amount < 0:
+        return f"-{prefix}{formatted_amount}{suffix}"
+    else:
+        return f"{prefix}{formatted_amount}{suffix}"
 
 
 @register.simple_tag(name="transaction_amount")
