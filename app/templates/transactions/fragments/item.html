@@ -60,6 +60,8 @@ hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{%
                 hx-trigger='confirmed'
                 _="on click send transaction_action_clicked to .transaction-action in the closest parent .transaction end
                    on transaction_action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
+                   on mouseenter call bootstrap.Tooltip.getOrCreateInstance(me) end
+                   on mouseleave call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
                     on click
                      call Swal.fire({title: '{% translate 'Are you sure?' %}',
                                     text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
@@ -82,7 +84,9 @@ hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{%
                 hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
                 hx-target="#generic-offcanvas"
                 _="on click send transaction_action_clicked to .transaction-action in the closest parent .transaction end
-                   on transaction_action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end">
+                   on transaction_action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
+                   on mouseenter call bootstrap.Tooltip.getOrCreateInstance(me) end
+                   on mouseleave call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end">
           <i class="fa-solid fa-pencil fa-fw"></i></a>
       </div>
       <div class="dropdown !tw-absolute tw-top-0 tw-right-0 xl:tw-invisible">
