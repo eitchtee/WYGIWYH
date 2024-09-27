@@ -27,7 +27,7 @@ def transaction_currency(transaction: Transaction):
 @register.simple_tag(name="entry_amount")
 def entry_currency(entry):
     prefix = entry["prefix"]
-    amount = entry["total_amount"]
+    amount = entry["amount"]
     decimal_places = entry["decimal_places"]
     suffix = entry["suffix"]
 
