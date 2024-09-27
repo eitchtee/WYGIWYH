@@ -51,7 +51,7 @@
                 <button class="btn btn-sm btn-outline-info w-100"
                         hx-get="{% url 'transactions_transfer' %}"
                         hx-target="#generic-offcanvas"
-                        hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "EX"}'>
+                        hx-vals='{"year": {{ year }}, "month": {{ month }}}'>
                   <i class="fa-solid fa-money-bill-transfer me-3"></i>
                   {% translate "Transfer" %}
                 </button>
