@@ -34,7 +34,8 @@
                         hx-get="{% url 'transaction_add' %}"
                         hx-target="#generic-offcanvas"
                         hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "IN"}'>
-                  <i class="fa-solid fa-circle-plus me-3"></i>{% translate "Income" %}
+                  <i class="fa-solid fa-circle-plus me-3"></i>
+                  {% translate "Income" %}
                 </button>
             </div>
             <div class="col-6 p-1">
@@ -42,7 +43,17 @@
                         hx-get="{% url 'transaction_add' %}"
                         hx-target="#generic-offcanvas"
                         hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "EX"}'>
-                  <i class="fa-solid fa-circle-plus me-3"></i>{% translate "Expense" %}
+                  <i class="fa-solid fa-circle-plus me-3"></i>
+                  {% translate "Expense" %}
+                </button>
+            </div>
+            <div class="col-6 p-1">
+                <button class="btn btn-sm btn-outline-info w-100"
+                        hx-get="{% url 'transactions_transfer' %}"
+                        hx-target="#generic-offcanvas"
+                        hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "EX"}'>
+                  <i class="fa-solid fa-money-bill-transfer me-3"></i>
+                  {% translate "Transfer" %}
                 </button>
             </div>
         </div>
