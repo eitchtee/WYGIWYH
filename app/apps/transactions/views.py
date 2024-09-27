@@ -356,7 +356,9 @@ def month_year_picker(request):
     )
     current_year = int(request.GET.get("year", timezone.localdate(timezone.now()).year))
 
-    available_years = Transaction.objects.dates("reference_date", "year", order="ASC")
+    available_years = Transaction.objects.dates(
+        "reference_date", "year", order="ASC"
+    ) or [datetime.datetime(current_year, current_month, 1)]
 
     return render(
         request,
