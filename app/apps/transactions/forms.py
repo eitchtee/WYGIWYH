@@ -69,7 +69,6 @@ class TransactionForm(forms.ModelForm):
             Field("category", css_class="select"),
             Field("tags", css_class="multiselect", size=1),
             "notes",
-            Submit("submit", "Save", css_class="btn btn-primary"),
             Submit("submit", "Save", css_class="btn btn-warning"),
         )
         if self.instance and self.instance.pk:
