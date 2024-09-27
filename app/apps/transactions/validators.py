@@ -3,9 +3,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 def validate_decimal_places(value):
-    if abs(value.as_tuple().exponent) > 18:
+    if abs(value.as_tuple().exponent) > 30:
         raise ValidationError(
-            _("%(value)s has too many decimal places. Maximum is 18."),
+            _("%(value)s has too many decimal places. Maximum is 30."),
             params={"value": value},
         )
 
