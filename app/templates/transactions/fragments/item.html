@@ -63,20 +63,22 @@ hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{%
                    on mouseenter call bootstrap.Tooltip.getOrCreateInstance(me) end
                    on mouseleave call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
                     on click
-                     call Swal.fire({title: '{% translate 'Are you sure?' %}',
-                                    text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    cancelButtonText: '{% blocktranslate %}Cancel{% endblocktranslate %}',
-                                    confirmButtonText: '{% blocktranslate %}Yes, delete it!{% endblocktranslate %}',
-                                    customClass: {
-                                      confirmButton: 'btn btn-primary me-3',
-                                      cancelButton: 'btn btn-danger'
-                                    },
-                                    buttonsStyling: false})
-                     if result.isConfirmed trigger confirmed"><i class="fa-solid fa-trash fa-fw"></i></a>
+                      if event.shiftKey trigger confirmed
+                      else
+                       call Swal.fire({title: '{% translate 'Are you sure?' %}',
+                                      text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
+                                      icon: 'warning',
+                                      showCancelButton: true,
+                                      confirmButtonColor: '#3085d6',
+                                      cancelButtonColor: '#d33',
+                                      cancelButtonText: '{% blocktranslate %}Cancel{% endblocktranslate %}',
+                                      confirmButtonText: '{% blocktranslate %}Yes, delete it!{% endblocktranslate %}',
+                                      customClass: {
+                                        confirmButton: 'btn btn-primary me-3',
+                                        cancelButton: 'btn btn-danger'
+                                      },
+                                      buttonsStyling: false})
+                        if result.isConfirmed trigger confirmed"><i class="fa-solid fa-trash fa-fw"></i></a>
         <a class="text-decoration-none tw-text-gray-400 p-2 transaction-action"
                 role="button"
                 data-bs-toggle="tooltip"
