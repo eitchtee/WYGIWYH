@@ -1,0 +1,24 @@
+<script type="text/hyperscript">
+  behavior initTomSelect
+    init
+      set selectmultiple to .selectmultiple in me
+      set select to .select in me
+      set selectcsv to .csvselect in me
+      for x in selectmultiple
+        js(it)
+          new TomSelect(it, tomselect_multiple)
+        end
+      end
+      for x in select
+        js(it)
+          new TomSelect(it, tomselect_single)
+        end
+      end
+      for x in selectcsv
+        js(it)
+          new TomSelect(it, tomselect_single)
+        end
+      end
+    end
+  end
+</script>
