@@ -183,8 +183,6 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         if not value:
             return []
 
-        print(value)
-
         string_values = set(str(v) for v in value)
         existing_objects = list(
             self.queryset.filter(**{f"{self.create_field}__in": string_values})
