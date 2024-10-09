@@ -1,26 +1,45 @@
+{% load i18n %}
+{% load title %}
 {% load webpack_loader %}
-{% load tz_detect %}
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}WYGIWYH{% endblock %}</title>
+    <title>
+      {% filter site_title %}
+        {% block title %}
+        {% endblock title %}
+      {% endfilter %}
+    </title>
 
     {% include 'includes/styles.html' %}
     {% block extra_styles %}{% endblock %}
-
-    {% tz_detect %}
+  
+    {% include 'includes/scripts.html' %}
+    {% block extra_js_head %}{% endblock %}
   </head>
-  <body>
-    <div id="content">
-      {% block content %}{% endblock %}
+  <body class="font-monospace">
+    
+    <div _="install hide_amounts
+            install htmx_error_handler
+           {% block body_hyperscript %}{% endblock %}">
+      {% include 'includes/navbar.html' %}
+
+      <div class="container invisible visually-hidden" id="loading-error">
+        <div class="alert alert-danger m-3" role="alert">
+          {% translate 'Something went wrong loading your data. Try reloading the page or check the console for more information.' %}
+        </div>
+      </div>
+
+      <div id="content">
+        {% block content %}{% endblock %}
+      </div>
     </div>
     
     {% include 'includes/offcanvas.html' %}
     {% include 'includes/toasts.html' %}
-
-    {% include 'includes/scripts.html' %}
-    {% block extra_js %}{% endblock %}
+    
+    {% block extra_js_body %}{% endblock %}
   </body>
 </html>

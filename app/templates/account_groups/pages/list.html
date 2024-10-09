@@ -1,0 +1,74 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate 'Accounts' %}{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
+    {% spaceless %}
+    <div>{% translate 'Account Groups' %}<span>
+      <a class="text-decoration-none tw-text-2xl p-1 category-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Add" %}"
+                hx-get="{% url 'account_group_add' %}"
+                hx-target="#generic-offcanvas"
+                _="">
+            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
+    </span></div>
+    {% endspaceless %}
+  </div>
+
+  <div class="border p-3 rounded-3">
+    <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th scope="col" class="col-auto"></th>
+        <th scope="col" class="col">{% translate 'Name' %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for account_group in account_groups %}
+      <tr class="account_group">
+        <td class="col-auto">
+          <a class="text-decoration-none tw-text-gray-400 p-1 tag-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Edit" %}"
+                hx-get="{% url 'account_group_edit' pk=account_group.id %}"
+                hx-target="#generic-offcanvas"
+                _="install toast">
+            <i class="fa-solid fa-pencil fa-fw"></i></a>
+          <a class="text-danger text-decoration-none p-1 tag-action"
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Delete" %}"
+                  hx-delete="{% url 'account_group_delete' pk=account_group.id %}"
+                  hx-trigger='delete_confirmed'
+                  _="install toast
+                      on click
+                        if event.ctrlKey trigger delete_confirmed
+                        else
+                         call Swal.fire({title: '{% translate 'Are you sure?' %}',
+                                        text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        cancelButtonText: '{% blocktranslate %}Cancel{% endblocktranslate %}',
+                                        confirmButtonText: '{% blocktranslate %}Yes, delete it!{% endblocktranslate %}',
+                                        customClass: {
+                                          confirmButton: 'btn btn-primary me-3',
+                                          cancelButton: 'btn btn-danger'
+                                        },
+                                        buttonsStyling: false})
+                          if result.isConfirmed trigger delete_confirmed"><i class="fa-solid fa-trash fa-fw"></i></a></td>
+        <td class="col">{{ account_group.name }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

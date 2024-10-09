@@ -1,13 +1,13 @@
 from datetime import datetime, date
 
 from django import forms
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 from django.template.defaultfilters import floatformat
-from django.utils.formats import get_format
+from django.utils.formats import get_format, number_format
 
 
-def convert_to_decimal(value):
+def convert_to_decimal(value: str):
     # Remove any whitespace
     value = value.strip()
 
@@ -41,8 +41,9 @@ class MonthYearWidget(forms.DateInput):
 class ArbitraryDecimalDisplayNumberInput(forms.TextInput):
     """A widget for displaying and inputing decimal numbers with the least amount of trailing zeros possible. You
     must set this on your Form's __init__ method."""
+
     def __init__(self, *args, **kwargs):
-        self.decimal_places = kwargs.pop("decimal_places", 2)
+        self.decimal_places = kwargs.pop("decimal_places", None)
         self.type = "text"
         super().__init__(*args, **kwargs)
         self.attrs.update(
@@ -53,15 +54,28 @@ class ArbitraryDecimalDisplayNumberInput(forms.TextInput):
         )
 
     def format_value(self, value):
-        if value is not None and isinstance(value, Decimal):
-            # Strip trailing 0s, leaving a minimum of 2 decimal places
-            while (
-                abs(value.as_tuple().exponent) > self.decimal_places
-                and value.as_tuple().digits[-1] == 0
-            ):
-                value = Decimal(str(value)[:-1])
+        if value is not None and isinstance(value, (Decimal, float, str)):
+            try:
+                # Convert to Decimal if it's a float or string
+                if isinstance(value, float):
+                    value = Decimal(value)
+                elif isinstance(value, str):
+                    value = Decimal(convert_to_decimal(value))
 
-            value = floatformat(value, f"{self.decimal_places}g")
+                # Remove trailing zeros
+                value = value.normalize()
+
+                # Format the number using Django's localization
+                formatted_value = number_format(
+                    value,
+                    force_grouping=False,
+                    decimal_pos=self.decimal_places,
+                )
+
+                return formatted_value
+            except (InvalidOperation, ValueError):
+                # If there's an error in conversion, return the original value
+                return value
         return value
 
     def value_from_datadict(self, data, files, name):

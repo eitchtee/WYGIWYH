@@ -2,57 +2,24 @@ import TomSelect from "tom-select";
 import * as Popper from "@popperjs/core";
 
 
-const multiple_config = {
-    plugins: {
-        'checkbox_options': {
-            'checkedClassNames': ['ts-checked'],
-            'uncheckedClassNames': ['ts-unchecked'],
-        },
-        'clear_button': {
-            'title': 'Limpar',
-        },
-        "remove_button": {
-            "title": 'Remover',
-        }
-    },
+window.TomSelect = function createDynamicTomSelect(element) {
+  // Basic configuration
+  const config = {
+    plugins: {},
+
+    // Extract 'create' option from data attribute
+    create: element.dataset.create === 'true',
+
+    allowEmptyOption: element.dataset.allowEmptyOption === 'true',
     render: {
         no_results: function () {
-            return '<div class="no-results">Nenhum resultado encontrado...</div>';
+            return `<div class="no-results">${element.dataset.txtNoResults || 'No results...'}</div>`;
         },
+        option_create: function(data, escape) {
+			return `<div class="create">${element.dataset.txtCreate || 'Add'} <strong>${escape(data.input)}</strong>&hellip;</div>`;
+		},
     },
-    onInitialize: function () {
-        //this.popper = Popper.createPopper(this.control,this.dropdown);
 
-
-        this.popper = Popper.createPopper(this.control, this.dropdown, {
-            placement: "bottom-start",
-            modifiers: [
-                {
-                    name: "sameWidth",
-                    enabled: true,
-                    fn: ({state}) => {
-                        state.styles.popper.width = `${state.rects.reference.width}px`;
-                    },
-                    phase: "beforeWrite",
-                    requires: ["computeStyles"],
-                }
-            ]
-
-        });
-    },
-    onDropdownOpen: function () {
-        this.popper.update();
-    }
-};
-
-
-const single_config = {
-    allowEmptyOption: false,
-    // render: {
-    //     no_results: function () {
-    //         return '<div class="no-results">-------</div>';
-    //     },
-    // },
     onInitialize: function () {
         this.popper = Popper.createPopper(this.control, this.dropdown, {
             placement: "bottom-start",
@@ -65,7 +32,13 @@ const single_config = {
                     },
                     phase: "beforeWrite",
                     requires: ["computeStyles"],
-                }
+                },
+                {
+                    name: 'flip',
+                    options: {
+                      fallbackPlacements: ['top-start'],
+                    },
+               },
             ]
 
         });
@@ -74,16 +47,27 @@ const single_config = {
     onDropdownOpen: function () {
         this.popper.update();
     }
+  };
+
+  if (element.dataset.checkboxes === 'true') {
+      config.plugins.checkbox_options = {
+            'checkedClassNames': ['ts-checked'],
+            'uncheckedClassNames': ['ts-unchecked'],
+        };
+  }
+
+  if (element.dataset.clearButton === 'true') {
+      config.plugins.clear_button = {
+            'title': element.dataset.txtClear || 'Clear',
+        };
+  }
+
+  if (element.dataset.removeButton === 'true') {
+      config.plugins.remove_button = {
+            'title': element.dataset.txtRemove || 'Remove',
+        };
+  }
+
+  // Create and return the TomSelect instance
+  return new TomSelect(element, config);
 };
-
-document.querySelectorAll('.selectmultiple').forEach((el)=>{
-    new TomSelect(el, multiple_config);
-});
-
-document.querySelectorAll('.select').forEach((el)=>{
-    new TomSelect(el, single_config);
-});
-
-document.querySelectorAll('.csvselect').forEach((el)=>{
-    new TomSelect(el, single_config);
-});

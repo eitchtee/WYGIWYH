@@ -1,0 +1,28 @@
+{% load title %}
+{% load webpack_loader %}
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      {% filter site_title %}
+        {% block title %}
+        {% endblock title %}
+      {% endfilter %}
+    </title>
+
+    {% include 'includes/styles.html' %}
+    {% block extra_styles %}{% endblock %}
+  </head>
+  <body>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+    
+    {% include 'includes/toasts.html' %}
+
+    {% include 'includes/scripts.html' %}
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

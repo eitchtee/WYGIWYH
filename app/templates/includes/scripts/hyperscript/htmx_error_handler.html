@@ -1,0 +1,8 @@
+<script type="text/hyperscript">
+  behavior htmx_error_handler
+    on htmx:responseError or htmx:afterRequest[detail.failed] remove .invisible .visually-hidden .swing-in-top-fwd from
+    #loading-error then log event
+    on htmx:afterRequest[detail.successful] add .invisible .visually-hidden .swing-in-top-fwd to #loading-error then
+    log 'oi'
+  end
+</script>

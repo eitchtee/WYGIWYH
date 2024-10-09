@@ -23,7 +23,12 @@ urlpatterns = [
     path("hijack/", include("hijack.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
-    path("tz_detect/", include("tz_detect.urls")),
+    path("api/", include("rest_framework.urls")),
     path("", include("apps.transactions.urls")),
     path("", include("apps.common.urls")),
+    path("", include("apps.users.urls")),
+    path("", include("apps.accounts.urls")),
+    path("", include("apps.net_worth.urls")),
+    path("", include("apps.monthly_overview.urls")),
+    path("", include("apps.currencies.urls")),
 ]

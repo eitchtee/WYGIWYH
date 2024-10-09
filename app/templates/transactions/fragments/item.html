@@ -1,69 +1,103 @@
 {% load i18n %}
 {% load currency_display %}
-<div class="tw-border-s-2 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
+<div class="tw-border-s-6 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
 hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
-{% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} transaction tw-relative"
-     hx-trigger="dblclick"
-     hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
-     hx-target="#generic-offcanvas"
-     _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
-        on mouseout add .tw-invisible to the first .transaction-actions in me end">
+{% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} transaction tw-relative
+my-3"
+     _="on mouseenter remove .tw-invisible from the first .transaction-actions in me end
+        on mouseleave add .tw-invisible to the first .transaction-actions in me end">
   <div class="row font-monospace tw-text-sm align-items-center">
-    <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center">
+    <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center pay-button">
       <a class="text-decoration-none my-2 w-100"
          role="button"
          hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
          hx-target="closest .transaction"
-         hx-swap="outerHTML">
+         hx-swap="outerHTML"
+         _="on paid
+              js
+                paidSound.pause()
+                paidSound.currentTime = 0
+                paidSound.play()
+              end
+            end
+            on unpaid
+              js
+                unpaidSound.pause()
+                unpaidSound.currentTime = 0
+                unpaidSound.play()
+              end
+            end">
           {% if transaction.is_paid %}<i class="fa-regular fa-circle-check tw-text-green-400"></i>{% else %}<i
               class="fa-regular fa-circle tw-text-red-400"></i>{% endif %}
       </a>
     </div>
     <div class="col-lg-8 col-12">
+      {#        Date#}
+      <div class="mb-1 tw-text-gray-400">
+        <i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i>{{ transaction.date|date:"SHORT_DATE_FORMAT" }}</div>
       <div class="mb-1 text-white tw-text-base">{{ transaction.description }}</div>
-      <div class="text-white-50 mb-2 d-flex align-items-center">
-        <i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i>
-        {{ transaction.date|date:"SHORT_DATE_FORMAT" }}</div>
-      <div class="text-white-50 mb-1 tw-text-xs">
-        {% for tag in transaction.tags.all %}
-          <span><i class="fa-solid fa-hashtag tw-text-gray-400"></i>{{ tag.name }}</span>
-        {% endfor %}
-      </div>
-      <div class="tw-text-sm mb-1 mb-lg-0 tw-text-gray-400 font-normal">
-        <i class="fa-solid fa-note-sticky me-1"></i>{{ transaction.notes | linebreaksbr }}
-      </div>
-      <div class="tw-text-sm mb-1 mb-lg-0">
-        {% if transaction.category %}
-          <i class="fa-solid fa-icons text-primary"></i>
-        <span class="badge rounded-0
-                    {% if transaction.category.mute %}text-bg-secondary{% else %}text-bg-light{% endif %}">
-          {{ transaction.category.name }}
-        </span>
+      <div class="tw-text-gray-400 tw-text-sm">
+{#        Notes#}
+        {% if transaction.notes %}
+        <div class="mb-1 tw-text-gray-400">
+          <i class="fa-solid fa-align-left fa-fw me-1 fa-xs"></i>{{ transaction.notes | linebreaksbr }}
+        </div>
         {% endif %}
+        {% if transaction.category %}
+        <div class="mb-1">
+          {% spaceless %}
+          <i class="fa-solid fa-icons fa-fw me-1 fa-xs"></i>
+          <span class="">{{ transaction.category.name }}</span>
+          {% endspaceless %}
+        </div>
+        {% endif %}
+        {#        Tags#}
+        {% with transaction.tags.all as tags %}
+        {% if tags %}
+        <div class="mb-1">
+          {% for tag in tags %}
+            <span><i class="fa-solid fa-hashtag fa-fw fa-xs"></i>{{ tag.name }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
       </div>
-
     </div>
     <div class="col-lg-3 col-12 text-lg-end align-self-end">
         <div class="{% if transaction.type == "EX" %}tw-text-red-400{% else %}tw-text-green-400{% endif %}">
-          {% transaction_amount transaction %}
+          <div class="amount" data-original-value="{% transaction_amount transaction %}"></div>
         </div>
+        {#    Exchange Rate#}
+        {% with exchanged=transaction.exchanged_amount %}
+        {% if exchanged %}
+        <div class="tw-text-gray-500 amount"
+             data-original-value="{% currency_display amount=exchanged.amount prefix=exchanged.prefix suffix=exchanged.suffix decimal_places=exchanged.decimal_places %}">
+        </div>
+        {% endif %}
+        {% endwith %}
         <div>{{ transaction.account.name }}</div>
     </div>
     <div>
-      <div class="transaction-actions !tw-absolute tw-top-0 tw-right-0 tw-invisible tw-text-base d-none
-      d-xl-flex">
+{#      Item actions#}
+      <div class="transaction-actions !tw-absolute tw-left-2/4 tw--top-1/3 tw-invisible d-none
+      d-xl-flex flex-xl-row tw-text-base card">
+        <a class="text-decoration-none tw-text-gray-400 p-2 transaction-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Edit" %}"
+                hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
+                hx-target="#generic-offcanvas"
+                _="install toast">
+          <i class="fa-solid fa-pencil fa-fw"></i></a>
         <a class="text-danger text-decoration-none p-2 transaction-action"
                 role="button"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Delete" %}"
-                hx-get="{% url 'transaction_delete' transaction_id=transaction.id %}"
-                hx-trigger='confirmed'
-                _="on click send transaction_action_clicked to .transaction-action in the closest parent .transaction end
-                   on transaction_action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
-                   on mouseenter call bootstrap.Tooltip.getOrCreateInstance(me) end
-                   on mouseleave call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
+                hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                hx-trigger='delete_confirmed'
+                _="install toast
                     on click
-                      if event.shiftKey trigger confirmed
+                      if event.ctrlKey trigger delete_confirmed
                       else
                        call Swal.fire({title: '{% translate 'Are you sure?' %}',
                                       text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
@@ -78,19 +112,9 @@ hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{%
                                         cancelButton: 'btn btn-danger'
                                       },
                                       buttonsStyling: false})
-                        if result.isConfirmed trigger confirmed"><i class="fa-solid fa-trash fa-fw"></i></a>
-        <a class="text-decoration-none tw-text-gray-400 p-2 transaction-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Edit" %}"
-                hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
-                hx-target="#generic-offcanvas"
-                _="on click send transaction_action_clicked to .transaction-action in the closest parent .transaction end
-                   on transaction_action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
-                   on mouseenter call bootstrap.Tooltip.getOrCreateInstance(me) end
-                   on mouseleave call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end">
-          <i class="fa-solid fa-pencil fa-fw"></i></a>
+                        if result.isConfirmed trigger delete_confirmed"><i class="fa-solid fa-trash fa-fw"></i></a>
       </div>
+{#      Item actions dropdown fallback for mobile#}
       <div class="dropdown !tw-absolute tw-top-0 tw-right-0 xl:tw-invisible">
         <a class="btn tw-text-2xl lg:tw-text-sm lg:tw-border-none text-light" type="button"
                 data-bs-toggle="dropdown"
@@ -106,8 +130,8 @@ hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{%
           </a></li>
           <li><a class="dropdown-item"
                  role="button"
-                 hx-get="{% url 'transaction_delete' transaction_id=transaction.id %}"
-                 hx-trigger='confirmed'
+                 hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                 hx-trigger='delete_confirmed'
                  _="on click
                      call Swal.fire({title: '{% translate 'Are you sure?' %}',
                                     text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
@@ -122,7 +146,7 @@ hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{%
                                       cancelButton: 'btn btn-danger'
                                     },
                                     buttonsStyling: false})
-                     if result.isConfirmed trigger confirmed">
+                     if result.isConfirmed trigger delete_confirmed">
             <i class="fa-solid fa-trash me-3"></i>{% translate "Delete" %}
           </a></li>
         </ul>

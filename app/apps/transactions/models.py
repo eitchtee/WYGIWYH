@@ -1,14 +1,18 @@
+from dateutil.relativedelta import relativedelta
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.functions.decimals import truncate_decimal
 from apps.transactions.fields import MonthYearField
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
+from apps.currencies.utils.convert import convert
 
 
 class TransactionCategory(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
     mute = models.BooleanField(default=False, verbose_name=_("Mute"))
 
     class Meta:
@@ -21,7 +25,7 @@ class TransactionCategory(models.Model):
 
 
 class TransactionTag(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
 
     class Meta:
         verbose_name = _("Transaction Tags")
@@ -30,6 +34,30 @@ class TransactionTag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class InstallmentPlan(models.Model):
+    account = models.ForeignKey(
+        "accounts.Account", on_delete=models.CASCADE, verbose_name=_("Account")
+    )
+    description = models.CharField(max_length=500, verbose_name=_("Description"))
+    number_of_installments = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)], verbose_name=_("Number of Installments")
+    )
+    # start_date = models.DateField(verbose_name=_("Start Date"))
+    # end_date = models.DateField(verbose_name=_("End Date"))
+
+    class Meta:
+        verbose_name = _("Installment Plan")
+        verbose_name_plural = _("Installment Plans")
+
+    def __str__(self):
+        return f"{self.description} - {self.number_of_installments} installments"
+
+    def delete(self, *args, **kwargs):
+        # Delete related transactions
+        self.transactions.all().delete()
+        super().delete(*args, **kwargs)
 
 
 class Transaction(models.Model):
@@ -61,12 +89,21 @@ class Transaction(models.Model):
     notes = models.TextField(blank=True, verbose_name=_("Notes"))
     category = models.ForeignKey(
         TransactionCategory,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name=_("Category"),
         blank=True,
         null=True,
     )
     tags = models.ManyToManyField(TransactionTag, verbose_name=_("Tags"), blank=True)
+
+    installment_plan = models.ForeignKey(
+        InstallmentPlan,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="transactions",
+        verbose_name=_("Installment Plan"),
+    )
 
     class Meta:
         verbose_name = _("Transaction")
@@ -79,3 +116,21 @@ class Transaction(models.Model):
         )
         self.full_clean()
         super().save(*args, **kwargs)
+
+    def exchanged_amount(self):
+        if self.account.exchange_currency:
+            converted_amount = convert(
+                self.amount,
+                self.account.exchange_currency,
+                self.account.currency,
+                date=self.date,
+            )
+            if converted_amount:
+                return {
+                    "amount": converted_amount,
+                    "suffix": self.account.exchange_currency.suffix,
+                    "prefix": self.account.exchange_currency.prefix,
+                    "decimal_places": self.account.exchange_currency.decimal_places,
+                }
+
+        return None

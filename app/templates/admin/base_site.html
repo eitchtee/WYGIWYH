@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+  let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  if (!tz) {
+      tz = "UTC"
+  }
+  document.cookie = "mytz=" + tz + ";path=/";
+</script>
+{% endblock %}

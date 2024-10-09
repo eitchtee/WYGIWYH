@@ -1,0 +1,12 @@
+<script type="text/hyperscript">
+  behavior init_tom_select
+    init
+      set selects to <select/> in me
+      for x in selects
+        js(it)
+          TomSelect(it)
+        end
+      end
+    end
+  end
+</script>

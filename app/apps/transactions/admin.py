@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
+from apps.transactions.models import (
+    Transaction,
+    TransactionCategory,
+    TransactionTag,
+    InstallmentPlan,
+)
 
 
 @admin.register(Transaction)
@@ -13,6 +18,18 @@ class TransactionModelAdmin(admin.ModelAdmin):
         "account__currency__code",
         "date",
         "reference_date",
+    ]
+
+
+class TransactionInline(admin.TabularInline):
+    model = Transaction
+    extra = 0
+
+
+@admin.register(InstallmentPlan)
+class InstallmentPlanAdmin(admin.ModelAdmin):
+    inlines = [
+        TransactionInline,
     ]
 
 

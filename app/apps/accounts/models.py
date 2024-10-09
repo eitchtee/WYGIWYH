@@ -1,15 +1,46 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.transactions.models import Transaction
+
+
+class AccountGroup(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
+
+    class Meta:
+        verbose_name = _("Account Group")
+        verbose_name_plural = _("Account Groups")
+        db_table = "account_groups"
+
+    def __str__(self):
+        return self.name
+
 
 class Account(models.Model):
-    name = models.CharField(max_length=40, verbose_name=_("Name"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    group = models.ForeignKey(
+        AccountGroup,
+        on_delete=models.SET_NULL,
+        verbose_name=_("Account Group"),
+        blank=True,
+        null=True,
+    )
     currency = models.ForeignKey(
         "currencies.Currency",
         verbose_name=_("Currency"),
         on_delete=models.PROTECT,
         related_name="accounts",
     )
+    exchange_currency = models.ForeignKey(
+        "currencies.Currency",
+        verbose_name=_("Exchange Currency"),
+        on_delete=models.SET_NULL,
+        related_name="exchange_accounts",
+        null=True,
+        blank=True,
+        help_text=_("Default currency for exchange calculations"),
+    )
+
     is_asset = models.BooleanField(
         default=False,
         verbose_name=_("Is an asset account?"),
@@ -17,7 +48,6 @@ class Account(models.Model):
             "Asset accounts count towards your Net Worth, but not towards your month."
         ),
     )
-    a = models.BigIntegerField
 
     class Meta:
         verbose_name = _("Account")

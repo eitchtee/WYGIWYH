@@ -1,0 +1,21 @@
+{% extends "layouts/base_auth.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <div>
+    <div class="container">
+      <div class="row vh-100 d-flex justify-content-center align-items-center">
+              <div class="col-md-6 col-xl-4 col-12">
+                  <div class="card shadow-lg">
+                      <div class="card-body">
+                          <h2 class="card-title text-center mb-4">Login</h2>
+                          {% crispy form %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+    </div>
+  </div>
+{% endblock %}

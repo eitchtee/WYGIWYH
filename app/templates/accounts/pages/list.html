@@ -1,0 +1,85 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate 'Accounts' %}{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
+    {% spaceless %}
+    <div>{% translate 'Accounts' %}<span>
+      <a class="text-decoration-none tw-text-2xl p-1 category-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Add" %}"
+                hx-get="{% url 'account_add' %}"
+                hx-target="#generic-offcanvas"
+                _="">
+            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
+    </span></div>
+    {% endspaceless %}
+  </div>
+
+  <div class="border p-3 rounded-3">
+    <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th scope="col" class="col-auto"></th>
+        <th scope="col" class="col">{% translate 'Name' %}</th>
+        <th scope="col" class="col">{% translate 'Currency' %}</th>
+        <th scope="col" class="col">{% translate 'Exchange Currency' %}</th>
+        <th scope="col" class="col-auto">{% translate 'Is Asset' %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for account in accounts %}
+      <tr class="currency">
+        <td class="col-auto">
+          <a class="text-decoration-none tw-text-gray-400 p-1 tag-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Edit" %}"
+                hx-get="{% url 'account_edit' pk=account.id %}"
+                hx-target="#generic-offcanvas"
+                _="on click send action_clicked to .tag-action in the closest parent .tag end
+                   on action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
+                   install toast">
+            <i class="fa-solid fa-pencil fa-fw"></i></a>
+          <a class="text-danger text-decoration-none p-1 tag-action"
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Delete" %}"
+                  hx-delete="{% url 'account_delete' pk=account.id %}"
+                  hx-trigger='delete_confirmed'
+                  _="on click send action_clicked to .tag-action in the closest parent .tag end
+                     on action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
+                     install toast
+                      on click
+                        if event.ctrlKey trigger delete_confirmed
+                        else
+                         call Swal.fire({title: '{% translate 'Are you sure?' %}',
+                                        text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        cancelButtonText: '{% blocktranslate %}Cancel{% endblocktranslate %}',
+                                        confirmButtonText: '{% blocktranslate %}Yes, delete it!{% endblocktranslate %}',
+                                        customClass: {
+                                          confirmButton: 'btn btn-primary me-3',
+                                          cancelButton: 'btn btn-danger'
+                                        },
+                                        buttonsStyling: false})
+                          if result.isConfirmed trigger delete_confirmed"><i class="fa-solid fa-trash fa-fw"></i></a></td>
+        <td class="col">{{ account.name }}</td>
+        <td class="col-auto">{{ account.currency }} ({{ account.currency.code }})</td>
+        <td class="col-auto">{% if account.exchange_currency %}{{ account.exchange_currency }} (
+          {{ account.exchange_currency.code }}){% else %}-{% endif %}</td>
+        <td class="col-auto text-center">{% if account.is_asset %}<i class="fa-solid fa-circle text-success"></i>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

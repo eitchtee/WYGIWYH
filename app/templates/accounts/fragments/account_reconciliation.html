@@ -1,0 +1,72 @@
+{% extends 'extends/offcanvas.html' %}
+{% load currency_display %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Account Reconciliation' %}{% endblock %}
+
+{% block body %}
+    <form hx-post="{% url 'account_reconciliation' %}">
+        {% csrf_token %}
+        {{ form.management_form }}
+        <div class="accordion accordion-flush" id="balanceAccordionFlush">
+        {% for form in form.forms %}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapse-{{ forloop.counter0 }}" aria-expanded="false"
+                      aria-controls="flush-collapseOne">
+                {{ form.account_name }}
+              </button>
+            </h2>
+            <div id="flush-collapse-{{ forloop.counter0 }}" class="accordion-collapse collapse">
+              <div class="accordion-body">
+                <div class="mb-3">
+                  <div class="form-label">
+                    {% translate 'Current balance' %}
+                  </div>
+                  <div data-amount="{{ form.current_balance }}"
+                       data-decimal-places="{{ form.currency_decimal_places }}"
+                       id="amount-{{ forloop.counter0 }}">
+                    {% currency_display amount=form.current_balance prefix=form.currency_prefix suffix=form.currency_suffix decimal_places=form.currency_decimal_places %}
+                  </div>
+                </div>
+                <div>
+                  {% crispy form %}
+                </div>
+                <div class="mb-3">
+                  <div class="form-label">
+                    {% translate 'Difference' %}
+                  </div>
+                  <div _="on input from #id_form-{{ forloop.counter0 }}-new_balance
+                            set original_amount to parseLocaleNumber('{{ form.current_balance }}')
+                            then call parseLocaleNumber(#id_form-{{ forloop.counter0 }}-new_balance.value)
+                            then set new_amount to result
+                            then set diff to new_amount - original_amount
+                            then set prefix to '{{ form.currency_prefix }}'
+                            then set suffix to '{{ form.currency_suffix }}'
+                            then set decimal_places to {{ form.currency_decimal_places }}
+                            then set format_new_amount to
+                              Intl.NumberFormat(
+                                undefined,
+                              {
+                                minimumFractionDigits: decimal_places,
+                                maximumFractionDigits: decimal_places,
+                                roundingMode: 'trunc'}
+                              ).format(diff)
+                            then set formatted_string to `${prefix}${format_new_amount}${suffix}`
+                            then put formatted_string into me if diff else
+                            put '' into me">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+        <div class="mt-3">
+          <div>
+            <input type="submit" name="submit" value="{% translate 'Reconcile balances' %}" class="btn btn-outline-primary w-100" id="submit-id-submit">
+          </div>
+        </div>
+    </form>
+{% endblock %}

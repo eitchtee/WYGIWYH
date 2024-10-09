@@ -6,7 +6,6 @@
 
 {% block body %}
 <form hx-post="{% url 'transaction_add' %}" hx-target="#generic-offcanvas" novalidate>
-    {% csrf_token %}
     {% crispy form %}
 </form>
 {% endblock %}

@@ -1,16 +1,17 @@
 Django~=5.1
-psycopg[binary]==3.2.1
+psycopg[binary]==3.2.3
 python-webpack-boilerplate==1.0.3
 django-crispy-forms==2.3
-crispy-bootstrap5==2024.2
+crispy-bootstrap5==2024.10
 django-tables2==2.7.0
 django-simple-history==3.7.0
 django-browser-reload==1.12.1
 django-hijack==3.4.5
 django-filter==24.3
-django-anymail[sendinblue,brevo]==10.2
+django-anymail[sendinblue]==10.2
 django-debug-toolbar==4.3.0
-django-tz-detect~=0.5.0
+django-cachalot~=2.6.3
+djangorestframework~=3.15.2
 
 gunicorn==21.2.0
 whitenoise[brotli]==6.6.0
@@ -21,6 +22,6 @@ hiredis==2.3.2  # https://github.com/redis/hiredis-py
 celery==5.3.6  # pyup: < 6.0  # https://github.com/celery/celery
 django-celery-beat~=2.7.0  # https://github.com/celery/django-celery-beat
 flower==2.0.1  # https://github.com/mher/flower
-watchfiles==0.21.0  # https://github.com/samuelcolvin/watchfiles
+watchfiles==0.24.0  # https://github.com/samuelcolvin/watchfiles
 
 requests~=2.32.3

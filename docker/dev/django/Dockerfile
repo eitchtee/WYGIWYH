@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.11.8-slim-buster AS python
+FROM python:3.11-slim-buster AS python
 LABEL authors="Herculino de Miranda Trotta"
 
 FROM docker.io/python AS python-build-stage

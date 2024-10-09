@@ -1,0 +1,133 @@
+{% extends "layouts/base.html" %}
+{% load currency_display %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load month_name %}
+{% load static %}
+{% load webpack_loader %}
+
+{% block title %}Net Worth{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="row">
+    <div class="col-6 row-gap-5">
+      {% for currency in currency_net_worth %}
+        <div class="row">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="row">
+                <div class="col-6">
+                  {{ currency.name }}
+                </div>
+                <div class="col-6 text-end">
+                  <div class="amount" data-original-value="{% currency_display amount=currency.amount prefix=currency.prefix suffix=currency.suffix decimal_places=currency.decimal_places %}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+    </div>
+    <div class="col-6">oi</div>
+  </div>
+</div>
+{#<canvas id="chart" width="500" height="300"></canvas>#}
+{##}
+{#<script>#}
+{#  let ctx = document.getElementById("chart").getContext("2d");#}
+{##}
+  {#let chart = new Chart(ctx, {#}
+  {#  type: 'line',#}
+  {#  responsive: true,#}
+  {#  data: {#}
+  {#     labels: ["2020/01", "2020/02", "2020/03", "2020/04", "2020/05"],#}
+  {#     datasets: [#}
+  {#        {#}
+  {#          label: "Gross volume ($)",#}
+  {#          data: [0.0, 0.8457, 1, 0.5],#}
+  {#            yAxisID: 'y1',#}
+  {#        },#}
+  {#        {#}
+  {#          label: "Gross volume ($) 2",#}
+  {#          data: [85000, 89000, 96000, 100000],#}
+  {#            yAxisID: 'y2',#}
+  {#        }#}
+  {#     ]#}
+  {#  },#}
+  {#  options: {#}
+  {#     title: {#}
+  {#        text: "Gross Volume in 2020",#}
+  {#        display: true#}
+  {#     },#}
+  {#      responsive: true,#}
+  {#      interaction: {#}
+  {#    mode: 'index',#}
+  {#    intersect: false,#}
+  {#    scales: {#}
+  {#          y1: {#}
+  {#              ticks: {#}
+  {#                  display: false // This hides the y-axis labels#}
+  {#              }#}
+  {#          }#}
+  {#      }#}
+  {#  },#}
+  {#  },#}
+  {#    scales: {#}
+  {#    x: {#}
+  {#      display: true,#}
+  {#        ticks: {#}
+  {#                  display: false // This hides the y-axis labels#}
+  {#              }#}
+  {#    },#}
+  {#    y1: {#}
+  {#      display: true,#}
+  {#      type: 'logarithmic',#}
+  {#        ticks: {#}
+  {#                  display: false // This hides the y-axis labels#}
+  {#              }#}
+  {#    },#}
+  {#    y2: {#}
+  {#      type: 'logarithmic',#}
+  {#      display: false,#}
+  {#      position: 'left',#}
+  {#        ticks: {#}
+  {#      display: false,#}
+  {#    },#}
+  {##}
+  {#      // grid line settings#}
+  {#      grid: {#}
+  {#          display: false,#}
+  {#        drawOnChartArea: false, // only want the grid lines for one axis to show up#}
+  {#      }},}#}
+  {#});#}
+{#new Chart(ctx, {#}
+{#    type: 'line', // e.g., 'line', 'bar', etc.#}
+{#    data: {#}
+{#       labels: ["2020/01", "2020/02", "2020/03", "2020/04", "2020/05"],#}
+{#       datasets: [#}
+{#          {#}
+{#            label: "Gross volume ($)",#}
+{#            data: [0.0, 0.8457, 1, 0.5],#}
+{#              yAxisID: 'y1',#}
+{#          },#}
+{#          {#}
+{#            label: "Gross volume ($) 2",#}
+{#            data: [85000, 89000, 96000, 100000],#}
+{#              yAxisID: 'y2',#}
+{#          }#}
+{#       ]#}
+{#    },#}
+{#    options: {#}
+{#        scales: {#}
+{#            y: {#}
+{#                ticks: {#}
+{#                    display: false // This hides the y-axis labels#}
+{#                }#}
+{#            }#}
+{#        }#}
+{#    }#}
+{#});#}
+{#</script>#}
+{% endblock %}

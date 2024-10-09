@@ -1,6 +1,6 @@
 {% load toast_bg %}
 {% if messages %}
-    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
         {% for message in messages %}
             <div class="toast align-items-center text-bg-{{ message.tags | toast_bg }} border-0"
                  role="alert"

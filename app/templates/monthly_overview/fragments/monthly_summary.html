@@ -1,0 +1,166 @@
+{% load i18n %}
+{% load currency_display %}
+<div class="row row-cols-1 g-4 mb-3">
+  {#  Daily Spending#}
+  <div class="col">
+    <div class="card tw-relative h-100 shadow">
+      <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
+      align-items-center d-flex justify-content-center rounded-2">
+        <i class="fa-solid fa-calendar-day"></i>
+      </div>
+      <div class="card-body">
+        <h5 class="tw-text-yellow-400 fw-bold">{% translate 'Daily Spending Allowance' %}{% include 'includes/help_icon.html' with content=_('This is the final total divided by the remaining days in the month') %}</h5>
+        <div class="d-flex justify-content-between mt-3">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">{% translate 'today' %}</div>
+          </div>
+          <div class="text-start font-monospace">
+            {% for entry in totals.daily_spending_allowance %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{#  Income#}
+  <div class="col">
+    <div class="card tw-relative h-100 shadow">
+      <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-green-300 tw-text-green-800 text-center
+      align-items-center d-flex justify-content-center rounded-2">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+      </div>
+      <div class="card-body">
+        <h5 class="tw-text-green-400 fw-bold">{% translate 'Income' %}</h5>
+        <div class="d-flex justify-content-between mt-3">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">current</div>
+          </div>
+          <div class="d-flex justify-content-between text-start font-monospace">
+            {% for entry in totals.paid_income %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+        <hr class="my-1">
+        <div class="d-flex justify-content-between">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">projected</div>
+          </div>
+          <div class="text-start font-monospace">
+            {% for entry in totals.projected_income %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{#  Expenses#}
+  <div class="col">
+    <div class="card tw-relative h-100 shadow">
+      <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-red-300 tw-text-red-800 text-center
+      align-items-center d-flex justify-content-center rounded-2">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </div>
+      <div class="card-body">
+        <h5 class="tw-text-red-400">{% translate 'Expenses' %}</h5>
+        <div class="d-flex justify-content-between mt-3">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">current</div>
+          </div>
+          <div class="text-start font-monospace">
+            {% for entry in totals.paid_expenses %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+        <hr class="my-1">
+        <div class="d-flex justify-content-between">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">projected</div>
+          </div>
+          <div class="text-start font-monospace">
+            {% for entry in totals.projected_expenses %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{#  Total#}
+  <div class="col">
+    <div class="card tw-relative h-100 shadow">
+      <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-blue-300 tw-text-blue-800 text-center
+      align-items-center d-flex justify-content-center rounded-2">
+        <i class="fa-solid fa-scale-balanced"></i>
+      </div>
+      <div class="card-body">
+        <h5 class="tw-text-blue-400">{% translate 'Total' %}</h5>
+        <div class="d-flex justify-content-between mt-3">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">current</div>
+          </div>
+          <div class="text-start font-monospace">
+            {% for entry in totals.total_current %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-3">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">projected</div>
+          </div>
+          <div class="text-start font-monospace">
+            {% for entry in totals.total_projected %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+        <hr class="my-1">
+        <div class="d-flex justify-content-end">
+          <div class="text-start font-monospace">
+            {% for entry in totals.total_final %}
+              <div class="amount" data-original-value="{% entry_amount entry %}"></div>
+            {% empty %}
+              <div>-</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{#<div class="p-2 rounded-2 shadow tw-text-sm card mt-4">#}
+{#  <p class="font-monospace text-light text-uppercase text-center fw-bold m-0 tw-text-base">#}
+{#    {% translate "Account Overview" %}</p>#}
+{#  <hr class="my-1">#}
+{#  <div>#}
+{#    {% for account in account_summary %}#}
+{#    <div class="row">#}
+{#      <div class="col-6">#}
+{#        <div class="font-monospace text-primary text-start align-self-end fw-bold m-0">{{ account.name }}</div>#}
+{#      </div>#}
+{#      <div class="col-6 text-end font-monospace">#}
+{#        <div class="amount" data-original-value="{% currency_display amount=account.balance prefix=account.currency__prefix suffix=account.currency__suffix decimal_places=account.currency__decimal_places %}"></div>#}
+{#      </div>#}
+{#    </div>#}
+{#    <div class="my-1"></div>#}
+{#    {% endfor %}#}
+{#  </div>#}
+{#</div>#}

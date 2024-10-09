@@ -1,5 +1,6 @@
 from django import template
 from django.template.defaultfilters import floatformat
+from django.utils.formats import number_format
 
 from apps.transactions.models import Transaction
 
@@ -7,7 +8,9 @@ register = template.Library()
 
 
 def _format_string(prefix, amount, decimal_places, suffix):
-    formatted_amount = floatformat(abs(amount), f"{decimal_places}g")
+    formatted_amount = number_format(
+        value=abs(amount), decimal_pos=decimal_places, force_grouping=True
+    )
     if amount < 0:
         return f"-{prefix}{formatted_amount}{suffix}"
     else:
@@ -31,4 +34,9 @@ def entry_currency(entry):
     decimal_places = entry["decimal_places"]
     suffix = entry["suffix"]
 
+    return _format_string(prefix, amount, decimal_places, suffix)
+
+
+@register.simple_tag(name="currency_display")
+def currency_display(amount, prefix, suffix, decimal_places):
     return _format_string(prefix, amount, decimal_places, suffix)

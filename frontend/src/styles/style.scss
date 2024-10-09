@@ -1,8 +1,10 @@
-@import "_variables";
-@import "_font-awesome.scss";
-@import "_tailwind.scss";
-@import "_bootstrap.scss";
-@import "_tom-select.scss";
+@import "variables";
+@import "font-awesome.scss";
+@import "tailwind.scss";
+@import "bootstrap.scss";
+@import "tom-select.scss";
+@import "animations.scss";
+@import "scrollbar.scss";
 
 .sticky-sidebar {
   position: sticky;
@@ -12,4 +14,13 @@
 // Somewhat prevents flickering when replacing with Tom-select
 select[multiple] {
   visibility: hidden;
+}
+
+.font-base {
+  font-family: $font-family-base;
+}
+
+::selection {
+  color: $gray-800;
+  background-color: $primary;
 }

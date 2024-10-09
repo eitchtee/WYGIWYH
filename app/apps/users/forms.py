@@ -14,20 +14,18 @@ from django.contrib.auth.forms import (
     SetPasswordForm,
     PasswordChangeForm,
     UserCreationForm,
+    AuthenticationForm,
 )
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from django_recaptcha.fields import ReCaptchaField
-from django_recaptcha.widgets import ReCaptchaV3
-from unfold.forms import AuthenticationForm
 
 
 class LoginForm(AuthenticationForm):
     username = UsernameField(
         label="Seu e-mail",
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "E-mail"}
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "E-mail", "name": "email"}
         ),
     )
     password = forms.CharField(
@@ -39,6 +37,16 @@ class LoginForm(AuthenticationForm):
     )
 
     error_messages = {
-        "invalid_login": _("E-mail ou senha inválidos."),
-        "inactive": _("Esta conta esta desativada."),
+        "invalid_login": _("Invalid e-mail or password"),
+        "inactive": _("This account is deactivated"),
     }
+
+    def __init__(self, request=None, *args, **kwargs):
+        super().__init__(request, *args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "username",
+            "password",
+            Submit("Submit", "Login"),
+        )

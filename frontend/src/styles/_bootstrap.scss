@@ -8,6 +8,31 @@
   font-size: $font-size-base; // Fixes crispy-bootstrap5 legend labels being too big
   font-weight: bold;
 }
+
+$theme-colors: map-merge($theme-colors, (
+  "primary": $primary
+));
+
+
+@media all and (min-width: 992px) {
+  .navbar .nav-item .dropdown-menu {
+    display: none;
+  }
+
+  .navbar .nav-item:hover .dropdown-menu {
+    display: block;
+    left: 0;
+  }
+
+  .navbar .nav-item .dropdown-menu {
+    margin-top: 0;
+  }
+}
+
+.table .col-auto {
+  width: 1%;
+  white-space: nowrap;
+}
 //
 ////body {
 ////  background-color: $background-color;

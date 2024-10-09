@@ -3,22 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path(
-        "transactions/<int:month>/<int:year>/",
-        views.transactions_overview,
-        name="transactions_overview",
-    ),
-    path(
-        "transactions/<int:month>/<int:year>/list/",
-        views.transactions_list,
-        name="transactions_list",
-    ),
-    path(
-        "transactions/<int:month>/<int:year>/summary/",
-        views.monthly_summary,
-        name="monthly_summary",
-    ),
     path(
         "transaction/<int:transaction_id>/pay",
         views.transaction_pay,
@@ -40,13 +24,37 @@ urlpatterns = [
         name="transaction_add",
     ),
     path(
-        "available_dates/",
-        views.month_year_picker,
-        name="available_dates",
-    ),
-    path(
         "transactions/transfer",
         views.transactions_transfer,
         name="transactions_transfer",
+    ),
+    path(
+        "transactions/installments/add/",
+        views.AddInstallmentPlanView.as_view(),
+        name="installments_add",
+    ),
+    path("tags/", views.tag_list, name="tags_list"),
+    path("tags/add/", views.tag_add, name="tag_add"),
+    path(
+        "tags/<int:tag_id>/edit/",
+        views.tag_edit,
+        name="tag_edit",
+    ),
+    path(
+        "tags/<int:tag_id>/delete/",
+        views.tag_delete,
+        name="tag_delete",
+    ),
+    path("categories/", views.categories_list, name="categories_list"),
+    path("categories/add/", views.category_add, name="category_add"),
+    path(
+        "categories/<int:category_id>/edit/",
+        views.category_edit,
+        name="category_edit",
+    ),
+    path(
+        "categories/<int:category_id>/delete/",
+        views.category_delete,
+        name="category_delete",
     ),
 ]

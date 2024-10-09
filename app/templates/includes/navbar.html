@@ -1,0 +1,59 @@
+{% load i18n %}
+{% load active_link %}
+<nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary" hx-boost="true">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-primary font-base" href="#">WYGIWYH</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline" hx-push-url="true">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle {% active_link views='monthly_overview' %}"
+                     href="#"
+                     role="button"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false">
+                    {% translate 'Overview' %}
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item {% active_link views='monthly_overview' %}" href="{% url 'monthly_index' %}">{%translate 'Monthly' %}</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% active_link views='net_worth' %}"
+                       href="{% url 'net_worth' %}">
+                      {% translate 'Net Worth' %}
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle {% active_link views='tags_list||categories_list||currencies_list' %}"
+                     href="#" role="button" 
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false">
+                    {% translate 'Management' %}
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><h6 class="dropdown-header">{% trans 'Transactions' %}</h6></li>
+                    <li><a class="dropdown-item {% active_link views='categories_list' %}" href="{% url 'categories_list' %}">{% translate 'Categories' %}</a></li>
+                    <li><a class="dropdown-item {% active_link views='tags_list' %}" href="{% url 'tags_list' %}">{% translate 'Tags' %}</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><h6 class="dropdown-header">{% trans 'Accounts' %}</h6></li>
+                    <li><a class="dropdown-item {% active_link views='accounts_list' %}" href="{% url 'accounts_list' %}">{% translate 'Accounts' %}</a></li>
+                    <li><a class="dropdown-item {% active_link views='account_groups_list' %}" href="{% url 'account_groups_list' %}">{% translate 'Account Groups' %}</a></li>
+                    <li><a class="dropdown-item {% active_link views='currencies_list' %}" href="{% url 'currencies_list' %}">{% translate 'Currencies' %}</a></li>
+                  </ul>
+                </li>
+            </ul>
+            {% spaceless %}
+            <a class="mx-3 tw-text-2xl" hx-get="{% url 'toggle_amount_visibility' %}">
+              {% if user.settings.hide_amounts %}
+                <i class="fa-solid fa-eye-slash fa-fw"></i><div id="settings-hide-amounts" class="d-inline tw-invisible"></div>
+              {% else %}
+                <i class="fa-solid fa-eye fa-fw"></i>
+              {% endif %}</a>
+            {% endspaceless %}
+            <a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2"></i>{% translate 'Logout' %}</a>
+        </div>
+    </div>
+</nav>
