@@ -62,8 +62,10 @@ INSTALLED_APPS = [
     "apps.accounts.apps.AccountsConfig",
     "apps.common.apps.CommonConfig",
     "apps.net_worth.apps.NetWorthConfig",
+    "apps.api.apps.ApiConfig",
     "cachalot",
     "rest_framework",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
