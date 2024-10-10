@@ -47,10 +47,6 @@ module.exports = {
             writeToDisk: true,
             publicPath: true,
         }),
-        // new webpack.ProvidePlugin({
-        //     $: "jquery",
-        //     jQuery: "jquery",
-        // })
     ],
     resolve: {
         alias: {
