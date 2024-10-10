@@ -1,6 +1,5 @@
 from django.urls import path
-
-from . import views
+import apps.transactions.views as views
 
 urlpatterns = [
     path(

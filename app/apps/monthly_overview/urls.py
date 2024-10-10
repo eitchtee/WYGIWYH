@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path("monthly/", views.index, name="monthly_index"),
+    path("", views.index, name="monthly_index"),
     path(
         "monthly/<int:month>/<int:year>/transactions/list/",
         views.transactions_list,
