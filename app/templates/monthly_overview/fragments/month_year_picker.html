@@ -35,11 +35,13 @@
       <li class="list-group-item hover:tw-bg-zinc-900
             {% if month_data.month == current_month and month_data.year == current_year %} disabled bg-primary{% endif %}"
           {% if month_data.month == current_month and month_data.year == current_year %}aria-disabled="true"{% endif %}>
-        <a class="text-decoration-none stretched-link {% if month_data.month == current_month and month_data.year == current_year %} text-black{% endif %}"
+        <div class="d-flex justify-content-between">
+          <a class="text-decoration-none stretched-link {% if month_data.month == current_month and month_data.year == current_year %} text-black{% endif %}"
            href="{% url "monthly_overview" month=month_data.month year=month_data.year %}">
-          {{ month_data.month|month_name }}
+            {{ month_data.month|month_name }}</a>
           <span class="badge text-bg-secondary">{{ month_data.transaction_count }}</span>
-        </a>
+        </div>
+          
       </li>
       {% endfor %}
     </ul>
