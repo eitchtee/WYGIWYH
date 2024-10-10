@@ -94,7 +94,7 @@
 {#  Monthly summary#}
   <div class="row gx-xl-4 gy-3">
     <div class="col-12 col-xl-4 order-0 order-xl-2">
-      <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class=" sticky-sidebar"
+      <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class="sticky-sidebar"
            hx-trigger="load, transaction_updated from:window, monthly_summary_update from:window">
       </div>
     </div>
@@ -108,8 +108,8 @@
                 <i class="fa-solid fa-filter fa-fw me-2"></i>{% translate 'Filter transactions' %}
               </button>
               <form hx-get="{% url 'monthly_transactions_list' month=month year=year %}" hx-trigger="change, submit, search"
-                    hx-target="#transactions" id="filter" hx-indicator="#transactions" class="dropdown-menu p-4
-                    w-lg-50 tw-w-full lg:tw-w-2/4"
+                    hx-target="#transactions" id="filter" hx-indicator="#transactions"
+                    class="dropdown-menu p-4 w-lg-50 tw-w-full lg:tw-w-2/4"
                     _="install init_tom_select">
                 {% crispy filter.form %}
               </form>
