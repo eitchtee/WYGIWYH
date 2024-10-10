@@ -4,8 +4,8 @@
 hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
 {% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} transaction tw-relative
 my-3"
-     _="on mouseenter remove .tw-invisible from the first .transaction-actions in me end
-        on mouseleave add .tw-invisible to the first .transaction-actions in me end">
+     _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
+        on mouseout add .tw-invisible to the first .transaction-actions in me end">
   <div class="row font-monospace tw-text-sm align-items-center">
     <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center pay-button">
       <a class="text-decoration-none my-2 w-100"
