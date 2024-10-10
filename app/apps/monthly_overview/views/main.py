@@ -74,7 +74,10 @@ def transactions_list(request, month: int, year: int):
     today = timezone.localdate(timezone.now())
     yesterday = today - timezone.timedelta(days=1)
     tomorrow = today + timezone.timedelta(days=1)
+    last_7_days = today - timezone.timedelta(days=7)
+    next_7_days = today + timezone.timedelta(days=7)
 
+    # TO-DO Improve date-order
     f = TransactionsFilter(request.GET)
     transactions_filtered = (
         f.qs.filter()
@@ -84,10 +87,12 @@ def transactions_list(request, month: int, year: int):
         )
         .annotate(
             date_order=Case(
-                When(date=tomorrow, then=Value(0)),
-                When(date=today, then=Value(1)),
-                When(date=yesterday, then=Value(2)),
-                default=Value(3),
+                When(date__lte=next_7_days, date__gte=tomorrow, then=Value(0)),
+                When(date=tomorrow, then=Value(1)),
+                When(date=today, then=Value(2)),
+                When(date=yesterday, then=Value(3)),
+                When(date__gte=last_7_days, date__lte=today, then=Value(4)),
+                default=Value(5),
                 output_field=IntegerField(),
             )
         )
