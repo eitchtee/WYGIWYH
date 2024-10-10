@@ -3,7 +3,7 @@
      tabindex="-1"
      _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end
         on hide_offcanvas call bootstrap.Offcanvas.getOrCreateInstance(me).hide() end
-        on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide() then log event
+        on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide()
         on hidden.bs.offcanvas set my innerHTML to '' end">
 </div>
 <div id="generic-offcanvas-left" class="offcanvas offcanvas-start offcanvas-size-xl"
@@ -11,6 +11,6 @@
      tabindex="-1"
      _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end
         on hide_offcanvas call bootstrap.Offcanvas.getOrCreateInstance(me).hide() end
-        on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide() then log event
+        on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide()
         on hidden.bs.offcanvas set my innerHTML to '' end">
 </div>
