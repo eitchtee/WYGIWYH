@@ -18,7 +18,7 @@ from apps.transactions.models import Transaction
 @only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])
-def transaction_add(request, **kwargs):
+def transaction_add(request):
     month = int(request.GET.get("month", timezone.localdate(timezone.now()).month))
     year = int(request.GET.get("year", timezone.localdate(timezone.now()).year))
     transaction_type = Transaction.Type(request.GET.get("type", "IN"))

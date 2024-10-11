@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+
+exec watchfiles --filter python "python manage.py procrastinate worker"

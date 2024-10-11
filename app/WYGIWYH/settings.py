@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     "django_tables2",
     "django_filters",
     "apps.users.apps.UsersConfig",
-    "django_celery_beat",
+    "procrastinate.contrib.django",
     "apps.transactions.apps.TransactionsConfig",
     "apps.currencies.apps.CurrenciesConfig",
     "apps.accounts.apps.AccountsConfig",
@@ -198,13 +198,6 @@ LOGIN_URL = "/login/"
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5", "crispy_forms/pure_text"]
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-# Celery settings
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://redis")
-CELERY_RESULT_BACKEND = os.getenv("CELERY_BROKER_URL", "redis://redis")
-REDIS_URL = os.getenv("CELERY_BROKER_URL", "redis://redis")
-CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = int(os.getenv("SESSION_EXPIRY_TIME", 2678400))  # 31 days

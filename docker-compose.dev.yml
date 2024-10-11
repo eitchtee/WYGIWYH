@@ -56,38 +56,12 @@ services:
       - '${SQL_PORT}:5432'
     restart: unless-stopped
 
-  redis:
-    image: docker.io/redis:6
-    restart: unless-stopped
-    container_name: wygiwyh_dev_redis
-
-  celeryworker:
+  procrastinate:
     <<: *django
-    image: wygiwyh_dev_celeryworker
-    container_name: wygiwyh_dev_celeryworker
+    image: wygiwyh_dev_procrastinate
+    container_name: wygiwyh_dev_procrastinate
     depends_on:
-      - redis
       - db
     ports: [ ]
-    command: /start-celeryworker
-    restart: unless-stopped
-
-  celerybeat:
-    <<: *django
-    image: wygiwyh_dev_celerybeat
-    container_name: wygiwyh_dev_celerybeat
-    depends_on:
-      - redis
-      - db
-    ports: [ ]
-    command: /start-celerybeat
-    restart: unless-stopped
-
-  flower:
-    <<: *django
-    image: wygiwyh_dev_flower
-    container_name: wygiwyh_dev_flower
-    ports:
-      - '${FLOWER_OUTBOUND_PORT}:5555'
-    command: /start-flower
+    command: /start-procrastinate
     restart: unless-stopped

@@ -51,17 +51,9 @@ COPY --chown=app:app ./docker/prod/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
-COPY --chown=app:app ./docker/prod/celery/worker/start /start-celeryworker
-RUN sed -i 's/\r$//g' /start-celeryworker
-RUN chmod +x /start-celeryworker
-
-COPY --chown=app:app ./docker/prod/celery/beat/start /start-celerybeat
-RUN sed -i 's/\r$//g' /start-celerybeat
-RUN chmod +x /start-celerybeat
-
-COPY --chown=app:app ./docker/prod/celery/flower/start /start-flower
-RUN sed -i 's/\r$//g' /start-flower
-RUN chmod +x /start-flower
+COPY --chown=app:app ./docker/prod/procrastinate/start /start-procrastinate
+RUN sed -i 's/\r$//g' /start-procrastinate
+RUN chmod +x /start-procrastinate
 
 # copy project
 COPY ./app .

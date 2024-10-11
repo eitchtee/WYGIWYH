@@ -39,17 +39,9 @@ COPY ./docker/dev/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
-COPY ./docker/dev/celery/worker/start /start-celeryworker
-RUN sed -i 's/\r$//g' /start-celeryworker
-RUN chmod +x /start-celeryworker
-
-COPY ./docker/dev/celery/beat/start /start-celerybeat
-RUN sed -i 's/\r$//g' /start-celerybeat
-RUN chmod +x /start-celerybeat
-
-COPY ./docker/dev/celery/flower/start /start-flower
-RUN sed -i 's/\r$//g' /start-flower
-RUN chmod +x /start-flower
+COPY ./docker/dev/procrastinate/start /start-procrastinate
+RUN sed -i 's/\r$//g' /start-procrastinate
+RUN chmod +x /start-procrastinate
 
 # copy project
 COPY ./app .
