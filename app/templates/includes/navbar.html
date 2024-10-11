@@ -45,15 +45,7 @@
                   </ul>
                 </li>
             </ul>
-            {% spaceless %}
-            <a class="mx-3 tw-text-2xl" hx-get="{% url 'toggle_amount_visibility' %}">
-              {% if user.settings.hide_amounts %}
-                <i class="fa-solid fa-eye-slash fa-fw"></i><div id="settings-hide-amounts" class="d-inline tw-invisible"></div>
-              {% else %}
-                <i class="fa-solid fa-eye fa-fw"></i>
-              {% endif %}</a>
-            {% endspaceless %}
-            <a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2"></i>{% translate 'Logout' %}</a>
+          {% include 'includes/navbar/user_menu.html' %}
         </div>
     </div>
 </nav>

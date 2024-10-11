@@ -11,4 +11,9 @@ urlpatterns = [
         views.toggle_amount_visibility,
         name="toggle_amount_visibility",
     ),
+    path(
+        "user/settings/",
+        views.update_settings,
+        name="user_settings",
+    ),
 ]

@@ -1,0 +1,29 @@
+{% load i18n %}
+{#<a class="" href=""></i></a>#}
+
+<div class="dropdown">
+  <a class="tw-text-2xl" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-user"></i>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
+    <li><a class="dropdown-item"
+           hx-get="{% url 'user_settings' %}"
+           hx-target="#generic-offcanvas">
+      <i class="fa-solid fa-gear me-2 fa-fw"></i>{% translate 'Settings' %}</a></li>
+    <li><hr class="dropdown-divider"></li>
+    {% spaceless %}
+    <li>
+      <a class="dropdown-item" hx-get="{% url 'toggle_amount_visibility' %}" role="button">
+        {% if user.settings.hide_amounts %}
+        {% include 'users/generic/show_amounts.html' %}
+        {% else %}
+        {% include 'users/generic/hide_amounts.html' %}
+        {% endif %}
+      </a>
+    {% endspaceless %}
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2 fa-fw"></i
+    >{% translate 'Logout' %}</a></li>
+  </ul>
+</div>
