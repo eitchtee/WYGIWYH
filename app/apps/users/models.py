@@ -26,5 +26,18 @@ class UserSettings(models.Model):
     )
     hide_amounts = models.BooleanField(default=False)
 
+    language = models.CharField(
+        max_length=10,
+        choices=(("auto", _("Auto")),) + settings.LANGUAGES,
+        default="auto",
+        verbose_name=_("Language"),
+    )
+    timezone = models.CharField(
+        max_length=50,
+        choices=[("auto", _("Auto"))] + [(tz, tz) for tz in pytz.common_timezones],
+        default="auto",
+        verbose_name=_("Time Zone"),
+    )
+
     def __str__(self):
         return f"{self.user.email}'s settings"
