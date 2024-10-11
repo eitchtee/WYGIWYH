@@ -1,9 +1,6 @@
-from datetime import datetime, date
-
-from django import forms
 from decimal import Decimal, InvalidOperation
 
-from django.template.defaultfilters import floatformat
+from django import forms
 from django.utils.formats import get_format, number_format
 
 
@@ -23,19 +20,6 @@ def convert_to_decimal(value: str):
     if value:
         return Decimal(value)
     return None
-
-
-class MonthYearWidget(forms.DateInput):
-    """
-    Custom widget to display a month-year picker.
-    """
-
-    input_type = "month"  # Set the input type to 'month'
-
-    def format_value(self, value):
-        if isinstance(value, (datetime, date)):
-            return value.strftime("%Y-%m")
-        return value
 
 
 class ArbitraryDecimalDisplayNumberInput(forms.TextInput):

@@ -1,11 +1,10 @@
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Field, Fieldset
+from crispy_forms.layout import Layout, Row, Column, Field
 from dateutil.relativedelta import relativedelta
 from django import forms
 from django.db import transaction
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import Account
@@ -14,17 +13,15 @@ from apps.common.fields.forms.dynamic_select import (
     DynamicModelMultipleChoiceField,
 )
 from apps.common.widgets.crispy.submit import NoClassSubmit
-from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
+from apps.common.widgets.tom_select import TomSelect
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
     TransactionTag,
     InstallmentPlan,
 )
-from apps.transactions.widgets import (
-    ArbitraryDecimalDisplayNumberInput,
-    MonthYearWidget,
-)
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
+from apps.common.fields.month_year import MonthYearFormField
 
 
 class TransactionForm(forms.ModelForm):
@@ -40,6 +37,7 @@ class TransactionForm(forms.ModelForm):
         required=False,
         label=_("Tags"),
     )
+    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
 
     class Meta:
         model = Transaction
@@ -190,7 +188,7 @@ class TransferForm(forms.Form):
     date = forms.DateField(
         label="Date", widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d")
     )
-    reference_date = forms.CharField(label="Reference Date", widget=MonthYearWidget())
+    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
     description = forms.CharField(max_length=500, label="Description")
 
     def __init__(self, *args, **kwargs):
@@ -324,6 +322,7 @@ class InstallmentPlanForm(forms.Form):
         label=_("Start Date"),
         widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
     )
+    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
     description = forms.CharField(max_length=500, label=_("Description"))
     number_of_installments = forms.IntegerField(
         min_value=1, label=_("Number of Installments")
@@ -372,9 +371,13 @@ class InstallmentPlanForm(forms.Form):
             "account",
             "description",
             Row(
-                Column("start_date", css_class="form-group col-md-4 mb-0"),
-                Column("number_of_installments", css_class="form-group col-md-4 mb-0"),
-                Column("recurrence", css_class="form-group col-md-4 mb-0"),
+                Column("number_of_installments", css_class="form-group col-md-6 mb-0"),
+                Column("recurrence", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("start_date", css_class="form-group col-md-6 mb-0"),
+                Column("reference_date", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
             "installment_amount",
@@ -396,11 +399,15 @@ class InstallmentPlanForm(forms.Form):
         number_of_installments = self.cleaned_data["number_of_installments"]
         transaction_type = self.cleaned_data["type"]
         start_date = self.cleaned_data["start_date"]
+        reference_date = self.cleaned_data["reference_date"] or start_date
         recurrence = self.cleaned_data["recurrence"]
         account = self.cleaned_data["account"]
         description = self.cleaned_data["description"]
         installment_amount = self.cleaned_data["installment_amount"]
         category = self.cleaned_data["category"]
+
+        print(reference_date, type(reference_date))
+        print(start_date, type(start_date))
 
         with transaction.atomic():
             installment_plan = InstallmentPlan.objects.create(
@@ -421,11 +428,13 @@ class InstallmentPlanForm(forms.Form):
                         delta = relativedelta(days=i)
 
                     transaction_date = start_date + delta
+                    transaction_reference_date = (reference_date + delta).replace(day=1)
                     new_transaction = Transaction.objects.create(
                         account=account,
                         type=transaction_type,
                         date=transaction_date,
-                        reference_date=transaction_date.replace(day=1),
+                        is_paid=False,
+                        reference_date=transaction_reference_date,
                         amount=installment_amount,
                         description=description,
                         notes=f"{i + 1}/{number_of_installments}",

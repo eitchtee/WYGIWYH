@@ -6,9 +6,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.functions.decimals import truncate_decimal
-from apps.transactions.fields import MonthYearField
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
 from apps.currencies.utils.convert import convert
+from apps.common.fields.month_year import MonthYearModelField
 
 
 class TransactionCategory(models.Model):
@@ -76,7 +76,7 @@ class Transaction(models.Model):
     )
     is_paid = models.BooleanField(default=True, verbose_name=_("Paid"))
     date = models.DateField(verbose_name=_("Date"))
-    reference_date = MonthYearField(verbose_name=_("Reference Date"))
+    reference_date = MonthYearModelField(verbose_name=_("Reference Date"))
 
     amount = models.DecimalField(
         max_digits=42,

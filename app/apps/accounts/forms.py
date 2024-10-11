@@ -14,7 +14,7 @@ from apps.common.fields.forms.dynamic_select import (
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.tom_select import TomSelect
 from apps.transactions.models import TransactionCategory, TransactionTag
-from apps.transactions.widgets import ArbitraryDecimalDisplayNumberInput
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 
 
 class AccountGroupForm(forms.ModelForm):
