@@ -16,13 +16,13 @@ from apps.users.models import UserSettings
 
 class LoginForm(AuthenticationForm):
     username = UsernameField(
-        label="Seu e-mail",
+        label=_("E-mail"),
         widget=forms.EmailInput(
             attrs={"class": "form-control", "placeholder": "E-mail", "name": "email"}
         ),
     )
     password = forms.CharField(
-        label="Sua senha",
+        label=_("Password"),
         strip=False,
         widget=forms.PasswordInput(
             attrs={"class": "form-control", "placeholder": "Senha"}

@@ -21,6 +21,7 @@ class AccountGroupForm(forms.ModelForm):
     class Meta:
         model = AccountGroup
         fields = ["name"]
+        labels = {"name": _("Group name")}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -52,6 +53,7 @@ class AccountGroupForm(forms.ModelForm):
 
 class AccountForm(forms.ModelForm):
     group = DynamicModelChoiceField(
+        label=_("Group"),
         model=AccountGroup,
         required=False,
     )

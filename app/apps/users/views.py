@@ -58,7 +58,7 @@ def update_settings(request):
         form = UserSettingsForm(request.POST, instance=user_settings)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Your settings have been updated."))
+            messages.success(request, _("Your settings have been updated"))
             return HttpResponse(
                 status=204,
                 headers={"HX-Refresh": "true"},

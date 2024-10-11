@@ -124,7 +124,7 @@ def transactions_transfer(request):
         form = TransferForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Transfer added successfully."))
+            messages.success(request, _("Transfer added successfully"))
             return HttpResponse(
                 status=204,
                 headers={"HX-Trigger": "transaction_updated, toast, hide_offcanvas"},
@@ -171,7 +171,7 @@ class AddInstallmentPlanView(View):
         form = InstallmentPlanForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, _("Installment plan created successfully."))
+            messages.success(request, _("Installment plan created successfully"))
 
             return HttpResponse(
                 status=204,

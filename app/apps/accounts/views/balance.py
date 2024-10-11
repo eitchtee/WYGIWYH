@@ -79,7 +79,7 @@ def account_reconciliation(request):
                             new_transaction.tags.set(tags)
 
             messages.success(
-                request, _("Account balances have been reconciled successfully.")
+                request, _("Account balances have been reconciled successfully")
             )
             return HttpResponse(
                 status=204,

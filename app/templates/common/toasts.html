@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load toast_bg %}
 {% if messages %}
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -12,7 +13,7 @@
                     <button type="button"
                             class="btn-close"
                             data-bs-dismiss="toast"
-                            aria-label="Fechar"></button>
+                            aria-label={% translate 'Close' %}></button>
                 </div>
                 <div class="toast-body">{{ message }}</div>
             </div>

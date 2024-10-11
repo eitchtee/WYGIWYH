@@ -10,8 +10,8 @@ from apps.currencies.models import Currency
 
 
 class CurrencyForm(forms.ModelForm):
-    prefix = CharField(strip=False, required=False)
-    suffix = CharField(strip=False, required=False)
+    prefix = CharField(strip=False, required=False, label=_("Prefix"))
+    suffix = CharField(strip=False, required=False, label=_("Suffix"))
 
     class Meta:
         model = Currency

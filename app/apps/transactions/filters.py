@@ -39,27 +39,26 @@ class TransactionsFilter(django_filters.FilterSet):
         field_name="account__name",
         queryset=Account.objects.all(),
         to_field_name="name",
-        label="Accounts",
+        label=_("Accounts"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
     )
     category = django_filters.ModelMultipleChoiceFilter(
         field_name="category__name",
         queryset=TransactionCategory.objects.all(),
         to_field_name="name",
-        label="Categories",
+        label=_("Categories"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
     )
     tags = django_filters.ModelMultipleChoiceFilter(
         field_name="tags__name",
         queryset=TransactionTag.objects.all(),
         to_field_name="name",
-        label="Tags",
+        label=_("Tags"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
     )
     is_paid = django_filters.MultipleChoiceFilter(
         choices=SITUACAO_CHOICES,
         field_name="is_paid",
-        label="Situação",
     )
 
     class Meta:

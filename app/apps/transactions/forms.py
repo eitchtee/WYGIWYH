@@ -138,24 +138,24 @@ class TransactionForm(forms.ModelForm):
 class TransferForm(forms.Form):
     from_account = forms.ModelChoiceField(
         queryset=Account.objects.all(),
-        label="From Account",
+        label=_("From Account"),
         widget=TomSelect(),
     )
     to_account = forms.ModelChoiceField(
         queryset=Account.objects.all(),
-        label="To Account",
+        label=_("To Account"),
         widget=TomSelect(),
     )
 
     from_amount = forms.DecimalField(
         max_digits=42,
         decimal_places=30,
-        label="From Amount",
+        label=_("From Amount"),
     )
     to_amount = forms.DecimalField(
         max_digits=42,
         decimal_places=30,
-        label="To Amount",
+        label=_("To Amount"),
         required=False,
     )
 
@@ -186,10 +186,11 @@ class TransferForm(forms.Form):
     )
 
     date = forms.DateField(
-        label="Date", widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d")
+        label=_("Date"),
+        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
     )
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
-    description = forms.CharField(max_length=500, label="Description")
+    description = forms.CharField(max_length=500, label=_("Description"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -334,6 +335,7 @@ class InstallmentPlanForm(forms.Form):
             ("weekly", _("Weekly")),
             ("daily", _("Daily")),
         ),
+        label=_("Recurrence"),
         initial="monthly",
         widget=TomSelect(clear_button=False),
     )
