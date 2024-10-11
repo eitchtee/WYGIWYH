@@ -18,14 +18,6 @@ COPY ../requirements.txt .
 RUN pip wheel --wheel-dir /usr/src/app/wheels  \
   -r requirements.txt
 
-#FROM node:alpine AS webpack_build
-#
-#WORKDIR /usr/src/frontend
-#
-#COPY ../frontend .
-#COPY ../app/templates /usr/src/app/templates
-#RUN npm install
-#RUN npm run build
 
 FROM docker.io/python AS python-run-stage
 #COPY --from=webpack_build /usr/src/frontend/build /usr/src/frontend/build
