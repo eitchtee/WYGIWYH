@@ -1,24 +1,17 @@
 from crispy_forms.bootstrap import (
     FormActions,
-    PrependedText,
-    Alert,
 )
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Div, HTML
+from crispy_forms.layout import Layout, Submit
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
-    # AuthenticationForm,
     UsernameField,
-    PasswordResetForm,
-    SetPasswordForm,
-    PasswordChangeForm,
-    UserCreationForm,
     AuthenticationForm,
 )
-from django.core.exceptions import ValidationError
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+
+from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.users.models import UserSettings
 
 
 class LoginForm(AuthenticationForm):
@@ -49,4 +42,26 @@ class LoginForm(AuthenticationForm):
             "username",
             "password",
             Submit("Submit", "Login"),
+        )
+
+
+class UserSettingsForm(forms.ModelForm):
+    class Meta:
+        model = UserSettings
+        fields = ["language", "timezone"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            "language",
+            "timezone",
+            FormActions(
+                NoClassSubmit(
+                    "submit", _("Save"), css_class="btn btn-outline-primary w-100"
+                ),
+            ),
         )
