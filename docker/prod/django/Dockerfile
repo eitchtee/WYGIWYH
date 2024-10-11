@@ -75,3 +75,5 @@ RUN chown -R app:app /temp
 
 # change to the app user
 USER app
+
+RUN python manage.py compilemessages --settings "WYGIWYH.settings"
