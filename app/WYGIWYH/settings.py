@@ -73,7 +73,6 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "apps.common.middleware.timezone.TimezoneMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -82,6 +81,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     "hijack.middleware.HijackUserMiddleware",
+    "apps.common.middleware.localization.LocalizationMiddleware",
 ]
 
 ROOT_URLCONF = "WYGIWYH.urls"
