@@ -252,7 +252,7 @@ class TransferForm(forms.Form):
             ),
             FormActions(
                 NoClassSubmit(
-                    "submit", _("Tranfer"), css_class="btn btn-outline-primary w-100"
+                    "submit", _("Transfer"), css_class="btn btn-outline-primary w-100"
                 ),
             ),
         )
