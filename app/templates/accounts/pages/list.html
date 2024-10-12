@@ -43,7 +43,7 @@
                 hx-target="#generic-offcanvas"
                 _="on click send action_clicked to .tag-action in the closest parent .tag end
                    on action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
-                   install toast">
+                   install tooltip">
             <i class="fa-solid fa-pencil fa-fw"></i></a>
           <a class="text-danger text-decoration-none p-1 tag-action"
                   role="button"
@@ -53,7 +53,7 @@
                   hx-trigger='delete_confirmed'
                   _="on click send action_clicked to .tag-action in the closest parent .tag end
                      on action_clicked call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
-                     install toast
+                     install tooltip
                       on click
                         if event.ctrlKey trigger delete_confirmed
                         else

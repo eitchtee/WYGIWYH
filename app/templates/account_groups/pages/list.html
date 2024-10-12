@@ -38,7 +38,7 @@
                 data-bs-title="{% translate "Edit" %}"
                 hx-get="{% url 'account_group_edit' pk=account_group.id %}"
                 hx-target="#generic-offcanvas"
-                _="install toast">
+                _="install tooltip">
             <i class="fa-solid fa-pencil fa-fw"></i></a>
           <a class="text-danger text-decoration-none p-1 tag-action"
                   role="button"
@@ -46,7 +46,7 @@
                   data-bs-title="{% translate "Delete" %}"
                   hx-delete="{% url 'account_group_delete' pk=account_group.id %}"
                   hx-trigger='delete_confirmed'
-                  _="install toast
+                  _="install tooltip
                       on click
                         if event.ctrlKey trigger delete_confirmed
                         else

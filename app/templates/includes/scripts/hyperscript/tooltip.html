@@ -1,5 +1,5 @@
 <script type="text/hyperscript">
-  behavior toast
+  behavior tooltip
     on mouseenter call bootstrap.Tooltip.getOrCreateInstance(me).show() end
     on mouseleave or click call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
   end
