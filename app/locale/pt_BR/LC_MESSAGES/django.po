@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-11 14:24+0000\n"
-"PO-Revision-Date: 2024-10-11 11:24-0300\n"
+"POT-Creation-Date: 2024-10-12 00:39+0000\n"
+"PO-Revision-Date: 2024-10-11 21:44-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -596,3 +596,221 @@ msgstr "Editar grupo de conta"
 #: templates/transactions/fragments/item.html:129
 msgid "Edit"
 msgstr "Editar"
+
+#: templates/account_groups/pages/list.html:46
+#: templates/accounts/pages/list.html:51
+#: templates/categories/pages/list.html:47
+#: templates/currencies/pages/list.html:49 templates/tags/pages/list.html:48
+#: templates/transactions/fragments/item.html:95
+#: templates/transactions/fragments/item.html:150
+msgid "Delete"
+msgstr "Apagar"
+
+#: templates/account_groups/pages/list.html:53
+#: templates/accounts/pages/list.html:60
+#: templates/categories/pages/list.html:54
+#: templates/currencies/pages/list.html:58 templates/tags/pages/list.html:57
+#: templates/transactions/fragments/item.html:102
+#: templates/transactions/fragments/item.html:136
+msgid "Are you sure?"
+msgstr "Tem certeza?"
+
+#: templates/account_groups/pages/list.html:54
+#: templates/accounts/pages/list.html:61
+#: templates/categories/pages/list.html:55
+#: templates/currencies/pages/list.html:59 templates/tags/pages/list.html:58
+#: templates/transactions/fragments/item.html:103
+#: templates/transactions/fragments/item.html:137
+msgid "You won\\'t be able to revert this!"
+msgstr "Você não será capaz de reverter isso!"
+
+#: templates/account_groups/pages/list.html:59
+#: templates/accounts/pages/list.html:66
+#: templates/categories/pages/list.html:60
+#: templates/currencies/pages/list.html:64 templates/tags/pages/list.html:63
+#: templates/transactions/fragments/item.html:108
+#: templates/transactions/fragments/item.html:142
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: templates/account_groups/pages/list.html:60
+#: templates/accounts/pages/list.html:67
+#: templates/categories/pages/list.html:61
+#: templates/currencies/pages/list.html:65 templates/tags/pages/list.html:64
+#: templates/transactions/fragments/item.html:109
+#: templates/transactions/fragments/item.html:143
+msgid "Yes, delete it!"
+msgstr "Sim, apague!"
+
+#: templates/accounts/fragments/account_reconciliation.html:6
+msgid "Account Reconciliation"
+msgstr "Reconciliação do saldo"
+
+#: templates/accounts/fragments/account_reconciliation.html:26
+msgid "Current balance"
+msgstr "Saldo atual"
+
+#: templates/accounts/fragments/account_reconciliation.html:39
+msgid "Difference"
+msgstr "Diferença"
+
+#: templates/accounts/fragments/account_reconciliation.html:68
+msgid "Reconcile balances"
+msgstr "Reconciliar saldos"
+
+#: templates/accounts/fragments/add.html:5
+msgid "Add account"
+msgstr "Adicionar conta"
+
+#: templates/accounts/fragments/edit.html:5
+msgid "Edit account"
+msgstr "Editar conta"
+
+#: templates/accounts/pages/list.html:31
+msgid "Is Asset"
+msgstr "É ativo"
+
+#: templates/categories/fragments/add.html:5
+msgid "Add category"
+msgstr "Adicionar categoria"
+
+#: templates/categories/fragments/edit.html:5
+msgid "Edit category"
+msgstr "Editar categoria"
+
+#: templates/categories/pages/list.html:28
+msgid "Muted"
+msgstr "Silenciada"
+
+#: templates/common/toasts.html:16 templates/extends/offcanvas.html:5
+msgid "Close"
+msgstr "Fechar"
+
+#: templates/currencies/fragments/add.html:5
+msgid "Add currency"
+msgstr "Adicionar moeda"
+
+#: templates/currencies/fragments/edit.html:5
+msgid "Edit currency"
+msgstr "Editar moeda"
+
+#: templates/currencies/pages/list.html:28
+msgid "Code"
+msgstr "Código"
+
+#: templates/includes/navbar.html:7
+msgid "Toggle navigation"
+msgstr "Alternar navegação"
+
+#: templates/includes/navbar.html:18
+msgid "Overview"
+msgstr "Visão Geral"
+
+#: templates/includes/navbar.html:27
+msgid "Net Worth"
+msgstr "Patrimônio"
+
+#: templates/includes/navbar.html:35
+msgid "Management"
+msgstr "Gerenciar"
+
+#: templates/includes/navbar/user_menu.html:10
+msgid "Settings"
+msgstr "Configurações"
+
+#: templates/includes/navbar/user_menu.html:25
+msgid "Logout"
+msgstr "Sair"
+
+#: templates/layouts/base.html:31
+msgid ""
+"Something went wrong loading your data. Try reloading the page or check the "
+"console for more information."
+msgstr ""
+"Algo deu errado ao carregar seus dados. Tente recarregar a página ou "
+"verifique o console para obter mais informações."
+
+#: templates/monthly_overview/fragments/list.html:33
+msgid "No transactions this month"
+msgstr "Nenhuma transação neste mês"
+
+#: templates/monthly_overview/fragments/list.html:34
+msgid "Try adding one"
+msgstr "Tente adicionar uma"
+
+#: templates/monthly_overview/fragments/month_year_picker.html:5
+msgid "Pick a month"
+msgstr "Escolha um mês"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:12
+msgid "Daily Spending Allowance"
+msgstr "Gasto Diário"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:12
+msgid "This is the final total divided by the remaining days in the month"
+msgstr "Esse é o total final dividido pelos dias restantes do mês"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:39
+#: templates/monthly_overview/fragments/monthly_summary.html:76
+#: templates/monthly_overview/fragments/monthly_summary.html:113
+msgid "current"
+msgstr "atual"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:52
+#: templates/monthly_overview/fragments/monthly_summary.html:89
+#: templates/monthly_overview/fragments/monthly_summary.html:125
+msgid "projected"
+msgstr "projetado"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:73
+msgid "Expenses"
+msgstr "Gastos"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:110
+msgid "Total"
+msgstr "Total"
+
+#: templates/monthly_overview/pages/overview.html:74
+msgid "Installment"
+msgstr "Parcelamento"
+
+#: templates/monthly_overview/pages/overview.html:89
+msgid "Balance"
+msgstr "Balancear"
+
+#: templates/monthly_overview/pages/overview.html:108
+msgid "Filter transactions"
+msgstr "Filtrar transações"
+
+#: templates/tags/fragments/add.html:5
+msgid "Add tag"
+msgstr "Adicionar tag"
+
+#: templates/tags/fragments/edit.html:5
+msgid "Edit tag"
+msgstr "Editar tag"
+
+#: templates/transactions/fragments/add.html:5
+msgid "New transaction"
+msgstr "Nova transação"
+
+#: templates/transactions/fragments/add_installment_plan.html:5
+msgid "Add Installment Plan"
+msgstr "Adicionar parcelamento"
+
+#: templates/transactions/fragments/edit.html:5
+#: templates/transactions/fragments/edit_installment_plan.html:5
+msgid "Edit transaction"
+msgstr "Editar transação"
+
+#: templates/transactions/fragments/transfer.html:5
+msgid "New transfer"
+msgstr "Nova transferência"
+
+#: templates/users/generic/hide_amounts.html:2
+msgid "Hide amounts"
+msgstr "Esconder valores"
+
+#: templates/users/generic/show_amounts.html:3
+msgid "Show amounts"
+msgstr "Mostrar valores"
