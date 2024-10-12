@@ -43,6 +43,18 @@
                     <li><a class="dropdown-item {% active_link views='accounts_list' %}" href="{% url 'accounts_list' %}">{% translate 'Accounts' %}</a></li>
                     <li><a class="dropdown-item {% active_link views='account_groups_list' %}" href="{% url 'account_groups_list' %}">{% translate 'Account Groups' %}</a></li>
                     <li><a class="dropdown-item {% active_link views='currencies_list' %}" href="{% url 'currencies_list' %}">{% translate 'Currencies' %}</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <a class="dropdown-item"
+                         href="{% url 'admin:index' %}"
+                         hx-boost="false"
+                         data-bs-placement="right"
+                         data-bs-toggle="tooltip"
+                         data-bs-title="{% translate "Only use this if you know what you're doing" %}"
+                         _="install tooltip">
+                        {% translate 'Django Admin' %}
+                      </a>
+                    </li>
                   </ul>
                 </li>
             </ul>
