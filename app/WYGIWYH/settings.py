@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "apps.common.apps.CommonConfig",
     "apps.net_worth.apps.NetWorthConfig",
     "apps.api.apps.ApiConfig",
-    "cachalot",
+    # "cachalot",
     "rest_framework",
     "drf_spectacular",
 ]
