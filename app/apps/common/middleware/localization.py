@@ -1,11 +1,9 @@
 import zoneinfo
-from django.utils import timezone, translation
-from django.utils.cache import patch_vary_headers
-from django.utils.translation import activate
-from cachalot.api import invalidate
-import logging
 
-logger = logging.getLogger()
+from django.utils import timezone, translation
+from django.utils.translation import activate
+
+from apps.users.models import UserSettings
 
 
 class LocalizationMiddleware:
@@ -14,17 +12,18 @@ class LocalizationMiddleware:
 
     def __call__(self, request):
         tz = request.COOKIES.get("mytz")
-        logger.info("tz: %s", tz)
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and hasattr(request.user, "settings"):
             user_settings = request.user.settings
             user_language = user_settings.language
             user_timezone = user_settings.timezone
+        elif request.user.is_authenticated and not hasattr(request.user, "settings"):
+            # Create UserSettings if it doesn't exist
+            UserSettings.objects.create(user=request.user)
+            user_language = "auto"
+            user_timezone = "auto"
         else:
             user_language = "auto"
             user_timezone = "auto"
-
-        logger.info("lang: %s", user_language)
-        logger.info("timezone: %s", user_timezone)
 
         if tz and user_timezone == "auto":
             timezone.activate(zoneinfo.ZoneInfo(tz))
@@ -37,7 +36,6 @@ class LocalizationMiddleware:
             activate(user_language)
         else:
             detected_language = translation.get_language_from_request(request)
-            logger.info("detected_language: %s", detected_language)
             activate(detected_language)
 
         return self.get_response(request)
