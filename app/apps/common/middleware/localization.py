@@ -1,5 +1,6 @@
 import zoneinfo
 from django.utils import timezone, translation
+from django.utils.cache import patch_vary_headers
 from django.utils.translation import activate
 
 
@@ -25,9 +26,18 @@ class LocalizationMiddleware:
             timezone.activate(zoneinfo.ZoneInfo("UTC"))
 
         if user_language and user_language != "auto":
-            activate(user_language)
+            language = user_language
         else:
-            detected_language = translation.get_language_from_request(request)
-            activate(detected_language)
+            language = translation.get_language_from_request(request)
 
-        return self.get_response(request)
+        translation.activate(language)
+        request.LANGUAGE_CODE = translation.get_language()
+
+        response = self.get_response(request)
+
+        patch_vary_headers(response, ("Accept-Language",))
+        response.headers.setdefault("Content-Language", translation.get_language())
+
+        translation.deactivate()
+
+        return response
