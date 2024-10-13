@@ -1,5 +1,5 @@
 import zoneinfo
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.utils.translation import activate
 
 
@@ -26,5 +26,8 @@ class LocalizationMiddleware:
 
         if user_language and user_language != "auto":
             activate(user_language)
+        else:
+            detected_language = translation.get_language_from_request(request)
+            activate(detected_language)
 
         return self.get_response(request)
