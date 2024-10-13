@@ -52,7 +52,7 @@ def toggle_amount_visibility(request):
 @only_htmx
 @login_required
 def update_settings(request):
-    user_settings, created = UserSettings.objects.get_or_create(user=request.user)
+    user_settings = request.user.settings
 
     if request.method == "POST":
         form = UserSettingsForm(request.POST, instance=user_settings)
