@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "apps.common.apps.CommonConfig",
     "apps.net_worth.apps.NetWorthConfig",
     "apps.api.apps.ApiConfig",
-    # "cachalot",
+    "cachalot",
     "rest_framework",
     "drf_spectacular",
 ]
@@ -258,3 +258,7 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
+
+# CACHALOT_CACHE_RANDOM = True
+# CACHALOT_QUERY_KEYGEN = "cachalot.utils.get_query_cache_key"
+# CACHALOT_TIMEOUT = 60 * 60 * 24  # 24 hours, or adjust as needed

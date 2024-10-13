@@ -2,6 +2,7 @@ import zoneinfo
 from django.utils import timezone, translation
 from django.utils.cache import patch_vary_headers
 from django.utils.translation import activate
+from cachalot.api import invalidate
 
 
 class LocalizationMiddleware:
@@ -31,6 +32,14 @@ class LocalizationMiddleware:
             language_to_activate = user_language
         else:
             language_to_activate = translation.get_language_from_request(request)
+
+        # Check if timezone or language has changed
+        if (
+            getattr(request, "timezone", None) != timezone_to_activate
+            or getattr(request, "language", None) != language_to_activate
+        ):
+            # Invalidate cachalot cache
+            invalidate()
 
         # Apply timezone and language to the request
         request.timezone = timezone_to_activate
