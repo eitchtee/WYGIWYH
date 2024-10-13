@@ -18,26 +18,28 @@ class LocalizationMiddleware:
             user_language = "auto"
             user_timezone = "auto"
 
+        # Set timezone
         if tz and user_timezone == "auto":
-            timezone.activate(zoneinfo.ZoneInfo(tz))
+            timezone_to_activate = zoneinfo.ZoneInfo(tz)
         elif user_timezone != "auto":
-            timezone.activate(zoneinfo.ZoneInfo(user_timezone))
+            timezone_to_activate = zoneinfo.ZoneInfo(user_timezone)
         else:
-            timezone.activate(zoneinfo.ZoneInfo("UTC"))
+            timezone_to_activate = zoneinfo.ZoneInfo("UTC")
 
+        # Set language
         if user_language and user_language != "auto":
-            language = user_language
+            language_to_activate = user_language
         else:
-            language = translation.get_language_from_request(request)
+            language_to_activate = translation.get_language_from_request(request)
 
-        translation.activate(language)
-        request.LANGUAGE_CODE = translation.get_language()
+        # Apply timezone and language to the request
+        request.timezone = timezone_to_activate
+        request.language = language_to_activate
 
-        response = self.get_response(request)
+        # Wrap the response in a custom function to handle activation
+        def wrapped_response(request):
+            with timezone.override(request.timezone):
+                with translation.override(request.language):
+                    return self.get_response(request)
 
-        patch_vary_headers(response, ("Accept-Language",))
-        response.headers.setdefault("Content-Language", translation.get_language())
-
-        translation.deactivate()
-
-        return response
+        return wrapped_response(request)
