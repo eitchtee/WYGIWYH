@@ -5,7 +5,7 @@
 {% load static %}
 {% load webpack_loader %}
 
-{% block title %}Monthly Overview :: {{ month|month_name }}/{{ year }}{% endblock %}
+{% block title %}{% translate 'Monthly Overview' %} :: {{ month|month_name }}/{{ year }}{% endblock %}
 
 {% block body_hyperscript %}
   on keyup[code is 'KeyE' and target.nodeName is 'BODY'] from body trigger 'add_expense' end
@@ -95,7 +95,7 @@
   <div class="row gx-xl-4 gy-3">
     <div class="col-12 col-xl-4 order-0 order-xl-2">
       <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class="sticky-sidebar"
-           hx-trigger="load, transaction_updated from:window, monthly_summary_update from:window">
+           hx-trigger="load, updated from:window, monthly_summary_update from:window">
       </div>
     </div>
     <div class="col-12 col-xl-8 order-2 order-xl-1">
@@ -118,7 +118,7 @@
         </div>
       <div id="transactions"
          hx-get="{% url 'monthly_transactions_list' month=month year=year %}"
-         hx-trigger="load, transaction_updated from:window" hx-include="#filter"></div>
+         hx-trigger="load, updated from:window" hx-include="#filter"></div>
     </div>
   </div>
 </div>

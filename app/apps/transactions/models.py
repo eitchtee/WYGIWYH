@@ -119,18 +119,18 @@ class Transaction(models.Model):
 
     def exchanged_amount(self):
         if self.account.exchange_currency:
-            converted_amount = convert(
+            converted_amount, prefix, suffix, decimal_places = convert(
                 self.amount,
-                self.account.exchange_currency,
-                self.account.currency,
+                to_currency=self.account.exchange_currency,
+                from_currency=self.account.currency,
                 date=self.date,
             )
             if converted_amount:
                 return {
                     "amount": converted_amount,
-                    "suffix": self.account.exchange_currency.suffix,
-                    "prefix": self.account.exchange_currency.prefix,
-                    "decimal_places": self.account.exchange_currency.decimal_places,
+                    "prefix": prefix,
+                    "suffix": suffix,
+                    "decimal_places": decimal_places,
                 }
 
         return None

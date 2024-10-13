@@ -1,0 +1,197 @@
+{% extends "layouts/base.html" %}
+{% load currency_display %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load month_name %}
+{% load static %}
+{% load webpack_loader %}
+
+{% block title %}{% translate 'Yearly Overview' %} :: {{ year }}{% endblock %}
+
+{% block body_hyperscript %}
+  on keyup[code is 'KeyE' and target.nodeName is 'BODY'] from body trigger 'add_expense' end
+  on keyup[code is 'KeyI' and target.nodeName is 'BODY'] from body trigger 'add_income' end
+  on keyup[code is 'KeyB' and target.nodeName is 'BODY'] from body trigger 'balance' end
+  on keyup[code is 'KeyT' and target.nodeName is 'BODY'] from body trigger 'add_transfer' end
+  on keyup[code is 'KeyN' and target.nodeName is 'BODY'] from body trigger 'installment' end
+  on keyup[code is 'ArrowLeft' and target.nodeName is 'BODY'] from body trigger 'previous_month' end
+  on keyup[code is 'ArrowRight' and target.nodeName is 'BODY'] from body trigger 'next_month' end
+{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+{#  <div class="row mb-3 gx-xl-4 gy-3 mb-4">#}
+{#    Date picker#}
+{#    <div class="col-12 col-xl-4 flex-row align-items-center d-flex">#}
+{#      <div class="tw-text-base h-100 align-items-center d-flex">#}
+{#        <a role="button"#}
+{#           class="pe-4 py-2"#}
+{#           hx-boost="true"#}
+{#           hx-trigger="click, previous_month from:window"#}
+{#           href="{% url 'monthly_overview' month=previous_month year=previous_year %}"><i#}
+{#            class="fa-solid fa-chevron-left"></i></a>#}
+{#      </div>#}
+{#      <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"#}
+{#           hx-get="{% url 'available_dates' %}"#}
+{#           hx-target="#generic-offcanvas-left"#}
+{#           hx-trigger="click, date_picker from:window"#}
+{#           hx-vals='{"month": {{ month }}, "year": {{ year }}}' role="button">#}
+{#        {{ month|month_name }} {{ year }}#}
+{#      </div>#}
+{#      <div class="tw-text-base mx-2 h-100 align-items-center d-flex">#}
+{#        <a role="button"#}
+{#           class="ps-3 py-2"#}
+{#           hx-boost="true"#}
+{#           hx-trigger="click, next_month from:window"#}
+{#           href="{% url 'monthly_overview' month=next_month year=next_year %}">#}
+{#          <i class="fa-solid fa-chevron-right"></i>#}
+{#        </a>#}
+{#      </div>#}
+{#    </div>#}
+{#    Action buttons#}
+{#    <div class="col-12 col-xl-8">#}
+{#      <div class="d-grid gap-2 d-xl-flex justify-content-xl-end">#}
+{#        <button class="btn btn-sm btn-outline-success"#}
+{#                      hx-get="{% url 'transaction_add' %}"#}
+{#                      hx-target="#generic-offcanvas"#}
+{#                      hx-trigger="click, add_income from:window"#}
+{#                      hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "IN"}'>#}
+{#                <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>#}
+{#                {% translate "Income" %}#}
+{#        </button>#}
+{#        <button class="btn btn-sm btn-outline-danger"#}
+{#                      hx-get="{% url 'transaction_add' %}"#}
+{#                      hx-target="#generic-offcanvas"#}
+{#                      hx-trigger="click, add_expense from:window"#}
+{#                      hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "EX"}'>#}
+{#                <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>#}
+{#                {% translate "Expense" %}#}
+{#        </button>#}
+{#        <button class="btn btn-sm btn-outline-warning"#}
+{#                hx-get="{% url 'installments_add' %}"#}
+{#                hx-trigger="click, installment from:window"#}
+{#                hx-target="#generic-offcanvas">#}
+{#          <i class="fa-solid fa-divide me-2"></i>#}
+{#          {% translate "Installment" %}#}
+{#        </button>#}
+{#        <button class="btn btn-sm btn-outline-info"#}
+{#                hx-get="{% url 'transactions_transfer' %}"#}
+{#                hx-target="#generic-offcanvas"#}
+{#                hx-trigger="click, add_transfer from:window"#}
+{#                hx-vals='{"year": {{ year }}, "month": {{ month }}}'>#}
+{#          <i class="fa-solid fa-money-bill-transfer me-2"></i>#}
+{#          {% translate "Transfer" %}#}
+{#        </button>#}
+{#        <button class="btn btn-sm btn-outline-info"#}
+{#                hx-get="{% url 'account_reconciliation' %}"#}
+{#                hx-trigger="click, balance from:window"#}
+{#                hx-target="#generic-offcanvas">#}
+{#          <i class="fa-solid fa-scale-balanced me-2"></i>#}
+{#          {% translate "Balance" %}#}
+{#        </button>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#  Monthly summary#}
+  <div class="row gx-xl-4 gy-3">
+{#    <div class="col-12 col-xl-4 order-0 order-xl-2">#}
+{#      <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class="sticky-sidebar"#}
+{#           hx-trigger="load, updated from:window, monthly_summary_update from:window">#}
+{#      </div>#}
+{#    </div>#}
+    <div class="col-12">
+{#      Filter transactions#}
+{#      <div class="row mb-1">#}
+{#          <div class="col-12">#}
+{#            <div class="dropdown">#}
+{#              <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"#}
+{#                      aria-expanded="false" data-bs-auto-close="false">#}
+{#                <i class="fa-solid fa-filter fa-fw me-2"></i>{% translate 'Filter transactions' %}#}
+{#              </button>#}
+{#              <form hx-get="{% url 'monthly_transactions_list' month=month year=year %}" hx-trigger="change, submit, search"#}
+{#                    hx-target="#transactions" id="filter" hx-indicator="#transactions"#}
+{#                    class="dropdown-menu p-4 w-lg-50 tw-w-full lg:tw-w-2/4"#}
+{#                    _="install init_tom_select">#}
+{#                {% crispy filter.form %}#}
+{#              </form>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+      <div class="row">
+        <div class="no-more-tables">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">{% translate 'Month' %}</th>
+              <td>{% translate 'Projected Income' %}</td>
+              <td>{% translate 'Projected Expenses' %}</td>
+              <td>{% translate 'Projected Total' %}</td>
+              <td>{% translate 'Current Income' %}</td>
+              <td>{% translate 'Current Expenses' %}</td>
+              <td>{% translate 'Current Total' %}</td>
+              <td>{% translate 'Final Total' %}</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for date, x in totals.items %}
+            <tr>
+              <th scope="row">{{ date.month|month_name }}</th>
+              <td class="!tw-text-green-400">
+                {% for data in x.income_unpaid %}
+                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>
+                {% empty %}
+                  <div>-</div>
+                {% endfor %}
+              </td>
+              <td class="!tw-text-red-400">
+                {% for data in x.expense_unpaid %}
+                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>
+                {% empty %}
+                  <div>-</div>
+                {% endfor %}
+              </td>
+              <td>
+                {% for data in x.balance_unpaid %}
+                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>
+                {% empty %}
+                  <div>-</div>
+                {% endfor %}
+              </td>
+              <td class="!tw-text-green-400">
+                {% for data in x.income_paid %}
+                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>
+                {% empty %}
+                  <div>-</div>
+                {% endfor %}
+              </td>
+              <td class="!tw-text-red-400">
+                {% for data in x.expense_paid %}
+                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>
+                {% empty %}
+                  <div>-</div>
+                {% endfor %}
+              </td>
+              <td>
+                {% for data in x.balance_paid %}
+                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>
+                {% empty %}
+                  <div>-</div>
+                {% endfor %}
+              </td>
+              <td>
+                {% for data in x.balance_total %}
+                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>
+                {% empty %}
+                  <div>-</div>
+                {% endfor %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

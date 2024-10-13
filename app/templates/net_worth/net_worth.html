@@ -10,28 +10,154 @@
 
 {% block content %}
 <div class="container px-md-3 py-3 column-gap-5">
-  <div class="row">
-    <div class="col-6 row-gap-5">
-      {% for currency in currency_net_worth %}
-        <div class="row">
+  <div class="row gx-xl-4 gy-3">
+    <div class="col-12 col-xl-5">
+      <div class="row row-cols-1 g-4 mb-3">
+        <div class="col">
+          <div class="card tw-relative h-100 shadow">
+          <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
+          align-items-center d-flex justify-content-center rounded-2">
+            <i class="fa-solid fa-coins"></i>
+          </div>
           <div class="card-body">
-            <div class="card-title">
-              <div class="row">
-                <div class="col-6">
-                  {{ currency.name }}
+            <h5 class="tw-text-yellow-400 fw-bold mb-3">{% translate 'By currency' %}</h5>
+            {% for currency in currency_net_worth %}
+            <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex align-items-baseline w-100">
+                    <div class="currency-name text-start font-monospace tw-text-gray-300">{{ currency.name }}</div>
+                    <div class="dotted-line flex-grow-1"></div>
+                    <div class="amount text-end font-monospace" data-original-value="{% currency_display amount=currency.amount prefix=currency.prefix suffix=currency.suffix decimal_places=currency.decimal_places %}"></div>
                 </div>
-                <div class="col-6 text-end">
-                  <div class="amount" data-original-value="{% currency_display amount=currency.amount prefix=currency.prefix suffix=currency.suffix decimal_places=currency.decimal_places %}"></div>
-                </div>
-              </div>
             </div>
+            {% endfor %}
           </div>
         </div>
-
-      {% endfor %}
+        </div>
+        <div class="col">
+          <div class="card tw-relative h-100 shadow">
+          <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-blue-300 tw-text-blue-800 text-center
+          align-items-center d-flex justify-content-center rounded-2">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <div class="card-body">
+            <h5 class="tw-text-blue-400 fw-bold mb-3">{% translate 'By account' %}</h5>
+            {% for group_id, group_data in account_net_worth.items %}
+              {% if group_id %}
+                <div class="d-flex justify-content-between mt-2">
+                  <div class="d-flex align-items-baseline w-100">
+                      <div class="text-start font-monospace tw-text-gray-300"><span class="badge !tw-bg-blue-300
+                      !tw-text-blue-800">
+                        {{ group_data.name }}</span></div>
+                  </div>
+                </div>
+                {% for account_id, account_data in group_data.accounts.items %}
+                  <div class="d-flex justify-content-between mt-2">
+                    <div class="d-flex align-items-baseline w-100">
+                        <div class="text-start font-monospace tw-text-gray-300">
+                          <span class="hierarchy-line-icon-4"></span>{{ account_data.name }}</div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="amount" data-original-value="{% currency_display amount=account_data.balance prefix=account_data.currency.prefix suffix=account_data.currency.suffix decimal_places=account_data.currency.decimal_places%}"></div>
+                    </div>
+                  </div>
+                  {% if account_data.exchange %}
+                    <div class="amount text-end tw-text-gray-400" data-original-value=
+                        "{% currency_display amount=account_data.exchange.amount prefix=account_data.exchange.prefix suffix=account_data.exchange.suffix decimal_places=account_data.exchange.decimal_places%}"></div>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                {% for account_id, account_data in group_data.accounts.items %}
+                  <div class="d-flex justify-content-between mt-2">
+                    <div class="d-flex align-items-baseline w-100">
+                        <div class="currency-name text-start font-monospace tw-text-gray-300">{{ account_data.name }}</div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="amount" data-original-value="{% currency_display amount=account_data.balance prefix=account_data.currency.prefix suffix=account_data.currency.suffix decimal_places=account_data.currency.decimal_places%}"></div>
+                        {% if account_data.exchange %}
+                        <div class="amount text-end tw-text-gray-400" data-original-value=
+                            "{% currency_display amount=account_data.balance prefix=account_data.currency.prefix suffix=account_data.currency.suffix decimal_places=account_data.currency.decimal_places%}"></div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+              {% endfor %}
+          </div>
+        </div>
+        </div>
+      </div>
     </div>
-    <div class="col-6">oi</div>
+    <div class="col-12 col-xl-7 h-100">
+      <canvas id="historicalNetWorthChart"></canvas>
+    </div>
   </div>
+
+
+<script>
+    var historicalData = {{ historical_data_json|safe }};
+    var currencies = [
+        {% for currency in currencies %}
+            "{{ currency.code }}",
+        {% endfor %}
+    ];
+
+    var labels = Object.keys(historicalData);
+    var datasets = currencies.map((currency, index) => ({
+        label: currency,
+        data: labels.map(date => parseFloat(historicalData[date][currency])),
+        color: `hsl(${index * 360 / currencies.length}, 70%, 50%)`,
+        yAxisID: `y-axis-${index}`,
+    }));
+
+    var ctx = document.getElementById('historicalNetWorthChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    type: 'category',
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
+                ...currencies.reduce((acc, currency, index) => {
+                    acc[`y-axis-${index}`] = {
+                        type: 'linear',
+                        beginAtZero: true,
+                        grace: '50%',
+                        display: true,
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                        ticks: {
+                            display: false  // This hides the tick labels (numbers)
+                        },
+                    };
+                    return acc;
+                }, {})
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Historical Net Worth by Currency'
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                }
+            }
+        }
+    });
+</script>
+    </div>
 </div>
 {#<canvas id="chart" width="500" height="300"></canvas>#}
 {##}

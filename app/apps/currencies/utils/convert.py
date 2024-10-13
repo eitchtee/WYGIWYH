@@ -5,11 +5,17 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from apps.currencies.models import ExchangeRate
+from apps.currencies.models import Currency
 
 
-def convert(amount, from_currency, to_currency, date=None):
+def convert(amount, from_currency: Currency, to_currency: Currency, date=None):
     if from_currency == to_currency:
-        return amount
+        return (
+            amount,
+            to_currency.prefix,
+            to_currency.suffix,
+            to_currency.decimal_places,
+        )
 
     if date is None:
         date = timezone.localtime(timezone.now())
@@ -35,8 +41,13 @@ def convert(amount, from_currency, to_currency, date=None):
         )
 
         if exchange_rate is None:
-            return None
+            return None, None, None, None
 
-        return amount * exchange_rate.effective_rate
+        return (
+            amount * exchange_rate.effective_rate,
+            to_currency.prefix,
+            to_currency.suffix,
+            to_currency.decimal_places,
+        )
     except ExchangeRate.DoesNotExist:
-        return None
+        return None, None, None, None

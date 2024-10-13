@@ -38,7 +38,7 @@ def transaction_add(request):
 
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "transaction_updated, hide_offcanvas, toast"},
+                headers={"HX-Trigger": "updated, hide_offcanvas, toast"},
             )
     else:
         form = TransactionForm(
@@ -69,7 +69,7 @@ def transaction_edit(request, transaction_id, **kwargs):
 
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "transaction_updated, hide_offcanvas, toast"},
+                headers={"HX-Trigger": "updated, hide_offcanvas, toast"},
             )
     else:
         form = TransactionForm(instance=transaction)
@@ -102,7 +102,7 @@ def transaction_delete(request, transaction_id, **kwargs):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Trigger": "transaction_updated, toast"},
+        headers={"HX-Trigger": "updated, toast"},
     )
 
 
@@ -127,7 +127,7 @@ def transactions_transfer(request):
             messages.success(request, _("Transfer added successfully"))
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "transaction_updated, toast, hide_offcanvas"},
+                headers={"HX-Trigger": "updated, toast, hide_offcanvas"},
             )
     else:
         form = TransferForm(
@@ -175,7 +175,7 @@ class AddInstallmentPlanView(View):
 
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "transaction_updated, hide_offcanvas, toast"},
+                headers={"HX-Trigger": "updated, hide_offcanvas, toast"},
             )
 
         return render(request, self.template_name, {"form": form})

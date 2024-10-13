@@ -33,84 +33,6 @@ $theme-colors: map-merge($theme-colors, (
   width: 1%;
   white-space: nowrap;
 }
-//
-////body {
-////  background-color: $background-color;
-////}
-//
-
-//
-//// ===== Scrollbar CSS =====
-//* {
-//  scrollbar-width: thin;
-//  scrollbar-color: $scroll-thumb-color #dfe9eb;
-//}
-//
-//// Chrome, Edge and Safari
-//*::-webkit-scrollbar {
-//  height: 10px;
-//  width: 10px;
-//}
-//
-//*::-webkit-scrollbar-track {
-//  border-radius: 5px;
-//  background-color: $scroll-track-color;
-//}
-//
-//*::-webkit-scrollbar-track:hover {
-//  background-color: $scroll-thumb-active-color;
-//}
-//
-//*::-webkit-scrollbar-track:active {
-//  background-color: $scroll-thumb-active-color;
-//}
-//
-//*::-webkit-scrollbar-thumb {
-//  border-radius: 5px;
-//  background-color: $scroll-thumb-color;
-//}
-//
-//*::-webkit-scrollbar-thumb:hover {
-//  background-color: $scroll-thumb-active-color;
-//}
-//
-//*::-webkit-scrollbar-thumb:active {
-//  background-color: $scroll-thumb-active-color;
-//}
-//
-//// ===== Scrollbar CSS =====
-//
-//.gradient-background {
-//  background: linear-gradient(109deg, #652e7c, #1a7976);
-//  background-size: 120% 120%;
-//  animation: gradient-animation 8s ease infinite;
-//}
-//
-//@keyframes gradient-animation {
-//  0% {
-//    background-position: 0% 50%;
-//  }
-//
-//  50% {
-//    background-position: 100% 50%;
-//  }
-//
-//  100% {
-//    background-position: 0% 50%;
-//  }
-//}
-//
-
-//
-//.fade-me-in.htmx-added {
-//  opacity: 0;
-//}
-//
-//.fade-me-in {
-//  opacity: 1;
-//  transition: opacity 500ms ease-out;
-//}
-
 
 .offcanvas-size-xl {
     --#{$prefix}offcanvas-width: min(95vw, 700px) !important;
@@ -123,4 +45,54 @@ $theme-colors: map-merge($theme-colors, (
 }
 .offcanvas-size-sm {
     --#{$prefix}offcanvas-width: min(95vw, 250px) !important;
+}
+
+@media only screen and (max-width: 800px) {
+
+    /* Force table to not be like tables anymore */
+	.no-more-tables table,
+	.no-more-tables thead,
+	.no-more-tables tbody,
+	.no-more-tables th,
+	.no-more-tables td,
+	.no-more-tables tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.no-more-tables thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	.no-more-tables tr { border: 1px solid #ccc; }
+
+	.no-more-tables td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+		white-space: normal;
+		text-align:left;
+	}
+
+	.no-more-tables td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+
+	/*
+	Label the data
+	*/
+	.no-more-tables td:before { content: attr(data-title); }
 }

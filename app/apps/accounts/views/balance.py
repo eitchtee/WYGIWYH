@@ -83,7 +83,7 @@ def account_reconciliation(request):
             )
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "transaction_updated, hide_offcanvas, toast"},
+                headers={"HX-Trigger": "updated, hide_offcanvas, toast"},
             )
     else:
         formset = AccountBalanceFormSet(initial=initial_data)

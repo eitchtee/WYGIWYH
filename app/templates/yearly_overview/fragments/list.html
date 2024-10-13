@@ -1,0 +1,39 @@
+{% load natural %}
+{% load i18n %}
+{% regroup transactions by date|customnaturaldate as transactions_by_date %}
+
+<div>
+  {% for x in transactions_by_date %}
+    <div>
+      <div class="my-3 w-100 tw-text-base border-bottom bg-body">
+        <a class="text-decoration-none d-inline-block w-100"
+           role="button"
+           data-bs-toggle="collapse"
+           data-bs-target="#{{ x.grouper|slugify }}"
+           id="#{{ x.grouper|slugify }}-collapsible"
+           aria-expanded="true"
+           aria-controls="collapseExample">
+        {{ x.grouper }}
+        </a>
+      </div>
+      <div class="collapse show" id="{{ x.grouper|slugify }}">
+        <div class="ps-3">
+        {% for trans in x.list %}
+        {% include 'transactions/fragments/item.html' with transaction=trans %}
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  {% empty %}
+    <div class="row p-5">
+      <div class="col p-5">
+        <div class="text-center">
+          <i class="fa-solid fa-circle-xmark tw-text-6xl"></i>
+          <p class="lead mt-4 mb-0">{% translate "No transactions this month" %}</p>
+          <p class="tw-text-gray-500">{% translate "Try adding one" %}</p>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

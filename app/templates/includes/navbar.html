@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline" hx-push-url="true">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {% active_link views='monthly_overview' %}"
+                  <a class="nav-link dropdown-toggle {% active_link views='monthly_overview||yearly_overview' %}"
                      href="#"
                      role="button"
                      data-bs-toggle="dropdown"
@@ -19,6 +19,7 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item {% active_link views='monthly_overview' %}" href="{% url 'monthly_index' %}">{%translate 'Monthly' %}</a></li>
+                    <li><a class="dropdown-item {% active_link views='yearly_overview' %}" href="{% url 'yearly_index' %}">{%translate 'Yearly' %}</a></li>
                   </ul>
                 </li>
                 <li class="nav-item">

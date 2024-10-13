@@ -1,0 +1,51 @@
+{% extends 'extends/offcanvas.html' %}
+{% load month_name %}
+{% load i18n %}
+
+{% block title %}{% translate 'Pick a month' %}{% endblock %}
+
+{% block body %}
+{% regroup month_year_data by year as years_list %}
+
+<ul class="nav nav-pills nav-fill" id="yearTabs" role="tablist">
+  {% for x in years_list %}
+  <li class="nav-item" role="presentation">
+    <button class="nav-link{% if x.grouper == current_year %} active{% endif %}"
+            id="{{ x.grouper }}"
+            data-bs-toggle="tab"
+            data-bs-target="#{{ x.grouper }}-pane"
+            type="button"
+            role="tab"
+            aria-controls="{{ x.grouper }}-pane"
+            aria-selected="{% if x.grouper == current_year %}true{% else %}false{% endif %}">
+      {{ x.grouper }}
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+<div class="tab-content" id="yearTabsContent" hx-boost="true">
+  {% for x in years_list %}
+  <div class="tab-pane fade{% if x.grouper == current_year %} show active{% endif %} mt-2"
+       id="{{ x.grouper }}-pane"
+       role="tabpanel"
+       aria-labelledby="{{ x.grouper }}"
+       tabindex="0">
+    <ul class="list-group list-group-flush" id="month-year-list">
+      {% for month_data in x.list %}
+      <li class="list-group-item hover:tw-bg-zinc-900
+            {% if month_data.month == current_month and month_data.year == current_year %} disabled bg-primary{% endif %}"
+          {% if month_data.month == current_month and month_data.year == current_year %}aria-disabled="true"{% endif %}>
+        <div class="d-flex justify-content-between">
+          <a class="text-decoration-none stretched-link {% if month_data.month == current_month and month_data.year == current_year %} text-black{% endif %}"
+           href="{% url "monthly_overview" month=month_data.month year=month_data.year %}">
+            {{ month_data.month|month_name }}</a>
+          <span class="badge text-bg-secondary">{{ month_data.transaction_count }}</span>
+        </div>
+          
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

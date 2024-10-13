@@ -24,3 +24,23 @@ select[multiple] {
   color: $gray-800;
   background-color: $primary;
 }
+
+.dotted-line {
+    border-bottom: 2px dotted $gray-700; /* Adjust color as needed */
+    margin: 0 5px;
+    position: relative;
+}
+
+.hierarchy-line-icon-4 {
+  width: 8px;
+  height: 10px;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiPjxwYXRoIHN0cm9rZT0iIzlCOUI5QiIgc3Ryb2tlLWRhc2hhcnJheT0iNCIgZD0iTS41IDQuNWgxMiIvPjxwYXRoIHN0cm9rZT0iIzk3OTc5NyIgZD0iTS41IDQuNXYtNCIvPjwvZz48L3N2Zz4=);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 7px;
+  margin-top: 4px;
+  padding: 0 8px !important;
+}

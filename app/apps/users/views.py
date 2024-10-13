@@ -45,7 +45,7 @@ def toggle_amount_visibility(request):
         messages.info(request, _("Transaction amounts are now displayed"))
         response = render(request, "users/generic/hide_amounts.html")
 
-    response.headers["HX-Trigger"] = "transaction_updated, toast"
+    response.headers["HX-Trigger"] = "updated, toast"
     return response
 
 
