@@ -185,6 +185,13 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/var/tmp/django_cache",
+    }
+}
+
 WEBPACK_LOADER = {
     "MANIFEST_FILE": ROOT_DIR / "frontend/build/manifest.json",
 }
