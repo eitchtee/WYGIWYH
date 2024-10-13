@@ -79,11 +79,11 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "apps.common.middleware.localization.LocalizationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     "hijack.middleware.HijackUserMiddleware",
-    "apps.common.middleware.localization.LocalizationMiddleware",
 ]
 
 ROOT_URLCONF = "WYGIWYH.urls"
