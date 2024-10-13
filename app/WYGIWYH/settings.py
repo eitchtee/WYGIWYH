@@ -259,6 +259,16 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
-# CACHALOT_CACHE_RANDOM = True
-# CACHALOT_QUERY_KEYGEN = "cachalot.utils.get_query_cache_key"
-# CACHALOT_TIMEOUT = 60 * 60 * 24  # 24 hours, or adjust as needed
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}
