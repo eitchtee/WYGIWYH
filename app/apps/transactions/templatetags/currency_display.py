@@ -1,5 +1,4 @@
 from django import template
-from django.template.defaultfilters import floatformat
 from django.utils.formats import number_format
 
 from apps.transactions.models import Transaction
