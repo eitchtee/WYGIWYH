@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-13 19:06+0000\n"
-"PO-Revision-Date: 2024-10-13 16:09-0300\n"
+"POT-Creation-Date: 2024-10-14 14:34+0000\n"
+"PO-Revision-Date: 2024-10-14 11:35-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -57,7 +57,7 @@ msgstr "Categoria"
 #: apps/accounts/forms.py:116 apps/transactions/filters.py:56
 #: apps/transactions/forms.py:38 apps/transactions/forms.py:178
 #: apps/transactions/forms.py:185 apps/transactions/forms.py:358
-#: apps/transactions/models.py:97 templates/includes/navbar.html:41
+#: apps/transactions/models.py:97 templates/includes/navbar.html:44
 #: templates/tags/pages/list.html:4 templates/tags/pages/list.html:10
 msgid "Tags"
 msgstr "Tags"
@@ -76,7 +76,7 @@ msgid "Account Group"
 msgstr "Grupo da Conta"
 
 #: apps/accounts/models.py:12 templates/account_groups/pages/list.html:10
-#: templates/includes/navbar.html:45
+#: templates/includes/navbar.html:48
 msgid "Account Groups"
 msgstr "Grupos da Conta"
 
@@ -112,7 +112,7 @@ msgstr "Conta"
 #: apps/accounts/models.py:54 apps/transactions/filters.py:42
 #: templates/account_groups/pages/list.html:4
 #: templates/accounts/pages/list.html:4 templates/accounts/pages/list.html:10
-#: templates/includes/navbar.html:43 templates/includes/navbar.html:44
+#: templates/includes/navbar.html:46 templates/includes/navbar.html:47
 msgid "Accounts"
 msgstr "Contas"
 
@@ -265,7 +265,7 @@ msgid "Decimal Places"
 msgstr "Casas Decimais"
 
 #: apps/currencies/models.py:22 templates/currencies/pages/list.html:4
-#: templates/currencies/pages/list.html:10 templates/includes/navbar.html:46
+#: templates/currencies/pages/list.html:10 templates/includes/navbar.html:49
 msgid "Currencies"
 msgstr "Moedas"
 
@@ -301,7 +301,8 @@ msgstr "Moeda atualizada com sucesso"
 msgid "Currency deleted successfully"
 msgstr "Moeda apagada com sucesso"
 
-#: apps/net_worth/utils/calculate_net_worth.py:18
+#: apps/net_worth/utils/calculate_net_worth.py:46
+#: apps/net_worth/utils/calculate_net_worth.py:76
 msgid "Ungrouped"
 msgstr "Não agrupado"
 
@@ -322,7 +323,7 @@ msgid "Transaction Type"
 msgstr "Tipo de Transação"
 
 #: apps/transactions/filters.py:49 templates/categories/pages/list.html:4
-#: templates/categories/pages/list.html:10 templates/includes/navbar.html:40
+#: templates/categories/pages/list.html:10 templates/includes/navbar.html:43
 msgid "Categories"
 msgstr "Categorias"
 
@@ -369,11 +370,11 @@ msgstr "Data de Início"
 msgid "Number of Installments"
 msgstr "Número de Parcelas"
 
-#: apps/transactions/forms.py:333 templates/includes/navbar.html:22
+#: apps/transactions/forms.py:333 templates/includes/navbar.html:25
 msgid "Yearly"
 msgstr "Anual"
 
-#: apps/transactions/forms.py:334 templates/includes/navbar.html:21
+#: apps/transactions/forms.py:334 templates/includes/navbar.html:24
 msgid "Monthly"
 msgstr "Mensal"
 
@@ -457,7 +458,7 @@ msgstr "Notas"
 msgid "Transaction"
 msgstr "Transação"
 
-#: apps/transactions/models.py:110 templates/includes/navbar.html:39
+#: apps/transactions/models.py:110 templates/includes/navbar.html:42
 msgid "Transactions"
 msgstr "Transações"
 
@@ -562,15 +563,15 @@ msgstr "Essa conta está desativada"
 msgid "Save"
 msgstr "Salvar"
 
-#: apps/users/models.py:32 apps/users/models.py:38
+#: apps/users/models.py:33 apps/users/models.py:39
 msgid "Auto"
 msgstr "Automático"
 
-#: apps/users/models.py:34
+#: apps/users/models.py:35
 msgid "Language"
 msgstr "Linguagem"
 
-#: apps/users/models.py:40
+#: apps/users/models.py:41
 msgid "Time Zone"
 msgstr "Fuso horário"
 
@@ -582,7 +583,15 @@ msgstr "Os valores das transações agora estão ocultos"
 msgid "Transaction amounts are now displayed"
 msgstr "Os valores das transações agora estão sendo exibidos"
 
-#: apps/users/views.py:61
+#: apps/users/views.py:63
+msgid "Sounds are now muted"
+msgstr "Os sons agora estão silenciados"
+
+#: apps/users/views.py:66
+msgid "Sounds will now play"
+msgstr "Os sons agora serão reproduzidos"
+
+#: apps/users/views.py:82
 msgid "Your settings have been updated"
 msgstr "Suas configurações foram atualizadas"
 
@@ -704,27 +713,27 @@ msgstr "Editar moeda"
 msgid "Code"
 msgstr "Código"
 
-#: templates/includes/navbar.html:7
+#: templates/includes/navbar.html:10
 msgid "Toggle navigation"
 msgstr "Alternar navegação"
 
-#: templates/includes/navbar.html:18
+#: templates/includes/navbar.html:21
 msgid "Overview"
 msgstr "Visão Geral"
 
-#: templates/includes/navbar.html:28
+#: templates/includes/navbar.html:31
 msgid "Net Worth"
 msgstr "Patrimônio"
 
-#: templates/includes/navbar.html:36
+#: templates/includes/navbar.html:39
 msgid "Management"
 msgstr "Gerenciar"
 
-#: templates/includes/navbar.html:54
+#: templates/includes/navbar.html:57
 msgid "Only use this if you know what you're doing"
 msgstr "Só use isso se você souber o que está fazendo"
 
-#: templates/includes/navbar.html:56
+#: templates/includes/navbar.html:59
 msgid "Django Admin"
 msgstr "Django Admin"
 
@@ -732,11 +741,11 @@ msgstr "Django Admin"
 msgid "Settings"
 msgstr "Configurações"
 
-#: templates/includes/navbar/user_menu.html:25
+#: templates/includes/navbar/user_menu.html:36
 msgid "Logout"
 msgstr "Sair"
 
-#: templates/layouts/base.html:31
+#: templates/layouts/base.html:33
 msgid ""
 "Something went wrong loading your data. Try reloading the page or check the "
 "console for more information."
@@ -821,6 +830,14 @@ msgstr "Por moeda"
 msgid "By account"
 msgstr "Por conta"
 
+#: templates/net_worth/net_worth.html:112
+msgid "Evolution by currency"
+msgstr "Evolução por moeda"
+
+#: templates/net_worth/net_worth.html:166
+msgid "Evolution by account"
+msgstr "Evolução por conta"
+
 #: templates/tags/fragments/add.html:5
 msgid "Add tag"
 msgstr "Adicionar tag"
@@ -850,7 +867,15 @@ msgstr "Nova transferência"
 msgid "Hide amounts"
 msgstr "Esconder valores"
 
-#: templates/users/generic/show_amounts.html:3
+#: templates/users/generic/mute_sounds.html:2
+msgid "Mute sounds"
+msgstr "Silenciar sons"
+
+#: templates/users/generic/play_sounds.html:2
+msgid "Play sounds"
+msgstr "Reproduzir sons"
+
+#: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
 msgstr "Mostrar valores"
 
