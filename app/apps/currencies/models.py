@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Currency(models.Model):
     code = models.CharField(max_length=10, unique=True, verbose_name=_("Currency Code"))
-    name = models.CharField(max_length=50, verbose_name=_("Currency Name"))
+    name = models.CharField(max_length=50, verbose_name=_("Currency Name"), unique=True)
     decimal_places = models.PositiveIntegerField(
         default=2,
         validators=[MaxValueValidator(30), MinValueValidator(0)],
