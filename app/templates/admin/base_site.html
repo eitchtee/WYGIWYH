@@ -2,6 +2,9 @@
 
 {% block extrahead %}
 {{ block.super }}
+  
+{% include 'includes/head/favicons.html' %}
+  
 <script>
   let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   if (!tz) {
