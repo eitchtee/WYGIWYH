@@ -26,6 +26,7 @@ class UserSettings(models.Model):
         get_user_model(), on_delete=models.CASCADE, related_name="settings"
     )
     hide_amounts = models.BooleanField(default=False)
+    mute_sounds = models.BooleanField(default=False)
 
     language = models.CharField(
         max_length=10,

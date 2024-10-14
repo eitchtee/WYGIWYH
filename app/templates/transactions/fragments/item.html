@@ -13,14 +13,14 @@ my-3"
          hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
          hx-target="closest .transaction"
          hx-swap="outerHTML"
-         _="on paid
+         _="on paid if body do not include #settings-mute-sound
               js
                 paidSound.pause()
                 paidSound.currentTime = 0
                 paidSound.play()
               end
             end
-            on unpaid
+            on unpaid if body do not include #settings-mute-sound
               js
                 unpaidSound.pause()
                 unpaidSound.currentTime = 0

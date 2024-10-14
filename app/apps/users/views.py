@@ -51,6 +51,27 @@ def toggle_amount_visibility(request):
 
 @only_htmx
 @login_required
+def toggle_sound_playing(request):
+    user_settings, created = UserSettings.objects.get_or_create(user=request.user)
+    current_mute_sounds = user_settings.mute_sounds
+    new_mute_sounds = not current_mute_sounds
+
+    user_settings.mute_sounds = new_mute_sounds
+    user_settings.save()
+
+    if new_mute_sounds is True:
+        messages.info(request, _("Sounds are now muted"))
+        response = render(request, "users/generic/play_sounds.html")
+    else:
+        messages.info(request, _("Sounds will now play"))
+        response = render(request, "users/generic/mute_sounds.html")
+
+    response.headers["HX-Trigger"] = "updated, toast"
+    return response
+
+
+@only_htmx
+@login_required
 def update_settings(request):
     user_settings = request.user.settings
 

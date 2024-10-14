@@ -12,6 +12,11 @@ urlpatterns = [
         name="toggle_amount_visibility",
     ),
     path(
+        "user/toggle-sound-playing/",
+        views.toggle_sound_playing,
+        name="toggle_sound_playing",
+    ),
+    path(
         "user/settings/",
         views.update_settings,
         name="user_settings",

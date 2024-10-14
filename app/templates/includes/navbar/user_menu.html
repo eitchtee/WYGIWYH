@@ -18,8 +18,19 @@
         {% include 'users/generic/hide_amounts.html' %}
         {% endif %}
       </a>
-    {% endspaceless %}
     </li>
+    {% endspaceless %}
+    {% spaceless %}
+    <li>
+      <a class="dropdown-item" hx-get="{% url 'toggle_sound_playing' %}" role="button">
+        {% if user.settings.mute_sounds %}
+        {% include 'users/generic/play_sounds.html' %}
+        {% else %}
+        {% include 'users/generic/mute_sounds.html' %}
+        {% endif %}
+      </a>
+    </li>
+    {% endspaceless %}
     <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2 fa-fw"></i
     >{% translate 'Logout' %}</a></li>
