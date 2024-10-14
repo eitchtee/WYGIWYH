@@ -6,7 +6,7 @@
 {% load static %}
 {% load webpack_loader %}
 
-{% block title %}Net Worth{% endblock %}
+{% block title %}{% translate 'Net Worth' %}{% endblock %}
 
 {% block content %}
 <div class="container px-md-3 py-3 column-gap-5">
@@ -92,111 +92,112 @@
   </div>
 </div>
 
-    <script>
-      var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
-      var currencies = {{ currencies|safe }};
+<script>
+  var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
+  var currencies = {{ currencies|safe }};
 
-      var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
-      new Chart(ctx, {
-          type: 'line',
-          data: chartData,
-          options: {
-              responsive: true,
-              interaction: {
-                  mode: 'index',
-                  intersect: false,
+  var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
+  new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+          responsive: true,
+          interaction: {
+              mode: 'index',
+              intersect: false,
+          },
+          plugins: {
+              title: {
+                  display: true,
+                  text: '{% translate 'Evolution by currency' %}'
               },
-              plugins: {
+              tooltip: {
+                  mode: 'index',
+                  intersect: false
+              }
+          },
+          scales: {
+              x: {
+                  display: true,
                   title: {
-                      display: true,
-                      text: '{% translate 'Evolution by currency' %}'
-                  },
-                  tooltip: {
-                      mode: 'index',
-                      intersect: false
+                      display: false,
                   }
               },
-              scales: {
-                  x: {
+              ...Object.fromEntries(currencies.map((currency, i) => [
+                  `y${i}`,
+                  {
+                      beginAtZero: true,
+                      type: 'linear',
                       display: true,
-                      title: {
-                          display: false,
+                      grid: {
+                          drawOnChartArea: i === 0,
+                      },
+                      ticks: {
+                          display: false
+                      },
+                      border: {
+                          display: false
                       }
-                  },
-                  ...Object.fromEntries(currencies.map((currency, i) => [
-                      `y${i}`,
-                      {
-                          beginAtZero: true,
-                          type: 'linear',
-                          display: true,
-                          grid: {
-                              drawOnChartArea: i === 0,
-                          },
-                          ticks: {
-                              display: false
-                          },
-                          border: {
-                              display: false
-                          }
-                      }
-                  ]))
-              }
+                  }
+              ]))
           }
-      });
-    </script>
+      }
+  });
+</script>
 
-  <script>
-            var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
-            var accounts = {{ accounts|safe }};
+<script>
+  var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
+  var accounts = {{ accounts|safe }};
 
-            var ctx = document.getElementById('accountBalanceChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: chartData,
-                options: {
-                    responsive: true,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    stacked: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: '{% translate "Evolution by account" %}'
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            title: {
-                                display: false,
-                            }
-                        },
-                        ...Object.fromEntries(accounts.map((account, i) => [
-                            `y-axis-${i}`,
-                            {
-                                type: 'linear',
-                                display: true,
-                                position: i % 2 === 0 ? 'left' : 'right',
-                                grid: {
-                                    drawOnChartArea: i === 0,
-                                },
-                                ticks: {
-                                    display: false
-                                },
-                                border: {
-                                    display: false
-                                }
-                            }
-                        ]))
-                    }
-                }
-            });
-    </script>
+  var ctx = document.getElementById('accountBalanceChart').getContext('2d');
+  new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+          responsive: true,
+          interaction: {
+              mode: 'index',
+              intersect: false,
+          },
+          stacked: false,
+          plugins: {
+              title: {
+                  display: true,
+                  text: '{% translate "Evolution by account" %}'
+              },
+              tooltip: {
+                  mode: 'index',
+                  intersect: false
+              }
+          },
+          scales: {
+              x: {
+                  display: true,
+                  title: {
+                      display: false,
+                  }
+              },
+              ...Object.fromEntries(accounts.map((account, i) => [
+                  `y-axis-${i}`,
+                  {
+                      beginAtZero: true,
+                      type: 'linear',
+                      display: true,
+                      position: i % 2 === 0 ? 'left' : 'right',
+                      grid: {
+                          drawOnChartArea: i === 0,
+                      },
+                      ticks: {
+                          display: false
+                      },
+                      border: {
+                          display: false
+                      }
+                  }
+              ]))
+          }
+      }
+  });
+</script>
 
 {% endblock %}
