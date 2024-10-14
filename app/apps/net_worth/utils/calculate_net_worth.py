@@ -204,7 +204,7 @@ def calculate_historical_account_balance():
     accounts = Account.objects.all()
 
     # Get the date range
-    date_range = Transaction.objects.aggregate(
+    date_range = Transaction.objects.filter(is_paid=True).aggregate(
         min_date=Min("reference_date"), max_date=Max("reference_date")
     )
     start_date = date_range["min_date"].replace(day=1)
@@ -215,7 +215,16 @@ def calculate_historical_account_balance():
         Transaction.objects.filter(is_paid=True)
         .annotate(month=TruncMonth("reference_date"))
         .values("account", "month")
-        .annotate(balance=Sum("amount"))
+        .annotate(
+            balance=Sum(
+                Case(
+                    When(type=Transaction.Type.INCOME, then=F("amount")),
+                    When(type=Transaction.Type.EXPENSE, then=-F("amount")),
+                    default=0,
+                    output_field=DecimalField(),
+                )
+            )
+        )
         .order_by("account", "month")
     )
 
