@@ -86,174 +86,117 @@
       </div>
     </div>
     <div class="col-12 col-xl-7 h-100">
-      <canvas id="historicalNetWorthChart"></canvas>
+      <canvas id="currencyBalanceChart"></canvas>
+      <canvas id="accountBalanceChart"></canvas>
     </div>
   </div>
-
-
-<script>
-    var historicalData = {{ historical_data_json|safe }};
-    var currencies = [
-        {% for currency in currencies %}
-            "{{ currency.code }}",
-        {% endfor %}
-    ];
-
-    var labels = Object.keys(historicalData);
-    var datasets = currencies.map((currency, index) => ({
-        label: currency,
-        data: labels.map(date => parseFloat(historicalData[date][currency])),
-        color: `hsl(${index * 360 / currencies.length}, 70%, 50%)`,
-        yAxisID: `y-axis-${index}`,
-    }));
-
-    var ctx = document.getElementById('historicalNetWorthChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: datasets
-        },
-        options: {
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            scales: {
-                x: {
-                    type: 'category',
-                    title: {
-                        display: true,
-                        text: 'Date'
-                    }
-                },
-                ...currencies.reduce((acc, currency, index) => {
-                    acc[`y-axis-${index}`] = {
-                        type: 'linear',
-                        beginAtZero: true,
-                        grace: '50%',
-                        display: true,
-                        grid: {
-                            drawOnChartArea: false,
-                        },
-                        ticks: {
-                            display: false  // This hides the tick labels (numbers)
-                        },
-                    };
-                    return acc;
-                }, {})
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Historical Net Worth by Currency'
-                },
-                tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                }
-            }
-        }
-    });
-</script>
-    </div>
 </div>
-{#<canvas id="chart" width="500" height="300"></canvas>#}
-{##}
-{#<script>#}
-{#  let ctx = document.getElementById("chart").getContext("2d");#}
-{##}
-  {#let chart = new Chart(ctx, {#}
-  {#  type: 'line',#}
-  {#  responsive: true,#}
-  {#  data: {#}
-  {#     labels: ["2020/01", "2020/02", "2020/03", "2020/04", "2020/05"],#}
-  {#     datasets: [#}
-  {#        {#}
-  {#          label: "Gross volume ($)",#}
-  {#          data: [0.0, 0.8457, 1, 0.5],#}
-  {#            yAxisID: 'y1',#}
-  {#        },#}
-  {#        {#}
-  {#          label: "Gross volume ($) 2",#}
-  {#          data: [85000, 89000, 96000, 100000],#}
-  {#            yAxisID: 'y2',#}
-  {#        }#}
-  {#     ]#}
-  {#  },#}
-  {#  options: {#}
-  {#     title: {#}
-  {#        text: "Gross Volume in 2020",#}
-  {#        display: true#}
-  {#     },#}
-  {#      responsive: true,#}
-  {#      interaction: {#}
-  {#    mode: 'index',#}
-  {#    intersect: false,#}
-  {#    scales: {#}
-  {#          y1: {#}
-  {#              ticks: {#}
-  {#                  display: false // This hides the y-axis labels#}
-  {#              }#}
-  {#          }#}
-  {#      }#}
-  {#  },#}
-  {#  },#}
-  {#    scales: {#}
-  {#    x: {#}
-  {#      display: true,#}
-  {#        ticks: {#}
-  {#                  display: false // This hides the y-axis labels#}
-  {#              }#}
-  {#    },#}
-  {#    y1: {#}
-  {#      display: true,#}
-  {#      type: 'logarithmic',#}
-  {#        ticks: {#}
-  {#                  display: false // This hides the y-axis labels#}
-  {#              }#}
-  {#    },#}
-  {#    y2: {#}
-  {#      type: 'logarithmic',#}
-  {#      display: false,#}
-  {#      position: 'left',#}
-  {#        ticks: {#}
-  {#      display: false,#}
-  {#    },#}
-  {##}
-  {#      // grid line settings#}
-  {#      grid: {#}
-  {#          display: false,#}
-  {#        drawOnChartArea: false, // only want the grid lines for one axis to show up#}
-  {#      }},}#}
-  {#});#}
-{#new Chart(ctx, {#}
-{#    type: 'line', // e.g., 'line', 'bar', etc.#}
-{#    data: {#}
-{#       labels: ["2020/01", "2020/02", "2020/03", "2020/04", "2020/05"],#}
-{#       datasets: [#}
-{#          {#}
-{#            label: "Gross volume ($)",#}
-{#            data: [0.0, 0.8457, 1, 0.5],#}
-{#              yAxisID: 'y1',#}
-{#          },#}
-{#          {#}
-{#            label: "Gross volume ($) 2",#}
-{#            data: [85000, 89000, 96000, 100000],#}
-{#              yAxisID: 'y2',#}
-{#          }#}
-{#       ]#}
-{#    },#}
-{#    options: {#}
-{#        scales: {#}
-{#            y: {#}
-{#                ticks: {#}
-{#                    display: false // This hides the y-axis labels#}
-{#                }#}
-{#            }#}
-{#        }#}
-{#    }#}
-{#});#}
-{#</script>#}
+
+    <script>
+      var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
+      var currencies = {{ currencies|safe }};
+
+      var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
+      new Chart(ctx, {
+          type: 'line',
+          data: chartData,
+          options: {
+              responsive: true,
+              interaction: {
+                  mode: 'index',
+                  intersect: false,
+              },
+              plugins: {
+                  title: {
+                      display: true,
+                      text: '{% translate 'Evolution by currency' %}'
+                  },
+                  tooltip: {
+                      mode: 'index',
+                      intersect: false
+                  }
+              },
+              scales: {
+                  x: {
+                      display: true,
+                      title: {
+                          display: false,
+                      }
+                  },
+                  ...Object.fromEntries(currencies.map((currency, i) => [
+                      `y${i}`,
+                      {
+                          beginAtZero: true,
+                          type: 'linear',
+                          display: true,
+                          grid: {
+                              drawOnChartArea: i === 0,
+                          },
+                          ticks: {
+                              display: false
+                          },
+                          border: {
+                              display: false
+                          }
+                      }
+                  ]))
+              }
+          }
+      });
+    </script>
+
+  <script>
+            var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
+            var accounts = {{ accounts|safe }};
+
+            var ctx = document.getElementById('accountBalanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    stacked: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '{% translate "Evolution by account" %}'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: false,
+                            }
+                        },
+                        ...Object.fromEntries(accounts.map((account, i) => [
+                            `y-axis-${i}`,
+                            {
+                                type: 'linear',
+                                display: true,
+                                position: i % 2 === 0 ? 'left' : 'right',
+                                grid: {
+                                    drawOnChartArea: i === 0,
+                                },
+                                ticks: {
+                                    display: false
+                                },
+                                border: {
+                                    display: false
+                                }
+                            }
+                        ]))
+                    }
+                }
+            });
+    </script>
+
 {% endblock %}
