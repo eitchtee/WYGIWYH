@@ -50,7 +50,6 @@
         <button class="btn btn-secondary me-3"
                 hx-get="{% url 'transactions_bulk_pay' %}"
                 hx-include=".transaction"
-                _="install tooltip"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Mark as paid' %}">
           <i class="fa-regular fa-circle-check tw-text-green-400"></i>
@@ -58,7 +57,6 @@
         <button class="btn btn-secondary me-3"
                 hx-get="{% url 'transactions_bulk_unpay' %}"
                 hx-include=".transaction"
-                _="install tooltip"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Mark as unpaid' %}">
           <i class="fa-regular fa-circle tw-text-red-400"></i>
@@ -66,7 +64,6 @@
         <button class="btn btn-secondary"
                 hx-get="{% url 'transactions_bulk_delete' %}"
                 hx-include=".transaction"
-                _="install tooltip"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Delete' %}"><i class="fa-solid fa-trash text-danger"></i>
         </button>

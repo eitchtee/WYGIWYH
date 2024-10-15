@@ -38,8 +38,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Edit" %}"
                 hx-get="{% url 'category_edit' category_id=category.id %}"
-                hx-target="#generic-offcanvas"
-                _="install tooltip">
+                hx-target="#generic-offcanvas">
             <i class="fa-solid fa-pencil fa-fw"></i></a>
           <a class="text-danger text-decoration-none p-1 category-action"
                   role="button"
@@ -47,8 +46,7 @@
                   data-bs-title="{% translate "Delete" %}"
                   hx-delete="{% url 'category_delete' category_id=category.id %}"
                   hx-trigger='delete_confirmed'
-                  _="install tooltip
-                      on click
+                  _="on click
                         if event.ctrlKey trigger delete_confirmed
                         else
                          call Swal.fire({title: '{% translate 'Are you sure?' %}',
