@@ -44,24 +44,12 @@
                   data-bs-toggle="tooltip"
                   data-bs-title="{% translate "Delete" %}"
                   hx-delete="{% url 'tag_delete' tag_id=tag.id %}"
-                  hx-trigger='delete_confirmed'
-                  _="on click
-                        if event.ctrlKey trigger delete_confirmed
-                        else
-                         call Swal.fire({title: '{% translate 'Are you sure?' %}',
-                                        text: '{% blocktranslate %}You won\'t be able to revert this!{% endblocktranslate %}',
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        cancelButtonText: '{% blocktranslate %}Cancel{% endblocktranslate %}',
-                                        confirmButtonText: '{% blocktranslate %}Yes, delete it!{% endblocktranslate %}',
-                                        customClass: {
-                                          confirmButton: 'btn btn-primary me-3',
-                                          cancelButton: 'btn btn-danger'
-                                        },
-                                        buttonsStyling: false})
-                          if result.isConfirmed trigger delete_confirmed"><i class="fa-solid fa-trash fa-fw"></i></a></td>
+                  hx-trigger='confirmed'
+                  data-bypass-on-ctrl="true"
+                  data-title="{% translate "Are you sure?" %}"
+                  data-text="{% translate "You won't be able to revert this!" %}"
+                  data-confirm-text="{% translate "Yes, delete it!" %}"
+                  _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a></td>
         <td class="col">{{ tag.name }}</td>
       </tr>
       {% endfor %}

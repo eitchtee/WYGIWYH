@@ -64,8 +64,15 @@
         <button class="btn btn-secondary"
                 hx-get="{% url 'transactions_bulk_delete' %}"
                 hx-include=".transaction"
+                hx-trigger="confirmed"
                 data-bs-toggle="tooltip"
-                data-bs-title="{% translate 'Delete' %}"><i class="fa-solid fa-trash text-danger"></i>
+                data-bs-title="{% translate 'Delete' %}"
+                data-bypass-on-ctrl="true"
+                data-title="{% translate "Are you sure?" %}"
+                data-text="{% translate "You won't be able to revert this!" %}"
+                data-confirm-text="{% translate "Yes, delete them!" %}"
+                _="install prompt_swal">
+          <i class="fa-solid fa-trash text-danger"></i>
         </button>
       </div>
     </div>

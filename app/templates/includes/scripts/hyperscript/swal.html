@@ -1,0 +1,22 @@
+{% load i18n %}
+<script type="text/hyperscript">
+  behavior prompt_swal
+    on click
+      if @data-bypass-on-ctrl === 'true' and event.ctrlKey then trigger confirmed
+      else
+       call Swal.fire({title: @data-title,
+                      text: @data-text,
+                      icon: @data-icon or 'warning',
+                      showCancelButton: @data-cancel-button or 'true',
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      cancelButtonText: @data-cancel-text or '{% translate 'Cancel' %}',
+                      confirmButtonText: @data-confirm-text or '{% translate 'Confirm' %}',
+                      customClass: {
+                        confirmButton: 'btn btn-primary me-3',
+                        cancelButton: 'btn btn-danger'
+                      },
+                      buttonsStyling: false})
+        if result.isConfirmed trigger confirmed
+  end
+</script>
