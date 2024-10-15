@@ -1,0 +1,16 @@
+<script type="text/hyperscript">
+on paid if body do not include #settings-mute-sound
+  js
+    paidSound.pause()
+    paidSound.currentTime = 0
+    paidSound.play()
+  end
+end
+on unpaid if body do not include #settings-mute-sound
+  js
+    unpaidSound.pause()
+    unpaidSound.currentTime = 0
+    unpaidSound.play()
+  end
+end
+</script>

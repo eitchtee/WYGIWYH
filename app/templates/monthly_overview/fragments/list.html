@@ -2,7 +2,14 @@
 {% load i18n %}
 {% regroup transactions by date|customnaturaldate as transactions_by_date %}
 
-<div>
+<div id="transactions-list"
+     _="on change from <input[type='checkbox']/> in me
+          if no <input[type='checkbox']:checked/> in me
+            add .tw-hidden to #actions-bar
+          else
+            remove .tw-hidden from #actions-bar
+          end
+        end">
   {% for x in transactions_by_date %}
     <div>
       <div class="my-3 w-100 tw-text-base border-bottom bg-body">
@@ -17,7 +24,7 @@
         </a>
       </div>
       <div class="collapse show" id="{{ x.grouper|slugify }}">
-        <div class="ps-3">
+        <div class="">
         {% for trans in x.list %}
         {% include 'transactions/fragments/item.html' with transaction=trans %}
         {% endfor %}
@@ -36,4 +43,34 @@
       </div>
     </div>
   {% endfor %}
+    <!-- Floating bar -->
+  <div class="tw-sticky tw-bottom-4 tw-left-0 tw-right-0 tw-z-50 tw-hidden mx-auto tw-w-fit" id="actions-bar">
+    <div class="card slide-in-left">
+      <div class="card-body p-2">
+        <button class="btn btn-secondary me-3"
+                hx-get="{% url 'transactions_bulk_pay' %}"
+                hx-include=".transaction"
+                _="install tooltip"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate 'Mark as paid' %}">
+          <i class="fa-regular fa-circle-check tw-text-green-400"></i>
+        </button>
+        <button class="btn btn-secondary me-3"
+                hx-get="{% url 'transactions_bulk_unpay' %}"
+                hx-include=".transaction"
+                _="install tooltip"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate 'Mark as unpaid' %}">
+          <i class="fa-regular fa-circle tw-text-red-400"></i>
+        </button>
+        <button class="btn btn-secondary"
+                hx-get="{% url 'transactions_bulk_delete' %}"
+                hx-include=".transaction"
+                _="install tooltip"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate 'Delete' %}"><i class="fa-solid fa-trash text-danger"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

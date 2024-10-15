@@ -3,6 +3,21 @@ import apps.transactions.views as views
 
 urlpatterns = [
     path(
+        "transactions/actions/pay",
+        views.bulk_pay_transactions,
+        name="transactions_bulk_pay",
+    ),
+    path(
+        "transactions/actions/unpay/",
+        views.bulk_unpay_transactions,
+        name="transactions_bulk_unpay",
+    ),
+    path(
+        "transactions/actions/delete/",
+        views.bulk_delete_transactions,
+        name="transactions_bulk_delete",
+    ),
+    path(
         "transaction/<int:transaction_id>/pay",
         views.transaction_pay,
         name="transaction_pay",

@@ -1,6 +1,18 @@
 <script type="text/hyperscript">
-  behavior tooltip
-    on mouseenter call bootstrap.Tooltip.getOrCreateInstance(me).show() end
-    on mouseleave call bootstrap.Tooltip.getOrCreateInstance(me).dispose() end
+def initTooltips
+  -- Destroy existing tooltips
+  for tooltipTriggerEl in <[data-bs-toggle="tooltip"]/>
+    call bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl).dispose()
   end
+
+  -- Initialize new tooltips
+  for tooltipTriggerEl in <[data-bs-toggle="tooltip"]/>
+    call bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl)
+  end
+end
+
+-- Initialize tooltips on page load
+on load or htmx:afterSettle
+  call initTooltips()
+end
 </script>

@@ -1,32 +1,22 @@
 {% load i18n %}
 {% load currency_display %}
-<div class="tw-border-s-6 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
-hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
-{% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} transaction tw-relative
-my-3"
+<div class="transaction d-flex my-3">
+  <label class="px-3 d-flex align-items-center justify-content-center">
+    <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}" aria-label="{% translate 'Select' %}">
+  </label>
+  <div class="tw-border-s-6 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
+  hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
+  {% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} transaction tw-relative
+  w-100 transaction-item"
      _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
         on mouseout add .tw-invisible to the first .transaction-actions in me end">
-  <div class="row font-monospace tw-text-sm align-items-center">
-    <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center pay-button">
-      <a class="text-decoration-none my-2 w-100"
+    <div class="row font-monospace tw-text-sm align-items-center">
+    <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center">
+      <a class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2"
          role="button"
          hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
          hx-target="closest .transaction"
-         hx-swap="outerHTML"
-         _="on paid if body do not include #settings-mute-sound
-              js
-                paidSound.pause()
-                paidSound.currentTime = 0
-                paidSound.play()
-              end
-            end
-            on unpaid if body do not include #settings-mute-sound
-              js
-                unpaidSound.pause()
-                unpaidSound.currentTime = 0
-                unpaidSound.play()
-              end
-            end">
+         hx-swap="outerHTML">
           {% if transaction.is_paid %}<i class="fa-regular fa-circle-check tw-text-green-400"></i>{% else %}<i
               class="fa-regular fa-circle tw-text-red-400"></i>{% endif %}
       </a>
@@ -153,4 +143,5 @@ my-3"
       </div>
     </div>
   </div>
+</div>
 </div>
