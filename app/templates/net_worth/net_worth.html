@@ -126,7 +126,6 @@
               ...Object.fromEntries(currencies.map((currency, i) => [
                   `y${i}`,
                   {
-                      beginAtZero: true,
                       type: 'linear',
                       display: true,
                       grid: {
@@ -180,7 +179,6 @@
               ...Object.fromEntries(accounts.map((account, i) => [
                   `y-axis-${i}`,
                   {
-                      beginAtZero: true,
                       type: 'linear',
                       display: true,
                       position: i % 2 === 0 ? 'left' : 'right',
