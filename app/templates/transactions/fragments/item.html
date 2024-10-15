@@ -6,7 +6,7 @@
   </label>
   <div class="tw-border-s-6 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
   hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
-  {% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} transaction tw-relative
+  {% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} tw-relative
   w-100 transaction-item"
      _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
         on mouseout add .tw-invisible to the first .transaction-actions in me end">
