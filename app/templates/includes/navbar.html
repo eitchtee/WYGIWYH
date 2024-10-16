@@ -34,7 +34,7 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='tags_index||categories_index||accounts_index||account_groups_index||currencies_index||installment_plans_index' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='tags_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||installment_plans_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">
@@ -56,8 +56,14 @@
                    href="{% url 'accounts_index' %}">{% translate 'Accounts' %}</a></li>
             <li><a class="dropdown-item {% active_link views='account_groups_index' %}"
                    href="{% url 'account_groups_index' %}">{% translate 'Account Groups' %}</a></li>
-            <li><a class="dropdown-item {% active_link views='currencies_index' %}"
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><h6 class="dropdown-header">{% trans 'Currencies' %}</h6></li>
+            <li><a class="dropdown-item {% active_link views='currencies_index' %}" 
                    href="{% url 'currencies_index' %}">{% translate 'Currencies' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='exchange_rates_index' %}" 
+                   href="{% url 'exchange_rates_index' %}">{% translate 'Exchange Rates' %}</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>

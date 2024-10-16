@@ -16,4 +16,17 @@ urlpatterns = [
         views.currency_delete,
         name="currency_delete",
     ),
+    path("exchange-rates/", views.exchange_rates_index, name="exchange_rates_index"),
+    path("exchange-rates/list/", views.exchange_rates_list, name="exchange_rates_list"),
+    path("exchange-rates/add/", views.exchange_rate_add, name="exchange_rate_add"),
+    path(
+        "exchange-rates/<int:pk>/edit/",
+        views.exchange_rate_edit,
+        name="exchange_rate_edit",
+    ),
+    path(
+        "exchange-rates/<int:pk>/delete/",
+        views.exchange_rate_delete,
+        name="exchange_rate_delete",
+    ),
 ]
