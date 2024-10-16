@@ -3,7 +3,7 @@
 {% regroup transactions by date|customnaturaldate as transactions_by_date %}
 
 <div id="transactions-list"
-     _="on change from <input[type='checkbox']/> in me
+     _="on change
           if no <input[type='checkbox']:checked/> in me
             add .tw-hidden to #actions-bar
           else
