@@ -14,10 +14,22 @@ from apps.common.decorators.htmx import only_htmx
 
 @login_required
 @require_http_methods(["GET"])
+def account_groups_index(request):
+    return render(
+        request,
+        "account_groups/pages/index.html",
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
 def account_groups_list(request):
     account_groups = AccountGroup.objects.all().order_by("id")
     return render(
-        request, "account_groups/pages/list.html", {"account_groups": account_groups}
+        request,
+        "account_groups/fragments/list.html",
+        {"account_groups": account_groups},
     )
 
 
@@ -34,8 +46,7 @@ def account_group_add(request, **kwargs):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("account_groups_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -63,8 +74,7 @@ def account_group_edit(request, pk):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("account_groups_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -90,5 +100,7 @@ def account_group_delete(request, pk):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Location": reverse("account_groups_list")},
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas, toasts",
+        },
     )

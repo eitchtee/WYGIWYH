@@ -312,44 +312,144 @@ class TransferForm(forms.Form):
         return from_transaction, to_transaction
 
 
-class InstallmentPlanForm(forms.Form):
-    type = forms.ChoiceField(choices=Transaction.Type.choices)
-    account = forms.ModelChoiceField(
-        queryset=Account.objects.all(),
-        label=_("Account"),
-        widget=TomSelect(),
-    )
-    start_date = forms.DateField(
-        label=_("Start Date"),
-        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
-    )
-    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
-    description = forms.CharField(max_length=500, label=_("Description"))
-    number_of_installments = forms.IntegerField(
-        min_value=1, label=_("Number of Installments")
-    )
-    recurrence = forms.ChoiceField(
-        choices=(
-            ("yearly", _("Yearly")),
-            ("monthly", _("Monthly")),
-            ("weekly", _("Weekly")),
-            ("daily", _("Daily")),
-        ),
-        label=_("Recurrence"),
-        initial="monthly",
-        widget=TomSelect(clear_button=False),
-    )
-    installment_amount = forms.DecimalField(
-        max_digits=42,
-        decimal_places=30,
-        required=True,
-        label=_("Installment Amount"),
-    )
-    category = DynamicModelChoiceField(
-        model=TransactionCategory,
-        required=False,
-        label=_("Category"),
-    )
+# class InstallmentPlanForm(forms.Form):
+#     type = forms.ChoiceField(choices=Transaction.Type.choices)
+#     account = forms.ModelChoiceField(
+#         queryset=Account.objects.all(),
+#         label=_("Account"),
+#         widget=TomSelect(),
+#     )
+#     start_date = forms.DateField(
+#         label=_("Start Date"),
+#         widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+#     )
+#     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
+#     description = forms.CharField(max_length=500, label=_("Description"))
+#     number_of_installments = forms.IntegerField(
+#         min_value=1, label=_("Number of Installments")
+#     )
+#     recurrence = forms.ChoiceField(
+#         choices=(
+#             ("yearly", _("Yearly")),
+#             ("monthly", _("Monthly")),
+#             ("weekly", _("Weekly")),
+#             ("daily", _("Daily")),
+#         ),
+#         label=_("Recurrence"),
+#         initial="monthly",
+#         widget=TomSelect(clear_button=False),
+#     )
+#     installment_amount = forms.DecimalField(
+#         max_digits=42,
+#         decimal_places=30,
+#         required=True,
+#         label=_("Installment Amount"),
+#     )
+#     category = DynamicModelChoiceField(
+#         model=TransactionCategory,
+#         required=False,
+#         label=_("Category"),
+#     )
+#     tags = DynamicModelMultipleChoiceField(
+#         model=TransactionTag,
+#         to_field_name="name",
+#         create_field="name",
+#         required=False,
+#         label=_("Tags"),
+#     )
+#
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#
+#         self.helper = FormHelper()
+#         self.helper.form_tag = False
+#         self.helper.form_method = "post"
+#
+#         self.helper.layout = Layout(
+#             Field(
+#                 "type",
+#                 template="transactions/widgets/income_expense_toggle_buttons.html",
+#             ),
+#             "account",
+#             "description",
+#             Row(
+#                 Column("number_of_installments", css_class="form-group col-md-6 mb-0"),
+#                 Column("recurrence", css_class="form-group col-md-6 mb-0"),
+#                 css_class="form-row",
+#             ),
+#             Row(
+#                 Column("start_date", css_class="form-group col-md-6 mb-0"),
+#                 Column("reference_date", css_class="form-group col-md-6 mb-0"),
+#                 css_class="form-row",
+#             ),
+#             "installment_amount",
+#             Row(
+#                 Column("category", css_class="form-group col-md-6 mb-0"),
+#                 Column("tags", css_class="form-group col-md-6 mb-0"),
+#                 css_class="form-row",
+#             ),
+#             FormActions(
+#                 NoClassSubmit(
+#                     "submit", _("Add"), css_class="btn btn-outline-primary w-100"
+#                 ),
+#             ),
+#         )
+#
+#         self.fields["installment_amount"].widget = ArbitraryDecimalDisplayNumberInput()
+#
+#     def save(self):
+#         number_of_installments = self.cleaned_data["number_of_installments"]
+#         transaction_type = self.cleaned_data["type"]
+#         start_date = self.cleaned_data["start_date"]
+#         reference_date = self.cleaned_data["reference_date"] or start_date
+#         recurrence = self.cleaned_data["recurrence"]
+#         account = self.cleaned_data["account"]
+#         description = self.cleaned_data["description"]
+#         installment_amount = self.cleaned_data["installment_amount"]
+#         category = self.cleaned_data["category"]
+#
+#         print(reference_date, type(reference_date))
+#         print(start_date, type(start_date))
+#
+#         with transaction.atomic():
+#             installment_plan = InstallmentPlan.objects.create(
+#                 account=account,
+#                 description=description,
+#                 number_of_installments=number_of_installments,
+#             )
+#
+#             with transaction.atomic():
+#                 for i in range(number_of_installments):
+#                     if recurrence == "yearly":
+#                         delta = relativedelta(years=i)
+#                     elif recurrence == "monthly":
+#                         delta = relativedelta(months=i)
+#                     elif recurrence == "weekly":
+#                         delta = relativedelta(weeks=i)
+#                     elif recurrence == "daily":
+#                         delta = relativedelta(days=i)
+#
+#                     transaction_date = start_date + delta
+#                     transaction_reference_date = (reference_date + delta).replace(day=1)
+#                     new_transaction = Transaction.objects.create(
+#                         account=account,
+#                         type=transaction_type,
+#                         date=transaction_date,
+#                         is_paid=False,
+#                         reference_date=transaction_reference_date,
+#                         amount=installment_amount,
+#                         description=description,
+#                         notes=f"{i + 1}/{number_of_installments}",
+#                         category=category,
+#                         installment_plan=installment_plan,
+#                     )
+#
+#                     new_transaction.tags.set(self.cleaned_data.get("tags", []))
+#
+#         return installment_plan
+
+
+class InstallmentPlanForm(forms.ModelForm):
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
         to_field_name="name",
@@ -357,6 +457,34 @@ class InstallmentPlanForm(forms.Form):
         required=False,
         label=_("Tags"),
     )
+    category = DynamicModelChoiceField(
+        model=TransactionCategory,
+        required=False,
+        label=_("Category"),
+    )
+    type = forms.ChoiceField(choices=Transaction.Type.choices)
+    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
+
+    class Meta:
+        model = InstallmentPlan
+        fields = [
+            "type",
+            "account",
+            "start_date",
+            "reference_date",
+            "description",
+            "number_of_installments",
+            "recurrence",
+            "installment_amount",
+            "category",
+            "tags",
+            "installment_start",
+        ]
+        widgets = {
+            "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "account": TomSelect(),
+            "recurrence": TomSelect(clear_button=False),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -374,9 +502,10 @@ class InstallmentPlanForm(forms.Form):
             "description",
             Row(
                 Column("number_of_installments", css_class="form-group col-md-6 mb-0"),
-                Column("recurrence", css_class="form-group col-md-6 mb-0"),
+                Column("installment_start", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
+            "recurrence",
             Row(
                 Column("start_date", css_class="form-group col-md-6 mb-0"),
                 Column("reference_date", css_class="form-group col-md-6 mb-0"),
@@ -388,65 +517,37 @@ class InstallmentPlanForm(forms.Form):
                 Column("tags", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
-            FormActions(
-                NoClassSubmit(
-                    "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                ),
-            ),
         )
 
         self.fields["installment_amount"].widget = ArbitraryDecimalDisplayNumberInput()
 
-    def save(self):
-        number_of_installments = self.cleaned_data["number_of_installments"]
-        transaction_type = self.cleaned_data["type"]
-        start_date = self.cleaned_data["start_date"]
-        reference_date = self.cleaned_data["reference_date"] or start_date
-        recurrence = self.cleaned_data["recurrence"]
-        account = self.cleaned_data["account"]
-        description = self.cleaned_data["description"]
-        installment_amount = self.cleaned_data["installment_amount"]
-        category = self.cleaned_data["category"]
-
-        print(reference_date, type(reference_date))
-        print(start_date, type(start_date))
-
-        with transaction.atomic():
-            installment_plan = InstallmentPlan.objects.create(
-                account=account,
-                description=description,
-                number_of_installments=number_of_installments,
+        if self.instance and self.instance.pk:
+            self.helper.layout.append(
+                FormActions(
+                    NoClassSubmit(
+                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
+                    ),
+                ),
+            )
+        else:
+            self.helper.layout.append(
+                FormActions(
+                    NoClassSubmit(
+                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
+                    ),
+                ),
             )
 
-            with transaction.atomic():
-                for i in range(number_of_installments):
-                    if recurrence == "yearly":
-                        delta = relativedelta(years=i)
-                    elif recurrence == "monthly":
-                        delta = relativedelta(months=i)
-                    elif recurrence == "weekly":
-                        delta = relativedelta(weeks=i)
-                    elif recurrence == "daily":
-                        delta = relativedelta(days=i)
+    def save(self, **kwargs):
+        is_new = not self.instance.id
 
-                    transaction_date = start_date + delta
-                    transaction_reference_date = (reference_date + delta).replace(day=1)
-                    new_transaction = Transaction.objects.create(
-                        account=account,
-                        type=transaction_type,
-                        date=transaction_date,
-                        is_paid=False,
-                        reference_date=transaction_reference_date,
-                        amount=installment_amount,
-                        description=description,
-                        notes=f"{i + 1}/{number_of_installments}",
-                        category=category,
-                        installment_plan=installment_plan,
-                    )
+        instance = super().save(**kwargs)
+        if is_new:
+            instance.create_transactions()
+        else:
+            instance.update_transactions()
 
-                    new_transaction.tags.set(self.cleaned_data.get("tags", []))
-
-        return installment_plan
+        return instance
 
 
 class TransactionTagForm(forms.ModelForm):

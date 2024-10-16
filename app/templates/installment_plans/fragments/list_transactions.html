@@ -1,0 +1,13 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Installments' %}{% endblock %}
+
+{% block body %}
+<div hx-get="{% url 'installment_plan_transactions' installment_plan_id=installment_plan.id %}" hx-trigger="updated from:window" hx-vals='{"disable_selection": true}' hx-target="closest .offcanvas" class="show-loading">
+{% for transaction in transactions %}
+  {% include 'transactions/fragments/item.html' with transaction=transaction disable_selection=True %}
+{% endfor %}
+</div>
+{% endblock %}

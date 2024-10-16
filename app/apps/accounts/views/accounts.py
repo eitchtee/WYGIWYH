@@ -14,9 +14,23 @@ from apps.common.decorators.htmx import only_htmx
 
 @login_required
 @require_http_methods(["GET"])
+def accounts_index(request):
+    return render(
+        request,
+        "accounts/pages/index.html",
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
 def accounts_list(request):
     accounts = Account.objects.all().order_by("id")
-    return render(request, "accounts/pages/list.html", {"accounts": accounts})
+    return render(
+        request,
+        "accounts/fragments/list.html",
+        {"accounts": accounts},
+    )
 
 
 @only_htmx
@@ -32,8 +46,7 @@ def account_add(request, **kwargs):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("accounts_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -61,8 +74,7 @@ def account_edit(request, pk):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("accounts_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -88,5 +100,7 @@ def account_delete(request, pk):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Location": reverse("accounts_list")},
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas, toasts",
+        },
     )

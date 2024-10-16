@@ -14,3 +14,17 @@
         on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide()
         on hidden.bs.offcanvas set my innerHTML to '' end">
 </div>
+<div id="persistent-generic-offcanvas" class="offcanvas offcanvas-end offcanvas-size-xl"
+     data-bs-backdrop="static"
+     tabindex="-1"
+     _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end
+        on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide()
+        on hidden.bs.offcanvas set my innerHTML to '' end">
+</div>
+<div id="persistent-generic-offcanvas-left" class="offcanvas offcanvas-start offcanvas-size-xl"
+     data-bs-backdrop="static"
+     tabindex="-1"
+     _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end
+        on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide()
+        on hidden.bs.offcanvas set my innerHTML to '' end">
+</div>

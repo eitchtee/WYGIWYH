@@ -1,9 +1,11 @@
 {% load i18n %}
 {% load currency_display %}
 <div class="transaction d-flex my-3">
+  {% if not disable_selection %}
   <label class="px-3 d-flex align-items-center justify-content-center">
     <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}" aria-label="{% translate 'Select' %}">
   </label>
+  {% endif %}
   <div class="tw-border-s-6 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
   hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
   {% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} tw-relative
@@ -25,7 +27,14 @@
       {#        Date#}
       <div class="mb-1 tw-text-gray-400">
         <i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i>{{ transaction.date|date:"SHORT_DATE_FORMAT" }}</div>
-      <div class="mb-1 text-white tw-text-base">{{ transaction.description }}</div>
+      <div class="mb-1 text-white tw-text-base">
+        {% spaceless %}
+        <span>{{ transaction.description }}</span>
+        {% if transaction.installment_plan and transaction.installment_id %}
+        <span class="badge text-bg-secondary ms-2">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
+        {% endif %}
+        {% endspaceless %}
+      </div>
       <div class="tw-text-gray-400 tw-text-sm">
 {#        Notes#}
         {% if transaction.notes %}
@@ -71,25 +80,27 @@
 {#      Item actions#}
       <div class="transaction-actions !tw-absolute tw-left-2/4 tw--top-6 tw-invisible d-none
       d-xl-flex flex-xl-row tw-text-base card">
-        <a class="text-decoration-none tw-text-gray-400 p-2 transaction-action"
+        <div class="card-body p-1 shadow-lg">
+          <a class="btn btn-secondary btn-sm transaction-action"
                 role="button"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Edit" %}"
                 hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
                 hx-target="#generic-offcanvas">
           <i class="fa-solid fa-pencil fa-fw"></i></a>
-        <a class="text-danger text-decoration-none p-2 transaction-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Delete" %}"
-                hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
-                hx-trigger='confirmed'
-                data-bypass-on-ctrl="true"
-                data-title="{% translate "Are you sure?" %}"
-                data-text="{% translate "You won't be able to revert this!" %}"
-                data-confirm-text="{% translate "Yes, delete it!" %}"
-                _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i>
-        </a>
+          <a class="btn btn-secondary btn-sm transaction-action"
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Delete" %}"
+                  hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                  hx-trigger='confirmed'
+                  data-bypass-on-ctrl="true"
+                  data-title="{% translate "Are you sure?" %}"
+                  data-text="{% translate "You won't be able to revert this!" %}"
+                  data-confirm-text="{% translate "Yes, delete it!" %}"
+                  _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-danger"></i>
+          </a>
+        </div>
       </div>
 {#      Item actions dropdown fallback for mobile#}
       <div class="dropdown !tw-absolute tw-top-0 tw-right-0 xl:tw-invisible">

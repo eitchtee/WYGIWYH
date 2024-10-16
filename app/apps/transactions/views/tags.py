@@ -14,9 +14,23 @@ from apps.transactions.models import TransactionTag
 
 @login_required
 @require_http_methods(["GET"])
-def tag_list(request):
+def tags_index(request):
+    return render(
+        request,
+        "tags/pages/index.html",
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def tags_list(request):
     tags = TransactionTag.objects.all().order_by("id")
-    return render(request, "tags/pages/list.html", {"tags": tags})
+    return render(
+        request,
+        "tags/fragments/list.html",
+        {"tags": tags},
+    )
 
 
 @only_htmx
@@ -32,8 +46,7 @@ def tag_add(request, **kwargs):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("tags_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -61,8 +74,7 @@ def tag_edit(request, tag_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("tags_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -88,5 +100,7 @@ def tag_delete(request, tag_id):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Location": reverse("tags_list")},
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas, toasts",
+        },
     )

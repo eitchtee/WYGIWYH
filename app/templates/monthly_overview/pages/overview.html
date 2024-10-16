@@ -67,7 +67,7 @@
                 {% translate "Expense" %}
         </button>
         <button class="btn btn-sm btn-outline-warning"
-                hx-get="{% url 'installments_add' %}"
+                hx-get="{% url 'installment_plan_add' %}"
                 hx-trigger="click, installment from:window"
                 hx-target="#generic-offcanvas">
           <i class="fa-solid fa-divide me-2"></i>
@@ -94,7 +94,7 @@
 {#  Monthly summary#}
   <div class="row gx-xl-4 gy-3">
     <div class="col-12 col-xl-4 order-0 order-xl-2">
-      <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class="sticky-sidebar"
+      <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class="show-loading"
            hx-trigger="load, updated from:window, monthly_summary_update from:window">
       </div>
     </div>
@@ -117,8 +117,9 @@
           </div>
         </div>
       <div id="transactions"
-         hx-get="{% url 'monthly_transactions_list' month=month year=year %}"
-         hx-trigger="load, updated from:window" hx-include="#filter"></div>
+           class="show-loading"
+           hx-get="{% url 'monthly_transactions_list' month=month year=year %}"
+           hx-trigger="load, updated from:window" hx-include="#filter"></div>
     </div>
   </div>
 </div>

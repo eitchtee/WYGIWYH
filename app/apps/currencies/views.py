@@ -14,9 +14,23 @@ from apps.currencies.models import Currency
 
 @login_required
 @require_http_methods(["GET"])
-def currency_list(request):
+def currencies_index(request):
+    return render(
+        request,
+        "currencies/pages/index.html",
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def currencies_list(request):
     currencies = Currency.objects.all().order_by("id")
-    return render(request, "currencies/pages/list.html", {"currencies": currencies})
+    return render(
+        request,
+        "currencies/fragments/list.html",
+        {"currencies": currencies},
+    )
 
 
 @only_htmx
@@ -32,8 +46,7 @@ def currency_add(request, **kwargs):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("currencies_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -61,8 +74,7 @@ def currency_edit(request, pk):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("currencies_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -88,5 +100,7 @@ def currency_delete(request, pk):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Location": reverse("currencies_list")},
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas, toasts",
+        },
     )

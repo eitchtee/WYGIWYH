@@ -1,9 +1,4 @@
-{% extends "layouts/base.html" %}
 {% load i18n %}
-
-{% block title %}{% translate 'Accounts' %}{% endblock %}
-
-{% block content %}
 <div class="container px-md-3 py-3 column-gap-5">
   <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
     {% spaceless %}
@@ -20,8 +15,8 @@
     {% endspaceless %}
   </div>
 
-  <div class="border p-3 rounded-3">
-    <table class="table table-hover table-responsive">
+  <div class="border p-3 rounded-3 table-responsive">
+    <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col" class="col-auto"></th>
@@ -33,16 +28,16 @@
     </thead>
     <tbody>
       {% for account in accounts %}
-      <tr class="currency">
+      <tr class="account">
         <td class="col-auto">
-          <a class="text-decoration-none tw-text-gray-400 p-1 tag-action"
+          <a class="text-decoration-none tw-text-gray-400 p-1"
                 role="button"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Edit" %}"
                 hx-get="{% url 'account_edit' pk=account.id %}"
                 hx-target="#generic-offcanvas">
             <i class="fa-solid fa-pencil fa-fw"></i></a>
-          <a class="text-danger text-decoration-none p-1 tag-action"
+          <a class="text-danger text-decoration-none p-1"
                   role="button"
                   data-bs-toggle="tooltip"
                   data-bs-title="{% translate "Delete" %}"
@@ -64,4 +59,3 @@
   </table>
   </div>
 </div>
-{% endblock %}

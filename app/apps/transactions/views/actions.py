@@ -33,9 +33,7 @@ def bulk_unpay_transactions(request):
 @login_required
 def bulk_delete_transactions(request):
     selected_transactions = request.GET.getlist("transactions", [])
-    Transaction.objects.filter(
-        id__in=selected_transactions, installment_plan__isnull=True
-    ).delete()
+    Transaction.objects.filter(id__in=selected_transactions).delete()
 
     return HttpResponse(
         status=204,

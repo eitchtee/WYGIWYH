@@ -2,68 +2,81 @@
 {% load i18n %}
 {% load active_link %}
 <nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary" hx-boost="true">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold text-primary font-base" href="{% url 'monthly_index' %}">
-          <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="40" title="WYGIWYH"/>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false" aria-label={% translate "Toggle navigation" %}>
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline" hx-push-url="true">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {% active_link views='monthly_overview||yearly_overview' %}"
-                     href="#"
-                     role="button"
-                     data-bs-toggle="dropdown"
-                     aria-expanded="false">
-                    {% translate 'Overview' %}
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item {% active_link views='monthly_overview' %}" href="{% url 'monthly_index' %}">{%translate 'Monthly' %}</a></li>
-                    <li><a class="dropdown-item {% active_link views='yearly_overview' %}" href="{% url 'yearly_index' %}">{%translate 'Yearly' %}</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% active_link views='net_worth' %}"
-                       href="{% url 'net_worth' %}">
-                      {% translate 'Net Worth' %}
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle {% active_link views='tags_list||categories_list||currencies_list' %}"
-                     href="#" role="button" 
-                     data-bs-toggle="dropdown"
-                     aria-expanded="false">
-                    {% translate 'Management' %}
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><h6 class="dropdown-header">{% trans 'Transactions' %}</h6></li>
-                    <li><a class="dropdown-item {% active_link views='categories_list' %}" href="{% url 'categories_list' %}">{% translate 'Categories' %}</a></li>
-                    <li><a class="dropdown-item {% active_link views='tags_list' %}" href="{% url 'tags_list' %}">{% translate 'Tags' %}</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><h6 class="dropdown-header">{% trans 'Accounts' %}</h6></li>
-                    <li><a class="dropdown-item {% active_link views='accounts_list' %}" href="{% url 'accounts_list' %}">{% translate 'Accounts' %}</a></li>
-                    <li><a class="dropdown-item {% active_link views='account_groups_list' %}" href="{% url 'account_groups_list' %}">{% translate 'Account Groups' %}</a></li>
-                    <li><a class="dropdown-item {% active_link views='currencies_list' %}" href="{% url 'currencies_list' %}">{% translate 'Currencies' %}</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                      <a class="dropdown-item"
-                         href="{% url 'admin:index' %}"
-                         hx-boost="false"
-                         data-bs-placement="right"
-                         data-bs-toggle="tooltip"
-                         data-bs-title="{% translate "Only use this if you know what you're doing" %}">
-                        {% translate 'Django Admin' %}
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav mt-3 mb-2 mb-lg-0 mt-lg-0">
-              <li class="text-center w-100">{% include 'includes/navbar/user_menu.html' %}</li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-primary font-base" href="{% url 'monthly_index' %}">
+      <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="40" title="WYGIWYH"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label={% translate "Toggle navigation" %}>
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline" hx-push-url="true">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% active_link views='monthly_overview||yearly_overview' %}"
+             href="#"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            {% translate 'Overview' %}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% active_link views='monthly_overview' %}"
+                   href="{% url 'monthly_index' %}">{% translate 'Monthly' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='yearly_overview' %}"
+                   href="{% url 'yearly_index' %}">{% translate 'Yearly' %}</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% active_link views='net_worth' %}"
+             href="{% url 'net_worth' %}">
+            {% translate 'Net Worth' %}
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% active_link views='tags_index||categories_index||accounts_index||account_groups_index||currencies_index||installment_plans_index' %}"
+             href="#" role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            {% translate 'Management' %}
+          </a>
+          <ul class="dropdown-menu">
+            <li><h6 class="dropdown-header">{% trans 'Transactions' %}</h6></li>
+            <li><a class="dropdown-item {% active_link views='categories_index' %}"
+                   href="{% url 'categories_index' %}">{% translate 'Categories' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='tags_index' %}"
+                   href="{% url 'tags_index' %}">{% translate 'Tags' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='installment_plans_index' %}"
+                   href="{% url 'installment_plans_index' %}">{% translate 'Installment Plans' %}</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><h6 class="dropdown-header">{% trans 'Accounts' %}</h6></li>
+            <li><a class="dropdown-item {% active_link views='accounts_index' %}"
+                   href="{% url 'accounts_index' %}">{% translate 'Accounts' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='account_groups_index' %}"
+                   href="{% url 'account_groups_index' %}">{% translate 'Account Groups' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='currencies_index' %}"
+                   href="{% url 'currencies_index' %}">{% translate 'Currencies' %}</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <a class="dropdown-item"
+                 href="{% url 'admin:index' %}"
+                 hx-boost="false"
+                 data-bs-placement="right"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate "Only use this if you know what you're doing" %}">
+                {% translate 'Django Admin' %}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav mt-3 mb-2 mb-lg-0 mt-lg-0">
+        <li class="text-center w-100">{% include 'includes/navbar/user_menu.html' %}</li>
+      </ul>
     </div>
+  </div>
 </nav>

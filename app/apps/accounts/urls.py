@@ -8,7 +8,8 @@ urlpatterns = [
         views.account_reconciliation,
         name="account_reconciliation",
     ),
-    path("accounts/", views.accounts_list, name="accounts_list"),
+    path("accounts/", views.accounts_index, name="accounts_index"),
+    path("accounts/list/", views.accounts_list, name="accounts_list"),
     path("account/add/", views.account_add, name="account_add"),
     path(
         "account/<int:pk>/edit/",
@@ -20,7 +21,8 @@ urlpatterns = [
         views.account_delete,
         name="account_delete",
     ),
-    path("account-groups/", views.account_groups_list, name="account_groups_list"),
+    path("account-groups/", views.account_groups_index, name="account_groups_index"),
+    path("account-groups/list/", views.account_groups_list, name="account_groups_list"),
     path("account-groups/add/", views.account_group_add, name="account_group_add"),
     path(
         "account-groups/<int:pk>/edit/",

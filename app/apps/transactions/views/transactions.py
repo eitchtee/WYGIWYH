@@ -88,17 +88,9 @@ def transaction_edit(request, transaction_id, **kwargs):
 def transaction_delete(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction, id=transaction_id)
 
-    if transaction.installment_plan:
-        messages.error(
-            request,
-            _(
-                "This transaction is part of a Installment Plan, you can't delete it directly."
-            ),
-        )
-    else:
-        transaction.delete()
+    transaction.delete()
 
-        messages.success(request, _("Transaction deleted successfully"))
+    messages.success(request, _("Transaction deleted successfully"))
 
     return HttpResponse(
         status=204,
@@ -152,30 +144,9 @@ def transaction_pay(request, transaction_id):
     response = render(
         request,
         "transactions/fragments/item.html",
-        context={"transaction": transaction},
+        context={"transaction": transaction, **request.GET},
     )
     response.headers["HX-Trigger"] = (
         f'{"paid" if new_is_paid else "unpaid"}, monthly_summary_update'
     )
     return response
-
-
-class AddInstallmentPlanView(View):
-    template_name = "transactions/fragments/add_installment_plan.html"
-
-    def get(self, request):
-        form = InstallmentPlanForm()
-        return render(request, self.template_name, {"form": form})
-
-    def post(self, request):
-        form = InstallmentPlanForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Installment plan created successfully"))
-
-            return HttpResponse(
-                status=204,
-                headers={"HX-Trigger": "updated, hide_offcanvas, toast"},
-            )
-
-        return render(request, self.template_name, {"form": form})

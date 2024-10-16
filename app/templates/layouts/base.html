@@ -22,7 +22,6 @@
     {% block extra_js_head %}{% endblock %}
   </head>
   <body class="font-monospace">
-    
     <div _="install hide_amounts
             install htmx_error_handler
            {% block body_hyperscript %}{% endblock %}">
@@ -37,10 +36,10 @@
       <div id="content">
         {% block content %}{% endblock %}
       </div>
+      
+      {% include 'includes/offcanvas.html' %}
+      {% include 'includes/toasts.html' %}
     </div>
-    
-    {% include 'includes/offcanvas.html' %}
-    {% include 'includes/toasts.html' %}
     
     {% block extra_js_body %}{% endblock %}
   </body>

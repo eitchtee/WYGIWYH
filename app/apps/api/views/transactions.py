@@ -32,3 +32,11 @@ class TransactionTagViewSet(viewsets.ModelViewSet):
 class InstallmentPlanViewSet(viewsets.ModelViewSet):
     queryset = InstallmentPlan.objects.all()
     serializer_class = InstallmentPlanSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.create_transactions()
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        instance.create_transactions()

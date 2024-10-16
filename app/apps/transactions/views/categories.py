@@ -14,9 +14,23 @@ from apps.transactions.models import TransactionCategory
 
 @login_required
 @require_http_methods(["GET"])
+def categories_index(request):
+    return render(
+        request,
+        "categories/pages/index.html",
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
 def categories_list(request):
     categories = TransactionCategory.objects.all().order_by("id")
-    return render(request, "categories/pages/list.html", {"categories": categories})
+    return render(
+        request,
+        "categories/fragments/list.html",
+        {"categories": categories},
+    )
 
 
 @only_htmx
@@ -32,8 +46,7 @@ def category_add(request, **kwargs):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("categories_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -61,8 +74,7 @@ def category_edit(request, category_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Location": reverse("categories_list"),
-                    "HX-Trigger": "hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas, toasts",
                 },
             )
     else:
@@ -88,5 +100,7 @@ def category_delete(request, category_id):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Location": reverse("categories_list")},
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas, toasts",
+        },
     )

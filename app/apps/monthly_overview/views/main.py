@@ -103,6 +103,7 @@ def transactions_list(request, month: int, year: int):
             "tags",
             "account__exchange_currency",
             "account__currency",
+            "installment_plan",
         )
     )
     return render(

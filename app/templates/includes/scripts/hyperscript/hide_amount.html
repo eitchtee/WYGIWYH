@@ -1,13 +1,13 @@
 <script type="text/hyperscript">
   behavior hide_amounts
-    on load or htmx:afterSwap if I include #settings-hide-amounts
+    on load or htmx:afterSwap if body include #settings-hide-amounts
       set elements to <.amount/> in me
       for el in elements
         set el.textContent to '•••••••••••'
       end
     end
 
-    on load or htmx:afterSwap if I do not include #settings-hide-amounts
+    on load or htmx:afterSwap if body do not include #settings-hide-amounts
       set elements to <.amount/> in me
       for el in elements
         set el.textContent to el.dataset.originalValue
