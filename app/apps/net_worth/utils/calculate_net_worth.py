@@ -89,10 +89,10 @@ def calculate_account_net_worth():
 
 
 def calculate_currency_net_worth():
-    # Subquery to calculate balance for each account
+    # Subquery to calculate balance for each currency
     balance_subquery = (
-        Transaction.objects.filter(account=OuterRef("pk"), is_paid=True)
-        .values("account")
+        Transaction.objects.filter(account__currency=OuterRef("pk"), is_paid=True)
+        .values("account__currency")
         .annotate(
             balance=Sum(
                 Case(
@@ -106,22 +106,24 @@ def calculate_currency_net_worth():
         .values("balance")
     )
 
-    # Main query to fetch all account data
-    accounts_data = Account.objects.annotate(
+    # Main query to fetch all currency data
+    currencies_data = Currency.objects.annotate(
         balance=Coalesce(Subquery(balance_subquery), Decimal("0"))
-    ).select_related("currency")
+    )
+
+    print(currencies_data[0].balance)
 
     net_worth = {}
-    for item in accounts_data:
-        currency_name = item.currency.name
+    for item in currencies_data:
+        currency_name = item.name
         net_worth[currency_name] = {
             "amount": net_worth.get(currency_name, {}).get("amount", Decimal("0"))
             + item.balance,
-            "code": item.currency.code,
+            "code": item.code,
             "name": currency_name,
-            "prefix": item.currency.prefix,
-            "suffix": item.currency.suffix,
-            "decimal_places": item.currency.decimal_places,
+            "prefix": item.prefix,
+            "suffix": item.suffix,
+            "decimal_places": item.decimal_places,
         }
 
     return net_worth
