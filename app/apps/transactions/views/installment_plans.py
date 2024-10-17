@@ -40,7 +40,6 @@ def installment_plans_list(request):
 def installment_plan_transactions(request, installment_plan_id):
     installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
     transactions = installment_plan.transactions.all().order_by("reference_date", "id")
-    print(transactions)
 
     return render(
         request,
