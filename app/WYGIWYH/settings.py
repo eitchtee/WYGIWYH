@@ -279,3 +279,5 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+CACHALOT_UNCACHABLE_TABLES = ("django_migrations", "procrastinate_jobs")
