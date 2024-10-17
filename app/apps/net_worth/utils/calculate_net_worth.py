@@ -10,6 +10,7 @@ from django.db.models import Sum, Min, Max, Case, When, F, Value, DecimalField
 from django.db.models.functions import Coalesce
 from django.db.models.functions import TruncMonth
 from django.template.defaultfilters import date as date_filter
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import Account
@@ -88,18 +89,12 @@ def calculate_account_net_worth():
 
 
 def calculate_currency_net_worth():
-    # Calculate net worth and fetch currency details in a single query
-    net_worth_data = (
-        Transaction.objects.filter(is_paid=True)
-        .values(
-            "account__currency__name",
-            "account__currency__code",
-            "account__currency__prefix",
-            "account__currency__suffix",
-            "account__currency__decimal_places",
-        )
+    # Subquery to calculate balance for each account
+    balance_subquery = (
+        Transaction.objects.filter(account=OuterRef("pk"), is_paid=True)
+        .values("account")
         .annotate(
-            amount=Sum(
+            balance=Sum(
                 Case(
                     When(type=Transaction.Type.INCOME, then=F("amount")),
                     When(type=Transaction.Type.EXPENSE, then=-F("amount")),
@@ -108,19 +103,25 @@ def calculate_currency_net_worth():
                 )
             )
         )
+        .values("balance")
     )
 
-    # Create the net worth dictionary from the query results
+    # Main query to fetch all account data
+    accounts_data = Account.objects.annotate(
+        balance=Coalesce(Subquery(balance_subquery), Decimal("0"))
+    ).select_related("currency")
+
     net_worth = {}
-    for item in net_worth_data:
-        currency_name = item["account__currency__name"]
+    for item in accounts_data:
+        currency_name = item.currency.name
         net_worth[currency_name] = {
-            "amount": item["amount"] or Decimal("0"),
-            "code": item["account__currency__code"],
+            "amount": net_worth.get(currency_name, {}).get("amount", Decimal("0"))
+            + item.balance,
+            "code": item.currency.code,
             "name": currency_name,
-            "prefix": item["account__currency__prefix"],
-            "suffix": item["account__currency__suffix"],
-            "decimal_places": item["account__currency__decimal_places"],
+            "prefix": item.currency.prefix,
+            "suffix": item.currency.suffix,
+            "decimal_places": item.currency.decimal_places,
         }
 
     return net_worth
@@ -134,8 +135,15 @@ def calculate_historical_currency_net_worth():
     )
     currencies = list(Currency.objects.values_list("name", flat=True))
 
-    start_date = aggregates["min_date"].replace(day=1)
-    end_date = aggregates["max_date"].replace(day=1)
+    if not aggregates.get("min_date"):
+        start_date = timezone.localdate(timezone.now())
+    else:
+        start_date = aggregates["min_date"].replace(day=1)
+
+    if not aggregates.get("max_date"):
+        end_date = timezone.localdate(timezone.now()) + relativedelta(months=1)
+    else:
+        end_date = aggregates["max_date"].replace(day=1)
 
     # Calculate cumulative balances for each account, currency, and month
     cumulative_balances = (
@@ -184,7 +192,7 @@ def calculate_historical_currency_net_worth():
             if balance_change != Decimal("0.00"):
                 totals_changed = True
 
-        if totals_changed:
+        if totals_changed or not historical_net_worth:
             historical_net_worth[month_str] = running_totals.copy()
             last_recorded_totals = running_totals.copy()
 
@@ -207,8 +215,16 @@ def calculate_historical_account_balance():
     date_range = Transaction.objects.filter(is_paid=True).aggregate(
         min_date=Min("reference_date"), max_date=Max("reference_date")
     )
-    start_date = date_range["min_date"].replace(day=1)
-    end_date = date_range["max_date"].replace(day=1)
+
+    if not date_range.get("min_date"):
+        start_date = timezone.localdate(timezone.now())
+    else:
+        start_date = date_range["min_date"].replace(day=1)
+
+    if not date_range.get("max_date"):
+        end_date = timezone.localdate(timezone.now()) + relativedelta(months=1)
+    else:
+        end_date = date_range["max_date"].replace(day=1)
 
     # Calculate balances for each account and month
     balances = (
