@@ -103,4 +103,39 @@ urlpatterns = [
         views.installment_plan_refresh,
         name="installment_plan_refresh",
     ),
+    path(
+        "recurring-trasanctions/",
+        views.recurring_transactions_index,
+        name="recurring_trasanctions_index",
+    ),
+    path(
+        "recurring-trasanctions/list/",
+        views.recurring_transactions_list,
+        name="recurring_transaction_list",
+    ),
+    path(
+        "recurring-transactions/add/",
+        views.recurring_transaction_add,
+        name="recurring_transaction_add",
+    ),
+    path(
+        "recurring-transactions/<int:recurring_transaction_id>/transactions/",
+        views.recurring_transaction_transactions,
+        name="recurring_transaction_transactions",
+    ),
+    path(
+        "recurring-transactions/<int:recurring_transaction_id>/edit/",
+        views.recurring_transaction_edit,
+        name="recurring_transaction_edit",
+    ),
+    path(
+        "recurring-transactions/<int:recurring_transaction_id>/delete/",
+        views.recurring_transaction_delete,
+        name="recurring_transaction_delete",
+    ),
+    # path(
+    #     "installment-plans/<int:installment_plan_id>/refresh/",
+    #     views.installment_plan_refresh,
+    #     name="installment_plan_refresh",
+    # ),
 ]

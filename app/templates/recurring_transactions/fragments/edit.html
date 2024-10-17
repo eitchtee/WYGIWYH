@@ -1,0 +1,13 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Edit recurring transaction' %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% url 'recurring_transaction_edit' recurring_transaction_id=recurring_transaction.id %}"
+      hx-target="#generic-offcanvas"
+      novalidate>
+    {% crispy form %}
+</form>
+{% endblock %}

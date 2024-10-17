@@ -1,17 +1,16 @@
 import logging
 
 from dateutil.relativedelta import relativedelta
-from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import Q
-from django.utils.functional import cached_property
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from apps.common.functions.decimals import truncate_decimal
-from apps.transactions.validators import validate_decimal_places, validate_non_negative
-from apps.currencies.utils.convert import convert
 from apps.common.fields.month_year import MonthYearModelField
+from apps.common.functions.decimals import truncate_decimal
+from apps.currencies.utils.convert import convert
+from apps.transactions.validators import validate_decimal_places, validate_non_negative
 
 logger = logging.getLogger()
 
@@ -39,30 +38,6 @@ class TransactionTag(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# class InstallmentPlan(models.Model):
-#     account = models.ForeignKey(
-#         "accounts.Account", on_delete=models.CASCADE, verbose_name=_("Account")
-#     )
-#     description = models.CharField(max_length=500, verbose_name=_("Description"))
-#     number_of_installments = models.PositiveIntegerField(
-#         validators=[MinValueValidator(1)], verbose_name=_("Number of Installments")
-#     )
-#     # start_date = models.DateField(verbose_name=_("Start Date"))
-#     # end_date = models.DateField(verbose_name=_("End Date"))
-#
-#     class Meta:
-#         verbose_name = _("Installment Plan")
-#         verbose_name_plural = _("Installment Plans")
-#
-#     def __str__(self):
-#         return f"{self.description} - {self.number_of_installments} installments"
-#
-#     def delete(self, *args, **kwargs):
-#         # Delete related transactions
-#         self.transactions.all().delete()
-#         super().delete(*args, **kwargs)
 
 
 class Transaction(models.Model):
@@ -110,6 +85,14 @@ class Transaction(models.Model):
         verbose_name=_("Installment Plan"),
     )
     installment_id = models.PositiveIntegerField(null=True, blank=True)
+    recurring_transaction = models.ForeignKey(
+        "RecurringTransaction",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="transactions",
+        verbose_name=_("Recurring Transaction"),
+    )
 
     class Meta:
         verbose_name = _("Transaction")
@@ -120,6 +103,7 @@ class Transaction(models.Model):
         self.amount = truncate_decimal(
             value=self.amount, decimal_places=self.account.currency.decimal_places
         )
+        self.reference_date = self.reference_date.replace(day=1)
         self.full_clean()
         super().save(*args, **kwargs)
 
@@ -323,3 +307,160 @@ class InstallmentPlan(models.Model):
         # Delete related transactions
         self.transactions.all().delete()
         super().delete(*args, **kwargs)
+
+
+class RecurringTransaction(models.Model):
+    class RecurrenceType(models.TextChoices):
+        DAY = "day", _("day(s)")
+        WEEK = "week", _("week(s)")
+        MONTH = "month", _("month(s)")
+        YEAR = "year", _("year(s)")
+
+    account = models.ForeignKey(
+        "accounts.Account", on_delete=models.CASCADE, verbose_name=_("Account")
+    )
+    type = models.CharField(
+        max_length=2,
+        choices=Transaction.Type,
+        default=Transaction.Type.EXPENSE,
+        verbose_name=_("Type"),
+    )
+    amount = models.DecimalField(
+        max_digits=42,
+        decimal_places=30,
+        verbose_name=_("Amount"),
+        validators=[validate_non_negative, validate_decimal_places],
+    )
+    description = models.CharField(max_length=500, verbose_name=_("Description"))
+    category = models.ForeignKey(
+        TransactionCategory,
+        on_delete=models.SET_NULL,
+        verbose_name=_("Category"),
+        blank=True,
+        null=True,
+    )
+    tags = models.ManyToManyField(TransactionTag, verbose_name=_("Tags"), blank=True)
+    reference_date = models.DateField(
+        verbose_name=_("Reference Date"), null=True, blank=True
+    )
+
+    # Recurrence fields
+    start_date = models.DateField(verbose_name=_("Start Date"))
+    end_date = models.DateField(verbose_name=_("End Date"), null=True, blank=True)
+    recurrence_type = models.CharField(
+        max_length=7, choices=RecurrenceType, verbose_name=_("Recurrence Type")
+    )
+    recurrence_interval = models.PositiveIntegerField(
+        verbose_name=_("Recurrence Interval"),
+    )
+
+    last_generated_date = models.DateField(
+        verbose_name=_("Last Generated Date"), null=True, blank=True
+    )
+    last_generated_reference_date = models.DateField(
+        verbose_name=_("Last Generated Reference Date"), null=True, blank=True
+    )
+
+    class Meta:
+        verbose_name = _("Recurring Transaction")
+        verbose_name_plural = _("Recurring Transactions")
+        db_table = "recurring_transactions"
+
+    def __str__(self):
+        return self.description
+
+    def save(self, *args, **kwargs):
+        if not self.reference_date:
+            self.reference_date = self.start_date.replace(day=1)
+
+        instance = super().save(*args, **kwargs)
+        return instance
+
+    def create_upcoming_transactions(self):
+        current_date = self.start_date
+        reference_date = self.reference_date
+        end_date = min(
+            self.end_date or timezone.now().date() + relativedelta(years=1),
+            timezone.now().date() + relativedelta(years=1),
+        )
+
+        while current_date <= end_date:
+            self.create_transaction(current_date, reference_date)
+            current_date = self.get_next_date(current_date)
+            reference_date = self.get_next_date(reference_date)
+
+        self.last_generated_date = current_date - self.get_recurrence_delta()
+        self.last_generated_reference_date = (
+            reference_date - self.get_recurrence_delta()
+        )
+        self.save(
+            update_fields=["last_generated_date", "last_generated_reference_date"]
+        )
+
+    def create_transaction(self, date, reference_date):
+        created_transaction = Transaction.objects.create(
+            account=self.account,
+            type=self.type,
+            date=date,
+            reference_date=reference_date,
+            amount=self.amount,
+            description=self.description,
+            category=self.category,
+            is_paid=False,
+            recurring_transaction=self,
+        )
+        if self.tags.exists():
+            created_transaction.tags.set(self.tags.all())
+
+    def get_recurrence_delta(self):
+        if self.recurrence_type == self.RecurrenceType.DAY:
+            return relativedelta(days=self.recurrence_interval)
+        elif self.recurrence_type == self.RecurrenceType.WEEK:
+            return relativedelta(weeks=self.recurrence_interval)
+        elif self.recurrence_type == self.RecurrenceType.MONTH:
+            return relativedelta(months=self.recurrence_interval)
+        elif self.recurrence_type == self.RecurrenceType.YEAR:
+            return relativedelta(years=self.recurrence_interval)
+
+    def get_next_date(self, current_date):
+        return current_date + self.get_recurrence_delta()
+
+    @classmethod
+    def generate_upcoming_transactions(cls):
+        today = timezone.now().date()
+        recurring_transactions = cls.objects.filter(
+            models.Q(end_date__isnull=True) | models.Q(end_date__gte=today)
+        )
+
+        for recurring_transaction in recurring_transactions:
+            if recurring_transaction.last_generated_date:
+                start_date = recurring_transaction.get_next_date(
+                    recurring_transaction.last_generated_date
+                )
+                reference_date = recurring_transaction.get_next_date(
+                    recurring_transaction.last_generated_reference_date
+                )
+            else:
+                start_date = max(recurring_transaction.start_date, today)
+                reference_date = recurring_transaction.reference_date
+
+            current_date = start_date
+            end_date = min(
+                recurring_transaction.end_date or today + relativedelta(years=1),
+                today + relativedelta(years=1),
+            )
+
+            while current_date <= end_date:
+                recurring_transaction.create_transaction(current_date, reference_date)
+                current_date = recurring_transaction.get_next_date(current_date)
+                reference_date = recurring_transaction.get_next_date(reference_date)
+
+            recurring_transaction.last_generated_date = (
+                current_date - recurring_transaction.get_recurrence_delta()
+            )
+            recurring_transaction.last_generated_reference_date = (
+                reference_date - recurring_transaction.get_recurrence_delta()
+            )
+            recurring_transaction.save(
+                update_fields=["last_generated_date", "last_generated_reference_date"]
+            )

@@ -9,7 +9,7 @@ window.TomSelect = function createDynamicTomSelect(element) {
 
     // Extract 'create' option from data attribute
     create: element.dataset.create === 'true',
-
+    copyClassesToDropdown: true,
     allowEmptyOption: element.dataset.allowEmptyOption === 'true',
     render: {
         no_results: function () {

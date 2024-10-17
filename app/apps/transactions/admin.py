@@ -5,6 +5,7 @@ from apps.transactions.models import (
     TransactionCategory,
     TransactionTag,
     InstallmentPlan,
+    RecurringTransaction,
 )
 
 
@@ -28,6 +29,13 @@ class TransactionInline(admin.TabularInline):
 
 @admin.register(InstallmentPlan)
 class InstallmentPlanAdmin(admin.ModelAdmin):
+    inlines = [
+        TransactionInline,
+    ]
+
+
+@admin.register(RecurringTransaction)
+class RecurringTransactionAdmin(admin.ModelAdmin):
     inlines = [
         TransactionInline,
     ]

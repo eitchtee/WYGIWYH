@@ -34,7 +34,24 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='tags_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||installment_plans_index' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||recurring_trasanctions_index' %}"
+             href="#" role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            {% translate 'Transactions' %}
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item {% active_link views='installment_plans_index' %}"
+                   href="{% url 'installment_plans_index' %}">{% translate 'Installment Plans' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='recurring_trasanctions_index' %}"
+                   href="{% url 'recurring_trasanctions_index' %}">{% translate 'Recurring Transactions' %}</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% active_link views='tags_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">
@@ -46,8 +63,6 @@
                    href="{% url 'categories_index' %}">{% translate 'Categories' %}</a></li>
             <li><a class="dropdown-item {% active_link views='tags_index' %}"
                    href="{% url 'tags_index' %}">{% translate 'Tags' %}</a></li>
-            <li><a class="dropdown-item {% active_link views='installment_plans_index' %}"
-                   href="{% url 'installment_plans_index' %}">{% translate 'Installment Plans' %}</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>

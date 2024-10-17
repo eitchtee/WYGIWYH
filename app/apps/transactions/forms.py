@@ -1,10 +1,13 @@
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Field
-from dateutil.relativedelta import relativedelta
+from crispy_forms.layout import (
+    Layout,
+    Row,
+    Column,
+    Field,
+)
 from django import forms
-from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import Account
@@ -12,16 +15,17 @@ from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
 )
+from apps.common.fields.month_year import MonthYearFormField
 from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelect
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
     TransactionTag,
     InstallmentPlan,
+    RecurringTransaction,
 )
-from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
-from apps.common.fields.month_year import MonthYearFormField
 
 
 class TransactionForm(forms.ModelForm):
@@ -312,143 +316,6 @@ class TransferForm(forms.Form):
         return from_transaction, to_transaction
 
 
-# class InstallmentPlanForm(forms.Form):
-#     type = forms.ChoiceField(choices=Transaction.Type.choices)
-#     account = forms.ModelChoiceField(
-#         queryset=Account.objects.all(),
-#         label=_("Account"),
-#         widget=TomSelect(),
-#     )
-#     start_date = forms.DateField(
-#         label=_("Start Date"),
-#         widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
-#     )
-#     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
-#     description = forms.CharField(max_length=500, label=_("Description"))
-#     number_of_installments = forms.IntegerField(
-#         min_value=1, label=_("Number of Installments")
-#     )
-#     recurrence = forms.ChoiceField(
-#         choices=(
-#             ("yearly", _("Yearly")),
-#             ("monthly", _("Monthly")),
-#             ("weekly", _("Weekly")),
-#             ("daily", _("Daily")),
-#         ),
-#         label=_("Recurrence"),
-#         initial="monthly",
-#         widget=TomSelect(clear_button=False),
-#     )
-#     installment_amount = forms.DecimalField(
-#         max_digits=42,
-#         decimal_places=30,
-#         required=True,
-#         label=_("Installment Amount"),
-#     )
-#     category = DynamicModelChoiceField(
-#         model=TransactionCategory,
-#         required=False,
-#         label=_("Category"),
-#     )
-#     tags = DynamicModelMultipleChoiceField(
-#         model=TransactionTag,
-#         to_field_name="name",
-#         create_field="name",
-#         required=False,
-#         label=_("Tags"),
-#     )
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#
-#         self.helper = FormHelper()
-#         self.helper.form_tag = False
-#         self.helper.form_method = "post"
-#
-#         self.helper.layout = Layout(
-#             Field(
-#                 "type",
-#                 template="transactions/widgets/income_expense_toggle_buttons.html",
-#             ),
-#             "account",
-#             "description",
-#             Row(
-#                 Column("number_of_installments", css_class="form-group col-md-6 mb-0"),
-#                 Column("recurrence", css_class="form-group col-md-6 mb-0"),
-#                 css_class="form-row",
-#             ),
-#             Row(
-#                 Column("start_date", css_class="form-group col-md-6 mb-0"),
-#                 Column("reference_date", css_class="form-group col-md-6 mb-0"),
-#                 css_class="form-row",
-#             ),
-#             "installment_amount",
-#             Row(
-#                 Column("category", css_class="form-group col-md-6 mb-0"),
-#                 Column("tags", css_class="form-group col-md-6 mb-0"),
-#                 css_class="form-row",
-#             ),
-#             FormActions(
-#                 NoClassSubmit(
-#                     "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-#                 ),
-#             ),
-#         )
-#
-#         self.fields["installment_amount"].widget = ArbitraryDecimalDisplayNumberInput()
-#
-#     def save(self):
-#         number_of_installments = self.cleaned_data["number_of_installments"]
-#         transaction_type = self.cleaned_data["type"]
-#         start_date = self.cleaned_data["start_date"]
-#         reference_date = self.cleaned_data["reference_date"] or start_date
-#         recurrence = self.cleaned_data["recurrence"]
-#         account = self.cleaned_data["account"]
-#         description = self.cleaned_data["description"]
-#         installment_amount = self.cleaned_data["installment_amount"]
-#         category = self.cleaned_data["category"]
-#
-#         print(reference_date, type(reference_date))
-#         print(start_date, type(start_date))
-#
-#         with transaction.atomic():
-#             installment_plan = InstallmentPlan.objects.create(
-#                 account=account,
-#                 description=description,
-#                 number_of_installments=number_of_installments,
-#             )
-#
-#             with transaction.atomic():
-#                 for i in range(number_of_installments):
-#                     if recurrence == "yearly":
-#                         delta = relativedelta(years=i)
-#                     elif recurrence == "monthly":
-#                         delta = relativedelta(months=i)
-#                     elif recurrence == "weekly":
-#                         delta = relativedelta(weeks=i)
-#                     elif recurrence == "daily":
-#                         delta = relativedelta(days=i)
-#
-#                     transaction_date = start_date + delta
-#                     transaction_reference_date = (reference_date + delta).replace(day=1)
-#                     new_transaction = Transaction.objects.create(
-#                         account=account,
-#                         type=transaction_type,
-#                         date=transaction_date,
-#                         is_paid=False,
-#                         reference_date=transaction_reference_date,
-#                         amount=installment_amount,
-#                         description=description,
-#                         notes=f"{i + 1}/{number_of_installments}",
-#                         category=category,
-#                         installment_plan=installment_plan,
-#                     )
-#
-#                     new_transaction.tags.set(self.cleaned_data.get("tags", []))
-#
-#         return installment_plan
-
-
 class InstallmentPlanForm(forms.ModelForm):
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
@@ -615,3 +482,112 @@ class TransactionCategoryForm(forms.ModelForm):
                     ),
                 ),
             )
+
+
+class RecurringTransactionForm(forms.ModelForm):
+    tags = DynamicModelMultipleChoiceField(
+        model=TransactionTag,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Tags"),
+    )
+    category = DynamicModelChoiceField(
+        model=TransactionCategory,
+        required=False,
+        label=_("Category"),
+    )
+    type = forms.ChoiceField(choices=Transaction.Type.choices)
+    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
+
+    class Meta:
+        model = RecurringTransaction
+        fields = [
+            "account",
+            "type",
+            "amount",
+            "description",
+            "category",
+            "tags",
+            "start_date",
+            "reference_date",
+            "end_date",
+            "recurrence_type",
+            "recurrence_interval",
+        ]
+        widgets = {
+            "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "end_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "account": TomSelect(clear_button=False),
+            "recurrence_type": TomSelect(clear_button=False),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = "post"
+        self.helper.form_tag = False
+
+        self.helper.layout = Layout(
+            Field(
+                "type",
+                template="transactions/widgets/income_expense_toggle_buttons.html",
+            ),
+            "account",
+            "description",
+            "amount",
+            Row(
+                Column("category", css_class="form-group col-md-6 mb-0"),
+                Column("tags", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("start_date", css_class="form-group col-md-6 mb-0"),
+                Column("reference_date", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("recurrence_interval", css_class="form-group col-md-4 mb-0"),
+                Column("recurrence_type", css_class="form-group col-md-4 mb-0"),
+                Column("end_date", css_class="form-group col-md-4 mb-0"),
+                css_class="form-row",
+            ),
+        )
+
+        self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()
+
+        if self.instance and self.instance.pk:
+            self.helper.layout.append(
+                FormActions(
+                    NoClassSubmit(
+                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
+                    ),
+                ),
+            )
+        else:
+            self.helper.layout.append(
+                FormActions(
+                    NoClassSubmit(
+                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
+                    ),
+                ),
+            )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start_date")
+        end_date = cleaned_data.get("end_date")
+
+        if start_date and end_date and start_date > end_date:
+            raise forms.ValidationError("End date should be after the start date.")
+
+        return cleaned_data
+
+    def save(self, **kwargs):
+        is_new = not self.instance.id
+
+        instance = super().save(**kwargs)
+        if is_new:
+            instance.create_upcoming_transactions()
+
+        return instance

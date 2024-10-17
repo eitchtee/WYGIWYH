@@ -73,6 +73,12 @@
           <i class="fa-solid fa-divide me-2"></i>
           {% translate "Installment" %}
         </button>
+        <button class="btn btn-sm btn-outline-warning"
+                hx-get="{% url 'recurring_transaction_add' %}"
+                hx-trigger="click, balance from:window"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-repeat me-2"></i>
+          {% translate "Recurring" %}
         <button class="btn btn-sm btn-outline-info"
                 hx-get="{% url 'transactions_transfer' %}"
                 hx-target="#generic-offcanvas"
