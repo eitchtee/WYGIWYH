@@ -111,8 +111,6 @@ def calculate_currency_net_worth():
         balance=Coalesce(Subquery(balance_subquery), Decimal("0"))
     )
 
-    print(currencies_data[0].balance)
-
     net_worth = {}
     for item in currencies_data:
         currency_name = item.name
