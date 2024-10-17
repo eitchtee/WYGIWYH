@@ -1,7 +1,8 @@
 <script type="text/hyperscript">
   behavior htmx_error_handler
-    on htmx:responseError or htmx:afterRequest[detail.failed] remove .invisible .visually-hidden .swing-in-top-fwd from
+    on htmx:responseError or htmx:afterRequest[detail.failed] remove .tw-hidden from
     #loading-error then log event
-    on htmx:afterRequest[detail.successful] add .invisible .visually-hidden .swing-in-top-fwd to #loading-error
+    on htmx:afterRequest[detail.successful] add .tw-hidden to #loading-error
+    on click from #loading-error-close add .tw-hidden to #loading-error
   end
 </script>
