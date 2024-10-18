@@ -1,0 +1,7 @@
+{% load currency_display %}
+
+<div class="{% if text_end %}text-end{% elif text_start %}text-start{% endif %}">
+  <div class="amount{% if color == 'grey' %} tw-text-gray-500{% elif color == 'green' %} tw-text-green-400{% elif color == 'red' %} tw-text-red-400{% endif %}"
+       data-original-value="{% currency_display amount=amount prefix=prefix suffix=suffix decimal_places=decimal_places %}">
+  </div>
+</div>

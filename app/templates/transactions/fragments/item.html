@@ -66,15 +66,23 @@
       </div>
     </div>
     <div class="col-lg-3 col-12 text-lg-end align-self-end">
-        <div class="{% if transaction.type == "EX" %}tw-text-red-400{% else %}tw-text-green-400{% endif %}">
-          <div class="amount" data-original-value="{% transaction_amount transaction %}"></div>
-        </div>
+        <c-amount.display 
+            :amount="transaction.amount"
+            :prefix="transaction.account.currency.prefix"
+            :suffix="transaction.account.currency.suffix"
+            :decimal_places="transaction.account.currency.decimal_places"
+            color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"
+            text-end></c-amount.display>
         {#    Exchange Rate#}
         {% with exchanged=transaction.exchanged_amount %}
         {% if exchanged %}
-        <div class="tw-text-gray-500 amount"
-             data-original-value="{% currency_display amount=exchanged.amount prefix=exchanged.prefix suffix=exchanged.suffix decimal_places=exchanged.decimal_places %}">
-        </div>
+        <c-amount.display 
+            :amount="exchanged.amount"
+            :prefix="exchanged.prefix"
+            :suffix="exchanged.suffix"
+            :decimal_places="exchanged.decimal_places"
+            color="grey"
+            text-end></c-amount.display>
         {% endif %}
         {% endwith %}
         <div>{{ transaction.account.name }}</div>

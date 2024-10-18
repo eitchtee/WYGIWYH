@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "cachalot",
     "rest_framework",
     "drf_spectacular",
+    "django_cotton",
 ]
 
 MIDDLEWARE = [

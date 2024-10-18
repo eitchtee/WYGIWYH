@@ -26,7 +26,12 @@
                 <div class="d-flex align-items-baseline w-100">
                     <div class="currency-name text-start font-monospace tw-text-gray-300">{{ currency.name }}</div>
                     <div class="dotted-line flex-grow-1"></div>
-                    <div class="amount text-end font-monospace" data-original-value="{% currency_display amount=currency.amount prefix=currency.prefix suffix=currency.suffix decimal_places=currency.decimal_places %}"></div>
+                    <c-amount.display
+                          :amount="currency.amount"
+                          :prefix="currency.prefix"
+                          :suffix="currency.suffix"
+                          :decimal_places="currency.decimal_places"
+                          text-end></c-amount.display>
                 </div>
             </div>
             {% endfor %}
@@ -56,12 +61,21 @@
                         <div class="text-start font-monospace tw-text-gray-300">
                           <span class="hierarchy-line-icon"></span>{{ account_data.name }}</div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="amount" data-original-value="{% currency_display amount=account_data.balance prefix=account_data.currency.prefix suffix=account_data.currency.suffix decimal_places=account_data.currency.decimal_places%}"></div>
+                        <c-amount.display
+                          :amount="account_data.balance"
+                          :prefix="account_data.currency.prefix"
+                          :suffix="account_data.currency.suffix"
+                          :decimal_places="account_data.currency.decimal_places"></c-amount.display>
                     </div>
                   </div>
                   {% if account_data.exchange %}
-                    <div class="amount text-end tw-text-gray-400" data-original-value=
-                        "{% currency_display amount=account_data.exchange.amount prefix=account_data.exchange.prefix suffix=account_data.exchange.suffix decimal_places=account_data.exchange.decimal_places%}"></div>
+                    <c-amount.display
+                          :amount="account_data.exchange.amount"
+                          :prefix="account_data.exchange.prefix"
+                          :suffix="account_data.exchange.suffix"
+                          :decimal_places="account_data.exchange.decimal_places"
+                          color="grey"
+                          text-end></c-amount.display>
                   {% endif %}
                 {% endfor %}
               {% else %}
@@ -70,13 +84,22 @@
                     <div class="d-flex align-items-baseline w-100">
                         <div class="currency-name text-start font-monospace tw-text-gray-300">{{ account_data.name }}</div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="amount" data-original-value="{% currency_display amount=account_data.balance prefix=account_data.currency.prefix suffix=account_data.currency.suffix decimal_places=account_data.currency.decimal_places%}"></div>
-                        {% if account_data.exchange %}
-                        <div class="amount text-end tw-text-gray-400" data-original-value=
-                            "{% currency_display amount=account_data.balance prefix=account_data.currency.prefix suffix=account_data.currency.suffix decimal_places=account_data.currency.decimal_places%}"></div>
-                        {% endif %}
+                        <c-amount.display
+                          :amount="account_data.balance"
+                          :prefix="account_data.currency.prefix"
+                          :suffix="account_data.currency.suffix"
+                          :decimal_places="account_data.currency.decimal_places"></c-amount.display>
                     </div>
                 </div>
+                {% if account_data.exchange %}
+                      <c-amount.display
+                        :amount="account_data.exchange.amount"
+                        :prefix="account_data.exchange.prefix"
+                        :suffix="account_data.exchange.suffix"
+                        :decimal_places="account_data.exchange.decimal_places"
+                        color="grey"
+                        text-end></c-amount.display>
+                {% endif %}
                 {% endfor %}
               {% endif %}
               {% endfor %}
