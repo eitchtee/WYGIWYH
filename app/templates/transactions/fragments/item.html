@@ -24,9 +24,10 @@
       </a>
     </div>
     <div class="col-lg-8 col-12">
-      {#        Date#}
+{#      Date#}
       <div class="mb-1 tw-text-gray-400">
-        <i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i>{{ transaction.date|date:"SHORT_DATE_FORMAT" }}</div>
+        <i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i>{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
+{#      Description#}
       <div class="mb-1 text-white tw-text-base">
         {% spaceless %}
         <span>{{ transaction.description }}</span>
