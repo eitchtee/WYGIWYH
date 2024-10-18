@@ -4,5 +4,5 @@
 {% block title %}{% translate 'Exchange Rates' %}{% endblock %}
 
 {% block content %}
-<div hx-get="{% url 'exchange_rates_list' %}" hx-trigger="load, updated from:window" class="show-loading mx-5"></div>
+<div hx-get="{% url 'exchange_rates_list' %}" hx-trigger="load, updated from:window" class="show-loading"></div>
 {% endblock %}
