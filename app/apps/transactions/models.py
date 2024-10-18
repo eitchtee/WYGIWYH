@@ -316,6 +316,7 @@ class RecurringTransaction(models.Model):
         MONTH = "month", _("month(s)")
         YEAR = "year", _("year(s)")
 
+    paused = models.BooleanField(default=False, verbose_name=_("Paused"))
     account = models.ForeignKey(
         "accounts.Account", on_delete=models.CASCADE, verbose_name=_("Account")
     )
