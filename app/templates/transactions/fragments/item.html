@@ -33,6 +33,9 @@
         {% if transaction.installment_plan and transaction.installment_id %}
         <span class="badge text-bg-secondary ms-2">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
         {% endif %}
+        {% if transaction.recurring_transaction %}
+        <span class="text-primary tw-text-xs ms-2"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
+        {% endif %}
         {% endspaceless %}
       </div>
       <div class="tw-text-gray-400 tw-text-sm">
