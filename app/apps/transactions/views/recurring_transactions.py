@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from apps.common.decorators.htmx import only_htmx
 from apps.transactions.forms import RecurringTransactionForm
 from apps.transactions.models import RecurringTransaction
+from apps.transactions.tasks import generate_recurring_transactions
 
 
 @login_required
@@ -24,7 +25,9 @@ def recurring_transactions_index(request):
 @login_required
 @require_http_methods(["GET"])
 def recurring_transactions_list(request):
-    recurring_transactions = RecurringTransaction.objects.all().order_by("-end_date")
+    recurring_transactions = RecurringTransaction.objects.all().order_by(
+        "-start_date", "description", "id"
+    )
 
     return render(
         request,
@@ -122,6 +125,31 @@ def recurring_transaction_edit(request, recurring_transaction_id):
 #             "HX-Trigger": "updated, hide_offcanvas, toasts",
 #         },
 #     )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def recurring_transaction_toggle_pause(request, recurring_transaction_id):
+    installment_plan = get_object_or_404(
+        RecurringTransaction, id=recurring_transaction_id
+    )
+    current_paused = installment_plan.paused
+    installment_plan.paused = not current_paused
+    installment_plan.save(update_fields=["paused"])
+
+    if current_paused:
+        messages.success(request, _("Recurring transaction unpaused successfully"))
+        generate_recurring_transactions.defer()
+    else:
+        messages.success(request, _("Recurring transaction paused successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas, toasts",
+        },
+    )
 
 
 @only_htmx

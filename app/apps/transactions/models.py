@@ -187,7 +187,7 @@ class InstallmentPlan(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.reference_date:
-            self.reference_date = self.start_date.replace(day=1)
+            self.reference_date = self.start_date
 
         if not self.installment_start:
             self.installment_start = 1
@@ -372,7 +372,7 @@ class RecurringTransaction(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.reference_date:
-            self.reference_date = self.start_date.replace(day=1)
+            self.reference_date = self.start_date
 
         instance = super().save(*args, **kwargs)
         return instance
@@ -381,8 +381,8 @@ class RecurringTransaction(models.Model):
         current_date = self.start_date
         reference_date = self.reference_date
         end_date = min(
-            self.end_date or timezone.now().date() + relativedelta(years=1),
-            timezone.now().date() + relativedelta(years=1),
+            self.end_date or timezone.now().date() + (self.get_recurrence_delta() * 5),
+            timezone.now().date() + (self.get_recurrence_delta() * 5),
         )
 
         while current_date <= end_date:
@@ -403,7 +403,7 @@ class RecurringTransaction(models.Model):
             account=self.account,
             type=self.type,
             date=date,
-            reference_date=reference_date,
+            reference_date=reference_date.replace(day=1),
             amount=self.amount,
             description=self.description,
             category=self.category,
@@ -430,7 +430,8 @@ class RecurringTransaction(models.Model):
     def generate_upcoming_transactions(cls):
         today = timezone.now().date()
         recurring_transactions = cls.objects.filter(
-            models.Q(end_date__isnull=True) | models.Q(end_date__gte=today)
+            models.Q(models.Q(end_date__isnull=True) | models.Q(end_date__gte=today))
+            & models.Q(paused=False)
         )
 
         for recurring_transaction in recurring_transactions:
@@ -447,8 +448,9 @@ class RecurringTransaction(models.Model):
 
             current_date = start_date
             end_date = min(
-                recurring_transaction.end_date or today + relativedelta(years=1),
-                today + relativedelta(years=1),
+                recurring_transaction.end_date
+                or today + (recurring_transaction.get_recurrence_delta() * 6),
+                today + (recurring_transaction.get_recurrence_delta() * 6),
             )
 
             while current_date <= end_date:

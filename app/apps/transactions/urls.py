@@ -133,9 +133,9 @@ urlpatterns = [
         views.recurring_transaction_delete,
         name="recurring_transaction_delete",
     ),
-    # path(
-    #     "installment-plans/<int:installment_plan_id>/refresh/",
-    #     views.installment_plan_refresh,
-    #     name="installment_plan_refresh",
-    # ),
+    path(
+        "recurring-transactions/<int:recurring_transaction_id>/toggle-pause/",
+        views.recurring_transaction_toggle_pause,
+        name="recurring_transaction_toggle_pause",
+    ),
 ]
