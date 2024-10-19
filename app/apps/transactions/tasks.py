@@ -5,5 +5,5 @@ from apps.transactions.models import RecurringTransaction
 
 @app.periodic(cron="0 0 * * *")
 @app.task
-def generate_recurring_transactions():
+def generate_recurring_transactions(timestamp=None):
     RecurringTransaction.generate_upcoming_transactions()
