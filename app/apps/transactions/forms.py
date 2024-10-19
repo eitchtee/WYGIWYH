@@ -62,19 +62,6 @@ class TransactionForm(forms.ModelForm):
             "notes": forms.Textarea(attrs={"rows": 3}),
             "account": TomSelect(),
         }
-        # labels = {
-        #     "tags": mark_safe('<i class="fa-solid fa-hashtag me-1"></i>' + _("Tags")),
-        #     "category": mark_safe(
-        #         '<i class="fa-solid fa-icons me-1"></i>' + _("Category")
-        #     ),
-        #     "notes": mark_safe(
-        #         '<i class="fa-solid fa-align-justify me-1"></i>' + _("Notes")
-        #     ),
-        #     "amount": mark_safe('<i class="fa-solid fa-coins me-1"></i>' + _("Amount")),
-        #     "description": mark_safe(
-        #         '<i class="fa-solid fa-quote-left me-1"></i>' + _("Name")
-        #     ),
-        # }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

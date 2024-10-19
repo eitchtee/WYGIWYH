@@ -103,7 +103,12 @@ class Transaction(models.Model):
         self.amount = truncate_decimal(
             value=self.amount, decimal_places=self.account.currency.decimal_places
         )
-        self.reference_date = self.reference_date.replace(day=1)
+
+        if self.reference_date:
+            self.reference_date = self.reference_date.replace(day=1)
+        elif not self.reference_date and self.date:
+            self.reference_date = self.date.replace(day=1)
+
         self.full_clean()
         super().save(*args, **kwargs)
 
