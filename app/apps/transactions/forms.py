@@ -46,6 +46,7 @@ class TransactionForm(forms.ModelForm):
     account = GroupedModelChoiceField(
         queryset=Account.objects.all(),
         group_by="group",
+        widget=TomSelect(clear_button=False),
     )
 
     class Meta:
@@ -65,7 +66,6 @@ class TransactionForm(forms.ModelForm):
         widgets = {
             "date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "notes": forms.Textarea(attrs={"rows": 3}),
-            "account": TomSelect(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -136,13 +136,13 @@ class TransferForm(forms.Form):
         queryset=Account.objects.all(),
         group_by="group",
         label=_("From Account"),
-        widget=TomSelect(),
+        widget=TomSelect(clear_button=False),
     )
     to_account = GroupedModelChoiceField(
         queryset=Account.objects.all(),
         group_by="group",
         label=_("To Account"),
-        widget=TomSelect(),
+        widget=TomSelect(clear_button=False),
     )
 
     from_amount = forms.DecimalField(
@@ -314,7 +314,7 @@ class InstallmentPlanForm(forms.ModelForm):
     account = GroupedModelChoiceField(
         queryset=Account.objects.all(),
         group_by="group",
-        widget=TomSelect(),
+        widget=TomSelect(clear_button=False),
     )
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
@@ -487,7 +487,7 @@ class RecurringTransactionForm(forms.ModelForm):
     account = GroupedModelChoiceField(
         queryset=Account.objects.all(),
         group_by="group",
-        widget=TomSelect(),
+        widget=TomSelect(clear_button=False),
     )
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
@@ -522,7 +522,6 @@ class RecurringTransactionForm(forms.ModelForm):
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "end_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
-            "account": TomSelect(clear_button=False),
             "recurrence_type": TomSelect(clear_button=False),
         }
 
