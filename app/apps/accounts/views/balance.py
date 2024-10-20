@@ -31,13 +31,14 @@ def account_reconciliation(request):
     initial_data = [
         {
             "account_id": account.id,
+            "account_group": account.group,
             "account_name": account.name,
             "decimal_places": account.currency.decimal_places,
             "suffix": account.currency.suffix,
             "prefix": account.currency.prefix,
             "current_balance": get_account_balance(account),
         }
-        for account in Account.objects.all().select_related("currency")
+        for account in Account.objects.all().select_related("currency", "group")
     ]
 
     if request.method == "POST":

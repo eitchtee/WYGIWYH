@@ -122,6 +122,7 @@ class AccountBalanceForm(forms.Form):
         self.currency_prefix = self.initial.get("prefix", "")
         self.currency_decimal_places = self.initial.get("decimal_places", 2)
         self.account_name = self.initial.get("account_name", "")
+        self.account_group = self.initial.get("account_group", None)
         self.current_balance = self.initial.get("current_balance", 0)
 
         self.helper = FormHelper()
