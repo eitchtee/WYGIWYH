@@ -3,7 +3,7 @@
 {% regroup transactions by date|customnaturaldate as transactions_by_date %}
 
 <div id="transactions-list"
-     _="on change
+     _="on change or click
           if no <input[type='checkbox']:checked/> in me
             add .tw-hidden to #actions-bar
           else
@@ -47,21 +47,37 @@
   <div class="tw-sticky tw-bottom-4 tw-left-0 tw-right-0 tw-z-50 tw-hidden mx-auto tw-w-fit" id="actions-bar">
     <div class="card slide-in-left">
       <div class="card-body p-2">
-        <button class="btn btn-secondary me-3"
+        {% spaceless %}
+        <div class="btn-group" role="group">
+          <button class="btn btn-secondary btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate 'Select All' %}"
+                  _="on click set <#transactions-list input[type='checkbox']/>'s checked to true">
+            <i class="fa-solid fa-check-double"></i>
+          </button>
+          <button class="btn btn-secondary btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate 'Unselect All' %}"
+                  _="on click set <#transactions-list input[type='checkbox']/>'s checked to false">
+            <i class="fa-solid fa-xmark tw-text-red-400"></i>
+          </button>
+        </div>
+        <div class="vr mx-3 tw-align-middle"></div>
+        <button class="btn btn-secondary me-3 btn-sm"
                 hx-get="{% url 'transactions_bulk_pay' %}"
                 hx-include=".transaction"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Mark as paid' %}">
           <i class="fa-regular fa-circle-check tw-text-green-400"></i>
         </button>
-        <button class="btn btn-secondary me-3"
+        <button class="btn btn-secondary me-3 btn-sm"
                 hx-get="{% url 'transactions_bulk_unpay' %}"
                 hx-include=".transaction"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Mark as unpaid' %}">
           <i class="fa-regular fa-circle tw-text-red-400"></i>
         </button>
-        <button class="btn btn-secondary"
+        <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_delete' %}"
                 hx-include=".transaction"
                 hx-trigger="confirmed"
@@ -74,6 +90,7 @@
                 _="install prompt_swal">
           <i class="fa-solid fa-trash text-danger"></i>
         </button>
+        {% endspaceless %}
       </div>
     </div>
   </div>
