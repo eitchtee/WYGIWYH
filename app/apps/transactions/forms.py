@@ -15,6 +15,7 @@ from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
 )
+from apps.common.fields.forms.grouped_select import GroupedModelChoiceField
 from apps.common.fields.month_year import MonthYearFormField
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
@@ -42,6 +43,10 @@ class TransactionForm(forms.ModelForm):
         label=_("Tags"),
     )
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
+    account = GroupedModelChoiceField(
+        queryset=Account.objects.all(),
+        group_by="group",
+    )
 
     class Meta:
         model = Transaction
@@ -127,13 +132,15 @@ class TransactionForm(forms.ModelForm):
 
 
 class TransferForm(forms.Form):
-    from_account = forms.ModelChoiceField(
+    from_account = GroupedModelChoiceField(
         queryset=Account.objects.all(),
+        group_by="group",
         label=_("From Account"),
         widget=TomSelect(),
     )
-    to_account = forms.ModelChoiceField(
+    to_account = GroupedModelChoiceField(
         queryset=Account.objects.all(),
+        group_by="group",
         label=_("To Account"),
         widget=TomSelect(),
     )
@@ -304,6 +311,11 @@ class TransferForm(forms.Form):
 
 
 class InstallmentPlanForm(forms.ModelForm):
+    account = GroupedModelChoiceField(
+        queryset=Account.objects.all(),
+        group_by="group",
+        widget=TomSelect(),
+    )
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
         to_field_name="name",
@@ -472,6 +484,11 @@ class TransactionCategoryForm(forms.ModelForm):
 
 
 class RecurringTransactionForm(forms.ModelForm):
+    account = GroupedModelChoiceField(
+        queryset=Account.objects.all(),
+        group_by="group",
+        widget=TomSelect(),
+    )
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
         to_field_name="name",
