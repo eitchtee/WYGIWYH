@@ -94,5 +94,7 @@ $theme-colors: map-merge($theme-colors, (
 	/*
 	Label the data
 	*/
-	.no-more-tables td:before { content: attr(data-title); }
+	.no-more-tables td:before {
+		content: attr(data-title);
+	}
 }
