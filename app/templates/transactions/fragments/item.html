@@ -72,8 +72,7 @@
             :prefix="transaction.account.currency.prefix"
             :suffix="transaction.account.currency.suffix"
             :decimal_places="transaction.account.currency.decimal_places"
-            color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"
-            text-end></c-amount.display>
+            color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
         {#    Exchange Rate#}
         {% with exchanged=transaction.exchanged_amount %}
         {% if exchanged %}
@@ -82,8 +81,7 @@
             :prefix="exchanged.prefix"
             :suffix="exchanged.suffix"
             :decimal_places="exchanged.decimal_places"
-            color="grey"
-            text-end></c-amount.display>
+            color="grey"></c-amount.display>
         {% endif %}
         {% endwith %}
         <div>{{ transaction.account.name }}</div>
