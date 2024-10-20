@@ -15,28 +15,28 @@
       <div class="row row-cols-1 g-4 mb-3">
         <div class="col">
           <div class="card tw-relative h-100 shadow">
-          <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
-          align-items-center d-flex justify-content-center rounded-2">
-            <i class="fa-solid fa-coins"></i>
-          </div>
-          <div class="card-body">
-            <h5 class="tw-text-yellow-400 fw-bold mb-3">{% translate 'By currency' %}</h5>
-            {% for currency in currency_net_worth %}
-            <div class="d-flex justify-content-between mt-2">
-                <div class="d-flex align-items-baseline w-100">
-                    <div class="currency-name text-start font-monospace tw-text-gray-300">{{ currency.name }}</div>
-                    <div class="dotted-line flex-grow-1"></div>
-                    <c-amount.display
-                          :amount="currency.amount"
-                          :prefix="currency.prefix"
-                          :suffix="currency.suffix"
-                          :decimal_places="currency.decimal_places"
-                          text-end></c-amount.display>
-                </div>
+            <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
+            align-items-center d-flex justify-content-center rounded-2">
+              <i class="fa-solid fa-coins"></i>
             </div>
-            {% endfor %}
+            <div class="card-body">
+              <h5 class="tw-text-yellow-400 fw-bold mb-3">{% translate 'By currency' %}</h5>
+              {% for currency in currency_net_worth %}
+              <div class="d-flex justify-content-between mt-2">
+                  <div class="d-flex align-items-baseline w-100">
+                      <div class="currency-name text-start font-monospace tw-text-gray-300">{{ currency.name }}</div>
+                      <div class="dotted-line flex-grow-1"></div>
+                      <c-amount.display
+                            :amount="currency.amount"
+                            :prefix="currency.prefix"
+                            :suffix="currency.suffix"
+                            :decimal_places="currency.decimal_places"
+                            text-end></c-amount.display>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
-        </div>
         </div>
         <div class="col">
           <div class="card tw-relative h-100 shadow">
