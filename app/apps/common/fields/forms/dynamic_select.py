@@ -5,52 +5,6 @@ from django.db import transaction
 from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
 
 
-# class DynamicModelChoiceField(forms.ModelChoiceField):
-#     def __init__(self, model, *args, **kwargs):
-#         self.model = model
-#         self.queryset = kwargs.pop("queryset", model.objects.all())
-#         super().__init__(queryset=self.queryset, *args, **kwargs)
-#         self._created_instance = None
-#
-#         self.widget = TomSelect(clear_button=True, create=True)
-#
-#     def to_python(self, value):
-#         if value in self.empty_values:
-#             return None
-#         try:
-#             key = self.to_field_name or "pk"
-#             return self.model.objects.get(**{key: value})
-#         except (ValueError, TypeError, self.model.DoesNotExist):
-#             return value  # Return the raw value; we'll handle creation in clean()
-#
-#     def clean(self, value):
-#         if isinstance(value, self.model):
-#             return value
-#         if isinstance(value, str):
-#             try:
-#                 if value.isdigit():
-#                     return self.model.objects.get(id=value)
-#                 else:
-#                     raise self.model.DoesNotExist
-#             except self.model.DoesNotExist:
-#                 try:
-#                     with transaction.atomic():
-#                         instance = self.model.objects.create(name=value)
-#                         self._created_instance = instance
-#                         return instance
-#                 except Exception as e:
-#                     raise ValidationError(
-#                         self.error_messages["invalid_choice"], code="invalid_choice"
-#                     )
-#         return super().clean(value)
-#
-#     def bound_data(self, data, initial):
-#         if self._created_instance and isinstance(data, str):
-#             if data == self._created_instance.name:
-#                 return self._created_instance.pk
-#         return super().bound_data(data, initial)
-
-
 class DynamicModelChoiceField(forms.ModelChoiceField):
     def __init__(self, model, *args, **kwargs):
         self.model = model
