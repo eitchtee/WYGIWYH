@@ -48,7 +48,7 @@ class LoginForm(AuthenticationForm):
 class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = UserSettings
-        fields = ["language", "timezone"]
+        fields = ["language", "timezone", "start_page"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -59,6 +59,7 @@ class UserSettingsForm(forms.ModelForm):
         self.helper.layout = Layout(
             "language",
             "timezone",
+            "start_page",
             FormActions(
                 NoClassSubmit(
                     "submit", _("Save"), css_class="btn btn-outline-primary w-100"

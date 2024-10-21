@@ -22,6 +22,11 @@ class User(AbstractUser):
 
 
 class UserSettings(models.Model):
+    class StartPage(models.TextChoices):
+        MONTHLY = "MONTHLY_OVERVIEW", _("Monthly Overview")
+        YEARLY = "YEARLY_OVERVIEW", _("Yearly Overview")
+        NETWORTH = "NETWORTH", _("Net Worth")
+
     user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE, related_name="settings"
     )
@@ -39,6 +44,12 @@ class UserSettings(models.Model):
         choices=[("auto", _("Auto"))] + [(tz, tz) for tz in pytz.common_timezones],
         default="auto",
         verbose_name=_("Time Zone"),
+    )
+    start_page = models.CharField(
+        max_length=255,
+        choices=StartPage,
+        default=StartPage.MONTHLY,
+        verbose_name=_("Start page"),
     )
 
     def __str__(self):

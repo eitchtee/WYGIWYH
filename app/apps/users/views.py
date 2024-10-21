@@ -22,6 +22,18 @@ def logout_view(request):
     return redirect(reverse("login"))
 
 
+@login_required
+def index(request):
+    if request.user.settings.start_page == UserSettings.StartPage.MONTHLY:
+        return redirect(reverse("monthly_index"))
+    elif request.user.settings.start_page == UserSettings.StartPage.YEARLY:
+        return redirect(reverse("yearly_index"))
+    elif request.user.settings.start_page == UserSettings.StartPage.NETWORTH:
+        return redirect(reverse("net_worth"))
+    else:
+        return redirect(reverse("monthly_index"))
+
+
 class UserLoginView(LoginView):
     form_class = LoginForm
     template_name = "users/login.html"
