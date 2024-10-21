@@ -53,7 +53,9 @@ class TransactionSerializer(serializers.ModelSerializer):
         queryset=Account.objects.all(), source="account", write_only=True
     )
 
-    reference_date = serializers.DateField(required=False)
+    reference_date = serializers.DateField(
+        required=False, input_formats=["iso-8601", "%Y-%m"]
+    )
 
     permission_classes = [IsAuthenticated]
 
