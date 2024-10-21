@@ -21,7 +21,7 @@ class ExchangeRateSerializer(serializers.ModelSerializer):
 
     # For write operations (POST, PUT, PATCH)
     to_currency_id = serializers.PrimaryKeyRelatedField(
-        queryset=Currency.objects.all(), source="from_currency", write_only=True
+        queryset=Currency.objects.all(), source="to_currency", write_only=True
     )
 
     class Meta:
