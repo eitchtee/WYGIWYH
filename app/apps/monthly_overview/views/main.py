@@ -99,6 +99,7 @@ def transactions_list(request, month: int, year: int):
         .order_by("date_order", "date", "id")
         .prefetch_related(
             "account",
+            "account__group",
             "category",
             "tags",
             "account__exchange_currency",

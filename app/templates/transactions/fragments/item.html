@@ -84,7 +84,7 @@
             color="grey"></c-amount.display>
         {% endif %}
         {% endwith %}
-        <div>{{ transaction.account.name }}</div>
+        <div>{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
     </div>
     <div>
 {#      Item actions#}
