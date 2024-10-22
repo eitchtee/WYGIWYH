@@ -63,20 +63,22 @@
           </button>
         </div>
         <div class="vr mx-3 tw-align-middle"></div>
-        <button class="btn btn-secondary me-3 btn-sm"
+        <div class="btn-group me-3" role="group">
+          <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_pay' %}"
                 hx-include=".transaction"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Mark as paid' %}">
           <i class="fa-regular fa-circle-check tw-text-green-400"></i>
-        </button>
-        <button class="btn btn-secondary me-3 btn-sm"
-                hx-get="{% url 'transactions_bulk_unpay' %}"
-                hx-include=".transaction"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate 'Mark as unpaid' %}">
-          <i class="fa-regular fa-circle tw-text-red-400"></i>
-        </button>
+          </button>
+          <button class="btn btn-secondary btn-sm"
+                  hx-get="{% url 'transactions_bulk_unpay' %}"
+                  hx-include=".transaction"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate 'Mark as unpaid' %}">
+            <i class="fa-regular fa-circle tw-text-red-400"></i>
+          </button>
+        </div>
         <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_delete' %}"
                 hx-include=".transaction"
