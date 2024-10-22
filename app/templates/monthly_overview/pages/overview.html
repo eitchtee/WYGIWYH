@@ -8,11 +8,6 @@
 {% block title %}{% translate 'Monthly Overview' %} :: {{ month|month_name }}/{{ year }}{% endblock %}
 
 {% block body_hyperscript %}
-  on keyup[code is 'KeyE' and target.nodeName is 'BODY'] from body trigger 'add_expense' end
-  on keyup[code is 'KeyI' and target.nodeName is 'BODY'] from body trigger 'add_income' end
-  on keyup[code is 'KeyB' and target.nodeName is 'BODY'] from body trigger 'balance' end
-  on keyup[code is 'KeyT' and target.nodeName is 'BODY'] from body trigger 'add_transfer' end
-  on keyup[code is 'KeyN' and target.nodeName is 'BODY'] from body trigger 'installment' end
   on keyup[code is 'ArrowLeft' and target.nodeName is 'BODY'] from body trigger 'previous_month' end
   on keyup[code is 'ArrowRight' and target.nodeName is 'BODY'] from body trigger 'next_month' end
 {% endblock %}
