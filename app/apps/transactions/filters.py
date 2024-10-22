@@ -40,7 +40,7 @@ class TransactionsFilter(django_filters.FilterSet):
         queryset=Account.objects.all(),
         to_field_name="name",
         label=_("Accounts"),
-        widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True, group_by="group"),
     )
     category = django_filters.ModelMultipleChoiceFilter(
         field_name="category__name",

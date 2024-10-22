@@ -43,11 +43,6 @@ class TransactionForm(forms.ModelForm):
         label=_("Tags"),
     )
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
-    account = GroupedModelChoiceField(
-        queryset=Account.objects.all(),
-        group_by="group",
-        widget=TomSelect(clear_button=False),
-    )
 
     class Meta:
         model = Transaction
@@ -66,6 +61,7 @@ class TransactionForm(forms.ModelForm):
         widgets = {
             "date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "notes": forms.Textarea(attrs={"rows": 3}),
+            "account": TomSelect(clear_button=False, group_by="group"),
         }
 
     def __init__(self, *args, **kwargs):
@@ -132,17 +128,15 @@ class TransactionForm(forms.ModelForm):
 
 
 class TransferForm(forms.Form):
-    from_account = GroupedModelChoiceField(
+    from_account = forms.ModelChoiceField(
         queryset=Account.objects.all(),
-        group_by="group",
         label=_("From Account"),
-        widget=TomSelect(clear_button=False),
+        widget=TomSelect(clear_button=False, group_by="group"),
     )
-    to_account = GroupedModelChoiceField(
+    to_account = forms.ModelChoiceField(
         queryset=Account.objects.all(),
-        group_by="group",
         label=_("To Account"),
-        widget=TomSelect(clear_button=False),
+        widget=TomSelect(clear_button=False, group_by="group"),
     )
 
     from_amount = forms.DecimalField(
@@ -311,10 +305,10 @@ class TransferForm(forms.Form):
 
 
 class InstallmentPlanForm(forms.ModelForm):
-    account = GroupedModelChoiceField(
+    account = forms.ModelChoiceField(
         queryset=Account.objects.all(),
-        group_by="group",
-        widget=TomSelect(clear_button=False),
+        label=_("From Account"),
+        widget=TomSelect(clear_button=False, group_by="group"),
     )
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
@@ -484,10 +478,10 @@ class TransactionCategoryForm(forms.ModelForm):
 
 
 class RecurringTransactionForm(forms.ModelForm):
-    account = GroupedModelChoiceField(
+    account = forms.ModelChoiceField(
         queryset=Account.objects.all(),
-        group_by="group",
-        widget=TomSelect(clear_button=False),
+        label=_("From Account"),
+        widget=TomSelect(clear_button=False, group_by="group"),
     )
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
