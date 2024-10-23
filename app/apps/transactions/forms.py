@@ -15,7 +15,6 @@ from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
 )
-from apps.common.fields.forms.grouped_select import GroupedModelChoiceField
 from apps.common.fields.month_year import MonthYearFormField
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
@@ -27,6 +26,7 @@ from apps.transactions.models import (
     InstallmentPlan,
     RecurringTransaction,
 )
+from apps.rules.signals import transaction_created, transaction_updated
 
 
 class TransactionForm(forms.ModelForm):
@@ -125,6 +125,17 @@ class TransactionForm(forms.ModelForm):
             cleaned_data["reference_date"] = date.replace(day=1)
 
         return cleaned_data
+
+    def save(self, **kwargs):
+        is_new = not self.instance.id
+
+        instance = super().save(**kwargs)
+        if is_new:
+            transaction_created.send(sender=instance)
+        else:
+            transaction_updated.send(sender=instance)
+
+        return instance
 
 
 class TransferForm(forms.Form):

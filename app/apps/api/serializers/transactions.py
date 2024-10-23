@@ -1,4 +1,7 @@
 from django.utils.translation import gettext_lazy as _
+from drf_spectacular import openapi
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field
 
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
@@ -54,7 +57,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     )
 
     reference_date = serializers.DateField(
-        required=False, input_formats=["iso-8601", "%Y-%m"]
+        required=False, input_formats=["iso-8601", "%Y-%m"], format="%Y-%m"
     )
 
     permission_classes = [IsAuthenticated]

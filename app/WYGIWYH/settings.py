@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_cotton",
+    "apps.rules.apps.RulesConfig",
 ]
 
 MIDDLEWARE = [

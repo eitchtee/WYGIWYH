@@ -1,0 +1,79 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Transaction Rule' %}{% endblock %}
+
+{% block body %}
+<div hx-get="{% url 'transaction_rule_view' transaction_rule_id=transaction_rule.id %}" hx-trigger="updated from:window" hx-target="closest .offcanvas" class="show-loading">
+<div class="tw-text-2xl">{{ transaction_rule.name }}</div>
+<div class="tw-text-base tw-text-gray-400 ps-1">{{ transaction_rule.description }}</div>
+<a class="text-decoration-none tw-text-gray-400 p-1"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Edit" %}"
+                hx-get="{% url 'transaction_rule_edit' transaction_rule_id=transaction_rule.id %}"
+                hx-target="#generic-offcanvas">
+            <i class="fa-solid fa-pencil fa-fw"></i></a>
+<hr>
+<div class="my-3">
+  <div class="tw-text-xl">If transaction...</div>
+  <div class="card">
+    <div class="card-body">
+      {{ transaction_rule.trigger }}
+    </div>
+  </div>
+</div>
+
+<div class="my-3">
+  <div class="tw-text-xl">Then...</div>
+  {% for action in transaction_rule.actions.all %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="mb-3">{% translate 'Set' %}</div>
+      <div class="mb-3">{{ action.get_field_display }}</div>
+      <div class="mb-3">{% translate 'to' %}</div>
+      <div class="mb-3">{{ action.value }}</div>
+    </div>
+    <div class="card-footer">
+      <a class="text-decoration-none tw-text-gray-400 p-1"
+          role="button"
+          data-bs-toggle="tooltip"
+          data-bs-title="{% translate "Edit" %}"
+          hx-get="{% url 'transaction_rule_action_edit' transaction_rule_action_id=action.id %}"
+          hx-target="#generic-offcanvas">
+        <i class="fa-solid fa-pencil fa-fw"></i>
+      </a>
+      <a class="text-danger text-decoration-none p-1"
+          role="button"
+          data-bs-toggle="tooltip"
+          data-bs-title="{% translate "Delete" %}"
+          hx-delete="{% url 'transaction_rule_action_delete' transaction_rule_action_id=action.id %}"
+          hx-trigger='confirmed'
+          data-bypass-on-ctrl="true"
+          data-title="{% translate "Are you sure?" %}"
+          data-text="{% translate "You won't be able to revert this!" %}"
+          data-confirm-text="{% translate "Yes, delete it!" %}"
+          _="install prompt_swal">
+        <i class="fa-solid fa-trash fa-fw"></i>
+      </a>
+    </div>
+  </div>
+  {% empty %}
+    <div class="card">
+      <div class="card-body">
+        {% translate 'This rule has no actions' %}
+      </div>
+    </div>
+  {% endfor %}
+  <a class="card"
+     hx-get="{% url 'transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
+     role="button"
+     hx-target="#generic-offcanvas">
+      <div class="card-body text-center">
+        {% translate 'Add new' %}
+      </div>
+  </a>
+</div>
+</div>
+{% endblock %}

@@ -12,11 +12,20 @@ from apps.transactions.models import (
     TransactionTag,
     InstallmentPlan,
 )
+from apps.rules.signals import transaction_updated, transaction_created
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        transaction_created.send(sender=instance)
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        transaction_updated.send(sender=instance)
 
 
 class TransactionCategoryViewSet(viewsets.ModelViewSet):
