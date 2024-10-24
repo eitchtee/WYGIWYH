@@ -25,8 +25,9 @@
       </div>
       <div class="collapse show" id="{{ x.grouper|slugify }}">
         <div class="">
-        {% for trans in x.list %}
-        {% include 'transactions/fragments/item.html' with transaction=trans %}
+        {% for transaction in x.list %}
+          <c-transaction.item
+            :transaction="transaction"></c-transaction.item>
         {% endfor %}
         </div>
       </div>
