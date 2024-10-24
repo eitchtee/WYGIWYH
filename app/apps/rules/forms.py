@@ -3,6 +3,7 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Row, Column
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from apps.rules.models import TransactionRule
@@ -66,6 +67,8 @@ class TransactionRuleActionForm(forms.ModelForm):
         widgets = {"field": TomSelect(clear_button=False)}
 
     def __init__(self, *args, **kwargs):
+        self.rule = kwargs.pop("rule", None)
+
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
@@ -93,3 +96,22 @@ class TransactionRuleActionForm(forms.ModelForm):
                     ),
                 ),
             )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        field = cleaned_data.get("field")
+
+        if field and self.rule:
+            if TransactionRuleAction.objects.filter(
+                rule=self.rule, field=field
+            ).exists():
+                raise ValidationError(
+                    _("A value for this field already exists in the rule.")
+                )
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.rule = self.rule
+        if commit:
+            instance.save()
+        return instance

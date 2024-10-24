@@ -142,11 +142,9 @@ def transaction_rule_action_add(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
 
     if request.method == "POST":
-        form = TransactionRuleActionForm(request.POST)
+        form = TransactionRuleActionForm(request.POST, rule=transaction_rule)
         if form.is_valid():
-            action = form.save(commit=False)
-            action.rule = transaction_rule
-            action.save()
+            form.save()
 
             return HttpResponse(
                 status=204,
@@ -155,7 +153,7 @@ def transaction_rule_action_add(request, transaction_rule_id):
                 },
             )
     else:
-        form = TransactionRuleActionForm()
+        form = TransactionRuleActionForm(rule=transaction_rule)
 
     return render(
         request,

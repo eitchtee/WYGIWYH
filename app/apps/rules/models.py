@@ -42,3 +42,6 @@ class TransactionRuleAction(models.Model):
 
     def __str__(self):
         return f"{self.rule} - {self.field} - {self.value}"
+
+    class Meta:
+        unique_together = (("rule", "field"),)
