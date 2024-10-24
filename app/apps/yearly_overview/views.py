@@ -139,15 +139,16 @@ def yearly_overview(request, year: int):
             "balance_paid",
             "balance_total",
         ]:
-            result[month][field].append(
-                {
-                    "code": currency_code,
-                    "prefix": prefix,
-                    "suffix": suffix,
-                    "decimal_places": decimal_places,
-                    "amount": entry[field],
-                }
-            )
+            if entry[field] != 0:
+                result[month][field].append(
+                    {
+                        "code": currency_code,
+                        "prefix": prefix,
+                        "suffix": suffix,
+                        "decimal_places": decimal_places,
+                        "amount": entry[field],
+                    }
+                )
 
     # Fill in missing months with empty lists
     for month in all_months:
