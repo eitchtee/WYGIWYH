@@ -8,19 +8,21 @@
 <div hx-get="{% url 'transaction_rule_view' transaction_rule_id=transaction_rule.id %}" hx-trigger="updated from:window" hx-target="closest .offcanvas" class="show-loading">
 <div class="tw-text-2xl">{{ transaction_rule.name }}</div>
 <div class="tw-text-base tw-text-gray-400 ps-1">{{ transaction_rule.description }}</div>
-<a class="text-decoration-none tw-text-gray-400 p-1"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Edit" %}"
-                hx-get="{% url 'transaction_rule_edit' transaction_rule_id=transaction_rule.id %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-pencil fa-fw"></i></a>
 <hr>
 <div class="my-3">
   <div class="tw-text-xl">If transaction...</div>
   <div class="card">
     <div class="card-body">
       {{ transaction_rule.trigger }}
+    </div>
+    <div class="card-footer text-end">
+      <a class="text-decoration-none tw-text-gray-400 p-1"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Edit" %}"
+                hx-get="{% url 'transaction_rule_edit' transaction_rule_id=transaction_rule.id %}"
+                hx-target="#generic-offcanvas">
+            <i class="fa-solid fa-pencil fa-fw"></i></a>
     </div>
   </div>
 </div>
@@ -35,7 +37,7 @@
       <div class="mb-3">{% translate 'to' %}</div>
       <div class="mb-3">{{ action.value }}</div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer text-end">
       <a class="text-decoration-none tw-text-gray-400 p-1"
           role="button"
           data-bs-toggle="tooltip"
@@ -66,13 +68,12 @@
       </div>
     </div>
   {% endfor %}
-  <a class="card"
+  <hr>
+  <a class="btn btn-outline-primary text-decoration-none w-100"
      hx-get="{% url 'transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
      role="button"
      hx-target="#generic-offcanvas">
-      <div class="card-body text-center">
-        {% translate 'Add new' %}
-      </div>
+      <i class="fa-solid fa-circle-plus me-2"></i>{% translate 'Add new' %}
   </a>
 </div>
 </div>
