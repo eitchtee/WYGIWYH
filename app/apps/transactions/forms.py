@@ -507,7 +507,7 @@ class TransactionCategoryForm(forms.ModelForm):
 class RecurringTransactionForm(forms.ModelForm):
     account = forms.ModelChoiceField(
         queryset=Account.objects.all(),
-        label=_("From Account"),
+        label=_("Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
     )
     tags = DynamicModelMultipleChoiceField(
