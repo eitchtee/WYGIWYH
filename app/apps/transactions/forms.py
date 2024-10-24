@@ -194,6 +194,15 @@ class TransferForm(forms.Form):
     )
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
     description = forms.CharField(max_length=500, label=_("Description"))
+    notes = forms.CharField(
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "rows": 3,
+            }
+        ),
+        label=_("Notes"),
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -212,6 +221,7 @@ class TransferForm(forms.Form):
                 css_class="form-row",
             ),
             Field("description"),
+            Field("notes"),
             Row(
                 Column(
                     Row(
@@ -285,6 +295,7 @@ class TransferForm(forms.Form):
         description = self.cleaned_data["description"]
         from_category = self.cleaned_data.get("from_category")
         to_category = self.cleaned_data.get("to_category")
+        notes = self.cleaned_data.get("notes")
 
         # Create "From" transaction
         from_transaction = Transaction.objects.create(
@@ -296,6 +307,7 @@ class TransferForm(forms.Form):
             amount=from_amount,
             description=description,
             category=from_category,
+            notes=notes,
         )
         from_transaction.tags.set(self.cleaned_data.get("from_tags", []))
 
@@ -309,6 +321,7 @@ class TransferForm(forms.Form):
             amount=to_amount,
             description=description,
             category=to_category,
+            notes=notes,
         )
         to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
 
@@ -349,12 +362,14 @@ class InstallmentPlanForm(forms.ModelForm):
             "installment_amount",
             "category",
             "tags",
+            "notes",
             "installment_start",
         ]
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "account": TomSelect(),
             "recurrence": TomSelect(clear_button=False),
+            "notes": forms.Textarea(attrs={"rows": 3}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -371,15 +386,16 @@ class InstallmentPlanForm(forms.ModelForm):
             ),
             "account",
             "description",
+            "notes",
             Row(
                 Column("number_of_installments", css_class="form-group col-md-6 mb-0"),
                 Column("installment_start", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
-            "recurrence",
             Row(
-                Column("start_date", css_class="form-group col-md-6 mb-0"),
-                Column("reference_date", css_class="form-group col-md-6 mb-0"),
+                Column("start_date", css_class="form-group col-md-4 mb-0"),
+                Column("reference_date", css_class="form-group col-md-4 mb-0"),
+                Column("recurrence", css_class="form-group col-md-4 mb-0"),
                 css_class="form-row",
             ),
             "installment_amount",
@@ -523,11 +539,17 @@ class RecurringTransactionForm(forms.ModelForm):
             "end_date",
             "recurrence_type",
             "recurrence_interval",
+            "notes",
         ]
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "end_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "recurrence_type": TomSelect(clear_button=False),
+            "notes": forms.Textarea(
+                attrs={
+                    "rows": 3,
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -549,6 +571,7 @@ class RecurringTransactionForm(forms.ModelForm):
                 Column("tags", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
+            "notes",
             Row(
                 Column("start_date", css_class="form-group col-md-6 mb-0"),
                 Column("reference_date", css_class="form-group col-md-6 mb-0"),

@@ -182,6 +182,7 @@ class InstallmentPlan(models.Model):
         verbose_name=_("Category"),
     )
     tags = models.ManyToManyField(TransactionTag, verbose_name=_("Tags"), blank=True)
+    notes = models.TextField(blank=True, verbose_name=_("Notes"))
 
     class Meta:
         verbose_name = _("Installment Plan")
@@ -248,6 +249,7 @@ class InstallmentPlan(models.Model):
                 category=self.category,
                 installment_plan=self,
                 installment_id=i,
+                notes=self.notes,
             )
             new_transaction.tags.set(self.tags.all())
 
@@ -346,6 +348,7 @@ class RecurringTransaction(models.Model):
         null=True,
     )
     tags = models.ManyToManyField(TransactionTag, verbose_name=_("Tags"), blank=True)
+    notes = models.TextField(blank=True, verbose_name=_("Notes"))
     reference_date = models.DateField(
         verbose_name=_("Reference Date"), null=True, blank=True
     )
@@ -414,6 +417,7 @@ class RecurringTransaction(models.Model):
             category=self.category,
             is_paid=False,
             recurring_transaction=self,
+            notes=self.notes,
         )
         if self.tags.exists():
             created_transaction.tags.set(self.tags.all())
