@@ -1,18 +1,16 @@
 <script type="text/hyperscript">
-def initTooltips
-  -- Destroy existing tooltips
-  for tooltipTriggerEl in <[data-bs-toggle="tooltip"]/>
-    call bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl).dispose()
-  end
-
+def initTooltips(t)
   -- Initialize new tooltips
-  for tooltipTriggerEl in <[data-bs-toggle="tooltip"]/>
+  for tooltipTriggerEl in <[data-bs-toggle="tooltip"]/> in t
     call bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl)
   end
 end
 
--- Initialize tooltips on page load
-on load or htmx:afterSettle
-  call initTooltips()
+init
+  call initTooltips(body)
+end
+
+on htmx:afterSettle
+  call initTooltips(event.detail.target)
 end
 </script>
