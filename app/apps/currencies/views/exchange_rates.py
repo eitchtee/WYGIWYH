@@ -1,5 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import F, CharField, Value
+from django.db.models.functions import Concat
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import gettext_lazy as _
@@ -24,11 +26,46 @@ def exchange_rates_index(request):
 @login_required
 @require_http_methods(["GET"])
 def exchange_rates_list(request):
-    exchange_rates = ExchangeRate.objects.all().order_by("-date")
+    pairings = (
+        ExchangeRate.objects.values("from_currency__code", "to_currency__code")
+        .distinct()
+        .annotate(
+            pair=Concat(
+                "from_currency__code",
+                Value(" x "),
+                "to_currency__code",
+                output_field=CharField(),
+            )
+        )
+        .values_list("pair", "from_currency__code", "to_currency__code")
+    )
+
     return render(
         request,
         "exchange_rates/fragments/list.html",
-        {"exchange_rates": exchange_rates},
+        {"pairings": pairings},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def exchange_rates_list_pair(request, from_currency=None, to_currency=None):
+    if from_currency and to_currency:
+        exchange_rates = ExchangeRate.objects.filter(
+            from_currency__code=from_currency, to_currency__code=to_currency
+        ).order_by("-date")
+    else:
+        exchange_rates = ExchangeRate.objects.all().order_by("-date")
+
+    return render(
+        request,
+        "exchange_rates/fragments/table.html",
+        {
+            "exchange_rates": exchange_rates,
+            "from_currency": from_currency,
+            "to_currency": to_currency,
+        },
     )
 
 

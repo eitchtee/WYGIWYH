@@ -16,44 +16,22 @@
     {% endspaceless %}
   </div>
 
-  <div class="border p-3 rounded-3 table-responsive">
-    <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col" class="col-auto"></th>
-        <th scope="col" class="col-auto">{% translate 'Date' %}</th>
-        <th scope="col" class="col">{% translate 'Pairing' %}</th>
-        <th scope="col" class="col">{% translate 'Rate' %}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for exchange_rate in exchange_rates %}
-      <tr class="exchange-rate">
-        <td class="col-auto">
-          <a class="text-decoration-none tw-text-gray-400 p-1"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Edit" %}"
-                hx-get="{% url 'exchange_rate_edit' pk=exchange_rate.id %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-pencil fa-fw"></i></a>
-          <a class="text-danger text-decoration-none p-1"
-                  role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Delete" %}"
-                  hx-delete="{% url 'exchange_rate_delete' pk=exchange_rate.id %}"
-                  hx-trigger='confirmed'
-                  data-bypass-on-ctrl="true"
-                  data-title="{% translate "Are you sure?" %}"
-                  data-text="{% translate "You won't be able to revert this!" %}"
-                  data-confirm-text="{% translate "Yes, delete it!" %}"
-                  _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a></td>
-        <td class="col-auto">{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
-        <td class="col"><span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.from_currency.code }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.to_currency.code }}</span></td>
-        <td class="col">1 {{ exchange_rate.from_currency.code }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places%}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-pills card-header-pills" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" data-bs-toggle="tab" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" hx-get="{% url 'exchange_rates_list_pair' %}" hx-trigger="load, click" hx-target="#exchange-rates-table">{% translate 'All' %}</button>
+        </li>
+        {% for pair in pairings %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" hx-get="{% url 'exchange_rates_list_pair' from_currency=pair.1 to_currency=pair.2 %}" hx-target="#exchange-rates-table" data-bs-toggle="tab" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{{ pair.0 }}</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div id="exchange-rates-table"></div>
+
+
   </div>
 </div>
