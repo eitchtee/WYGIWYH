@@ -1,4 +1,4 @@
-FROM python:3.11.8-slim-buster AS python-build-stage
+FROM python:3.11-slim-buster AS python-build-stage
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
@@ -18,7 +18,7 @@ RUN npm config set registry https://registry.npmmirror.com/ && \
     npm run build && \
     npm cache clean --force
 
-FROM python:3.11.8-slim-buster AS python-run-stage
+FROM python:3.11-slim-buster AS python-run-stage
 COPY --from=webpack_build /usr/src/frontend/build /usr/src/frontend/build
 
 WORKDIR /usr/src/app
