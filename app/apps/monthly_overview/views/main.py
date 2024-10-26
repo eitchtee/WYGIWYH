@@ -29,16 +29,6 @@ def index(request):
 @login_required
 @require_http_methods(["GET"])
 def monthly_overview(request, month: int, year: int):
-    transactions = (
-        Transaction.objects.all()
-        .filter(
-            reference_date__year=year,
-            reference_date__month=month,
-        )
-        .order_by("date", "id")
-        .select_related()
-    )
-
     if month < 1 or month > 12:
         from django.http import Http404
 
@@ -50,7 +40,7 @@ def monthly_overview(request, month: int, year: int):
     previous_month = 12 if month == 1 else month - 1
     previous_year = year - 1 if previous_month == 12 and month == 1 else year
 
-    f = TransactionsFilter(request.GET, queryset=transactions)
+    f = TransactionsFilter(request.GET)
 
     return render(
         request,
