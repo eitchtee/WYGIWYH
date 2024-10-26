@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="transaction d-flex my-3">
+<div class="transaction d-flex my-1">
   {% if not disable_selection %}
   <label class="px-3 d-flex align-items-center justify-content-center">
     <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}" aria-label="{% translate 'Select' %}">
@@ -13,13 +13,13 @@
         on mouseout add .tw-invisible to the first .transaction-actions in me end">
     <div class="row font-monospace tw-text-sm align-items-center">
     <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center">
-      <a class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2"
+      <a class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500"
          role="button"
          hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
          hx-target="closest .transaction"
          hx-swap="outerHTML">
-          {% if transaction.is_paid %}<i class="fa-regular fa-circle-check tw-text-green-400"></i>{% else %}<i
-              class="fa-regular fa-circle tw-text-red-400"></i>{% endif %}
+          {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
+              class="fa-regular fa-circle"></i>{% endif %}
       </a>
     </div>
     <div class="col-lg-8 col-12">
