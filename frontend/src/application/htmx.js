@@ -6,8 +6,8 @@ import mask from '@alpinejs/mask';
 window.htmx = htmx;
 window.Alpine = Alpine;
 
-Alpine.start();
 Alpine.plugin(mask);
+Alpine.start();
 _hyperscript.browserInit();
 
 const successAudio = new Audio("/static/sounds/success.mp3");
