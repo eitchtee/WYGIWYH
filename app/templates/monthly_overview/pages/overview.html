@@ -111,7 +111,7 @@
               </button>
               <form hx-get="{% url 'monthly_transactions_list' month=month year=year %}" hx-trigger="change, submit, search"
                     hx-target="#transactions" id="filter" hx-indicator="#transactions"
-                    class="dropdown-menu p-4 w-lg-50 tw-w-full lg:tw-w-2/4"
+                    class="dropdown-menu p-4 tw-w-full lg:tw-w-3/4"
                     _="install init_tom_select">
                 {% crispy filter.form %}
               </form>
