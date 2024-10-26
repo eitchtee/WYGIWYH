@@ -1,16 +1,18 @@
 import django_filters
-from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field
+from crispy_forms.layout import Layout, Field, Row, Column
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from django_filters import Filter
 
 from apps.accounts.models import Account
 from apps.transactions.models import Transaction
 from apps.transactions.models import TransactionCategory
 from apps.transactions.models import TransactionTag
-from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
+from apps.common.widgets.tom_select import TomSelectMultiple
+from apps.common.fields.month_year import MonthYearFormField
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 
 SITUACAO_CHOICES = (
     ("1", _("Paid")),
@@ -23,6 +25,10 @@ def content_filter(queryset, name, value):
         Q(description__icontains=value) | Q(notes__icontains=value)
     )
     return queryset
+
+
+class MonthYearFilter(Filter):
+    field_class = MonthYearFormField
 
 
 class TransactionsFilter(django_filters.FilterSet):
@@ -60,6 +66,38 @@ class TransactionsFilter(django_filters.FilterSet):
         choices=SITUACAO_CHOICES,
         field_name="is_paid",
     )
+    date_start = django_filters.DateFilter(
+        field_name="date",
+        lookup_expr="gte",
+        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        label=_("Date from"),
+    )
+    date_end = django_filters.DateFilter(
+        field_name="date",
+        lookup_expr="lte",
+        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        label=_("Until"),
+    )
+    reference_date_start = MonthYearFilter(
+        field_name="reference_date",
+        lookup_expr="gte",
+        label=_("Reference date from"),
+    )
+    reference_date_end = MonthYearFilter(
+        field_name="reference_date",
+        lookup_expr="lte",
+        label=_("Until"),
+    )
+    from_amount = django_filters.NumberFilter(
+        field_name="amount",
+        lookup_expr="gte",
+        label=_("Amount min"),
+    )
+    to_amount = django_filters.NumberFilter(
+        field_name="amount",
+        lookup_expr="lte",
+        label=_("Amount max"),
+    )
 
     class Meta:
         model = Transaction
@@ -70,6 +108,12 @@ class TransactionsFilter(django_filters.FilterSet):
             "is_paid",
             "category",
             "tags",
+            "date_start",
+            "date_end",
+            "reference_date_start",
+            "reference_date_end",
+            "from_amount",
+            "to_amount",
         ]
 
     def __init__(self, data=None, *args, **kwargs):
@@ -101,7 +145,21 @@ class TransactionsFilter(django_filters.FilterSet):
                 template="transactions/widgets/transaction_type_filter_buttons.html",
             ),
             Field("description"),
+            Row(Column("date_start"), Column("date_end")),
+            Row(
+                Column("reference_date_start", css_class="form-group col-md-6 mb-0"),
+                Column("reference_date_end", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column("from_amount", css_class="form-group col-md-6 mb-0"),
+                Column("to_amount", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
             Field("account", size=1),
             Field("category", size=1),
             Field("tags", size=1),
         )
+
+        self.form.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()
+        self.form.fields["from_amount"].widget = ArbitraryDecimalDisplayNumberInput()
