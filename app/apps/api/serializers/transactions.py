@@ -73,14 +73,15 @@ class TransactionSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, data):
-        if "date" in data and "reference_date" not in data:
-            data["reference_date"] = data["date"].replace(day=1)
-        elif "reference_date" in data:
-            data["reference_date"] = data["reference_date"].replace(day=1)
-        else:
-            raise serializers.ValidationError(
-                _("Either 'date' or 'reference_date' must be provided.")
-            )
+        if not self.partial:
+            if "date" in data and "reference_date" not in data:
+                data["reference_date"] = data["date"].replace(day=1)
+            elif "reference_date" in data:
+                data["reference_date"] = data["reference_date"].replace(day=1)
+            else:
+                raise serializers.ValidationError(
+                    _("Either 'date' or 'reference_date' must be provided.")
+                )
         return data
 
     def create(self, validated_data):
