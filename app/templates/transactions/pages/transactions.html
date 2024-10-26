@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% translate 'Transactions' %}{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="row gx-xl-4 gy-3">
+    <div class="col-12 col-xl-4">
+      {#      Filter transactions#}
+      <div class="row mb-1">
+          <div class="col-12">
+            <div class="d-flex mb-3 align-self-center">
+              <div class="me-auto"><h4><i class="fa-solid fa-filter me-2"></i>{% translate 'Filter' %}</h4></div>
+              <div class="align-self-center">
+                <a href="{% url 'transactions_all_index' %}" type="button" class="btn btn-outline-danger btn-sm"
+                   hx-target="body" hx-boost="true">{% translate 'Clear' %}</a>
+              </div>
+            </div>
+            <hr>
+            <form hx-get="{% url 'transactions_all_list' %}" hx-trigger="change, submit, search"
+                    hx-target="#transactions" id="filter" hx-indicator="#transactions"
+                    _="install init_tom_select">
+                {% crispy filter.form %}
+            </form>
+          </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-8">
+      <div id="transactions"
+           class="show-loading"
+           hx-get="{% url 'transactions_all_list' %}"
+           hx-trigger="load, updated from:window" hx-include="#filter, #page">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

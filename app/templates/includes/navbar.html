@@ -34,13 +34,15 @@
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||recurring_trasanctions_index' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||recurring_trasanctions_index||transactions_all_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">
             {% translate 'Transactions' %}
           </a>
           <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% active_link views='transactions_all_index' %}"
+                   href="{% url 'transactions_all_index' %}">{% translate 'All' %}</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>

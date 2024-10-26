@@ -2,17 +2,18 @@ import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
-from apps.transactions.forms import TransactionForm, TransferForm, InstallmentPlanForm
+from apps.transactions.forms import TransactionForm, TransferForm
 from apps.transactions.models import Transaction
+from apps.transactions.filters import TransactionsFilter
 
 
 @only_htmx
@@ -150,3 +151,48 @@ def transaction_pay(request, transaction_id):
         f'{"paid" if new_is_paid else "unpaid"}, monthly_summary_update'
     )
     return response
+
+
+@login_required
+@require_http_methods(["GET"])
+def transaction_all_index(request):
+    f = TransactionsFilter(request.GET)
+    return render(request, "transactions/pages/transactions.html", {"filter": f})
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_all_list(request):
+    transactions = (
+        Transaction.objects.prefetch_related(
+            "account",
+            "account__group",
+            "category",
+            "tags",
+            "account__exchange_currency",
+            "account__currency",
+            "installment_plan",
+        )
+        .all()
+        .order_by("date")
+    )
+
+    f = TransactionsFilter(request.GET, queryset=transactions)
+
+    page_number = request.GET.get("page", 1)
+    paginator = Paginator(f.qs, 100)
+    page_obj = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "transactions/fragments/list_all.html",
+        {
+            "page_obj": page_obj,
+            "paginator": paginator,
+        },
+    )
+
+    # response.headers["HX-Push-Url"] = (
+    #     f"{reverse('transactions_all_index')}?{request.GET.urlencode()}"
+    # )

@@ -1,0 +1,156 @@
+{% load i18n %}
+<div id="transactions-list"
+     _="on change or click
+          if no <input[type='checkbox']:checked/> in me
+            add .tw-hidden to #actions-bar
+          else
+            remove .tw-hidden from #actions-bar
+          end
+        end">
+  {% for transaction in page_obj %}
+    <c-transaction.item :transaction="transaction"></c-transaction.item>
+  {% empty %}
+  <div class="row p-5">
+    <div class="col p-5">
+      <div class="text-center">
+        <i class="fa-solid fa-circle-xmark tw-text-6xl"></i>
+        <p class="lead mt-4 mb-0">{% translate "No transactions found" %}</p>
+        <p class="tw-text-gray-500">{% translate "Try adding one" %}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% if page_obj.has_other_pages %}
+  <div class="mt-auto">
+    <input value="{{ page_obj.number }}" name="page" type="hidden" id="page">
+
+    <nav aria-label="Navegação por páginas">
+    <ul class="pagination justify-content-center mt-5">
+      <li class="page-item">
+        <a class="page-link tw-cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
+           hx-get="{% if page_obj.has_previous %}{% url 'transactions_all_list' %}{% endif %}"
+           hx-vals='{"page": 1}'
+           hx-include="#filter"
+           hx-target="#transactions-list"
+           aria-label="Primeira página"
+           hx-swap="show:top">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% for page_number in page_obj.paginator.page_range %}
+              {% comment %}
+                  This conditional allows us to display up to 3 pages before and after the current page
+                  If you decide to remove this conditional, all the pages will be displayed
+
+                  You can change the 3 to any number you want e.g
+                  To display only 5 pagination items, change the 3 to 2 (2 before and 2 after the current page)
+              {% endcomment %}
+              {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
+                  {% if page_obj.number == page_number %}
+                      <li class="page-item active">
+                          <a class="page-link tw-cursor-pointer">
+                              {{ page_number }}
+                          </a>
+                      </li>
+                  {% else %}
+                      <li class="page-item">
+                          <a class="page-link tw-cursor-pointer"
+                             hx-get="{% url 'transactions_all_list' %}"
+                             hx-vals='{"page": {{ page_number }}}'
+                             hx-include="#filter"
+                             hx-target="#transactions-list"
+                             hx-swap="show:top">
+                              {{ page_number }}
+                          </a>
+                      </li>
+                  {% endif %}
+              {% endif %}
+      {% endfor %}
+      {% if page_obj.number|add:3 < page_obj.paginator.num_pages %}
+        <li class="page-item">
+          <a class="page-link disabled"
+             aria-label="...">
+            <span aria-hidden="true">...</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link tw-cursor-pointer"
+             hx-get="{% url 'transactions_all_list' %}" hx-target="#transactions-list"
+             hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
+             hx-include="#filter"
+             hx-swap="show:top"
+             aria-label="Última página">
+            <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
+          </a>
+        </li>
+      {% endif %}
+      <li class="page-item">
+        <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw-cursor-pointer"
+           hx-get="{% if page_obj.has_next %}{% url 'transactions_all_list' %}{% endif %}"
+           hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
+           hx-include="#filter"
+           hx-swap="show:top"
+           hx-target="#transactions-list"
+           aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  </div>
+  {% endif %}
+{#  Floating bar#}
+<div class="tw-sticky tw-bottom-4 tw-left-0 tw-right-0 tw-z-50 tw-hidden mx-auto tw-w-fit" id="actions-bar">
+  <div class="card slide-in-left">
+    <div class="card-body p-2">
+      {% spaceless %}
+      <div class="btn-group" role="group">
+        <button class="btn btn-secondary btn-sm"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate 'Select All' %}"
+                _="on click set <#transactions-list input[type='checkbox']/>'s checked to true then call me.blur()">
+          <i class="fa-solid fa-check-double"></i>
+        </button>
+        <button class="btn btn-secondary btn-sm"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate 'Unselect All' %}"
+                _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur()">
+          <i class="fa-solid fa-xmark tw-text-red-400"></i>
+        </button>
+      </div>
+      <div class="vr mx-3 tw-align-middle"></div>
+      <div class="btn-group me-3" role="group">
+        <button class="btn btn-secondary btn-sm"
+              hx-get="{% url 'transactions_bulk_pay' %}"
+              hx-include=".transaction"
+              data-bs-toggle="tooltip"
+              data-bs-title="{% translate 'Mark as paid' %}">
+        <i class="fa-regular fa-circle-check tw-text-green-400"></i>
+        </button>
+        <button class="btn btn-secondary btn-sm"
+                hx-get="{% url 'transactions_bulk_unpay' %}"
+                hx-include=".transaction"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate 'Mark as unpaid' %}">
+          <i class="fa-regular fa-circle tw-text-red-400"></i>
+        </button>
+      </div>
+      <button class="btn btn-secondary btn-sm"
+              hx-get="{% url 'transactions_bulk_delete' %}"
+              hx-include=".transaction"
+              hx-trigger="confirmed"
+              data-bs-toggle="tooltip"
+              data-bs-title="{% translate 'Delete' %}"
+              data-bypass-on-ctrl="true"
+              data-title="{% translate "Are you sure?" %}"
+              data-text="{% translate "You won't be able to revert this!" %}"
+              data-confirm-text="{% translate "Yes, delete them!" %}"
+              _="install prompt_swal">
+        <i class="fa-solid fa-trash text-danger"></i>
+      </button>
+      {% endspaceless %}
+    </div>
+  </div>
+</div>
+
+</div>

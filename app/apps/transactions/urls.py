@@ -2,6 +2,10 @@ from django.urls import path
 import apps.transactions.views as views
 
 urlpatterns = [
+    path("transactions/", views.transaction_all_index, name="transactions_all_index"),
+    path(
+        "transactions/list/", views.transaction_all_list, name="transactions_all_list"
+    ),
     path(
         "transactions/actions/pay",
         views.bulk_pay_transactions,
