@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 
@@ -268,33 +269,67 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "procrastinate": {"format": "%(asctime)s %(levelname)-7s %(name)s %(message)s"},
-    },
-    "handlers": {
-        "procrastinate": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "procrastinate",
+if "procrastinate" in sys.argv:
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "procrastinate": {
+                "format": "%(asctime)s %(levelname)-7s %(name)s %(message)s"
+            },
         },
-        "console": {
-            "class": "logging.StreamHandler",
+        "handlers": {
+            "procrastinate": {
+                "level": "DEBUG",
+                "class": "logging.StreamHandler",
+                "formatter": "procrastinate",
+            },
+            "console": {
+                "class": "logging.StreamHandler",
+            },
         },
-    },
-    "loggers": {
-        "procrastinate": {
-            "handlers": ["procrastinate"],
-            "level": "INFO",
-            "propagate": False,
+        "loggers": {
+            "procrastinate": {
+                "handlers": ["procrastinate"],
+                "level": "INFO",
+                "propagate": False,
+            },
+            "root": {
+                "handlers": ["console"],
+                "level": "INFO",
+            },
         },
-        "root": {
-            "handlers": ["console"],
-            "level": "INFO",
+    }
+else:
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "procrastinate": {
+                "format": "%(asctime)s %(levelname)-7s %(name)s %(message)s"
+            },
         },
-    },
-}
+        "handlers": {
+            "procrastinate": {
+                "level": "DEBUG",
+                "class": "logging.StreamHandler",
+                "formatter": "procrastinate",
+            },
+            "console": {
+                "class": "logging.StreamHandler",
+            },
+        },
+        "loggers": {
+            "procrastinate": {
+                "handlers": None,
+                "level": "INFO",
+                "propagate": False,
+            },
+            "root": {
+                "handlers": ["console"],
+                "level": "INFO",
+            },
+        },
+    }
 
 CACHALOT_UNCACHABLE_TABLES = ("django_migrations", "procrastinate_jobs")
