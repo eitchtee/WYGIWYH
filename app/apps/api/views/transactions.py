@@ -27,6 +27,10 @@ class TransactionViewSet(viewsets.ModelViewSet):
         instance = serializer.save()
         transaction_updated.send(sender=instance)
 
+    def partial_update(self, request, *args, **kwargs):
+        kwargs["partial"] = True
+        return self.update(request, *args, **kwargs)
+
 
 class TransactionCategoryViewSet(viewsets.ModelViewSet):
     queryset = TransactionCategory.objects.all()
