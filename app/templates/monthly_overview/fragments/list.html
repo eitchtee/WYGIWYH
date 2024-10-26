@@ -12,7 +12,7 @@
         end">
   {% for x in transactions_by_date %}
     <div>
-      <div class="my-3 w-100 tw-text-base border-bottom bg-body">
+      <div class="mt-3 mb-1 w-100 tw-text-base border-bottom bg-body">
         <a class="text-decoration-none d-inline-block w-100"
            role="button"
            data-bs-toggle="collapse"
@@ -24,7 +24,7 @@
         </a>
       </div>
       <div class="collapse show" id="{{ x.grouper|slugify }}">
-        <div class="">
+        <div class="d-flex flex-column">
         {% for transaction in x.list %}
           <c-transaction.item
             :transaction="transaction"></c-transaction.item>
