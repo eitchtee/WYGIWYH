@@ -32,8 +32,9 @@ class ArbitraryDecimalDisplayNumberInput(forms.TextInput):
         super().__init__(*args, **kwargs)
         self.attrs.update(
             {
+                "x-data": "",
                 "x-mask:dynamic": f"$money($input, '{get_format('DECIMAL_SEPARATOR')}', "
-                f"'{get_format('THOUSAND_SEPARATOR')}', '30')"
+                f"'{get_format('THOUSAND_SEPARATOR')}', '30')",
             }
         )
 
