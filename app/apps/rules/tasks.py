@@ -40,7 +40,7 @@ def check_for_transaction_rules(
             "reference_date": instance.reference_date,
         }
 
-        functions = {"relative_delta": relativedelta}
+        functions = {"relativedelta": relativedelta}
 
         simple = EvalWithCompoundTypes(names=context, functions=functions)
 
