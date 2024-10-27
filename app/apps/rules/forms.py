@@ -102,12 +102,20 @@ class TransactionRuleActionForm(forms.ModelForm):
         field = cleaned_data.get("field")
 
         if field and self.rule:
-            if TransactionRuleAction.objects.filter(
+            # Create a queryset that excludes the current instance
+            existing_action = TransactionRuleAction.objects.filter(
                 rule=self.rule, field=field
-            ).exists():
+            )
+
+            if self.instance.pk:
+                existing_action = existing_action.exclude(pk=self.instance.pk)
+
+            if existing_action.exists():
                 raise ValidationError(
                     _("A value for this field already exists in the rule.")
                 )
+
+        return cleaned_data
 
     def save(self, commit=True):
         instance = super().save(commit=False)
