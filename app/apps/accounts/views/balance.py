@@ -38,7 +38,9 @@ def account_reconciliation(request):
             "prefix": account.currency.prefix,
             "current_balance": get_account_balance(account),
         }
-        for account in Account.objects.all().select_related("currency", "group")
+        for account in Account.objects.filter(is_archived=False).select_related(
+            "currency", "group"
+        )
     ]
 
     if request.method == "POST":

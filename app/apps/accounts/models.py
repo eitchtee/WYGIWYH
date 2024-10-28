@@ -43,10 +43,15 @@ class Account(models.Model):
 
     is_asset = models.BooleanField(
         default=False,
-        verbose_name=_("Is an asset account?"),
+        verbose_name=_("Asset account"),
         help_text=_(
             "Asset accounts count towards your Net Worth, but not towards your month."
         ),
+    )
+    is_archived = models.BooleanField(
+        default=False,
+        verbose_name=_("Archived"),
+        help_text=_("Archived accounts don't show up nor count towards your net worth"),
     )
 
     class Meta:

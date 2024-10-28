@@ -23,7 +23,8 @@
         <th scope="col" class="col">{% translate 'Name' %}</th>
         <th scope="col" class="col">{% translate 'Currency' %}</th>
         <th scope="col" class="col">{% translate 'Exchange Currency' %}</th>
-        <th scope="col" class="col-auto">{% translate 'Is Asset' %}</th>
+        <th scope="col" class="col">{% translate 'Is Asset' %}</th>
+        <th scope="col" class="col">{% translate 'Archived' %}</th>
       </tr>
     </thead>
     <tbody>
@@ -52,7 +53,8 @@
         <td class="col-auto">{{ account.currency }} ({{ account.currency.code }})</td>
         <td class="col-auto">{% if account.exchange_currency %}{{ account.exchange_currency }} (
           {{ account.exchange_currency.code }}){% else %}-{% endif %}</td>
-        <td class="col-auto text-center">{% if account.is_asset %}<i class="fa-solid fa-circle text-success"></i>{% endif %}</td>
+        <td class="col">{% if account.is_asset %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
+        <td class="col">{% if account.is_archived %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
       </tr>
       {% endfor %}
     </tbody>

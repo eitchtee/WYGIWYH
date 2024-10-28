@@ -42,6 +42,11 @@ class TransactionForm(forms.ModelForm):
         required=False,
         label=_("Tags"),
     )
+    account = forms.ModelChoiceField(
+        queryset=Account.objects.filter(is_archived=False),
+        label=_("Account"),
+        widget=TomSelect(clear_button=False, group_by="group"),
+    )
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
 
     class Meta:
@@ -140,12 +145,12 @@ class TransactionForm(forms.ModelForm):
 
 class TransferForm(forms.Form):
     from_account = forms.ModelChoiceField(
-        queryset=Account.objects.all(),
+        queryset=Account.objects.filter(is_archived=False),
         label=_("From Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
     )
     to_account = forms.ModelChoiceField(
-        queryset=Account.objects.all(),
+        queryset=Account.objects.filter(is_archived=False),
         label=_("To Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
     )
@@ -330,7 +335,7 @@ class TransferForm(forms.Form):
 
 class InstallmentPlanForm(forms.ModelForm):
     account = forms.ModelChoiceField(
-        queryset=Account.objects.all(),
+        queryset=Account.objects.filter(is_archived=False),
         label=_("Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
     )
@@ -506,7 +511,7 @@ class TransactionCategoryForm(forms.ModelForm):
 
 class RecurringTransactionForm(forms.ModelForm):
     account = forms.ModelChoiceField(
-        queryset=Account.objects.all(),
+        queryset=Account.objects.filter(is_archived=False),
         label=_("Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
     )

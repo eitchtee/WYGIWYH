@@ -40,9 +40,11 @@ def calculate_account_net_worth():
     )
 
     # Main query to fetch all account data
-    accounts_data = Account.objects.annotate(
-        balance=Coalesce(Subquery(balance_subquery), Decimal("0"))
-    ).select_related("currency", "exchange_currency", "group")
+    accounts_data = (
+        Account.objects.filter(is_archived=False)
+        .annotate(balance=Coalesce(Subquery(balance_subquery), Decimal("0")))
+        .select_related("currency", "exchange_currency", "group")
+    )
 
     account_net_worth = {ungrouped_id: {"name": _("Ungrouped"), "accounts": {}}}
 
@@ -209,7 +211,7 @@ def calculate_historical_currency_net_worth():
 
 def calculate_historical_account_balance():
     # Get all accounts
-    accounts = Account.objects.all()
+    accounts = Account.objects.filter(is_archived=False)
 
     # Get the date range
     date_range = Transaction.objects.filter(is_paid=True).aggregate(

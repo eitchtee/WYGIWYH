@@ -60,7 +60,14 @@ class AccountForm(forms.ModelForm):
 
     class Meta:
         model = Account
-        fields = ["name", "group", "currency", "exchange_currency", "is_asset"]
+        fields = [
+            "name",
+            "group",
+            "currency",
+            "exchange_currency",
+            "is_asset",
+            "is_archived",
+        ]
         widgets = {
             "currency": TomSelect(),
             "exchange_currency": TomSelect(),
@@ -76,6 +83,7 @@ class AccountForm(forms.ModelForm):
             "name",
             "group",
             Switch("is_asset"),
+            Switch("is_archived"),
             "currency",
             "exchange_currency",
         )
