@@ -263,42 +263,6 @@ def monthly_summary(request, month: int, year: int):
         "daily_spending_allowance": daily_spending_allowance,
     }
 
-    # account_summary = (
-    #     Account.objects.annotate(
-    #         balance=Coalesce(
-    #             Sum(
-    #                 Case(
-    #                     When(
-    #                         transaction__type=Transaction.Type.INCOME,
-    #                         transaction__is_paid=True,
-    #                         transaction__reference_date__year=year,
-    #                         transaction__reference_date__month=month,
-    #                         then=F("transaction__amount"),
-    #                     ),
-    #                     When(
-    #                         transaction__type=Transaction.Type.EXPENSE,
-    #                         transaction__is_paid=True,
-    #                         transaction__reference_date__year=year,
-    #                         transaction__reference_date__month=month,
-    #                         then=-F("transaction__amount"),
-    #                     ),
-    #                     output_field=DecimalField(),
-    #                 )
-    #             ),
-    #             Decimal(0),
-    #         )
-    #     )
-    #     .values(
-    #         "id",
-    #         "name",
-    #         "balance",
-    #         "currency__prefix",
-    #         "currency__suffix",
-    #         "currency__decimal_places",
-    #     )
-    #     .order_by("id")
-    # )
-
     return render(
         request,
         "monthly_overview/fragments/monthly_summary.html",

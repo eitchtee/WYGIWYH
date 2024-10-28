@@ -7,7 +7,7 @@
 {% block body %}
 <div hx-get="{% url 'transaction_rule_view' transaction_rule_id=transaction_rule.id %}" hx-trigger="updated from:window" hx-target="closest .offcanvas" class="show-loading">
 <div class="tw-text-2xl">{{ transaction_rule.name }}</div>
-<div class="tw-text-base tw-text-gray-400 ps-1">{{ transaction_rule.description }}</div>
+<div class="tw-text-base tw-text-gray-400">{{ transaction_rule.description }}</div>
 <hr>
 <div class="my-3">
   <div class="tw-text-xl">If transaction...</div>
