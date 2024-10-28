@@ -26,6 +26,7 @@ class UserSettings(models.Model):
         MONTHLY = "MONTHLY_OVERVIEW", _("Monthly Overview")
         YEARLY = "YEARLY_OVERVIEW", _("Yearly Overview")
         NETWORTH = "NETWORTH", _("Net Worth")
+        ALL_TRANSACTIONS = "ALL_TRANSACTIONS", _("All Transactions")
 
     user = models.OneToOneField(
         get_user_model(), on_delete=models.CASCADE, related_name="settings"
