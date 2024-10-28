@@ -284,6 +284,7 @@ class InstallmentPlan(models.Model):
                 existing_transaction.amount = self.installment_amount
                 existing_transaction.description = self.description
                 existing_transaction.category = self.category
+                existing_transaction.notes = self.notes
                 existing_transaction.save()
 
                 # Update tags
@@ -301,6 +302,7 @@ class InstallmentPlan(models.Model):
                     category=self.category,
                     installment_plan=self,
                     installment_id=i,
+                    notes=self.notes,
                 )
                 new_transaction.tags.set(self.tags.all())
 
