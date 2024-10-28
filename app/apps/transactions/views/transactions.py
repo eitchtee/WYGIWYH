@@ -14,6 +14,7 @@ from apps.common.decorators.htmx import only_htmx
 from apps.transactions.forms import TransactionForm, TransferForm
 from apps.transactions.models import Transaction
 from apps.transactions.filters import TransactionsFilter
+from apps.transactions.utils.default_ordering import default_order
 
 
 @only_htmx
@@ -164,19 +165,26 @@ def transaction_all_index(request):
 @login_required
 @require_http_methods(["GET"])
 def transaction_all_list(request):
-    transactions = (
-        Transaction.objects.prefetch_related(
-            "account",
-            "account__group",
-            "category",
-            "tags",
-            "account__exchange_currency",
-            "account__currency",
-            "installment_plan",
-        )
-        .all()
-        .order_by("date")
-    )
+    order = request.GET.get("order")
+
+    transactions = Transaction.objects.prefetch_related(
+        "account",
+        "account__group",
+        "category",
+        "tags",
+        "account__exchange_currency",
+        "account__currency",
+        "installment_plan",
+    ).all()
+
+    if order == "default":
+        transactions = default_order(transactions, extra_ordering=["date", "id"])
+    elif order == "newer":
+        transactions = transactions.order_by("-date", "id")
+    elif order == "older":
+        transactions = transactions.order_by("date", "id")
+    else:
+        transactions = transactions.order_by("date", "id")
 
     f = TransactionsFilter(request.GET, queryset=transactions)
 

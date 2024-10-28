@@ -17,6 +17,7 @@ from apps.common.decorators.htmx import only_htmx
 from apps.common.functions.dates import remaining_days_in_month
 from apps.transactions.filters import TransactionsFilter
 from apps.transactions.models import Transaction
+from apps.transactions.utils.default_ordering import default_order
 
 
 @login_required
@@ -61,13 +62,8 @@ def monthly_overview(request, month: int, year: int):
 @login_required
 @require_http_methods(["GET"])
 def transactions_list(request, month: int, year: int):
-    today = timezone.localdate(timezone.now())
-    yesterday = today - timezone.timedelta(days=1)
-    tomorrow = today + timezone.timedelta(days=1)
-    last_7_days = today - timezone.timedelta(days=7)
-    next_7_days = today + timezone.timedelta(days=7)
+    order = request.GET.get("order")
 
-    # TO-DO Improve date-order
     f = TransactionsFilter(request.GET)
     transactions_filtered = (
         f.qs.filter()
@@ -75,18 +71,6 @@ def transactions_list(request, month: int, year: int):
             reference_date__year=year,
             reference_date__month=month,
         )
-        .annotate(
-            date_order=Case(
-                When(date__lte=next_7_days, date__gte=tomorrow, then=Value(0)),
-                When(date=tomorrow, then=Value(1)),
-                When(date=today, then=Value(2)),
-                When(date=yesterday, then=Value(3)),
-                When(date__gte=last_7_days, date__lte=today, then=Value(4)),
-                default=Value(5),
-                output_field=IntegerField(),
-            )
-        )
-        .order_by("date_order", "date", "id")
         .prefetch_related(
             "account",
             "account__group",
@@ -97,6 +81,18 @@ def transactions_list(request, month: int, year: int):
             "installment_plan",
         )
     )
+
+    if order == "default":
+        transactions_filtered = default_order(
+            transactions_filtered, extra_ordering=["date", "id"]
+        )
+    elif order == "newer":
+        transactions_filtered = transactions_filtered.order_by("-date", "id")
+    elif order == "older":
+        transactions_filtered = transactions_filtered.order_by("date", "id")
+    else:
+        transactions_filtered = transactions_filtered.order_by("date", "id")
+
     return render(
         request,
         "monthly_overview/fragments/list.html",

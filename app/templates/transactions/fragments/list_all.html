@@ -1,4 +1,8 @@
+{% load natural %}
 {% load i18n %}
+
+{% regroup page_obj by date|customnaturaldate as transactions_by_date %}
+
 <div id="transactions-list"
      _="on change or click
           if no <input[type='checkbox']:checked/> in me
@@ -7,30 +11,50 @@
             remove .tw-hidden from #actions-bar
           end
         end">
-  {% for transaction in page_obj %}
-    <c-transaction.item :transaction="transaction"></c-transaction.item>
-  {% empty %}
-  <div class="row p-5">
-    <div class="col p-5">
-      <div class="text-center">
-        <i class="fa-solid fa-circle-xmark tw-text-6xl"></i>
-        <p class="lead mt-4 mb-0">{% translate "No transactions found" %}</p>
-        <p class="tw-text-gray-500">{% translate "Try adding one" %}</p>
+  {% for x in transactions_by_date %}
+    <div>
+      <div class="mt-3 mb-1 w-100 tw-text-base border-bottom bg-body">
+        <a class="text-decoration-none d-inline-block w-100"
+           role="button"
+           data-bs-toggle="collapse"
+           data-bs-target="#{{ x.grouper|slugify }}"
+           id="#{{ x.grouper|slugify }}-collapsible"
+           aria-expanded="true"
+           aria-controls="collapseExample">
+        {{ x.grouper }}
+        </a>
+      </div>
+      <div class="collapse show" id="{{ x.grouper|slugify }}">
+        <div class="d-flex flex-column">
+        {% for transaction in x.list %}
+          <c-transaction.item :transaction="transaction"></c-transaction.item>
+        {% endfor %}
+        </div>
       </div>
     </div>
-  </div>
-  {% endfor %}
+  {% empty %}
+    <div class="row p-5">
+      <div class="col p-5">
+        <div class="text-center">
+          <i class="fa-solid fa-circle-xmark tw-text-6xl"></i>
+          <p class="lead mt-4 mb-0">{% translate "No transactions found" %}</p>
+          <p class="tw-text-gray-500">{% translate "Try adding one" %}</p>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+
   {% if page_obj.has_other_pages %}
   <div class="mt-auto">
     <input value="{{ page_obj.number }}" name="page" type="hidden" id="page">
 
-    <nav aria-label="Navegação por páginas">
+    <nav aria-label="{% translate 'Page navigation' %}">
     <ul class="pagination justify-content-center mt-5">
       <li class="page-item">
         <a class="page-link tw-cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
            hx-get="{% if page_obj.has_previous %}{% url 'transactions_all_list' %}{% endif %}"
            hx-vals='{"page": 1}'
-           hx-include="#filter"
+           hx-include="#filter, #order"
            hx-target="#transactions-list"
            aria-label="Primeira página"
            hx-swap="show:top">
@@ -57,7 +81,7 @@
                           <a class="page-link tw-cursor-pointer"
                              hx-get="{% url 'transactions_all_list' %}"
                              hx-vals='{"page": {{ page_number }}}'
-                             hx-include="#filter"
+                             hx-include="#filter, #order"
                              hx-target="#transactions-list"
                              hx-swap="show:top">
                               {{ page_number }}
@@ -77,7 +101,7 @@
           <a class="page-link tw-cursor-pointer"
              hx-get="{% url 'transactions_all_list' %}" hx-target="#transactions-list"
              hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
-             hx-include="#filter"
+             hx-include="#filter, #order"
              hx-swap="show:top"
              aria-label="Última página">
             <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
@@ -88,7 +112,7 @@
         <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw-cursor-pointer"
            hx-get="{% if page_obj.has_next %}{% url 'transactions_all_list' %}{% endif %}"
            hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
-           hx-include="#filter"
+           hx-include="#filter, #order"
            hx-swap="show:top"
            hx-target="#transactions-list"
            aria-label="Next">
