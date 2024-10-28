@@ -26,6 +26,8 @@ def check_for_transaction_rules(
             "account_group_id": (
                 instance.account.group.id if instance.account.group else None
             ),
+            "is_asset_account": instance.account.is_asset,
+            "is_archived_account": instance.account.is_archived,
             "category_name": instance.category.name if instance.category else None,
             "category_id": instance.category.id if instance.category else None,
             "tag_names": [x.name for x in instance.tags.all()],
@@ -64,7 +66,6 @@ def check_for_transaction_rules(
                         TransactionRuleAction.Field.description,
                         TransactionRuleAction.Field.notes,
                     ]:
-                        print(1)
                         setattr(
                             instance,
                             action.field,
@@ -72,7 +73,6 @@ def check_for_transaction_rules(
                         )
 
                     elif action.field == TransactionRuleAction.Field.account:
-                        print(2)
                         value = simple.eval(action.value)
                         if isinstance(value, int):
                             account = Account.objects.get(id=value)
@@ -82,7 +82,6 @@ def check_for_transaction_rules(
                             instance.account = account
 
                     elif action.field == TransactionRuleAction.Field.category:
-                        print(3)
                         value = simple.eval(action.value)
                         if isinstance(value, int):
                             category = TransactionCategory.objects.get(id=value)
@@ -92,7 +91,6 @@ def check_for_transaction_rules(
                             instance.category = category
 
                     elif action.field == TransactionRuleAction.Field.tags:
-                        print(4)
                         value = simple.eval(action.value)
                         print(value, action.value)
                         if isinstance(value, list):
