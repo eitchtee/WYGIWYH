@@ -66,7 +66,12 @@ def calendar_list(request, month: int, year: int):
 @require_http_methods(["GET"])
 def calendar_transactions_list(request, day: int, month: int, year: int):
     date = datetime.date(year=year, month=month, day=day)
-    transactions = Transaction.objects.filter(date=date)
+    transactions = Transaction.objects.filter(date=date).order_by(
+        "date",
+        "-type",
+        "-is_paid",
+        "id",
+    )
 
     return render(
         request,

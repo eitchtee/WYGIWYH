@@ -37,7 +37,12 @@ def get_transactions_by_day(year, month):
     # Get all transactions for the month
     transactions = Transaction.objects.filter(
         date__year=year, date__month=month
-    ).order_by("date")
+    ).order_by(
+        "date",
+        "-type",
+        "-is_paid",
+        "id",
+    )
 
     # Calculate padding days needed
     padding_days = first_day.weekday()  # Monday is 0, Sunday is 6
