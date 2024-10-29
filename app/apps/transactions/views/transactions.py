@@ -149,7 +149,7 @@ def transaction_pay(request, transaction_id):
         context={"transaction": transaction, **request.GET},
     )
     response.headers["HX-Trigger"] = (
-        f'{"paid" if new_is_paid else "unpaid"}, monthly_summary_update'
+        f'{"paid" if new_is_paid else "unpaid"}, selective_update'
     )
     return response
 
