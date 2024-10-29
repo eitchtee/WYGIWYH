@@ -2,10 +2,6 @@ from decimal import Decimal
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import (
-    Case,
-    When,
-    Value,
-    IntegerField,
     Sum,
     Q,
 )

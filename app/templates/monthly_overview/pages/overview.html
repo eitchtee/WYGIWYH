@@ -26,10 +26,10 @@
             class="fa-solid fa-chevron-left"></i></a>
       </div>
       <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"
-           hx-get="{% url 'available_dates' %}"
+           hx-get="{% url 'month_year_picker' %}"
            hx-target="#generic-offcanvas-left"
            hx-trigger="click, date_picker from:window"
-           hx-vals='{"month": {{ month }}, "year": {{ year }}}' role="button">
+           hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "monthly_overview", "field": "reference_date"}' role="button">
         {{ month|month_name }} {{ year }}
       </div>
       <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
@@ -97,7 +97,7 @@
   <div class="row gx-xl-4 gy-3">
     <div class="col-12 col-xl-4 order-0 order-xl-2">
       <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class="show-loading"
-           hx-trigger="load, updated from:window, monthly_summary_update from:window">
+           hx-trigger="load, updated from:window, selective_update from:window">
       </div>
     </div>
     <div class="col-12 col-xl-8 order-2 order-xl-1">

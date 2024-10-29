@@ -8,4 +8,9 @@ urlpatterns = [
         views.toasts,
         name="toasts",
     ),
+    path(
+        "ui/month-year-picker/",
+        views.month_year_picker,
+        name="month_year_picker",
+    ),
 ]

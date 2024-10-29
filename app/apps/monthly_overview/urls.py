@@ -19,9 +19,4 @@ urlpatterns = [
         views.monthly_summary,
         name="monthly_summary",
     ),
-    path(
-        "available_dates/",
-        views.month_year_picker,
-        name="available_dates",
-    ),
 ]
