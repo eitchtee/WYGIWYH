@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "django_cotton",
     "apps.rules.apps.RulesConfig",
+    "apps.calendar_view.apps.CalendarViewConfig",
 ]
 
 MIDDLEWARE = [
