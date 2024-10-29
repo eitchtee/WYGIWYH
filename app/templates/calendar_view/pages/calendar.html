@@ -1,0 +1,100 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load month_name %}
+{% load static %}
+{% load webpack_loader %}
+
+{% block title %}{% translate 'Monthly Overview' %} :: {{ month|month_name }}/{{ year }}{% endblock %}
+
+{% block body_hyperscript %}
+  on keyup[code is 'ArrowLeft' and target.nodeName is 'BODY'] from body trigger 'previous_month' end
+  on keyup[code is 'ArrowRight' and target.nodeName is 'BODY'] from body trigger 'next_month' end
+{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="row mb-3 gx-xl-4 gy-3 mb-4">
+{#    Date picker#}
+    <div class="col-12 col-xl-4 flex-row align-items-center d-flex">
+      <div class="tw-text-base h-100 align-items-center d-flex">
+        <a role="button"
+           class="pe-4 py-2"
+           hx-boost="true"
+           hx-trigger="click, previous_month from:window"
+           href="{% url 'calendar' month=previous_month year=previous_year %}"><i
+            class="fa-solid fa-chevron-left"></i></a>
+      </div>
+      <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"
+           hx-get="{% url 'month_year_picker' %}"
+           hx-target="#generic-offcanvas-left"
+           hx-trigger="click, date_picker from:window"
+           hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "calendar", "field": "date"}' role="button">
+        {{ month|month_name }} {{ year }}
+      </div>
+      <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
+        <a role="button"
+           class="ps-3 py-2"
+           hx-boost="true"
+           hx-trigger="click, next_month from:window"
+           href="{% url 'calendar' month=next_month year=next_year %}">
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+{#    Action buttons#}
+    <div class="col-12 col-xl-8">
+      <div class="d-grid gap-2 d-xl-flex justify-content-xl-end">
+        <button class="btn btn-sm btn-outline-success"
+                      hx-get="{% url 'transaction_add' %}"
+                      hx-target="#generic-offcanvas"
+                      hx-trigger="click, add_income from:window"
+                      hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "IN"}'>
+                <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>
+                {% translate "Income" %}
+        </button>
+        <button class="btn btn-sm btn-outline-danger"
+                      hx-get="{% url 'transaction_add' %}"
+                      hx-target="#generic-offcanvas"
+                      hx-trigger="click, add_expense from:window"
+                      hx-vals='{"year": {{ year }}, "month": {{ month }}, "type": "EX"}'>
+                <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                {% translate "Expense" %}
+        </button>
+        <button class="btn btn-sm btn-outline-warning"
+                hx-get="{% url 'installment_plan_add' %}"
+                hx-trigger="click, installment from:window"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-divide me-2"></i>
+          {% translate "Installment" %}
+        </button>
+        <button class="btn btn-sm btn-outline-warning"
+                hx-get="{% url 'recurring_transaction_add' %}"
+                hx-trigger="click, balance from:window"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-repeat me-2"></i>
+          {% translate "Recurring" %}
+        </button>
+        <button class="btn btn-sm btn-outline-info"
+                hx-get="{% url 'transactions_transfer' %}"
+                hx-target="#generic-offcanvas"
+                hx-trigger="click, add_transfer from:window"
+                hx-vals='{"year": {{ year }}, "month": {{ month }}}'>
+          <i class="fa-solid fa-money-bill-transfer me-2"></i>
+          {% translate "Transfer" %}
+        </button>
+        <button class="btn btn-sm btn-outline-info"
+                hx-get="{% url 'account_reconciliation' %}"
+                hx-trigger="click, balance from:window"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-scale-balanced me-2"></i>
+          {% translate "Balance" %}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="show-loading" hx-get="{% url 'calendar_list' month=month year=year %}" hx-trigger="load, updated from:window, selective_update from:window"></div>
+  </div>
+</div>
+{% endblock %}
