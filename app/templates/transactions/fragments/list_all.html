@@ -33,15 +33,9 @@
       </div>
     </div>
   {% empty %}
-    <div class="row p-5">
-      <div class="col p-5">
-        <div class="text-center">
-          <i class="fa-solid fa-circle-xmark tw-text-6xl"></i>
-          <p class="lead mt-4 mb-0">{% translate "No transactions found" %}</p>
-          <p class="tw-text-gray-500">{% translate "Try adding one" %}</p>
-        </div>
-      </div>
-    </div>
+    <c-msg.empty
+      title="{% translate "No transactions found" %}"
+      subtitle="{% translate "Try adding one" %}"></c-msg.empty>
 {% endfor %}
 
   {% if page_obj.has_other_pages %}
