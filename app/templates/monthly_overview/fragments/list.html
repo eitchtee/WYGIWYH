@@ -3,7 +3,7 @@
 {% regroup transactions by date|customnaturaldate as transactions_by_date %}
 
 <div id="transactions-list"
-     _="on change or click
+     _="on change or click or htmx:afterSettle
           if no <input[type='checkbox']:checked/> in me
             add .tw-hidden to #actions-bar
           else
@@ -11,19 +11,20 @@
           end
         end">
   {% for x in transactions_by_date %}
-    <div>
+    <div x-data="{ isOpen: $persist(true).as('{{ x.grouper|slugify }}-state').using(sessionStorage) }" id="#{{ x.grouper|slugify }}">
       <div class="mt-3 mb-1 w-100 tw-text-base border-bottom bg-body">
         <a class="text-decoration-none d-inline-block w-100"
            role="button"
            data-bs-toggle="collapse"
-           data-bs-target="#{{ x.grouper|slugify }}"
+           data-bs-target="#{{ x.grouper|slugify }}-collapse"
            id="#{{ x.grouper|slugify }}-collapsible"
-           aria-expanded="true"
+           :aria-expanded="isOpen"
+           @click="isOpen = !isOpen"
            aria-controls="collapseExample">
         {{ x.grouper }}
         </a>
       </div>
-      <div class="collapse show" id="{{ x.grouper|slugify }}">
+      <div class="collapse" id="{{ x.grouper|slugify }}-collapse" :class="{ 'show': isOpen }">
         <div class="d-flex flex-column">
         {% for transaction in x.list %}
           <c-transaction.item

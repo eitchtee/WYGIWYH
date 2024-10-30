@@ -94,7 +94,7 @@
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Edit" %}"
                 hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
-                hx-target="#generic-offcanvas">
+                hx-target="#generic-offcanvas" hx-swap="innerHTML">
           <i class="fa-solid fa-pencil fa-fw"></i></a>
           <a class="btn btn-secondary btn-sm transaction-action"
                   role="button"

@@ -131,7 +131,9 @@
       <div id="transactions"
            class="show-loading"
            hx-get="{% url 'monthly_transactions_list' month=month year=year %}"
-           hx-trigger="load, updated from:window" hx-include="#filter, #order"></div>
+           hx-trigger="load, updated from:window" hx-include="#filter, #order" hx-ext="alpine-morph" hx-swap="morph" hx-target="#transactions-list">
+          <div id="transactions-list"></div>
+      </div>
     </div>
   </div>
 </div>
