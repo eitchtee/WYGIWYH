@@ -31,7 +31,7 @@
       <div class="card h-100 hover:tw-bg-zinc-900 rounded-0{% if not date.transactions %} !tw-hidden lg:!tw-flex{% endif %}{% if today == date.date %} tw-border-yellow-300 border-primary{% endif %} " role="button"
         hx-get="{% url 'calendar_transactions_list' day=date.date.day month=date.date.month year=date.date.year %}"
         hx-target="#persistent-generic-offcanvas-left">
-        <div class="card-header border-0 bg-transparent text-end tw-flex justify-content-between p-2 !tw-text-gray-400 w-100">
+        <div class="card-header border-0 bg-transparent text-end tw-flex justify-content-between p-2 w-100">
           <div class="lg:tw-hidden text-start w-100">{{ date.date|date:"l"|lower }}</div>
           <div class="text-end w-100">{{ date.day }}</div>
         </div>
