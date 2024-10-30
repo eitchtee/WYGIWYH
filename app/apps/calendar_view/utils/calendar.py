@@ -1,30 +1,7 @@
-from datetime import datetime, date
 import calendar
+from datetime import date
 
 from apps.transactions.models import Transaction
-
-
-# def get_transactions_by_day(year, month):
-#     # Get all transactions for the month
-#     transactions = Transaction.objects.filter(
-#         date__year=year, date__month=month
-#     ).order_by("date")
-#
-#     # Create a dictionary with all days of the month
-#     all_days = {
-#         day: {"day": day, "date": date(year, month, day), "transactions": []}
-#         for day in range(1, calendar.monthrange(year, month)[1] + 1)
-#     }
-#
-#     # Group transactions by day
-#     for transaction in transactions:
-#         day = transaction.date.day
-#         all_days[day]["transactions"].append(transaction)
-#
-#     # Convert to list and sort by day
-#     result = list(all_days.values())
-#
-#     return result
 
 
 def get_transactions_by_day(year, month):
@@ -33,6 +10,7 @@ def get_transactions_by_day(year, month):
 
     # Get the first and last day of the month
     first_day = date(year, month, 1)
+    last_day = date(year, month, calendar.monthrange(year, month)[1])
 
     # Get all transactions for the month
     transactions = Transaction.objects.filter(
@@ -44,11 +22,15 @@ def get_transactions_by_day(year, month):
         "id",
     )
 
-    # Calculate padding days needed
-    padding_days = first_day.weekday()  # Monday is 0, Sunday is 6
+    # Calculate padding days needed at start
+    start_padding = first_day.weekday()  # Monday is 0, Sunday is 6
+
+    # Calculate padding days needed at end
+    end_padding = (7 - last_day.weekday() - 1) % 7
 
     # Create padding days as empty dicts
-    padding_dates = [{}] * padding_days
+    start_padding_dates = [{}] * start_padding
+    end_padding_dates = [{}] * end_padding
 
     # Create current month days
     current_month_dates = [
@@ -64,7 +46,7 @@ def get_transactions_by_day(year, month):
                 day_data["transactions"].append(transaction)
                 break
 
-    # Combine padding and current month dates
-    result = padding_dates + current_month_dates
+    # Combine all dates
+    result = start_padding_dates + current_month_dates + end_padding_dates
 
     return result
