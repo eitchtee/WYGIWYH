@@ -32,6 +32,8 @@ def index(request):
         return redirect(reverse("net_worth"))
     elif request.user.settings.start_page == UserSettings.StartPage.ALL_TRANSACTIONS:
         return redirect(reverse("transactions_all_index"))
+    elif request.user.settings.start_page == UserSettings.StartPage.CALENDAR:
+        return redirect(reverse("calendar_index"))
     else:
         return redirect(reverse("monthly_index"))
 
