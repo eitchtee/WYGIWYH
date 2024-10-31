@@ -12,19 +12,28 @@
           end
         end">
   {% for x in transactions_by_date %}
-    <div>
+    <div id="{{ x.grouper|slugify }}"
+         _="on htmx:afterSettle from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
       <div class="mt-3 mb-1 w-100 tw-text-base border-bottom bg-body">
         <a class="text-decoration-none d-inline-block w-100"
            role="button"
            data-bs-toggle="collapse"
-           data-bs-target="#{{ x.grouper|slugify }}"
-           id="#{{ x.grouper|slugify }}-collapsible"
+           data-bs-target="#c-{{ x.grouper|slugify }}-collapse"
+           id="c-{{ x.grouper|slugify }}-collapsible"
            aria-expanded="true"
-           aria-controls="collapseExample">
+           aria-controls="c-{{ x.grouper|slugify }}-collapse">
         {{ x.grouper }}
         </a>
       </div>
-      <div class="collapse show" id="{{ x.grouper|slugify }}">
+      <div class="collapse" id="c-{{ x.grouper|slugify }}-collapse"
+           _="on shown.bs.collapse sessionStorage.setItem(the closest parent @id, 'true')
+              on hidden.bs.collapse sessionStorage.setItem(the closest parent @id, 'false')
+              on htmx:afterSettle from #transactions
+                set state to sessionStorage.getItem(the closest parent @id)
+                if state is 'true' or state is null
+                  add .show to me
+                  set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to true
+                end">
         <div class="d-flex flex-column">
         {% for transaction in x.list %}
           <c-transaction.item :transaction="transaction"></c-transaction.item>

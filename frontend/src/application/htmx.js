@@ -1,14 +1,11 @@
 import _hyperscript from 'hyperscript.org/dist/_hyperscript.min';
 import './_htmx.js';
-import 'htmx-ext-alpine-morph/alpine-morph';
 import Alpine from "alpinejs";
 import mask from '@alpinejs/mask';
-import morph from '@alpinejs/morph';
 
 window.Alpine = Alpine;
 
 Alpine.plugin(mask);
-Alpine.plugin(morph);
 Alpine.start();
 _hyperscript.browserInit();
 
