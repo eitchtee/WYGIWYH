@@ -2,7 +2,6 @@ FROM python:3.11-slim-buster AS python-build-stage
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
-    gettext \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 

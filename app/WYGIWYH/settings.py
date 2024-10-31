@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "hijack",
     "hijack.contrib.admin",
-    "django_tables2",
     "django_filters",
     "apps.users.apps.UsersConfig",
     "procrastinate.contrib.django",
