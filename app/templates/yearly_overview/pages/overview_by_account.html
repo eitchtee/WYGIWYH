@@ -1,0 +1,225 @@
+{% extends "layouts/base.html" %}
+{% load currency_display %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load month_name %}
+{% load static %}
+{% load webpack_loader %}
+
+{% block title %}{% translate 'Yearly Overview' %} :: {% translate "By account" %} :: {{ year }}{% endblock %}
+
+{% block body_hyperscript %}
+  on keyup[code is 'ArrowLeft' and target.nodeName is 'BODY'] from body trigger 'previous_year' end
+  on keyup[code is 'ArrowRight' and target.nodeName is 'BODY'] from body trigger 'next_year' end
+{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="row mb-3 gx-xl-4 gy-3 mb-4">
+{#    Date picker#}
+    <div class="col-12 col-xl-2 flex-row align-items-center d-flex">
+      <div class="tw-text-base h-100 align-items-center d-flex">
+        <a role="button"
+           class="pe-4 py-2"
+           hx-boost="true"
+           hx-trigger="click, previous_year from:window"
+           href="{% url 'yearly_overview_account' year=previous_year %}">
+          <i class="fa-solid fa-chevron-left"></i></a>
+      </div>
+      <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center">
+        {{ year }}
+      </div>
+      <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
+        <a role="button"
+           class="ps-3 py-2"
+           hx-boost="true"
+           hx-trigger="click, next_year from:window"
+           href="{% url 'yearly_overview_account' year=next_year %}">
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+{#    Action buttons#}
+    <div class="col-12 col-xl-10">
+      <div class="d-grid gap-2 d-xl-flex justify-content-xl-end">
+        <button class="btn btn-sm btn-outline-success"
+                      hx-get="{% url 'transaction_add' %}"
+                      hx-target="#generic-offcanvas"
+                      hx-trigger="click, add_income from:window"
+                      hx-vals='{"year": {{ year }}, "type": "IN"}'>
+                <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>
+                {% translate "Income" %}
+        </button>
+        <button class="btn btn-sm btn-outline-danger"
+                      hx-get="{% url 'transaction_add' %}"
+                      hx-target="#generic-offcanvas"
+                      hx-trigger="click, add_expense from:window"
+                      hx-vals='{"year": {{ year }}, "type": "EX"}'>
+                <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                {% translate "Expense" %}
+        </button>
+        <button class="btn btn-sm btn-outline-warning"
+                hx-get="{% url 'installment_plan_add' %}"
+                hx-trigger="click, installment from:window"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-divide me-2"></i>
+          {% translate "Installment" %}
+        </button>
+        <button class="btn btn-sm btn-outline-warning"
+                hx-get="{% url 'recurring_transaction_add' %}"
+                hx-trigger="click, balance from:window"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-repeat me-2"></i>
+          {% translate "Recurring" %}
+        </button>
+        <button class="btn btn-sm btn-outline-info"
+                hx-get="{% url 'transactions_transfer' %}"
+                hx-target="#generic-offcanvas"
+                hx-trigger="click, add_transfer from:window"
+                hx-vals='{"year": {{ year }}}'>
+          <i class="fa-solid fa-money-bill-transfer me-2"></i>
+          {% translate "Transfer" %}
+        </button>
+        <button class="btn btn-sm btn-outline-info"
+                hx-get="{% url 'account_reconciliation' %}"
+                hx-trigger="click, balance from:window"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-scale-balanced me-2"></i>
+          {% translate "Balance" %}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row row-cols-1 g-4 mb-3">
+    {% for date, x in totals.items %}
+    <div class="col">
+      <div class="card tw-relative h-100 shadow">
+        <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
+        align-items-center d-flex justify-content-center rounded-2 tw-font-bold">
+          {{ forloop.counter }}
+        </div>
+        <div class="card-body">
+          <h5 class="tw-text-yellow-400 fw-bold mb-3">{{ date.month|month_name }}</h5>
+          <div class="accordion accordion-flush" id="a-{{ forloop.counter }}-control">
+            {% for id, account in x.items %}
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ account.name|slugify }}-{{ forloop.parentloop.counter }}" aria-expanded="false" aria-controls="{{ account.name|slugify }}-{{ forloop.counter }}">
+                  <span class="badge text-bg-primary me-2">{{ account.group }}</span>{{ account.name }}
+                </button>
+              </h2>
+              <div id="{{ account.name|slugify }}-{{ forloop.parentloop.counter }}" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-12 col-lg-6">
+                      <div class="d-flex justify-content-between align-items-baseline mt-2">
+                        <div class="text-end font-monospace">
+                          <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
+                        </div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="text-end font-monospace tw-text-green-300">
+                          <c-amount.display
+                                      :amount="account.income_unpaid"
+                                      :prefix="account.currency.prefix"
+                                      :suffix="account.currency.suffix"
+                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-baseline mt-2">
+                        <div class="text-end font-monospace">
+                          <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
+                        </div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="text-end font-monospace tw-text-red-300">
+                          <c-amount.display
+                                      :amount="account.expense_unpaid"
+                                      :prefix="account.currency.prefix"
+                                      :suffix="account.currency.suffix"
+                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-baseline mt-2">
+                        <div class="text-end font-monospace">
+                          <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
+                        </div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="text-end font-monospace tw-text-yellow-300">
+                          <c-amount.display
+                                      :amount="account.balance_unpaid"
+                                      :prefix="account.currency.prefix"
+                                      :suffix="account.currency.suffix"
+                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-3 d-block d-lg-none">
+                    <div class="col-12 col-lg-6">
+                      <div class="d-flex justify-content-between align-items-baseline mt-2">
+                        <div class="text-end font-monospace">
+                          <div class="tw-text-gray-400">{% translate 'current income' %}</div>
+                        </div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="text-end font-monospace tw-text-green-400">
+                          <c-amount.display
+                                      :amount="account.income_paid"
+                                      :prefix="account.currency.prefix"
+                                      :suffix="account.currency.suffix"
+                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-baseline mt-2">
+                        <div class="text-end font-monospace">
+                          <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
+                        </div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="text-end font-monospace tw-text-red-400">
+                          <c-amount.display
+                                      :amount="account.expense_paid"
+                                      :prefix="account.currency.prefix"
+                                      :suffix="account.currency.suffix"
+                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-baseline mt-2">
+                        <div class="text-end font-monospace">
+                          <div class="tw-text-gray-400">{% translate 'current total' %}</div>
+                        </div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="text-end font-monospace tw-text-yellow-400">
+                          <c-amount.display
+                                      :amount="account.balance_paid"
+                                      :prefix="account.currency.prefix"
+                                      :suffix="account.currency.suffix"
+                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div>
+                      <div class="d-flex justify-content-between align-items-baseline">
+                        <div class="text-end font-monospace">
+                          <div class="tw-text-gray-400">{% translate 'final total' %}</div>
+                        </div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="text-end font-monospace tw-text-green-300">
+                          <c-amount.display
+                                      :amount="account.balance_total"
+                                      :prefix="account.currency.prefix"
+                                      :suffix="account.currency.suffix"
+                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

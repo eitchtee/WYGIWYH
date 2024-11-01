@@ -6,7 +6,7 @@
 {% load static %}
 {% load webpack_loader %}
 
-{% block title %}{% translate 'Yearly Overview' %} :: {{ year }}{% endblock %}
+{% block title %}{% translate 'Yearly Overview' %} :: {% translate 'By currency' %} :: {{ year }}{% endblock %}
 
 {% block body_hyperscript %}
   on keyup[code is 'ArrowLeft' and target.nodeName is 'BODY'] from body trigger 'previous_year' end
@@ -23,7 +23,7 @@
            class="pe-4 py-2"
            hx-boost="true"
            hx-trigger="click, previous_year from:window"
-           href="{% url 'yearly_overview' year=previous_year %}">
+           href="{% url 'yearly_overview_currency' year=previous_year %}">
           <i class="fa-solid fa-chevron-left"></i></a>
       </div>
       <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center">
@@ -34,7 +34,7 @@
            class="ps-3 py-2"
            hx-boost="true"
            hx-trigger="click, next_year from:window"
-           href="{% url 'yearly_overview' year=next_year %}">
+           href="{% url 'yearly_overview_currency' year=next_year %}">
           <i class="fa-solid fa-chevron-right"></i>
         </a>
       </div>
@@ -90,84 +90,6 @@
       </div>
     </div>
   </div>
-{#  <div class="row gx-xl-4 gy-3">#}
-{#    <div class="col-12">#}
-{#      <div class="row">#}
-{#        <div class="no-more-tables">#}
-{#        <table class="table table-hover text-nowrap">#}
-{#          <thead>#}
-{#            <tr>#}
-{#              <th scope="col">{% translate 'Month' %}</th>#}
-{#              <td>{% translate 'Projected Income' %}</td>#}
-{#              <td>{% translate 'Projected Expenses' %}</td>#}
-{#              <td>{% translate 'Projected Total' %}</td>#}
-{#              <td>{% translate 'Current Income' %}</td>#}
-{#              <td>{% translate 'Current Expenses' %}</td>#}
-{#              <td>{% translate 'Current Total' %}</td>#}
-{#              <td>{% translate 'Final Total' %}</td>#}
-{#            </tr>#}
-{#          </thead>#}
-{#          <tbody>#}
-{#            {% for date, x in totals.items %}#}
-{#            <tr>#}
-{#              <th scope="row">{{ date.month|month_name }}</th>#}
-{#              <td class="!tw-text-green-400" data-title="{% translate 'Projected Income' %}">#}
-{#                {% for data in x.income_unpaid %}#}
-{#                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>#}
-{#                {% empty %}#}
-{#                  <div>-</div>#}
-{#                {% endfor %}#}
-{#              </td>#}
-{#              <td class="!tw-text-red-400" data-title="{% translate 'Projected Expenses' %}">#}
-{#                {% for data in x.expense_unpaid %}#}
-{#                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>#}
-{#                {% empty %}#}
-{#                  <div>-</div>#}
-{#                {% endfor %}#}
-{#              </td>#}
-{#              <td data-title="{% translate 'Projected Total' %}">#}
-{#                {% for data in x.balance_unpaid %}#}
-{#                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>#}
-{#                {% empty %}#}
-{#                  <div>-</div>#}
-{#                {% endfor %}#}
-{#              </td>#}
-{#              <td class="!tw-text-green-400" data-title="{% translate 'Current Income' %}">#}
-{#                {% for data in x.income_paid %}#}
-{#                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>#}
-{#                {% empty %}#}
-{#                  <div>-</div>#}
-{#                {% endfor %}#}
-{#              </td>#}
-{#              <td class="!tw-text-red-400" data-title="{% translate 'Current Expenses' %}">#}
-{#                {% for data in x.expense_paid %}#}
-{#                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>#}
-{#                {% empty %}#}
-{#                  <div>-</div>#}
-{#                {% endfor %}#}
-{#              </td>#}
-{#              <td data-title="{% translate 'Current Total' %}">#}
-{#                {% for data in x.balance_paid %}#}
-{#                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>#}
-{#                {% empty %}#}
-{#                  <div>-</div>#}
-{#                {% endfor %}#}
-{#              </td>#}
-{#              <td data-title="{% translate 'Final Total' %}">#}
-{#                {% for data in x.balance_total %}#}
-{#                  <div class="amount" data-original-value="{% currency_display amount=data.amount prefix=data.prefix suffix=data.suffix decimal_places=data.decimal_places %}"></div>#}
-{#                {% empty %}#}
-{#                  <div>-</div>#}
-{#                {% endfor %}#}
-{#              </td>#}
-{#            </tr>#}
-{#            {% endfor %}#}
-{#          </tbody>#}
-{#        </table>#}
-{#        </div>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
   <div class="row row-cols-1 row-cols-xl-3 g-4 mb-3">
     {% for date, x in totals.items %}
     <div class="col">

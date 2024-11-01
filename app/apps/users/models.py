@@ -23,8 +23,9 @@ class User(AbstractUser):
 
 class UserSettings(models.Model):
     class StartPage(models.TextChoices):
-        MONTHLY = "MONTHLY_OVERVIEW", _("Monthly Overview")
-        YEARLY = "YEARLY_OVERVIEW", _("Yearly Overview")
+        MONTHLY = "MONTHLY_OVERVIEW", _("Monthly")
+        YEARLY_CURRENCY = "YEARLY_OVERVIEW_CURRENCY", _("Yearly by currency")
+        YEARLY_ACCOUNT = "YEARLY_OVERVIEW_ACCOUNT", _("Yearly by account")
         NETWORTH = "NETWORTH", _("Net Worth")
         ALL_TRANSACTIONS = "ALL_TRANSACTIONS", _("All Transactions")
         CALENDAR = "CALENDAR", _("Calendar")

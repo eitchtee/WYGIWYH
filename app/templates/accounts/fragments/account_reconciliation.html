@@ -16,7 +16,7 @@
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                       data-bs-target="#flush-collapse-{{ forloop.counter0 }}" aria-expanded="false"
                       aria-controls="flush-collapseOne">
-                {% if form.account_group %}<span class="badge !tw-bg-blue-300 !tw-text-blue-800 me-2">{{ form.account_group.name }}</span>{% endif %}{{ form.account_name }}
+                {% if form.account_group %}<span class="badge text-bg-primary me-2">{{ form.account_group.name }}</span>{% endif %}{{ form.account_name }}
               </button>
             </h2>
             <div id="flush-collapse-{{ forloop.counter0 }}" class="accordion-collapse collapse">
