@@ -11,7 +11,6 @@ from apps.net_worth.utils.calculate_net_worth import (
 )
 
 
-# Create your views here.
 def net_worth_main(request):
     currency_net_worth = calculate_currency_net_worth()
     account_net_worth = calculate_account_net_worth()
