@@ -1,7 +1,6 @@
 from django import template
 from django.utils.formats import number_format
 
-from apps.transactions.models import Transaction
 
 register = template.Library()
 
