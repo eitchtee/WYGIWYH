@@ -10,6 +10,8 @@ from django.db.models.expressions import Case, When
 from django.db.models.functions import Concat
 
 from apps.transactions.models import Transaction
+from apps.currencies.utils.convert import convert
+from apps.currencies.models import Currency
 
 
 @login_required
@@ -196,14 +198,24 @@ def yearly_overview_by_account(request, year: int):
 
     monthly_data = (
         transactions.annotate(month=TruncMonth("reference_date"))
+        .select_related(
+            "account__currency",
+            "account__exchange_currency",
+        )
         .values(
             "month",
             "account__id",
             "account__name",
+            "account__currency",
+            "account__exchange_currency",
             "account__currency__code",
             "account__currency__prefix",
             "account__currency__suffix",
             "account__currency__decimal_places",
+            "account__exchange_currency__code",
+            "account__exchange_currency__prefix",
+            "account__exchange_currency__suffix",
+            "account__exchange_currency__decimal_places",
         )
         .annotate(
             income_paid=Coalesce(
@@ -276,10 +288,9 @@ def yearly_overview_by_account(request, year: int):
         .order_by("month", "account__name")
     )
 
-    # Create a list of all months in the year
     all_months = [date(year, month, 1) for month in range(1, 13)]
 
-    # Get all accounts that had transactions in this year
+    # Get all accounts with their currencies
     accounts = (
         transactions.values(
             "account__id",
@@ -289,12 +300,18 @@ def yearly_overview_by_account(request, year: int):
             "account__currency__prefix",
             "account__currency__suffix",
             "account__currency__decimal_places",
+            "account__exchange_currency__code",
+            "account__exchange_currency__prefix",
+            "account__exchange_currency__suffix",
+            "account__exchange_currency__decimal_places",
         )
         .distinct()
         .order_by("account__name")
     )
 
-    # Create a dictionary to store the final result
+    # Get Currency objects for conversion
+    currencies = {currency.id: currency for currency in Currency.objects.all()}
+
     result = {
         month: {
             account["account__id"]: {
@@ -306,6 +323,18 @@ def yearly_overview_by_account(request, year: int):
                     "suffix": account["account__currency__suffix"],
                     "decimal_places": account["account__currency__decimal_places"],
                 },
+                "exchange_currency": (
+                    {
+                        "code": account["account__exchange_currency__code"],
+                        "prefix": account["account__exchange_currency__prefix"],
+                        "suffix": account["account__exchange_currency__suffix"],
+                        "decimal_places": account[
+                            "account__exchange_currency__decimal_places"
+                        ],
+                    }
+                    if account["account__exchange_currency__code"]
+                    else None
+                ),
                 "income_paid": Decimal("0"),
                 "expense_paid": Decimal("0"),
                 "income_unpaid": Decimal("0"),
@@ -334,6 +363,24 @@ def yearly_overview_by_account(request, year: int):
             "balance_total",
         ]:
             result[month][account_id][field] = entry[field]
+            if result[month][account_id]["exchange_currency"]:
+                from_currency = currencies[entry["account__currency"]]
+                to_currency = currencies[entry["account__exchange_currency"]]
+
+                if entry[field] > 0 or entry[field] < 0:
+                    converted_amount, prefix, suffix, decimal_places = convert(
+                        amount=entry[field],
+                        from_currency=from_currency,
+                        to_currency=to_currency,
+                    )
+
+                    if isinstance(converted_amount, Decimal):
+                        print(converted_amount)
+                        result[month][account_id][
+                            f"exchange_{field}"
+                        ] = converted_amount
+                else:
+                    result[month][account_id][f"exchange_{field}"] = Decimal(0)
 
     return render(
         request,
@@ -343,6 +390,5 @@ def yearly_overview_by_account(request, year: int):
             "next_year": next_year,
             "previous_year": previous_year,
             "totals": result,
-            "accounts": accounts,
         },
     )

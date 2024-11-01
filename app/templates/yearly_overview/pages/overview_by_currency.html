@@ -104,7 +104,7 @@
             <div class="text-end font-monospace">
               <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
             </div>
-            <div class="text-end font-monospace tw-text-green-300">
+            <div class="text-end font-monospace">
               {% for entry in x.income_unpaid %}
                 <c-amount.display
                             :amount="entry.amount"
@@ -120,7 +120,7 @@
             <div class="text-end font-monospace">
               <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
             </div>
-            <div class="text-end font-monospace tw-text-red-300">
+            <div class="text-end font-monospace">
               {% for entry in x.expense_unpaid %}
                 <c-amount.display
                             :amount="entry.amount"
@@ -136,13 +136,15 @@
             <div class="text-end font-monospace">
               <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
             </div>
-            <div class="text-end font-monospace tw-text-yellow-300">
+            <div class="text-end font-monospace">
               {% for entry in x.balance_unpaid %}
+                <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
                 <c-amount.display
                             :amount="entry.amount"
                             :prefix="entry.prefix"
                             :suffix="entry.suffix"
                             :decimal_places="entry.decimal_places"></c-amount.display>
+                </div>
               {% empty %}
                 <div>-</div>
               {% endfor %}
@@ -153,7 +155,7 @@
             <div class="text-end font-monospace">
               <div class="tw-text-gray-400">{% translate 'current income' %}</div>
             </div>
-            <div class="text-end font-monospace tw-text-green-400">
+            <div class="text-end font-monospace">
               {% for entry in x.income_paid %}
                 <c-amount.display
                             :amount="entry.amount"
@@ -169,7 +171,7 @@
             <div class="text-end font-monospace">
               <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
             </div>
-            <div class="text-end font-monospace tw-text-red-400">
+            <div class="text-end font-monospace">
               {% for entry in x.expense_paid %}
                 <c-amount.display
                             :amount="entry.amount"
@@ -187,11 +189,13 @@
             </div>
             <div class="text-end font-monospace tw-text-yellow-400">
               {% for entry in x.balance_paid %}
+                <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
                 <c-amount.display
                             :amount="entry.amount"
                             :prefix="entry.prefix"
                             :suffix="entry.suffix"
                             :decimal_places="entry.decimal_places"></c-amount.display>
+                </div>
               {% empty %}
                 <div>-</div>
               {% endfor %}
@@ -204,11 +208,13 @@
             </div>
             <div class="text-end font-monospace">
               {% for entry in x.balance_total %}
+                <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
                 <c-amount.display
                             :amount="entry.amount"
                             :prefix="entry.prefix"
                             :suffix="entry.suffix"
                             :decimal_places="entry.decimal_places"></c-amount.display>
+                </div>
               {% empty %}
                 <div>-</div>
               {% endfor %}

@@ -105,7 +105,7 @@
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ account.name|slugify }}-{{ forloop.parentloop.counter }}" aria-expanded="false" aria-controls="{{ account.name|slugify }}-{{ forloop.counter }}">
-                  <span class="badge text-bg-primary me-2">{{ account.group }}</span>{{ account.name }}
+                  {% if account.group %}<span class="badge text-bg-primary me-2">{{ account.group }}</span>{% endif %}{{ account.name }}
                 </button>
               </h2>
               <div id="{{ account.name|slugify }}-{{ forloop.parentloop.counter }}" class="accordion-collapse collapse">
@@ -117,7 +117,7 @@
                           <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
                         </div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="text-end font-monospace tw-text-green-300">
+                        <div class="text-end font-monospace tw-text-green-400">
                           <c-amount.display
                                       :amount="account.income_unpaid"
                                       :prefix="account.currency.prefix"
@@ -125,25 +125,45 @@
                                       :decimal_places="account.currency.decimal_places"></c-amount.display>
                         </div>
                       </div>
+                      {% if account.exchange_currency and account.exchange_income_unpaid %}
+                        <div class="text-end font-monospace tw-text-gray-500">
+                          <c-amount.display
+                                      :amount="account.exchange_income_unpaid"
+                                      :prefix="account.exchange_currency.prefix"
+                                      :suffix="account.exchange_currency.suffix"
+                                      :decimal_places="account.exchange_currency.decimal_places"></c-amount.display>
+                        </div>
+                      {% endif %}
                       <div class="d-flex justify-content-between align-items-baseline mt-2">
                         <div class="text-end font-monospace">
                           <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
                         </div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="text-end font-monospace tw-text-red-300">
-                          <c-amount.display
-                                      :amount="account.expense_unpaid"
-                                      :prefix="account.currency.prefix"
-                                      :suffix="account.currency.suffix"
-                                      :decimal_places="account.currency.decimal_places"></c-amount.display>
+                        <div>
+                          <div class="text-end font-monospace tw-text-red-400">
+                            <c-amount.display
+                                        :amount="account.expense_unpaid"
+                                        :prefix="account.currency.prefix"
+                                        :suffix="account.currency.suffix"
+                                        :decimal_places="account.currency.decimal_places"></c-amount.display>
+                          </div>
                         </div>
                       </div>
+                      {% if account.exchange_currency and account.exchange_expense_unpaid %}
+                        <div class="text-end font-monospace tw-text-gray-500">
+                          <c-amount.display
+                                      :amount="account.exchange_expense_unpaid"
+                                      :prefix="account.exchange_currency.prefix"
+                                      :suffix="account.exchange_currency.suffix"
+                                      :decimal_places="account.exchange_currency.decimal_places"></c-amount.display>
+                        </div>
+                      {% endif %}
                       <div class="d-flex justify-content-between align-items-baseline mt-2">
                         <div class="text-end font-monospace">
                           <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
                         </div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="text-end font-monospace tw-text-yellow-300">
+                        <div class="text-end font-monospace {% if account.balance_unpaid > 0 %}tw-text-green-400{% elif account.balance_unpaid < 0 %}tw-text-red-400{% endif %}">
                           <c-amount.display
                                       :amount="account.balance_unpaid"
                                       :prefix="account.currency.prefix"
@@ -151,6 +171,15 @@
                                       :decimal_places="account.currency.decimal_places"></c-amount.display>
                         </div>
                       </div>
+                      {% if account.exchange_currency and account.exchange_balance_unpaid %}
+                        <div class="text-end font-monospace tw-text-gray-500">
+                          <c-amount.display
+                                      :amount="account.exchange_balance_unpaid"
+                                      :prefix="account.exchange_currency.prefix"
+                                      :suffix="account.exchange_currency.suffix"
+                                      :decimal_places="account.exchange_currency.decimal_places"></c-amount.display>
+                        </div>
+                      {% endif %}
                     </div>
                     <hr class="my-3 d-block d-lg-none">
                     <div class="col-12 col-lg-6">
@@ -167,6 +196,15 @@
                                       :decimal_places="account.currency.decimal_places"></c-amount.display>
                         </div>
                       </div>
+                      {% if account.exchange_currency and account.exchange_income_paid %}
+                        <div class="text-end font-monospace tw-text-gray-500">
+                          <c-amount.display
+                                      :amount="account.exchange_income_paid"
+                                      :prefix="account.exchange_currency.prefix"
+                                      :suffix="account.exchange_currency.suffix"
+                                      :decimal_places="account.exchange_currency.decimal_places"></c-amount.display>
+                        </div>
+                      {% endif %}
                       <div class="d-flex justify-content-between align-items-baseline mt-2">
                         <div class="text-end font-monospace">
                           <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
@@ -180,12 +218,21 @@
                                       :decimal_places="account.currency.decimal_places"></c-amount.display>
                         </div>
                       </div>
+                      {% if account.exchange_currency and account.exchange_expense_paid %}
+                        <div class="text-end font-monospace tw-text-gray-500">
+                          <c-amount.display
+                                      :amount="account.exchange_expense_paid"
+                                      :prefix="account.exchange_currency.prefix"
+                                      :suffix="account.exchange_currency.suffix"
+                                      :decimal_places="account.exchange_currency.decimal_places"></c-amount.display>
+                        </div>
+                      {% endif %}
                       <div class="d-flex justify-content-between align-items-baseline mt-2">
                         <div class="text-end font-monospace">
                           <div class="tw-text-gray-400">{% translate 'current total' %}</div>
                         </div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="text-end font-monospace tw-text-yellow-400">
+                        <div class="text-end font-monospace {% if account.balance_paid > 0 %}tw-text-green-400{% elif account.balance_paid < 0 %}tw-text-red-400{% endif %}">
                           <c-amount.display
                                       :amount="account.balance_paid"
                                       :prefix="account.currency.prefix"
@@ -193,6 +240,15 @@
                                       :decimal_places="account.currency.decimal_places"></c-amount.display>
                         </div>
                       </div>
+                      {% if account.exchange_currency and account.exchange_balance_paid %}
+                        <div class="text-end font-monospace tw-text-gray-500">
+                          <c-amount.display
+                                      :amount="account.exchange_balance_paid"
+                                      :prefix="account.exchange_currency.prefix"
+                                      :suffix="account.exchange_currency.suffix"
+                                      :decimal_places="account.exchange_currency.decimal_places"></c-amount.display>
+                        </div>
+                      {% endif %}
                     </div>
                     <hr class="my-3">
                     <div>
@@ -201,7 +257,7 @@
                           <div class="tw-text-gray-400">{% translate 'final total' %}</div>
                         </div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="text-end font-monospace tw-text-green-300">
+                        <div class="text-end font-monospace {% if account.balance_total > 0 %}tw-text-green-400{% elif account.balance_total < 0 %}tw-text-red-400{% endif %}">
                           <c-amount.display
                                       :amount="account.balance_total"
                                       :prefix="account.currency.prefix"
@@ -209,6 +265,15 @@
                                       :decimal_places="account.currency.decimal_places"></c-amount.display>
                         </div>
                       </div>
+                      {% if account.exchange_currency and account.exchange_balance_total %}
+                        <div class="text-end font-monospace tw-text-gray-500">
+                          <c-amount.display
+                                      :amount="account.exchange_balance_total"
+                                      :prefix="account.exchange_currency.prefix"
+                                      :suffix="account.exchange_currency.suffix"
+                                      :decimal_places="account.exchange_currency.decimal_places"></c-amount.display>
+                        </div>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
