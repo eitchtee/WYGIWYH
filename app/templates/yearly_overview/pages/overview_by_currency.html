@@ -92,7 +92,7 @@
   </div>
   <div class="row">
     <div class="col-lg-2">
-        <div class="nav flex-column nav-pills" id="month-pills" role="tablist" aria-orientation="vertical">
+        <div class="nav flex-column nav-pills" id="month-pills" role="tablist" aria-orientation="vertical" hx-indicator="#data-content">
             <input type="hidden" name="month" value="">
             <button class="nav-link active"
                     role="tab"
@@ -120,10 +120,10 @@
             {% endfor %}
         </div>
     </div>
-  
+
     <hr class="my-4 d-block d-lg-none">
     <div class="col-lg-3">
-        <div class="nav flex-column nav-pills" id="currency-pills" role="tablist" aria-orientation="vertical">
+        <div class="nav flex-column nav-pills" id="currency-pills" role="tablist" aria-orientation="vertical" hx-indicator="#data-content">
             <input type="hidden" name="currency" value="">
             <button class="nav-link active"
                     role="tab"
