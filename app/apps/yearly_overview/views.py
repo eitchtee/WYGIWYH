@@ -2,7 +2,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, F, Value, DecimalField
+from django.db.models import Sum, F, Value, DecimalField, Q
 from django.db.models.expressions import Case, When
 from django.db.models.functions import TruncMonth, Coalesce, TruncYear
 from django.http import Http404
@@ -51,8 +51,6 @@ def index_yearly_overview_by_currency(request, year: int):
 
 @login_required
 def yearly_overview_by_currency(request, year: int):
-    next_year = year + 1
-    previous_year = year - 1
     month = request.GET.get("month")
     currency = request.GET.get("currency")
 
@@ -70,7 +68,9 @@ def yearly_overview_by_currency(request, year: int):
     if currency:
         filter_params["account__currency_id"] = int(currency)
 
-    transactions = Transaction.objects.filter(**filter_params)
+    transactions = Transaction.objects.filter(**filter_params).exclude(
+        Q(category__mute=True) & ~Q(category=None)
+    )
 
     if month:
         date_trunc = TruncMonth("reference_date")
