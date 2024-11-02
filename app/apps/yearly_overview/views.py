@@ -13,6 +13,7 @@ from apps.accounts.models import Account
 from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
 from apps.transactions.models import Transaction
+from apps.common.decorators.htmx import only_htmx
 
 
 @login_required
@@ -35,7 +36,9 @@ def index_yearly_overview_by_currency(request, year: int):
     previous_year = year - 1
 
     month_options = range(1, 13)
-    currency_options = Currency.objects.all()
+    currency_options = Currency.objects.filter(
+        accounts__transactions__date__year=year
+    ).distinct()
 
     return render(
         request,
@@ -50,6 +53,7 @@ def index_yearly_overview_by_currency(request, year: int):
     )
 
 
+@only_htmx
 @login_required
 def yearly_overview_by_currency(request, year: int):
     month = request.GET.get("month")
@@ -196,8 +200,6 @@ def yearly_overview_by_currency(request, year: int):
                     }
                 )
 
-    print(result)
-
     return render(
         request,
         "yearly_overview/fragments/currency_data.html",
@@ -208,6 +210,32 @@ def yearly_overview_by_currency(request, year: int):
     )
 
 
+@login_required
+def index_yearly_overview_by_account(request, year: int):
+    next_year = year + 1
+    previous_year = year - 1
+
+    month_options = range(1, 13)
+    account_options = (
+        Account.objects.filter(is_archived=False, transactions__date__year=year)
+        .select_related("group")
+        .distinct()
+    )
+
+    return render(
+        request,
+        "yearly_overview/pages/overview_by_account.html",
+        context={
+            "year": year,
+            "next_year": next_year,
+            "previous_year": previous_year,
+            "months": month_options,
+            "accounts": account_options,
+        },
+    )
+
+
+@only_htmx
 @login_required
 def yearly_overview_by_account(request, year: int):
     month = request.GET.get("month")
@@ -420,7 +448,6 @@ def yearly_overview_by_account(request, year: int):
                     )
 
                     if isinstance(converted_amount, Decimal):
-                        print(converted_amount)
                         result[month][account_id][
                             f"exchange_{field}"
                         ] = converted_amount

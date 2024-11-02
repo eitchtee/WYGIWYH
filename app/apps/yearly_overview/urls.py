@@ -11,7 +11,7 @@ urlpatterns = [
         name="yearly_overview_currency",
     ),
     path(
-        "yearly-overview/<int:year>/data/",
+        "yearly-overview/<int:year>/currency/data/",
         views.yearly_overview_by_currency,
         name="yearly_overview_currency_data",
     ),
