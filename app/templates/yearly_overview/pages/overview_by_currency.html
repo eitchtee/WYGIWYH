@@ -90,140 +90,77 @@
       </div>
     </div>
   </div>
-  <div class="row row-cols-1 row-cols-xl-3 g-4 mb-3">
-    {% for date, x in totals.items %}
-    <div class="col">
-      <div class="card tw-relative h-100 shadow">
-        <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
-        align-items-center d-flex justify-content-center rounded-2 tw-font-bold">
-          {{ forloop.counter }}
-        </div>
-        <div class="card-body">
-          <h5 class="tw-text-yellow-400 fw-bold">{{ date.month|month_name }}</h5>
-          <div class="d-flex justify-content-between mt-2">
-            <div class="text-end font-monospace">
-              <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
-            </div>
-            <div class="text-end font-monospace">
-              {% for entry in x.income_unpaid %}
-                <c-amount.display
-                            :amount="entry.amount"
-                            :prefix="entry.prefix"
-                            :suffix="entry.suffix"
-                            :decimal_places="entry.decimal_places"></c-amount.display>
-              {% empty %}
-                <div>-</div>
+    <div class="row">
+      <div class="col-lg-2">
+          <div class="nav flex-column nav-pills" id="month-pills" role="tablist" aria-orientation="vertical">
+              <input type="hidden" name="month" value="">
+              <button class="nav-link active"
+                      role="tab"
+                      data-bs-toggle="pill"
+                      hx-get="{% url 'yearly_overview_currency_data' year=year %}"
+                      hx-target="#data-content"
+                      hx-trigger="click"
+                      hx-include="[name='currency'], [name='month']"
+                      hx-swap="innerHTML"
+                      onclick="document.querySelector('[name=month]').value = ''">
+                  {% translate 'Year' %}
+              </button>
+              {% for month in months %}
+              <button class="nav-link"
+                      role="tab"
+                      data-bs-toggle="pill"
+                      hx-get="{% url 'yearly_overview_currency_data' year=year %}"
+                      hx-target="#data-content"
+                      hx-trigger="click"
+                      hx-include="[name='currency'], [name='month']"
+                      hx-swap="innerHTML"
+                      onclick="document.querySelector('[name=month]').value = '{{ month }}'">
+                  {{ month|month_name }}
+              </button>
               {% endfor %}
-            </div>
           </div>
-          <div class="d-flex justify-content-between mt-2">
-            <div class="text-end font-monospace">
-              <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
-            </div>
-            <div class="text-end font-monospace">
-              {% for entry in x.expense_unpaid %}
-                <c-amount.display
-                            :amount="entry.amount"
-                            :prefix="entry.prefix"
-                            :suffix="entry.suffix"
-                            :decimal_places="entry.decimal_places"></c-amount.display>
-              {% empty %}
-                <div>-</div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class="d-flex justify-content-between mt-2">
-            <div class="text-end font-monospace">
-              <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
-            </div>
-            <div class="text-end font-monospace">
-              {% for entry in x.balance_unpaid %}
-                <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
-                <c-amount.display
-                            :amount="entry.amount"
-                            :prefix="entry.prefix"
-                            :suffix="entry.suffix"
-                            :decimal_places="entry.decimal_places"></c-amount.display>
-                </div>
-              {% empty %}
-                <div>-</div>
-              {% endfor %}
-            </div>
-          </div>
-          <hr class="my-1">
-          <div class="d-flex justify-content-between mt-2">
-            <div class="text-end font-monospace">
-              <div class="tw-text-gray-400">{% translate 'current income' %}</div>
-            </div>
-            <div class="text-end font-monospace">
-              {% for entry in x.income_paid %}
-                <c-amount.display
-                            :amount="entry.amount"
-                            :prefix="entry.prefix"
-                            :suffix="entry.suffix"
-                            :decimal_places="entry.decimal_places"></c-amount.display>
-              {% empty %}
-                <div>-</div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class="d-flex justify-content-between mt-2">
-            <div class="text-end font-monospace">
-              <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
-            </div>
-            <div class="text-end font-monospace">
-              {% for entry in x.expense_paid %}
-                <c-amount.display
-                            :amount="entry.amount"
-                            :prefix="entry.prefix"
-                            :suffix="entry.suffix"
-                            :decimal_places="entry.decimal_places"></c-amount.display>
-              {% empty %}
-                <div>-</div>
-              {% endfor %}
-            </div>
-          </div>
-          <div class="d-flex justify-content-between mt-2">
-            <div class="text-end font-monospace">
-              <div class="tw-text-gray-400">{% translate 'current total' %}</div>
-            </div>
-            <div class="text-end font-monospace tw-text-yellow-400">
-              {% for entry in x.balance_paid %}
-                <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
-                <c-amount.display
-                            :amount="entry.amount"
-                            :prefix="entry.prefix"
-                            :suffix="entry.suffix"
-                            :decimal_places="entry.decimal_places"></c-amount.display>
-                </div>
-              {% empty %}
-                <div>-</div>
-              {% endfor %}
-            </div>
-          </div>
-          <hr class="my-1">
-          <div class="d-flex justify-content-between mt-2">
-            <div class="text-end font-monospace">
-              <div class="tw-text-gray-400">{% translate 'final total' %}</div>
-            </div>
-            <div class="text-end font-monospace">
-              {% for entry in x.balance_total %}
-                <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
-                <c-amount.display
-                            :amount="entry.amount"
-                            :prefix="entry.prefix"
-                            :suffix="entry.suffix"
-                            :decimal_places="entry.decimal_places"></c-amount.display>
-                </div>
-              {% empty %}
-                <div>-</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-    {% endfor %}
-  </div>
+    
+      <hr class="my-4 d-block d-lg-none">
+      <div class="col-lg-3">
+          <div class="nav flex-column nav-pills" id="currency-pills" role="tablist" aria-orientation="vertical">
+              <input type="hidden" name="currency" value="">
+              <button class="nav-link active"
+                      role="tab"
+                      data-bs-toggle="pill"
+                      hx-get="{% url 'yearly_overview_currency_data' year=year %}"
+                      hx-target="#data-content"
+                      hx-trigger="click"
+                      hx-include="[name='currency'], [name='month']"
+                      hx-swap="innerHTML"
+                      onclick="document.querySelector('[name=currency]').value = ''">
+                  {% translate 'All' %}
+              </button>
+              {% for currency in currencies %}
+              <button class="nav-link"
+                      role="tab"
+                      data-bs-toggle="pill"
+                      hx-get="{% url 'yearly_overview_currency_data' year=year %}"
+                      hx-target="#data-content"
+                      hx-trigger="click"
+                      hx-include="[name='currency'], [name='month']"
+                      hx-swap="innerHTML"
+                      onclick="document.querySelector('[name=currency]').value = '{{ currency.id }}'">
+                  {{ currency.name }}
+              </button>
+              {% endfor %}
+          </div>
+      </div>
+
+      <div class="col-lg-7">
+          <div id="data-content"
+               class="show-loading"
+               hx-get="{% url 'yearly_overview_currency_data' year=year %}"
+               hx-trigger="load"
+               hx-include="[name='currency'], [name='month']"
+               hx-swap="innerHTML">
+          </div>
+      </div>
+</div>
 </div>
 {% endblock %}

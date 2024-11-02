@@ -1,0 +1,124 @@
+{% load month_name %}
+{% load i18n %}
+<div class="col">
+  <div class="d-flex justify-content-between">
+    <div class="text-end font-monospace">
+      <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
+    </div>
+    <div class="text-end font-monospace">
+      {% for entry in totals.income_unpaid %}
+        <c-amount.display
+                    :amount="entry.amount"
+                    :prefix="entry.prefix"
+                    :suffix="entry.suffix"
+                    :decimal_places="entry.decimal_places"></c-amount.display>
+      {% empty %}
+        <div>-</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mt-2">
+    <div class="text-end font-monospace">
+      <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
+    </div>
+    <div class="text-end font-monospace">
+      {% for entry in totals.expense_unpaid %}
+        <c-amount.display
+                    :amount="entry.amount"
+                    :prefix="entry.prefix"
+                    :suffix="entry.suffix"
+                    :decimal_places="entry.decimal_places"></c-amount.display>
+      {% empty %}
+        <div>-</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mt-2">
+    <div class="text-end font-monospace">
+      <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
+    </div>
+    <div class="text-end font-monospace">
+      {% for entry in totals.balance_unpaid %}
+        <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
+        <c-amount.display
+                    :amount="entry.amount"
+                    :prefix="entry.prefix"
+                    :suffix="entry.suffix"
+                    :decimal_places="entry.decimal_places"></c-amount.display>
+        </div>
+      {% empty %}
+        <div>-</div>
+      {% endfor %}
+    </div>
+  </div>
+  <hr class="my-1">
+  <div class="d-flex justify-content-between mt-2">
+    <div class="text-end font-monospace">
+      <div class="tw-text-gray-400">{% translate 'current income' %}</div>
+    </div>
+    <div class="text-end font-monospace">
+      {% for entry in totals.income_paid %}
+        <c-amount.display
+                    :amount="entry.amount"
+                    :prefix="entry.prefix"
+                    :suffix="entry.suffix"
+                    :decimal_places="entry.decimal_places"></c-amount.display>
+      {% empty %}
+        <div>-</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mt-2">
+    <div class="text-end font-monospace">
+      <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
+    </div>
+    <div class="text-end font-monospace">
+      {% for entry in totals.expense_paid %}
+        <c-amount.display
+                    :amount="entry.amount"
+                    :prefix="entry.prefix"
+                    :suffix="entry.suffix"
+                    :decimal_places="entry.decimal_places"></c-amount.display>
+      {% empty %}
+        <div>-</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mt-2">
+    <div class="text-end font-monospace">
+      <div class="tw-text-gray-400">{% translate 'current total' %}</div>
+    </div>
+    <div class="text-end font-monospace tw-text-yellow-400">
+      {% for entry in totals.balance_paid %}
+        <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
+        <c-amount.display
+                    :amount="entry.amount"
+                    :prefix="entry.prefix"
+                    :suffix="entry.suffix"
+                    :decimal_places="entry.decimal_places"></c-amount.display>
+        </div>
+      {% empty %}
+        <div>-</div>
+      {% endfor %}
+    </div>
+  </div>
+  <hr class="my-1">
+  <div class="d-flex justify-content-between mt-2">
+    <div class="text-end font-monospace">
+      <div class="tw-text-gray-400">{% translate 'final total' %}</div>
+    </div>
+    <div class="text-end font-monospace">
+      {% for entry in totals.balance_total %}
+        <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
+        <c-amount.display
+                    :amount="entry.amount"
+                    :prefix="entry.prefix"
+                    :suffix="entry.suffix"
+                    :decimal_places="entry.decimal_places"></c-amount.display>
+        </div>
+      {% empty %}
+        <div>-</div>
+      {% endfor %}
+    </div>
+  </div>
+  </div>

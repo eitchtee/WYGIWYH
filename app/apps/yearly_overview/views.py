@@ -2,16 +2,16 @@ from datetime import date
 from decimal import Decimal
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, F, Value, DecimalField
+from django.db.models.expressions import Case, When
+from django.db.models.functions import TruncMonth, Coalesce, TruncYear
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.db.models import Sum, F, Q, Value, CharField, DecimalField
-from django.db.models.functions import TruncMonth, Coalesce
-from django.db.models.expressions import Case, When
-from django.db.models.functions import Concat
 
-from apps.transactions.models import Transaction
-from apps.currencies.utils.convert import convert
 from apps.currencies.models import Currency
+from apps.currencies.utils.convert import convert
+from apps.transactions.models import Transaction
 
 
 @login_required
@@ -29,16 +29,56 @@ def index_by_account(request):
 
 
 @login_required
-def yearly_overview_by_currency(request, year: int):
+def index_yearly_overview_by_currency(request, year: int):
     next_year = year + 1
     previous_year = year - 1
 
-    transactions = Transaction.objects.filter(
-        reference_date__year=year, account__is_archived=False
+    month_options = range(1, 13)
+    currency_options = Currency.objects.all()
+
+    return render(
+        request,
+        "yearly_overview/pages/overview_by_currency.html",
+        context={
+            "year": year,
+            "next_year": next_year,
+            "previous_year": previous_year,
+            "months": month_options,
+            "currencies": currency_options,
+        },
     )
 
+
+@login_required
+def yearly_overview_by_currency(request, year: int):
+    next_year = year + 1
+    previous_year = year - 1
+    month = request.GET.get("month")
+    currency = request.GET.get("currency")
+
+    # Base query filter
+    filter_params = {"reference_date__year": year, "account__is_archived": False}
+
+    # Add month filter if provided
+    if month:
+        month = int(month)
+        if not 1 <= month <= 12:
+            raise Http404("Invalid month")
+        filter_params["reference_date__month"] = month
+
+    # Add currency filter if provided
+    if currency:
+        filter_params["account__currency_id"] = int(currency)
+
+    transactions = Transaction.objects.filter(**filter_params)
+
+    if month:
+        date_trunc = TruncMonth("reference_date")
+    else:
+        date_trunc = TruncYear("reference_date")
+
     monthly_data = (
-        transactions.annotate(month=TruncMonth("reference_date"))
+        transactions.annotate(month=date_trunc)
         .values(
             "month",
             "account__currency__code",
@@ -117,26 +157,19 @@ def yearly_overview_by_currency(request, year: int):
         .order_by("month", "account__currency__code")
     )
 
-    # Create a list of all months in the year
-    all_months = [date(year, month, 1) for month in range(1, 13)]
-
     # Create a dictionary to store the final result
     result = {
-        month: {
-            "income_paid": [],
-            "expense_paid": [],
-            "income_unpaid": [],
-            "expense_unpaid": [],
-            "balance_unpaid": [],
-            "balance_paid": [],
-            "balance_total": [],
-        }
-        for month in all_months
+        "income_paid": [],
+        "expense_paid": [],
+        "income_unpaid": [],
+        "expense_unpaid": [],
+        "balance_unpaid": [],
+        "balance_paid": [],
+        "balance_total": [],
     }
 
     # Fill in the data
     for entry in monthly_data:
-        month = entry["month"]
         currency_code = entry["account__currency__code"]
         prefix = entry["account__currency__prefix"]
         suffix = entry["account__currency__suffix"]
@@ -152,7 +185,7 @@ def yearly_overview_by_currency(request, year: int):
             "balance_total",
         ]:
             if entry[field] != 0:
-                result[month][field].append(
+                result[field].append(
                     {
                         "code": currency_code,
                         "prefix": prefix,
@@ -162,26 +195,13 @@ def yearly_overview_by_currency(request, year: int):
                     }
                 )
 
-    # Fill in missing months with empty lists
-    for month in all_months:
-        if not any(result[month].values()):
-            result[month] = {
-                "income_paid": [],
-                "expense_paid": [],
-                "income_unpaid": [],
-                "expense_unpaid": [],
-                "balance_unpaid": [],
-                "balance_paid": [],
-                "balance_total": [],
-            }
+    print(result)
 
     return render(
         request,
-        "yearly_overview/pages/overview_by_currency.html",
+        "yearly_overview/fragments/currency_data.html",
         context={
             "year": year,
-            "next_year": next_year,
-            "previous_year": previous_year,
             "totals": result,
         },
     )

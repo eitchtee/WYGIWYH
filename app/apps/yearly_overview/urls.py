@@ -7,8 +7,13 @@ urlpatterns = [
     path("yearly/account/", views.index_by_account, name="yearly_index_account"),
     path(
         "yearly/currency/<int:year>/",
-        views.yearly_overview_by_currency,
+        views.index_yearly_overview_by_currency,
         name="yearly_overview_currency",
+    ),
+    path(
+        "yearly-overview/<int:year>/data/",
+        views.yearly_overview_by_currency,
+        name="yearly_overview_currency_data",
     ),
     path(
         "yearly/account/<int:year>/",
