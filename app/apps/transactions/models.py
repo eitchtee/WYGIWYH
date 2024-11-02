@@ -46,7 +46,10 @@ class Transaction(models.Model):
         EXPENSE = "EX", _("Expense")
 
     account = models.ForeignKey(
-        "accounts.Account", on_delete=models.CASCADE, verbose_name=_("Account")
+        "accounts.Account",
+        on_delete=models.CASCADE,
+        verbose_name=_("Account"),
+        related_name="transactions",
     )
     type = models.CharField(
         max_length=2,
