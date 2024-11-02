@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-01 02:47+0000\n"
-"PO-Revision-Date: 2024-10-31 23:47-0300\n"
+"POT-Creation-Date: 2024-11-02 04:33+0000\n"
+"PO-Revision-Date: 2024-11-02 01:33-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -59,8 +59,8 @@ msgstr "Novo saldo"
 #: apps/accounts/forms.py:117 apps/rules/models.py:27
 #: apps/transactions/forms.py:36 apps/transactions/forms.py:173
 #: apps/transactions/forms.py:178 apps/transactions/forms.py:352
-#: apps/transactions/forms.py:528 apps/transactions/models.py:73
-#: apps/transactions/models.py:182 apps/transactions/models.py:348
+#: apps/transactions/forms.py:528 apps/transactions/models.py:76
+#: apps/transactions/models.py:185 apps/transactions/models.py:351
 msgid "Category"
 msgstr "Categoria"
 
@@ -68,8 +68,8 @@ msgstr "Categoria"
 #: apps/transactions/filters.py:62 apps/transactions/forms.py:43
 #: apps/transactions/forms.py:186 apps/transactions/forms.py:193
 #: apps/transactions/forms.py:347 apps/transactions/forms.py:523
-#: apps/transactions/models.py:77 apps/transactions/models.py:184
-#: apps/transactions/models.py:352 templates/includes/navbar.html:71
+#: apps/transactions/models.py:80 apps/transactions/models.py:187
+#: apps/transactions/models.py:355 templates/includes/navbar.html:71
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Tags"
@@ -131,8 +131,8 @@ msgstr ""
 
 #: apps/accounts/models.py:58 apps/rules/models.py:19
 #: apps/transactions/forms.py:47 apps/transactions/forms.py:339
-#: apps/transactions/forms.py:515 apps/transactions/models.py:49
-#: apps/transactions/models.py:142 apps/transactions/models.py:330
+#: apps/transactions/forms.py:515 apps/transactions/models.py:51
+#: apps/transactions/models.py:145 apps/transactions/models.py:333
 msgid "Account"
 msgstr "Conta"
 
@@ -379,8 +379,8 @@ msgid "A value for this field already exists in the rule."
 msgstr "Já existe um valor para esse campo na regra."
 
 #: apps/rules/models.py:10 apps/rules/models.py:25
-#: apps/transactions/forms.py:201 apps/transactions/models.py:68
-#: apps/transactions/models.py:149 apps/transactions/models.py:344
+#: apps/transactions/forms.py:201 apps/transactions/models.py:71
+#: apps/transactions/models.py:152 apps/transactions/models.py:347
 msgid "Description"
 msgstr "Descrição"
 
@@ -388,37 +388,37 @@ msgstr "Descrição"
 msgid "Trigger"
 msgstr "Gatilho"
 
-#: apps/rules/models.py:20 apps/transactions/models.py:55
-#: apps/transactions/models.py:147 apps/transactions/models.py:336
+#: apps/rules/models.py:20 apps/transactions/models.py:58
+#: apps/transactions/models.py:150 apps/transactions/models.py:339
 msgid "Type"
 msgstr "Tipo"
 
 #: apps/rules/models.py:21 apps/transactions/filters.py:18
-#: apps/transactions/models.py:57
+#: apps/transactions/models.py:60
 msgid "Paid"
 msgstr "Pago"
 
 #: apps/rules/models.py:22 apps/transactions/forms.py:197
-#: apps/transactions/models.py:58
+#: apps/transactions/models.py:61
 #: templates/exchange_rates/fragments/table.html:13
 msgid "Date"
 msgstr "Data"
 
 #: apps/rules/models.py:23 apps/transactions/forms.py:50
 #: apps/transactions/forms.py:200 apps/transactions/forms.py:355
-#: apps/transactions/forms.py:531 apps/transactions/models.py:59
-#: apps/transactions/models.py:165 apps/transactions/models.py:355
+#: apps/transactions/forms.py:531 apps/transactions/models.py:62
+#: apps/transactions/models.py:168 apps/transactions/models.py:358
 msgid "Reference Date"
 msgstr "Data de Referência"
 
-#: apps/rules/models.py:24 apps/transactions/models.py:64
-#: apps/transactions/models.py:341
+#: apps/rules/models.py:24 apps/transactions/models.py:67
+#: apps/transactions/models.py:344
 msgid "Amount"
 msgstr "Quantia"
 
 #: apps/rules/models.py:26 apps/transactions/forms.py:209
-#: apps/transactions/models.py:69 apps/transactions/models.py:185
-#: apps/transactions/models.py:353
+#: apps/transactions/models.py:72 apps/transactions/models.py:188
+#: apps/transactions/models.py:356
 msgid "Notes"
 msgstr "Notas"
 
@@ -518,7 +518,7 @@ msgstr "Quantia de destino"
 #: apps/transactions/forms.py:274
 #: templates/calendar_view/pages/calendar.html:84
 #: templates/monthly_overview/pages/overview.html:84
-#: templates/yearly_overview/pages/overview_by_account.html:81
+#: templates/yearly_overview/pages/overview_by_account.html:79
 #: templates/yearly_overview/pages/overview_by_currency.html:81
 msgid "Transfer"
 msgstr "Transferir"
@@ -555,7 +555,7 @@ msgstr "Tags da Transação"
 #: templates/calendar_view/pages/calendar.html:54
 #: templates/monthly_overview/fragments/monthly_summary.html:40
 #: templates/monthly_overview/pages/overview.html:54
-#: templates/yearly_overview/pages/overview_by_account.html:51
+#: templates/yearly_overview/pages/overview_by_account.html:49
 #: templates/yearly_overview/pages/overview_by_currency.html:51
 msgid "Income"
 msgstr "Renda"
@@ -563,24 +563,24 @@ msgstr "Renda"
 #: apps/transactions/models.py:46
 #: templates/calendar_view/pages/calendar.html:62
 #: templates/monthly_overview/pages/overview.html:62
-#: templates/yearly_overview/pages/overview_by_account.html:59
+#: templates/yearly_overview/pages/overview_by_account.html:57
 #: templates/yearly_overview/pages/overview_by_currency.html:59
 msgid "Expense"
 msgstr "Despesa"
 
-#: apps/transactions/models.py:85 apps/transactions/models.py:188
+#: apps/transactions/models.py:88 apps/transactions/models.py:191
 msgid "Installment Plan"
 msgstr "Parcelamento"
 
-#: apps/transactions/models.py:94 apps/transactions/models.py:376
+#: apps/transactions/models.py:97 apps/transactions/models.py:379
 msgid "Recurring Transaction"
 msgstr "Transação Recorrente"
 
-#: apps/transactions/models.py:98
+#: apps/transactions/models.py:101
 msgid "Transaction"
 msgstr "Transação"
 
-#: apps/transactions/models.py:99 templates/includes/navbar.html:45
+#: apps/transactions/models.py:102 templates/includes/navbar.html:45
 #: templates/includes/navbar.html:67
 #: templates/recurring_transactions/fragments/list.html:41
 #: templates/recurring_transactions/fragments/list_transactions.html:5
@@ -588,94 +588,94 @@ msgstr "Transação"
 msgid "Transactions"
 msgstr "Transações"
 
-#: apps/transactions/models.py:136
+#: apps/transactions/models.py:139
 msgid "Yearly"
 msgstr "Anual"
 
-#: apps/transactions/models.py:137 apps/users/models.py:26
+#: apps/transactions/models.py:140 apps/users/models.py:26
 #: templates/includes/navbar.html:25
 msgid "Monthly"
 msgstr "Mensal"
 
-#: apps/transactions/models.py:138
+#: apps/transactions/models.py:141
 msgid "Weekly"
 msgstr "Semanal"
 
-#: apps/transactions/models.py:139
+#: apps/transactions/models.py:142
 msgid "Daily"
 msgstr "Diária"
 
-#: apps/transactions/models.py:152
+#: apps/transactions/models.py:155
 msgid "Number of Installments"
 msgstr "Número de Parcelas"
 
-#: apps/transactions/models.py:157
+#: apps/transactions/models.py:160
 msgid "Installment Start"
 msgstr "Parcela inicial"
 
-#: apps/transactions/models.py:158
+#: apps/transactions/models.py:161
 msgid "The installment number to start counting from"
 msgstr "O número da parcela a partir do qual se inicia a contagem"
 
-#: apps/transactions/models.py:163 apps/transactions/models.py:359
+#: apps/transactions/models.py:166 apps/transactions/models.py:362
 msgid "Start Date"
 msgstr "Data de Início"
 
-#: apps/transactions/models.py:167 apps/transactions/models.py:360
+#: apps/transactions/models.py:170 apps/transactions/models.py:363
 msgid "End Date"
 msgstr "Data Final"
 
-#: apps/transactions/models.py:172
+#: apps/transactions/models.py:175
 msgid "Recurrence"
 msgstr "Recorrência"
 
-#: apps/transactions/models.py:175
+#: apps/transactions/models.py:178
 msgid "Installment Amount"
 msgstr "Valor da Parcela"
 
-#: apps/transactions/models.py:189 templates/includes/navbar.html:54
+#: apps/transactions/models.py:192 templates/includes/navbar.html:54
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
 msgstr "Parcelamentos"
 
-#: apps/transactions/models.py:323
+#: apps/transactions/models.py:326
 msgid "day(s)"
 msgstr "dia(s)"
 
-#: apps/transactions/models.py:324
+#: apps/transactions/models.py:327
 msgid "week(s)"
 msgstr "semana(s)"
 
-#: apps/transactions/models.py:325
+#: apps/transactions/models.py:328
 msgid "month(s)"
 msgstr "mês(es)"
 
-#: apps/transactions/models.py:326
+#: apps/transactions/models.py:329
 msgid "year(s)"
 msgstr "ano(s)"
 
-#: apps/transactions/models.py:328
+#: apps/transactions/models.py:331
 msgid "Paused"
 msgstr "Pausado"
 
-#: apps/transactions/models.py:362
+#: apps/transactions/models.py:365
 msgid "Recurrence Type"
 msgstr "Tipo de recorrência"
 
-#: apps/transactions/models.py:365
+#: apps/transactions/models.py:368
 msgid "Recurrence Interval"
 msgstr "Intervalo de recorrência"
 
-#: apps/transactions/models.py:369
+#: apps/transactions/models.py:372
 msgid "Last Generated Date"
 msgstr "Última data gerada"
 
-#: apps/transactions/models.py:372
+#: apps/transactions/models.py:375
 msgid "Last Generated Reference Date"
 msgstr "Última data de referência gerada"
 
-#: apps/transactions/models.py:377 templates/includes/navbar.html:56
+#: apps/transactions/models.py:380 templates/includes/navbar.html:56
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
@@ -1031,21 +1031,21 @@ msgstr "Visão Mensal"
 
 #: templates/calendar_view/pages/calendar.html:69
 #: templates/monthly_overview/pages/overview.html:69
-#: templates/yearly_overview/pages/overview_by_account.html:66
+#: templates/yearly_overview/pages/overview_by_account.html:64
 #: templates/yearly_overview/pages/overview_by_currency.html:66
 msgid "Installment"
 msgstr "Parcelamento"
 
 #: templates/calendar_view/pages/calendar.html:76
 #: templates/monthly_overview/pages/overview.html:76
-#: templates/yearly_overview/pages/overview_by_account.html:73
+#: templates/yearly_overview/pages/overview_by_account.html:71
 #: templates/yearly_overview/pages/overview_by_currency.html:73
 msgid "Recurring"
 msgstr "Recorrência"
 
 #: templates/calendar_view/pages/calendar.html:91
 #: templates/monthly_overview/pages/overview.html:91
-#: templates/yearly_overview/pages/overview_by_account.html:88
+#: templates/yearly_overview/pages/overview_by_account.html:86
 #: templates/yearly_overview/pages/overview_by_currency.html:88
 msgid "Balance"
 msgstr "Balancear"
@@ -1096,6 +1096,8 @@ msgstr "Editar taxa de câmbio"
 
 #: templates/exchange_rates/fragments/list.html:23
 #: templates/includes/navbar.html:49
+#: templates/yearly_overview/pages/overview_by_account.html:135
+#: templates/yearly_overview/pages/overview_by_currency.html:137
 msgid "All"
 msgstr "Todas"
 
@@ -1284,16 +1286,16 @@ msgstr "Mais novas primeiro"
 msgid "By currency"
 msgstr "Por moeda"
 
-#: templates/net_worth/net_worth.html:48
-#: templates/yearly_overview/pages/overview_by_account.html:9
+#: templates/net_worth/net_worth.html:50
+#: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Por conta"
 
-#: templates/net_worth/net_worth.html:134
+#: templates/net_worth/net_worth.html:140
 msgid "Evolution by currency"
 msgstr "Evolução por moeda"
 
-#: templates/net_worth/net_worth.html:187
+#: templates/net_worth/net_worth.html:193
 msgid "Evolution by account"
 msgstr "Evolução por conta"
 
@@ -1435,45 +1437,54 @@ msgstr "Reproduzir sons"
 msgid "Show amounts"
 msgstr "Mostrar valores"
 
-#: templates/yearly_overview/pages/overview_by_account.html:9
+#: templates/yearly_overview/fragments/account_data.html:14
+#: templates/yearly_overview/fragments/currency_data.html:6
+msgid "projected income"
+msgstr "renda prevista"
+
+#: templates/yearly_overview/fragments/account_data.html:36
+#: templates/yearly_overview/fragments/currency_data.html:23
+msgid "projected expenses"
+msgstr "despesas previstas"
+
+#: templates/yearly_overview/fragments/account_data.html:60
+#: templates/yearly_overview/fragments/currency_data.html:40
+msgid "projected total"
+msgstr "total previsto"
+
+#: templates/yearly_overview/fragments/account_data.html:84
+#: templates/yearly_overview/fragments/currency_data.html:60
+msgid "current income"
+msgstr "renda atual"
+
+#: templates/yearly_overview/fragments/account_data.html:106
+#: templates/yearly_overview/fragments/currency_data.html:77
+msgid "current expenses"
+msgstr "despesas atuais"
+
+#: templates/yearly_overview/fragments/account_data.html:128
+#: templates/yearly_overview/fragments/currency_data.html:94
+msgid "current total"
+msgstr "total atual"
+
+#: templates/yearly_overview/fragments/account_data.html:153
+#: templates/yearly_overview/fragments/currency_data.html:114
+msgid "final total"
+msgstr "total final"
+
+#: templates/yearly_overview/fragments/account_data.html:177
+msgid "No information to display"
+msgstr "Não há informação para mostrar"
+
+#: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
 msgstr "Visão Anual"
 
-#: templates/yearly_overview/pages/overview_by_account.html:117
-#: templates/yearly_overview/pages/overview_by_currency.html:105
-msgid "projected income"
-msgstr "renda prevista"
-
-#: templates/yearly_overview/pages/overview_by_account.html:130
-#: templates/yearly_overview/pages/overview_by_currency.html:121
-msgid "projected expenses"
-msgstr "despesas previstas"
-
-#: templates/yearly_overview/pages/overview_by_account.html:143
-#: templates/yearly_overview/pages/overview_by_currency.html:137
-msgid "projected total"
-msgstr "total previsto"
-
-#: templates/yearly_overview/pages/overview_by_account.html:159
-#: templates/yearly_overview/pages/overview_by_currency.html:154
-msgid "current income"
-msgstr "renda atual"
-
-#: templates/yearly_overview/pages/overview_by_account.html:172
-#: templates/yearly_overview/pages/overview_by_currency.html:170
-msgid "current expenses"
-msgstr "despesas atuais"
-
-#: templates/yearly_overview/pages/overview_by_account.html:185
-#: templates/yearly_overview/pages/overview_by_currency.html:186
-msgid "current total"
-msgstr "total atual"
-
-#: templates/yearly_overview/pages/overview_by_account.html:201
-#: templates/yearly_overview/pages/overview_by_currency.html:203
-msgid "final total"
-msgstr "total final"
+#: templates/yearly_overview/pages/overview_by_account.html:104
+#: templates/yearly_overview/pages/overview_by_currency.html:106
+msgid "Year"
+msgstr "Ano"
 
 #~ msgid "Is an asset account?"
 #~ msgstr "É uma conta de ativos?"
