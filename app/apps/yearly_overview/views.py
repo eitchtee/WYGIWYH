@@ -220,6 +220,7 @@ def index_yearly_overview_by_account(request, year: int):
         Account.objects.filter(is_archived=False, transactions__date__year=year)
         .select_related("group")
         .distinct()
+        .order_by("group__name", "name", "id")
     )
 
     return render(
@@ -379,7 +380,7 @@ def yearly_overview_by_account(request, year: int):
             "account__exchange_currency__decimal_places",
         )
         .distinct()
-        .order_by("account__name")
+        .order_by("account__group__name", "account__name", "account__id")
     )
 
     # Get Currency objects for conversion
