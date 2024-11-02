@@ -9,6 +9,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils import timezone
 
+from apps.accounts.models import Account
 from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
 from apps.transactions.models import Transaction
@@ -209,15 +210,30 @@ def yearly_overview_by_currency(request, year: int):
 
 @login_required
 def yearly_overview_by_account(request, year: int):
-    next_year = year + 1
-    previous_year = year - 1
+    month = request.GET.get("month")
+    account = request.GET.get("account")
 
-    transactions = Transaction.objects.filter(
-        reference_date__year=year, account__is_archived=False
-    )
+    # Base query filter
+    filter_params = {"reference_date__year": year, "account__is_archived": False}
+
+    # Add month filter if provided
+    if month:
+        month = int(month)
+        if not 1 <= month <= 12:
+            raise Http404("Invalid month")
+        filter_params["reference_date__month"] = month
+
+    # Add account filter if provided
+    if account:
+        filter_params["account_id"] = int(account)
+
+    transactions = Transaction.objects.filter(**filter_params)
+
+    # Use TruncYear if no month specified, otherwise use TruncMonth
+    date_trunc = TruncMonth("reference_date") if month else TruncYear("reference_date")
 
     monthly_data = (
-        transactions.annotate(month=TruncMonth("reference_date"))
+        transactions.annotate(month=date_trunc)
         .select_related(
             "account__currency",
             "account__exchange_currency",
@@ -308,11 +324,20 @@ def yearly_overview_by_account(request, year: int):
         .order_by("month", "account__name")
     )
 
-    all_months = [date(year, month, 1) for month in range(1, 13)]
+    # Determine which dates to include
+    if month:
+        all_months = [date(year, month, 1)]
+    else:
+        all_months = [date(year, 1, 1)]  # Just one entry for the whole year
 
-    # Get all accounts with their currencies
+    # Get all accounts with their currencies (filtered by account if specified)
+    accounts_filter = {}
+    if account:
+        accounts_filter["account__id"] = int(account)
+
     accounts = (
-        transactions.values(
+        transactions.filter(**accounts_filter)
+        .values(
             "account__id",
             "account__name",
             "account__group__name",
@@ -404,11 +429,6 @@ def yearly_overview_by_account(request, year: int):
 
     return render(
         request,
-        "yearly_overview/pages/overview_by_account.html",
-        context={
-            "year": year,
-            "next_year": next_year,
-            "previous_year": previous_year,
-            "totals": result,
-        },
+        "yearly_overview/fragments/account_data.html",
+        context={"year": year, "totals": result, "single": True if account else False},
     )

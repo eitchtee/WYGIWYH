@@ -17,7 +17,12 @@ urlpatterns = [
     ),
     path(
         "yearly/account/<int:year>/",
-        views.yearly_overview_by_account,
+        views.index_yearly_overview_by_account,
         name="yearly_overview_account",
+    ),
+    path(
+        "yearly-overview/<int:year>/account/data/",
+        views.yearly_overview_by_account,
+        name="yearly_overview_account_data",
     ),
 ]
