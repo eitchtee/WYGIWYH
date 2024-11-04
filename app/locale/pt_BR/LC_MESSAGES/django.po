@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-02 04:33+0000\n"
-"PO-Revision-Date: 2024-11-02 01:33-0300\n"
+"POT-Creation-Date: 2024-11-04 01:11+0000\n"
+"PO-Revision-Date: 2024-11-03 22:12-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -892,7 +892,7 @@ msgstr "Ações"
 #: templates/installment_plans/fragments/list.html:34
 #: templates/recurring_transactions/fragments/list.html:34
 #: templates/rules/fragments/transaction_rule/view.html:22
-#: templates/rules/fragments/transaction_rule/view.html:44
+#: templates/rules/fragments/transaction_rule/view.html:48
 #: templates/tags/fragments/list.html:34
 msgid "Edit"
 msgstr "Editar"
@@ -907,7 +907,7 @@ msgstr "Editar"
 #: templates/monthly_overview/fragments/list.html:91
 #: templates/recurring_transactions/fragments/list.html:76
 #: templates/rules/fragments/list.html:42
-#: templates/rules/fragments/transaction_rule/view.html:52
+#: templates/rules/fragments/transaction_rule/view.html:56
 #: templates/tags/fragments/list.html:41
 #: templates/transactions/fragments/list_all.html:171
 msgid "Delete"
@@ -926,7 +926,7 @@ msgstr "Apagar"
 #: templates/recurring_transactions/fragments/list.html:67
 #: templates/recurring_transactions/fragments/list.html:80
 #: templates/rules/fragments/list.html:46
-#: templates/rules/fragments/transaction_rule/view.html:56
+#: templates/rules/fragments/transaction_rule/view.html:60
 #: templates/tags/fragments/list.html:45
 #: templates/transactions/fragments/list_all.html:173
 msgid "Are you sure?"
@@ -940,7 +940,7 @@ msgstr "Tem certeza?"
 #: templates/exchange_rates/fragments/table.html:40
 #: templates/monthly_overview/fragments/list.html:94
 #: templates/rules/fragments/list.html:47
-#: templates/rules/fragments/transaction_rule/view.html:57
+#: templates/rules/fragments/transaction_rule/view.html:61
 #: templates/tags/fragments/list.html:46
 #: templates/transactions/fragments/list_all.html:174
 msgid "You won't be able to revert this!"
@@ -955,7 +955,7 @@ msgstr "Você não será capaz de reverter isso!"
 #: templates/installment_plans/fragments/list.html:67
 #: templates/recurring_transactions/fragments/list.html:82
 #: templates/rules/fragments/list.html:48
-#: templates/rules/fragments/transaction_rule/view.html:58
+#: templates/rules/fragments/transaction_rule/view.html:62
 #: templates/tags/fragments/list.html:47
 msgid "Yes, delete it!"
 msgstr "Sim, apague!"
@@ -1368,19 +1368,27 @@ msgstr "Editar ação de regra de transação"
 msgid "Transaction Rule"
 msgstr "Regra de transação"
 
-#: templates/rules/fragments/transaction_rule/view.html:35
+#: templates/rules/fragments/transaction_rule/view.html:13
+msgid "If transaction..."
+msgstr "Se a transação..."
+
+#: templates/rules/fragments/transaction_rule/view.html:31
+msgid "Then..."
+msgstr "Então..."
+
+#: templates/rules/fragments/transaction_rule/view.html:36
 msgid "Set"
 msgstr "Definir"
 
-#: templates/rules/fragments/transaction_rule/view.html:37
+#: templates/rules/fragments/transaction_rule/view.html:40
 msgid "to"
 msgstr "para"
 
-#: templates/rules/fragments/transaction_rule/view.html:67
+#: templates/rules/fragments/transaction_rule/view.html:71
 msgid "This rule has no actions"
 msgstr "Essa regra não tem ações"
 
-#: templates/rules/fragments/transaction_rule/view.html:76
+#: templates/rules/fragments/transaction_rule/view.html:80
 msgid "Add new"
 msgstr "Adicionar novo"
 
