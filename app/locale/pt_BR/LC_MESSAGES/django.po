@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-04 01:11+0000\n"
-"PO-Revision-Date: 2024-11-03 22:12-0300\n"
+"POT-Creation-Date: 2024-11-04 03:10+0000\n"
+"PO-Revision-Date: 2024-11-04 00:10-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -76,13 +76,13 @@ msgstr "Tags"
 
 #: apps/accounts/models.py:8 apps/accounts/models.py:20 apps/rules/models.py:9
 #: apps/transactions/models.py:19 apps/transactions/models.py:32
-#: templates/account_groups/fragments/list.html:23
-#: templates/accounts/fragments/list.html:23
-#: templates/categories/fragments/list.html:23
-#: templates/currencies/fragments/list.html:24
-#: templates/installment_plans/fragments/list.html:23
-#: templates/recurring_transactions/fragments/list.html:23
-#: templates/rules/fragments/list.html:24 templates/tags/fragments/list.html:23
+#: templates/account_groups/fragments/list.html:22
+#: templates/accounts/fragments/list.html:22
+#: templates/categories/fragments/list.html:22
+#: templates/currencies/fragments/list.html:23
+#: templates/installment_plans/fragments/table.html:13
+#: templates/recurring_transactions/fragments/list.html:22
+#: templates/rules/fragments/list.html:23 templates/tags/fragments/list.html:22
 msgid "Name"
 msgstr "Nome"
 
@@ -97,11 +97,11 @@ msgid "Account Groups"
 msgstr "Grupos da Conta"
 
 #: apps/accounts/models.py:30 apps/currencies/models.py:21
-#: templates/accounts/fragments/list.html:24
+#: templates/accounts/fragments/list.html:23
 msgid "Currency"
 msgstr "Moeda"
 
-#: apps/accounts/models.py:36 templates/accounts/fragments/list.html:25
+#: apps/accounts/models.py:36 templates/accounts/fragments/list.html:24
 msgid "Exchange Currency"
 msgstr "Moeda de Câmbio"
 
@@ -120,7 +120,7 @@ msgstr ""
 "As contas de ativos contam para o seu patrimônio líquido, mas não para o seu "
 "mês."
 
-#: apps/accounts/models.py:53 templates/accounts/fragments/list.html:27
+#: apps/accounts/models.py:53 templates/accounts/fragments/list.html:26
 msgid "Archived"
 msgstr "Arquivada"
 
@@ -582,7 +582,7 @@ msgstr "Transação"
 
 #: apps/transactions/models.py:102 templates/includes/navbar.html:45
 #: templates/includes/navbar.html:67
-#: templates/recurring_transactions/fragments/list.html:41
+#: templates/recurring_transactions/fragments/list.html:40
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
@@ -703,19 +703,19 @@ msgstr "Categoria atualizada com sucesso"
 msgid "Category deleted successfully"
 msgstr "Categoria apagada com sucesso"
 
-#: apps/transactions/views/installment_plans.py:59
+#: apps/transactions/views/installment_plans.py:88
 msgid "Installment Plan added successfully"
 msgstr "Parcelamento adicionado com sucesso"
 
-#: apps/transactions/views/installment_plans.py:87
+#: apps/transactions/views/installment_plans.py:116
 msgid "Installment Plan updated successfully"
 msgstr "Parcelamento atualizado com sucesso"
 
-#: apps/transactions/views/installment_plans.py:112
+#: apps/transactions/views/installment_plans.py:141
 msgid "Installment Plan refreshed successfully"
 msgstr "Parcelamento atualizado com sucesso"
 
-#: apps/transactions/views/installment_plans.py:131
+#: apps/transactions/views/installment_plans.py:160
 msgid "Installment Plan deleted successfully"
 msgstr "Parcelamento apagado com sucesso"
 
@@ -872,91 +872,91 @@ msgstr "Adicionar grupo de conta"
 msgid "Edit account group"
 msgstr "Editar grupo de conta"
 
-#: templates/account_groups/fragments/list.html:30
-#: templates/accounts/fragments/list.html:34
-#: templates/categories/fragments/list.html:31
-#: templates/currencies/fragments/list.html:31
+#: templates/account_groups/fragments/list.html:29
+#: templates/accounts/fragments/list.html:33
+#: templates/categories/fragments/list.html:30
+#: templates/currencies/fragments/list.html:30
 #: templates/exchange_rates/fragments/table.html:22
-#: templates/installment_plans/fragments/list.html:30
-#: templates/recurring_transactions/fragments/list.html:30
-#: templates/rules/fragments/list.html:31 templates/tags/fragments/list.html:30
+#: templates/installment_plans/fragments/table.html:20
+#: templates/recurring_transactions/fragments/list.html:29
+#: templates/rules/fragments/list.html:30 templates/tags/fragments/list.html:29
 msgid "Actions"
 msgstr "Ações"
 
-#: templates/account_groups/fragments/list.html:34
-#: templates/accounts/fragments/list.html:38
-#: templates/categories/fragments/list.html:35
+#: templates/account_groups/fragments/list.html:33
+#: templates/accounts/fragments/list.html:37
+#: templates/categories/fragments/list.html:34
 #: templates/cotton/transaction/item.html:95
-#: templates/currencies/fragments/list.html:35
+#: templates/currencies/fragments/list.html:34
 #: templates/exchange_rates/fragments/table.html:26
-#: templates/installment_plans/fragments/list.html:34
-#: templates/recurring_transactions/fragments/list.html:34
+#: templates/installment_plans/fragments/table.html:24
+#: templates/recurring_transactions/fragments/list.html:33
 #: templates/rules/fragments/transaction_rule/view.html:22
 #: templates/rules/fragments/transaction_rule/view.html:48
-#: templates/tags/fragments/list.html:34
+#: templates/tags/fragments/list.html:33
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/account_groups/fragments/list.html:41
-#: templates/accounts/fragments/list.html:45
-#: templates/categories/fragments/list.html:42
+#: templates/account_groups/fragments/list.html:40
+#: templates/accounts/fragments/list.html:44
+#: templates/categories/fragments/list.html:41
 #: templates/cotton/transaction/item.html:102
-#: templates/currencies/fragments/list.html:42
+#: templates/currencies/fragments/list.html:41
 #: templates/exchange_rates/fragments/table.html:34
-#: templates/installment_plans/fragments/list.html:61
+#: templates/installment_plans/fragments/table.html:53
 #: templates/monthly_overview/fragments/list.html:91
-#: templates/recurring_transactions/fragments/list.html:76
-#: templates/rules/fragments/list.html:42
+#: templates/recurring_transactions/fragments/list.html:75
+#: templates/rules/fragments/list.html:41
 #: templates/rules/fragments/transaction_rule/view.html:56
-#: templates/tags/fragments/list.html:41
+#: templates/tags/fragments/list.html:40
 #: templates/transactions/fragments/list_all.html:171
 msgid "Delete"
 msgstr "Apagar"
 
-#: templates/account_groups/fragments/list.html:45
-#: templates/accounts/fragments/list.html:49
-#: templates/categories/fragments/list.html:46
+#: templates/account_groups/fragments/list.html:44
+#: templates/accounts/fragments/list.html:48
+#: templates/categories/fragments/list.html:45
 #: templates/cotton/transaction/item.html:106
-#: templates/currencies/fragments/list.html:46
+#: templates/currencies/fragments/list.html:45
 #: templates/exchange_rates/fragments/table.html:39
-#: templates/installment_plans/fragments/list.html:53
-#: templates/installment_plans/fragments/list.html:65
+#: templates/installment_plans/fragments/table.html:45
+#: templates/installment_plans/fragments/table.html:57
 #: templates/monthly_overview/fragments/list.html:93
-#: templates/recurring_transactions/fragments/list.html:54
-#: templates/recurring_transactions/fragments/list.html:67
-#: templates/recurring_transactions/fragments/list.html:80
-#: templates/rules/fragments/list.html:46
+#: templates/recurring_transactions/fragments/list.html:53
+#: templates/recurring_transactions/fragments/list.html:66
+#: templates/recurring_transactions/fragments/list.html:79
+#: templates/rules/fragments/list.html:45
 #: templates/rules/fragments/transaction_rule/view.html:60
-#: templates/tags/fragments/list.html:45
+#: templates/tags/fragments/list.html:44
 #: templates/transactions/fragments/list_all.html:173
 msgid "Are you sure?"
 msgstr "Tem certeza?"
 
-#: templates/account_groups/fragments/list.html:46
-#: templates/accounts/fragments/list.html:50
-#: templates/categories/fragments/list.html:47
+#: templates/account_groups/fragments/list.html:45
+#: templates/accounts/fragments/list.html:49
+#: templates/categories/fragments/list.html:46
 #: templates/cotton/transaction/item.html:107
-#: templates/currencies/fragments/list.html:47
+#: templates/currencies/fragments/list.html:46
 #: templates/exchange_rates/fragments/table.html:40
 #: templates/monthly_overview/fragments/list.html:94
-#: templates/rules/fragments/list.html:47
+#: templates/rules/fragments/list.html:46
 #: templates/rules/fragments/transaction_rule/view.html:61
-#: templates/tags/fragments/list.html:46
+#: templates/tags/fragments/list.html:45
 #: templates/transactions/fragments/list_all.html:174
 msgid "You won't be able to revert this!"
 msgstr "Você não será capaz de reverter isso!"
 
-#: templates/account_groups/fragments/list.html:47
-#: templates/accounts/fragments/list.html:51
-#: templates/categories/fragments/list.html:48
+#: templates/account_groups/fragments/list.html:46
+#: templates/accounts/fragments/list.html:50
+#: templates/categories/fragments/list.html:47
 #: templates/cotton/transaction/item.html:108
-#: templates/currencies/fragments/list.html:48
+#: templates/currencies/fragments/list.html:47
 #: templates/exchange_rates/fragments/table.html:41
-#: templates/installment_plans/fragments/list.html:67
-#: templates/recurring_transactions/fragments/list.html:82
-#: templates/rules/fragments/list.html:48
+#: templates/installment_plans/fragments/table.html:59
+#: templates/recurring_transactions/fragments/list.html:81
+#: templates/rules/fragments/list.html:47
 #: templates/rules/fragments/transaction_rule/view.html:62
-#: templates/tags/fragments/list.html:47
+#: templates/tags/fragments/list.html:46
 msgid "Yes, delete it!"
 msgstr "Sim, apague!"
 
@@ -984,7 +984,7 @@ msgstr "Adicionar conta"
 msgid "Edit account"
 msgstr "Editar conta"
 
-#: templates/accounts/fragments/list.html:26
+#: templates/accounts/fragments/list.html:25
 msgid "Is Asset"
 msgstr "É ativo"
 
@@ -1058,7 +1058,7 @@ msgstr "Adicionar categoria"
 msgid "Edit category"
 msgstr "Editar categoria"
 
-#: templates/categories/fragments/list.html:24
+#: templates/categories/fragments/list.html:23
 msgid "Muted"
 msgstr "Silenciada"
 
@@ -1082,7 +1082,7 @@ msgstr "Adicionar moeda"
 msgid "Edit currency"
 msgstr "Editar moeda"
 
-#: templates/currencies/fragments/list.html:23
+#: templates/currencies/fragments/list.html:22
 msgid "Code"
 msgstr "Código"
 
@@ -1094,8 +1094,9 @@ msgstr "Adicionar taxa de câmbio"
 msgid "Edit exchange rate"
 msgstr "Editar taxa de câmbio"
 
-#: templates/exchange_rates/fragments/list.html:23
+#: templates/exchange_rates/fragments/list.html:22
 #: templates/includes/navbar.html:49
+#: templates/installment_plans/fragments/list.html:21
 #: templates/yearly_overview/pages/overview_by_account.html:135
 #: templates/yearly_overview/pages/overview_by_currency.html:137
 msgid "All"
@@ -1162,16 +1163,20 @@ msgstr "Adicionar parcelamento"
 msgid "Edit installment plan"
 msgstr "Editar parcelamento"
 
-#: templates/installment_plans/fragments/list.html:41
+#: templates/installment_plans/fragments/list.html:24
+msgid "Finished"
+msgstr "Finalizado"
+
 #: templates/installment_plans/fragments/list_transactions.html:5
+#: templates/installment_plans/fragments/table.html:32
 msgid "Installments"
 msgstr "Parcelas"
 
-#: templates/installment_plans/fragments/list.html:48
+#: templates/installment_plans/fragments/table.html:40
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: templates/installment_plans/fragments/list.html:54
+#: templates/installment_plans/fragments/table.html:46
 msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
@@ -1179,11 +1184,11 @@ msgstr ""
 "Isso atualizará todas as transações associadas a esse parcelamento e "
 "recriará as que faltam"
 
-#: templates/installment_plans/fragments/list.html:55
+#: templates/installment_plans/fragments/table.html:47
 msgid "Yes, refresh it!"
 msgstr "Sim, atualize!"
 
-#: templates/installment_plans/fragments/list.html:66
+#: templates/installment_plans/fragments/table.html:58
 msgid "This will delete the plan and all transactions associated with it"
 msgstr "Isso excluirá o parcelamento e todas as transações associadas a ele"
 
@@ -1307,44 +1312,44 @@ msgstr "Adicionar transação recorrente"
 msgid "Edit recurring transaction"
 msgstr "Editar transação recorrente"
 
-#: templates/recurring_transactions/fragments/list.html:49
+#: templates/recurring_transactions/fragments/list.html:48
 msgid "Unpause"
 msgstr "Despausar"
 
-#: templates/recurring_transactions/fragments/list.html:55
+#: templates/recurring_transactions/fragments/list.html:54
 msgid "This will start creating new transactions until you pause it"
 msgstr "Isso iniciará a criação de novas transações até que você pause"
 
-#: templates/recurring_transactions/fragments/list.html:56
+#: templates/recurring_transactions/fragments/list.html:55
 msgid "Yes, unpause it!"
 msgstr "Sim, despause!"
 
-#: templates/recurring_transactions/fragments/list.html:62
+#: templates/recurring_transactions/fragments/list.html:61
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/recurring_transactions/fragments/list.html:68
+#: templates/recurring_transactions/fragments/list.html:67
 msgid "This will stop the creation of new transactions until you unpause it"
 msgstr "Isso interromperá a criação de novas transações até que você despause"
 
-#: templates/recurring_transactions/fragments/list.html:69
+#: templates/recurring_transactions/fragments/list.html:68
 msgid "Yes, pause it!"
 msgstr "Sim, pause!"
 
-#: templates/recurring_transactions/fragments/list.html:81
+#: templates/recurring_transactions/fragments/list.html:80
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
 "Isso excluirá a transação recorrente e todas as transações associadas a ela"
 
-#: templates/rules/fragments/list.html:35
+#: templates/rules/fragments/list.html:34
 msgid "View"
 msgstr "Visualizar"
 
-#: templates/rules/fragments/list.html:56
+#: templates/rules/fragments/list.html:55
 msgid "Deactivate"
 msgstr "Desativas"
 
-#: templates/rules/fragments/list.html:56
+#: templates/rules/fragments/list.html:55
 msgid "Activate"
 msgstr "Ativar"
 
