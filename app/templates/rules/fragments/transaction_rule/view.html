@@ -10,7 +10,7 @@
 <div class="tw-text-base tw-text-gray-400">{{ transaction_rule.description }}</div>
 <hr>
 <div class="my-3">
-  <div class="tw-text-xl">If transaction...</div>
+  <div class="tw-text-xl">{% translate 'If transaction...' %}</div>
   <div class="card">
     <div class="card-body">
       {{ transaction_rule.trigger }}
@@ -28,14 +28,18 @@
 </div>
 
 <div class="my-3">
-  <div class="tw-text-xl">Then...</div>
+  <div class="tw-text-xl">{% translate 'Then...' %}</div>
   {% for action in transaction_rule.actions.all %}
   <div class="card mb-3">
     <div class="card-body">
-      <div class="mb-3">{% translate 'Set' %}</div>
-      <div class="mb-3">{{ action.get_field_display }}</div>
-      <div class="mb-3">{% translate 'to' %}</div>
-      <div class="mb-3">{{ action.value }}</div>
+      <div class="card mb-3">
+        <div class="card-header">{% translate 'Set' %}</div>
+        <div class="card-body">{{ action.get_field_display }}</div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">{% translate 'to' %}</div>
+        <div class="card-body">{{ action.value }}</div>
+      </div>
     </div>
     <div class="card-footer text-end">
       <a class="text-decoration-none tw-text-gray-400 p-1"
