@@ -1,0 +1,69 @@
+{% load currency_display %}
+{% load i18n %}
+{% if active %}
+<div class="card-body show-loading" hx-get="{% url 'active_installment_plans_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+{% else %}
+<div class="card-body show-loading" hx-get="{% url 'finished_installment_plans_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+{% endif %}
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" class="col-auto"></th>
+          <th scope="col" class="col">{% translate 'Name' %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for installment_plan in installment_plans %}
+        <tr class="installment-plan">
+          <td class="col-auto text-center">
+            <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
+              <a class="btn btn-secondary btn-sm"
+                    role="button"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{% translate "Edit" %}"
+                    hx-get="{% url 'installment_plan_edit' installment_plan_id=installment_plan.id %}"
+                    hx-swap="innerHTML"
+                    hx-target="#generic-offcanvas">
+                <i class="fa-solid fa-pencil fa-fw"></i></a>
+              <a class="btn btn-secondary btn-sm"
+                    role="button"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{% translate "Installments" %}"
+                    hx-get="{% url 'installment_plan_transactions' installment_plan_id=installment_plan.id %}"
+                    hx-swap="innerHTML"
+                    hx-target="#persistent-generic-offcanvas-left">
+                <i class="fa-solid fa-eye fa-fw"></i></a>
+              <a class="btn btn-secondary btn-sm text-info"
+                    role="button"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{% translate "Refresh" %}"
+                    hx-get="{% url 'installment_plan_refresh' installment_plan_id=installment_plan.id %}"
+                    hx-target="#generic-offcanvas"
+                    hx-trigger='confirmed'
+                    data-bypass-on-ctrl="true"
+                    data-title="{% translate "Are you sure?" %}"
+                    data-text="{% translate "This will update all transactions associated with this plan and recreate missing ones" %}"
+                    data-confirm-text="{% translate "Yes, refresh it!" %}"
+                    _="install prompt_swal">
+                <i class="fa-solid fa-arrows-rotate fa-fw"></i></a>
+              <a class="btn btn-secondary btn-sm text-danger"
+                      role="button"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="{% translate "Delete" %}"
+                      hx-delete="{% url 'installment_plan_delete' installment_plan_id=installment_plan.id %}"
+                      hx-trigger='confirmed'
+                      data-bypass-on-ctrl="true"
+                      data-title="{% translate "Are you sure?" %}"
+                      data-text="{% translate "This will delete the plan and all transactions associated with it" %}"
+                      data-confirm-text="{% translate "Yes, delete it!" %}"
+                      _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+            </div>
+          </td>
+          <td class="col">{{ installment_plan.description }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

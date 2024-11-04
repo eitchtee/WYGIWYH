@@ -4,5 +4,5 @@
 {% block title %}{% translate 'Installment Plans' %}{% endblock %}
 
 {% block content %}
-<div hx-get="{% url 'installment_plans_list' %}" hx-trigger="load, updated from:window" class="show-loading"></div>
+<div hx-get="{% url 'installment_plans_list' %}" hx-trigger="load" class="show-loading"></div>
 {% endblock %}

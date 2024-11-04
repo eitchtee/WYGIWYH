@@ -25,12 +25,41 @@ def installment_plans_index(request):
 @login_required
 @require_http_methods(["GET"])
 def installment_plans_list(request):
-    installment_plans = InstallmentPlan.objects.all().order_by("-end_date")
-
     return render(
         request,
         "installment_plans/fragments/list.html",
-        {"installment_plans": installment_plans},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def active_installment_plans_list(request):
+    today = timezone.localdate(timezone.now())
+    installment_plans = InstallmentPlan.objects.filter(end_date__gte=today).order_by(
+        "-end_date"
+    )
+
+    return render(
+        request,
+        "installment_plans/fragments/table.html",
+        {"installment_plans": installment_plans, "active": True},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def finished_installment_plans_list(request):
+    today = timezone.localdate(timezone.now())
+    installment_plans = InstallmentPlan.objects.filter(end_date__lt=today).order_by(
+        "-end_date"
+    )
+
+    return render(
+        request,
+        "installment_plans/fragments/table.html",
+        {"installment_plans": installment_plans, "active": False},
     )
 
 

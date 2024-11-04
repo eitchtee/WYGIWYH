@@ -83,6 +83,16 @@ urlpatterns = [
         name="installment_plans_list",
     ),
     path(
+        "installment-plans/list/active/",
+        views.active_installment_plans_list,
+        name="active_installment_plans_list",
+    ),
+    path(
+        "installment-plans/list/finished/",
+        views.finished_installment_plans_list,
+        name="finished_installment_plans_list",
+    ),
+    path(
         "installment-plans/add/",
         views.installment_plan_add,
         name="installment_plan_add",
