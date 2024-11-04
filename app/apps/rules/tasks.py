@@ -55,7 +55,6 @@ def check_for_transaction_rules(
 
         for rule in rules:
             if simple.eval(rule.trigger):
-                print("True!")
                 for action in rule.actions.all():
                     if action.field in [
                         TransactionRuleAction.Field.type,
@@ -92,7 +91,6 @@ def check_for_transaction_rules(
 
                     elif action.field == TransactionRuleAction.Field.tags:
                         value = simple.eval(action.value)
-                        print(value, action.value)
                         if isinstance(value, list):
                             # Clear existing tags
                             instance.tags.clear()
