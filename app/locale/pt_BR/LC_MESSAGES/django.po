@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-05 00:44+0000\n"
-"PO-Revision-Date: 2024-11-04 21:45-0300\n"
+"POT-Creation-Date: 2024-11-05 03:01+0000\n"
+"PO-Revision-Date: 2024-11-05 00:02-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -81,7 +81,7 @@ msgstr "Tags"
 #: templates/categories/fragments/list.html:23
 #: templates/currencies/fragments/list.html:24
 #: templates/installment_plans/fragments/table.html:14
-#: templates/recurring_transactions/fragments/list.html:23
+#: templates/recurring_transactions/fragments/table.html:16
 #: templates/rules/fragments/list.html:24 templates/tags/fragments/list.html:23
 msgid "Name"
 msgstr "Nome"
@@ -535,6 +535,10 @@ msgstr "Nome da Categoria"
 msgid "Muted categories won't count towards your monthly total"
 msgstr "As categorias silenciadas não serão contabilizadas em seu total mensal"
 
+#: apps/transactions/forms.py:618
+msgid "End date should be after the start date"
+msgstr "Data final deve ser após data inicial"
+
 #: apps/transactions/models.py:20
 msgid "Mute"
 msgstr "Silenciada"
@@ -582,8 +586,8 @@ msgstr "Transação"
 
 #: apps/transactions/models.py:102 templates/includes/navbar.html:45
 #: templates/includes/navbar.html:67
-#: templates/recurring_transactions/fragments/list.html:41
 #: templates/recurring_transactions/fragments/list_transactions.html:5
+#: templates/recurring_transactions/fragments/table.html:35
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
 msgstr "Transações"
@@ -656,6 +660,7 @@ msgid "year(s)"
 msgstr "ano(s)"
 
 #: apps/transactions/models.py:331
+#: templates/recurring_transactions/fragments/list.html:24
 msgid "Paused"
 msgstr "Pausado"
 
@@ -719,23 +724,27 @@ msgstr "Parcelamento atualizado com sucesso"
 msgid "Installment Plan deleted successfully"
 msgstr "Parcelamento apagado com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:65
+#: apps/transactions/views/recurring_transactions.py:115
 msgid "Recurring Transaction added successfully"
 msgstr "Transação Recorrente adicionada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:95
+#: apps/transactions/views/recurring_transactions.py:145
 msgid "Recurring Transaction updated successfully"
 msgstr "Transação Recorrente atualizada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:142
+#: apps/transactions/views/recurring_transactions.py:175
 msgid "Recurring transaction unpaused successfully"
 msgstr "Transação Recorrente despausada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:145
+#: apps/transactions/views/recurring_transactions.py:178
 msgid "Recurring transaction paused successfully"
 msgstr "Transação Recorrente pausada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:166
+#: apps/transactions/views/recurring_transactions.py:201
+msgid "Recurring transaction finished successfully"
+msgstr "Transação Recorrente finalizada com sucesso"
+
+#: apps/transactions/views/recurring_transactions.py:222
 msgid "Recurring Transaction deleted successfully"
 msgstr "Transação Recorrente apagada com sucesso"
 
@@ -878,7 +887,7 @@ msgstr "Editar grupo de conta"
 #: templates/currencies/fragments/list.html:31
 #: templates/exchange_rates/fragments/table.html:23
 #: templates/installment_plans/fragments/table.html:21
-#: templates/recurring_transactions/fragments/list.html:30
+#: templates/recurring_transactions/fragments/table.html:23
 #: templates/rules/fragments/list.html:31 templates/tags/fragments/list.html:30
 msgid "Actions"
 msgstr "Ações"
@@ -890,7 +899,7 @@ msgstr "Ações"
 #: templates/currencies/fragments/list.html:35
 #: templates/exchange_rates/fragments/table.html:27
 #: templates/installment_plans/fragments/table.html:25
-#: templates/recurring_transactions/fragments/list.html:34
+#: templates/recurring_transactions/fragments/table.html:27
 #: templates/rules/fragments/transaction_rule/view.html:22
 #: templates/rules/fragments/transaction_rule/view.html:48
 #: templates/tags/fragments/list.html:34
@@ -905,7 +914,7 @@ msgstr "Editar"
 #: templates/exchange_rates/fragments/table.html:35
 #: templates/installment_plans/fragments/table.html:54
 #: templates/monthly_overview/fragments/list.html:91
-#: templates/recurring_transactions/fragments/list.html:76
+#: templates/recurring_transactions/fragments/table.html:89
 #: templates/rules/fragments/list.html:42
 #: templates/rules/fragments/transaction_rule/view.html:56
 #: templates/tags/fragments/list.html:41
@@ -922,9 +931,10 @@ msgstr "Apagar"
 #: templates/installment_plans/fragments/table.html:46
 #: templates/installment_plans/fragments/table.html:58
 #: templates/monthly_overview/fragments/list.html:93
-#: templates/recurring_transactions/fragments/list.html:54
-#: templates/recurring_transactions/fragments/list.html:67
-#: templates/recurring_transactions/fragments/list.html:80
+#: templates/recurring_transactions/fragments/table.html:51
+#: templates/recurring_transactions/fragments/table.html:65
+#: templates/recurring_transactions/fragments/table.html:80
+#: templates/recurring_transactions/fragments/table.html:94
 #: templates/rules/fragments/list.html:46
 #: templates/rules/fragments/transaction_rule/view.html:60
 #: templates/tags/fragments/list.html:45
@@ -953,7 +963,7 @@ msgstr "Você não será capaz de reverter isso!"
 #: templates/currencies/fragments/list.html:48
 #: templates/exchange_rates/fragments/table.html:42
 #: templates/installment_plans/fragments/table.html:60
-#: templates/recurring_transactions/fragments/list.html:82
+#: templates/recurring_transactions/fragments/table.html:96
 #: templates/rules/fragments/list.html:48
 #: templates/rules/fragments/transaction_rule/view.html:62
 #: templates/tags/fragments/list.html:47
@@ -1184,6 +1194,7 @@ msgid "Edit installment plan"
 msgstr "Editar parcelamento"
 
 #: templates/installment_plans/fragments/list.html:24
+#: templates/recurring_transactions/fragments/list.html:27
 msgid "Finished"
 msgstr "Finalizado"
 
@@ -1336,36 +1347,52 @@ msgstr "Adicionar transação recorrente"
 msgid "Edit recurring transaction"
 msgstr "Editar transação recorrente"
 
-#: templates/recurring_transactions/fragments/list.html:49
+#: templates/recurring_transactions/fragments/list.html:21
+msgid "Active"
+msgstr "Ativo"
+
+#: templates/recurring_transactions/fragments/table.html:45
 msgid "Unpause"
 msgstr "Despausar"
 
-#: templates/recurring_transactions/fragments/list.html:55
+#: templates/recurring_transactions/fragments/table.html:52
 msgid "This will start creating new transactions until you pause it"
 msgstr "Isso iniciará a criação de novas transações até que você pause"
 
-#: templates/recurring_transactions/fragments/list.html:56
+#: templates/recurring_transactions/fragments/table.html:53
 msgid "Yes, unpause it!"
 msgstr "Sim, despause!"
 
-#: templates/recurring_transactions/fragments/list.html:62
+#: templates/recurring_transactions/fragments/table.html:59
 msgid "Pause"
 msgstr "Pausar"
 
-#: templates/recurring_transactions/fragments/list.html:68
+#: templates/recurring_transactions/fragments/table.html:66
 msgid "This will stop the creation of new transactions until you unpause it"
 msgstr "Isso interromperá a criação de novas transações até que você despause"
 
-#: templates/recurring_transactions/fragments/list.html:69
+#: templates/recurring_transactions/fragments/table.html:67
 msgid "Yes, pause it!"
 msgstr "Sim, pause!"
 
-#: templates/recurring_transactions/fragments/list.html:81
+#: templates/recurring_transactions/fragments/table.html:74
+msgid "Finish"
+msgstr "Finalizar"
+
+#: templates/recurring_transactions/fragments/table.html:81
+msgid "This will stop the creation of new transactions"
+msgstr "Isso interromperá a criação de novas transações"
+
+#: templates/recurring_transactions/fragments/table.html:82
+msgid "Yes, finish it!"
+msgstr "Sim, finalize!"
+
+#: templates/recurring_transactions/fragments/table.html:95
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
 "Isso excluirá a transação recorrente e todas as transações associadas a ela"
 
-#: templates/recurring_transactions/fragments/list.html:91
+#: templates/recurring_transactions/fragments/table.html:107
 msgid "No recurring transactions"
 msgstr "Nenhuma transação recorrente"
 
@@ -1439,7 +1466,7 @@ msgstr "Editar tag"
 
 #: templates/tags/fragments/list.html:57
 msgid "No tags"
-msgstr ""
+msgstr "Nenhuma tag"
 
 #: templates/transactions/fragments/add.html:5
 msgid "New transaction"
