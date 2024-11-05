@@ -15,6 +15,7 @@
   </div>
 
   <div class="border p-3 rounded-3 table-responsive">
+    {% if accounts %}
     <table class="table table-hover">
     <thead>
       <tr>
@@ -61,5 +62,8 @@
       {% endfor %}
     </tbody>
   </table>
+    {% else %}
+    <c-msg.empty title="{% translate "No accounts" %}" :remove-padding="True"></c-msg.empty>
+    {% endif %}
   </div>
 </div>

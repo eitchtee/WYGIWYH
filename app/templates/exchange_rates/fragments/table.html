@@ -5,6 +5,7 @@
 {% else %}
 <div class="card-body show-loading" hx-get="{% url 'exchange_rates_list_pair' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
 {% endif %}
+  {% if exchange_rates %}
   <div class="table-responsive">
     <table class="table table-hover">
       <thead>
@@ -50,4 +51,7 @@
       </tbody>
     </table>
   </div>
+  {% else %}
+    <c-msg.empty title="{% translate "No exchange rates" %}" :remove-padding="True"></c-msg.empty>
+  {% endif %}
 </div>

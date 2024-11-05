@@ -15,6 +15,7 @@
   </div>
 
   <div class="border p-3 rounded-3 table-responsive">
+    {% if transaction_rules %}
     <table class="table table-hover">
     <thead>
       <tr>
@@ -65,5 +66,8 @@
       {% endfor %}
     </tbody>
   </table>
+    {% else %}
+    <c-msg.empty title="{% translate "No rules" %}" :remove-padding="True"></c-msg.empty>
+    {% endif %}
   </div>
 </div>
