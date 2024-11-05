@@ -615,7 +615,7 @@ class RecurringTransactionForm(forms.ModelForm):
         end_date = cleaned_data.get("end_date")
 
         if start_date and end_date and start_date > end_date:
-            raise forms.ValidationError("End date should be after the start date.")
+            raise forms.ValidationError(_("End date should be after the start date"))
 
         return cleaned_data
 

@@ -1,0 +1,109 @@
+{% load currency_display %}
+{% load i18n %}
+{% if status == "active" %}
+<div class="card-body show-loading" hx-get="{% url 'active_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+{% elif status == 'paused' %}
+<div class="card-body show-loading" hx-get="{% url 'paused_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+{% elif status == 'finished' %}
+<div class="card-body show-loading" hx-get="{% url 'finished_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+{% endif %}
+  {% if recurring_transactions %}
+  <div class="table-responsive">
+    <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class="col-auto"></th>
+        <th scope="col" class="col">{% translate 'Name' %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for recurring_transaction in recurring_transactions %}
+      <tr class="recurring_transaction">
+        <td class="col-auto text-center">
+          <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
+            <a class="btn btn-secondary btn-sm"
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Edit" %}"
+                  hx-get="{% url 'recurring_transaction_edit' recurring_transaction_id=recurring_transaction.id %}"
+                  hx-swap="innerHTML"
+                  hx-target="#generic-offcanvas">
+              <i class="fa-solid fa-pencil fa-fw"></i></a>
+            <a class="btn btn-secondary btn-sm "
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Transactions" %}"
+                  hx-get="{% url 'recurring_transaction_transactions' recurring_transaction_id=recurring_transaction.id %}"
+                  hx-swap="innerHTML"
+                  hx-target="#persistent-generic-offcanvas-left">
+              <i class="fa-solid fa-eye fa-fw"></i></a>
+            {% if status != 'finished' %}
+            {% if recurring_transaction.is_paused %}
+            <a class="btn btn-secondary btn-sm text-info"
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Unpause" %}"
+                  hx-get="{% url 'recurring_transaction_toggle_pause' recurring_transaction_id=recurring_transaction.id %}"
+                  hx-target="#generic-offcanvas"
+                  hx-swap="innerHTML"
+                  hx-trigger='confirmed'
+                  data-bypass-on-ctrl="true"
+                  data-title="{% translate "Are you sure?" %}"
+                  data-text="{% translate "This will start creating new transactions until you pause it" %}"
+                  data-confirm-text="{% translate "Yes, unpause it!" %}"
+                  _="install prompt_swal"><i class="fa-solid fa-play fa-fw"></i></a>
+            {% else %}
+            <a class="btn btn-secondary btn-sm text-info"
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Pause" %}"
+                  hx-get="{% url 'recurring_transaction_toggle_pause' recurring_transaction_id=recurring_transaction.id %}"
+                  hx-target="#generic-offcanvas"
+                  hx-trigger='confirmed'
+                  hx-swap="innerHTML"
+                  data-bypass-on-ctrl="true"
+                  data-title="{% translate "Are you sure?" %}"
+                  data-text="{% translate "This will stop the creation of new transactions until you unpause it" %}"
+                  data-confirm-text="{% translate "Yes, pause it!" %}"
+                  _="install prompt_swal">
+              <i class="fa-solid fa-pause fa-fw"></i></a>
+            {% endif %}
+            <a class="btn btn-secondary btn-sm text-info"
+                  role="button"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="{% translate "Finish" %}"
+                  hx-get="{% url 'recurring_transaction_finish' recurring_transaction_id=recurring_transaction.id %}"
+                  hx-target="#generic-offcanvas"
+                  hx-trigger='confirmed'
+                  hx-swap="innerHTML"
+                  data-bypass-on-ctrl="true"
+                  data-title="{% translate "Are you sure?" %}"
+                  data-text="{% translate "This will stop the creation of new transactions" %}"
+                  data-confirm-text="{% translate "Yes, finish it!" %}"
+                  _="install prompt_swal">
+              <i class="fa-solid fa-flag-checkered fa-fw"></i></a>
+            {% endif %}
+            <a class="btn btn-secondary btn-sm text-danger"
+                    role="button"
+                    data-bs-toggle="tooltip"
+                    data-bs-title="{% translate "Delete" %}"
+                    hx-delete="{% url 'recurring_transaction_delete' recurring_transaction_id=recurring_transaction.id %}"
+                    hx-trigger='confirmed'
+                    hx-swap="innerHTML"
+                    data-bypass-on-ctrl="true"
+                    data-title="{% translate "Are you sure?" %}"
+                    data-text="{% translate "This will delete the recurrence and all transactions associated with it" %}"
+                    data-confirm-text="{% translate "Yes, delete it!" %}"
+                    _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+          </div>
+        </td>
+        <td class="col">{{ recurring_transaction.description }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+    <c-msg.empty title="{% translate "No recurring transactions" %}" :remove-padding="True"></c-msg.empty>
+  {% endif %}
+</div>

@@ -128,6 +128,21 @@ urlpatterns = [
         name="recurring_transaction_list",
     ),
     path(
+        "recurring-trasanctions/list/active/",
+        views.active_recurring_transactions_list,
+        name="active_recurring_transaction_list",
+    ),
+    path(
+        "recurring-trasanctions/list/paused/",
+        views.paused_recurring_transactions_list,
+        name="paused_recurring_transaction_list",
+    ),
+    path(
+        "recurring-trasanctions/list/finished/",
+        views.finished_recurring_transactions_list,
+        name="finished_recurring_transaction_list",
+    ),
+    path(
         "recurring-transactions/add/",
         views.recurring_transaction_add,
         name="recurring_transaction_add",
@@ -151,5 +166,10 @@ urlpatterns = [
         "recurring-transactions/<int:recurring_transaction_id>/toggle-pause/",
         views.recurring_transaction_toggle_pause,
         name="recurring_transaction_toggle_pause",
+    ),
+    path(
+        "recurring-transactions/<int:recurring_transaction_id>/finish/",
+        views.recurring_transaction_finish,
+        name="recurring_transaction_finish",
     ),
 ]

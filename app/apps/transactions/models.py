@@ -328,7 +328,7 @@ class RecurringTransaction(models.Model):
         MONTH = "month", _("month(s)")
         YEAR = "year", _("year(s)")
 
-    paused = models.BooleanField(default=False, verbose_name=_("Paused"))
+    is_paused = models.BooleanField(default=False, verbose_name=_("Paused"))
     account = models.ForeignKey(
         "accounts.Account", on_delete=models.CASCADE, verbose_name=_("Account")
     )
@@ -444,8 +444,8 @@ class RecurringTransaction(models.Model):
     def generate_upcoming_transactions(cls):
         today = timezone.now().date()
         recurring_transactions = cls.objects.filter(
-            models.Q(models.Q(end_date__isnull=True) | models.Q(end_date__gte=today))
-            & models.Q(paused=False)
+            Q(models.Q(end_date__isnull=True) | Q(end_date__gte=today))
+            & Q(paused=False)
         )
 
         for recurring_transaction in recurring_transactions:

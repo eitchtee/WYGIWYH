@@ -4,5 +4,5 @@
 {% block title %}{% translate 'Recurring Transactions' %}{% endblock %}
 
 {% block content %}
-<div hx-get="{% url 'recurring_transaction_list' %}" hx-trigger="load, updated from:window" class="show-loading"></div>
+<div hx-get="{% url 'recurring_transaction_list' %}" hx-trigger="load" class="show-loading"></div>
 {% endblock %}

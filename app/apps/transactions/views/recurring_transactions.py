@@ -1,7 +1,11 @@
+from dateutil.relativedelta import relativedelta
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -25,14 +29,60 @@ def recurring_transactions_index(request):
 @login_required
 @require_http_methods(["GET"])
 def recurring_transactions_list(request):
-    recurring_transactions = RecurringTransaction.objects.all().order_by(
-        "-start_date", "description", "id"
-    )
-
     return render(
         request,
         "recurring_transactions/fragments/list.html",
-        {"recurring_transactions": recurring_transactions},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def active_recurring_transactions_list(request):
+    today = timezone.localdate(timezone.now())
+    recurring_transactions = RecurringTransaction.objects.filter(
+        Q(end_date__gte=today) | Q(end_date__isnull=True),
+        is_paused=False,
+    ).order_by("-start_date", "description", "id")
+
+    print(recurring_transactions)
+    return render(
+        request,
+        "recurring_transactions/fragments/table.html",
+        {"recurring_transactions": recurring_transactions, "status": "active"},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def paused_recurring_transactions_list(request):
+    today = timezone.localdate(timezone.now())
+    recurring_transactions = RecurringTransaction.objects.filter(
+        Q(end_date__gte=today) | Q(end_date__isnull=True),
+        is_paused=True,
+    ).order_by("-start_date", "description", "id")
+
+    return render(
+        request,
+        "recurring_transactions/fragments/table.html",
+        {"recurring_transactions": recurring_transactions, "status": "paused"},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def finished_recurring_transactions_list(request):
+    today = timezone.localdate(timezone.now())
+    recurring_transactions = RecurringTransaction.objects.filter(
+        Q(end_date__lte=today),
+    ).order_by("-start_date", "description", "id")
+
+    return render(
+        request,
+        "recurring_transactions/fragments/table.html",
+        {"recurring_transactions": recurring_transactions, "status": "finished"},
     )
 
 
@@ -110,39 +160,45 @@ def recurring_transaction_edit(request, recurring_transaction_id):
     )
 
 
-# @only_htmx
-# @login_required
-# @require_http_methods(["GET"])
-# def recurring_transaction_refresh(request, installment_plan_id):
-#     installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
-#     installment_plan.update_transactions()
-#
-#     messages.success(request, _("Installment Plan refreshed successfully"))
-#
-#     return HttpResponse(
-#         status=204,
-#         headers={
-#             "HX-Trigger": "updated, hide_offcanvas, toasts",
-#         },
-#     )
-
-
 @only_htmx
 @login_required
 @require_http_methods(["GET"])
 def recurring_transaction_toggle_pause(request, recurring_transaction_id):
-    installment_plan = get_object_or_404(
+    recurring_transaction = get_object_or_404(
         RecurringTransaction, id=recurring_transaction_id
     )
-    current_paused = installment_plan.paused
-    installment_plan.paused = not current_paused
-    installment_plan.save(update_fields=["paused"])
+    current_paused = recurring_transaction.is_paused
+    recurring_transaction.is_paused = not current_paused
+    recurring_transaction.save(update_fields=["is_paused"])
 
     if current_paused:
         messages.success(request, _("Recurring transaction unpaused successfully"))
         generate_recurring_transactions.defer()
     else:
         messages.success(request, _("Recurring transaction paused successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas, toasts",
+        },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def recurring_transaction_finish(request, recurring_transaction_id):
+    recurring_transaction = get_object_or_404(
+        RecurringTransaction, id=recurring_transaction_id
+    )
+    today = timezone.localdate(timezone.now()) - relativedelta(days=1)
+
+    recurring_transaction.end_date = today
+    recurring_transaction.is_paused = True
+    recurring_transaction.save(update_fields=["end_date", "is_paused"])
+
+    messages.success(request, _("Recurring transaction finished successfully"))
 
     return HttpResponse(
         status=204,
