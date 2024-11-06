@@ -3,14 +3,7 @@
 
 {% regroup page_obj by date|customnaturaldate as transactions_by_date %}
 
-<div id="transactions-list"
-     _="on change or click
-          if no <input[type='checkbox']:checked/> in me
-            add .tw-hidden to #actions-bar
-          else
-            remove .tw-hidden from #actions-bar
-          end
-        end">
+<div id="transactions-list">
   {% for x in transactions_by_date %}
     <div id="{{ x.grouper|slugify }}"
          _="on htmx:afterSettle from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
@@ -127,57 +120,6 @@
   </div>
   {% endif %}
 {#  Floating bar#}
-<div class="tw-sticky tw-bottom-4 tw-left-0 tw-right-0 tw-z-50 tw-hidden mx-auto tw-w-fit" id="actions-bar">
-  <div class="card slide-in-left">
-    <div class="card-body p-2">
-      {% spaceless %}
-      <div class="btn-group" role="group">
-        <button class="btn btn-secondary btn-sm"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate 'Select All' %}"
-                _="on click set <#transactions-list input[type='checkbox']/>'s checked to true then call me.blur()">
-          <i class="fa-regular fa-square-check tw-text-green-400"></i>
-        </button>
-        <button class="btn btn-secondary btn-sm"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate 'Unselect All' %}"
-                _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur()">
-          <i class="fa-regular fa-square tw-text-red-400"></i>
-        </button>
-      </div>
-      <div class="vr mx-3 tw-align-middle"></div>
-      <div class="btn-group me-3" role="group">
-        <button class="btn btn-secondary btn-sm"
-              hx-get="{% url 'transactions_bulk_pay' %}"
-              hx-include=".transaction"
-              data-bs-toggle="tooltip"
-              data-bs-title="{% translate 'Mark as paid' %}">
-        <i class="fa-regular fa-circle-check tw-text-green-400"></i>
-        </button>
-        <button class="btn btn-secondary btn-sm"
-                hx-get="{% url 'transactions_bulk_unpay' %}"
-                hx-include=".transaction"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate 'Mark as unpaid' %}">
-          <i class="fa-regular fa-circle tw-text-red-400"></i>
-        </button>
-      </div>
-      <button class="btn btn-secondary btn-sm"
-              hx-get="{% url 'transactions_bulk_delete' %}"
-              hx-include=".transaction"
-              hx-trigger="confirmed"
-              data-bs-toggle="tooltip"
-              data-bs-title="{% translate 'Delete' %}"
-              data-bypass-on-ctrl="true"
-              data-title="{% translate "Are you sure?" %}"
-              data-text="{% translate "You won't be able to revert this!" %}"
-              data-confirm-text="{% translate "Yes, delete them!" %}"
-              _="install prompt_swal">
-        <i class="fa-solid fa-trash text-danger"></i>
-      </button>
-      {% endspaceless %}
-    </div>
-  </div>
-</div>
+  <c-ui.transactions-action-bar></c-ui.transactions-action-bar>
 
 </div>
