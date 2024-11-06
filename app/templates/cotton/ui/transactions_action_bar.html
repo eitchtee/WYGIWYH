@@ -15,13 +15,13 @@ _="on change from #transactions-list or htmx:afterSettle
         <button class="btn btn-secondary btn-sm"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Select All' %}"
-                _="on click set <#transactions-list input[type='checkbox']/>'s checked to true then call me.blur()">
+                _="on click set <#transactions-list input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
           <i class="fa-regular fa-square-check tw-text-green-400"></i>
         </button>
         <button class="btn btn-secondary btn-sm"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Unselect All' %}"
-                _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur()">
+                _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur() then trigger change">
           <i class="fa-regular fa-square tw-text-red-400"></i>
         </button>
       </div>
