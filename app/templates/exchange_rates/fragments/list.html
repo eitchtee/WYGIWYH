@@ -3,13 +3,13 @@
 <div class="container px-md-3 py-3 column-gap-5">
   <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
     {% spaceless %}
-    <div>{% translate 'Exchange Rates' %}<span>
+      <div>{% translate 'Exchange Rates' %}<span>
       <a class="text-decoration-none tw-text-2xl p-1 category-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Add" %}"
-                hx-get="{% url 'exchange_rate_add' %}"
-                hx-target="#generic-offcanvas">
+         role="button"
+         data-bs-toggle="tooltip"
+         data-bs-title="{% translate "Add" %}"
+         hx-get="{% url 'exchange_rate_add' %}"
+         hx-target="#generic-offcanvas">
             <i class="fa-solid fa-circle-plus fa-fw"></i></a>
     </span></div>
     {% endspaceless %}
@@ -19,17 +19,23 @@
     <div class="card-header">
       <ul class="nav nav-pills card-header-pills" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" data-bs-toggle="tab" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" hx-get="{% url 'exchange_rates_list_pair' %}" hx-trigger="load, click" hx-target="#exchange-rates-table">{% translate 'All' %}</button>
+          <button class="nav-link active" hx-indicator="#exchange-rates-table" data-bs-toggle="tab" type="button"
+                  role="tab" aria-controls="home-tab-pane" aria-selected="true"
+                  hx-get="{% url 'exchange_rates_list_pair' %}" hx-trigger="load, click"
+                  hx-target="#exchange-rates-table" aria-controls="#exchange-rates-table">{% translate 'All' %}</button>
         </li>
         {% for pair in pairings %}
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" hx-get="{% url 'exchange_rates_list_pair' from_currency=pair.1 to_currency=pair.2 %}" hx-target="#exchange-rates-table" data-bs-toggle="tab" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">{{ pair.0 }}</button>
-        </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" hx-indicator="#exchange-rates-table"
+                    hx-get="{% url 'exchange_rates_list_pair' from_currency=pair.1 to_currency=pair.2 %}"
+                    hx-target="#exchange-rates-table" data-bs-toggle="tab" type="button" role="tab"
+                    aria-controls="#exchange-rates-table" aria-selected="false">{{ pair.0 }}</button>
+          </li>
         {% endfor %}
       </ul>
     </div>
 
-    <div id="exchange-rates-table"></div>
-  
+    <div id="exchange-rates-table" class="show-loading"></div>
+
   </div>
 </div>
