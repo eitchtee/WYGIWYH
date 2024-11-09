@@ -8,11 +8,23 @@
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
       {% for entry in totals.income_unpaid %}
-        <c-amount.display
-                    :amount="entry.amount"
-                    :prefix="entry.prefix"
-                    :suffix="entry.suffix"
-                    :decimal_places="entry.decimal_places"></c-amount.display>
+        <div>
+          <c-amount.display
+              :amount="entry.amount"
+              :prefix="entry.prefix"
+              :suffix="entry.suffix"
+              :decimal_places="entry.decimal_places"></c-amount.display>
+        </div>
+        {% if entry.exchanged %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.amount"
+            :prefix="entry.exchanged.prefix"
+            :suffix="entry.exchanged.suffix"
+            :decimal_places="entry.exchanged.decimal_places"
+            color="gray"></c-amount.display>
+        </div>
+        {% endif %}
       {% empty %}
         <div>-</div>
       {% endfor %}
@@ -25,11 +37,23 @@
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
       {% for entry in totals.expense_unpaid %}
-        <c-amount.display
-                    :amount="entry.amount"
-                    :prefix="entry.prefix"
-                    :suffix="entry.suffix"
-                    :decimal_places="entry.decimal_places"></c-amount.display>
+        <div>
+          <c-amount.display
+              :amount="entry.amount"
+              :prefix="entry.prefix"
+              :suffix="entry.suffix"
+              :decimal_places="entry.decimal_places"></c-amount.display>
+        </div>
+        {% if entry.exchanged %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.amount"
+            :prefix="entry.exchanged.prefix"
+            :suffix="entry.exchanged.suffix"
+            :decimal_places="entry.exchanged.decimal_places"
+            color="gray"></c-amount.display>
+        </div>
+        {% endif %}
       {% empty %}
         <div>-</div>
       {% endfor %}
@@ -42,13 +66,24 @@
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
       {% for entry in totals.balance_unpaid %}
-        <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
-        <c-amount.display
-                    :amount="entry.amount"
-                    :prefix="entry.prefix"
-                    :suffix="entry.suffix"
-                    :decimal_places="entry.decimal_places"></c-amount.display>
+        <div>
+          <c-amount.display
+              :amount="entry.amount"
+              :prefix="entry.prefix"
+              :suffix="entry.suffix"
+              :decimal_places="entry.decimal_places"
+              color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
         </div>
+        {% if entry.exchanged %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.amount"
+            :prefix="entry.exchanged.prefix"
+            :suffix="entry.exchanged.suffix"
+            :decimal_places="entry.exchanged.decimal_places"
+            color="gray"></c-amount.display>
+        </div>
+        {% endif %}
       {% empty %}
         <div>-</div>
       {% endfor %}
@@ -62,11 +97,23 @@
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
       {% for entry in totals.income_paid %}
+        <div>
         <c-amount.display
-                    :amount="entry.amount"
-                    :prefix="entry.prefix"
-                    :suffix="entry.suffix"
-                    :decimal_places="entry.decimal_places"></c-amount.display>
+            :amount="entry.amount"
+            :prefix="entry.prefix"
+            :suffix="entry.suffix"
+            :decimal_places="entry.decimal_places"></c-amount.display>
+        </div>
+        {% if entry.exchanged %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.amount"
+            :prefix="entry.exchanged.prefix"
+            :suffix="entry.exchanged.suffix"
+            :decimal_places="entry.exchanged.decimal_places"
+            color="gray"></c-amount.display>
+        </div>
+        {% endif %}
       {% empty %}
         <div>-</div>
       {% endfor %}
@@ -79,11 +126,23 @@
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
       {% for entry in totals.expense_paid %}
-        <c-amount.display
-                    :amount="entry.amount"
-                    :prefix="entry.prefix"
-                    :suffix="entry.suffix"
-                    :decimal_places="entry.decimal_places"></c-amount.display>
+        <div>
+          <c-amount.display
+              :amount="entry.amount"
+              :prefix="entry.prefix"
+              :suffix="entry.suffix"
+              :decimal_places="entry.decimal_places"></c-amount.display>
+        </div>
+        {% if entry.exchanged %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.amount"
+            :prefix="entry.exchanged.prefix"
+            :suffix="entry.exchanged.suffix"
+            :decimal_places="entry.exchanged.decimal_places"
+            color="gray"></c-amount.display>
+        </div>
+        {% endif %}
       {% empty %}
         <div>-</div>
       {% endfor %}
@@ -96,13 +155,24 @@
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace tw-text-yellow-400">
       {% for entry in totals.balance_paid %}
-        <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
-        <c-amount.display
-                    :amount="entry.amount"
-                    :prefix="entry.prefix"
-                    :suffix="entry.suffix"
-                    :decimal_places="entry.decimal_places"></c-amount.display>
+        <div>
+          <c-amount.display
+              :amount="entry.amount"
+              :prefix="entry.prefix"
+              :suffix="entry.suffix"
+              :decimal_places="entry.decimal_places"
+              color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
         </div>
+        {% if entry.exchanged %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.amount"
+            :prefix="entry.exchanged.prefix"
+            :suffix="entry.exchanged.suffix"
+            :decimal_places="entry.exchanged.decimal_places"
+            color="gray"></c-amount.display>
+        </div>
+        {% endif %}
       {% empty %}
         <div>-</div>
       {% endfor %}
@@ -116,16 +186,27 @@
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
       {% for entry in totals.balance_total %}
-        <div class="{% if entry.amount > 0 %}tw-text-green-400{% elif entry.amount < 0 %}tw-text-red-400{% endif %}">
-        <c-amount.display
-                    :amount="entry.amount"
-                    :prefix="entry.prefix"
-                    :suffix="entry.suffix"
-                    :decimal_places="entry.decimal_places"></c-amount.display>
+        <div>
+          <c-amount.display
+              :amount="entry.amount"
+              :prefix="entry.prefix"
+              :suffix="entry.suffix"
+              :decimal_places="entry.decimal_places"
+              color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
         </div>
+        {% if entry.exchanged %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.amount"
+            :prefix="entry.exchanged.prefix"
+            :suffix="entry.exchanged.suffix"
+            :decimal_places="entry.exchanged.decimal_places"
+            color="gray"></c-amount.display>
+        </div>
+        {% endif %}
       {% empty %}
         <div>-</div>
       {% endfor %}
     </div>
   </div>
-  </div>
+</div>

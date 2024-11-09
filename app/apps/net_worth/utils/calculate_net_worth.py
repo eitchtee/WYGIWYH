@@ -108,22 +108,39 @@ def calculate_currency_net_worth():
         .values("balance")
     )
 
-    # Main query to fetch all currency data
+    # Fetch all currencies with their balances in a single query
     currencies_data = Currency.objects.annotate(
         balance=Coalesce(Subquery(balance_subquery), Decimal("0"))
-    )
+    ).select_related(
+        "exchange_currency"
+    )  # Optimize by pre-fetching exchange_currency
 
     net_worth = {}
-    for item in currencies_data:
-        currency_name = item.name
-        net_worth[currency_name] = {
-            "amount": net_worth.get(currency_name, {}).get("amount", Decimal("0"))
-            + item.balance,
-            "code": item.code,
-            "name": currency_name,
-            "prefix": item.prefix,
-            "suffix": item.suffix,
-            "decimal_places": item.decimal_places,
+    for currency in currencies_data:
+        # Skip conversion if no exchange currency is set
+        exchanged_value = None
+        if currency.exchange_currency:
+            exchanged_amount, ex_prefix, ex_suffix, ex_decimal_places = convert(
+                amount=currency.balance,
+                from_currency=currency,
+                to_currency=currency.exchange_currency,
+            )
+            exchanged_value = {
+                "amount": exchanged_amount,
+                "name": currency.exchange_currency.name,
+                "prefix": ex_prefix,
+                "suffix": ex_suffix,
+                "decimal_places": ex_decimal_places,
+            }
+
+        net_worth[currency.name] = {
+            "amount": currency.balance,
+            "code": currency.code,
+            "name": currency.name,
+            "prefix": currency.prefix,
+            "suffix": currency.suffix,
+            "decimal_places": currency.decimal_places,
+            "exchanged": exchanged_value,
         }
 
     return net_worth

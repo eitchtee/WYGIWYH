@@ -26,16 +26,28 @@
                   <div class="d-flex align-items-baseline w-100">
                       <div class="currency-name text-start font-monospace tw-text-gray-300">{{ currency.name }}</div>
                       <div class="dotted-line flex-grow-1"></div>
-                      <div class="{% if currency.amount > 0 %}tw-text-green-400{% elif currency.amount < 0 %}tw-text-red-400{% endif %}">
+                      <div>
                         <c-amount.display
                               :amount="currency.amount"
                               :prefix="currency.prefix"
                               :suffix="currency.suffix"
                               :decimal_places="currency.decimal_places"
+                              color="{% if currency.amount > 0 %}green{% elif currency.amount < 0 %}red{% endif %}"
                               text-end></c-amount.display>
                       </div>
                   </div>
               </div>
+              {% if currency.exchanged %}
+              <div>
+                <c-amount.display
+                          :amount="currency.exchanged.amount"
+                          :prefix="currency.exchanged.prefix"
+                          :suffix="currency.exchanged.suffix"
+                          :decimal_places="currency.exchanged.decimal_places"
+                          text-end
+                          color="grey"></c-amount.display>
+              </div>
+              {% endif %}
               {% endfor %}
             </div>
           </div>
@@ -62,12 +74,13 @@
                         <div class="text-start font-monospace tw-text-gray-300">
                           <span class="hierarchy-line-icon"></span>{{ account_data.name }}</div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="{% if account_data.balance > 0 %}tw-text-green-400{% elif account_data.balance < 0 %}tw-text-red-400{% endif %}">
+                        <div class="">
                           <c-amount.display
                             :amount="account_data.balance"
                             :prefix="account_data.currency.prefix"
                             :suffix="account_data.currency.suffix"
-                            :decimal_places="account_data.currency.decimal_places"></c-amount.display>
+                            :decimal_places="account_data.currency.decimal_places"
+                            color="{% if account_data.balance > 0 %}green{% elif account_data.balance < 0 %}red{% endif %}"></c-amount.display>
                         </div>
                     </div>
                   </div>
@@ -87,12 +100,13 @@
                     <div class="d-flex align-items-baseline w-100">
                         <div class="currency-name text-start font-monospace tw-text-gray-300">{{ account_data.name }}</div>
                         <div class="dotted-line flex-grow-1"></div>
-                        <div class="{% if account_data.balance > 0 %}tw-text-green-400{% elif account_data.balance < 0 %}tw-text-red-400{% endif %}">
+                        <div>
                           <c-amount.display
                             :amount="account_data.balance"
                             :prefix="account_data.currency.prefix"
                             :suffix="account_data.currency.suffix"
-                            :decimal_places="account_data.currency.decimal_places"></c-amount.display>
+                            :decimal_places="account_data.currency.decimal_places"
+                            color="{% if account_data.balance > 0 %}green{% elif account_data.balance < 0 %}red{% endif %}"></c-amount.display>
                         </div>
                     </div>
                 </div>

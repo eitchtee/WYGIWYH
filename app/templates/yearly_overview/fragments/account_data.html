@@ -61,12 +61,13 @@
           </div>
           <div class="dotted-line flex-grow-1"></div>
           <div
-              class="text-end font-monospace {% if account.balance_unpaid > 0 %}tw-text-green-400{% elif account.balance_unpaid < 0 %}tw-text-red-400{% endif %}">
+              class="text-end font-monospace">
             <c-amount.display
                 :amount="account.balance_unpaid"
                 :prefix="account.currency.prefix"
                 :suffix="account.currency.suffix"
-                :decimal_places="account.currency.decimal_places"></c-amount.display>
+                :decimal_places="account.currency.decimal_places"
+                color="{% if account.balance_unpaid > 0 %}green{% elif account.balance_unpaid < 0 %}red{% endif %}"></c-amount.display>
           </div>
         </div>
         {% if account.exchange_currency and account.exchange_balance_unpaid %}
@@ -129,12 +130,13 @@
           </div>
           <div class="dotted-line flex-grow-1"></div>
           <div
-              class="text-end font-monospace {% if account.balance_paid > 0 %}tw-text-green-400{% elif account.balance_paid < 0 %}tw-text-red-400{% endif %}">
+              class="text-end font-monospace">
             <c-amount.display
                 :amount="account.balance_paid"
                 :prefix="account.currency.prefix"
                 :suffix="account.currency.suffix"
-                :decimal_places="account.currency.decimal_places"></c-amount.display>
+                :decimal_places="account.currency.decimal_places"
+                color="{% if account.balance_paid > 0 %}green{% elif account.balance_paid < 0 %}red{% endif %}"></c-amount.display>
           </div>
         </div>
         {% if account.exchange_currency and account.exchange_balance_paid %}
@@ -153,13 +155,13 @@
               <div class="tw-text-gray-400">{% translate 'final total' %}</div>
             </div>
             <div class="dotted-line flex-grow-1"></div>
-            <div
-                class="text-end font-monospace {% if account.balance_total > 0 %}tw-text-green-400{% elif account.balance_total < 0 %}tw-text-red-400{% endif %}">
+            <div class="text-end font-monospace">
               <c-amount.display
                   :amount="account.balance_total"
                   :prefix="account.currency.prefix"
                   :suffix="account.currency.suffix"
-                  :decimal_places="account.currency.decimal_places"></c-amount.display>
+                  :decimal_places="account.currency.decimal_places"
+                  color="{% if account.balance_paid > 0 %}green{% elif account.balance_paid < 0 %}red{% endif %}"></c-amount.display>
             </div>
           </div>
           {% if account.exchange_currency and account.exchange_balance_total %}

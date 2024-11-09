@@ -73,14 +73,13 @@ def yearly_overview_by_currency(request, year: int):
     if currency:
         filter_params["account__currency_id"] = int(currency)
 
-    transactions = Transaction.objects.filter(**filter_params).exclude(
-        Q(category__mute=True) & ~Q(category=None)
+    transactions = (
+        Transaction.objects.filter(**filter_params)
+        .exclude(Q(category__mute=True) & ~Q(category=None))
+        .select_related("account__currency")  # Optimize by pre-fetching currency data
     )
 
-    if month:
-        date_trunc = TruncMonth("reference_date")
-    else:
-        date_trunc = TruncYear("reference_date")
+    date_trunc = TruncMonth("reference_date") if month else TruncYear("reference_date")
 
     monthly_data = (
         transactions.annotate(month=date_trunc)
@@ -90,6 +89,8 @@ def yearly_overview_by_currency(request, year: int):
             "account__currency__prefix",
             "account__currency__suffix",
             "account__currency__decimal_places",
+            "account__currency_id",
+            "account__currency__exchange_currency_id",
         )
         .annotate(
             income_paid=Coalesce(
@@ -103,7 +104,6 @@ def yearly_overview_by_currency(request, year: int):
                     )
                 ),
                 Value(Decimal("0")),
-                output_field=DecimalField(),
             ),
             expense_paid=Coalesce(
                 Sum(
@@ -118,7 +118,6 @@ def yearly_overview_by_currency(request, year: int):
                     )
                 ),
                 Value(Decimal("0")),
-                output_field=DecimalField(),
             ),
             income_unpaid=Coalesce(
                 Sum(
@@ -133,7 +132,6 @@ def yearly_overview_by_currency(request, year: int):
                     )
                 ),
                 Value(Decimal("0")),
-                output_field=DecimalField(),
             ),
             expense_unpaid=Coalesce(
                 Sum(
@@ -148,7 +146,6 @@ def yearly_overview_by_currency(request, year: int):
                     )
                 ),
                 Value(Decimal("0")),
-                output_field=DecimalField(),
             ),
         )
         .annotate(
@@ -162,7 +159,12 @@ def yearly_overview_by_currency(request, year: int):
         .order_by("month", "account__currency__code")
     )
 
-    # Create a dictionary to store the final result
+    # Fetch all currencies and their exchange currencies in a single query
+    currencies = {
+        currency.id: currency
+        for currency in Currency.objects.select_related("exchange_currency").all()
+    }
+
     result = {
         "income_paid": [],
         "expense_paid": [],
@@ -173,32 +175,53 @@ def yearly_overview_by_currency(request, year: int):
         "balance_total": [],
     }
 
-    # Fill in the data
     for entry in monthly_data:
+        if all(entry[field] == 0 for field in result.keys()):
+            continue  # Skip entries where all values are 0
+
         currency_code = entry["account__currency__code"]
         prefix = entry["account__currency__prefix"]
         suffix = entry["account__currency__suffix"]
         decimal_places = entry["account__currency__decimal_places"]
 
-        for field in [
-            "income_paid",
-            "expense_paid",
-            "income_unpaid",
-            "expense_unpaid",
-            "balance_unpaid",
-            "balance_paid",
-            "balance_total",
-        ]:
-            if entry[field] != 0:
-                result[field].append(
-                    {
-                        "code": currency_code,
-                        "prefix": prefix,
-                        "suffix": suffix,
-                        "decimal_places": decimal_places,
-                        "amount": entry[field],
-                    }
+        # Get the currency objects for conversion
+        from_currency = currencies.get(entry["account__currency_id"])
+        to_currency = (
+            None
+            if not from_currency
+            else currencies.get(from_currency.exchange_currency_id)
+        )
+
+        for field in result.keys():
+            amount = entry[field]
+            if amount == 0:
+                continue
+
+            item = {
+                "code": currency_code,
+                "prefix": prefix,
+                "suffix": suffix,
+                "decimal_places": decimal_places,
+                "amount": amount,
+                "exchanged": None,
+            }
+
+            # Add exchange calculation if possible
+            if from_currency and to_currency:
+                exchanged_amount, ex_prefix, ex_suffix, ex_decimal_places = convert(
+                    amount=amount,
+                    from_currency=from_currency,
+                    to_currency=to_currency,
                 )
+                item["exchanged"] = {
+                    "amount": exchanged_amount,
+                    "code": to_currency.code,
+                    "prefix": ex_prefix,
+                    "suffix": ex_suffix,
+                    "decimal_places": ex_decimal_places,
+                }
+
+            result[field].append(item)
 
     return render(
         request,
