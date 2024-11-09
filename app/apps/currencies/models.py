@@ -14,6 +14,16 @@ class Currency(models.Model):
     prefix = models.CharField(max_length=10, verbose_name=_("Prefix"), blank=True)
     suffix = models.CharField(max_length=10, verbose_name=_("Suffix"), blank=True)
 
+    exchange_currency = models.ForeignKey(
+        "self",
+        verbose_name=_("Exchange Currency"),
+        on_delete=models.SET_NULL,
+        related_name="exchange_currencies",
+        null=True,
+        blank=True,
+        help_text=_("Default currency for exchange calculations"),
+    )
+
     def __str__(self):
         return self.name
 

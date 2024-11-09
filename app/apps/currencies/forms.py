@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.currencies.models import Currency, ExchangeRate
+from apps.common.widgets.tom_select import TomSelect
 
 
 class CurrencyForm(forms.ModelForm):
@@ -16,7 +17,17 @@ class CurrencyForm(forms.ModelForm):
 
     class Meta:
         model = Currency
-        fields = ["name", "decimal_places", "prefix", "suffix", "code"]
+        fields = [
+            "name",
+            "decimal_places",
+            "prefix",
+            "suffix",
+            "code",
+            "exchange_currency",
+        ]
+        widgets = {
+            "exchange_currency": TomSelect(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,7 +36,12 @@ class CurrencyForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.form_method = "post"
         self.helper.layout = Layout(
-            "code", "name", "decimal_places", "prefix", "suffix"
+            "code",
+            "name",
+            "decimal_places",
+            "prefix",
+            "suffix",
+            "exchange_currency",
         )
 
         if self.instance and self.instance.pk:
