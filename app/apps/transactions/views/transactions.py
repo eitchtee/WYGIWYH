@@ -177,14 +177,7 @@ def transaction_all_list(request):
         "installment_plan",
     ).all()
 
-    if order == "default":
-        transactions = default_order(transactions, extra_ordering=["date", "id"])
-    elif order == "newer":
-        transactions = transactions.order_by("-date", "id")
-    elif order == "older":
-        transactions = transactions.order_by("date", "id")
-    else:
-        transactions = transactions.order_by("date", "id")
+    transactions = default_order(transactions, order=order)
 
     f = TransactionsFilter(request.GET, queryset=transactions)
 

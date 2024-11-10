@@ -78,16 +78,7 @@ def transactions_list(request, month: int, year: int):
         )
     )
 
-    if order == "default":
-        transactions_filtered = default_order(
-            transactions_filtered, extra_ordering=["date", "id"]
-        )
-    elif order == "newer":
-        transactions_filtered = transactions_filtered.order_by("-date", "id")
-    elif order == "older":
-        transactions_filtered = transactions_filtered.order_by("date", "id")
-    else:
-        transactions_filtered = transactions_filtered.order_by("date", "id")
+    transactions_filtered = default_order(transactions_filtered, order=order)
 
     return render(
         request,
