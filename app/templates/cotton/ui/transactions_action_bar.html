@@ -58,7 +58,7 @@ _="on change from #transactions-list or htmx:afterSettle
       <div class="vr mx-3 tw-align-middle"></div>
       <span _="on selected_transactions_updated from #actions-bar
                 set total to 0.0
-                for amt in <.transaction:has(input[name='transactions']:checked) .amount/>
+                for amt in <.transaction:has(input[name='transactions']:checked) .main-amount .amount/>
                   set amountValue to parseFloat(amt.getAttribute('data-amount'))
                   if not isNaN(amountValue)
                     set total to total + amountValue

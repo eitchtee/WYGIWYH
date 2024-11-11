@@ -66,21 +66,25 @@
       </div>
     </div>
     <div class="col-lg-3 col-12 text-lg-end align-self-end">
-        <c-amount.display 
-            :amount="transaction.amount"
-            :prefix="transaction.account.currency.prefix"
-            :suffix="transaction.account.currency.suffix"
-            :decimal_places="transaction.account.currency.decimal_places"
-            color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
+        <div class="main-amount">
+          <c-amount.display 
+              :amount="transaction.amount"
+              :prefix="transaction.account.currency.prefix"
+              :suffix="transaction.account.currency.suffix"
+              :decimal_places="transaction.account.currency.decimal_places"
+              color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
+        </div>
         {#    Exchange Rate#}
         {% with exchanged=transaction.exchanged_amount %}
         {% if exchanged %}
-        <c-amount.display 
-            :amount="exchanged.amount"
-            :prefix="exchanged.prefix"
-            :suffix="exchanged.suffix"
-            :decimal_places="exchanged.decimal_places"
-            color="grey"></c-amount.display>
+        <div class="exchanged-amount">
+          <c-amount.display 
+              :amount="exchanged.amount"
+              :prefix="exchanged.prefix"
+              :suffix="exchanged.suffix"
+              :decimal_places="exchanged.decimal_places"
+              color="grey"></c-amount.display>
+        </div>
         {% endif %}
         {% endwith %}
         <div>{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
