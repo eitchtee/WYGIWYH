@@ -57,6 +57,19 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% active_link views='dca_strategy_index||dca_strategy_detail_index' %}"
+             href="#" role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            {% translate 'Tools' %}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% active_link views='dca_strategy_index||dca_strategy_detail_index' %}"
+                   href="{% url 'dca_strategy_index' %}">{% translate 'Dollar Cost Average Tracker' %}</a></li>
+            <li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle {% active_link views='tags_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
