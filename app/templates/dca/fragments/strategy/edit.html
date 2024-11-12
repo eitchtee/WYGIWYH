@@ -5,7 +5,7 @@
 {% block title %}{% translate 'Edit DCA strategy' %}{% endblock %}
 
 {% block body %}
-<form hx-post="{% url 'dca_entry_edit' entry_id=dca_entry.id strategy_id=dca_entry.strategy.id %}" hx-target="#generic-offcanvas" novalidate>
+<form hx-post="{% url 'dca_strategy_edit' strategy_id=strategy.id %}" hx-target="#generic-offcanvas" novalidate>
     {% crispy form %}
 </form>
 {% endblock %}

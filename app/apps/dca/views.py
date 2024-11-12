@@ -76,7 +76,7 @@ def strategy_edit(request, strategy_id):
     return render(
         request,
         "dca/fragments/strategy/edit.html",
-        {"form": form, "dca_strategy": dca_strategy},
+        {"form": form, "strategy": dca_strategy},
     )
 
 
@@ -206,7 +206,7 @@ def strategy_entry_edit(request, strategy_id, entry_id):
 
     return render(
         request,
-        "dca/fragments/strategy/edit.html",
+        "dca/fragments/entry/edit.html",
         {"form": form, "dca_entry": dca_entry},
     )
 
