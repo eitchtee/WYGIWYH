@@ -106,7 +106,7 @@
               </span>
           </div>
           {% endspaceless %}
-          
+
           {% if entries %}
           <div class="table-responsive">
             <table class="table table-hover text-nowrap">
@@ -186,7 +186,42 @@
   </div>
 
   <div class="row mt-4">
-    <div class="col-12">
+    <div class="col-12"
+         _="on htmx:afterSettle from #strategy-details
+              set perfomancectx to #performanceChart.getContext('2d')
+              js(perfomancectx)
+                new Chart(perfomancectx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: [{% for entry in entries_data %}'{{ entry.entry.date|date:"Y-m-d" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+                                        datasets: [{
+                                            label: '{% trans "P/L %" %}',
+                                            data: [{% for entry in entries_data %}{{ entry.profit_loss_percentage|floatformat:"-40u" }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+                                            stepped: true,
+                                            segment: {
+                                              borderColor: ctx => {
+                                                  return ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y >= 0 ? 'rgb(75, 192, 75)' : 
+                                                         ctx.p0.parsed.y < 0 && ctx.p1.parsed.y < 0 ? 'rgb(255, 99, 132)' :
+                                                         ctx.p0.parsed.y < 0 ? 'rgb(255, 99, 132)' : 'rgb(75, 192, 75)';
+                                              }
+                                          },
+                                          borderWidth: 2
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        scales: {
+                                            y: {
+                                                beginAtZero: false
+                                            }
+                                        },
+                                        interaction: {
+                                          intersect: false,
+                                        },
+                                    }
+                                })
+              end
+            ">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{% trans "Performance Over Time" %}</h5>
@@ -196,26 +231,3 @@
     </div>
   </div>
 </div>
-
-<script defer>
-    var perfomancectx = document.getElementById('performanceChart').getContext('2d');
-    new Chart(perfomancectx, {
-        type: 'line',
-        data: {
-            labels: [{% for entry in entries_data %}'{{ entry.entry.date|date:"Y-m-d" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
-            datasets: [{
-                label: '{% trans "P/L %" %}',
-                data: [{% for entry in entries_data %}{{ entry.profit_loss_percentage|floatformat:"-40u" }}{% if not forloop.last %}, {% endif %}{% endfor %}],
-                tension: 0.1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: false
-                }
-            }
-        }
-    });
-</script>
