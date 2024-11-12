@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     "django_cotton",
     "apps.rules.apps.RulesConfig",
     "apps.calendar_view.apps.CalendarViewConfig",
+    "apps.dca.apps.DcaConfig",
 ]
 
 MIDDLEWARE = [

@@ -45,4 +45,5 @@ urlpatterns = [
     path("", include("apps.currencies.urls")),
     path("", include("apps.rules.urls")),
     path("", include("apps.calendar_view.urls")),
+    path("", include("apps.dca.urls")),
 ]
