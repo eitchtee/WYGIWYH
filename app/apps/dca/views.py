@@ -155,7 +155,7 @@ def strategy_detail(request, strategy_id):
         "investment_frequency": strategy.investment_frequency_data(),
         "price_comparison_data": strategy.price_comparison_data(),
     }
-    print(strategy.price_comparison_data())
+
     return render(request, "dca/fragments/strategy/details.html", context)
 
 

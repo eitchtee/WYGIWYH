@@ -45,7 +45,6 @@ def active_recurring_transactions_list(request):
         is_paused=False,
     ).order_by("-start_date", "description", "id")
 
-    print(recurring_transactions)
     return render(
         request,
         "recurring_transactions/fragments/table.html",
