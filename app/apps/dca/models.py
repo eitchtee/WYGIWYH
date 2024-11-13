@@ -193,7 +193,6 @@ class DCAEntry(models.Model):
             self.amount_received,
             self.strategy.target_currency,
             self.strategy.payment_currency,
-            timezone.now().date(),
         )
 
         return amount or Decimal("0")
