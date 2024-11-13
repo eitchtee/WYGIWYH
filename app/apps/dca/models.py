@@ -1,6 +1,9 @@
+from datetime import timedelta
 from decimal import Decimal
+from statistics import mean, stdev
 
 from django.db import models
+from django.template.defaultfilters import date
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -63,6 +66,72 @@ class DCAStrategy(models.Model):
         if total_invested:
             return (self.total_profit_loss() / total_invested) * 100
         return Decimal("0")
+
+    def investment_frequency_data(self):
+        def _empty_frequency_data():
+            return {
+                "intervals_line": [],
+                "labels": [],
+            }
+
+        entries = self.entries.order_by("date")
+
+        if entries.count() < 2:
+            return _empty_frequency_data()
+
+        dates = list(entries.values_list("date", flat=True))
+        intervals = [(dates[i + 1] - dates[i]).days for i in range(len(dates) - 1)]
+
+        # Create data points for the intervals chart
+        labels = []
+        intervals_line = []
+
+        for i in range(len(dates) - 1):
+            labels.append(
+                f"{date(dates[i], 'SHORT_DATE_FORMAT')} → {date(dates[i + 1], 'SHORT_DATE_FORMAT')}"
+            )
+            intervals_line.append(intervals[i])
+
+        return {
+            "intervals_line": intervals_line,
+            "labels": labels,
+        }
+
+    def price_comparison_data(self):
+        entries = self.entries.order_by("date")
+
+        if entries.count() < 1:
+            return {
+                "labels": [],
+                "entry_prices": [],
+                "current_prices": [],
+                "amounts_bought": [],
+            }
+
+        labels = []
+        entry_prices = []
+        current_prices = []
+        amounts_bought = []
+
+        for entry in entries:
+            # Entry price calculation
+            entry_price = entry.amount_paid or 0
+
+            # Current value calculation using exchange rate
+            current_price = entry.current_value() or 0
+
+            labels.append(date(entry.date, "SHORT_DATE_FORMAT"))
+            # We use floats here because it's easier to transpose to Django's template
+            entry_prices.append(float(entry_price))
+            current_prices.append(float(current_price))
+            amounts_bought.append(float(entry.amount_received))
+
+        return {
+            "labels": labels,
+            "entry_prices": entry_prices,
+            "current_prices": current_prices,
+            "amounts_bought": amounts_bought,
+        }
 
 
 class DCAEntry(models.Model):

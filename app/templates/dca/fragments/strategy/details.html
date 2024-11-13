@@ -1,180 +1,103 @@
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
+<div class="container-fluid px-md-3 py-3 column-gap-5">
   <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
     <div>{{ strategy.name }}</div>
   </div>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gy-3 gx-3">
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Total Invested" %}</h5>
-          <div class="card-text">
-            <c-amount.display
-                :amount="strategy.total_invested"
-                :prefix="strategy.payment_currency.prefix"
-                :suffix="strategy.payment_currency.suffix"
-                :decimal_places="strategy.payment_currency.decimal_places"></c-amount.display>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Total Received" %}</h5>
-          <div class="card-text">
-            <c-amount.display
-                :amount="strategy.total_received"
-                :prefix="strategy.target_currency.prefix"
-                :suffix="strategy.target_currency.suffix"
-                :decimal_places="strategy.target_currency.decimal_places"></c-amount.display>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Average Entry Price" %}</h5>
-          <div class="card-text">
-            <c-amount.display
-                :amount="strategy.average_entry_price"
-                :prefix="strategy.payment_currency.prefix"
-                :suffix="strategy.payment_currency.suffix"
-                :decimal_places="strategy.payment_currency.decimal_places"></c-amount.display>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Current Total Value" %}</h5>
-          <div class="card-text">
-            <c-amount.display
-                :amount="strategy.current_total_value"
-                :prefix="strategy.payment_currency.prefix"
-                :suffix="strategy.payment_currency.suffix"
-                :decimal_places="strategy.payment_currency.decimal_places"></c-amount.display>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Total P/L" %}</h5>
-          <div class="card-text {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-danger{% endif %}">
-            <c-amount.display
-                :amount="strategy.total_profit_loss"
-                :prefix="strategy.payment_currency.prefix"
-                :suffix="strategy.payment_currency.suffix"
-                :decimal_places="strategy.payment_currency.decimal_places">
-            </c-amount.display>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Total % P/L" %}</h5>
-          <div class="card-text {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-danger{% endif %}">
-            {{ strategy.total_profit_loss_percentage|floatformat:2 }}%
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Entries Table -->
-  <div class="row mt-4">
-    <div class="col-12">
+  <div class="row gy-3 gx-3">
+    <div class="col-xl-6 col">
       <div class="card">
         <div class="card-body">
           {% spaceless %}
-          <div class="card-title tw-text-xl">{% trans "Entries" %}<span>
+            <div class="card-title tw-text-xl">{% trans "Entries" %}<span>
                 <a class="text-decoration-none p-1 category-action"
                    role="button"
                    data-bs-toggle="tooltip"
                    data-bs-title="{% translate "Add" %}"
-                   hx-get="{% url 'dca_entry_add' strategy_id=strategy.id%}"
+                   hx-get="{% url 'dca_entry_add' strategy_id=strategy.id %}"
                    hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-circle-plus fa-fw"></i>
                 </a>
               </span>
-          </div>
+            </div>
           {% endspaceless %}
 
           {% if entries %}
-          <div class="table-responsive">
-            <table class="table table-hover text-nowrap">
-            <thead>
-            <tr>
-              <th></th>
-              <th>{% trans "Date" %}</th>
-              <th>{% trans "Amount Paid" %}</th>
-              <th>{% trans "Amount Received" %}</th>
-              <th>{% trans "Current Value" %}</th>
-              <th>{% trans "P/L" %}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for entry in entries %}
-              <tr>
-                <td class="col-auto">
-                  <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-                    <a class="btn btn-secondary btn-sm"
-                          role="button"
-                          data-bs-toggle="tooltip"
-                          data-bs-title="{% translate "Edit" %}"
-                          hx-get="{% url 'dca_entry_edit' entry_id=entry.id strategy_id=entry.strategy.id %}"
-                          hx-target="#generic-offcanvas"
-                          hx-swap="innerHTML">
-                      <i class="fa-solid fa-pencil fa-fw"></i></a>
-                    <a class="btn btn-secondary btn-sm text-danger"
-                            role="button"
-                            data-bs-toggle="tooltip"
-                            data-bs-title="{% translate "Delete" %}"
-                            hx-delete="{% url 'dca_entry_delete' entry_id=entry.id strategy_id=entry.strategy.id %}"
-                            hx-trigger='confirmed'
-                            hx-swap="innerHTML"
-                            data-bypass-on-ctrl="true"
-                            data-title="{% translate "Are you sure?" %}"
-                            data-text="{% translate "You won't be able to revert this!" %}"
-                            data-confirm-text="{% translate "Yes, delete it!" %}"
-                            _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
-                  </div>
-                </td>
-                <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
-                <td><c-amount.display
-                        :amount="entry.amount_paid"
-                        :prefix="entry.strategy.payment_currency.prefix"
-                        :suffix="entry.strategy.payment_currency.suffix"
-                        :decimal_places="entry.strategy.payment_currency.decimal_places"></c-amount.display></td>
-                <td><c-amount.display
-                        :amount="entry.amount_received"
-                        :prefix="entry.strategy.target_currency.prefix"
-                        :suffix="entry.strategy.target_currency.suffix"
-                        :decimal_places="entry.strategy.target_currency.decimal_places"></c-amount.display></td>
-                <td><c-amount.display
-                        :amount="entry.current_value"
-                        :prefix="entry.strategy.payment_currency.prefix"
-                        :suffix="entry.strategy.payment_currency.suffix"
-                        :decimal_places="entry.strategy.payment_currency.decimal_places"></c-amount.display></td>
-                <td>
-                  {% if entry.profit_loss_percentage > 0 %}
-                    <span class="badge text-bg-success"><i class="fa-solid fa-up-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
-                  {% elif entry.profit_loss_percentage < 0 %}
-                    <span class="badge text-bg-danger"><i class="fa-solid fa-down-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
-                  {% endif %}
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-          </div>
+            <div class="table-responsive">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>{% trans "Date" %}</th>
+                  <th>{% trans "Amount Paid" %}</th>
+                  <th>{% trans "Amount Received" %}</th>
+                  <th>{% trans "Current Value" %}</th>
+                  <th>{% trans "P/L" %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in entries %}
+                  <tr>
+                    <td class="col-auto">
+                      <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
+                        <a class="btn btn-secondary btn-sm"
+                           role="button"
+                           data-bs-toggle="tooltip"
+                           data-bs-title="{% translate "Edit" %}"
+                           hx-get="{% url 'dca_entry_edit' entry_id=entry.id strategy_id=entry.strategy.id %}"
+                           hx-target="#generic-offcanvas"
+                           hx-swap="innerHTML">
+                          <i class="fa-solid fa-pencil fa-fw"></i></a>
+                        <a class="btn btn-secondary btn-sm text-danger"
+                           role="button"
+                           data-bs-toggle="tooltip"
+                           data-bs-title="{% translate "Delete" %}"
+                           hx-delete="{% url 'dca_entry_delete' entry_id=entry.id strategy_id=entry.strategy.id %}"
+                           hx-trigger='confirmed'
+                           hx-swap="innerHTML"
+                           data-bypass-on-ctrl="true"
+                           data-title="{% translate "Are you sure?" %}"
+                           data-text="{% translate "You won't be able to revert this!" %}"
+                           data-confirm-text="{% translate "Yes, delete it!" %}"
+                           _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+                      </div>
+                    </td>
+                    <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
+                    <td>
+                      <c-amount.display
+                          :amount="entry.amount_paid"
+                          :prefix="entry.strategy.payment_currency.prefix"
+                          :suffix="entry.strategy.payment_currency.suffix"
+                          :decimal_places="entry.strategy.payment_currency.decimal_places"></c-amount.display>
+                    </td>
+                    <td>
+                      <c-amount.display
+                          :amount="entry.amount_received"
+                          :prefix="entry.strategy.target_currency.prefix"
+                          :suffix="entry.strategy.target_currency.suffix"
+                          :decimal_places="entry.strategy.target_currency.decimal_places"></c-amount.display>
+                    </td>
+                    <td>
+                      <c-amount.display
+                          :amount="entry.current_value"
+                          :prefix="entry.strategy.payment_currency.prefix"
+                          :suffix="entry.strategy.payment_currency.suffix"
+                          :decimal_places="entry.strategy.payment_currency.decimal_places"></c-amount.display>
+                    </td>
+                    <td>
+                      {% if entry.profit_loss_percentage > 0 %}
+                        <span class="badge text-bg-success"><i
+                            class="fa-solid fa-up-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
+                      {% elif entry.profit_loss_percentage < 0 %}
+                        <span class="badge text-bg-danger"><i
+                            class="fa-solid fa-down-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
           {% else %}
             <c-msg.empty
                 title="{% translate 'No entries for this DCA' %}"
@@ -183,49 +106,336 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row mt-4">
-    <div class="col-12"
-         _="on htmx:afterSettle from #strategy-details
+    <div class="col-xl-6 col">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 gy-3 gx-3">
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Total Invested" %}</h5>
+              <div class="card-text">
+                <c-amount.display
+                    :amount="strategy.total_invested"
+                    :prefix="strategy.payment_currency.prefix"
+                    :suffix="strategy.payment_currency.suffix"
+                    :decimal_places="strategy.payment_currency.decimal_places"></c-amount.display>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Total Received" %}</h5>
+              <div class="card-text">
+                <c-amount.display
+                    :amount="strategy.total_received"
+                    :prefix="strategy.target_currency.prefix"
+                    :suffix="strategy.target_currency.suffix"
+                    :decimal_places="strategy.target_currency.decimal_places"></c-amount.display>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Current Total Value" %}</h5>
+              <div class="card-text">
+                <c-amount.display
+                    :amount="strategy.current_total_value"
+                    :prefix="strategy.payment_currency.prefix"
+                    :suffix="strategy.payment_currency.suffix"
+                    :decimal_places="strategy.payment_currency.decimal_places"></c-amount.display>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Average Entry Price" %}</h5>
+              <div class="card-text">
+                <c-amount.display
+                    :amount="strategy.average_entry_price"
+                    :prefix="strategy.payment_currency.prefix"
+                    :suffix="strategy.payment_currency.suffix"
+                    :decimal_places="strategy.payment_currency.decimal_places"></c-amount.display>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Total P/L" %}</h5>
+              <div
+                  class="card-text {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-danger{% endif %}">
+                <c-amount.display
+                    :amount="strategy.total_profit_loss"
+                    :prefix="strategy.payment_currency.prefix"
+                    :suffix="strategy.payment_currency.suffix"
+                    :decimal_places="strategy.payment_currency.decimal_places">
+                </c-amount.display>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Total % P/L" %}</h5>
+              <div
+                  class="card-text {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-danger{% endif %}">
+                {{ strategy.total_profit_loss_percentage|floatformat:2 }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12"
+             _="on htmx:afterSettle from #strategy-details
               set perfomancectx to #performanceChart.getContext('2d')
               js(perfomancectx)
                 new Chart(perfomancectx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: [{% for entry in entries_data %}'{{ entry.entry.date|date:"Y-m-d" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
-                                        datasets: [{
-                                            label: '{% trans "P/L %" %}',
-                                            data: [{% for entry in entries_data %}{{ entry.profit_loss_percentage|floatformat:"-40u" }}{% if not forloop.last %}, {% endif %}{% endfor %}],
-                                            stepped: true,
-                                            segment: {
-                                              borderColor: ctx => {
-                                                  return ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y >= 0 ? 'rgb(75, 192, 75)' :
-                                                         ctx.p0.parsed.y < 0 && ctx.p1.parsed.y < 0 ? 'rgb(255, 99, 132)' :
-                                                         ctx.p0.parsed.y < 0 ? 'rgb(255, 99, 132)' : 'rgb(75, 192, 75)';
-                                              }
-                                          },
-                                          borderWidth: 2
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        scales: {
-                                            y: {
-                                                beginAtZero: false
-                                            }
-                                        },
-                                        interaction: {
-                                          intersect: false,
-                                        },
-                                    }
-                                })
+    type: 'line',
+    data: {
+        labels: [{% for entry in entries_data %}'{{ entry.entry.date|date:"SHORT_DATE_FORMAT" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+        datasets: [{
+            label: '{% trans "P/L %" %}',
+            data: [{% for entry in entries_data %}{{ entry.profit_loss_percentage|floatformat:"-40u" }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+            stepped: true,
+            segment: {
+                borderColor: ctx => {
+                    const gradient = ctx.chart.ctx.createLinearGradient(ctx.p0.x, 0, ctx.p1.x, 0);
+                    
+                    if (ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y >= 0) {
+                        // Both positive - solid green
+                        gradient.addColorStop(0, 'rgb(75, 192, 75)');
+                        gradient.addColorStop(1, 'rgb(75, 192, 75)');
+                    } else if (ctx.p0.parsed.y < 0 && ctx.p1.parsed.y < 0) {
+                        // Both negative - solid red
+                        gradient.addColorStop(0, 'rgb(255, 99, 132)');
+                        gradient.addColorStop(1, 'rgb(255, 99, 132)');
+                    } else if (ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y < 0) {
+                        // Positive to negative - green to red
+                        gradient.addColorStop(0, 'rgb(75, 192, 75)');
+                        gradient.addColorStop(1, 'rgb(255, 99, 132)');
+                    } else {
+                        // Negative to positive - red to green
+                        gradient.addColorStop(0, 'rgb(255, 99, 132)');
+                        gradient.addColorStop(1, 'rgb(75, 192, 75)');
+                    }
+                    
+                    return gradient;
+                }
+            },
+            fill: false,
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: false
+            },
+            x: {
+                ticks: {
+                    display: false
+                }
+            }
+        },
+        plugins: {
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            },
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            }
+        }
+    }
+})
               end
             ">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{% trans "Performance Over Time" %}</h5>
-          <canvas id="performanceChart"></canvas>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Performance Over Time" %}</h5>
+              <canvas id="performanceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12"
+             _="on htmx:afterSettle from #strategy-details
+              set pricectx to #priceChart.getContext('2d')
+              set priceData to {{ price_comparison_data|safe }}
+              js(pricectx, priceData)
+                new Chart(pricectx, {
+    type: 'bar',
+    data: {
+        labels: priceData.labels,
+        datasets: [
+            {
+                label: '{% trans "Entry Price" %}',
+                data: priceData.entry_prices,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                yAxisID: 'y'
+            },
+            {
+                label: '{% trans "Current Price" %}',
+                data: priceData.current_prices,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                yAxisID: 'y'
+            },
+            {
+                label: '{% trans "Amount Bought" %}',
+                data: priceData.amounts_bought,
+                type: 'line',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                fill: false,
+                yAxisID: 'y1',
+                tension: 0.1
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                }
+            },
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                beginAtZero: true,
+                title: {
+                    display: false,
+                },
+                ticks: {
+                    format: { maximumFractionDigits: 40, minimumFractionDigits: 1 }
+                }
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                beginAtZero: true,
+                grid: {
+                    drawOnChartArea: false
+                },
+                title: {
+                    display: false,
+                },
+                ticks: {
+                    format: { maximumFractionDigits: 40, minimumFractionDigits: 1 }
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'top'
+            },
+            title: {
+                display: false,
+            }
+        }
+    }
+})
+              end
+            ">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Entry Price vs Current Price" %}</h5>
+              <canvas id="priceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12"
+             _="on htmx:afterSettle from #strategy-details
+              set frequencyctx to #frequencyChart.getContext('2d')
+              js(frequencyctx)
+                new Chart(frequencyctx, {
+    type: 'line',
+    data: {
+        labels: {{ investment_frequency.labels|safe }},
+        datasets: [{
+            label: '{% trans "Days Between Investments" %}',
+            data: {{ investment_frequency.intervals_line|safe }},
+            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.1)',
+            fill: false,
+            tension: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: {
+                grid: {
+                    display: true
+                },
+                title: {
+                    display: false,
+                },
+                ticks: {
+                   display: false
+                }
+            },
+            y: {
+                beginAtZero: false,
+                title: {
+                    display: false
+                }
+            }
+        },
+        plugins: {
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            },
+            legend: {
+                display: false,
+            },
+            title: {
+                display: false,
+            }
+        }
+    }
+})
+              end
+            ">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{% trans "Investment Frequency" %}</h5>
+              <p class="card-text tw-text-gray-400">
+                {% trans "The straighter the blue line, the more consistent your DCA strategy is." %}
+              </p>
+              <canvas id="frequencyChart"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>

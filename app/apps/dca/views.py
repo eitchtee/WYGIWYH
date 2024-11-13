@@ -152,7 +152,10 @@ def strategy_detail(request, strategy_id):
         "current_total_value": strategy.current_total_value(),
         "total_profit_loss": strategy.total_profit_loss(),
         "total_profit_loss_percentage": strategy.total_profit_loss_percentage(),
+        "investment_frequency": strategy.investment_frequency_data(),
+        "price_comparison_data": strategy.price_comparison_data(),
     }
+    print(strategy.price_comparison_data())
     return render(request, "dca/fragments/strategy/details.html", context)
 
 
