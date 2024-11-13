@@ -60,11 +60,12 @@ _="on change from #transactions-list or htmx:afterSettle
                 set total to 0.0
                 for amt in <.transaction:has(input[name='transactions']:checked) .main-amount .amount/>
                   set amountValue to parseFloat(amt.getAttribute('data-amount'))
+                  log amountValue
                   if not isNaN(amountValue)
                     set total to total + amountValue
                   end
                 end
-                put total.toLocaleString() into me
+                put total.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into me
               end
               on click
                 set original_value to my innerText
