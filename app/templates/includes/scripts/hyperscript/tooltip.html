@@ -13,4 +13,8 @@ end
 on htmx:afterSettle
   call initTooltips(event.detail.target)
 end
+  
+on tooltips
+  call initTooltips(body)
+end
 </script>

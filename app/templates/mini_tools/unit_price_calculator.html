@@ -1,0 +1,179 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+{% load webpack_loader %}
+
+{% block title %}{% translate 'Unit Price Calculator' %}{% endblock %}
+
+{% block content %}
+  <div class="container px-md-3 py-3 column-gap-5">
+    <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
+      <div>{% translate 'Unit Price Calculator' %}</div>
+    </div>
+    <div class="card mb-3 d-none" id="card-placeholder">
+      <div class="card-header d-flex flex-row justify-content-between">
+        <h5 class="title flex-grow-1"></h5>
+        <button class="btn btn-secondary btn-sm text-danger"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Delete" %}"
+                _="on click remove the closest .card to me then trigger update on #items then call bootstrap.Tooltip.getOrCreateInstance(me).dispose()">
+          <i class="fa-solid fa-trash fa-fw"></i>
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="row gy-3">
+          <div class="col-lg">
+            <div>
+              <label for="price" class="form-label">{% trans 'Item price' %}</label>
+              <input type="number" inputmode="decimal" class="form-control item-price" id="price">
+            </div>
+          </div>
+          <div class="col-lg">
+            <div>
+              <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
+              <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
+            </div>
+          </div>
+          <div class="col-lg">
+            <label class="form-label">{% trans 'Unit price' %}</label>
+            <div class="unit-price tw-text-xl" data-amount="0">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="items" _="on input or update
+                      for card in <.card />
+                        set price to card.querySelector('.item-price').value
+                        set amount to card.querySelector('.item-amount').value
+
+                        // Calculate and format unit price
+                        if amount > 0 set unitPrice to (price / amount) else set unitPrice to 0 end
+                        set formattedUnitPrice to unitPrice.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40})
+
+                        set card.querySelector('.unit-price').innerHTML to formattedUnitPrice
+                        call card.querySelector('.unit-price').setAttribute('data-amount', unitPrice)
+                      end
+
+                      then
+
+                      // Remove existing highlight classes from all unit prices
+                      for unitPriceEl in <.unit-price/>
+                        remove .bg-danger-subtle from the closest .card to unitPriceEl
+                        remove .bg-success-subtle from the closest .card to unitPriceEl
+                      end
+
+                      // Get all unit prices and find min/max
+                      set unitPrices to <.card:not(#card-placeholder) .unit-price/>
+                      set unitPricesAmounts to <.card:not(#card-placeholder) .unit-price/> @data-amount
+                      js(unitPricesAmounts)
+                        unitPricesAmounts = unitPricesAmounts.filter(element => element !== '0')
+                        return Math.min(...unitPricesAmounts)
+                      end
+                      set minAmount to it
+                      js(unitPricesAmounts)
+                        unitPricesAmounts = unitPricesAmounts.filter(element => element !== '0')
+                        return Math.max(...unitPricesAmounts)
+                      end
+                      set maxAmount to it
+
+                      if maxAmount and minAmount
+                        for unitPriceEl in unitPrices
+                          set amount to parseFloat(unitPriceEl.getAttribute('data-amount'))
+                          if amount == minAmount
+                            add .bg-success-subtle to the closest .card to unitPriceEl
+                            continue
+                          end
+                          if amount == maxAmount
+                            add .bg-danger-subtle to the closest .card to unitPriceEl
+                          end
+                        end
+                      end
+                    end">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>{% trans "Item" %} A</h5>
+        </div>
+        <div class="card-body">
+          <div class="row gy-3">
+            <div class="col-lg">
+              <div>
+                <label for="price" class="form-label">{% trans 'Item price' %}</label>
+                <input type="number" inputmode="decimal" class="form-control item-price" id="price">
+              </div>
+            </div>
+            <div class="col-lg">
+              <div>
+                <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
+                <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
+              </div>
+            </div>
+            <div class="col-lg">
+              <label class="form-label">{% trans 'Unit price' %}</label>
+              <div class="unit-price tw-text-xl" data-amount="0">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5>{% trans "Item" %} B</h5>
+        </div>
+        <div class="card-body">
+          <div class="row gy-3">
+            <div class="col-lg">
+              <div>
+                <label for="price" class="form-label">{% trans 'Item price' %}</label>
+                <input type="number" inputmode="decimal" class="form-control item-price" id="price">
+              </div>
+            </div>
+            <div class="col-lg">
+              <div>
+                <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
+                <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
+              </div>
+            </div>
+            <div class="col-lg">
+              <label class="form-label">{% trans 'Unit price' %}</label>
+              <div class="unit-price tw-text-xl" data-amount="0">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-lg-8">
+        <button class="btn btn-outline-primary w-100"
+            _="on click
+                get #card-placeholder
+                set newCard to it.cloneNode(true)
+                remove @id from newCard
+                remove .d-none from newCard then
+                set itemCount to <#items .card/>'s length
+                if itemCount < 26
+                  set letter to String.fromCharCode(65 + itemCount)
+                else
+                  set letter to String.fromCharCode(65 + Math.floor((itemCount - 26) / 26)) + String.fromCharCode(65 + ((itemCount - 26) mod 26))
+                end
+                set newCard.querySelector('.title').innerHTML to `{% trans "Item" %} ${letter}`
+                put newCard as HTML at the end of #items
+                trigger tooltips on body
+              end">
+      {% trans 'Add' %}
+    </button>
+      </div>
+      <div class="col-lg-4 mt-3 mt-lg-0">
+        <button class="btn btn-outline-danger w-100"
+                _="on click
+                    for el in <.item-price, .item-amount />
+                      set card to the closest .card to el
+                      set el's value to ''
+                     end
+                     trigger update on #items
+                  end">
+          {% trans 'Clear' %}
+        </button>
+      </div>
+    </div>
+  </div>
+{% endblock %}

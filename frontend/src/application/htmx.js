@@ -4,6 +4,7 @@ import Alpine from "alpinejs";
 import mask from '@alpinejs/mask';
 
 window.Alpine = Alpine;
+window._hyperscript = _hyperscript;
 
 Alpine.plugin(mask);
 Alpine.start();
