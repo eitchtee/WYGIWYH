@@ -140,11 +140,26 @@ def strategy_detail(request, strategy_id):
     ]
     entries_data.reverse()
 
+    # Prepare entries data with current values
+    # Prepare entries data with current values
+    entries_data = [
+        {
+            "entry": entry,
+            "current_value": entry.current_value(),
+            "profit_loss": entry.profit_loss(),
+            "profit_loss_percentage": entry.profit_loss_percentage(),
+        }
+        for entry in entries
+    ]
+    entries_data.reverse()
+
     context = {
         "strategy": strategy,
         "entries": entries,
         "entries_data": entries_data,
         "monthly_data": monthly_data,
+        "investment_frequency": strategy.investment_frequency_data(),
+        "price_comparison_data": strategy.price_comparison_data(),
     }
 
     return render(request, "dca/fragments/strategy/details.html", context)
