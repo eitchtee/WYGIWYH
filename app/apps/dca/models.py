@@ -135,8 +135,8 @@ class DCAStrategy(models.Model):
 
     def current_price(self):
         exchange_rate = get_exchange_rate(
-            from_currency=self.payment_currency,
-            to_currency=self.target_currency,
+            from_currency=self.target_currency,
+            to_currency=self.payment_currency,
             date=timezone.localtime(timezone.now()),
         )
 
