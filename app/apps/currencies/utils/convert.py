@@ -1,25 +1,16 @@
-from django.db.models import Func, F, Value, DurationField, Case, When, DecimalField, Q
-from django.db.models.functions import Abs, Extract
+import datetime
+
+from django.db.models import Func, F, Value, Case, When, DecimalField, Q
+from django.db.models.functions import Extract
 from django.utils import timezone
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
 
-from apps.currencies.models import ExchangeRate
 from apps.currencies.models import Currency
+from apps.currencies.models import ExchangeRate
 
 
-def convert(amount, from_currency: Currency, to_currency: Currency, date=None):
-    if from_currency == to_currency:
-        return (
-            amount,
-            to_currency.prefix,
-            to_currency.suffix,
-            to_currency.decimal_places,
-        )
-
-    if date is None:
-        date = timezone.localtime(timezone.now())
-
+def get_exchange_rate(
+    from_currency: Currency, to_currency: Currency, date: datetime.date
+) -> ExchangeRate | None:
     try:
         exchange_rate = (
             ExchangeRate.objects.filter(
@@ -41,13 +32,37 @@ def convert(amount, from_currency: Currency, to_currency: Currency, date=None):
         )
 
         if exchange_rate is None:
-            return None, None, None, None
+            return None
 
+    except ExchangeRate.DoesNotExist:
+        return None
+
+    else:
+        return exchange_rate
+
+
+def convert(amount, from_currency: Currency, to_currency: Currency, date=None):
+    if from_currency == to_currency:
         return (
-            amount * exchange_rate.effective_rate,
+            amount,
             to_currency.prefix,
             to_currency.suffix,
             to_currency.decimal_places,
         )
-    except ExchangeRate.DoesNotExist:
+
+    if date is None:
+        date = timezone.localtime(timezone.now())
+
+    exchange_rate = get_exchange_rate(
+        from_currency=from_currency, to_currency=to_currency, date=date
+    )
+
+    if exchange_rate is None:
         return None, None, None, None
+
+    return (
+        amount * exchange_rate.effective_rate,
+        to_currency.prefix,
+        to_currency.suffix,
+        to_currency.decimal_places,
+    )

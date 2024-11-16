@@ -7,7 +7,7 @@ from django.template.defaultfilters import date
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from apps.currencies.utils.convert import convert
+from apps.currencies.utils.convert import convert, get_exchange_rate
 
 
 class DCAStrategy(models.Model):
@@ -132,6 +132,18 @@ class DCAStrategy(models.Model):
             "current_prices": current_prices,
             "amounts_bought": amounts_bought,
         }
+
+    def current_price(self):
+        exchange_rate = get_exchange_rate(
+            from_currency=self.payment_currency,
+            to_currency=self.target_currency,
+            date=timezone.localtime(timezone.now()),
+        )
+
+        if exchange_rate:
+            return exchange_rate.effective_rate, exchange_rate.date
+        else:
+            return None
 
 
 class DCAEntry(models.Model):

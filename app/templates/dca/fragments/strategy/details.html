@@ -1,7 +1,27 @@
 {% load i18n %}
 <div class="container-fluid px-md-3 py-3 column-gap-5">
-  <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
-    <div>{{ strategy.name }}</div>
+  <div class="d-lg-flex justify-content-between mb-3 w-100">
+    <div class="tw-text-3xl fw-bold font-monospace d-flex align-items-center">
+      {{ strategy.name }}
+    </div>
+    <div class="tw-text-sm text-lg-end mt-2 mt-lg-0">
+      <div class="mb-2">
+        <span class="badge rounded-pill text-bg-secondary">{{ strategy.payment_currency.name }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ strategy.target_currency.name }}</span>
+      </div>
+      <div>
+        {% if strategy.current_price %}
+          <c-amount.display
+              :amount="strategy.current_price.0"
+              :prefix="strategy.payment_currency.prefix"
+              :suffix="strategy.payment_currency.suffix"
+              :decimal_places="strategy.payment_currency.decimal_places">
+           • {{ strategy.current_price.1|date:"SHORT_DATETIME_FORMAT" }}
+          </c-amount.display>
+          {% else %}
+          <div class="tw-text-red-400">{% trans "No exchange rate available" %}</div>
+          {% endif %}
+      </div>
+    </div>
   </div>
 
   <div class="row gy-3 gx-3">
@@ -111,6 +131,28 @@
         <div class="col">
           <div class="card h-100">
             <div class="card-body">
+              <h5 class="card-title">{% trans "Current value" %}</h5>
+              <div class="card-text">
+                {% if strategy.current_price %}
+                <c-amount.display
+                    :amount="strategy.current_price.0"
+                    :prefix="strategy.payment_currency.prefix"
+                    :suffix="strategy.payment_currency.suffix"
+                    :decimal_places="strategy.payment_currency.decimal_places">
+                </c-amount.display>
+                {% else %}
+                <div>{% trans "No exchange rate available" %}</div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="card-footer text-body-secondary">
+                2 days ago
+              </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
               <h5 class="card-title">{% trans "Total Invested" %}</h5>
               <div class="card-text">
                 <c-amount.display
@@ -169,7 +211,7 @@
             <div class="card-body">
               <h5 class="card-title">{% trans "Total P/L" %}</h5>
               <div
-                  class="card-text {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-danger{% endif %}">
+                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw-text-green-400{% else %}tw-text-red-400{% endif %}">
                 <c-amount.display
                     :amount="strategy.total_profit_loss"
                     :prefix="strategy.payment_currency.prefix"
@@ -185,7 +227,7 @@
             <div class="card-body">
               <h5 class="card-title">{% trans "Total % P/L" %}</h5>
               <div
-                  class="card-text {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-danger{% endif %}">
+                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw-text-green-400{% else %}tw-text-red-400{% endif %}">
                 {{ strategy.total_profit_loss_percentage|floatformat:2 }}%
               </div>
             </div>
