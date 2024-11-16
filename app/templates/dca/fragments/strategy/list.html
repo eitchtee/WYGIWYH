@@ -18,6 +18,9 @@
     {% for strategy in strategies %}
       <div class="col">
           <div class="card h-100">
+            <div class="card-header">
+              <span class="badge rounded-pill text-bg-secondary">{{ strategy.payment_currency.name }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ strategy.target_currency.name }}</span>
+            </div>
             <a href="{% url 'dca_strategy_detail_index' strategy_id=strategy.id %}" hx-boost="true" class="text-decoration-none card-body">
               <div class="">
                 <div class="card-title tw-text-xl">{{ strategy.name }}</div>
