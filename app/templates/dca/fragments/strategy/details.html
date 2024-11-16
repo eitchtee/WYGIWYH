@@ -131,28 +131,6 @@
         <div class="col">
           <div class="card h-100">
             <div class="card-body">
-              <h5 class="card-title">{% trans "Current value" %}</h5>
-              <div class="card-text">
-                {% if strategy.current_price %}
-                <c-amount.display
-                    :amount="strategy.current_price.0"
-                    :prefix="strategy.payment_currency.prefix"
-                    :suffix="strategy.payment_currency.suffix"
-                    :decimal_places="strategy.payment_currency.decimal_places">
-                </c-amount.display>
-                {% else %}
-                <div>{% trans "No exchange rate available" %}</div>
-                {% endif %}
-              </div>
-            </div>
-            <div class="card-footer text-body-secondary">
-                2 days ago
-              </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
               <h5 class="card-title">{% trans "Total Invested" %}</h5>
               <div class="card-text">
                 <c-amount.display
