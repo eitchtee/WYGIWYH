@@ -14,6 +14,7 @@ from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
 from apps.transactions.models import Transaction
 from apps.common.decorators.htmx import only_htmx
+from apps.transactions.utils.calculations import calculate_account_totals
 
 
 @login_required
@@ -279,207 +280,18 @@ def yearly_overview_by_account(request, year: int):
     if account:
         filter_params["account_id"] = int(account)
 
-    transactions = Transaction.objects.filter(**filter_params)
-
-    # Use TruncYear if no month specified, otherwise use TruncMonth
-    date_trunc = TruncMonth("reference_date") if month else TruncYear("reference_date")
-
-    monthly_data = (
-        transactions.annotate(month=date_trunc)
-        .select_related(
-            "account__currency",
-            "account__exchange_currency",
-        )
-        .values(
-            "month",
-            "account__id",
-            "account__name",
-            "account__currency",
-            "account__exchange_currency",
-            "account__currency__code",
-            "account__currency__prefix",
-            "account__currency__suffix",
-            "account__currency__decimal_places",
-            "account__exchange_currency__code",
-            "account__exchange_currency__prefix",
-            "account__exchange_currency__suffix",
-            "account__exchange_currency__decimal_places",
-        )
-        .annotate(
-            income_paid=Coalesce(
-                Sum(
-                    Case(
-                        When(
-                            type=Transaction.Type.INCOME, is_paid=True, then=F("amount")
-                        ),
-                        default=Value(Decimal("0")),
-                        output_field=DecimalField(),
-                    )
-                ),
-                Value(Decimal("0")),
-                output_field=DecimalField(),
-            ),
-            expense_paid=Coalesce(
-                Sum(
-                    Case(
-                        When(
-                            type=Transaction.Type.EXPENSE,
-                            is_paid=True,
-                            then=F("amount"),
-                        ),
-                        default=Value(Decimal("0")),
-                        output_field=DecimalField(),
-                    )
-                ),
-                Value(Decimal("0")),
-                output_field=DecimalField(),
-            ),
-            income_unpaid=Coalesce(
-                Sum(
-                    Case(
-                        When(
-                            type=Transaction.Type.INCOME,
-                            is_paid=False,
-                            then=F("amount"),
-                        ),
-                        default=Value(Decimal("0")),
-                        output_field=DecimalField(),
-                    )
-                ),
-                Value(Decimal("0")),
-                output_field=DecimalField(),
-            ),
-            expense_unpaid=Coalesce(
-                Sum(
-                    Case(
-                        When(
-                            type=Transaction.Type.EXPENSE,
-                            is_paid=False,
-                            then=F("amount"),
-                        ),
-                        default=Value(Decimal("0")),
-                        output_field=DecimalField(),
-                    )
-                ),
-                Value(Decimal("0")),
-                output_field=DecimalField(),
-            ),
-        )
-        .annotate(
-            balance_unpaid=F("income_unpaid") - F("expense_unpaid"),
-            balance_paid=F("income_paid") - F("expense_paid"),
-            balance_total=F("income_paid")
-            + F("income_unpaid")
-            - F("expense_paid")
-            - F("expense_unpaid"),
-        )
-        .order_by("month", "account__name")
+    transactions = Transaction.objects.filter(**filter_params).order_by(
+        "account__group__name", "account__name", "id"
     )
 
-    # Determine which dates to include
-    if month:
-        all_months = [date(year, month, 1)]
-    else:
-        all_months = [date(year, 1, 1)]  # Just one entry for the whole year
+    data = calculate_account_totals(transactions)
 
-    # Get all accounts with their currencies (filtered by account if specified)
-    accounts_filter = {}
-    if account:
-        accounts_filter["account__id"] = int(account)
+    from pprint import pprint
 
-    accounts = (
-        transactions.filter(**accounts_filter)
-        .values(
-            "account__id",
-            "account__name",
-            "account__group__name",
-            "account__currency__code",
-            "account__currency__prefix",
-            "account__currency__suffix",
-            "account__currency__decimal_places",
-            "account__exchange_currency__code",
-            "account__exchange_currency__prefix",
-            "account__exchange_currency__suffix",
-            "account__exchange_currency__decimal_places",
-        )
-        .distinct()
-        .order_by("account__group__name", "account__name", "account__id")
-    )
-
-    # Get Currency objects for conversion
-    currencies = {currency.id: currency for currency in Currency.objects.all()}
-
-    result = {
-        month: {
-            account["account__id"]: {
-                "name": account["account__name"],
-                "group": account["account__group__name"],
-                "currency": {
-                    "code": account["account__currency__code"],
-                    "prefix": account["account__currency__prefix"],
-                    "suffix": account["account__currency__suffix"],
-                    "decimal_places": account["account__currency__decimal_places"],
-                },
-                "exchange_currency": (
-                    {
-                        "code": account["account__exchange_currency__code"],
-                        "prefix": account["account__exchange_currency__prefix"],
-                        "suffix": account["account__exchange_currency__suffix"],
-                        "decimal_places": account[
-                            "account__exchange_currency__decimal_places"
-                        ],
-                    }
-                    if account["account__exchange_currency__code"]
-                    else None
-                ),
-                "income_paid": Decimal("0"),
-                "expense_paid": Decimal("0"),
-                "income_unpaid": Decimal("0"),
-                "expense_unpaid": Decimal("0"),
-                "balance_unpaid": Decimal("0"),
-                "balance_paid": Decimal("0"),
-                "balance_total": Decimal("0"),
-            }
-            for account in accounts
-        }
-        for month in all_months
-    }
-
-    # Fill in the data
-    for entry in monthly_data:
-        month = entry["month"]
-        account_id = entry["account__id"]
-
-        for field in [
-            "income_paid",
-            "expense_paid",
-            "income_unpaid",
-            "expense_unpaid",
-            "balance_unpaid",
-            "balance_paid",
-            "balance_total",
-        ]:
-            result[month][account_id][field] = entry[field]
-            if result[month][account_id]["exchange_currency"]:
-                from_currency = currencies[entry["account__currency"]]
-                to_currency = currencies[entry["account__exchange_currency"]]
-
-                if entry[field] > 0 or entry[field] < 0:
-                    converted_amount, prefix, suffix, decimal_places = convert(
-                        amount=entry[field],
-                        from_currency=from_currency,
-                        to_currency=to_currency,
-                    )
-
-                    if isinstance(converted_amount, Decimal):
-                        result[month][account_id][
-                            f"exchange_{field}"
-                        ] = converted_amount
-                else:
-                    result[month][account_id][f"exchange_{field}"] = Decimal(0)
+    pprint(data)
 
     return render(
         request,
         "yearly_overview/fragments/account_data.html",
-        context={"year": year, "totals": result, "single": True if account else False},
+        context={"year": year, "totals": data, "single": True if account else False},
     )
