@@ -4,9 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render
 
 from apps.net_worth.utils.calculate_net_worth import (
-    calculate_currency_net_worth,
     calculate_historical_currency_net_worth,
-    calculate_account_net_worth,
     calculate_historical_account_balance,
 )
 from apps.transactions.models import Transaction
