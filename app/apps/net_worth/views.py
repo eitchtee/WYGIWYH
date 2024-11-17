@@ -9,11 +9,24 @@ from apps.net_worth.utils.calculate_net_worth import (
     calculate_account_net_worth,
     calculate_historical_account_balance,
 )
+from apps.transactions.models import Transaction
+from apps.transactions.utils.calculations import (
+    calculate_currency_totals,
+    calculate_account_totals,
+)
 
 
 def net_worth_main(request):
-    currency_net_worth = calculate_currency_net_worth()
-    account_net_worth = calculate_account_net_worth()
+    transactions_queryset = Transaction.objects.filter(is_paid=True).order_by(
+        "account__group",
+        "account__name",
+    )
+    currency_net_worth = calculate_currency_totals(
+        transactions_queryset=transactions_queryset
+    )
+    account_net_worth = calculate_account_totals(
+        transactions_queryset=transactions_queryset
+    )
 
     historical_currency_net_worth = calculate_historical_currency_net_worth()
 
@@ -83,7 +96,7 @@ def net_worth_main(request):
         request,
         "net_worth/net_worth.html",
         {
-            "currency_net_worth": currency_net_worth.values(),
+            "currency_net_worth": currency_net_worth,
             "account_net_worth": account_net_worth,
             "chart_data_currency_json": chart_data_currency_json,
             "currencies": currencies,
