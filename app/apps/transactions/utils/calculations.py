@@ -154,6 +154,7 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         "account__name",
         "account__is_asset",
         "account__is_archived",
+        "account__group__name",
         "account__currency__id",
         "account__currency__code",
         "account__currency__name",
@@ -233,9 +234,12 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         )
 
         account_data = {
-            "name": total["account__name"],
-            "is_asset": total["account__is_asset"],
-            "is_archived": total["account__is_archived"],
+            "account": {
+                "name": total["account__name"],
+                "is_asset": total["account__is_asset"],
+                "is_archived": total["account__is_archived"],
+                "group": total["account__group__name"],
+            },
             "currency": {
                 "code": total["account__currency__code"],
                 "name": total["account__currency__name"],
