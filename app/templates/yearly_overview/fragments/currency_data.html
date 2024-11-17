@@ -7,21 +7,22 @@
     </div>
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
-      {% for entry in totals.income_unpaid %}
+      {% for entry in totals.income_projected.values %}
         <div>
           <c-amount.display
-              :amount="entry.amount"
-              :prefix="entry.prefix"
-              :suffix="entry.suffix"
-              :decimal_places="entry.decimal_places"></c-amount.display>
+              :amount="entry.income_projected"
+              :prefix="entry.currency.prefix"
+              :suffix="entry.currency.suffix"
+              :decimal_places="entry.currency.decimal_places"
+              color="green"></c-amount.display>
         </div>
-        {% if entry.exchanged and entry.exchanged.amount %}
+        {% if entry.exchanged and entry.exchanged.income_projected %}
         <div>
           <c-amount.display
-            :amount="entry.exchanged.amount"
-            :prefix="entry.exchanged.prefix"
-            :suffix="entry.exchanged.suffix"
-            :decimal_places="entry.exchanged.decimal_places"
+            :amount="entry.exchanged.income_projected"
+            :prefix="entry.exchanged.currency.prefix"
+            :suffix="entry.exchanged.currency.suffix"
+            :decimal_places="entry.exchanged.currency.decimal_places"
             color="gray"></c-amount.display>
         </div>
         {% endif %}
@@ -36,21 +37,22 @@
     </div>
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
-      {% for entry in totals.expense_unpaid %}
+      {% for entry in totals.expense_projected.values %}
         <div>
           <c-amount.display
-              :amount="entry.amount"
-              :prefix="entry.prefix"
-              :suffix="entry.suffix"
-              :decimal_places="entry.decimal_places"></c-amount.display>
+              :amount="entry.expense_projected"
+              :prefix="entry.currency.prefix"
+              :suffix="entry.currency.suffix"
+              :decimal_places="entry.currency.decimal_places"
+              color="red"></c-amount.display>
         </div>
-        {% if entry.exchanged and entry.exchanged.amount %}
+        {% if entry.exchanged and entry.exchanged.expense_projected %}
         <div>
           <c-amount.display
-            :amount="entry.exchanged.amount"
-            :prefix="entry.exchanged.prefix"
-            :suffix="entry.exchanged.suffix"
-            :decimal_places="entry.exchanged.decimal_places"
+            :amount="entry.exchanged.expense_projected"
+            :prefix="entry.exchanged.currency.prefix"
+            :suffix="entry.exchanged.currency.suffix"
+            :decimal_places="entry.exchanged.currency.decimal_places"
             color="gray"></c-amount.display>
         </div>
         {% endif %}
@@ -65,22 +67,22 @@
     </div>
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
-      {% for entry in totals.balance_unpaid %}
+      {% for entry in totals.total_projected.values %}
         <div>
           <c-amount.display
-              :amount="entry.amount"
-              :prefix="entry.prefix"
-              :suffix="entry.suffix"
-              :decimal_places="entry.decimal_places"
-              color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
+              :amount="entry.total_projected"
+              :prefix="entry.currency.prefix"
+              :suffix="entry.currency.suffix"
+              :decimal_places="entry.currency.decimal_places"
+              color="{% if entry.total_projected > 0 %}green{% elif entry.total_projected < 0 %}red{% endif %}"></c-amount.display>
         </div>
-        {% if entry.exchanged and entry.exchanged.amount %}
+        {% if entry.exchanged and entry.exchanged.total_projected %}
         <div>
           <c-amount.display
-            :amount="entry.exchanged.amount"
-            :prefix="entry.exchanged.prefix"
-            :suffix="entry.exchanged.suffix"
-            :decimal_places="entry.exchanged.decimal_places"
+            :amount="entry.exchanged.total_projected"
+            :prefix="entry.exchanged.currency.prefix"
+            :suffix="entry.exchanged.currency.suffix"
+            :decimal_places="entry.exchanged.currency.decimal_places"
             color="gray"></c-amount.display>
         </div>
         {% endif %}
@@ -96,21 +98,22 @@
     </div>
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
-      {% for entry in totals.income_paid %}
-        <div>
-        <c-amount.display
-            :amount="entry.amount"
-            :prefix="entry.prefix"
-            :suffix="entry.suffix"
-            :decimal_places="entry.decimal_places"></c-amount.display>
-        </div>
-        {% if entry.exchanged and entry.exchanged.amount %}
+      {% for entry in totals.income_current.values %}
         <div>
           <c-amount.display
-            :amount="entry.exchanged.amount"
-            :prefix="entry.exchanged.prefix"
-            :suffix="entry.exchanged.suffix"
-            :decimal_places="entry.exchanged.decimal_places"
+              :amount="entry.income_current"
+              :prefix="entry.currency.prefix"
+              :suffix="entry.currency.suffix"
+              :decimal_places="entry.currency.decimal_places"
+              color="green"></c-amount.display>
+        </div>
+        {% if entry.exchanged and entry.exchanged.income_current %}
+        <div>
+          <c-amount.display
+            :amount="entry.exchanged.income_current"
+            :prefix="entry.exchanged.currency.prefix"
+            :suffix="entry.exchanged.currency.suffix"
+            :decimal_places="entry.exchanged.currency.decimal_places"
             color="gray"></c-amount.display>
         </div>
         {% endif %}
@@ -125,21 +128,22 @@
     </div>
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
-      {% for entry in totals.expense_paid %}
+      {% for entry in totals.expense_current.values %}
         <div>
           <c-amount.display
-              :amount="entry.amount"
-              :prefix="entry.prefix"
-              :suffix="entry.suffix"
-              :decimal_places="entry.decimal_places"></c-amount.display>
+              :amount="entry.expense_current"
+              :prefix="entry.currency.prefix"
+              :suffix="entry.currency.suffix"
+              :decimal_places="entry.currency.decimal_places"
+              color="red"></c-amount.display>
         </div>
-        {% if entry.exchanged and entry.exchanged.amount %}
+        {% if entry.exchanged and entry.exchanged.expense_current %}
         <div>
           <c-amount.display
-            :amount="entry.exchanged.amount"
-            :prefix="entry.exchanged.prefix"
-            :suffix="entry.exchanged.suffix"
-            :decimal_places="entry.exchanged.decimal_places"
+            :amount="entry.exchanged.expense_current"
+            :prefix="entry.exchanged.currency.prefix"
+            :suffix="entry.exchanged.currency.suffix"
+            :decimal_places="entry.exchanged.currency.decimal_places"
             color="gray"></c-amount.display>
         </div>
         {% endif %}
@@ -153,23 +157,23 @@
       <div class="tw-text-gray-400">{% translate 'current total' %}</div>
     </div>
     <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace tw-text-yellow-400">
-      {% for entry in totals.balance_paid %}
+    <div class="text-end font-monospace">
+      {% for entry in totals.total_current.values %}
         <div>
           <c-amount.display
-              :amount="entry.amount"
-              :prefix="entry.prefix"
-              :suffix="entry.suffix"
-              :decimal_places="entry.decimal_places"
-              color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
+              :amount="entry.total_current"
+              :prefix="entry.currency.prefix"
+              :suffix="entry.currency.suffix"
+              :decimal_places="entry.currency.decimal_places"
+              color="{% if entry.total_current > 0 %}green{% elif entry.total_current < 0 %}red{% endif %}"></c-amount.display>
         </div>
-        {% if entry.exchanged and entry.exchanged.amount %}
+        {% if entry.exchanged and entry.exchanged.total_current %}
         <div>
           <c-amount.display
-            :amount="entry.exchanged.amount"
-            :prefix="entry.exchanged.prefix"
-            :suffix="entry.exchanged.suffix"
-            :decimal_places="entry.exchanged.decimal_places"
+            :amount="entry.exchanged.total_current"
+            :prefix="entry.exchanged.currency.prefix"
+            :suffix="entry.exchanged.currency.suffix"
+            :decimal_places="entry.exchanged.currency.decimal_places"
             color="gray"></c-amount.display>
         </div>
         {% endif %}
@@ -185,22 +189,22 @@
     </div>
     <div class="dotted-line flex-grow-1"></div>
     <div class="text-end font-monospace">
-      {% for entry in totals.balance_total %}
+      {% for entry in totals.total_final.values %}
         <div>
           <c-amount.display
-              :amount="entry.amount"
-              :prefix="entry.prefix"
-              :suffix="entry.suffix"
-              :decimal_places="entry.decimal_places"
-              color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
+              :amount="entry.total_final"
+              :prefix="entry.currency.prefix"
+              :suffix="entry.currency.suffix"
+              :decimal_places="entry.currency.decimal_places"
+              color="{% if entry.total_final > 0 %}green{% elif entry.total_final < 0 %}red{% endif %}"></c-amount.display>
         </div>
-        {% if entry.exchanged and entry.exchanged.amount %}
+        {% if entry.exchanged and entry.exchanged.total_final %}
         <div>
           <c-amount.display
-            :amount="entry.exchanged.amount"
-            :prefix="entry.exchanged.prefix"
-            :suffix="entry.exchanged.suffix"
-            :decimal_places="entry.exchanged.decimal_places"
+            :amount="entry.exchanged.total_final"
+            :prefix="entry.exchanged.currency.prefix"
+            :suffix="entry.exchanged.currency.suffix"
+            :decimal_places="entry.exchanged.currency.decimal_places"
             color="gray"></c-amount.display>
         </div>
         {% endif %}
