@@ -43,12 +43,10 @@ def get_exchange_rate(
 
 def convert(amount, from_currency: Currency, to_currency: Currency, date=None):
     if from_currency == to_currency:
-        return (
-            amount,
-            to_currency.prefix,
-            to_currency.suffix,
-            to_currency.decimal_places,
-        )
+        return None, None, None, None
+
+    if amount == 0:
+        return None, None, None, None
 
     if date is None:
         date = timezone.localtime(timezone.now())

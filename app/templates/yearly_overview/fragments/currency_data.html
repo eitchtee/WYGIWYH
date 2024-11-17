@@ -15,7 +15,7 @@
               :suffix="entry.suffix"
               :decimal_places="entry.decimal_places"></c-amount.display>
         </div>
-        {% if entry.exchanged %}
+        {% if entry.exchanged and entry.exchanged.amount %}
         <div>
           <c-amount.display
             :amount="entry.exchanged.amount"
@@ -44,7 +44,7 @@
               :suffix="entry.suffix"
               :decimal_places="entry.decimal_places"></c-amount.display>
         </div>
-        {% if entry.exchanged %}
+        {% if entry.exchanged and entry.exchanged.amount %}
         <div>
           <c-amount.display
             :amount="entry.exchanged.amount"
@@ -74,7 +74,7 @@
               :decimal_places="entry.decimal_places"
               color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
         </div>
-        {% if entry.exchanged %}
+        {% if entry.exchanged and entry.exchanged.amount %}
         <div>
           <c-amount.display
             :amount="entry.exchanged.amount"
@@ -104,7 +104,7 @@
             :suffix="entry.suffix"
             :decimal_places="entry.decimal_places"></c-amount.display>
         </div>
-        {% if entry.exchanged %}
+        {% if entry.exchanged and entry.exchanged.amount %}
         <div>
           <c-amount.display
             :amount="entry.exchanged.amount"
@@ -133,7 +133,7 @@
               :suffix="entry.suffix"
               :decimal_places="entry.decimal_places"></c-amount.display>
         </div>
-        {% if entry.exchanged %}
+        {% if entry.exchanged and entry.exchanged.amount %}
         <div>
           <c-amount.display
             :amount="entry.exchanged.amount"
@@ -163,7 +163,7 @@
               :decimal_places="entry.decimal_places"
               color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
         </div>
-        {% if entry.exchanged %}
+        {% if entry.exchanged and entry.exchanged.amount %}
         <div>
           <c-amount.display
             :amount="entry.exchanged.amount"
@@ -194,7 +194,7 @@
               :decimal_places="entry.decimal_places"
               color="{% if entry.amount > 0 %}green{% elif entry.amount < 0 %}red{% endif %}"></c-amount.display>
         </div>
-        {% if entry.exchanged %}
+        {% if entry.exchanged and entry.exchanged.amount %}
         <div>
           <c-amount.display
             :amount="entry.exchanged.amount"

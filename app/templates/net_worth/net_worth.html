@@ -37,7 +37,7 @@
                       </div>
                   </div>
               </div>
-              {% if currency.exchanged %}
+              {% if currency.exchanged and currency.exchanged.amount %}
               <div>
                 <c-amount.display
                           :amount="currency.exchanged.amount"
