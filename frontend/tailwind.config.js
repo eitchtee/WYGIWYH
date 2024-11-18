@@ -6,7 +6,7 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [require('daisyui')],
+    plugins: [],
     prefix: 'tw-',
     corePlugins: {
         preflight: false,

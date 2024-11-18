@@ -21,8 +21,8 @@ window.unpaidSound = popAudio;
  * @param {string} locale - [optional] the locale that the number is represented in. Omit this parameter to use the current locale.
  */
 window.parseLocaleNumber = function parseLocaleNumber(stringNumber, locale) {
-    let thousandSeparator = Intl.NumberFormat(locale).format(11111).replace(/\p{Number}/gu, '');
-    let decimalSeparator = Intl.NumberFormat(locale).format(1.1).replace(/\p{Number}/gu, '');
+    let thousandSeparator = Intl.NumberFormat(locale).format(11111).replace(/\d/g, '');
+    let decimalSeparator = Intl.NumberFormat(locale).format(1.1).replace(/\d/g, '');
 
     return parseFloat(stringNumber
         .replace(new RegExp('\\' + thousandSeparator, 'g'), '')

@@ -1,12 +1,11 @@
 {
-  "parser": "@babel/eslint-parser",
-  "extends": [
-    "eslint:recommended"
-  ],
   "env": {
     "browser": true,
     "node": true
   },
+  "extends": [
+    "eslint:recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": 8,
     "sourceType": "module",
