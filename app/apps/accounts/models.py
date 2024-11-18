@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -60,3 +61,14 @@ class Account(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        super().clean()
+        if self.exchange_currency == self.currency:
+            raise ValidationError(
+                {
+                    "exchange_currency": _(
+                        "Exchange currency cannot be the same as the account's main currency."
+                    )
+                }
+            )

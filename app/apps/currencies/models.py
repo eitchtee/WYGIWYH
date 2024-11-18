@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -31,6 +32,17 @@ class Currency(models.Model):
         verbose_name = _("Currency")
         verbose_name_plural = _("Currencies")
 
+    def clean(self):
+        super().clean()
+        if self.exchange_currency == self:
+            raise ValidationError(
+                {
+                    "exchange_currency": _(
+                        "Currency cannot have itself as exchange currency."
+                    )
+                }
+            )
+
 
 class ExchangeRate(models.Model):
     from_currency = models.ForeignKey(
@@ -57,3 +69,10 @@ class ExchangeRate(models.Model):
 
     def __str__(self):
         return f"{self.from_currency.code} to {self.to_currency.code} on {self.date}"
+
+    def clean(self):
+        super().clean()
+        if self.from_currency == self.to_currency:
+            raise ValidationError(
+                {"to_currency": _("From and To currencies cannot be the same.")}
+            )
