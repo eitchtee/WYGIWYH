@@ -15,17 +15,23 @@ from apps.transactions.utils.calculations import (
 
 
 def net_worth_main(request):
-    transactions_queryset = Transaction.objects.filter(
+    transactions_currency_queryset = Transaction.objects.filter(
+        is_paid=True, account__is_archived=False
+    ).order_by(
+        "account__currency__name",
+    )
+    transactions_account_queryset = Transaction.objects.filter(
         is_paid=True, account__is_archived=False
     ).order_by(
         "account__group__name",
         "account__name",
     )
+
     currency_net_worth = calculate_currency_totals(
-        transactions_queryset=transactions_queryset
+        transactions_queryset=transactions_currency_queryset
     )
     account_net_worth = calculate_account_totals(
-        transactions_queryset=transactions_queryset
+        transactions_queryset=transactions_account_queryset
     )
 
     historical_currency_net_worth = calculate_historical_currency_net_worth()

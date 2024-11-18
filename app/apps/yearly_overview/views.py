@@ -75,7 +75,7 @@ def yearly_overview_by_currency(request, year: int):
     transactions = (
         Transaction.objects.filter(**filter_params)
         .exclude(Q(category__mute=True) & ~Q(category=None))
-        .order_by("account__group__name", "account__name")
+        .order_by("account__currency__name")
     )
 
     data = calculate_currency_totals(transactions)

@@ -11,55 +11,65 @@ from apps.currencies.models import Currency
 
 def calculate_currency_totals(transactions_queryset, ignore_empty=False):
     # Prepare the aggregation expressions
-    currency_totals = transactions_queryset.values(
-        "account__currency",
-        "account__currency__code",
-        "account__currency__name",
-        "account__currency__decimal_places",
-        "account__currency__prefix",
-        "account__currency__suffix",
-        "account__currency__exchange_currency",
-    ).annotate(
-        expense_current=Coalesce(
-            Sum(
-                Case(
-                    When(type=Transaction.Type.EXPENSE, is_paid=True, then="amount"),
-                    default=Value(0),
-                    output_field=models.DecimalField(),
-                )
+    currency_totals = (
+        transactions_queryset.values(
+            "account__currency",
+            "account__currency__code",
+            "account__currency__name",
+            "account__currency__decimal_places",
+            "account__currency__prefix",
+            "account__currency__suffix",
+            "account__currency__exchange_currency",
+        )
+        .annotate(
+            expense_current=Coalesce(
+                Sum(
+                    Case(
+                        When(
+                            type=Transaction.Type.EXPENSE, is_paid=True, then="amount"
+                        ),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
             ),
-            Decimal("0"),
-        ),
-        expense_projected=Coalesce(
-            Sum(
-                Case(
-                    When(type=Transaction.Type.EXPENSE, is_paid=False, then="amount"),
-                    default=Value(0),
-                    output_field=models.DecimalField(),
-                )
+            expense_projected=Coalesce(
+                Sum(
+                    Case(
+                        When(
+                            type=Transaction.Type.EXPENSE, is_paid=False, then="amount"
+                        ),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
             ),
-            Decimal("0"),
-        ),
-        income_current=Coalesce(
-            Sum(
-                Case(
-                    When(type=Transaction.Type.INCOME, is_paid=True, then="amount"),
-                    default=Value(0),
-                    output_field=models.DecimalField(),
-                )
+            income_current=Coalesce(
+                Sum(
+                    Case(
+                        When(type=Transaction.Type.INCOME, is_paid=True, then="amount"),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
             ),
-            Decimal("0"),
-        ),
-        income_projected=Coalesce(
-            Sum(
-                Case(
-                    When(type=Transaction.Type.INCOME, is_paid=False, then="amount"),
-                    default=Value(0),
-                    output_field=models.DecimalField(),
-                )
+            income_projected=Coalesce(
+                Sum(
+                    Case(
+                        When(
+                            type=Transaction.Type.INCOME, is_paid=False, then="amount"
+                        ),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
             ),
-            Decimal("0"),
-        ),
+        )
+        .order_by()
     )
 
     # Process the results and calculate additional totals
