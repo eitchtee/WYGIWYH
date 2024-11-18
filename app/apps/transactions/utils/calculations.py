@@ -155,6 +155,7 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         "account__is_asset",
         "account__is_archived",
         "account__group__name",
+        "account__group__id",
         "account__currency__id",
         "account__currency__code",
         "account__currency__name",
@@ -162,6 +163,7 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         "account__currency__prefix",
         "account__currency__suffix",
         "account__exchange_currency",
+        "id",
     ).annotate(
         expense_current=Coalesce(
             Sum(
@@ -239,6 +241,7 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
                 "is_asset": total["account__is_asset"],
                 "is_archived": total["account__is_archived"],
                 "group": total["account__group__name"],
+                "group_id": total["account__group__id"],
             },
             "currency": {
                 "code": total["account__currency__code"],
