@@ -60,11 +60,11 @@ _="on change from #transactions-list or htmx:afterSettle
                 set total to 0.0
                 for amt in <.transaction:has(input[name='transactions']:checked) .main-amount .amount/>
                   set amountValue to parseFloat(amt.getAttribute('data-amount'))
-                  log amountValue
                   if not isNaN(amountValue)
-                    set total to total + amountValue
+                    set total to (total * 100) + (amountValue * 100)
                   end
                 end
+                set total to total / 100
                 put total.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into me
               end
               on click
