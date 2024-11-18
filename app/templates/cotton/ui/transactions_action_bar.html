@@ -61,7 +61,7 @@ _="on change from #transactions-list or htmx:afterSettle
                 for amt in <.transaction:has(input[name='transactions']:checked) .main-amount .amount/>
                   set amountValue to parseFloat(amt.getAttribute('data-amount'))
                   if not isNaN(amountValue)
-                    set total to (total * 100) + (amountValue * 100)
+                    set total to total + (amountValue * 100)
                   end
                 end
                 set total to total / 100
