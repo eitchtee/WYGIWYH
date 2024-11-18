@@ -103,6 +103,7 @@ def monthly_summary(request, month: int, year: int):
         "income_current": remove_falsey_entries(data, "income_current"),
         "income_projected": remove_falsey_entries(data, "income_projected"),
         "expense_current": remove_falsey_entries(data, "expense_current"),
+        "expense_projected": remove_falsey_entries(data, "expense_projected"),
         "total_current": remove_falsey_entries(data, "total_current"),
         "total_final": remove_falsey_entries(data, "total_final"),
         "total_projected": remove_falsey_entries(data, "total_projected"),
