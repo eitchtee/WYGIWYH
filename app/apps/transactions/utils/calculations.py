@@ -163,7 +163,6 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         "account__currency__prefix",
         "account__currency__suffix",
         "account__exchange_currency",
-        "id",
     ).annotate(
         expense_current=Coalesce(
             Sum(
