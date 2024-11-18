@@ -1,13 +1,19 @@
 @import "tom-select/dist/css/tom-select.bootstrap5.min.css";
-@import "_variables.scss";
+@import "variables.scss";
 
 /* FIX BOOTSTRAP STYLING FOR TOM SELECT */
-.ts-dropdown, .ts-control, .ts-control input {
+.ts-dropdown,
+.ts-control,
+.ts-control input {
   color: var(--bs-body-color);
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .ts-wrapper.plugin-remove_button .item .remove {
   color: $red;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .plugin-clear_button .clear-button {
   color: $red;
   right: 60px;
@@ -16,15 +22,15 @@
 .ts-wrapper.multi .ts-control > div.active {
   background: $primary;
   color: $body-color;
-  border: 0 solid rgba(0, 0, 0, 0);
+  border: 0 solid #0000;
 }
 
 .focus .ts-control {
   color: $input-focus-color;
   background-color: $input-focus-bg;
   border-color: $input-focus-border-color;
-  //border-color: $form-select-focus-border-color;
   outline: 0;
+
   @if $enable-shadows {
     @include box-shadow($input-box-shadow, $input-focus-box-shadow);
   } @else {
@@ -35,13 +41,14 @@
 
 .focus.ts-wrapper {
   border-color: $form-select-focus-border-color;
-    outline: 0;
-    @if $enable-shadows {
-      @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
-    } @else {
-      // Avoid using mixin so we can pass custom focus shadow properly
-      box-shadow: $form-select-focus-box-shadow;
-    }
+  outline: 0;
+
+  @if $enable-shadows {
+    @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
+  } @else {
+    // Avoid using mixin so we can pass custom focus shadow properly
+    box-shadow: $form-select-focus-box-shadow;
+  }
 }
 
 .ts-control > .clear-button {
