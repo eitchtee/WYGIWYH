@@ -25,7 +25,7 @@
                   <div class="form-label">
                     {% translate 'Current balance' %}
                   </div>
-                  <div data-amount="{{ form.current_balance }}"
+                  <div data-amount="{{ form.current_balance|floatformat:"-40u" }}"
                        data-decimal-places="{{ form.currency_decimal_places }}"
                        id="amount-{{ forloop.counter0 }}">
                     {% currency_display amount=form.current_balance prefix=form.currency_prefix suffix=form.currency_suffix decimal_places=form.currency_decimal_places %}
@@ -39,24 +39,26 @@
                     {% translate 'Difference' %}
                   </div>
                   <div _="on input from #id_form-{{ forloop.counter0 }}-new_balance
-                            set original_amount to parseLocaleNumber('{{ form.current_balance }}')
-                            then call parseLocaleNumber(#id_form-{{ forloop.counter0 }}-new_balance.value)
-                            then set new_amount to result
-                            then set diff to new_amount - original_amount
+                            set original_amount to parseFloat('{{ form.current_balance|floatformat:"-40u" }}')
                             then set prefix to '{{ form.currency_prefix }}'
                             then set suffix to '{{ form.currency_suffix }}'
                             then set decimal_places to {{ form.currency_decimal_places }}
+                            then call parseLocaleNumber(#id_form-{{ forloop.counter0 }}-new_balance.value)
+                            then set new_amount to result
+                            then set diff to (Math.round((new_amount - original_amount) * Math.pow(10, decimal_places))) / Math.pow(10, decimal_places)
+                            then log diff
                             then set format_new_amount to
                               Intl.NumberFormat(
                                 undefined,
-                              {
-                                minimumFractionDigits: decimal_places,
-                                maximumFractionDigits: decimal_places,
-                                roundingMode: 'trunc'}
+                                {
+                                  minimumFractionDigits: decimal_places,
+                                  maximumFractionDigits: decimal_places,
+                                  roundingMode: 'trunc'
+                                }
                               ).format(diff)
                             then set formatted_string to `${prefix}${format_new_amount}${suffix}`
                             then put formatted_string into me if diff else
-                            put '' into me">-</div>
+                            put '-' into me">-</div>
                 </div>
               </div>
             </div>
