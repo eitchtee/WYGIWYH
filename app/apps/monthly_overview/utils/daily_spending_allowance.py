@@ -17,7 +17,6 @@ def calculate_daily_allowance_currency(currency_totals, month=None, year=None):
     Returns:
         dict: Daily allowance per currency, or empty dict if not current month
     """
-    print(currency_totals)
     # If month/year not provided, use current date
     current_date = timezone.localdate(timezone.now())
     if month is None:
