@@ -101,7 +101,7 @@
           <div class="{% if recurring_transaction.type == 'EX' %}tw-text-red-400{% else %}tw-text-green-400{% endif %}">
             {{ recurring_transaction.description }}
           </div>
-          <div class="tw-text-sm tw-text-gray-400">{{ recurring_transaction.notes }}</div>
+          <div class="tw-text-sm tw-text-gray-400">{{ recurring_transaction.notes|linebreaks }}</div>
         </td>
       </tr>
       {% endfor %}
