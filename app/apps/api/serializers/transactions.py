@@ -7,17 +7,21 @@ from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
 from apps.accounts.models import Account
-from apps.api.fields.transactions import TransactionTagField, TransactionCategoryField
+from apps.api.fields.transactions import (
+    TransactionTagField,
+    TransactionCategoryField,
+    TransactionEntityField,
+)
 from apps.api.serializers.accounts import AccountSerializer
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
     TransactionTag,
     InstallmentPlan,
+    TransactionEntity,
 )
 
 
-# Create serializers for other related models as needed
 class TransactionCategorySerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
 
@@ -34,6 +38,14 @@ class TransactionTagSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class TransactionEntitySerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+
+    class Meta:
+        model = TransactionEntity
+        fields = "__all__"
+
+
 class InstallmentPlanSerializer(serializers.ModelSerializer):
     permission_classes = [IsAuthenticated]
 
@@ -45,6 +57,7 @@ class InstallmentPlanSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     category = TransactionCategoryField(required=False)
     tags = TransactionTagField(required=False)
+    entities = TransactionEntityField(required=False)
 
     exchanged_amount = serializers.SerializerMethodField()
 
@@ -86,17 +99,24 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         tags = validated_data.pop("tags", [])
+        entities = validated_data.pop("entities", [])
         transaction = Transaction.objects.create(**validated_data)
         transaction.tags.set(tags)
+        transaction.entities.set(entities)
         return transaction
 
     def update(self, instance, validated_data):
         tags = validated_data.pop("tags", None)
+        entities = validated_data.pop("entities", None)
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
+
         if tags is not None:
             instance.tags.set(tags)
+        if entities is not None:
+            instance.entities.set(entities)
+
         return instance
 
     @staticmethod

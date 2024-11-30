@@ -6,6 +6,7 @@ from apps.transactions.models import (
     TransactionTag,
     InstallmentPlan,
     RecurringTransaction,
+    TransactionEntity,
 )
 
 
@@ -43,3 +44,4 @@ class RecurringTransactionAdmin(admin.ModelAdmin):
 
 admin.site.register(TransactionCategory)
 admin.site.register(TransactionTag)
+admin.site.register(TransactionEntity)

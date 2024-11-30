@@ -7,9 +7,12 @@ from django.utils.translation import gettext_lazy as _
 from django_filters import Filter
 
 from apps.accounts.models import Account
-from apps.transactions.models import Transaction
-from apps.transactions.models import TransactionCategory
-from apps.transactions.models import TransactionTag
+from apps.transactions.models import (
+    Transaction,
+    TransactionCategory,
+    TransactionTag,
+    TransactionEntity,
+)
 from apps.common.widgets.tom_select import TomSelectMultiple
 from apps.common.fields.month_year import MonthYearFormField
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
@@ -60,6 +63,13 @@ class TransactionsFilter(django_filters.FilterSet):
         queryset=TransactionTag.objects.all(),
         to_field_name="name",
         label=_("Tags"),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+    )
+    entities = django_filters.ModelMultipleChoiceFilter(
+        field_name="entities__name",
+        queryset=TransactionEntity.objects.all(),
+        to_field_name="name",
+        label=_("Entities"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
     )
     is_paid = django_filters.MultipleChoiceFilter(
@@ -159,6 +169,7 @@ class TransactionsFilter(django_filters.FilterSet):
             Field("account", size=1),
             Field("category", size=1),
             Field("tags", size=1),
+            Field("entities", size=1),
         )
 
         self.form.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()

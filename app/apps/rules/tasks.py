@@ -5,7 +5,12 @@ from simpleeval import EvalWithCompoundTypes
 
 from apps.accounts.models import Account
 from apps.rules.models import TransactionRule, TransactionRuleAction
-from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
+from apps.transactions.models import (
+    Transaction,
+    TransactionCategory,
+    TransactionTag,
+    TransactionEntity,
+)
 
 
 @app.task
@@ -32,6 +37,8 @@ def check_for_transaction_rules(
             "category_id": instance.category.id if instance.category else None,
             "tag_names": [x.name for x in instance.tags.all()],
             "tag_ids": [x.id for x in instance.tags.all()],
+            "entities_names": [x.name for x in instance.entities.all()],
+            "entities_ids": [x.id for x in instance.entities.all()],
             "is_expense": instance.type == Transaction.Type.EXPENSE,
             "is_income": instance.type == Transaction.Type.INCOME,
             "is_paid": instance.is_paid,
@@ -111,5 +118,32 @@ def check_for_transaction_rules(
                                 tag = TransactionTag.objects.get(name=value)
 
                             instance.tags.add(tag)
+
+                    elif action.field == TransactionRuleAction.Field.entities:
+                        value = simple.eval(action.value)
+                        if isinstance(value, list):
+                            # Clear existing entities
+                            instance.entities.clear()
+                            for entity_value in value:
+                                if isinstance(entity_value, int):
+                                    entity = TransactionEntity.objects.get(
+                                        id=entity_value
+                                    )
+                                    instance.entities.add(entity)
+                                elif isinstance(entity_value, str):
+                                    entity = TransactionEntity.objects.get(
+                                        name=entity_value
+                                    )
+                                    instance.entities.add(entity)
+
+                        elif isinstance(value, (int, str)):
+                            # If a single value is provided, treat it as a single entity
+                            instance.entities.clear()
+                            if isinstance(value, int):
+                                entity = TransactionEntity.objects.get(id=value)
+                            else:
+                                entity = TransactionEntity.objects.get(name=value)
+
+                            instance.entities.add(entity)
 
         instance.save()

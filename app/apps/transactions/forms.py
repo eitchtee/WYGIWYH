@@ -25,6 +25,7 @@ from apps.transactions.models import (
     TransactionTag,
     InstallmentPlan,
     RecurringTransaction,
+    TransactionEntity,
 )
 from apps.rules.signals import transaction_created, transaction_updated
 
@@ -41,6 +42,13 @@ class TransactionForm(forms.ModelForm):
         create_field="name",
         required=False,
         label=_("Tags"),
+    )
+    entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
     )
     account = forms.ModelChoiceField(
         queryset=Account.objects.filter(is_archived=False),
@@ -62,6 +70,7 @@ class TransactionForm(forms.ModelForm):
             "notes",
             "category",
             "tags",
+            "entities",
         ]
         widgets = {
             "date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -81,7 +90,11 @@ class TransactionForm(forms.ModelForm):
                 template="transactions/widgets/income_expense_toggle_buttons.html",
             ),
             Switch("is_paid"),
-            "account",
+            Row(
+                Column("account", css_class="form-group col-md-6 mb-0"),
+                Column("entities", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
             Row(
                 Column("date", css_class="form-group col-md-6 mb-0"),
                 Column("reference_date", css_class="form-group col-md-6 mb-0"),
@@ -351,6 +364,13 @@ class InstallmentPlanForm(forms.ModelForm):
         required=False,
         label=_("Category"),
     )
+    entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+    )
     type = forms.ChoiceField(choices=Transaction.Type.choices)
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
 
@@ -369,6 +389,7 @@ class InstallmentPlanForm(forms.ModelForm):
             "tags",
             "notes",
             "installment_start",
+            "entities",
         ]
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -389,7 +410,11 @@ class InstallmentPlanForm(forms.ModelForm):
                 "type",
                 template="transactions/widgets/income_expense_toggle_buttons.html",
             ),
-            "account",
+            Row(
+                Column("account", css_class="form-group col-md-6 mb-0"),
+                Column("entities", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
             "description",
             "notes",
             Row(
@@ -474,6 +499,38 @@ class TransactionTagForm(forms.ModelForm):
             )
 
 
+class TransactionEntityForm(forms.ModelForm):
+    class Meta:
+        model = TransactionEntity
+        fields = ["name"]
+        labels = {"name": _("Entity name")}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(Field("name", css_class="mb-3"))
+
+        if self.instance and self.instance.pk:
+            self.helper.layout.append(
+                FormActions(
+                    NoClassSubmit(
+                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
+                    ),
+                ),
+            )
+        else:
+            self.helper.layout.append(
+                FormActions(
+                    NoClassSubmit(
+                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
+                    ),
+                ),
+            )
+
+
 class TransactionCategoryForm(forms.ModelForm):
     class Meta:
         model = TransactionCategory
@@ -527,6 +584,13 @@ class RecurringTransactionForm(forms.ModelForm):
         required=False,
         label=_("Category"),
     )
+    entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+    )
     type = forms.ChoiceField(choices=Transaction.Type.choices)
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
 
@@ -568,7 +632,11 @@ class RecurringTransactionForm(forms.ModelForm):
                 "type",
                 template="transactions/widgets/income_expense_toggle_buttons.html",
             ),
-            "account",
+            Row(
+                Column("account", css_class="form-group col-md-6 mb-0"),
+                Column("entities", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
             "description",
             "amount",
             Row(

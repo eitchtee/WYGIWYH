@@ -40,6 +40,20 @@ class TransactionTag(models.Model):
         return self.name
 
 
+class TransactionEntity(models.Model):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+    # Add any other fields you might want for entities
+
+    class Meta:
+        verbose_name = _("Entity")
+        verbose_name_plural = _("Entities")
+        db_table = "entities"
+
+    def __str__(self):
+        return self.name
+
+
 class Transaction(models.Model):
     class Type(models.TextChoices):
         INCOME = "IN", _("Income")
@@ -77,7 +91,17 @@ class Transaction(models.Model):
         blank=True,
         null=True,
     )
-    tags = models.ManyToManyField(TransactionTag, verbose_name=_("Tags"), blank=True)
+    tags = models.ManyToManyField(
+        TransactionTag,
+        verbose_name=_("Tags"),
+        blank=True,
+    )
+    entities = models.ManyToManyField(
+        TransactionEntity,
+        verbose_name=_("Entities"),
+        blank=True,
+        related_name="transactions",
+    )
 
     installment_plan = models.ForeignKey(
         "InstallmentPlan",
@@ -185,6 +209,12 @@ class InstallmentPlan(models.Model):
         verbose_name=_("Category"),
     )
     tags = models.ManyToManyField(TransactionTag, verbose_name=_("Tags"), blank=True)
+    entities = models.ManyToManyField(
+        TransactionEntity,
+        verbose_name=_("Entities"),
+        blank=True,
+    )
+
     notes = models.TextField(blank=True, verbose_name=_("Notes"))
 
     class Meta:
@@ -255,6 +285,7 @@ class InstallmentPlan(models.Model):
                 notes=self.notes,
             )
             new_transaction.tags.set(self.tags.all())
+            new_transaction.entities.set(self.entities.all())
 
     @transaction.atomic
     def update_transactions(self):
@@ -292,6 +323,7 @@ class InstallmentPlan(models.Model):
 
                 # Update tags
                 existing_transaction.tags.set(self.tags.all())
+                existing_transaction.entities.set(self.entities.all())
             else:
                 # If the transaction doesn't exist, create a new one
                 new_transaction = Transaction.objects.create(
@@ -308,6 +340,7 @@ class InstallmentPlan(models.Model):
                     notes=self.notes,
                 )
                 new_transaction.tags.set(self.tags.all())
+                new_transaction.entities.set(self.entities.all())
 
         # Remove any extra transactions that are no longer part of the plan
         self.transactions.filter(
@@ -353,6 +386,11 @@ class RecurringTransaction(models.Model):
         null=True,
     )
     tags = models.ManyToManyField(TransactionTag, verbose_name=_("Tags"), blank=True)
+    entities = models.ManyToManyField(
+        TransactionEntity,
+        verbose_name=_("Entities"),
+        blank=True,
+    )
     notes = models.TextField(blank=True, verbose_name=_("Notes"))
     reference_date = models.DateField(
         verbose_name=_("Reference Date"), null=True, blank=True
@@ -426,6 +464,8 @@ class RecurringTransaction(models.Model):
         )
         if self.tags.exists():
             created_transaction.tags.set(self.tags.all())
+        if self.entities.exists():
+            created_transaction.entities.set(self.entities.all())
 
     def get_recurrence_delta(self):
         if self.recurrence_type == self.RecurrenceType.DAY:

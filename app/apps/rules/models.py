@@ -26,6 +26,7 @@ class TransactionRuleAction(models.Model):
         notes = "notes", _("Notes")
         category = "category", _("Category")
         tags = "tags", _("Tags")
+        entities = "entities", _("Entities")
 
     rule = models.ForeignKey(
         TransactionRule,

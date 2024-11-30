@@ -5,12 +5,14 @@ from apps.api.serializers import (
     TransactionCategorySerializer,
     TransactionTagSerializer,
     InstallmentPlanSerializer,
+    TransactionEntitySerializer,
 )
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
     TransactionTag,
     InstallmentPlan,
+    TransactionEntity,
 )
 from apps.rules.signals import transaction_updated, transaction_created
 
@@ -40,6 +42,11 @@ class TransactionCategoryViewSet(viewsets.ModelViewSet):
 class TransactionTagViewSet(viewsets.ModelViewSet):
     queryset = TransactionTag.objects.all()
     serializer_class = TransactionTagSerializer
+
+
+class TransactionEntityViewSet(viewsets.ModelViewSet):
+    queryset = TransactionEntity.objects.all()
+    serializer_class = TransactionEntitySerializer
 
 
 class InstallmentPlanViewSet(viewsets.ModelViewSet):

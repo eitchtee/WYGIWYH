@@ -2,7 +2,11 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
-from apps.transactions.models import TransactionCategory, TransactionTag
+from apps.transactions.models import (
+    TransactionCategory,
+    TransactionTag,
+    TransactionEntity,
+)
 
 
 @extend_schema_field(
@@ -67,3 +71,27 @@ class TransactionTagField(serializers.Field):
                 )
             tags.append(tag)
         return tags
+
+
+class TransactionEntityField(serializers.Field):
+    def to_representation(self, value):
+        return [{"id": entity.id, "name": entity.name} for entity in value.all()]
+
+    def to_internal_value(self, data):
+        entities = []
+        for item in data:
+            if isinstance(item, int):
+                try:
+                    entity = TransactionEntity.objects.get(pk=item)
+                except TransactionTag.DoesNotExist:
+                    raise serializers.ValidationError(
+                        f"Entity with ID {item} does not exist."
+                    )
+            elif isinstance(item, str):
+                entity, created = TransactionEntity.objects.get_or_create(name=item)
+            else:
+                raise serializers.ValidationError(
+                    "Invalid entity data. Provide an ID or name."
+                )
+            entities.append(entity)
+        return entities

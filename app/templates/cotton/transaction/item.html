@@ -41,6 +41,15 @@
         {% endspaceless %}
       </div>
       <div class="tw-text-gray-400 tw-text-sm">
+      {#        Entities #}
+        {% with transaction.entities.all as entities %}
+        {% if entities %}
+        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+          <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
+          <div class="col ps-0">{{ entities|join:", " }}</div>
+        </div>
+        {% endif %}
+        {% endwith %}
 {#        Notes#}
         {% if transaction.notes %}
         <div class="row mb-2 mb-lg-1 tw-text-gray-400">
