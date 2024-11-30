@@ -27,7 +27,8 @@
         {% for pair in pairings %}
           <li class="nav-item" role="presentation">
             <button class="nav-link" hx-indicator="#exchange-rates-table"
-                    hx-get="{% url 'exchange_rates_list_pair' from_currency=pair.1 to_currency=pair.2 %}"
+                    hx-get="{% url 'exchange_rates_list_pair' %}"
+                    hx-vals='{"from": "{{ pair.1 }}", "to": "{{ pair.2 }}"}'
                     hx-target="#exchange-rates-table" data-bs-toggle="tab" type="button" role="tab"
                     aria-controls="#exchange-rates-table" aria-selected="false">{{ pair.0 }}</button>
           </li>

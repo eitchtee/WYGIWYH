@@ -23,11 +23,6 @@ urlpatterns = [
         views.exchange_rates_list_pair,
         name="exchange_rates_list_pair",
     ),
-    path(
-        "exchange-rates/pair/<str:from_currency>/<str:to_currency>",
-        views.exchange_rates_list_pair,
-        name="exchange_rates_list_pair",
-    ),
     path("exchange-rates/add/", views.exchange_rate_add, name="exchange_rate_add"),
     path(
         "exchange-rates/<int:pk>/edit/",

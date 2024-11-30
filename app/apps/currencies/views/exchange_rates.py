@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import F, CharField, Value
 from django.db.models.functions import Concat
 from django.http import HttpResponse
@@ -50,7 +51,10 @@ def exchange_rates_list(request):
 @only_htmx
 @login_required
 @require_http_methods(["GET"])
-def exchange_rates_list_pair(request, from_currency=None, to_currency=None):
+def exchange_rates_list_pair(request):
+    from_currency = request.GET.get("from")
+    to_currency = request.GET.get("to")
+
     if from_currency and to_currency:
         exchange_rates = ExchangeRate.objects.filter(
             from_currency__code=from_currency, to_currency__code=to_currency
@@ -58,11 +62,17 @@ def exchange_rates_list_pair(request, from_currency=None, to_currency=None):
     else:
         exchange_rates = ExchangeRate.objects.all().order_by("-date")
 
+    page_number = request.GET.get("page", 1)
+    paginator = Paginator(exchange_rates, 100)
+    page_obj = paginator.get_page(page_number)
+
     return render(
         request,
         "exchange_rates/fragments/table.html",
         {
             "exchange_rates": exchange_rates,
+            "paginator": paginator,
+            "page_obj": page_obj,
             "from_currency": from_currency,
             "to_currency": to_currency,
         },
