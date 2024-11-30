@@ -101,33 +101,36 @@
       </div>
     </div>
     <div class="col-12 col-xl-8 order-2 order-xl-1">
-{#      Filter transactions#}
       <div class="row mb-1">
-          <div class="col-sm-6 col-12">
-            <div class="dropdown">
-              <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown"
-                      aria-expanded="false" data-bs-auto-close="false">
-                <i class="fa-solid fa-filter fa-fw me-2"></i>{% translate 'Filter transactions' %}
-              </button>
-              <form _="on change or submit or search trigger updated on window end
-                       install init_tom_select"
-                    id="filter"
-                    class="dropdown-menu p-4 tw-min-w-full sm:tw-min-w-[30em] md:tw-min-w-[40em]">
-                {% crispy filter.form %}
-              </form>
-            </div>
-          </div>
-          <div class="col-sm-6 col-12 tw-content-center my-3 my-sm-0">
-            <div class="text-sm-end" _="on change trigger updated on window">
-              <label for="order">{% translate "Order by" %}</label>
-              <select class="tw-border-0 focus-visible:tw-outline-0 w-full pe-2 tw-leading-normal text-bg-tertiary tw-font-medium rounded" name="order" id="order">
-                <option value="default">{% translate 'Default' %}</option>
-                <option value="older">{% translate 'Oldest first' %}</option>
-                <option value="newer">{% translate 'Newest first' %}</option>
-              </select>
-            </div>
+        <div class="col-sm-6 col-12">
+{#        Filter transactions button #}
+          <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="fa-solid fa-filter fa-fw me-2"></i>{% translate 'Filter transactions' %}
+          </button>
+        </div>
+{#        Ordering button#}
+        <div class="col-sm-6 col-12 tw-content-center my-3 my-sm-0">
+          <div class="text-sm-end" _="on change trigger updated on window">
+            <label for="order">{% translate "Order by" %}</label>
+            <select class="tw-border-0 focus-visible:tw-outline-0 w-full pe-2 tw-leading-normal text-bg-tertiary tw-font-medium rounded" name="order" id="order">
+              <option value="default">{% translate 'Default' %}</option>
+              <option value="older">{% translate 'Oldest first' %}</option>
+              <option value="newer">{% translate 'Newest first' %}</option>
+            </select>
           </div>
         </div>
+      </div>
+{#      Filter transactions form#}
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <form _="on change or submit or search trigger updated on window end
+                   install init_tom_select"
+                id="filter">
+            {% crispy filter.form %}
+          </form>
+        </div>
+      </div>
+{#      Transactions list#}
       <div id="transactions"
            class="show-loading"
            hx-get="{% url 'monthly_transactions_list' month=month year=year %}"
