@@ -48,7 +48,7 @@
     </table>
   </div>
   {% else %}
-    <c-msg.empty title="{% translate "No exchange rates" %}" :remove-padding="True"></c-msg.empty>
+    <c-msg.empty title="{% translate "No exchange rates" %}" remove-padding></c-msg.empty>
   {% endif %}
 
   {% if page_obj.has_other_pages %}
