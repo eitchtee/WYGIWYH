@@ -24,10 +24,12 @@
     </div>
     <div class="col-lg-8 col-12">
 {#      Date#}
-      <div class="mb-1 tw-text-gray-400">
-        <i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i>{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
+      <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+          <div class="col-auto pe-1"><i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i></div>
+          <div class="col ps-0">{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
+      </div>
 {#      Description#}
-      <div class="mb-1 text-white tw-text-base">
+      <div class="mb-2 mb-lg-1 text-white tw-text-base">
         {% spaceless %}
         <span>{{ transaction.description }}</span>
         {% if transaction.installment_plan and transaction.installment_id %}
@@ -41,32 +43,31 @@
       <div class="tw-text-gray-400 tw-text-sm">
 {#        Notes#}
         {% if transaction.notes %}
-        <div class="mb-1 tw-text-gray-400">
-          <i class="fa-solid fa-align-left fa-fw me-1 fa-xs"></i>{{ transaction.notes | linebreaksbr }}
+        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+          <div class="col-auto pe-1"><i class="fa-solid fa-align-left fa-fw me-1 fa-xs"></i></div>
+          <div class="col ps-0">{{ transaction.notes | linebreaksbr }}</div>
         </div>
         {% endif %}
+{#        Category#}
         {% if transaction.category %}
-        <div class="mb-1">
-          {% spaceless %}
-          <i class="fa-solid fa-icons fa-fw me-1 fa-xs"></i>
-          <span class="">{{ transaction.category.name }}</span>
-          {% endspaceless %}
+        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+          <div class="col-auto pe-1"><i class="fa-solid fa-icons fa-fw me-1 fa-xs"></i></div>
+          <div class="col ps-0">{{ transaction.category.name }}</div>
         </div>
         {% endif %}
         {#        Tags#}
         {% with transaction.tags.all as tags %}
         {% if tags %}
-        <div class="mb-1">
-          {% for tag in tags %}
-            <span><i class="fa-solid fa-hashtag fa-fw fa-xs"></i>{{ tag.name }}</span>
-          {% endfor %}
+        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+          <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
+          <div class="col ps-0">{{ tags|join:", " }}</div>
         </div>
         {% endif %}
         {% endwith %}
       </div>
     </div>
     <div class="col-lg-3 col-12 text-lg-end align-self-end">
-        <div class="main-amount">
+        <div class="main-amount mb-2 mb-lg-0">
           <c-amount.display 
               :amount="transaction.amount"
               :prefix="transaction.account.currency.prefix"
@@ -77,7 +78,7 @@
         {#    Exchange Rate#}
         {% with exchanged=transaction.exchanged_amount %}
         {% if exchanged %}
-        <div class="exchanged-amount">
+        <div class="exchanged-amount mb-2 mb-lg-0">
           <c-amount.display 
               :amount="exchanged.amount"
               :prefix="exchanged.prefix"
