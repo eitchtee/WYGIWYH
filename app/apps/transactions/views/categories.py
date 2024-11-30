@@ -46,7 +46,7 @@ def category_add(request, **kwargs):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -74,7 +74,7 @@ def category_edit(request, category_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -101,6 +101,6 @@ def category_delete(request, category_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )

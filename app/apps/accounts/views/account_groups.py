@@ -46,7 +46,7 @@ def account_group_add(request, **kwargs):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -74,7 +74,7 @@ def account_group_edit(request, pk):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -101,6 +101,6 @@ def account_group_delete(request, pk):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )

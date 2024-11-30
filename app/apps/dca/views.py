@@ -40,7 +40,7 @@ def strategy_add(request):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -67,7 +67,7 @@ def strategy_edit(request, strategy_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -94,7 +94,7 @@ def strategy_delete(request, strategy_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )
 
@@ -180,7 +180,7 @@ def strategy_entry_add(request, strategy_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -207,7 +207,7 @@ def strategy_entry_edit(request, strategy_id, entry_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -234,6 +234,6 @@ def strategy_entry_delete(request, entry_id, strategy_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )

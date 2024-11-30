@@ -90,7 +90,7 @@ def installment_plan_add(request):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -118,7 +118,7 @@ def installment_plan_edit(request, installment_plan_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -143,7 +143,7 @@ def installment_plan_refresh(request, installment_plan_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )
 
@@ -162,6 +162,6 @@ def installment_plan_delete(request, installment_plan_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )

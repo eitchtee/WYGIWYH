@@ -116,7 +116,7 @@ def recurring_transaction_add(request):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -146,7 +146,7 @@ def recurring_transaction_edit(request, recurring_transaction_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -179,7 +179,7 @@ def recurring_transaction_toggle_pause(request, recurring_transaction_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )
 
@@ -202,7 +202,7 @@ def recurring_transaction_finish(request, recurring_transaction_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )
 
@@ -223,6 +223,6 @@ def recurring_transaction_delete(request, recurring_transaction_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )

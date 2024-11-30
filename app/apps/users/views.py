@@ -61,7 +61,7 @@ def toggle_amount_visibility(request):
         messages.info(request, _("Transaction amounts are now displayed"))
         response = render(request, "users/generic/hide_amounts.html")
 
-    response.headers["HX-Trigger"] = "updated, toast"
+    response.headers["HX-Trigger"] = "updated"
     return response
 
 
@@ -82,7 +82,7 @@ def toggle_sound_playing(request):
         messages.info(request, _("Sounds will now play"))
         response = render(request, "users/generic/mute_sounds.html")
 
-    response.headers["HX-Trigger"] = "updated, toast"
+    response.headers["HX-Trigger"] = "updated"
     return response
 
 

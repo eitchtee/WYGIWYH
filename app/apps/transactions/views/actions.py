@@ -13,7 +13,7 @@ def bulk_pay_transactions(request):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Trigger": "updated, toast, paid"},
+        headers={"HX-Trigger": "updated, paid"},
     )
 
 
@@ -25,7 +25,7 @@ def bulk_unpay_transactions(request):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Trigger": "updated, toast, unpaid"},
+        headers={"HX-Trigger": "updated, unpaid"},
     )
 
 
@@ -37,5 +37,5 @@ def bulk_delete_transactions(request):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Trigger": "updated, toast"},
+        headers={"HX-Trigger": "updated"},
     )

@@ -49,7 +49,7 @@ def transaction_rule_toggle_activity(request, transaction_rule_id, **kwargs):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )
 
@@ -90,7 +90,7 @@ def transaction_rule_edit(request, transaction_rule_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -130,7 +130,7 @@ def transaction_rule_delete(request, transaction_rule_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )
 
@@ -149,7 +149,7 @@ def transaction_rule_action_add(request, transaction_rule_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -184,7 +184,7 @@ def transaction_rule_action_edit(request, transaction_rule_action_id):
             return HttpResponse(
                 status=204,
                 headers={
-                    "HX-Trigger": "updated, hide_offcanvas, toasts",
+                    "HX-Trigger": "updated, hide_offcanvas",
                 },
             )
     else:
@@ -215,6 +215,6 @@ def transaction_rule_action_delete(request, transaction_rule_action_id):
     return HttpResponse(
         status=204,
         headers={
-            "HX-Trigger": "updated, hide_offcanvas, toasts",
+            "HX-Trigger": "updated, hide_offcanvas",
         },
     )

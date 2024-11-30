@@ -40,7 +40,7 @@ def transaction_add(request):
 
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "updated, hide_offcanvas, toast"},
+                headers={"HX-Trigger": "updated, hide_offcanvas"},
             )
     else:
         form = TransactionForm(
@@ -71,7 +71,7 @@ def transaction_edit(request, transaction_id, **kwargs):
 
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "updated, hide_offcanvas, toast"},
+                headers={"HX-Trigger": "updated, hide_offcanvas"},
             )
     else:
         form = TransactionForm(instance=transaction)
@@ -96,7 +96,7 @@ def transaction_delete(request, transaction_id, **kwargs):
 
     return HttpResponse(
         status=204,
-        headers={"HX-Trigger": "updated, toast"},
+        headers={"HX-Trigger": "updated"},
     )
 
 
@@ -121,7 +121,7 @@ def transactions_transfer(request):
             messages.success(request, _("Transfer added successfully"))
             return HttpResponse(
                 status=204,
-                headers={"HX-Trigger": "updated, toast, hide_offcanvas"},
+                headers={"HX-Trigger": "updated, hide_offcanvas"},
             )
     else:
         form = TransferForm(
