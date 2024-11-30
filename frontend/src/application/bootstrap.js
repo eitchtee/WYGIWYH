@@ -7,12 +7,15 @@ function initiateToasts() {
     const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl));  // eslint-disable-line no-undef
 
     for (let i = 0; i < toastList.length; i++) {
-        toastList[i].show();
-        toastList[i]._element.addEventListener('hidden.bs.toast', (event) => {
-            event.target.remove();
-        });
+        if (toastList[i].isShown() === false) {
+            toastList[i].show();
+            toastList[i]._element.addEventListener('hidden.bs.toast', (event) => {
+                event.target.remove();
+            });
+        }
     }
 }
 
+document.addEventListener('DOMContentLoaded', initiateToasts, false);
 document.addEventListener('htmx:afterSwap', initiateToasts, false);
 initiateToasts();

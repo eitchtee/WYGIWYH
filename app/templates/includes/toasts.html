@@ -1,3 +1,6 @@
-<div id="toasts" hx-get="{% url 'toasts' %}"
-     hx-trigger="load, toast from:window, toasts from:window">
+<div id="toasts">
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" hx-trigger="load, updated from:window" hx-get="{% url 'toasts' %}" hx-swap="beforeend">
+
+  </div>
 </div>
+

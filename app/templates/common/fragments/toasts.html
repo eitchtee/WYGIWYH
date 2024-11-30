@@ -1,22 +1,20 @@
 {% load i18n %}
 {% load toast_bg %}
 {% if messages %}
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        {% for message in messages %}
-            <div class="toast align-items-center text-bg-{{ message.tags | toast_bg }} border-0"
-                 role="alert"
-                 aria-live="assertive"
-                 aria-atomic="true">
-                <div class="toast-header">
-                    <i class="{{ message.tags | toast_icon }} fa-fw me-1"></i>
-                    <strong class="me-auto">{{ message.tags | toast_title }}</strong>
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="toast"
-                            aria-label={% translate 'Close' %}></button>
-                </div>
-                <div class="toast-body">{{ message }}</div>
-            </div>
-        {% endfor %}
-    </div>
+  {% for message in messages %}
+      <div class="toast align-items-center text-bg-{{ message.tags | toast_bg }} border-0"
+           role="alert"
+           aria-live="assertive"
+           aria-atomic="true">
+          <div class="toast-header">
+              <i class="{{ message.tags | toast_icon }} fa-fw me-1"></i>
+              <strong class="me-auto">{{ message.tags | toast_title }}</strong>
+              <button type="button"
+                      class="btn-close"
+                      data-bs-dismiss="toast"
+                      aria-label={% translate 'Close' %}></button>
+          </div>
+          <div class="toast-body">{{ message }}</div>
+      </div>
+  {% endfor %}
 {% endif %}
