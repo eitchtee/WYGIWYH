@@ -609,6 +609,7 @@ class RecurringTransactionForm(forms.ModelForm):
             "recurrence_type",
             "recurrence_interval",
             "notes",
+            "entities",
         ]
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
