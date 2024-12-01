@@ -1,0 +1,11 @@
+{% load i18n %}
+<div id="search" class="mb-3">
+  <label class="w-100">
+  <input type="search"
+         class="form-control"
+         placeholder="{% translate 'Search' %}"
+         _="on input or search
+              show < tbody>tr /> in <table/>
+              when its textContent.toLowerCase() contains my value.toLowerCase()"/>
+  </label>
+</div>

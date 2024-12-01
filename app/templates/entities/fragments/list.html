@@ -14,47 +14,50 @@
     {% endspaceless %}
   </div>
 
-  <div class="border p-3 rounded-3 table-responsive">
-    {% if entities %}
-    <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col" class="col-auto"></th>
-        <th scope="col" class="col">{% translate 'Name' %}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for entity in entities %}
-      <tr class="entity">
-        <td class="col-auto">
-          <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-            <a class="btn btn-secondary btn-sm"
-                  role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Edit" %}"
-                  hx-get="{% url 'entity_edit' entity_id=entity.id %}"
-                  hx-target="#generic-offcanvas">
-              <i class="fa-solid fa-pencil fa-fw"></i></a>
-            <a class="btn btn-secondary btn-sm text-danger"
-                    role="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{% translate "Delete" %}"
-                    hx-delete="{% url 'entity_delete' entity_id=entity.id %}"
-                    hx-trigger='confirmed'
-                    data-bypass-on-ctrl="true"
-                    data-title="{% translate "Are you sure?" %}"
-                    data-text="{% translate "You won't be able to revert this!" %}"
-                    data-confirm-text="{% translate "Yes, delete it!" %}"
-                    _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
-          </div>
-        </td>
-        <td class="col">{{ entity.name }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-    {% else %}
-    <c-msg.empty title="{% translate "No entities" %}" remove-padding></c-msg.empty>
-    {% endif %}
+  <div class="card">
+    <div class="card-body table-responsive">
+      {% if entities %}
+        <c-config.search></c-config.search>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col" class="col-auto"></th>
+              <th scope="col" class="col">{% translate 'Name' %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for entity in entities %}
+            <tr class="entity">
+              <td class="col-auto">
+                <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
+                  <a class="btn btn-secondary btn-sm"
+                        role="button"
+                        data-bs-toggle="tooltip"
+                        data-bs-title="{% translate "Edit" %}"
+                        hx-get="{% url 'entity_edit' entity_id=entity.id %}"
+                        hx-target="#generic-offcanvas">
+                    <i class="fa-solid fa-pencil fa-fw"></i></a>
+                  <a class="btn btn-secondary btn-sm text-danger"
+                          role="button"
+                          data-bs-toggle="tooltip"
+                          data-bs-title="{% translate "Delete" %}"
+                          hx-delete="{% url 'entity_delete' entity_id=entity.id %}"
+                          hx-trigger='confirmed'
+                          data-bypass-on-ctrl="true"
+                          data-title="{% translate "Are you sure?" %}"
+                          data-text="{% translate "You won't be able to revert this!" %}"
+                          data-confirm-text="{% translate "Yes, delete it!" %}"
+                          _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+                </div>
+              </td>
+              <td class="col">{{ entity.name }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <c-msg.empty title="{% translate "No entities" %}" remove-padding></c-msg.empty>
+        {% endif %}
+    </div>
   </div>
 </div>

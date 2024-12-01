@@ -1,11 +1,13 @@
 {% load currency_display %}
 {% load i18n %}
 {% if active %}
-<div class="card-body show-loading" hx-get="{% url 'active_installment_plans_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+<div class="show-loading" hx-get="{% url 'active_installment_plans_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
 {% else %}
-<div class="card-body show-loading" hx-get="{% url 'finished_installment_plans_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+<div class="show-loading" hx-get="{% url 'finished_installment_plans_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
 {% endif %}
   {% if installment_plans %}
+  <c-config.search></c-config.search>
+
   <div class="table-responsive">
     <table class="table table-hover align-middle">
       <thead>

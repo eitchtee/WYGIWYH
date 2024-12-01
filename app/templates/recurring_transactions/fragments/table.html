@@ -1,13 +1,15 @@
 {% load currency_display %}
 {% load i18n %}
 {% if status == "active" %}
-<div class="card-body show-loading" hx-get="{% url 'active_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+<div class="show-loading" hx-get="{% url 'active_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
 {% elif status == 'paused' %}
-<div class="card-body show-loading" hx-get="{% url 'paused_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+<div class="show-loading" hx-get="{% url 'paused_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
 {% elif status == 'finished' %}
-<div class="card-body show-loading" hx-get="{% url 'finished_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
+<div class="show-loading" hx-get="{% url 'finished_recurring_transaction_list' %}" hx-trigger="updated from:window" hx-swap="outerHTML">
 {% endif %}
   {% if recurring_transactions %}
+  <c-config.search></c-config.search>
+
   <div class="table-responsive">
     <table class="table table-hover align-middle">
     <thead>
