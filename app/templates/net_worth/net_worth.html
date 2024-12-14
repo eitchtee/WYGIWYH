@@ -21,31 +21,14 @@
               </div>
               <div class="card-body">
                 <h5 class="tw-text-yellow-400 fw-bold mb-3"
-                    _="on click
-                        set chart to Chart.getChart('currencyBalanceChart')
-                        for dataset in chart.data.datasets
-                          call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), true)
-                        end
-                        call chart.update()
-                      end">
+                    _="on click showAllDatasetsCurrency()">
                   {% translate 'By currency' %}
                 </h5>
                 {% for currency in currency_net_worth.values %}
                   <div class="d-flex justify-content-between mt-2">
                     <div class="d-flex align-items-baseline w-100">
                       <div class="currency-name text-start font-monospace tw-text-gray-300"
-                           _="def showOnlyDatasetByName(datasetName)
-                                set chart to Chart.getChart('currencyBalanceChart')
-                                for dataset in chart.data.datasets
-                                  set isMatch to dataset.label is datasetName
-                                  call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
-                                end
-                                call chart.update()
-                              end
-                              
-                              on click
-                                showOnlyDatasetByName('{{ currency.currency.name }}')
-                              end">
+                           _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
                         {{ currency.currency.name }}
                       </div>
                       <div class="dotted-line flex-grow-1"></div>
@@ -83,13 +66,7 @@
               </div>
               <div class="card-body">
                 <h5 class="tw-text-blue-400 fw-bold mb-3"
-                    _="on click
-                        set chart to Chart.getChart('accountBalanceChart')
-                        for dataset in chart.data.datasets
-                          call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), true)
-                        end
-                        call chart.update()
-                       end">
+                    _="on click showAllDatasetsAccount()">
                   {% translate 'By account' %}
                 </h5>
                 {% regroup account_net_worth.values by account.group as account_data %}
@@ -105,18 +82,7 @@
                       <div class="d-flex justify-content-between mt-2">
                         <div class="d-flex align-items-baseline w-100">
                           <div class="account-name text-start font-monospace tw-text-gray-300"
-                               _="def showOnlyDatasetByName(datasetName)
-                                set chart to Chart.getChart('accountBalanceChart')
-                                for dataset in chart.data.datasets
-                                  set isMatch to dataset.label is datasetName
-                                  call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
-                                end
-                                call chart.update()
-                              end
-                              
-                              on click
-                                showOnlyDatasetByName('{{ account.account.name }}')
-                              end">
+                               _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                             <span class="hierarchy-line-icon"></span>{{ account.account.name }}</div>
                           <div class="dotted-line flex-grow-1"></div>
                           <div class="">
@@ -144,18 +110,7 @@
                       <div class="d-flex justify-content-between mt-2">
                         <div class="d-flex align-items-baseline w-100">
                           <div class="account-name text-start font-monospace tw-text-gray-300"
-                               _="def showOnlyDatasetByName(datasetName)
-                                set chart to Chart.getChart('accountBalanceChart')
-                                for dataset in chart.data.datasets
-                                  set isMatch to dataset.label is datasetName
-                                  call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
-                                end
-                                call chart.update()
-                              end
-                              
-                              on click
-                                showOnlyDatasetByName('{{ account.account.name }}')
-                              end">
+                               _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                             {{ account.account.name }}
                           </div>
                           <div class="dotted-line flex-grow-1"></div>
@@ -299,6 +254,42 @@
               }
           }
       });
+  </script>
+
+  <script type="text/hyperscript">
+  def showOnlyAccountDataset(datasetName)
+    set chart to Chart.getChart('accountBalanceChart')
+    for dataset in chart.data.datasets
+      set isMatch to dataset.label is datasetName
+      call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
+    end
+    call chart.update()
+  end
+  
+  def showOnlyCurrencyDataset(datasetName)
+    set chart to Chart.getChart('currencyBalanceChart')
+    for dataset in chart.data.datasets
+      set isMatch to dataset.label is datasetName
+      call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
+    end
+    call chart.update()
+  end
+  
+  def showAllDatasetsAccount()
+    set chart to Chart.getChart('accountBalanceChart')
+    for dataset in chart.data.datasets
+      call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), true)
+    end
+    call chart.update()
+  end
+  
+  def showAllDatasetsCurrency()
+    set chart to Chart.getChart('currencyBalanceChart')
+    for dataset in chart.data.datasets
+      call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), true)
+    end
+    call chart.update()
+  end
   </script>
 
 {% endblock %}
