@@ -27,13 +27,6 @@
            {% block body_hyperscript %}{% endblock %}">
       {% include 'includes/navbar.html' %}
 
-      <div class="container tw-hidden" id="loading-error">
-        <div class="alert alert-danger m-3 alert-dismissible swing-in-top-fwd" role="alert">
-          {% translate 'Something went wrong loading your data. Try reloading the page or check the console for more information.' %}
-          <button type="button" class="btn-close" aria-label="Close" id="loading-error-close"></button>
-        </div>
-      </div>
-
       <div id="content">
         {% block content %}{% endblock %}
       </div>

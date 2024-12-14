@@ -1,8 +1,15 @@
+{% load i18n %}
 <script type="text/hyperscript">
   behavior htmx_error_handler
-    on htmx:responseError or htmx:afterRequest[detail.failed] remove .tw-hidden from
-    #loading-error then log event
-    on htmx:afterRequest[detail.successful] add .tw-hidden to #loading-error
-    on click from #loading-error-close add .tw-hidden to #loading-error
+    on htmx:responseError or htmx:afterRequest[detail.failed] or htmx:sendError queue none
+      call Swal.fire({title: '{% trans 'Something went wrong loading your data' %}',
+                      text: '{% trans 'Try reloading the page or check the console for more information.' %}',
+                      icon: 'error',
+                      customClass: {
+                        confirmButton: 'btn btn-primary'
+                      },
+                      buttonsStyling: true})
+      then log event
+      then halt the event
   end
 </script>
