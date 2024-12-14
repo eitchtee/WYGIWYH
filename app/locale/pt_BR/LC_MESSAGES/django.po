@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-14 01:56+0000\n"
-"PO-Revision-Date: 2024-12-13 22:59-0300\n"
+"POT-Creation-Date: 2024-12-14 21:20+0000\n"
+"PO-Revision-Date: 2024-12-14 18:20-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -43,7 +43,7 @@ msgstr "Atualizar"
 #: templates/accounts/fragments/list.html:9
 #: templates/categories/fragments/list.html:9
 #: templates/currencies/fragments/list.html:9
-#: templates/dca/fragments/strategy/details.html:36
+#: templates/dca/fragments/strategy/details.html:37
 #: templates/dca/fragments/strategy/list.html:9
 #: templates/entities/fragments/list.html:9
 #: templates/exchange_rates/fragments/list.html:10
@@ -402,12 +402,12 @@ msgstr "Estratégia"
 
 #: apps/dca/models.py:156 apps/rules/models.py:22
 #: apps/transactions/forms.py:210 apps/transactions/models.py:75
-#: templates/dca/fragments/strategy/details.html:51
+#: templates/dca/fragments/strategy/details.html:52
 #: templates/exchange_rates/fragments/table.html:10
 msgid "Date"
 msgstr "Data"
 
-#: apps/dca/models.py:158 templates/dca/fragments/strategy/details.html:52
+#: apps/dca/models.py:158 templates/dca/fragments/strategy/details.html:54
 msgid "Amount Paid"
 msgstr "Quantia paga"
 
@@ -443,15 +443,15 @@ msgstr "Estratégia CMP atualizada com sucesso"
 msgid "DCA strategy deleted successfully"
 msgstr "Estratégia CMP apagada com sucesso"
 
-#: apps/dca/views.py:178
+#: apps/dca/views.py:165
 msgid "Entry added successfully"
 msgstr "Entrada adicionada com sucesso"
 
-#: apps/dca/views.py:205
+#: apps/dca/views.py:192
 msgid "Entry updated successfully"
 msgstr "Entrada atualizada com sucesso"
 
-#: apps/dca/views.py:232
+#: apps/dca/views.py:219
 msgid "Entry deleted successfully"
 msgstr "Entrada apagada com sucesso"
 
@@ -1003,7 +1003,7 @@ msgstr "Editar grupo de conta"
 #: templates/accounts/fragments/list.html:37
 #: templates/categories/fragments/list.html:33
 #: templates/currencies/fragments/list.html:33
-#: templates/dca/fragments/strategy/details.html:62
+#: templates/dca/fragments/strategy/details.html:63
 #: templates/entities/fragments/list.html:32
 #: templates/exchange_rates/fragments/table.html:19
 #: templates/installment_plans/fragments/table.html:23
@@ -1017,7 +1017,7 @@ msgstr "Ações"
 #: templates/categories/fragments/list.html:37
 #: templates/cotton/transaction/item.html:109
 #: templates/currencies/fragments/list.html:37
-#: templates/dca/fragments/strategy/details.html:66
+#: templates/dca/fragments/strategy/details.html:67
 #: templates/dca/fragments/strategy/list.html:34
 #: templates/entities/fragments/list.html:36
 #: templates/exchange_rates/fragments/table.html:23
@@ -1035,7 +1035,7 @@ msgstr "Editar"
 #: templates/cotton/transaction/item.html:116
 #: templates/cotton/ui/transactions_action_bar.html:50
 #: templates/currencies/fragments/list.html:44
-#: templates/dca/fragments/strategy/details.html:74
+#: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:42
 #: templates/entities/fragments/list.html:43
 #: templates/exchange_rates/fragments/table.html:31
@@ -1054,7 +1054,7 @@ msgstr "Apagar"
 #: templates/cotton/transaction/item.html:120
 #: templates/cotton/ui/transactions_action_bar.html:52
 #: templates/currencies/fragments/list.html:48
-#: templates/dca/fragments/strategy/details.html:79
+#: templates/dca/fragments/strategy/details.html:80
 #: templates/dca/fragments/strategy/list.html:46
 #: templates/entities/fragments/list.html:47
 #: templates/exchange_rates/fragments/table.html:36
@@ -1076,7 +1076,7 @@ msgstr "Tem certeza?"
 #: templates/cotton/transaction/item.html:121
 #: templates/cotton/ui/transactions_action_bar.html:53
 #: templates/currencies/fragments/list.html:49
-#: templates/dca/fragments/strategy/details.html:80
+#: templates/dca/fragments/strategy/details.html:81
 #: templates/dca/fragments/strategy/list.html:47
 #: templates/entities/fragments/list.html:48
 #: templates/exchange_rates/fragments/table.html:37
@@ -1091,7 +1091,7 @@ msgstr "Você não será capaz de reverter isso!"
 #: templates/categories/fragments/list.html:50
 #: templates/cotton/transaction/item.html:122
 #: templates/currencies/fragments/list.html:50
-#: templates/dca/fragments/strategy/details.html:81
+#: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:48
 #: templates/entities/fragments/list.html:49
 #: templates/exchange_rates/fragments/table.html:38
@@ -1285,91 +1285,91 @@ msgstr "Editar entrada CMP"
 msgid "Add DCA strategy"
 msgstr "Adicionar estratégia CMP"
 
-#: templates/dca/fragments/strategy/details.html:21
+#: templates/dca/fragments/strategy/details.html:22
 msgid "No exchange rate available"
 msgstr "Nenhuma taxa de câmbio disponível"
 
-#: templates/dca/fragments/strategy/details.html:32
+#: templates/dca/fragments/strategy/details.html:33
 msgid "Entries"
 msgstr "Entradas"
 
-#: templates/dca/fragments/strategy/details.html:54
+#: templates/dca/fragments/strategy/details.html:55
 msgid "Current Value"
 msgstr "Valor atual"
 
-#: templates/dca/fragments/strategy/details.html:55
+#: templates/dca/fragments/strategy/details.html:56
 msgid "P/L"
 msgstr "P/L"
 
-#: templates/dca/fragments/strategy/details.html:123
+#: templates/dca/fragments/strategy/details.html:124
 msgid "No entries for this DCA"
 msgstr "Nenhuma entrada neste CMP"
 
-#: templates/dca/fragments/strategy/details.html:124
+#: templates/dca/fragments/strategy/details.html:125
 #: templates/monthly_overview/fragments/list.html:41
 #: templates/transactions/fragments/list_all.html:40
 msgid "Try adding one"
 msgstr "Tente adicionar uma"
 
-#: templates/dca/fragments/strategy/details.html:134
+#: templates/dca/fragments/strategy/details.html:135
 msgid "Total Invested"
 msgstr "Total investido"
 
-#: templates/dca/fragments/strategy/details.html:148
+#: templates/dca/fragments/strategy/details.html:149
 msgid "Total Received"
 msgstr "Total recebido"
 
-#: templates/dca/fragments/strategy/details.html:162
+#: templates/dca/fragments/strategy/details.html:163
 msgid "Current Total Value"
 msgstr "Valor total atual"
 
-#: templates/dca/fragments/strategy/details.html:176
+#: templates/dca/fragments/strategy/details.html:177
 msgid "Average Entry Price"
 msgstr "Preço médio de entrada"
 
-#: templates/dca/fragments/strategy/details.html:190
+#: templates/dca/fragments/strategy/details.html:191
 msgid "Total P/L"
 msgstr "P/L total"
 
-#: templates/dca/fragments/strategy/details.html:206
+#: templates/dca/fragments/strategy/details.html:207
 #, python-format
 msgid "Total %% P/L"
 msgstr "P/L%% Total"
 
-#: templates/dca/fragments/strategy/details.html:225
+#: templates/dca/fragments/strategy/details.html:226
 #, python-format
 msgid "P/L %%"
 msgstr "P/L %%"
 
-#: templates/dca/fragments/strategy/details.html:287
+#: templates/dca/fragments/strategy/details.html:288
 msgid "Performance Over Time"
 msgstr "Desempenho ao longo do tempo"
 
-#: templates/dca/fragments/strategy/details.html:305
+#: templates/dca/fragments/strategy/details.html:306
 msgid "Entry Price"
 msgstr "Preço de Entrada"
 
-#: templates/dca/fragments/strategy/details.html:313
+#: templates/dca/fragments/strategy/details.html:314
 msgid "Current Price"
 msgstr "Preço atual"
 
-#: templates/dca/fragments/strategy/details.html:321
+#: templates/dca/fragments/strategy/details.html:322
 msgid "Amount Bought"
 msgstr "Quantia comprada"
 
-#: templates/dca/fragments/strategy/details.html:389
+#: templates/dca/fragments/strategy/details.html:390
 msgid "Entry Price vs Current Price"
 msgstr "Preço de Entrada vs Preço Atual"
 
-#: templates/dca/fragments/strategy/details.html:405
+#: templates/dca/fragments/strategy/details.html:406
 msgid "Days Between Investments"
 msgstr "Dias entre investimentos"
 
-#: templates/dca/fragments/strategy/details.html:452
+#: templates/dca/fragments/strategy/details.html:453
 msgid "Investment Frequency"
 msgstr "Frequência de Investimento"
 
-#: templates/dca/fragments/strategy/details.html:454
+#: templates/dca/fragments/strategy/details.html:455
 msgid "The straighter the blue line, the more consistent your DCA strategy is."
 msgstr ""
 "Quanto mais reta for a linha azul, mais consistente é sua estratégia de CMP."
@@ -1474,6 +1474,10 @@ msgstr "Só use isso se você souber o que está fazendo"
 #: templates/includes/navbar.html:122
 msgid "Django Admin"
 msgstr "Django Admin"
+
+#: templates/includes/navbar.html:131
+msgid "Calculator"
+msgstr "Calculadora"
 
 #: templates/includes/navbar/user_menu.html:10
 msgid "Settings"
@@ -1622,21 +1626,21 @@ msgstr "Mais antigas primeiro"
 msgid "Newest first"
 msgstr "Mais novas primeiro"
 
-#: templates/net_worth/net_worth.html:23
+#: templates/net_worth/net_worth.html:25
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
 msgstr "Por moeda"
 
-#: templates/net_worth/net_worth.html:62
+#: templates/net_worth/net_worth.html:70
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Por conta"
 
-#: templates/net_worth/net_worth.html:155
+#: templates/net_worth/net_worth.html:168
 msgid "Evolution by currency"
 msgstr "Evolução por moeda"
 
-#: templates/net_worth/net_worth.html:209
+#: templates/net_worth/net_worth.html:222
 msgid "Evolution by account"
 msgstr "Evolução por conta"
 
