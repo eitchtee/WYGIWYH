@@ -1,3 +1,4 @@
+{% load currency_display %}
 {% load i18n %}
 <div class="container-fluid px-md-3 py-3 column-gap-5">
   <div class="d-lg-flex justify-content-between mb-3 w-100">
@@ -49,8 +50,8 @@
                 <tr>
                   <th></th>
                   <th>{% trans "Date" %}</th>
-                  <th>{% trans "Amount Paid" %}</th>
                   <th>{% trans "Amount Received" %}</th>
+                  <th>{% trans "Amount Paid" %}</th>
                   <th>{% trans "Current Value" %}</th>
                   <th>{% trans "P/L" %}</th>
                 </tr>
@@ -85,17 +86,17 @@
                     <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
                     <td>
                       <c-amount.display
-                          :amount="entry.amount_paid"
-                          :prefix="entry.strategy.payment_currency.prefix"
-                          :suffix="entry.strategy.payment_currency.suffix"
-                          :decimal_places="entry.strategy.payment_currency.decimal_places"></c-amount.display>
-                    </td>
-                    <td>
-                      <c-amount.display
                           :amount="entry.amount_received"
                           :prefix="entry.strategy.target_currency.prefix"
                           :suffix="entry.strategy.target_currency.suffix"
                           :decimal_places="entry.strategy.target_currency.decimal_places"></c-amount.display>
+                    </td>
+                    <td title="{% currency_display amount=entry.entry_price prefix=entry.strategy.payment_currency.prefix suffix=entry.strategy.payment_currency.suffix decimal_places=entry.strategy.payment_currency.decimal_places %}">
+                      <c-amount.display
+                          :amount="entry.amount_paid"
+                          :prefix="entry.strategy.payment_currency.prefix"
+                          :suffix="entry.strategy.payment_currency.suffix"
+                          :decimal_places="entry.strategy.payment_currency.decimal_places"></c-amount.display>
                     </td>
                     <td>
                       <c-amount.display
