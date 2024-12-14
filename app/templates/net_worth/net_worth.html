@@ -9,238 +9,278 @@
 {% block title %}{% translate 'Net Worth' %}{% endblock %}
 
 {% block content %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="row gx-xl-4 gy-3">
-    <div class="col-12 col-xl-5">
-      <div class="row row-cols-1 g-4 mb-3">
-        <div class="col">
-          <div class="card tw-relative h-100 shadow">
-            <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
+  <div class="container px-md-3 py-3 column-gap-5">
+    <div class="row gx-xl-4 gy-3">
+      <div class="col-12 col-xl-5">
+        <div class="row row-cols-1 g-4 mb-3">
+          <div class="col">
+            <div class="card tw-relative h-100 shadow">
+              <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
             align-items-center d-flex justify-content-center rounded-2">
-              <i class="fa-solid fa-coins"></i>
-            </div>
-            <div class="card-body">
-              <h5 class="tw-text-yellow-400 fw-bold mb-3">{% translate 'By currency' %}</h5>
-              {% for currency in currency_net_worth.values %}
-              <div class="d-flex justify-content-between mt-2">
-                  <div class="d-flex align-items-baseline w-100">
-                      <div class="currency-name text-start font-monospace tw-text-gray-300">{{ currency.currency.name }}</div>
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div class="card-body">
+                <h5 class="tw-text-yellow-400 fw-bold mb-3">{% translate 'By currency' %}</h5>
+                {% for currency in currency_net_worth.values %}
+                  <div class="d-flex justify-content-between mt-2">
+                    <div class="d-flex align-items-baseline w-100">
+                      <div class="currency-name text-start font-monospace tw-text-gray-300"
+                           _="def showOnlyDatasetByName(datasetName)
+                                set chart to Chart.getChart('currencyBalanceChart')
+                                for dataset in chart.data.datasets
+                                  set isMatch to dataset.label is datasetName
+                                  call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
+                                end
+                                call chart.update()
+                              end
+                              
+                              on click
+                                showOnlyDatasetByName('{{ currency.currency.name }}')
+                              end">
+                        {{ currency.currency.name }}
+                      </div>
                       <div class="dotted-line flex-grow-1"></div>
                       <div>
                         <c-amount.display
-                              :amount="currency.total_current"
-                              :prefix="currency.currency.prefix"
-                              :suffix="currency.currency.suffix"
-                              :decimal_places="currency.currency.decimal_places"
-                              color="{% if currency.total_current > 0 %}green{% elif currency.total_current < 0 %}red{% endif %}"
-                              text-end></c-amount.display>
+                            :amount="currency.total_current"
+                            :prefix="currency.currency.prefix"
+                            :suffix="currency.currency.suffix"
+                            :decimal_places="currency.currency.decimal_places"
+                            color="{% if currency.total_current > 0 %}green{% elif currency.total_current < 0 %}red{% endif %}"
+                            text-end></c-amount.display>
                       </div>
+                    </div>
                   </div>
-              </div>
-              {% if currency.exchanged and currency.exchanged.total_current %}
-              <div>
-                <c-amount.display
+                  {% if currency.exchanged and currency.exchanged.total_current %}
+                    <div>
+                      <c-amount.display
                           :amount="currency.exchanged.total_current"
                           :prefix="currency.exchanged.currency.prefix"
                           :suffix="currency.exchanged.currency.suffix"
                           :decimal_places="currency.exchanged.currency.decimal_places"
                           text-end
                           color="grey"></c-amount.display>
+                    </div>
+                  {% endif %}
+                {% endfor %}
               </div>
-              {% endif %}
-              {% endfor %}
+            </div>
+          </div>
+          <div class="col">
+            <div class="card tw-relative h-100 shadow">
+              <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-blue-300 tw-text-blue-800 text-center
+          align-items-center d-flex justify-content-center rounded-2">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+              <div class="card-body">
+                <h5 class="tw-text-blue-400 fw-bold mb-3">{% translate 'By account' %}</h5>
+                {% regroup account_net_worth.values by account.group as account_data %}
+                {% for data in account_data %}
+                  {% if data.grouper %}
+                    <div class="d-flex justify-content-between mt-2">
+                      <div class="d-flex align-items-baseline w-100">
+                        <div class="text-start font-monospace tw-text-gray-300"><span class="badge text-bg-primary">
+                        {{ data.grouper }}</span></div>
+                      </div>
+                    </div>
+                    {% for account in data.list %}
+                      <div class="d-flex justify-content-between mt-2">
+                        <div class="d-flex align-items-baseline w-100">
+                          <div class="account-name text-start font-monospace tw-text-gray-300"
+                               _="def showOnlyDatasetByName(datasetName)
+                                set chart to Chart.getChart('accountBalanceChart')
+                                for dataset in chart.data.datasets
+                                  set isMatch to dataset.label is datasetName
+                                  call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
+                                end
+                                call chart.update()
+                              end
+                              
+                              on click
+                                showOnlyDatasetByName('{{ account.account.name }}')
+                              end">
+                            <span class="hierarchy-line-icon"></span>{{ account.account.name }}</div>
+                          <div class="dotted-line flex-grow-1"></div>
+                          <div class="">
+                            <c-amount.display
+                                :amount="account.total_final"
+                                :prefix="account.currency.prefix"
+                                :suffix="account.currency.suffix"
+                                :decimal_places="account.currency.decimal_places"
+                                color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
+                          </div>
+                        </div>
+                      </div>
+                      {% if account.exchanged and account.exchanged.total_final %}
+                        <c-amount.display
+                            :amount="account.exchanged.total_final"
+                            :prefix="account.exchanged.currency.prefix"
+                            :suffix="account.exchanged.currency.suffix"
+                            :decimal_places="account.exchanged.currency.decimal_places"
+                            color="grey"
+                            text-end></c-amount.display>
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                    {% for account in data.list %}
+                      <div class="d-flex justify-content-between mt-2">
+                        <div class="d-flex align-items-baseline w-100">
+                          <div class="account-name text-start font-monospace tw-text-gray-300"
+                               _="def showOnlyDatasetByName(datasetName)
+                                set chart to Chart.getChart('accountBalanceChart')
+                                for dataset in chart.data.datasets
+                                  set isMatch to dataset.label is datasetName
+                                  call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
+                                end
+                                call chart.update()
+                              end
+                              
+                              on click
+                                showOnlyDatasetByName('{{ account.account.name }}')
+                              end">
+                            {{ account.account.name }}
+                          </div>
+                          <div class="dotted-line flex-grow-1"></div>
+                          <div>
+                            <c-amount.display
+                                :amount="account.total_final"
+                                :prefix="account.currency.prefix"
+                                :suffix="account.currency.suffix"
+                                :decimal_places="account.currency.decimal_places"
+                                color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
+                          </div>
+                        </div>
+                      </div>
+                      {% if account.exchanged and account.exchanged.total_final %}
+                        <c-amount.display
+                            :amount="account.exchanged.total_final"
+                            :prefix="account.exchanged.currency.prefix"
+                            :suffix="account.exchanged.currency.suffix"
+                            :decimal_places="account.exchanged.currency.decimal_places"
+                            color="grey"
+                            text-end></c-amount.display>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+              </div>
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card tw-relative h-100 shadow">
-          <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-blue-300 tw-text-blue-800 text-center
-          align-items-center d-flex justify-content-center rounded-2">
-            <i class="fa-solid fa-wallet"></i>
-          </div>
-          <div class="card-body">
-            <h5 class="tw-text-blue-400 fw-bold mb-3">{% translate 'By account' %}</h5>
-            {% regroup account_net_worth.values by account.group as account_data %}
-            {% for data in account_data %}
-              {% if data.grouper %}
-                <div class="d-flex justify-content-between mt-2">
-                  <div class="d-flex align-items-baseline w-100">
-                      <div class="text-start font-monospace tw-text-gray-300"><span class="badge text-bg-primary">
-                        {{ data.grouper }}</span></div>
-                  </div>
-                </div>
-                {% for account in data.list %}
-                  <div class="d-flex justify-content-between mt-2">
-                    <div class="d-flex align-items-baseline w-100">
-                        <div class="text-start font-monospace tw-text-gray-300">
-                          <span class="hierarchy-line-icon"></span>{{ account.account.name }}</div>
-                        <div class="dotted-line flex-grow-1"></div>
-                        <div class="">
-                          <c-amount.display
-                            :amount="account.total_final"
-                            :prefix="account.currency.prefix"
-                            :suffix="account.currency.suffix"
-                            :decimal_places="account.currency.decimal_places"
-                            color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
-                        </div>
-                    </div>
-                  </div>
-                  {% if account.exchanged and account.exchanged.total_final %}
-                    <c-amount.display
-                          :amount="account.exchanged.total_final"
-                          :prefix="account.exchanged.currency.prefix"
-                          :suffix="account.exchanged.currency.suffix"
-                          :decimal_places="account.exchanged.currency.decimal_places"
-                          color="grey"
-                          text-end></c-amount.display>
-                  {% endif %}
-                {% endfor %}
-              {% else %}
-                {% for account in data.list %}
-                  <div class="d-flex justify-content-between mt-2">
-                    <div class="d-flex align-items-baseline w-100">
-                        <div class="currency-name text-start font-monospace tw-text-gray-300">{{ account.account.name }}</div>
-                        <div class="dotted-line flex-grow-1"></div>
-                        <div>
-                          <c-amount.display
-                            :amount="account.total_final"
-                            :prefix="account.currency.prefix"
-                            :suffix="account.currency.suffix"
-                            :decimal_places="account.currency.decimal_places"
-                            color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
-                        </div>
-                    </div>
-                </div>
-                {% if account.exchanged and account.exchanged.total_final %}
-                      <c-amount.display
-                        :amount="account.exchanged.total_final"
-                        :prefix="account.exchanged.currency.prefix"
-                        :suffix="account.exchanged.currency.suffix"
-                        :decimal_places="account.exchanged.currency.decimal_places"
-                        color="grey"
-                        text-end></c-amount.display>
-                {% endif %}
-                {% endfor %}
-              {% endif %}
-              {% endfor %}
-          </div>
-        </div>
-        </div>
+      </div>
+      <div class="col-12 col-xl-7 h-100">
+        <canvas id="currencyBalanceChart"></canvas>
+        <canvas id="accountBalanceChart"></canvas>
       </div>
     </div>
-    <div class="col-12 col-xl-7 h-100">
-      <canvas id="currencyBalanceChart"></canvas>
-      <canvas id="accountBalanceChart"></canvas>
-    </div>
   </div>
-</div>
 
-<script>
-  var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
-  var currencies = {{ currencies|safe }};
+  <script>
+      var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
+      var currencies = {{ currencies|safe }};
 
-  var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
-  new Chart(ctx, {
-      type: 'line',
-      data: chartData,
-      options: {
-          responsive: true,
-          interaction: {
-              mode: 'index',
-              intersect: false,
-          },
-          plugins: {
-              title: {
-                  display: true,
-                  text: '{% translate 'Evolution by currency' %}'
-              },
-              tooltip: {
+      var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
+      new Chart(ctx, {
+          type: 'line',
+          data: chartData,
+          options: {
+              responsive: true,
+              interaction: {
                   mode: 'index',
-                  intersect: false
-              }
-          },
-          scales: {
-              x: {
-                  display: true,
+                  intersect: false,
+              },
+              plugins: {
                   title: {
-                      display: false,
-                  }
-              },
-              ...Object.fromEntries(currencies.map((currency, i) => [
-                  `y${i}`,
-                  {
-                      type: 'linear',
                       display: true,
-                      grid: {
-                          drawOnChartArea: i === 0,
-                      },
-                      ticks: {
-                          display: false,
-                          format: { maximumFractionDigits: 40, minimumFractionDigits: 0 }
-                      },
-                      border: {
-                          display: false
-                      }
+                      text: '{% translate 'Evolution by currency' %}'
+                  },
+                  tooltip: {
+                      mode: 'index',
+                      intersect: false
                   }
-              ]))
-          }
-      }
-  });
-</script>
-
-<script>
-  var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
-  var accounts = {{ accounts|safe }};
-
-  var ctx = document.getElementById('accountBalanceChart').getContext('2d');
-  new Chart(ctx, {
-      type: 'line',
-      data: chartData,
-      options: {
-          responsive: true,
-          interaction: {
-              mode: 'index',
-              intersect: false,
-          },
-          stacked: false,
-          plugins: {
-              title: {
-                  display: true,
-                  text: '{% translate "Evolution by account" %}'
               },
-              tooltip: {
+              scales: {
+                  x: {
+                      display: true,
+                      title: {
+                          display: false,
+                      }
+                  },
+                  ...Object.fromEntries(currencies.map((currency, i) => [
+                      `y${i}`,
+                      {
+                          type: 'linear',
+                          display: true,
+                          grid: {
+                              drawOnChartArea: i === 0,
+                          },
+                          ticks: {
+                              display: false,
+                              format: {maximumFractionDigits: 40, minimumFractionDigits: 0}
+                          },
+                          border: {
+                              display: false
+                          }
+                      }
+                  ]))
+              }
+          }
+      });
+  </script>
+
+  <script>
+      var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
+      var accounts = {{ accounts|safe }};
+
+      var ctx = document.getElementById('accountBalanceChart').getContext('2d');
+      new Chart(ctx, {
+          type: 'line',
+          data: chartData,
+          options: {
+              responsive: true,
+              interaction: {
                   mode: 'index',
-                  intersect: false
-              }
-          },
-          scales: {
-              x: {
-                  display: true,
+                  intersect: false,
+              },
+              stacked: false,
+              plugins: {
                   title: {
-                      display: false,
+                      display: true,
+                      text: '{% translate "Evolution by account" %}'
+                  },
+                  tooltip: {
+                      mode: 'index',
+                      intersect: false
                   }
               },
-              ...Object.fromEntries(accounts.map((account, i) => [
-                  `y-axis-${i}`,
-                  {
-                      type: 'linear',
+              scales: {
+                  x: {
                       display: true,
-                      position: i % 2 === 0 ? 'left' : 'right',
-                      grid: {
-                          drawOnChartArea: i === 0,
-                      },
-                      ticks: {
+                      title: {
                           display: false,
-                          format: { maximumFractionDigits: 40, minimumFractionDigits: 0 }
-                      },
-                      border: {
-                          display: false
                       }
-                  }
-              ]))
+                  },
+                  ...Object.fromEntries(accounts.map((account, i) => [
+                      `y-axis-${i}`,
+                      {
+                          type: 'linear',
+                          display: true,
+                          position: i % 2 === 0 ? 'left' : 'right',
+                          grid: {
+                              drawOnChartArea: i === 0,
+                          },
+                          ticks: {
+                              display: false,
+                              format: {maximumFractionDigits: 40, minimumFractionDigits: 0}
+                          },
+                          border: {
+                              display: false
+                          }
+                      }
+                  ]))
+              }
           }
-      }
-  });
-</script>
+      });
+  </script>
 
 {% endblock %}
