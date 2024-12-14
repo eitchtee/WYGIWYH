@@ -126,7 +126,15 @@
         </li>
       </ul>
       <ul class="navbar-nav mt-3 mb-2 mb-lg-0 mt-lg-0">
+        <li class="nav-item text-center w-100">
+          <a class="nav-item tw-text-2xl tw-cursor-pointer me-lg-4"
+             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{% trans "Calculator" %}"
+             _="on click toggle .tw-hidden on #calculator then trigger show on #calculator">
+            <i class="fa-solid fa-calculator"></i>
+          </a>
+        </li>
         <li class="text-center w-100">{% include 'includes/navbar/user_menu.html' %}</li>
+
       </ul>
     </div>
   </div>
