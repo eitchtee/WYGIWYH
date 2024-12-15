@@ -19,7 +19,9 @@ from apps.currencies.utils.convert import convert
 from apps.transactions.models import Transaction
 
 
-def calculate_historical_currency_net_worth():
+def calculate_historical_currency_net_worth(is_paid=True):
+    transactions_params = {**{k: v for k, v in [("is_paid", True)] if is_paid}}
+
     # Get all currencies and date range in a single query
     aggregates = Transaction.objects.aggregate(
         min_date=Min("reference_date"),
@@ -39,7 +41,7 @@ def calculate_historical_currency_net_worth():
 
     # Calculate cumulative balances for each account, currency, and month
     cumulative_balances = (
-        Transaction.objects.filter(is_paid=True)
+        Transaction.objects.filter(**transactions_params)
         .annotate(month=TruncMonth("reference_date"))
         .values("account__currency__name", "month")
         .annotate(
@@ -99,12 +101,13 @@ def calculate_historical_currency_net_worth():
     return historical_net_worth
 
 
-def calculate_historical_account_balance():
+def calculate_historical_account_balance(is_paid=True):
+    transactions_params = {**{k: v for k, v in [("is_paid", True)] if is_paid}}
     # Get all accounts
     accounts = Account.objects.filter(is_archived=False)
 
     # Get the date range
-    date_range = Transaction.objects.filter(is_paid=True).aggregate(
+    date_range = Transaction.objects.filter(**transactions_params).aggregate(
         min_date=Min("reference_date"), max_date=Max("reference_date")
     )
 
@@ -120,7 +123,7 @@ def calculate_historical_account_balance():
 
     # Calculate balances for each account and month
     balances = (
-        Transaction.objects.filter(is_paid=True)
+        Transaction.objects.filter(**transactions_params)
         .annotate(month=TruncMonth("reference_date"))
         .values("account", "month")
         .annotate(

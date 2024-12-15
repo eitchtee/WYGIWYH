@@ -31,11 +31,19 @@
                    href="{% url 'calendar_index' %}">{% translate 'Calendar' %}</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {% active_link views='net_worth' %}"
-             href="{% url 'net_worth' %}">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% active_link views='net_worth_current||net_worth_projected' %}"
+             href="#" role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
             {% translate 'Net Worth' %}
           </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% active_link views='net_worth_current' %}"
+                   href="{% url 'net_worth_current' %}">{% translate 'Current' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='net_worth_projected' %}"
+                   href="{% url 'net_worth_projected' %}">{% translate 'Projected' %}</a></li>
+          </ul>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||recurring_trasanctions_index||transactions_all_index' %}"
