@@ -141,9 +141,13 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-xl-7 h-100">
-        <canvas id="currencyBalanceChart"></canvas>
-        <canvas id="accountBalanceChart"></canvas>
+      <div class="col-12 col-xl-7">
+        <div class="chart-container position-relativo tw-h-[40vh]">
+          <canvas id="currencyBalanceChart"></canvas>
+        </div>
+        <div class="chart-container position-relativo tw-h-[40vh]">
+          <canvas id="accountBalanceChart"></canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -157,6 +161,7 @@
           type: 'line',
           data: chartData,
           options: {
+              maintainAspectRatio: false,
               responsive: true,
               interaction: {
                   mode: 'index',
@@ -210,6 +215,7 @@
           type: 'line',
           data: chartData,
           options: {
+              maintainAspectRatio: false,
               responsive: true,
               interaction: {
                   mode: 'index',
@@ -265,7 +271,7 @@
     end
     call chart.update()
   end
-  
+
   def showOnlyCurrencyDataset(datasetName)
     set chart to Chart.getChart('currencyBalanceChart')
     for dataset in chart.data.datasets
@@ -274,7 +280,7 @@
     end
     call chart.update()
   end
-  
+
   def showAllDatasetsAccount()
     set chart to Chart.getChart('accountBalanceChart')
     for dataset in chart.data.datasets
@@ -282,7 +288,7 @@
     end
     call chart.update()
   end
-  
+
   def showAllDatasetsCurrency()
     set chart to Chart.getChart('currencyBalanceChart')
     for dataset in chart.data.datasets
