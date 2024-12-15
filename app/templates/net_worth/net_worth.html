@@ -6,7 +6,7 @@
 {% load static %}
 {% load webpack_loader %}
 
-{% block title %}{% translate 'Net Worth' %}{% endblock %}
+{% block title %}{% if type == "current" %}{% translate 'Current Net Worth' %}{% else %}{% translate 'Projected Net Worth' %}{% endif %}{% endblock %}
 
 {% block content %}
   <div class="container px-md-3 py-3 column-gap-5">

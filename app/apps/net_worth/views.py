@@ -108,6 +108,7 @@ def net_worth_current(request):
             "currencies": currencies,
             "chart_data_accounts_json": chart_data_accounts_json,
             "accounts": accounts,
+            "type": "current",
         },
     )
 
@@ -208,5 +209,6 @@ def net_worth_projected(request):
             "currencies": currencies,
             "chart_data_accounts_json": chart_data_accounts_json,
             "accounts": accounts,
+            "type": "projected",
         },
     )
