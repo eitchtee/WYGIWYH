@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-14 21:20+0000\n"
-"PO-Revision-Date: 2024-12-14 18:20-0300\n"
+"POT-Creation-Date: 2024-12-15 04:37+0000\n"
+"PO-Revision-Date: 2024-12-15 01:38-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -75,7 +75,7 @@ msgstr "Categoria"
 #: apps/transactions/forms.py:199 apps/transactions/forms.py:206
 #: apps/transactions/forms.py:360 apps/transactions/forms.py:580
 #: apps/transactions/models.py:96 apps/transactions/models.py:211
-#: apps/transactions/models.py:388 templates/includes/navbar.html:87
+#: apps/transactions/models.py:388 templates/includes/navbar.html:95
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Tags"
@@ -100,7 +100,7 @@ msgstr "Grupo da Conta"
 
 #: apps/accounts/models.py:13 templates/account_groups/fragments/list.html:5
 #: templates/account_groups/pages/index.html:4
-#: templates/includes/navbar.html:97
+#: templates/includes/navbar.html:105
 msgid "Account Groups"
 msgstr "Grupos da Conta"
 
@@ -147,8 +147,8 @@ msgstr "Conta"
 
 #: apps/accounts/models.py:60 apps/transactions/filters.py:51
 #: templates/accounts/fragments/list.html:5
-#: templates/accounts/pages/index.html:4 templates/includes/navbar.html:93
-#: templates/includes/navbar.html:95
+#: templates/accounts/pages/index.html:4 templates/includes/navbar.html:101
+#: templates/includes/navbar.html:103
 msgid "Accounts"
 msgstr "Contas"
 
@@ -315,8 +315,8 @@ msgid "Decimal Places"
 msgstr "Casas Decimais"
 
 #: apps/currencies/models.py:33 templates/currencies/fragments/list.html:5
-#: templates/currencies/pages/index.html:4 templates/includes/navbar.html:101
-#: templates/includes/navbar.html:103
+#: templates/currencies/pages/index.html:4 templates/includes/navbar.html:109
+#: templates/includes/navbar.html:111
 msgid "Currencies"
 msgstr "Moedas"
 
@@ -342,7 +342,7 @@ msgstr "Data e Tempo"
 
 #: apps/currencies/models.py:67 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
-#: templates/includes/navbar.html:105
+#: templates/includes/navbar.html:113
 msgid "Exchange Rates"
 msgstr "Taxas de Câmbio"
 
@@ -516,7 +516,7 @@ msgstr "Quantia"
 #: apps/transactions/forms.py:592 apps/transactions/models.py:50
 #: apps/transactions/models.py:101 apps/transactions/models.py:214
 #: apps/transactions/models.py:391 templates/entities/fragments/list.html:5
-#: templates/entities/pages/index.html:4 templates/includes/navbar.html:89
+#: templates/entities/pages/index.html:4 templates/includes/navbar.html:97
 msgid "Entities"
 msgstr "Entidades"
 
@@ -560,7 +560,7 @@ msgstr "Ação atualizada com sucesso"
 msgid "Action deleted successfully"
 msgstr "Ação apagada com sucesso"
 
-#: apps/transactions/filters.py:22
+#: apps/transactions/filters.py:22 templates/includes/navbar.html:45
 msgid "Projected"
 msgstr "Previsto"
 
@@ -573,7 +573,7 @@ msgid "Transaction Type"
 msgstr "Tipo de Transação"
 
 #: apps/transactions/filters.py:58 templates/categories/fragments/list.html:5
-#: templates/categories/pages/index.html:4 templates/includes/navbar.html:85
+#: templates/categories/pages/index.html:4 templates/includes/navbar.html:93
 msgid "Categories"
 msgstr "Categorias"
 
@@ -690,8 +690,8 @@ msgstr "Transação Recorrente"
 msgid "Transaction"
 msgstr "Transação"
 
-#: apps/transactions/models.py:126 templates/includes/navbar.html:45
-#: templates/includes/navbar.html:83
+#: apps/transactions/models.py:126 templates/includes/navbar.html:53
+#: templates/includes/navbar.html:91
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
@@ -743,7 +743,7 @@ msgstr "Recorrência"
 msgid "Installment Amount"
 msgstr "Valor da Parcela"
 
-#: apps/transactions/models.py:222 templates/includes/navbar.html:54
+#: apps/transactions/models.py:222 templates/includes/navbar.html:62
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
@@ -786,7 +786,7 @@ msgstr "Última data gerada"
 msgid "Last Generated Reference Date"
 msgstr "Última data de referência gerada"
 
-#: apps/transactions/models.py:418 templates/includes/navbar.html:56
+#: apps/transactions/models.py:418 templates/includes/navbar.html:64
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
@@ -942,7 +942,7 @@ msgstr "Anual por moeda"
 msgid "Yearly by account"
 msgstr "Anual por conta"
 
-#: apps/users/models.py:29 templates/includes/navbar.html:37
+#: apps/users/models.py:29 templates/includes/navbar.html:39
 #: templates/net_worth/net_worth.html:9
 msgid "Net Worth"
 msgstr "Patrimônio"
@@ -1408,7 +1408,7 @@ msgid "Edit exchange rate"
 msgstr "Editar taxa de câmbio"
 
 #: templates/exchange_rates/fragments/list.html:25
-#: templates/includes/navbar.html:49
+#: templates/includes/navbar.html:57
 #: templates/installment_plans/fragments/list.html:21
 #: templates/yearly_overview/pages/overview_by_account.html:135
 #: templates/yearly_overview/pages/overview_by_currency.html:137
@@ -1440,42 +1440,46 @@ msgstr "Alternar navegação"
 msgid "Overview"
 msgstr "Visão Geral"
 
-#: templates/includes/navbar.html:64
+#: templates/includes/navbar.html:43
+msgid "Current"
+msgstr "Atual"
+
+#: templates/includes/navbar.html:72
 msgid "Tools"
 msgstr "Ferramentas"
 
-#: templates/includes/navbar.html:68
+#: templates/includes/navbar.html:76
 msgid "Dollar Cost Average Tracker"
 msgstr "Rastreador de Custo Médio Ponderado"
 
-#: templates/includes/navbar.html:71
+#: templates/includes/navbar.html:79
 #: templates/mini_tools/unit_price_calculator.html:5
 #: templates/mini_tools/unit_price_calculator.html:10
 msgid "Unit Price Calculator"
 msgstr "Calculadora de preço unitário"
 
-#: templates/includes/navbar.html:80
+#: templates/includes/navbar.html:88
 msgid "Management"
 msgstr "Gerenciar"
 
-#: templates/includes/navbar.html:109
+#: templates/includes/navbar.html:117
 msgid "Automation"
 msgstr "Automação"
 
-#: templates/includes/navbar.html:111 templates/rules/fragments/list.html:5
+#: templates/includes/navbar.html:119 templates/rules/fragments/list.html:5
 #: templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Regras"
 
-#: templates/includes/navbar.html:121
+#: templates/includes/navbar.html:129
 msgid "Only use this if you know what you're doing"
 msgstr "Só use isso se você souber o que está fazendo"
 
-#: templates/includes/navbar.html:122
+#: templates/includes/navbar.html:130
 msgid "Django Admin"
 msgstr "Django Admin"
 
-#: templates/includes/navbar.html:131
+#: templates/includes/navbar.html:139
 msgid "Calculator"
 msgstr "Calculadora"
 
