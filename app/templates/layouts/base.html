@@ -38,8 +38,7 @@
       {% include 'includes/toasts.html' %}
     </div>
 
-    <div
-        class="tw-hidden tw-w-60 position-fixed shadow rounded-3 bg-body tw-border-gray-700 tw-border tw-border-solid tw-text-center tw-align-middle tw-z-[2000] tw-touch-none user-select-none"
+    <div class="tw-hidden tw-w-[60vw] lg:tw-w-[30vw] xl:tw-w-[20vw] position-fixed shadow rounded-3 bg-body tw-border-gray-700 tw-border tw-border-solid tw-text-center tw-align-middle tw-z-[2000] tw-touch-none user-select-none"
         id="calculator"
         hx-preserve
         _="on load
@@ -57,13 +56,19 @@
             if event.target.closest('#calculator-handle')
               log event
               halt the event
-              measure my x, y
+              measure my x, y, width, height
               set xoff to screenX - x
               set yoff to screenY - y
               repeat until event pointerup from document
                 wait for pointermove(screenX, screenY) or
                          pointerup(screenX, screenY) from document
-                add { left: ${screenX - xoff}px; top: ${screenY - yoff}px; transform: none }
+                -- Calculate new position
+                 set newX to screenX - xoff
+                 set newY to screenY - yoff
+                 -- Constrain to viewport
+                 set newX to Math.max(5, Math.min(newX, window.innerWidth - (width + 10)))
+                 set newY to Math.max(20, Math.min(newY, window.innerHeight - (height + 5)))
+                 add { left: ${newX}px; top: ${newY}px; transform: none }
               end
             end
            end">
