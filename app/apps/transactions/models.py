@@ -485,7 +485,7 @@ class RecurringTransaction(models.Model):
         today = timezone.now().date()
         recurring_transactions = cls.objects.filter(
             Q(models.Q(end_date__isnull=True) | Q(end_date__gte=today))
-            & Q(paused=False)
+            & Q(is_paused=False)
         )
 
         for recurring_transaction in recurring_transactions:
