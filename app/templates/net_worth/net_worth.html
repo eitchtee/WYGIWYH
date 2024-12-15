@@ -34,19 +34,19 @@
                       <div class="dotted-line flex-grow-1"></div>
                       <div>
                         <c-amount.display
-                            :amount="currency.total_current"
+                            :amount="currency.total_final"
                             :prefix="currency.currency.prefix"
                             :suffix="currency.currency.suffix"
                             :decimal_places="currency.currency.decimal_places"
-                            color="{% if currency.total_current > 0 %}green{% elif currency.total_current < 0 %}red{% endif %}"
+                            color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
                             text-end></c-amount.display>
                       </div>
                     </div>
                   </div>
-                  {% if currency.exchanged and currency.exchanged.total_current %}
+                  {% if currency.exchanged and currency.exchanged.total_final %}
                     <div>
                       <c-amount.display
-                          :amount="currency.exchanged.total_current"
+                          :amount="currency.exchanged.total_final"
                           :prefix="currency.exchanged.currency.prefix"
                           :suffix="currency.exchanged.currency.suffix"
                           :decimal_places="currency.exchanged.currency.decimal_places"
