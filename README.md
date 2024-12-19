@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  ![WYGIWYH](.github/img/logo.svg)
+  ![WYGIWYH](.github/img/logo.png)
   <br>
   WYGIWYH
   <br>
@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="#why-wygiwyh">Why</a> •
-  <a href="#key-featuers">Features</a> •
+  <a href="#key-features">Features</a> •
   <a href="#how-to-use">Usage</a> •
   <a href="#how-it-works">How</a> •
 </p>
