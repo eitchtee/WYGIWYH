@@ -1,21 +1,19 @@
 <h1 align="center">
   <br>
-  ![WYGIWYH](.github/img/logo.png)
+  <img alt="WYGIWYH" title="WYGIWYH" src="./.github/img/logo.png" />
   <br>
   WYGIWYH
   <br>
 </h1>
 
-<h4 align="center">A powerful non-budget finance tracker.</h4>
+<h4 align="center">An optionated and powerful finance tracker.</h4>
 
 <p align="center">
   <a href="#why-wygiwyh">Why</a> •
   <a href="#key-features">Features</a> •
   <a href="#how-to-use">Usage</a> •
-  <a href="#how-it-works">How</a> •
+  <a href="#how-it-works">How</a>
 </p>
-
-![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
 
 **WYGIWYH** (_What You Get Is What You Have_) is a powerful, principles-first finance tracker designed for people who prefer a no-budget, straightforward approach to managing their money. With features like multi-currency support, customizable transactions, and a built-in dollar-cost averaging tracker, WYGIWYH helps you take control of your finances with simplicity and flexibility.
 
