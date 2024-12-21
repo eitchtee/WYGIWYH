@@ -65,7 +65,7 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='dca_strategy_index||dca_strategy_detail_index||unit_price_calculator' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='dca_strategy_index||dca_strategy_detail_index||unit_price_calculator||currency_converter' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">
@@ -77,6 +77,9 @@
             <li>
             <li><a class="dropdown-item {% active_link views='unit_price_calculator' %}"
                  href="{% url 'unit_price_calculator' %}">{% translate 'Unit Price Calculator' %}</a></li>
+            <li>
+            <li><a class="dropdown-item {% active_link views='currency_converter' %}"
+                 href="{% url 'currency_converter' %}">{% translate 'Currency Converter' %}</a></li>
             <li>
           </ul>
         </li>

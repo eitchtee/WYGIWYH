@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+{% load formats %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load webpack_loader %}
+
+{% block title %}{% translate 'Unit Price Calculator' %}{% endblock %}
+
+{% block content %}
+  <div class="container px-md-3 py-3 column-gap-5" _="install init_tom_select">
+    <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
+      <div>{% translate 'Currency Converter' %}</div>
+    </div>
+    <div class="row">
+      <div class="col-5">
+        <div>
+          <input class="form-control form-control-lg mb-3"
+                 type="text"
+                 value="1"
+                 name="from_value"
+                 id="from_value"
+                 x-data
+                 x-mask:dynamic="$money($input, '{% get_decimal_separator %}', '{% get_thousand_separator %}', '30')">
+        </div>
+        <div>{{ form.from_currency|as_crispy_field }}</div>
+      </div>
+      <div class="col text-primary tw-flex tw-items-center tw-justify-center">
+        <i class="fa-solid fa-equals"></i>
+      </div>
+      <div class="col-5">
+        <div hx-get="{% url 'currency_converter_convert' %}"
+             hx-trigger="input from:#from_value, input from:#id_from_currency, input from:#id_to_currency"
+             hx-include="#from_value, #id_from_currency, #id_to_currency">
+          <input class="form-control form-control-lg mb-3"
+                 type="text"
+                 name="to_value"
+                 id="to_value"
+                 disabled>
+        </div>
+        <div>{{ form.to_currency|as_crispy_field }}</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

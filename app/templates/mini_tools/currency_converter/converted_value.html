@@ -1,0 +1,9 @@
+{% load decimal %}
+{% load currency_display %}
+{% load formats %}
+<input class="form-control form-control-lg mb-3"
+       type="text"
+       value="{{ converted_amount|drop_trailing_zeros|localize_number|default:'-' }}"
+       name="to_value"
+       id="to_value"
+       disabled>
