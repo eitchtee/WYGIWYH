@@ -20,7 +20,7 @@ def drop_trailing_zeros(value):
 
 
 @register.filter
-def localize_number(value):
+def localize_number(value, decimal_places=None):
     if value is None:
         return value
 
@@ -31,7 +31,7 @@ def localize_number(value):
 
     return number_format(
         value,
-        decimal_pos=abs(value.as_tuple().exponent),
+        decimal_pos=decimal_places or abs(value.as_tuple().exponent),
         use_l10n=True,
         force_grouping=True,
     )
