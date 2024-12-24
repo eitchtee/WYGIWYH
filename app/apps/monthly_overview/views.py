@@ -13,7 +13,10 @@ from apps.monthly_overview.utils.daily_spending_allowance import (
 )
 from apps.transactions.filters import TransactionsFilter
 from apps.transactions.models import Transaction
-from apps.transactions.utils.calculations import calculate_currency_totals
+from apps.transactions.utils.calculations import (
+    calculate_currency_totals,
+    calculate_percentage_distribution,
+)
 from apps.transactions.utils.default_ordering import default_order
 
 
@@ -98,6 +101,7 @@ def monthly_summary(request, month: int, year: int):
     ).exclude(Q(category__mute=True) & ~Q(category=None))
 
     data = calculate_currency_totals(base_queryset, ignore_empty=True)
+    percentages = calculate_percentage_distribution(data)
 
     context = {
         "income_current": remove_falsey_entries(data, "income_current"),
@@ -110,6 +114,7 @@ def monthly_summary(request, month: int, year: int):
         "daily_spending_allowance": calculate_daily_allowance_currency(
             currency_totals=data, month=month, year=year
         ),
+        "percentages": percentages,
     }
 
     return render(

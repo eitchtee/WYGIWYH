@@ -157,6 +157,94 @@ def calculate_currency_totals(transactions_queryset, ignore_empty=False):
     return result
 
 
+def calculate_percentage_distribution(currency_totals):
+    """
+    Calculate percentage distribution of financial metrics for each currency.
+    Returns a new dictionary with currency IDs as keys and percentage distributions.
+    """
+    percentages = {}
+
+    for currency_id, data in currency_totals.items():
+        # Calculate total volume of transactions
+        total_volume = sum(
+            [
+                abs(data["income_current"]),
+                abs(data["income_projected"]),
+                abs(data["expense_current"]),
+                abs(data["expense_projected"]),
+            ]
+        )
+
+        # Initialize percentages for this currency
+        percentages[currency_id] = {
+            "currency": data["currency"],  # Keep currency info for reference
+            "percentages": {},
+        }
+
+        # Calculate percentages if total_volume is not zero
+        if total_volume > 0:
+            percentages[currency_id]["percentages"] = {
+                "income_current": (abs(data["income_current"]) / total_volume) * 100,
+                "income_projected": (abs(data["income_projected"]) / total_volume)
+                * 100,
+                "expense_current": (abs(data["expense_current"]) / total_volume) * 100,
+                "expense_projected": (abs(data["expense_projected"]) / total_volume)
+                * 100,
+            }
+        else:
+            percentages[currency_id]["percentages"] = {
+                "income_current": 0,
+                "income_projected": 0,
+                "expense_current": 0,
+                "expense_projected": 0,
+            }
+
+        # If there's exchanged data, calculate percentages for that too
+        if "exchanged" in data:
+            exchanged_total = sum(
+                [
+                    abs(data["exchanged"]["income_current"]),
+                    abs(data["exchanged"]["income_projected"]),
+                    abs(data["exchanged"]["expense_current"]),
+                    abs(data["exchanged"]["expense_projected"]),
+                ]
+            )
+
+            percentages[currency_id]["exchanged"] = {
+                "currency": data["exchanged"]["currency"],
+                "percentages": {},
+            }
+
+            if exchanged_total > 0:
+                percentages[currency_id]["exchanged"]["percentages"] = {
+                    "income_current": (
+                        abs(data["exchanged"]["income_current"]) / exchanged_total
+                    )
+                    * 100,
+                    "income_projected": (
+                        abs(data["exchanged"]["income_projected"]) / exchanged_total
+                    )
+                    * 100,
+                    "expense_current": (
+                        abs(data["exchanged"]["expense_current"]) / exchanged_total
+                    )
+                    * 100,
+                    "expense_projected": (
+                        abs(data["exchanged"]["expense_projected"]) / exchanged_total
+                    )
+                    * 100,
+                }
+            else:
+                percentages[currency_id]["exchanged"]["percentages"] = {
+                    "income_current": 0,
+                    "income_projected": 0,
+                    "expense_current": 0,
+                    "expense_projected": 0,
+                }
+
+    return percentages
+
+
 def calculate_account_totals(transactions_queryset, ignore_empty=False):
     # Prepare the aggregation expressions
     account_totals = transactions_queryset.values(
