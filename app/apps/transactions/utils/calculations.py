@@ -203,10 +203,12 @@ def calculate_percentage_distribution(currency_totals):
         if "exchanged" in data:
             exchanged_total = sum(
                 [
-                    abs(data["exchanged"]["income_current"]),
-                    abs(data["exchanged"]["income_projected"]),
-                    abs(data["exchanged"]["expense_current"]),
-                    abs(data["exchanged"]["expense_projected"]),
+                    abs(data.get("exchanged", {}).get("income_current", Decimal("0"))),
+                    abs(
+                        data.get("exchanged", {}).get("income_projected", Decimal("0"))
+                    ),
+                    abs(data.get("exchanged", {}).get("expense_current", Decimal("0"))),
+                    abs(data.get("exchanged", {}).get("income_current", Decimal("0"))),
                 ]
             )
 
@@ -218,19 +220,39 @@ def calculate_percentage_distribution(currency_totals):
             if exchanged_total > 0:
                 percentages[currency_id]["exchanged"]["percentages"] = {
                     "income_current": (
-                        abs(data["exchanged"]["income_current"]) / exchanged_total
+                        abs(
+                            data.get("exchanged", {}).get(
+                                "income_current", Decimal("0")
+                            )
+                        )
+                        / exchanged_total
                     )
                     * 100,
                     "income_projected": (
-                        abs(data["exchanged"]["income_projected"]) / exchanged_total
+                        abs(
+                            data.get("exchanged", {}).get(
+                                "income_projected", Decimal("0")
+                            )
+                        )
+                        / exchanged_total
                     )
                     * 100,
                     "expense_current": (
-                        abs(data["exchanged"]["expense_current"]) / exchanged_total
+                        abs(
+                            data.get("exchanged", {}).get(
+                                "expense_current", Decimal("0")
+                            )
+                        )
+                        / exchanged_total
                     )
                     * 100,
                     "expense_projected": (
-                        abs(data["exchanged"]["expense_projected"]) / exchanged_total
+                        abs(
+                            data.get("exchanged", {}).get(
+                                "income_current", Decimal("0")
+                            )
+                        )
+                        / exchanged_total
                     )
                     * 100,
                 }
