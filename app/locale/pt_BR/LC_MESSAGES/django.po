@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-21 19:30+0000\n"
-"PO-Revision-Date: 2024-12-21 16:30-0300\n"
+"POT-Creation-Date: 2024-12-24 05:37+0000\n"
+"PO-Revision-Date: 2024-12-24 02:37-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -202,7 +202,7 @@ msgid "Invalid date format. Use YYYY-MM."
 msgstr "Formato de data inválido. Use AAAA-MM."
 
 #: apps/common/templatetags/natural.py:20
-#: templates/monthly_overview/fragments/monthly_summary.html:15
+#: templates/monthly_overview/fragments/monthly_summary.html:16
 msgid "today"
 msgstr "hoje"
 
@@ -663,7 +663,7 @@ msgstr "Entidade"
 
 #: apps/transactions/models.py:59
 #: templates/calendar_view/pages/calendar.html:54
-#: templates/monthly_overview/fragments/monthly_summary.html:52
+#: templates/monthly_overview/fragments/monthly_summary.html:53
 #: templates/monthly_overview/pages/overview.html:54
 #: templates/yearly_overview/pages/overview_by_account.html:49
 #: templates/yearly_overview/pages/overview_by_currency.html:51
@@ -1452,13 +1452,13 @@ msgid "Dollar Cost Average Tracker"
 msgstr "Rastreador de Custo Médio Ponderado"
 
 #: templates/includes/navbar.html:79
-#: templates/mini_tools/currency_converter/currency_converter.html:8
 #: templates/mini_tools/unit_price_calculator.html:5
 #: templates/mini_tools/unit_price_calculator.html:10
 msgid "Unit Price Calculator"
 msgstr "Calculadora de preço unitário"
 
 #: templates/includes/navbar.html:82
+#: templates/mini_tools/currency_converter/currency_converter.html:8
 #: templates/mini_tools/currency_converter/currency_converter.html:13
 msgid "Currency Converter"
 msgstr "Conversor de Moeda"
@@ -1583,33 +1583,53 @@ msgstr "Item"
 msgid "No transactions this month"
 msgstr "Nenhuma transação neste mês"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:12
+#: templates/monthly_overview/fragments/monthly_summary.html:13
 msgid "Daily Spending Allowance"
 msgstr "Gasto Diário"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:12
+#: templates/monthly_overview/fragments/monthly_summary.html:13
 msgid "This is the final total divided by the remaining days in the month"
 msgstr "Esse é o total final dividido pelos dias restantes do mês"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:55
-#: templates/monthly_overview/fragments/monthly_summary.html:126
-#: templates/monthly_overview/fragments/monthly_summary.html:197
+#: templates/monthly_overview/fragments/monthly_summary.html:56
+#: templates/monthly_overview/fragments/monthly_summary.html:127
+#: templates/monthly_overview/fragments/monthly_summary.html:198
 msgid "current"
 msgstr "atual"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:85
-#: templates/monthly_overview/fragments/monthly_summary.html:156
-#: templates/monthly_overview/fragments/monthly_summary.html:226
+#: templates/monthly_overview/fragments/monthly_summary.html:86
+#: templates/monthly_overview/fragments/monthly_summary.html:157
+#: templates/monthly_overview/fragments/monthly_summary.html:227
 msgid "projected"
 msgstr "previsto"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:123
+#: templates/monthly_overview/fragments/monthly_summary.html:124
 msgid "Expenses"
 msgstr "Despesas"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:194
+#: templates/monthly_overview/fragments/monthly_summary.html:195
 msgid "Total"
 msgstr "Total"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:287
+#: templates/monthly_overview/fragments/monthly_summary.html:291
+msgid "Projected Income"
+msgstr "Renda Prevista"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:294
+#: templates/monthly_overview/fragments/monthly_summary.html:298
+msgid "Current Income"
+msgstr "Renda Atual"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:301
+#: templates/monthly_overview/fragments/monthly_summary.html:305
+msgid "Projected Expenses"
+msgstr "Despesas Previstas"
+
+#: templates/monthly_overview/fragments/monthly_summary.html:308
+#: templates/monthly_overview/fragments/monthly_summary.html:312
+msgid "Current Expenses"
+msgstr "Despesas Atuais"
 
 #: templates/monthly_overview/pages/overview.html:108
 msgid "Filter transactions"
