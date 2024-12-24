@@ -12,6 +12,7 @@ from apps.transactions.models import Transaction
 from apps.transactions.utils.calculations import (
     calculate_account_totals,
     calculate_currency_totals,
+    calculate_percentage_distribution,
 )
 
 
@@ -156,9 +157,15 @@ def yearly_overview_by_account(request, year: int):
     )
 
     data = calculate_account_totals(transactions)
+    percentages = calculate_percentage_distribution(data)
 
     return render(
         request,
         "yearly_overview/fragments/account_data.html",
-        context={"year": year, "totals": data, "single": True if account else False},
+        context={
+            "year": year,
+            "totals": data,
+            "percentages": percentages,
+            "single": True if account else False,
+        },
     )

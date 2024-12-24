@@ -1,3 +1,4 @@
+{% load tools %}
 {% load i18n %}
 <div class="row row-cols-1 g-4 mb-3">
     <div class="col">
@@ -173,6 +174,38 @@
             </div>
           {% endif %}
         </div>
+        {% with p=percentages|get_dict_item:account_id %}
+        <div class="progress-stacked mt-3">
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Projected Income' %} ({{ p.percentages.income_projected|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.income_projected|floatformat:0 }}%">
+            <div class="progress-bar progress-bar-striped !tw-bg-green-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Projected Income' %} ({{ p.percentages.income_projected|floatformat:2 }}%)">
+            </div>
+          </div>
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Current Income' %} ({{ percentage.income_current|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.income_current|floatformat:0 }}%">
+            <div class="progress-bar !tw-bg-green-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Current Income' %} ({{ p.percentages.income_current|floatformat:2 }}%)">
+            </div>
+          </div>
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Projected Expenses' %} ({{ percentage.expense_projected|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.expense_projected|floatformat:0 }}%">
+            <div class="progress-bar progress-bar-striped !tw-bg-red-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Projected Expenses' %} ({{ p.percentages.expense_projected|floatformat:2 }}%)">
+            </div>
+          </div>
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Current Expenses' %} ({{ percentage.expense_current|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.expense_current|floatformat:0 }}%">
+            <div class="progress-bar !tw-bg-red-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Current Expenses' %} ({{ p.percentages.expense_current|floatformat:2 }}%)">
+            </div>
+          </div>
+        </div>
+        {% endwith %}
       {% empty %}
         <c-msg.empty
             title="{% translate "No information to display" %}"></c-msg.empty>
