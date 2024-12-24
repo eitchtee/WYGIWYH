@@ -1,216 +1,214 @@
+{% load tools %}
 {% load month_name %}
 {% load i18n %}
-<div class="col">
-  <div class="d-flex justify-content-between align-items-baseline mt-2">
-    <div class="text-end font-monospace">
-      <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
-    </div>
-    <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace">
-      {% for entry in totals.income_projected.values %}
-        <div>
-          <c-amount.display
-              :amount="entry.income_projected"
-              :prefix="entry.currency.prefix"
-              :suffix="entry.currency.suffix"
-              :decimal_places="entry.currency.decimal_places"
-              color="green"></c-amount.display>
-        </div>
-        {% if entry.exchanged and entry.exchanged.income_projected %}
-        <div>
-          <c-amount.display
-            :amount="entry.exchanged.income_projected"
-            :prefix="entry.exchanged.currency.prefix"
-            :suffix="entry.exchanged.currency.suffix"
-            :decimal_places="entry.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-        </div>
+<div class="row row-cols-1 g-4 mb-3">
+    {% for currency_id, currency in totals.items %}
+    <div class="col">
+        {% if not single %}
+          <div class="tw-text-xl {% if not forloop.first %}mt-4 mb-3{% endif %}">
+            {{ currency.currency.name }} ({{ currency.currency.code }})
+          </div>
         {% endif %}
-      {% empty %}
-        <div>-</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="d-flex justify-content-between align-items-baseline mt-2">
-    <div class="text-end font-monospace">
-      <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
-    </div>
-    <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace">
-      {% for entry in totals.expense_projected.values %}
-        <div>
-          <c-amount.display
-              :amount="entry.expense_projected"
-              :prefix="entry.currency.prefix"
-              :suffix="entry.currency.suffix"
-              :decimal_places="entry.currency.decimal_places"
-              color="red"></c-amount.display>
+        <div class="d-flex justify-content-between align-items-baseline mt-2">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
+          </div>
+          <div class="dotted-line flex-grow-1"></div>
+          <div class="text-end font-monospace tw-text-green-400">
+            <c-amount.display
+                :amount="currency.income_projected"
+                :prefix="currency.currency.prefix"
+                :suffix="currency.currency.suffix"
+                :decimal_places="currency.currency.decimal_places"></c-amount.display>
+          </div>
         </div>
-        {% if entry.exchanged and entry.exchanged.expense_projected %}
-        <div>
-          <c-amount.display
-            :amount="entry.exchanged.expense_projected"
-            :prefix="entry.exchanged.currency.prefix"
-            :suffix="entry.exchanged.currency.suffix"
-            :decimal_places="entry.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-        </div>
+        {% if currency.exchanged and currency.exchanged.income_projected %}
+          <div class="text-end font-monospace tw-text-gray-500">
+            <c-amount.display
+                :amount="currency.exchanged.currency.income_projected"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
         {% endif %}
-      {% empty %}
-        <div>-</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="d-flex justify-content-between align-items-baseline mt-2">
-    <div class="text-end font-monospace">
-      <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
-    </div>
-    <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace">
-      {% for entry in totals.total_projected.values %}
-        <div>
-          <c-amount.display
-              :amount="entry.total_projected"
-              :prefix="entry.currency.prefix"
-              :suffix="entry.currency.suffix"
-              :decimal_places="entry.currency.decimal_places"
-              color="{% if entry.total_projected > 0 %}green{% elif entry.total_projected < 0 %}red{% endif %}"></c-amount.display>
+        <div class="d-flex justify-content-between align-items-baseline mt-2">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
+          </div>
+          <div class="dotted-line flex-grow-1"></div>
+          <div>
+            <div class="text-end font-monospace tw-text-red-400">
+              <c-amount.display
+                  :amount="currency.expense_projected"
+                  :prefix="currency.currency.prefix"
+                  :suffix="currency.currency.suffix"
+                  :decimal_places="currency.currency.decimal_places"></c-amount.display>
+            </div>
+          </div>
         </div>
-        {% if entry.exchanged and entry.exchanged.total_projected %}
-        <div>
-          <c-amount.display
-            :amount="entry.exchanged.total_projected"
-            :prefix="entry.exchanged.currency.prefix"
-            :suffix="entry.exchanged.currency.suffix"
-            :decimal_places="entry.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-        </div>
+        {% if currency.exchanged and currency.exchanged.expense_projected %}
+          <div class="text-end font-monospace tw-text-gray-500">
+            <c-amount.display
+                :amount="currency.exchanged.expense_projected"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
         {% endif %}
-      {% empty %}
-        <div>-</div>
-      {% endfor %}
-    </div>
-  </div>
-  <hr class="my-3">
-  <div class="d-flex justify-content-between align-items-baseline mt-2">
-    <div class="text-end font-monospace">
-      <div class="tw-text-gray-400">{% translate 'current income' %}</div>
-    </div>
-    <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace">
-      {% for entry in totals.income_current.values %}
-        <div>
-          <c-amount.display
-              :amount="entry.income_current"
-              :prefix="entry.currency.prefix"
-              :suffix="entry.currency.suffix"
-              :decimal_places="entry.currency.decimal_places"
-              color="green"></c-amount.display>
+        <div class="d-flex justify-content-between align-items-baseline mt-2">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
+          </div>
+          <div class="dotted-line flex-grow-1"></div>
+          <div
+              class="text-end font-monospace">
+            <c-amount.display
+                :amount="currency.total_projected"
+                :prefix="currency.currency.prefix"
+                :suffix="currency.currency.suffix"
+                :decimal_places="currency.currency.decimal_places"
+                color="{% if currency.total_projected > 0 %}green{% elif currency.total_projected < 0 %}red{% endif %}"></c-amount.display>
+          </div>
         </div>
-        {% if entry.exchanged and entry.exchanged.income_current %}
-        <div>
-          <c-amount.display
-            :amount="entry.exchanged.income_current"
-            :prefix="entry.exchanged.currency.prefix"
-            :suffix="entry.exchanged.currency.suffix"
-            :decimal_places="entry.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-        </div>
+        {% if currency.exchanged.total_projected and currency.exchanged.total_projected %}
+          <div class="text-end font-monospace tw-text-gray-500">
+            <c-amount.display
+                :amount="currency.exchanged.total_projected"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
         {% endif %}
-      {% empty %}
-        <div>-</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="d-flex justify-content-between align-items-baseline mt-2">
-    <div class="text-end font-monospace">
-      <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
-    </div>
-    <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace">
-      {% for entry in totals.expense_current.values %}
-        <div>
-          <c-amount.display
-              :amount="entry.expense_current"
-              :prefix="entry.currency.prefix"
-              :suffix="entry.currency.suffix"
-              :decimal_places="entry.currency.decimal_places"
-              color="red"></c-amount.display>
+        <hr class="my-3">
+        <div class="d-flex justify-content-between align-items-baseline mt-2">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">{% translate 'current income' %}</div>
+          </div>
+          <div class="dotted-line flex-grow-1"></div>
+          <div class="text-end font-monospace tw-text-green-400">
+            <c-amount.display
+                :amount="currency.income_current"
+                :prefix="currency.currency.prefix"
+                :suffix="currency.currency.suffix"
+                :decimal_places="currency.currency.decimal_places"></c-amount.display>
+          </div>
         </div>
-        {% if entry.exchanged and entry.exchanged.expense_current %}
-        <div>
-          <c-amount.display
-            :amount="entry.exchanged.expense_current"
-            :prefix="entry.exchanged.currency.prefix"
-            :suffix="entry.exchanged.currency.suffix"
-            :decimal_places="entry.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-        </div>
+        {% if currency.exchanged and currency.exchanged.income_current %}
+          <div class="text-end font-monospace tw-text-gray-500">
+            <c-amount.display
+                :amount="currency.exchanged.income_current"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
         {% endif %}
-      {% empty %}
-        <div>-</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="d-flex justify-content-between align-items-baseline mt-2">
-    <div class="text-end font-monospace">
-      <div class="tw-text-gray-400">{% translate 'current total' %}</div>
-    </div>
-    <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace">
-      {% for entry in totals.total_current.values %}
-        <div>
-          <c-amount.display
-              :amount="entry.total_current"
-              :prefix="entry.currency.prefix"
-              :suffix="entry.currency.suffix"
-              :decimal_places="entry.currency.decimal_places"
-              color="{% if entry.total_current > 0 %}green{% elif entry.total_current < 0 %}red{% endif %}"></c-amount.display>
+        <div class="d-flex justify-content-between align-items-baseline mt-2">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
+          </div>
+          <div class="dotted-line flex-grow-1"></div>
+          <div class="text-end font-monospace tw-text-red-400">
+            <c-amount.display
+                :amount="currency.expense_current"
+                :prefix="currency.currency.prefix"
+                :suffix="currency.currency.suffix"
+                :decimal_places="currency.currency.decimal_places"></c-amount.display>
+          </div>
         </div>
-        {% if entry.exchanged and entry.exchanged.total_current %}
-        <div>
-          <c-amount.display
-            :amount="entry.exchanged.total_current"
-            :prefix="entry.exchanged.currency.prefix"
-            :suffix="entry.exchanged.currency.suffix"
-            :decimal_places="entry.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-        </div>
+        {% if currency.exchanged and currency.exchanged.expense_current %}
+          <div class="text-end font-monospace tw-text-gray-500">
+            <c-amount.display
+                :amount="currency.exchanged.expense_current"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
         {% endif %}
-      {% empty %}
-        <div>-</div>
-      {% endfor %}
-    </div>
-  </div>
-  <hr class="my-3">
-  <div class="d-flex justify-content-between align-items-baseline mt-2">
-    <div class="text-end font-monospace">
-      <div class="tw-text-gray-400">{% translate 'final total' %}</div>
-    </div>
-    <div class="dotted-line flex-grow-1"></div>
-    <div class="text-end font-monospace">
-      {% for entry in totals.total_final.values %}
-        <div>
-          <c-amount.display
-              :amount="entry.total_final"
-              :prefix="entry.currency.prefix"
-              :suffix="entry.currency.suffix"
-              :decimal_places="entry.currency.decimal_places"
-              color="{% if entry.total_final > 0 %}green{% elif entry.total_final < 0 %}red{% endif %}"></c-amount.display>
+        <div class="d-flex justify-content-between align-items-baseline mt-2">
+          <div class="text-end font-monospace">
+            <div class="tw-text-gray-400">{% translate 'current total' %}</div>
+          </div>
+          <div class="dotted-line flex-grow-1"></div>
+          <div
+              class="text-end font-monospace">
+            <c-amount.display
+                :amount="currency.total_current"
+                :prefix="currency.currency.prefix"
+                :suffix="currency.currency.suffix"
+                :decimal_places="currency.currency.decimal_places"
+                color="{% if currency.total_current > 0 %}green{% elif currency.total_current < 0 %}red{% endif %}"></c-amount.display>
+          </div>
         </div>
-        {% if entry.exchanged and entry.exchanged.total_final %}
-        <div>
-          <c-amount.display
-            :amount="entry.exchanged.total_final"
-            :prefix="entry.exchanged.currency.prefix"
-            :suffix="entry.exchanged.currency.suffix"
-            :decimal_places="entry.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-        </div>
+        {% if currency.exchanged and currency.exchanged.total_current %}
+          <div class="text-end font-monospace tw-text-gray-500">
+            <c-amount.display
+                :amount="currency.exchanged.total_current"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
         {% endif %}
+        <div>
+          <hr class="my-3">
+          <div class="d-flex justify-content-between align-items-baseline mt-2">
+            <div class="text-end font-monospace">
+              <div class="tw-text-gray-400">{% translate 'final total' %}</div>
+            </div>
+            <div class="dotted-line flex-grow-1"></div>
+            <div class="text-end font-monospace">
+              <c-amount.display
+                  :amount="currency.total_final"
+                  :prefix="currency.currency.prefix"
+                  :suffix="currency.currency.suffix"
+                  :decimal_places="currency.currency.decimal_places"
+                  color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"></c-amount.display>
+            </div>
+          </div>
+          {% if currency.exchanged and currency.exchanged.total_final %}
+            <div class="text-end font-monospace tw-text-gray-500">
+              <c-amount.display
+                  :amount="currency.exchanged.total_final"
+                  :prefix="currency.exchanged.currency.prefix"
+                  :suffix="currency.exchanged.currency.suffix"
+                  :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+            </div>
+          {% endif %}
+        </div>
+        {% with p=percentages|get_dict_item:currency_id %}
+        <div class="progress-stacked mt-3">
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Projected Income' %} ({{ p.percentages.income_projected|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.income_projected|floatformat:0 }}%">
+            <div class="progress-bar progress-bar-striped !tw-bg-green-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Projected Income' %} ({{ p.percentages.income_projected|floatformat:2 }}%)">
+            </div>
+          </div>
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Current Income' %} ({{ percentage.income_current|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.income_current|floatformat:0 }}%">
+            <div class="progress-bar !tw-bg-green-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Current Income' %} ({{ p.percentages.income_current|floatformat:2 }}%)">
+            </div>
+          </div>
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Projected Expenses' %} ({{ percentage.expense_projected|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.expense_projected|floatformat:0 }}%">
+            <div class="progress-bar progress-bar-striped !tw-bg-red-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Projected Expenses' %} ({{ p.percentages.expense_projected|floatformat:2 }}%)">
+            </div>
+          </div>
+          <div class="progress position-relative" role="progressbar" aria-label="{% trans 'Current Expenses' %} ({{ percentage.expense_current|floatformat:2 }}%)" aria-valuenow="{{ p.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ p.percentages.expense_current|floatformat:0 }}%">
+            <div class="progress-bar !tw-bg-red-400"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{% trans 'Current Expenses' %} ({{ p.percentages.expense_current|floatformat:2 }}%)">
+            </div>
+          </div>
+        </div>
+        {% endwith %}
       {% empty %}
-        <div>-</div>
-      {% endfor %}
+        <c-msg.empty
+            title="{% translate "No information to display" %}"></c-msg.empty>
     </div>
-  </div>
+  {% endfor %}
 </div>

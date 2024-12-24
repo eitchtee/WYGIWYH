@@ -80,23 +80,16 @@ def yearly_overview_by_currency(request, year: int):
     )
 
     data = calculate_currency_totals(transactions)
-
-    context = {
-        "income_current": remove_falsey_entries(data, "income_current"),
-        "income_projected": remove_falsey_entries(data, "income_projected"),
-        "expense_current": remove_falsey_entries(data, "expense_current"),
-        "expense_projected": remove_falsey_entries(data, "expense_projected"),
-        "total_current": remove_falsey_entries(data, "total_current"),
-        "total_final": remove_falsey_entries(data, "total_final"),
-        "total_projected": remove_falsey_entries(data, "total_projected"),
-    }
+    percentages = calculate_percentage_distribution(data)
 
     return render(
         request,
         "yearly_overview/fragments/currency_data.html",
         context={
             "year": year,
-            "totals": context,
+            "totals": data,
+            "percentages": percentages,
+            "single": True if currency else False,
         },
     )
 
