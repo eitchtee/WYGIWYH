@@ -175,7 +175,9 @@
           {% endif %}
         </div>
         {% with p=percentages|get_dict_item:currency_id %}
-        <c-ui.percentage-distribution :percentage="p"></c-ui.percentage-distribution>
+        <div class="my-3">
+          <c-ui.percentage-distribution :percentage="p"></c-ui.percentage-distribution>
+        </div>
         {% endwith %}
       {% empty %}
         <c-msg.empty
