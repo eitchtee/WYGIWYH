@@ -14,61 +14,42 @@
       <div class="col-12 col-xl-5">
         <div class="row row-cols-1 g-4 mb-3">
           <div class="col">
-            <div class="card tw-relative h-100 shadow">
-              <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-yellow-300 tw-text-yellow-800 text-center
-            align-items-center d-flex justify-content-center rounded-2">
-                <i class="fa-solid fa-coins"></i>
-              </div>
-              <div class="card-body">
-                <h5 class="tw-text-yellow-400 fw-bold mb-3"
-                    _="on click showAllDatasetsCurrency()">
-                  {% translate 'By currency' %}
-                </h5>
-                {% for currency in currency_net_worth.values %}
-                  <div class="d-flex justify-content-between mt-2">
-                    <div class="d-flex align-items-baseline w-100">
-                      <div class="currency-name text-start font-monospace tw-text-gray-300"
-                           _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
-                        {{ currency.currency.name }}
-                      </div>
-                      <div class="dotted-line flex-grow-1"></div>
-                      <div>
-                        <c-amount.display
-                            :amount="currency.total_final"
-                            :prefix="currency.currency.prefix"
-                            :suffix="currency.currency.suffix"
-                            :decimal_places="currency.currency.decimal_places"
-                            color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
-                            text-end></c-amount.display>
-                      </div>
+            <c-ui.info-card color="yellow" icon="fa-solid fa-coins" title="{% trans 'By currency' %}" _="on click showAllDatasetsCurrency()">
+              {% for currency in currency_net_worth.values %}
+                <div class="d-flex justify-content-between mt-2">
+                  <div class="d-flex align-items-baseline w-100">
+                    <div class="currency-name text-start font-monospace tw-text-gray-300"
+                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
+                      {{ currency.currency.name }}
                     </div>
-                  </div>
-                  {% if currency.exchanged and currency.exchanged.total_final %}
+                    <div class="dotted-line flex-grow-1"></div>
                     <div>
                       <c-amount.display
-                          :amount="currency.exchanged.total_final"
-                          :prefix="currency.exchanged.currency.prefix"
-                          :suffix="currency.exchanged.currency.suffix"
-                          :decimal_places="currency.exchanged.currency.decimal_places"
-                          text-end
-                          color="grey"></c-amount.display>
+                          :amount="currency.total_final"
+                          :prefix="currency.currency.prefix"
+                          :suffix="currency.currency.suffix"
+                          :decimal_places="currency.currency.decimal_places"
+                          color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
+                          text-end></c-amount.display>
                     </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>
+                  </div>
+                </div>
+                {% if currency.exchanged and currency.exchanged.total_final %}
+                  <div>
+                    <c-amount.display
+                        :amount="currency.exchanged.total_final"
+                        :prefix="currency.exchanged.currency.prefix"
+                        :suffix="currency.exchanged.currency.suffix"
+                        :decimal_places="currency.exchanged.currency.decimal_places"
+                        text-end
+                        color="grey"></c-amount.display>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </c-ui.info-card>
           </div>
           <div class="col">
-            <div class="card tw-relative h-100 shadow">
-              <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-blue-300 tw-text-blue-800 text-center
-          align-items-center d-flex justify-content-center rounded-2">
-                <i class="fa-solid fa-wallet"></i>
-              </div>
-              <div class="card-body">
-                <h5 class="tw-text-blue-400 fw-bold mb-3"
-                    _="on click showAllDatasetsAccount()">
-                  {% translate 'By account' %}
-                </h5>
+              <c-ui.info-card color="blue" icon="fa-solid fa-wallet" title="{% trans 'By account' %}" _="on click showAllDatasetsAccount()">
                 {% regroup account_net_worth.values by account.group as account_data %}
                 {% for data in account_data %}
                   {% if data.grouper %}
@@ -136,8 +117,7 @@
                     {% endfor %}
                   {% endif %}
                 {% endfor %}
-              </div>
-            </div>
+              </c-ui.info-card>
           </div>
         </div>
       </div>

@@ -1,0 +1,9 @@
+<div class="card tw-relative h-100 shadow">
+  <div class="tw-absolute tw-h-8 tw-w-8 tw-right-2 tw-top-2 tw-bg-{{ color }}-300 tw-text-{{ color }}-800 text-center align-items-center d-flex justify-content-center rounded-2">
+    <i class="{{ icon }}"></i>
+  </div>
+  <div class="card-body">
+    <h5 class="tw-text-{{ color }}-400 fw-bold" {{ attrs }}>{{ title }}{% if help_text %}{% include 'includes/help_icon.html' with content=help_text %}{% endif %}</h5>
+    {{ slot }}
+  </div>
+</div>
