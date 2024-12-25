@@ -7,15 +7,16 @@ from django.utils.translation import gettext_lazy as _
 from django_filters import Filter
 
 from apps.accounts.models import Account
+from apps.common.fields.month_year import MonthYearFormField
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
+from apps.common.widgets.tom_select import TomSelectMultiple
+from apps.currencies.models import Currency
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
     TransactionTag,
     TransactionEntity,
 )
-from apps.common.widgets.tom_select import TomSelectMultiple
-from apps.common.fields.month_year import MonthYearFormField
-from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 
 SITUACAO_CHOICES = (
     ("1", _("Paid")),
@@ -50,6 +51,13 @@ class TransactionsFilter(django_filters.FilterSet):
         to_field_name="name",
         label=_("Accounts"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True, group_by="group"),
+    )
+    currency = django_filters.ModelMultipleChoiceFilter(
+        field_name="account__currency",
+        queryset=Currency.objects.all(),
+        to_field_name="id",
+        label=_("Currencies"),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True),
     )
     category = django_filters.ModelMultipleChoiceFilter(
         field_name="category__name",
@@ -167,6 +175,7 @@ class TransactionsFilter(django_filters.FilterSet):
                 css_class="form-row",
             ),
             Field("account", size=1),
+            Field("currency", size=1),
             Field("category", size=1),
             Field("tags", size=1),
             Field("entities", size=1),
