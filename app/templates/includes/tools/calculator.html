@@ -12,7 +12,7 @@
 
           on focusin halt the event end -- this prevents bootstrap's static offcanvas from hijacking the focus from the input when open end
 
-          on show
+          on show or keyup[code is 'KeyC' and shiftKey is true and target.nodeName is 'BODY'] from body
             if my.classList.contains('tw-hidden')
               remove .tw-hidden from me
               measure my width, height
