@@ -7,6 +7,11 @@ urlpatterns = [
         "transactions/list/", views.transaction_all_list, name="transactions_all_list"
     ),
     path(
+        "transactions/summary/",
+        views.transaction_all_summary,
+        name="transactions_all_summary",
+    ),
+    path(
         "transactions/actions/pay",
         views.bulk_pay_transactions,
         name="transactions_bulk_pay",

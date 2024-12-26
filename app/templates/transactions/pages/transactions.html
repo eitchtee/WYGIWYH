@@ -5,9 +5,9 @@
 {% block title %}{% translate 'Transactions' %}{% endblock %}
 
 {% block content %}
-<div class="container px-md-3 py-3 column-gap-5">
+<div class="container-fluid px-md-3 py-3 column-gap-5">
   <div class="row gx-xl-4 gy-3">
-    <div class="col-12 col-xl-4">
+    <div class="col-12 col-xl-3">
       {#      Filter transactions#}
       <div class="row mb-1">
           <div class="col-12">
@@ -27,7 +27,7 @@
           </div>
         </div>
     </div>
-    <div class="col-12 col-xl-8">
+    <div class="col-12 col-xl-6">
       <div class="text-end tw-justify-end tw-flex tw-text-sm mb-3">
         <div class="tw-content-center" _="on change trigger updated on window">
           <label for="order">{% translate "Order by" %}</label>
@@ -37,11 +37,18 @@
             <option value="newer">{% translate 'Newest first' %}</option>
           </select>
         </div>
-  </div>
+      </div>
       <div id="transactions"
            class="show-loading"
            hx-get="{% url 'transactions_all_list' %}"
            hx-trigger="load, updated from:window" hx-include="#filter, #page, #order">
+      </div>
+    </div>
+    <div class="col-12 col-xl-3">
+      <div id="transactions"
+           class="show-loading"
+           hx-get="{% url 'transactions_all_summary' %}"
+           hx-trigger="load, updated from:window, change from:#filter, submit from:#filter, search from:#filter" hx-include="#filter">
       </div>
     </div>
   </div>

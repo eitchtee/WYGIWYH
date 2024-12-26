@@ -11,9 +11,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
+from apps.common.utils.dicts import remove_falsey_entries
+from apps.transactions.filters import TransactionsFilter
 from apps.transactions.forms import TransactionForm, TransferForm
 from apps.transactions.models import Transaction
-from apps.transactions.filters import TransactionsFilter
+from apps.transactions.utils.calculations import (
+    calculate_currency_totals,
+    calculate_account_totals,
+    calculate_percentage_distribution,
+)
 from apps.transactions.utils.default_ordering import default_order
 
 
@@ -194,6 +200,39 @@ def transaction_all_list(request):
         },
     )
 
-    # response.headers["HX-Push-Url"] = (
-    #     f"{reverse('transactions_all_index')}?{request.GET.urlencode()}"
-    # )
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_all_summary(request):
+    transactions = Transaction.objects.prefetch_related(
+        "account",
+        "account__group",
+        "category",
+        "tags",
+        "account__exchange_currency",
+        "account__currency",
+        "installment_plan",
+    ).all()
+
+    f = TransactionsFilter(request.GET, queryset=transactions)
+
+    currency_data = calculate_currency_totals(f.qs.all(), ignore_empty=True)
+    currency_percentages = calculate_percentage_distribution(currency_data)
+    account_data = calculate_account_totals(transactions_queryset=f.qs.all())
+    account_percentages = calculate_percentage_distribution(account_data)
+
+    context = {
+        "income_current": remove_falsey_entries(currency_data, "income_current"),
+        "income_projected": remove_falsey_entries(currency_data, "income_projected"),
+        "expense_current": remove_falsey_entries(currency_data, "expense_current"),
+        "expense_projected": remove_falsey_entries(currency_data, "expense_projected"),
+        "total_current": remove_falsey_entries(currency_data, "total_current"),
+        "total_final": remove_falsey_entries(currency_data, "total_final"),
+        "total_projected": remove_falsey_entries(currency_data, "total_projected"),
+        "currency_percentages": currency_percentages,
+        "account_data": account_data,
+        "account_percentages": account_percentages,
+    }
+
+    return render(request, "transactions/fragments/summary.html", context)
