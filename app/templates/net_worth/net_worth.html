@@ -9,10 +9,10 @@
 {% block title %}{% if type == "current" %}{% translate 'Current Net Worth' %}{% else %}{% translate 'Projected Net Worth' %}{% endif %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 column-gap-5">
-    <div class="row gx-xl-4 gy-3">
+  <div class="container px-md-3 py-3">
+    <div class="row gx-xl-4 gy-3 mb-4">
       <div class="col-12 col-xl-5">
-        <div class="row row-cols-1 g-4 mb-3">
+        <div class="row row-cols-1 g-4">
           <div class="col">
             <c-ui.info-card color="yellow" icon="fa-solid fa-coins" title="{% trans 'By currency' %}"
                             _="on click showAllDatasetsCurrency()">
@@ -49,6 +49,18 @@
               {% endfor %}
             </c-ui.info-card>
           </div>
+        </div>
+      </div>
+      <div class="col-12 col-xl-7">
+        <div class="chart-container position-relativo tw-min-h-[40vh] tw-h-full">
+          <canvas id="currencyBalanceChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row gx-xl-4 gy-3 mt-4">
+      <div class="col-12 col-xl-5">
+        <div class="row row-cols-1 g-4">
           <div class="col">
             <c-ui.info-card color="blue" icon="fa-solid fa-wallet" title="{% trans 'By account' %}"
                             _="on click showAllDatasetsAccount()">
@@ -124,10 +136,7 @@
         </div>
       </div>
       <div class="col-12 col-xl-7">
-        <div class="chart-container position-relativo tw-h-[40vh]">
-          <canvas id="currencyBalanceChart"></canvas>
-        </div>
-        <div class="chart-container position-relativo tw-h-[40vh]">
+        <div class="chart-container position-relativo tw-min-h-[40vh] tw-h-full">
           <canvas id="accountBalanceChart"></canvas>
         </div>
       </div>
