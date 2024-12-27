@@ -48,29 +48,28 @@ Frustrated by the lack of comprehensive options, I set out to build **WYGIWYH** 
 
 # How To Use
 
-To run this application, you'll need [Git](https://git-scm.com) and [Docker](https://docs.docker.com/engine/install/) with the [docker-compose](https://docs.docker.com/compose/install/).
+To run this application, you'll need [Docker](https://docs.docker.com/engine/install/) with [docker-compose](https://docs.docker.com/compose/install/).
 
 From your command line:
 
-> [!NOTE]
-> Docker images for this project are currently under development, but manual setup is available now.
-
 ```bash
 # Clone this repository
-$ git clone https://github.com/eitchtee/WYGIWYH
+$ mkdir WYGIWYH
 
 # Go into the repository
 $ cd WYGIWYH
 
-# Fill the .env file with your configurations
-$ cp .env.example .env
-$ nano .env # or any other editor you want to use
+$ touch docker-compose.yml
+$ nano docker-compose.yml
+# Paste the contents of https://github.com/eitchtee/WYGIWYH/blob/main/docker-compose.prod.yml and edit according to your needs
 
-# Create docker-compose file
-$ cp docker-compose.prod.yml docker-compose.yml
+# Fill the .env file with your configurations
+$ touch .env
+$ nano .env # or any other editor you want to use
+# Paste the contents of https://github.com/eitchtee/WYGIWYH/blob/main/.env.example and edit accordingly
 
 # Run the app
-$ docker compose up -d --build
+$ docker compose up -d
 
 # Create the first admin account
 $ docker compose exec -it web python manage.py createsuperuser
