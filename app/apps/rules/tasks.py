@@ -68,7 +68,7 @@ def check_for_transaction_rules(
 
             for rule in rules:
                 if simple.eval(rule.trigger):
-                    for action in rule.actions.all():
+                    for action in rule.transaction_actions.all():
                         if action.field in [
                             TransactionRuleAction.Field.type,
                             TransactionRuleAction.Field.is_paid,

@@ -31,7 +31,7 @@ class TransactionRuleAction(models.Model):
     rule = models.ForeignKey(
         TransactionRule,
         on_delete=models.CASCADE,
-        related_name="actions",
+        related_name="transaction_actions",
         verbose_name=_("Rule"),
     )
     field = models.CharField(
