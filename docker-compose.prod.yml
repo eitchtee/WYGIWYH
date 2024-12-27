@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/prod/django/Dockerfile
-    image: ${SERVER_NAME}
+    image: ghcr.io/eitchtee/wygiwyh:latest
     container_name: ${SERVER_NAME}
     command: /start
     ports:
@@ -27,7 +27,6 @@ services:
 
   procrastinate:
     <<: *django
-    image: ${PROCRASTINATE_NAME}
     container_name: ${PROCRASTINATE_NAME}
     depends_on:
       - db
