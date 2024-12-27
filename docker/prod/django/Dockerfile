@@ -6,16 +6,16 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt .
-RUN pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 FROM node:lts-alpine AS webpack_build
 WORKDIR /usr/src/frontend
 COPY ./frontend .
 COPY ./app/templates /usr/src/app/templates
-RUN npm config set registry https://registry.npmmirror.com/ && \
+RUN --mount=type=cache,target=/root/.npm \
     npm install --verbose && \
-    npm run build && \
-    npm cache clean --force
+    npm run build
 
 FROM python:3.11-slim-buster AS python-run-stage
 COPY --from=webpack_build /usr/src/frontend/build /usr/src/frontend/build
@@ -29,12 +29,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 COPY --from=python-build-stage /usr/src/app/wheels /wheels/
-RUN apt-get update && \
+RUN --mount=type=cache,target=/root/.cache/apt \
+    apt-get update && \
     apt-get install --no-install-recommends -y gettext && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip && \
     pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
-    rm -rf /wheels/ ~/.cache/pip/*
+    rm -rf /wheels/
 
 COPY --chown=app:app ./docker/prod/django/start /start
 COPY --chown=app:app ./docker/prod/procrastinate/start /start-procrastinate
