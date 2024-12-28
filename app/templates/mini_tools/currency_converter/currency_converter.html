@@ -42,5 +42,19 @@
         <div>{{ form.to_currency|as_crispy_field }}</div>
       </div>
     </div>
+    <div class="row">
+      <div class="tw-cursor-pointer text-primary text-end" 
+           _="on click
+                set from_value to #id_from_currency's value
+                set to_value to #id_to_currency's value
+                set #id_from_currency's value to to_value
+                set #id_to_currency's value to from_value
+                call #id_from_currency.tomselect.sync()
+                call #id_to_currency.tomselect.sync()
+                trigger updated on #result
+              end">
+        <i class="fa-solid fa-rotate me-2"></i><span>{% trans 'Invert' %}</span>
+      </div>
+    </div>
   </div>
 {% endblock %}
