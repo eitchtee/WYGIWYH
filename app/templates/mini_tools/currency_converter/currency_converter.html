@@ -13,7 +13,7 @@
       <div>{% translate 'Currency Converter' %}</div>
     </div>
     <div class="row">
-      <div class="col-5">
+      <div class="col-12 col-lg-5">
         <div>
           <input class="form-control form-control-lg mb-3"
                  type="text"
@@ -25,13 +25,14 @@
         </div>
         <div>{{ form.from_currency|as_crispy_field }}</div>
       </div>
-      <div class="col text-primary tw-flex tw-items-center tw-justify-center">
+      <div class="col text-primary tw-flex tw-items-center tw-justify-center my-3 my-lg-0">
         <i class="fa-solid fa-equals"></i>
       </div>
-      <div class="col-5">
+      <div class="col-12 col-lg-5">
         <div hx-get="{% url 'currency_converter_convert' %}"
-             hx-trigger="input from:#from_value, input from:#id_from_currency, input from:#id_to_currency"
-             hx-include="#from_value, #id_from_currency, #id_to_currency">
+             hx-trigger="input from:#from_value, input from:#id_from_currency, input from:#id_to_currency, updated"
+             hx-include="#from_value, #id_from_currency, #id_to_currency"
+             id="result">
           <input class="form-control form-control-lg mb-3"
                  type="text"
                  name="to_value"
