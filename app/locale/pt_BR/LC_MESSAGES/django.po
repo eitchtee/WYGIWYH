@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-24 19:06+0000\n"
-"PO-Revision-Date: 2024-12-24 16:07-0300\n"
+"POT-Creation-Date: 2024-12-28 05:32+0000\n"
+"PO-Revision-Date: 2024-12-28 02:32-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -71,7 +71,7 @@ msgid "Category"
 msgstr "Categoria"
 
 #: apps/accounts/forms.py:124 apps/rules/models.py:28
-#: apps/transactions/filters.py:65 apps/transactions/forms.py:44
+#: apps/transactions/filters.py:73 apps/transactions/forms.py:44
 #: apps/transactions/forms.py:199 apps/transactions/forms.py:206
 #: apps/transactions/forms.py:360 apps/transactions/forms.py:580
 #: apps/transactions/models.py:96 apps/transactions/models.py:211
@@ -145,10 +145,11 @@ msgstr ""
 msgid "Account"
 msgstr "Conta"
 
-#: apps/accounts/models.py:60 apps/transactions/filters.py:51
+#: apps/accounts/models.py:60 apps/transactions/filters.py:52
 #: templates/accounts/fragments/list.html:5
 #: templates/accounts/pages/index.html:4 templates/includes/navbar.html:104
 #: templates/includes/navbar.html:106
+#: templates/transactions/fragments/summary.html:9
 msgid "Accounts"
 msgstr "Contas"
 
@@ -314,9 +315,11 @@ msgstr "Nome da Moeda"
 msgid "Decimal Places"
 msgstr "Casas Decimais"
 
-#: apps/currencies/models.py:33 templates/currencies/fragments/list.html:5
+#: apps/currencies/models.py:33 apps/transactions/filters.py:59
+#: templates/currencies/fragments/list.html:5
 #: templates/currencies/pages/index.html:4 templates/includes/navbar.html:112
 #: templates/includes/navbar.html:114
+#: templates/transactions/fragments/summary.html:6
 msgid "Currencies"
 msgstr "Moedas"
 
@@ -494,7 +497,7 @@ msgstr "Gatilho"
 msgid "Type"
 msgstr "Tipo"
 
-#: apps/rules/models.py:21 apps/transactions/filters.py:21
+#: apps/rules/models.py:21 apps/transactions/filters.py:22
 #: apps/transactions/models.py:74
 msgid "Paid"
 msgstr "Pago"
@@ -511,7 +514,7 @@ msgstr "Data de Referência"
 msgid "Amount"
 msgstr "Quantia"
 
-#: apps/rules/models.py:29 apps/transactions/filters.py:72
+#: apps/rules/models.py:29 apps/transactions/filters.py:80
 #: apps/transactions/forms.py:51 apps/transactions/forms.py:372
 #: apps/transactions/forms.py:592 apps/transactions/models.py:50
 #: apps/transactions/models.py:101 apps/transactions/models.py:214
@@ -560,40 +563,40 @@ msgstr "Ação atualizada com sucesso"
 msgid "Action deleted successfully"
 msgstr "Ação apagada com sucesso"
 
-#: apps/transactions/filters.py:22 templates/includes/navbar.html:45
+#: apps/transactions/filters.py:23 templates/includes/navbar.html:45
 msgid "Projected"
 msgstr "Previsto"
 
-#: apps/transactions/filters.py:39
+#: apps/transactions/filters.py:40
 msgid "Content"
 msgstr "Conteúdo"
 
-#: apps/transactions/filters.py:45
+#: apps/transactions/filters.py:46
 msgid "Transaction Type"
 msgstr "Tipo de Transação"
 
-#: apps/transactions/filters.py:58 templates/categories/fragments/list.html:5
+#: apps/transactions/filters.py:66 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:96
 msgid "Categories"
 msgstr "Categorias"
 
-#: apps/transactions/filters.py:83
+#: apps/transactions/filters.py:91
 msgid "Date from"
 msgstr "Data de"
 
-#: apps/transactions/filters.py:89 apps/transactions/filters.py:99
+#: apps/transactions/filters.py:97 apps/transactions/filters.py:107
 msgid "Until"
 msgstr "Até"
 
-#: apps/transactions/filters.py:94
+#: apps/transactions/filters.py:102
 msgid "Reference date from"
 msgstr "Data de Referência de"
 
-#: apps/transactions/filters.py:104
+#: apps/transactions/filters.py:112
 msgid "Amount min"
 msgstr "Quantia miníma"
 
-#: apps/transactions/filters.py:109
+#: apps/transactions/filters.py:117
 msgid "Amount max"
 msgstr "Quantia máxima"
 
@@ -665,6 +668,7 @@ msgstr "Entidade"
 #: templates/calendar_view/pages/calendar.html:54
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 #: templates/monthly_overview/pages/overview.html:54
+#: templates/transactions/fragments/summary.html:17
 #: templates/yearly_overview/pages/overview_by_account.html:49
 #: templates/yearly_overview/pages/overview_by_currency.html:51
 msgid "Income"
@@ -878,19 +882,19 @@ msgstr "Tag atualizada com sucesso"
 msgid "Tag deleted successfully"
 msgstr "Tag apagada com sucesso"
 
-#: apps/transactions/views/transactions.py:39
+#: apps/transactions/views/transactions.py:45
 msgid "Transaction added successfully"
 msgstr "Transação adicionada com sucesso"
 
-#: apps/transactions/views/transactions.py:70
+#: apps/transactions/views/transactions.py:76
 msgid "Transaction updated successfully"
 msgstr "Transação atualizada com sucesso"
 
-#: apps/transactions/views/transactions.py:95
+#: apps/transactions/views/transactions.py:101
 msgid "Transaction deleted successfully"
 msgstr "Transação apagada com sucesso"
 
-#: apps/transactions/views/transactions.py:121
+#: apps/transactions/views/transactions.py:127
 msgid "Transfer added successfully"
 msgstr "Transferência adicionada com sucesso"
 
@@ -1575,6 +1579,10 @@ msgstr "Isso excluirá o parcelamento e todas as transações associadas a ele"
 msgid "No installment plans"
 msgstr "Nenhum parcelamento"
 
+#: templates/mini_tools/currency_converter/currency_converter.html:56
+msgid "Invert"
+msgstr "Inverter"
+
 #: templates/mini_tools/unit_price_calculator.html:27
 #: templates/mini_tools/unit_price_calculator.html:100
 #: templates/mini_tools/unit_price_calculator.html:125
@@ -1614,24 +1622,33 @@ msgstr "Esse é o total final dividido pelos dias restantes do mês"
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 #: templates/monthly_overview/fragments/monthly_summary.html:106
 #: templates/monthly_overview/fragments/monthly_summary.html:170
+#: templates/transactions/fragments/summary.html:20
+#: templates/transactions/fragments/summary.html:84
+#: templates/transactions/fragments/summary.html:148
 msgid "current"
 msgstr "atual"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:72
 #: templates/monthly_overview/fragments/monthly_summary.html:136
 #: templates/monthly_overview/fragments/monthly_summary.html:199
+#: templates/transactions/fragments/summary.html:50
+#: templates/transactions/fragments/summary.html:114
+#: templates/transactions/fragments/summary.html:177
 msgid "projected"
 msgstr "previsto"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:103
+#: templates/transactions/fragments/summary.html:81
 msgid "Expenses"
 msgstr "Despesas"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:167
+#: templates/transactions/fragments/summary.html:145
 msgid "Total"
 msgstr "Total"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:256
+#: templates/transactions/fragments/summary.html:234
 msgid "Distribution"
 msgstr "Distribuição"
 
@@ -1672,16 +1689,16 @@ msgstr "Patrimônio Previsto"
 msgid "By currency"
 msgstr "Por moeda"
 
-#: templates/net_worth/net_worth.html:52
+#: templates/net_worth/net_worth.html:65
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Por conta"
 
-#: templates/net_worth/net_worth.html:153
+#: templates/net_worth/net_worth.html:166
 msgid "Evolution by currency"
 msgstr "Evolução por moeda"
 
-#: templates/net_worth/net_worth.html:208
+#: templates/net_worth/net_worth.html:224
 msgid "Evolution by account"
 msgstr "Evolução por conta"
 
@@ -1831,6 +1848,54 @@ msgstr "Editar transação"
 msgid "No transactions found"
 msgstr "Nenhuma transação encontrada"
 
+#: templates/transactions/fragments/summary.html:255
+#: templates/yearly_overview/fragments/account_data.html:14
+#: templates/yearly_overview/fragments/currency_data.html:14
+msgid "projected income"
+msgstr "renda prevista"
+
+#: templates/transactions/fragments/summary.html:277
+#: templates/yearly_overview/fragments/account_data.html:36
+#: templates/yearly_overview/fragments/currency_data.html:36
+msgid "projected expenses"
+msgstr "despesas previstas"
+
+#: templates/transactions/fragments/summary.html:301
+#: templates/yearly_overview/fragments/account_data.html:60
+#: templates/yearly_overview/fragments/currency_data.html:60
+msgid "projected total"
+msgstr "total previsto"
+
+#: templates/transactions/fragments/summary.html:326
+#: templates/yearly_overview/fragments/account_data.html:85
+#: templates/yearly_overview/fragments/currency_data.html:85
+msgid "current income"
+msgstr "renda atual"
+
+#: templates/transactions/fragments/summary.html:348
+#: templates/yearly_overview/fragments/account_data.html:107
+#: templates/yearly_overview/fragments/currency_data.html:107
+msgid "current expenses"
+msgstr "despesas atuais"
+
+#: templates/transactions/fragments/summary.html:370
+#: templates/yearly_overview/fragments/account_data.html:129
+#: templates/yearly_overview/fragments/currency_data.html:129
+msgid "current total"
+msgstr "total atual"
+
+#: templates/transactions/fragments/summary.html:396
+#: templates/yearly_overview/fragments/account_data.html:155
+#: templates/yearly_overview/fragments/currency_data.html:155
+msgid "final total"
+msgstr "total final"
+
+#: templates/transactions/fragments/summary.html:426
+#: templates/yearly_overview/fragments/account_data.html:185
+#: templates/yearly_overview/fragments/currency_data.html:184
+msgid "No information to display"
+msgstr "Não há informação para mostrar"
+
 #: templates/transactions/fragments/transfer.html:5
 msgid "New transfer"
 msgstr "Nova transferência"
@@ -1854,46 +1919,6 @@ msgstr "Reproduzir sons"
 #: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
 msgstr "Mostrar valores"
-
-#: templates/yearly_overview/fragments/account_data.html:14
-#: templates/yearly_overview/fragments/currency_data.html:14
-msgid "projected income"
-msgstr "renda prevista"
-
-#: templates/yearly_overview/fragments/account_data.html:36
-#: templates/yearly_overview/fragments/currency_data.html:36
-msgid "projected expenses"
-msgstr "despesas previstas"
-
-#: templates/yearly_overview/fragments/account_data.html:60
-#: templates/yearly_overview/fragments/currency_data.html:60
-msgid "projected total"
-msgstr "total previsto"
-
-#: templates/yearly_overview/fragments/account_data.html:85
-#: templates/yearly_overview/fragments/currency_data.html:85
-msgid "current income"
-msgstr "renda atual"
-
-#: templates/yearly_overview/fragments/account_data.html:107
-#: templates/yearly_overview/fragments/currency_data.html:107
-msgid "current expenses"
-msgstr "despesas atuais"
-
-#: templates/yearly_overview/fragments/account_data.html:129
-#: templates/yearly_overview/fragments/currency_data.html:129
-msgid "current total"
-msgstr "total atual"
-
-#: templates/yearly_overview/fragments/account_data.html:155
-#: templates/yearly_overview/fragments/currency_data.html:155
-msgid "final total"
-msgstr "total final"
-
-#: templates/yearly_overview/fragments/account_data.html:184
-#: templates/yearly_overview/fragments/currency_data.html:184
-msgid "No information to display"
-msgstr "Não há informação para mostrar"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
