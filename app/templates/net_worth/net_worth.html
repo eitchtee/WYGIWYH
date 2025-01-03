@@ -9,7 +9,7 @@
 {% block title %}{% if type == "current" %}{% translate 'Current Net Worth' %}{% else %}{% translate 'Projected Net Worth' %}{% endif %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3">
+  <div class="container px-md-3 py-3" _="on load call initializeAccountChart() then initializeCurrencyChart()">
     <div class="row gx-xl-4 gy-3 mb-4">
       <div class="col-12 col-xl-5">
         <div class="row row-cols-1 g-4">
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="col-12 col-xl-7">
-        <div class="chart-container position-relativo tw-min-h-[40vh] tw-h-full">
+        <div class="chart-container position-relative tw-min-h-[40vh] tw-h-full">
           <canvas id="currencyBalanceChart"></canvas>
         </div>
       </div>
@@ -136,7 +136,7 @@
         </div>
       </div>
       <div class="col-12 col-xl-7">
-        <div class="chart-container position-relativo tw-min-h-[40vh] tw-h-full">
+        <div class="chart-container position-relative tw-min-h-[40vh] tw-h-full">
           <canvas id="accountBalanceChart"></canvas>
         </div>
       </div>
@@ -144,13 +144,19 @@
   </div>
 
   <script>
-      document.body.addEventListener('htmx:load', function (evt) {
+      var currencyChart;
+
+      function initializeCurrencyChart() {
+          // Destroy existing chart if it exists
+          if (currencyChart) {
+              currencyChart.destroy();
+          }
+
           var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
           var currencies = {{ currencies|safe }};
-
           var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
 
-          new Chart(ctx, {
+          currencyChart = new Chart(ctx, {
               type: 'line',
               data: chartData,
               options: {
@@ -197,17 +203,23 @@
                   }
               }
           });
-      });
+      }
   </script>
 
-  <script>
-      document.body.addEventListener('htmx:load', function (evt) {
+  <script id="accountBalanceChartScript">
+      var accountChart;
+
+      function initializeAccountChart() {
+          // Destroy existing chart if it exists
+          if (accountChart) {
+              accountChart.destroy();
+          }
+
           var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
           var accounts = {{ accounts|safe }};
-
           var ctx = document.getElementById('accountBalanceChart').getContext('2d');
 
-          new Chart(ctx, {
+          accountChart = new Chart(ctx, {
               type: 'line',
               data: chartData,
               options: {
@@ -256,43 +268,38 @@
                   }
               }
           });
-      });
-
+      }
   </script>
 
   <script type="text/hyperscript">
     def showOnlyAccountDataset(datasetName)
-      set chart to Chart.getChart('accountBalanceChart')
-      for dataset in chart.data.datasets
+      for dataset in accountChart.data.datasets
         set isMatch to dataset.label is datasetName
-        call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
+        call accountChart.setDatasetVisibility(accountChart.data.datasets.indexOf(dataset), isMatch)
       end
-      call chart.update()
+      call accountChart.update()
     end
 
     def showOnlyCurrencyDataset(datasetName)
-      set chart to Chart.getChart('currencyBalanceChart')
-      for dataset in chart.data.datasets
+      for dataset in currencyChart.data.datasets
         set isMatch to dataset.label is datasetName
-        call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), isMatch)
+        call currencyChart.setDatasetVisibility(currencyChart.data.datasets.indexOf(dataset), isMatch)
       end
-      call chart.update()
+      call currencyChart.update()
     end
 
     def showAllDatasetsAccount()
-      set chart to Chart.getChart('accountBalanceChart')
-      for dataset in chart.data.datasets
-        call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), true)
+      for dataset in accountChart.data.datasets
+        call accountChart.setDatasetVisibility(accountChart.data.datasets.indexOf(dataset), true)
       end
-      call chart.update()
+      call accountChart.update()
     end
 
     def showAllDatasetsCurrency()
-      set chart to Chart.getChart('currencyBalanceChart')
-      for dataset in chart.data.datasets
-        call chart.setDatasetVisibility(chart.data.datasets.indexOf(dataset), true)
+      for dataset in currencyChart.data.datasets
+        call currencyChart.setDatasetVisibility(currencyChart.data.datasets.indexOf(dataset), true)
       end
-      call chart.update()
+      call currencyChart.update()
     end
   </script>
 
