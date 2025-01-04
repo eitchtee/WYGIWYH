@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.utils.translation import gettext_lazy as _
 
 from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
 
@@ -124,7 +125,7 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
                 )
             return instance
         except Exception as e:
-            raise ValidationError(f"Error creating new instance: {str(e)}")
+            raise ValidationError(_("Error creating new instance"))
 
     def clean(self, value):
         """
@@ -160,6 +161,6 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
             try:
                 new_objects.append(self._create_new_instance(new_value))
             except ValidationError as e:
-                raise ValidationError(f"Error creating '{new_value}': {str(e)}")
+                raise ValidationError(_("Error creating new instance"))
 
         return existing_objects + new_objects

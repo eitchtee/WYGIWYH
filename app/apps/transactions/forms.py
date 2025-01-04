@@ -8,6 +8,7 @@ from crispy_forms.layout import (
     Field,
 )
 from django import forms
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import Account
@@ -32,9 +33,11 @@ from apps.rules.signals import transaction_created, transaction_updated
 
 class TransactionForm(forms.ModelForm):
     category = DynamicModelChoiceField(
+        create_field="name",
         model=TransactionCategory,
         required=False,
         label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
     )
     tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
@@ -42,6 +45,7 @@ class TransactionForm(forms.ModelForm):
         create_field="name",
         required=False,
         label=_("Tags"),
+        queryset=TransactionTag.objects.filter(active=True),
     )
     entities = DynamicModelMultipleChoiceField(
         model=TransactionEntity,
@@ -80,6 +84,24 @@ class TransactionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # if editing a transaction display non-archived items and it's own item even if it's archived
+        if self.instance.id:
+            self.fields["account"].queryset = Account.objects.filter(
+                Q(is_archived=False) | Q(transactions=self.instance.id)
+            ).distinct()
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                Q(active=True) | Q(transaction=self.instance.id)
+            ).distinct()
+
+            self.fields["tags"].queryset = TransactionTag.objects.filter(
+                Q(active=True) | Q(transaction=self.instance.id)
+            ).distinct()
+
+            self.fields["entities"].queryset = TransactionEntity.objects.filter(
+                Q(active=True) | Q(transactions=self.instance.id)
+            ).distinct()
 
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -181,14 +203,18 @@ class TransferForm(forms.Form):
     )
 
     from_category = DynamicModelChoiceField(
+        create_field="name",
         model=TransactionCategory,
         required=False,
         label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
     )
     to_category = DynamicModelChoiceField(
+        create_field="name",
         model=TransactionCategory,
         required=False,
         label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
     )
 
     from_tags = DynamicModelMultipleChoiceField(
@@ -197,6 +223,7 @@ class TransferForm(forms.Form):
         create_field="name",
         required=False,
         label=_("Tags"),
+        queryset=TransactionTag.objects.filter(active=True),
     )
     to_tags = DynamicModelMultipleChoiceField(
         model=TransactionTag,
@@ -204,6 +231,7 @@ class TransferForm(forms.Form):
         create_field="name",
         required=False,
         label=_("Tags"),
+        queryset=TransactionTag.objects.filter(active=True),
     )
 
     date = forms.DateField(
@@ -299,7 +327,7 @@ class TransferForm(forms.Form):
         to_account = cleaned_data.get("to_account")
 
         if from_account == to_account:
-            raise forms.ValidationError("From and To accounts must be different.")
+            raise forms.ValidationError(_("From and To accounts must be different."))
 
         return cleaned_data
 
@@ -358,11 +386,14 @@ class InstallmentPlanForm(forms.ModelForm):
         create_field="name",
         required=False,
         label=_("Tags"),
+        queryset=TransactionTag.objects.filter(active=True),
     )
     category = DynamicModelChoiceField(
+        create_field="name",
         model=TransactionCategory,
         required=False,
         label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
     )
     entities = DynamicModelMultipleChoiceField(
         model=TransactionEntity,
@@ -370,6 +401,7 @@ class InstallmentPlanForm(forms.ModelForm):
         create_field="name",
         required=False,
         label=_("Entities"),
+        queryset=TransactionEntity.objects.filter(active=True),
     )
     type = forms.ChoiceField(choices=Transaction.Type.choices)
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
@@ -400,6 +432,24 @@ class InstallmentPlanForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # if editing display non-archived items and it's own item even if it's archived
+        if self.instance.id:
+            self.fields["account"].queryset = Account.objects.filter(
+                Q(is_archived=False) | Q(installmentplan=self.instance.id)
+            ).distinct()
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                Q(active=True) | Q(installmentplan=self.instance.id)
+            ).distinct()
+
+            self.fields["tags"].queryset = TransactionTag.objects.filter(
+                Q(active=True) | Q(installmentplan=self.instance.id)
+            ).distinct()
+
+            self.fields["entities"].queryset = TransactionEntity.objects.filter(
+                Q(active=True) | Q(installmentplan=self.instance.id)
+            ).distinct()
 
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -470,7 +520,7 @@ class InstallmentPlanForm(forms.ModelForm):
 class TransactionTagForm(forms.ModelForm):
     class Meta:
         model = TransactionTag
-        fields = ["name"]
+        fields = ["name", "active"]
         labels = {"name": _("Tag name")}
 
     def __init__(self, *args, **kwargs):
@@ -479,7 +529,7 @@ class TransactionTagForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        self.helper.layout = Layout(Field("name", css_class="mb-3"))
+        self.helper.layout = Layout(Field("name", css_class="mb-3"), Switch("active"))
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(
@@ -502,7 +552,7 @@ class TransactionTagForm(forms.ModelForm):
 class TransactionEntityForm(forms.ModelForm):
     class Meta:
         model = TransactionEntity
-        fields = ["name"]
+        fields = ["name", "active"]
         labels = {"name": _("Entity name")}
 
     def __init__(self, *args, **kwargs):
@@ -511,7 +561,7 @@ class TransactionEntityForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        self.helper.layout = Layout(Field("name", css_class="mb-3"))
+        self.helper.layout = Layout(Field("name"), Switch("active"))
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(
@@ -534,7 +584,7 @@ class TransactionEntityForm(forms.ModelForm):
 class TransactionCategoryForm(forms.ModelForm):
     class Meta:
         model = TransactionCategory
-        fields = ["name", "mute"]
+        fields = ["name", "mute", "active"]
         labels = {"name": _("Category name")}
         help_texts = {
             "mute": _("Muted categories won't count towards your monthly total")
@@ -546,7 +596,7 @@ class TransactionCategoryForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        self.helper.layout = Layout(Field("name", css_class="mb-3"), Switch("mute"))
+        self.helper.layout = Layout(Field("name"), Switch("mute"), Switch("active"))
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(
@@ -578,11 +628,14 @@ class RecurringTransactionForm(forms.ModelForm):
         create_field="name",
         required=False,
         label=_("Tags"),
+        queryset=TransactionTag.objects.filter(active=True),
     )
     category = DynamicModelChoiceField(
+        create_field="name",
         model=TransactionCategory,
         required=False,
         label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
     )
     entities = DynamicModelMultipleChoiceField(
         model=TransactionEntity,
@@ -590,6 +643,7 @@ class RecurringTransactionForm(forms.ModelForm):
         create_field="name",
         required=False,
         label=_("Entities"),
+        queryset=TransactionEntity.objects.filter(active=True),
     )
     type = forms.ChoiceField(choices=Transaction.Type.choices)
     reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
@@ -624,6 +678,25 @@ class RecurringTransactionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # if editing display non-archived items and it's own item even if it's archived
+        if self.instance.id:
+            self.fields["account"].queryset = Account.objects.filter(
+                Q(is_archived=False) | Q(recurringtransaction=self.instance.id)
+            ).distinct()
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                Q(active=True) | Q(recurringtransaction=self.instance.id)
+            ).distinct()
+
+            self.fields["tags"].queryset = TransactionTag.objects.filter(
+                Q(active=True) | Q(recurringtransaction=self.instance.id)
+            ).distinct()
+
+            self.fields["entities"].queryset = TransactionEntity.objects.filter(
+                Q(active=True) | Q(recurringtransaction=self.instance.id)
+            ).distinct()
+
         self.helper = FormHelper()
         self.helper.form_method = "post"
         self.helper.form_tag = False

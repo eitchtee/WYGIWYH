@@ -1,6 +1,7 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
+from django.utils.translation import gettext_lazy as _
 
 from apps.transactions.models import (
     TransactionCategory,
@@ -25,13 +26,13 @@ class TransactionCategoryField(serializers.Field):
                 return TransactionCategory.objects.get(pk=data)
             except TransactionCategory.DoesNotExist:
                 raise serializers.ValidationError(
-                    "Category with this ID does not exist."
+                    _("Category with this ID does not exist.")
                 )
         elif isinstance(data, str):
             category, created = TransactionCategory.objects.get_or_create(name=data)
             return category
         raise serializers.ValidationError(
-            "Invalid category data. Provide an ID or name."
+            _("Invalid category data. Provide an ID or name.")
         )
 
     @staticmethod
@@ -61,13 +62,13 @@ class TransactionTagField(serializers.Field):
                     tag = TransactionTag.objects.get(pk=item)
                 except TransactionTag.DoesNotExist:
                     raise serializers.ValidationError(
-                        f"Tag with ID {item} does not exist."
+                        _("Tag with this ID does not exist.")
                     )
             elif isinstance(item, str):
                 tag, created = TransactionTag.objects.get_or_create(name=item)
             else:
                 raise serializers.ValidationError(
-                    "Invalid tag data. Provide an ID or name."
+                    _("Invalid tag data. Provide an ID or name.")
                 )
             tags.append(tag)
         return tags
@@ -85,13 +86,13 @@ class TransactionEntityField(serializers.Field):
                     entity = TransactionEntity.objects.get(pk=item)
                 except TransactionTag.DoesNotExist:
                     raise serializers.ValidationError(
-                        f"Entity with ID {item} does not exist."
+                        _("Entity with this ID does not exist.")
                     )
             elif isinstance(item, str):
                 entity, created = TransactionEntity.objects.get_or_create(name=item)
             else:
                 raise serializers.ValidationError(
-                    "Invalid entity data. Provide an ID or name."
+                    _("Invalid entity data. Provide an ID or name.")
                 )
             entities.append(entity)
         return entities

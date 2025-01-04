@@ -18,6 +18,13 @@ logger = logging.getLogger()
 class TransactionCategory(models.Model):
     name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
     mute = models.BooleanField(default=False, verbose_name=_("Mute"))
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_("Active"),
+        help_text=_(
+            "Deactivated categories won't be able to be selected when creating new transactions"
+        ),
+    )
 
     class Meta:
         verbose_name = _("Transaction Category")
@@ -30,6 +37,13 @@ class TransactionCategory(models.Model):
 
 class TransactionTag(models.Model):
     name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_("Active"),
+        help_text=_(
+            "Deactivated tags won't be able to be selected when creating new transactions"
+        ),
+    )
 
     class Meta:
         verbose_name = _("Transaction Tags")
@@ -42,8 +56,13 @@ class TransactionTag(models.Model):
 
 class TransactionEntity(models.Model):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
-
-    # Add any other fields you might want for entities
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_("Active"),
+        help_text=_(
+            "Deactivated entities won't be able to be selected when creating new transactions"
+        ),
+    )
 
     class Meta:
         verbose_name = _("Entity")
