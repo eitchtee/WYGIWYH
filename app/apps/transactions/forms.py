@@ -327,7 +327,7 @@ class TransferForm(forms.Form):
         to_account = cleaned_data.get("to_account")
 
         if from_account == to_account:
-            raise forms.ValidationError("From and To accounts must be different.")
+            raise forms.ValidationError(_("From and To accounts must be different."))
 
         return cleaned_data
 

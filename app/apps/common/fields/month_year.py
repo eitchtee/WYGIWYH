@@ -18,7 +18,7 @@ class MonthYearModelField(models.DateField):
             # Set the day to 1
             return date.replace(day=1).date()
         except ValueError:
-            raise ValidationError("Invalid date format. Use YYYY-MM.")
+            raise ValidationError(_("Invalid date format. Use YYYY-MM."))
 
     def formfield(self, **kwargs):
         kwargs["widget"] = MonthYearWidget
