@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="transaction d-flex my-1">
+<div class="transaction d-flex my-1 {% if transaction.type == "EX" %}expense{% else %}income{% endif %}">
   {% if not disable_selection %}
   <label class="px-3 d-flex align-items-center justify-content-center">
     <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}" id="check-{{ transaction.id }}" aria-label="{% translate 'Select' %}" hx-preserve>

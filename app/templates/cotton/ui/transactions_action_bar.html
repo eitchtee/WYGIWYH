@@ -57,15 +57,23 @@
       </button>
       <div class="vr mx-3 tw-align-middle"></div>
       <span _="on selected_transactions_updated from #actions-bar
-                set total to 0.0
-                for amt in <.transaction:has(input[name='transactions']:checked) .main-amount .amount/>
+                set realTotal to 0.0
+                set flatTotal to 0.0
+                for transaction in <.transaction:has(input[name='transactions']:checked)/>
+                  set amt to first <.main-amount .amount/> in transaction
                   set amountValue to parseFloat(amt.getAttribute('data-amount'))
                   if not isNaN(amountValue)
-                    set total to total + (amountValue * 100)
+                    set flatTotal to flatTotal + (amountValue * 100)
+
+                    if transaction match .income
+                      set realTotal to realTotal + (amountValue * 100)
+                    else
+                      set realTotal to realTotal - (amountValue * 100)
+                    end
                   end
                 end
-                set total to total / 100
-                put total.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into me
+                set realTotal to realTotal / 100
+                put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into me
               end
               on click
                 set original_value to my innerText
