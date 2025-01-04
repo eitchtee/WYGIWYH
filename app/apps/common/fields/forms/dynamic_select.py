@@ -8,6 +8,12 @@ from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
 class DynamicModelChoiceField(forms.ModelChoiceField):
     def __init__(self, model, *args, **kwargs):
         self.model = model
+        self.to_field_name = kwargs.pop("to_field_name", "pk")
+
+        self.create_field = kwargs.pop("create_field", None)
+        if not self.create_field:
+            raise ValueError("The 'create_field' parameter is required.")
+
         self.queryset = kwargs.pop("queryset", model.objects.all())
         super().__init__(queryset=self.queryset, *args, **kwargs)
         self._created_instance = None
@@ -18,8 +24,7 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
         if value in self.empty_values:
             return None
         try:
-            key = self.to_field_name or "pk"
-            return self.model.objects.get(**{key: value})
+            return self.model.objects.get(**{self.to_field_name: value})
         except (ValueError, TypeError, self.model.DoesNotExist):
             return value  # Return the raw value; we'll handle creation in clean()
 
@@ -49,10 +54,13 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
             except self.model.DoesNotExist:
                 try:
                     with transaction.atomic():
-                        instance = self.model.objects.create(name=value)
+                        instance, _ = self.model.objects.update_or_create(
+                            **{self.create_field: value}
+                        )
                         self._created_instance = instance
                         return instance
                 except Exception as e:
+                    print(e)
                     raise ValidationError(
                         self.error_messages["invalid_choice"], code="invalid_choice"
                     )
@@ -111,10 +119,10 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         """
         try:
             with transaction.atomic():
-                new_instance = self.queryset.model(**{self.create_field: value})
-                new_instance.full_clean()
-                new_instance.save()
-            return new_instance
+                instance, _ = self.model.objects.update_or_create(
+                    **{self.create_field: value}
+                )
+            return instance
         except Exception as e:
             raise ValidationError(f"Error creating new instance: {str(e)}")
 
