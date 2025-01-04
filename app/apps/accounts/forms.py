@@ -53,6 +53,7 @@ class AccountGroupForm(forms.ModelForm):
 
 class AccountForm(forms.ModelForm):
     group = DynamicModelChoiceField(
+        create_field="name",
         label=_("Group"),
         model=AccountGroup,
         required=False,
@@ -112,6 +113,7 @@ class AccountBalanceForm(forms.Form):
         max_digits=42, decimal_places=30, required=False, label=_("New balance")
     )
     category = DynamicModelChoiceField(
+        create_field="name",
         model=TransactionCategory,
         required=False,
         label=_("Category"),
