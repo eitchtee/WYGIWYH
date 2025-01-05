@@ -6,8 +6,8 @@
   <div class="show-loading" hx-get="{% url 'tags_table_archived' %}" hx-trigger="updated from:window"
        hx-swap="outerHTML">
 {% endif %}
-  <div class="table-responsive">
     {% if tags %}
+    <div class="table-responsive">
       <c-config.search></c-config.search>
       <table class="table table-hover">
         <thead>
@@ -48,8 +48,8 @@
         {% endfor %}
         </tbody>
       </table>
+    </div>
     {% else %}
       <c-msg.empty title="{% translate "No tags" %}" remove-padding></c-msg.empty>
     {% endif %}
-  </div>
 </div>

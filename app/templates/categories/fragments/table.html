@@ -6,8 +6,8 @@
   <div class="show-loading" hx-get="{% url 'categories_table_archived' %}" hx-trigger="updated from:window"
        hx-swap="outerHTML">
 {% endif %}
-<div class="table-responsive">
   {% if categories %}
+  <div class="table-responsive">
     <c-config.search></c-config.search>
     <table class="table table-hover">
       <thead>
@@ -52,8 +52,8 @@
       {% endfor %}
       </tbody>
     </table>
+  </div>
   {% else %}
     <c-msg.empty title="{% translate "No categories" %}" remove-padding></c-msg.empty>
   {% endif %}
-</div>
 </div>
