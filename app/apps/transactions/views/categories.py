@@ -25,11 +25,33 @@ def categories_index(request):
 @login_required
 @require_http_methods(["GET"])
 def categories_list(request):
-    categories = TransactionCategory.objects.all().order_by("id")
     return render(
         request,
         "categories/fragments/list.html",
-        {"categories": categories},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def categories_table_active(request):
+    categories = TransactionCategory.objects.filter(active=True).order_by("id")
+    return render(
+        request,
+        "categories/fragments/table.html",
+        {"categories": categories, "active": True},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def categories_table_archived(request):
+    categories = TransactionCategory.objects.filter(active=False).order_by("id")
+    return render(
+        request,
+        "categories/fragments/table.html",
+        {"categories": categories, "active": False},
     )
 
 

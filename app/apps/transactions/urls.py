@@ -79,6 +79,16 @@ urlpatterns = [
     ),
     path("categories/", views.categories_index, name="categories_index"),
     path("categories/list/", views.categories_list, name="categories_list"),
+    path(
+        "categories/table/active/",
+        views.categories_table_active,
+        name="categories_table_active",
+    ),
+    path(
+        "categories/table/archived/",
+        views.categories_table_archived,
+        name="categories_table_archived",
+    ),
     path("categories/add/", views.category_add, name="category_add"),
     path(
         "categories/<int:category_id>/edit/",
