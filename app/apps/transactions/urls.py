@@ -53,6 +53,8 @@ urlpatterns = [
     ),
     path("tags/", views.tags_index, name="tags_index"),
     path("tags/list/", views.tags_list, name="tags_list"),
+    path("tags/table/active/", views.tags_table_active, name="tags_table_active"),
+    path("tags/table/archived/", views.tags_table_archived, name="tags_table_archived"),
     path("tags/add/", views.tag_add, name="tag_add"),
     path(
         "tags/<int:tag_id>/edit/",

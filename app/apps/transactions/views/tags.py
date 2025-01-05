@@ -34,6 +34,30 @@ def tags_list(request):
 
 @only_htmx
 @login_required
+@require_http_methods(["GET"])
+def tags_table_active(request):
+    tags = TransactionTag.objects.filter(active=True).order_by("id")
+    return render(
+        request,
+        "tags/fragments/table.html",
+        {"tags": tags, "active": True},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def tags_table_archived(request):
+    tags = TransactionTag.objects.filter(active=False).order_by("id")
+    return render(
+        request,
+        "tags/fragments/table.html",
+        {"tags": tags, "active": False},
+    )
+
+
+@only_htmx
+@login_required
 @require_http_methods(["GET", "POST"])
 def tag_add(request, **kwargs):
     if request.method == "POST":
