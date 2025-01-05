@@ -13,6 +13,8 @@ router.register(r"account-groups", views.AccountGroupViewSet)
 router.register(r"accounts", views.AccountViewSet)
 router.register(r"currencies", views.CurrencyViewSet)
 router.register(r"exchange-rates", views.ExchangeRateViewSet)
+router.register(r"dca/strategies", views.DCAStrategyViewSet)
+router.register(r"dca/entries", views.DCAEntryViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
