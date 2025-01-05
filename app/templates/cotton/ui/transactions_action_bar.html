@@ -111,10 +111,10 @@
                   put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-real-total's innerText
                   set flatTotal to flatTotal / 100
                   put flatTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-flat-total's innerText
-                  put Math.max.apply(Math, amountValues) into #calc-menu-max's innerText
-                  put Math.min.apply(Math, amountValues) into #calc-menu-min's innerText
-                  put flatTotal / amountValues.length into #calc-menu-mean's innerText
-                  put amountValues.length into #calc-menu-count's innerText
+                  put Math.max.apply(Math, amountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-max's innerText
+                  put Math.min.apply(Math, amountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-min's innerText
+                  put (flatTotal / amountValues.length).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
+                  put amountValues.length.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-count's innerText
                 end"
         >
           <button class="btn btn-secondary btn-sm" _="on click
