@@ -118,16 +118,15 @@
                   put amountValues.length into #calc-menu-count's innerText
                 end"
         >
-          <button class="btn btn-secondary btn-sm">
-            <i class="fa-solid fa-plus fa-fw me-2 text-primary"></i>
-            <span id="real-total-front"
-                  _="on click
-                      set original_value to my innerText
-                      writeText(my innerText) on navigator.clipboard
-                      put '{% translate "copied!" %}' into me
+          <button class="btn btn-secondary btn-sm" _="on click
+                      set original_value to #real-total-front's innerText
+                      writeText(original_value) on navigator.clipboard
+                      put '{% translate "copied!" %}' into #real-total-front's innerText
                       wait 1s
-                      put original_value into me
-                    end">0</span>
+                      put original_value into #real-total-front's innerText
+                    end">
+            <i class="fa-solid fa-plus fa-fw me-2 text-primary"></i>
+            <span id="real-total-front">0</span>
           </button>
           <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
                   data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
