@@ -47,6 +47,10 @@ class TransactionEntitySerializer(serializers.ModelSerializer):
 
 
 class InstallmentPlanSerializer(serializers.ModelSerializer):
+    category = TransactionCategoryField(required=False)
+    tags = TransactionTagField(required=False)
+    entities = TransactionEntityField(required=False)
+
     permission_classes = [IsAuthenticated]
 
     class Meta:
