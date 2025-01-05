@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.permissions import IsAuthenticated
 
 from apps.api.serializers.currencies import CurrencySerializer
 from apps.accounts.models import AccountGroup, Account
@@ -6,6 +7,8 @@ from apps.currencies.models import Currency
 
 
 class AccountGroupSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+
     class Meta:
         model = AccountGroup
         fields = "__all__"
@@ -30,6 +33,8 @@ class AccountSerializer(serializers.ModelSerializer):
         write_only=True,
         allow_null=True,
     )
+
+    permission_classes = [IsAuthenticated]
 
     class Meta:
         model = Account
