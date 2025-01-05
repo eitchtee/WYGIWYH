@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-04 21:19+0000\n"
-"PO-Revision-Date: 2025-01-04 18:22-0300\n"
+"POT-Creation-Date: 2025-01-05 17:33+0000\n"
+"PO-Revision-Date: 2025-01-05 14:35-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -85,12 +85,13 @@ msgstr "Tags"
 #: apps/transactions/models.py:39 apps/transactions/models.py:58
 #: templates/account_groups/fragments/list.html:25
 #: templates/accounts/fragments/list.html:25
-#: templates/categories/fragments/list.html:25
+#: templates/categories/fragments/table.html:16
 #: templates/currencies/fragments/list.html:26
-#: templates/entities/fragments/list.html:25
+#: templates/entities/fragments/table.html:16
 #: templates/installment_plans/fragments/table.html:16
 #: templates/recurring_transactions/fragments/table.html:18
-#: templates/rules/fragments/list.html:26 templates/tags/fragments/list.html:25
+#: templates/rules/fragments/list.html:26
+#: templates/tags/fragments/table.html:16
 msgid "Name"
 msgstr "Nome"
 
@@ -130,6 +131,9 @@ msgstr ""
 "mês."
 
 #: apps/accounts/models.py:54 templates/accounts/fragments/list.html:30
+#: templates/categories/fragments/list.html:24
+#: templates/entities/fragments/list.html:24
+#: templates/tags/fragments/list.html:24
 msgid "Archived"
 msgstr "Arquivada"
 
@@ -213,7 +217,7 @@ msgstr "Entidade com esse ID não existe."
 msgid "Invalid entity data. Provide an ID or name."
 msgstr "Dados da entidade inválidos. Forneça um ID ou nome."
 
-#: apps/api/serializers/transactions.py:96
+#: apps/api/serializers/transactions.py:163
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "É necessário fornecer “date” ou “reference_date”."
 
@@ -682,8 +686,10 @@ msgid "Mute"
 msgstr "Silenciada"
 
 #: apps/transactions/models.py:23 apps/transactions/models.py:42
-#: apps/transactions/models.py:61
+#: apps/transactions/models.py:61 templates/categories/fragments/list.html:21
+#: templates/entities/fragments/list.html:21
 #: templates/recurring_transactions/fragments/list.html:21
+#: templates/tags/fragments/list.html:21
 msgid "Active"
 msgstr "Ativo"
 
@@ -867,27 +873,27 @@ msgstr "%(value)s tem muitas casas decimais. O máximo é 30."
 msgid "%(value)s is not a non-negative number"
 msgstr "%(value)s não é um número positivo"
 
-#: apps/transactions/views/categories.py:44
+#: apps/transactions/views/categories.py:66
 msgid "Category added successfully"
 msgstr "Categoria adicionada com sucesso"
 
-#: apps/transactions/views/categories.py:72
+#: apps/transactions/views/categories.py:94
 msgid "Category updated successfully"
 msgstr "Categoria atualizada com sucesso"
 
-#: apps/transactions/views/categories.py:99
+#: apps/transactions/views/categories.py:121
 msgid "Category deleted successfully"
 msgstr "Categoria apagada com sucesso"
 
-#: apps/transactions/views/entities.py:43
+#: apps/transactions/views/entities.py:65
 msgid "Entity added successfully"
 msgstr "Entidade adicionada com sucesso"
 
-#: apps/transactions/views/entities.py:71
+#: apps/transactions/views/entities.py:93
 msgid "Entity updated successfully"
 msgstr "Entidade atualizada com sucesso"
 
-#: apps/transactions/views/entities.py:98
+#: apps/transactions/views/entities.py:120
 msgid "Entity deleted successfully"
 msgstr "Entidade apagada com sucesso"
 
@@ -931,15 +937,15 @@ msgstr "Transação Recorrente finalizada com sucesso"
 msgid "Recurring Transaction deleted successfully"
 msgstr "Transação Recorrente apagada com sucesso"
 
-#: apps/transactions/views/tags.py:43
+#: apps/transactions/views/tags.py:65
 msgid "Tag added successfully"
 msgstr "Tag adicionada com sucesso"
 
-#: apps/transactions/views/tags.py:71
+#: apps/transactions/views/tags.py:93
 msgid "Tag updated successfully"
 msgstr "Tag atualizada com sucesso"
 
-#: apps/transactions/views/tags.py:98
+#: apps/transactions/views/tags.py:120
 msgid "Tag deleted successfully"
 msgstr "Tag apagada com sucesso"
 
@@ -1065,62 +1071,63 @@ msgstr "Editar grupo de conta"
 
 #: templates/account_groups/fragments/list.html:32
 #: templates/accounts/fragments/list.html:37
-#: templates/categories/fragments/list.html:33
+#: templates/categories/fragments/table.html:24
 #: templates/currencies/fragments/list.html:33
 #: templates/dca/fragments/strategy/details.html:63
-#: templates/entities/fragments/list.html:32
+#: templates/entities/fragments/table.html:23
 #: templates/exchange_rates/fragments/table.html:19
 #: templates/installment_plans/fragments/table.html:23
 #: templates/recurring_transactions/fragments/table.html:25
-#: templates/rules/fragments/list.html:33 templates/tags/fragments/list.html:32
+#: templates/rules/fragments/list.html:33
+#: templates/tags/fragments/table.html:23
 msgid "Actions"
 msgstr "Ações"
 
 #: templates/account_groups/fragments/list.html:36
 #: templates/accounts/fragments/list.html:41
-#: templates/categories/fragments/list.html:37
+#: templates/categories/fragments/table.html:29
 #: templates/cotton/transaction/item.html:109
 #: templates/currencies/fragments/list.html:37
 #: templates/dca/fragments/strategy/details.html:67
 #: templates/dca/fragments/strategy/list.html:34
-#: templates/entities/fragments/list.html:36
+#: templates/entities/fragments/table.html:28
 #: templates/exchange_rates/fragments/table.html:23
 #: templates/installment_plans/fragments/table.html:27
 #: templates/recurring_transactions/fragments/table.html:29
 #: templates/rules/fragments/transaction_rule/view.html:22
 #: templates/rules/fragments/transaction_rule/view.html:48
-#: templates/tags/fragments/list.html:36
+#: templates/tags/fragments/table.html:28
 msgid "Edit"
 msgstr "Editar"
 
 #: templates/account_groups/fragments/list.html:43
 #: templates/accounts/fragments/list.html:48
-#: templates/categories/fragments/list.html:44
+#: templates/categories/fragments/table.html:36
 #: templates/cotton/transaction/item.html:116
 #: templates/cotton/ui/transactions_action_bar.html:50
 #: templates/currencies/fragments/list.html:44
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:42
-#: templates/entities/fragments/list.html:43
+#: templates/entities/fragments/table.html:36
 #: templates/exchange_rates/fragments/table.html:31
 #: templates/installment_plans/fragments/table.html:56
 #: templates/mini_tools/unit_price_calculator.html:18
 #: templates/recurring_transactions/fragments/table.html:91
 #: templates/rules/fragments/list.html:44
 #: templates/rules/fragments/transaction_rule/view.html:56
-#: templates/tags/fragments/list.html:43
+#: templates/tags/fragments/table.html:36
 msgid "Delete"
 msgstr "Apagar"
 
 #: templates/account_groups/fragments/list.html:47
 #: templates/accounts/fragments/list.html:52
-#: templates/categories/fragments/list.html:48
+#: templates/categories/fragments/table.html:41
 #: templates/cotton/transaction/item.html:120
 #: templates/cotton/ui/transactions_action_bar.html:52
 #: templates/currencies/fragments/list.html:48
 #: templates/dca/fragments/strategy/details.html:80
 #: templates/dca/fragments/strategy/list.html:46
-#: templates/entities/fragments/list.html:47
+#: templates/entities/fragments/table.html:40
 #: templates/exchange_rates/fragments/table.html:36
 #: templates/installment_plans/fragments/table.html:48
 #: templates/installment_plans/fragments/table.html:60
@@ -1130,40 +1137,40 @@ msgstr "Apagar"
 #: templates/recurring_transactions/fragments/table.html:96
 #: templates/rules/fragments/list.html:48
 #: templates/rules/fragments/transaction_rule/view.html:60
-#: templates/tags/fragments/list.html:47
+#: templates/tags/fragments/table.html:40
 msgid "Are you sure?"
 msgstr "Tem certeza?"
 
 #: templates/account_groups/fragments/list.html:48
 #: templates/accounts/fragments/list.html:53
-#: templates/categories/fragments/list.html:49
+#: templates/categories/fragments/table.html:42
 #: templates/cotton/transaction/item.html:121
 #: templates/cotton/ui/transactions_action_bar.html:53
 #: templates/currencies/fragments/list.html:49
 #: templates/dca/fragments/strategy/details.html:81
 #: templates/dca/fragments/strategy/list.html:47
-#: templates/entities/fragments/list.html:48
+#: templates/entities/fragments/table.html:41
 #: templates/exchange_rates/fragments/table.html:37
 #: templates/rules/fragments/list.html:49
 #: templates/rules/fragments/transaction_rule/view.html:61
-#: templates/tags/fragments/list.html:48
+#: templates/tags/fragments/table.html:41
 msgid "You won't be able to revert this!"
 msgstr "Você não será capaz de reverter isso!"
 
 #: templates/account_groups/fragments/list.html:49
 #: templates/accounts/fragments/list.html:54
-#: templates/categories/fragments/list.html:50
+#: templates/categories/fragments/table.html:43
 #: templates/cotton/transaction/item.html:122
 #: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:48
-#: templates/entities/fragments/list.html:49
+#: templates/entities/fragments/table.html:42
 #: templates/exchange_rates/fragments/table.html:38
 #: templates/installment_plans/fragments/table.html:62
 #: templates/recurring_transactions/fragments/table.html:98
 #: templates/rules/fragments/list.html:50
 #: templates/rules/fragments/transaction_rule/view.html:62
-#: templates/tags/fragments/list.html:49
+#: templates/tags/fragments/table.html:42
 msgid "Yes, delete it!"
 msgstr "Sim, apague!"
 
@@ -1273,11 +1280,11 @@ msgstr "Adicionar categoria"
 msgid "Edit category"
 msgstr "Editar categoria"
 
-#: templates/categories/fragments/list.html:26
+#: templates/categories/fragments/table.html:17
 msgid "Muted"
 msgstr "Silenciada"
 
-#: templates/categories/fragments/list.html:63
+#: templates/categories/fragments/table.html:57
 msgid "No categories"
 msgstr "Nenhum categoria"
 
@@ -1337,9 +1344,43 @@ msgstr "Marcar como não pago"
 msgid "Yes, delete them!"
 msgstr "Sim, apague!"
 
-#: templates/cotton/ui/transactions_action_bar.html:81
+#: templates/cotton/ui/transactions_action_bar.html:127
+#: templates/cotton/ui/transactions_action_bar.html:149
+#: templates/cotton/ui/transactions_action_bar.html:169
+#: templates/cotton/ui/transactions_action_bar.html:189
+#: templates/cotton/ui/transactions_action_bar.html:209
+#: templates/cotton/ui/transactions_action_bar.html:229
+#: templates/cotton/ui/transactions_action_bar.html:249
 msgid "copied!"
 msgstr "copiado!"
+
+#: templates/cotton/ui/transactions_action_bar.html:134
+msgid "Toggle Dropdown"
+msgstr "Alternar menu suspenso"
+
+#: templates/cotton/ui/transactions_action_bar.html:142
+msgid "Flat Total"
+msgstr "Total Fixo"
+
+#: templates/cotton/ui/transactions_action_bar.html:162
+msgid "Real Total"
+msgstr "Total Real"
+
+#: templates/cotton/ui/transactions_action_bar.html:182
+msgid "Mean"
+msgstr "Média"
+
+#: templates/cotton/ui/transactions_action_bar.html:202
+msgid "Max"
+msgstr "Máximo"
+
+#: templates/cotton/ui/transactions_action_bar.html:222
+msgid "Min"
+msgstr "Minímo"
+
+#: templates/cotton/ui/transactions_action_bar.html:242
+msgid "Count"
+msgstr "Contagem"
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
@@ -1479,7 +1520,7 @@ msgstr "Adicionar entidade"
 msgid "Edit entity"
 msgstr "Editar entidade"
 
-#: templates/entities/fragments/list.html:59
+#: templates/entities/fragments/table.html:53
 msgid "No entities"
 msgstr "Sem entidades"
 
@@ -1884,7 +1925,7 @@ msgstr "Adicionar tag"
 msgid "Edit tag"
 msgstr "Editar tag"
 
-#: templates/tags/fragments/list.html:59
+#: templates/tags/fragments/table.html:53
 msgid "No tags"
 msgstr "Nenhuma tag"
 
