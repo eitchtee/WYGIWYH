@@ -1,4 +1,4 @@
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets
 
 from apps.api.serializers import (
     TransactionSerializer,
@@ -6,6 +6,7 @@ from apps.api.serializers import (
     TransactionTagSerializer,
     InstallmentPlanSerializer,
     TransactionEntitySerializer,
+    RecurringTransactionSerializer,
 )
 from apps.transactions.models import (
     Transaction,
@@ -13,6 +14,7 @@ from apps.transactions.models import (
     TransactionTag,
     InstallmentPlan,
     TransactionEntity,
+    RecurringTransaction,
 )
 from apps.rules.signals import transaction_updated, transaction_created
 
@@ -53,10 +55,7 @@ class InstallmentPlanViewSet(viewsets.ModelViewSet):
     queryset = InstallmentPlan.objects.all()
     serializer_class = InstallmentPlanSerializer
 
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        instance.create_transactions()
 
-    def perform_update(self, serializer):
-        instance = serializer.save()
-        instance.create_transactions()
+class RecurringTransactionViewSet(viewsets.ModelViewSet):
+    queryset = RecurringTransaction.objects.all()
+    serializer_class = RecurringTransactionSerializer
