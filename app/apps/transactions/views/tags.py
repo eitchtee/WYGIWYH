@@ -24,11 +24,9 @@ def tags_index(request):
 @login_required
 @require_http_methods(["GET"])
 def tags_list(request):
-    tags = TransactionTag.objects.all().order_by("id")
     return render(
         request,
         "tags/fragments/list.html",
-        {"tags": tags},
     )
 
 
