@@ -1,0 +1,59 @@
+{% load i18n %}
+{% if active %}
+  <div class="show-loading" hx-get="{% url 'categories_table_active' %}" hx-trigger="updated from:window"
+       hx-swap="outerHTML">
+{% else %}
+  <div class="show-loading" hx-get="{% url 'categories_table_archived' %}" hx-trigger="updated from:window"
+       hx-swap="outerHTML">
+{% endif %}
+  {% if categories %}
+  <div class="table-responsive">
+    <c-config.search></c-config.search>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col" class="col-auto"></th>
+        <th scope="col" class="col">{% translate 'Name' %}</th>
+        <th scope="col" class="col">{% translate 'Muted' %}</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for category in categories %}
+        <tr class="category">
+          <td class="col-auto text-center">
+            <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
+              <a class="btn btn-secondary btn-sm"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 hx-swap="innerHTML"
+                 data-bs-title="{% translate "Edit" %}"
+                 hx-get="{% url 'category_edit' category_id=category.id %}"
+                 hx-target="#generic-offcanvas">
+                <i class="fa-solid fa-pencil fa-fw"></i></a>
+              <a class="btn btn-secondary btn-sm text-danger"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate "Delete" %}"
+                 hx-delete="{% url 'category_delete' category_id=category.id %}"
+                 hx-trigger='confirmed'
+                 hx-swap="innerHTML"
+                 data-bypass-on-ctrl="true"
+                 data-title="{% translate "Are you sure?" %}"
+                 data-text="{% translate "You won't be able to revert this!" %}"
+                 data-confirm-text="{% translate "Yes, delete it!" %}"
+                 _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+            </div>
+          </td>
+          <td class="col">{{ category.name }}</td>
+          <td class="col">
+            {% if category.mute %}<i class="fa-solid fa-check text-success"></i>{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <c-msg.empty title="{% translate "No categories" %}" remove-padding></c-msg.empty>
+  {% endif %}
+</div>

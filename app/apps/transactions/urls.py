@@ -53,6 +53,8 @@ urlpatterns = [
     ),
     path("tags/", views.tags_index, name="tags_index"),
     path("tags/list/", views.tags_list, name="tags_list"),
+    path("tags/table/active/", views.tags_table_active, name="tags_table_active"),
+    path("tags/table/archived/", views.tags_table_archived, name="tags_table_archived"),
     path("tags/add/", views.tag_add, name="tag_add"),
     path(
         "tags/<int:tag_id>/edit/",
@@ -66,6 +68,16 @@ urlpatterns = [
     ),
     path("entities/", views.entities_index, name="entities_index"),
     path("entities/list/", views.entities_list, name="entities_list"),
+    path(
+        "entities/table/active/",
+        views.entities_table_active,
+        name="entities_table_active",
+    ),
+    path(
+        "entities/table/archived/",
+        views.entities_table_archived,
+        name="entities_table_archived",
+    ),
     path("entities/add/", views.entity_add, name="entity_add"),
     path(
         "entities/<int:entity_id>/edit/",
@@ -79,6 +91,16 @@ urlpatterns = [
     ),
     path("categories/", views.categories_index, name="categories_index"),
     path("categories/list/", views.categories_list, name="categories_list"),
+    path(
+        "categories/table/active/",
+        views.categories_table_active,
+        name="categories_table_active",
+    ),
+    path(
+        "categories/table/archived/",
+        views.categories_table_archived,
+        name="categories_table_archived",
+    ),
     path("categories/add/", views.category_add, name="category_add"),
     path(
         "categories/<int:category_id>/edit/",

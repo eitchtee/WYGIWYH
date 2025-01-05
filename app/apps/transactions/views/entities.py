@@ -24,11 +24,33 @@ def entities_index(request):
 @login_required
 @require_http_methods(["GET"])
 def entities_list(request):
-    entities = TransactionEntity.objects.all().order_by("id")
     return render(
         request,
         "entities/fragments/list.html",
-        {"entities": entities},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def entities_table_active(request):
+    entities = TransactionEntity.objects.filter(active=True).order_by("id")
+    return render(
+        request,
+        "entities/fragments/table.html",
+        {"entities": entities, "active": True},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def entities_table_archived(request):
+    entities = TransactionEntity.objects.filter(active=False).order_by("id")
+    return render(
+        request,
+        "entities/fragments/table.html",
+        {"entities": entities, "active": False},
     )
 
 

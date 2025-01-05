@@ -24,11 +24,33 @@ def tags_index(request):
 @login_required
 @require_http_methods(["GET"])
 def tags_list(request):
-    tags = TransactionTag.objects.all().order_by("id")
     return render(
         request,
         "tags/fragments/list.html",
-        {"tags": tags},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def tags_table_active(request):
+    tags = TransactionTag.objects.filter(active=True).order_by("id")
+    return render(
+        request,
+        "tags/fragments/table.html",
+        {"tags": tags, "active": True},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def tags_table_archived(request):
+    tags = TransactionTag.objects.filter(active=False).order_by("id")
+    return render(
+        request,
+        "tags/fragments/table.html",
+        {"tags": tags, "active": False},
     )
 
 
