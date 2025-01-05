@@ -56,65 +56,42 @@
           <i class="fa-solid fa-trash text-danger"></i>
         </button>
         <div class="vr mx-3 tw-align-middle"></div>
-        {#      <span _="on selected_transactions_updated from #actions-bar#}
-        {#                set realTotal to 0.0#}
-        {#                set flatTotal to 0.0#}
-        {#                for transaction in <.transaction:has(input[name='transactions']:checked)/>#}
-        {#                  set amt to first <.main-amount .amount/> in transaction#}
-        {#                  set amountValue to parseFloat(amt.getAttribute('data-amount'))#}
-        {#                  if not isNaN(amountValue)#}
-        {#                    set flatTotal to flatTotal + (amountValue * 100)#}
-        {##}
-        {#                    if transaction match .income#}
-        {#                      set realTotal to realTotal + (amountValue * 100)#}
-        {#                    else#}
-        {#                      set realTotal to realTotal - (amountValue * 100)#}
-        {#                    end#}
-        {#                  end#}
-        {#                end#}
-        {#                set realTotal to realTotal / 100#}
-        {#                put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into me#}
-        {#              end#}
-        {#              on click#}
-        {#                set original_value to my innerText#}
-        {#                writeText(my innerText) on navigator.clipboard#}
-        {#                put '{% translate "copied!" %}' into me#}
-        {#                wait 1s#}
-        {#                put original_value into me#}
-        {#              end"#}
-        {#            class="" role="button"></span>#}
         <div class="btn-group"
               _="on selected_transactions_updated from #actions-bar
                   set realTotal to 0.0
                   set flatTotal to 0.0
                   set transactions to <.transaction:has(input[name='transactions']:checked)/>
-                  set amountValues to []
+                  set flatAmountValues to []
+                  set realAmountValues to []
 
                   for transaction in transactions
                     set amt to first <.main-amount .amount/> in transaction
                     set amountValue to parseFloat(amt.getAttribute('data-amount'))
-                    append amountValue to amountValues
+                    append amountValue to flatAmountValues
 
                     if not isNaN(amountValue)
                       set flatTotal to flatTotal + (amountValue * 100)
 
                       if transaction match .income
+                        append amountValue to realAmountValues
                         set realTotal to realTotal + (amountValue * 100)
                       else
+                        append -amountValue to realAmountValues
                         set realTotal to realTotal - (amountValue * 100)
                       end
                     end
                   end
 
                   set realTotal to realTotal / 100
+                  set flatTotal to flatTotal / 100
+                  
                   put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #real-total-front's innerText
                   put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-real-total's innerText
-                  set flatTotal to flatTotal / 100
                   put flatTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-flat-total's innerText
-                  put Math.max.apply(Math, amountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-max's innerText
-                  put Math.min.apply(Math, amountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-min's innerText
-                  put (flatTotal / amountValues.length).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
-                  put amountValues.length.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-count's innerText
+                  put Math.max.apply(Math, realAmountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-max's innerText
+                  put Math.min.apply(Math, realAmountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-min's innerText
+                  put (flatTotal / flatAmountValues.length).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
+                  put flatAmountValues.length.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-count's innerText
                 end"
         >
           <button class="btn btn-secondary btn-sm" _="on click
