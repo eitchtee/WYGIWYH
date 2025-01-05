@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.permissions import IsAuthenticated
+
 from apps.dca.models import DCAEntry, DCAStrategy
 
 
@@ -15,6 +17,8 @@ class DCAEntrySerializer(serializers.ModelSerializer):
     entry_price = serializers.DecimalField(
         max_digits=42, decimal_places=30, read_only=True
     )
+
+    permission_classes = [IsAuthenticated]
 
     class Meta:
         model = DCAEntry
@@ -56,6 +60,8 @@ class DCAStrategySerializer(serializers.ModelSerializer):
     total_profit_loss_percentage = serializers.DecimalField(
         max_digits=42, decimal_places=30, read_only=True
     )
+
+    permission_classes = [IsAuthenticated]
 
     class Meta:
         model = DCAStrategy

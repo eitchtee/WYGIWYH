@@ -19,6 +19,7 @@ from apps.transactions.models import (
     TransactionTag,
     InstallmentPlan,
     TransactionEntity,
+    RecurringTransaction,
 )
 
 
@@ -47,11 +48,77 @@ class TransactionEntitySerializer(serializers.ModelSerializer):
 
 
 class InstallmentPlanSerializer(serializers.ModelSerializer):
+    category = TransactionCategoryField(required=False)
+    tags = TransactionTagField(required=False)
+    entities = TransactionEntityField(required=False)
+
     permission_classes = [IsAuthenticated]
 
     class Meta:
         model = InstallmentPlan
-        fields = "__all__"
+        fields = [
+            "id",
+            "account",
+            "type",
+            "description",
+            "number_of_installments",
+            "installment_start",
+            "installment_total_number",
+            "start_date",
+            "reference_date",
+            "end_date",
+            "recurrence",
+            "installment_amount",
+            "category",
+            "tags",
+            "entities",
+            "notes",
+        ]
+        read_only_fields = ["installment_total_number", "end_date"]
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        instance.create_transactions()
+        return instance
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        instance.update_transactions()
+        return instance
+
+
+class RecurringTransactionSerializer(serializers.ModelSerializer):
+    category = TransactionCategoryField(required=False)
+    tags = TransactionTagField(required=False)
+    entities = TransactionEntityField(required=False)
+
+    class Meta:
+        model = RecurringTransaction
+        fields = [
+            "id",
+            "is_paused",
+            "account",
+            "type",
+            "amount",
+            "description",
+            "category",
+            "tags",
+            "entities",
+            "notes",
+            "reference_date",
+            "start_date",
+            "end_date",
+            "recurrence_type",
+            "recurrence_interval",
+            "last_generated_date",
+            "last_generated_reference_date",
+        ]
+        read_only_fields = ["last_generated_date", "last_generated_reference_date"]
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        instance.create_upcoming_transactions()
+        return instance
 
 
 class TransactionSerializer(serializers.ModelSerializer):
