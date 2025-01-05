@@ -68,6 +68,16 @@ urlpatterns = [
     ),
     path("entities/", views.entities_index, name="entities_index"),
     path("entities/list/", views.entities_list, name="entities_list"),
+    path(
+        "entities/table/active/",
+        views.entities_table_active,
+        name="entities_table_active",
+    ),
+    path(
+        "entities/table/archived/",
+        views.entities_table_archived,
+        name="entities_table_archived",
+    ),
     path("entities/add/", views.entity_add, name="entity_add"),
     path(
         "entities/<int:entity_id>/edit/",
