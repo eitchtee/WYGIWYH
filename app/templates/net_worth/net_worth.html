@@ -9,7 +9,7 @@
 {% block title %}{% if type == "current" %}{% translate 'Current Net Worth' %}{% else %}{% translate 'Projected Net Worth' %}{% endif %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3" _="on load call initializeAccountChart() then initializeCurrencyChart()">
+  <div class="container px-md-3 py-3" _="init call initializeAccountChart() then initializeCurrencyChart() end">
     <div class="row gx-xl-4 gy-3 mb-4">
       <div class="col-12 col-xl-5">
         <div class="row row-cols-1 g-4">
