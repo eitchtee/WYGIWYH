@@ -69,8 +69,7 @@
                 then call math.evaluate(expr)
                 if result exists and result is a Number
                   js(result)
-                    return result.toString().replace(new RegExp(',|\\.', 'g'),
-                                                                   match => match === '.' ? window.decimalSeparator : window.argSeparator)
+                    return result.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40})
                   end
                   then set localizedResult to it
                   set #calculator-result.innerText to localizedResult
