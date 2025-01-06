@@ -58,8 +58,8 @@
         <div class="vr mx-3 tw-align-middle"></div>
         <div class="btn-group"
               _="on selected_transactions_updated from #actions-bar
-                  set realTotal to 0.0
-                  set flatTotal to 0.0
+                  set realTotal to math.bignumber(0)
+                  set flatTotal to math.bignumber(0)
                   set transactions to <.transaction:has(input[name='transactions']:checked)/>
                   set flatAmountValues to []
                   set realAmountValues to []
@@ -82,14 +82,16 @@
                     end
                   end
                   
-                  set mean to flatTotal.divide(flatAmountValues.length)
+                  set mean to flatTotal.divide(flatAmountValues.length).done().toNumber()
+                  set realTotal to realTotal.done().toNumber()
+                  set flatTotal to flatTotal.done().toNumber()
 
-                  put realTotal.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #real-total-front's innerText
-                  put realTotal.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-real-total's innerText
-                  put flatTotal.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-flat-total's innerText
+                  put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #real-total-front's innerText
+                  put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-real-total's innerText
+                  put flatTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-flat-total's innerText
                   put Math.max.apply(Math, realAmountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-max's innerText
                   put Math.min.apply(Math, realAmountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-min's innerText
-                  put mean.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
+                  put mean.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
                   put flatAmountValues.length.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-count's innerText
                 end"
         >
