@@ -70,27 +70,26 @@
                     append amountValue to flatAmountValues
 
                     if not isNaN(amountValue)
-                      set flatTotal to flatTotal + (amountValue * 100)
+                      set flatTotal to math.chain(flatTotal).add(amountValue)
 
                       if transaction match .income
                         append amountValue to realAmountValues
-                        set realTotal to realTotal + (amountValue * 100)
+                        set realTotal to math.chain(realTotal).add(amountValue)
                       else
                         append -amountValue to realAmountValues
-                        set realTotal to realTotal - (amountValue * 100)
+                        set realTotal to math.chain(realTotal).subtract(amountValue)
                       end
                     end
                   end
-
-                  set realTotal to realTotal / 100
-                  set flatTotal to flatTotal / 100
                   
-                  put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #real-total-front's innerText
-                  put realTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-real-total's innerText
-                  put flatTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-flat-total's innerText
+                  set mean to flatTotal.divide(flatAmountValues.length)
+
+                  put realTotal.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #real-total-front's innerText
+                  put realTotal.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-real-total's innerText
+                  put flatTotal.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-flat-total's innerText
                   put Math.max.apply(Math, realAmountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-max's innerText
                   put Math.min.apply(Math, realAmountValues).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-min's innerText
-                  put (flatTotal / flatAmountValues.length).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
+                  put mean.value.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
                   put flatAmountValues.length.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-count's innerText
                 end"
         >
