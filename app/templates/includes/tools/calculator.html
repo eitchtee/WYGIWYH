@@ -66,7 +66,7 @@
                                            })
                 end
                 then set expr to it
-                then call math.evaluate(expr)
+                then call math.evaluate(expr).toNumber()
                 if result exists and result is a Number
                   js(result)
                     return result.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40})
