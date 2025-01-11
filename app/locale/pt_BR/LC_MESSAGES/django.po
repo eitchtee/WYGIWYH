@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-05 17:33+0000\n"
-"PO-Revision-Date: 2025-01-05 14:35-0300\n"
+"POT-Creation-Date: 2025-01-11 16:40+0000\n"
+"PO-Revision-Date: 2025-01-11 13:41-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -66,7 +66,7 @@ msgstr "Novo saldo"
 #: apps/transactions/forms.py:39 apps/transactions/forms.py:209
 #: apps/transactions/forms.py:216 apps/transactions/forms.py:395
 #: apps/transactions/forms.py:637 apps/transactions/models.py:109
-#: apps/transactions/models.py:228 apps/transactions/models.py:403
+#: apps/transactions/models.py:228 apps/transactions/models.py:408
 msgid "Category"
 msgstr "Categoria"
 
@@ -75,7 +75,7 @@ msgstr "Categoria"
 #: apps/transactions/forms.py:225 apps/transactions/forms.py:233
 #: apps/transactions/forms.py:388 apps/transactions/forms.py:630
 #: apps/transactions/models.py:115 apps/transactions/models.py:230
-#: apps/transactions/models.py:407 templates/includes/navbar.html:98
+#: apps/transactions/models.py:412 templates/includes/navbar.html:98
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Tags"
@@ -145,7 +145,7 @@ msgstr ""
 #: apps/accounts/models.py:59 apps/rules/models.py:19
 #: apps/transactions/forms.py:59 apps/transactions/forms.py:380
 #: apps/transactions/forms.py:622 apps/transactions/models.py:84
-#: apps/transactions/models.py:188 apps/transactions/models.py:385
+#: apps/transactions/models.py:188 apps/transactions/models.py:390
 msgid "Account"
 msgstr "Conta"
 
@@ -217,7 +217,7 @@ msgstr "Entidade com esse ID não existe."
 msgid "Invalid entity data. Provide an ID or name."
 msgstr "Dados da entidade inválidos. Forneça um ID ou nome."
 
-#: apps/api/serializers/transactions.py:163
+#: apps/api/serializers/transactions.py:168
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "É necessário fornecer “date” ou “reference_date”."
 
@@ -420,7 +420,7 @@ msgstr "Moeda de pagamento"
 
 #: apps/dca/models.py:27 apps/dca/models.py:179 apps/rules/models.py:26
 #: apps/transactions/forms.py:250 apps/transactions/models.py:105
-#: apps/transactions/models.py:237 apps/transactions/models.py:413
+#: apps/transactions/models.py:237 apps/transactions/models.py:418
 msgid "Notes"
 msgstr "Notas"
 
@@ -517,7 +517,7 @@ msgstr "Já existe um valor para esse campo na regra."
 
 #: apps/rules/models.py:10 apps/rules/models.py:25
 #: apps/transactions/forms.py:242 apps/transactions/models.py:104
-#: apps/transactions/models.py:195 apps/transactions/models.py:399
+#: apps/transactions/models.py:195 apps/transactions/models.py:404
 msgid "Description"
 msgstr "Descrição"
 
@@ -526,7 +526,7 @@ msgid "Trigger"
 msgstr "Gatilho"
 
 #: apps/rules/models.py:20 apps/transactions/models.py:91
-#: apps/transactions/models.py:193 apps/transactions/models.py:391
+#: apps/transactions/models.py:193 apps/transactions/models.py:396
 msgid "Type"
 msgstr "Tipo"
 
@@ -538,12 +538,12 @@ msgstr "Pago"
 #: apps/rules/models.py:23 apps/transactions/forms.py:62
 #: apps/transactions/forms.py:241 apps/transactions/forms.py:407
 #: apps/transactions/forms.py:649 apps/transactions/models.py:95
-#: apps/transactions/models.py:211 apps/transactions/models.py:415
+#: apps/transactions/models.py:211 apps/transactions/models.py:420
 msgid "Reference Date"
 msgstr "Data de Referência"
 
 #: apps/rules/models.py:24 apps/transactions/models.py:100
-#: apps/transactions/models.py:396
+#: apps/transactions/models.py:401
 msgid "Amount"
 msgstr "Quantia"
 
@@ -551,7 +551,7 @@ msgstr "Quantia"
 #: apps/transactions/forms.py:55 apps/transactions/forms.py:403
 #: apps/transactions/forms.py:645 apps/transactions/models.py:69
 #: apps/transactions/models.py:120 apps/transactions/models.py:233
-#: apps/transactions/models.py:410 templates/entities/fragments/list.html:5
+#: apps/transactions/models.py:415 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:100
 msgid "Entities"
 msgstr "Entidades"
@@ -753,7 +753,7 @@ msgstr "Despesa"
 msgid "Installment Plan"
 msgstr "Parcelamento"
 
-#: apps/transactions/models.py:140 apps/transactions/models.py:436
+#: apps/transactions/models.py:140 apps/transactions/models.py:441
 msgid "Recurring Transaction"
 msgstr "Transação Recorrente"
 
@@ -798,11 +798,11 @@ msgstr "Parcela inicial"
 msgid "The installment number to start counting from"
 msgstr "O número da parcela a partir do qual se inicia a contagem"
 
-#: apps/transactions/models.py:209 apps/transactions/models.py:419
+#: apps/transactions/models.py:209 apps/transactions/models.py:424
 msgid "Start Date"
 msgstr "Data de Início"
 
-#: apps/transactions/models.py:213 apps/transactions/models.py:420
+#: apps/transactions/models.py:213 apps/transactions/models.py:425
 msgid "End Date"
 msgstr "Data Final"
 
@@ -820,44 +820,44 @@ msgstr "Valor da Parcela"
 msgid "Installment Plans"
 msgstr "Parcelamentos"
 
-#: apps/transactions/models.py:378
+#: apps/transactions/models.py:383
 msgid "day(s)"
 msgstr "dia(s)"
 
-#: apps/transactions/models.py:379
+#: apps/transactions/models.py:384
 msgid "week(s)"
 msgstr "semana(s)"
 
-#: apps/transactions/models.py:380
+#: apps/transactions/models.py:385
 msgid "month(s)"
 msgstr "mês(es)"
 
-#: apps/transactions/models.py:381
+#: apps/transactions/models.py:386
 msgid "year(s)"
 msgstr "ano(s)"
 
-#: apps/transactions/models.py:383
+#: apps/transactions/models.py:388
 #: templates/recurring_transactions/fragments/list.html:24
 msgid "Paused"
 msgstr "Pausado"
 
-#: apps/transactions/models.py:422
+#: apps/transactions/models.py:427
 msgid "Recurrence Type"
 msgstr "Tipo de recorrência"
 
-#: apps/transactions/models.py:425
+#: apps/transactions/models.py:430
 msgid "Recurrence Interval"
 msgstr "Intervalo de recorrência"
 
-#: apps/transactions/models.py:429
+#: apps/transactions/models.py:434
 msgid "Last Generated Date"
 msgstr "Última data gerada"
 
-#: apps/transactions/models.py:432
+#: apps/transactions/models.py:437
 msgid "Last Generated Reference Date"
 msgstr "Última data de referência gerada"
 
-#: apps/transactions/models.py:437 templates/includes/navbar.html:64
+#: apps/transactions/models.py:442 templates/includes/navbar.html:64
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
@@ -921,19 +921,19 @@ msgstr "Transação Recorrente adicionada com sucesso"
 msgid "Recurring Transaction updated successfully"
 msgstr "Transação Recorrente atualizada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:174
+#: apps/transactions/views/recurring_transactions.py:188
 msgid "Recurring transaction unpaused successfully"
 msgstr "Transação Recorrente despausada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:177
+#: apps/transactions/views/recurring_transactions.py:191
 msgid "Recurring transaction paused successfully"
 msgstr "Transação Recorrente pausada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:200
+#: apps/transactions/views/recurring_transactions.py:217
 msgid "Recurring transaction finished successfully"
 msgstr "Transação Recorrente finalizada com sucesso"
 
-#: apps/transactions/views/recurring_transactions.py:221
+#: apps/transactions/views/recurring_transactions.py:238
 msgid "Recurring Transaction deleted successfully"
 msgstr "Transação Recorrente apagada com sucesso"
 
@@ -1344,41 +1344,41 @@ msgstr "Marcar como não pago"
 msgid "Yes, delete them!"
 msgstr "Sim, apague!"
 
-#: templates/cotton/ui/transactions_action_bar.html:127
-#: templates/cotton/ui/transactions_action_bar.html:149
-#: templates/cotton/ui/transactions_action_bar.html:169
-#: templates/cotton/ui/transactions_action_bar.html:189
-#: templates/cotton/ui/transactions_action_bar.html:209
-#: templates/cotton/ui/transactions_action_bar.html:229
-#: templates/cotton/ui/transactions_action_bar.html:249
+#: templates/cotton/ui/transactions_action_bar.html:101
+#: templates/cotton/ui/transactions_action_bar.html:125
+#: templates/cotton/ui/transactions_action_bar.html:145
+#: templates/cotton/ui/transactions_action_bar.html:165
+#: templates/cotton/ui/transactions_action_bar.html:185
+#: templates/cotton/ui/transactions_action_bar.html:205
+#: templates/cotton/ui/transactions_action_bar.html:225
 msgid "copied!"
 msgstr "copiado!"
 
-#: templates/cotton/ui/transactions_action_bar.html:134
+#: templates/cotton/ui/transactions_action_bar.html:110
 msgid "Toggle Dropdown"
 msgstr "Alternar menu suspenso"
 
-#: templates/cotton/ui/transactions_action_bar.html:142
+#: templates/cotton/ui/transactions_action_bar.html:118
 msgid "Flat Total"
 msgstr "Total Fixo"
 
-#: templates/cotton/ui/transactions_action_bar.html:162
+#: templates/cotton/ui/transactions_action_bar.html:138
 msgid "Real Total"
 msgstr "Total Real"
 
-#: templates/cotton/ui/transactions_action_bar.html:182
+#: templates/cotton/ui/transactions_action_bar.html:158
 msgid "Mean"
 msgstr "Média"
 
-#: templates/cotton/ui/transactions_action_bar.html:202
+#: templates/cotton/ui/transactions_action_bar.html:178
 msgid "Max"
 msgstr "Máximo"
 
-#: templates/cotton/ui/transactions_action_bar.html:222
+#: templates/cotton/ui/transactions_action_bar.html:198
 msgid "Min"
 msgstr "Minímo"
 
-#: templates/cotton/ui/transactions_action_bar.html:242
+#: templates/cotton/ui/transactions_action_bar.html:218
 msgid "Count"
 msgstr "Contagem"
 
@@ -1841,8 +1841,12 @@ msgid "Finish"
 msgstr "Finalizar"
 
 #: templates/recurring_transactions/fragments/table.html:83
-msgid "This will stop the creation of new transactions"
-msgstr "Isso interromperá a criação de novas transações"
+msgid ""
+"This will stop the creation of new transactions and delete any unpaid "
+"transactions after today"
+msgstr ""
+"Isso interromperá a criação de novas transações e apagará transações não "
+"pagas depois de hoje"
 
 #: templates/recurring_transactions/fragments/table.html:84
 msgid "Yes, finish it!"
@@ -2027,6 +2031,9 @@ msgstr "Visão Anual"
 #: templates/yearly_overview/pages/overview_by_currency.html:106
 msgid "Year"
 msgstr "Ano"
+
+#~ msgid "This will stop the creation of new transactions"
+#~ msgstr "Isso interromperá a criação de novas transações"
 
 #~ msgid "Is an asset account?"
 #~ msgstr "É uma conta de ativos?"
