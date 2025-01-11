@@ -334,10 +334,15 @@ class InstallmentPlan(models.Model):
                 existing_transaction.type = self.type
                 existing_transaction.date = transaction_date
                 existing_transaction.reference_date = transaction_reference_date
-                existing_transaction.amount = self.installment_amount
                 existing_transaction.description = self.description
                 existing_transaction.category = self.category
                 existing_transaction.notes = self.notes
+
+                if (
+                    not existing_transaction.is_paid
+                ):  # Don't update value for paid transactions
+                    existing_transaction.amount = self.installment_amount
+
                 existing_transaction.save()
 
                 # Update tags
