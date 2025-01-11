@@ -540,3 +540,33 @@ class RecurringTransaction(models.Model):
             recurring_transaction.save(
                 update_fields=["last_generated_date", "last_generated_reference_date"]
             )
+
+    def update_unpaid_transactions(self):
+        """
+        Updates all unpaid transactions associated with this RecurringTransaction.
+
+        Only unpaid transactions (`is_paid=False`) are modified. Updates fields like
+        amount, description, category, notes, and many-to-many relationships (tags, entities).
+        """
+        unpaid_transactions = self.transactions.filter(is_paid=False)
+
+        for existing_transaction in unpaid_transactions:
+            # Update fields based on RecurringTransaction
+            existing_transaction.amount = self.amount
+            existing_transaction.description = self.description
+            existing_transaction.category = self.category
+            existing_transaction.notes = self.notes
+
+            # Update many-to-many relationships
+            existing_transaction.tags.set(self.tags.all())
+            existing_transaction.entities.set(self.entities.all())
+
+            # Save updated transaction
+            existing_transaction.save()
+
+    def delete_unpaid_transactions(self):
+        """
+        Deletes all unpaid transactions associated with this RecurringTransaction.
+        """
+        today = timezone.localdate(timezone.now())
+        self.transactions.filter(is_paid=False, date__gt=today).delete()

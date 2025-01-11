@@ -767,5 +767,7 @@ class RecurringTransactionForm(forms.ModelForm):
         instance = super().save(**kwargs)
         if is_new:
             instance.create_upcoming_transactions()
+        else:
+            instance.update_unpaid_transactions()
 
         return instance
