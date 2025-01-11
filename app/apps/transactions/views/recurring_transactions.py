@@ -168,12 +168,26 @@ def recurring_transaction_toggle_pause(request, recurring_transaction_id):
     )
     current_paused = recurring_transaction.is_paused
     recurring_transaction.is_paused = not current_paused
-    recurring_transaction.save(update_fields=["is_paused"])
 
     if current_paused:
-        messages.success(request, _("Recurring transaction unpaused successfully"))
+        today = timezone.localdate(timezone.now())
+        recurring_transaction.last_generated_date = max(
+            recurring_transaction.last_generated_date, today
+        )
+        recurring_transaction.last_generated_reference_date = max(
+            recurring_transaction.last_generated_reference_date, today
+        )
+        recurring_transaction.save(
+            update_fields=[
+                "last_generated_date",
+                "last_generated_reference_date",
+                "is_paused",
+            ]
+        )
         generate_recurring_transactions.defer()
+        messages.success(request, _("Recurring transaction unpaused successfully"))
     else:
+        recurring_transaction.save(update_fields=["is_paused"])
         messages.success(request, _("Recurring transaction paused successfully"))
 
     return HttpResponse(
