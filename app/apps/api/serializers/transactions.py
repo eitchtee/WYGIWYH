@@ -120,6 +120,11 @@ class RecurringTransactionSerializer(serializers.ModelSerializer):
         instance.create_upcoming_transactions()
         return instance
 
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        instance.update_unpaid_transactions()
+        return instance
+
 
 class TransactionSerializer(serializers.ModelSerializer):
     category = TransactionCategoryField(required=False)
