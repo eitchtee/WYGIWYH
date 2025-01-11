@@ -202,7 +202,7 @@ def recurring_transaction_toggle_pause(request, recurring_transaction_id):
 @login_required
 @require_http_methods(["GET"])
 def recurring_transaction_finish(request, recurring_transaction_id):
-    recurring_transaction = get_object_or_404(
+    recurring_transaction: RecurringTransaction = get_object_or_404(
         RecurringTransaction, id=recurring_transaction_id
     )
     today = timezone.localdate(timezone.now()) - relativedelta(days=1)
@@ -210,6 +210,9 @@ def recurring_transaction_finish(request, recurring_transaction_id):
     recurring_transaction.end_date = today
     recurring_transaction.is_paused = True
     recurring_transaction.save(update_fields=["end_date", "is_paused"])
+
+    # Delete all unpaid transactions associated with this RecurringTransaction
+    recurring_transaction.delete_unpaid_transactions()
 
     messages.success(request, _("Recurring transaction finished successfully"))
 
