@@ -6,13 +6,15 @@
   <br>
 </h1>
 
-<h4 align="center">An optionated and powerful finance tracker.</h4>
+<h4 align="center">An opinionated and powerful finance tracker.</h4>
 
 <p align="center">
   <a href="#why-wygiwyh">Why</a> •
   <a href="#key-features">Features</a> •
   <a href="#how-to-use">Usage</a> •
-  <a href="#how-it-works">How</a>
+  <a href="#how-it-works">How</a> •
+  <a href="#caveats-and-warnings">Caveats and Warnings</a> •
+  <a href="#built-with">Built with</a>
 </p>
 
 **WYGIWYH** (_What You Get Is What You Have_) is a powerful, principles-first finance tracker designed for people who prefer a no-budget, straightforward approach to managing their money. With features like multi-currency support, customizable transactions, and a built-in dollar-cost averaging tracker, WYGIWYH helps you take control of your finances with simplicity and flexibility.
@@ -210,35 +212,61 @@ A Recurring Transaction is a helper model that generates recurring transactions 
 
 ### Account
 
-TO-DO
+Accounts represent different financial entities where transactions occur. They have the following attributes:
+
+- **Name**: A unique identifier for the account.
+- **Group**: An optional [account group](#account-groups) the account belongs to for organizational purposes.
+- **Currency**: The primary [currency](#currency) of the account.
+- **Exchange Currency**: An optional currency used for exchange rate calculations.
+- **Is Asset**: A boolean indicating if the account is considered an asset (counts towards net worth).
+- **Is Archived**: A boolean indicating if the account is archived (doesn't show up in active lists or count towards net worth).
 
 ### Account Groups
 
-TO-DO
+Account Groups are used to organize accounts into logical categories. They consist of:
+
+- **Name**: A unique identifier for the group.
 
 ### Currency
 
-TO-DO
+Currencies represent different monetary units. They include:
+
+* **Code**: A unique identifier for the currency (e.g., USD, EUR).
+* **Name**: The full name of the currency.
+* **Decimal Place**: The number of decimal places used for the currency.
+* **Prefix**: An optional symbol or text that comes before the amount.
+* **Suffix**: An optional symbol or text that comes after the amount.
 
 ### Exchange Rate
 
-TO-DO
+Exchange Rates store conversion rates between currencies:
+
+* **From Currency**: The source currency.
+* **To Currency**: The target currency.
+* **Rate**: The conversion rate.
+* **Date**: The date the rate was recorded or is valid for.
 
 ### Category
 
-TO-DO
+Categories are used to classify transactions:
+
+* **Name**: A unique identifier for the category.
+* **Muted**: Muted categories won't count towards your monthly total.
+* **Active**: A boolean indicating if the category is currently in use. This will disable its use on new transactions.
 
 ### Tag
 
-TO-DO
+Tags provide additional labeling for transactions:
+
+* **Name**: A unique identifier for the tag.
+* **Active**: A boolean indicating if the category is currently in use. This will disable its use on new transactions.
 
 ### Entity
 
-TO-DO
+Entities represent parties involved in transactions:
 
-### Rule
-
-TO-DO
+* **Name**: A unique identifier for the entity.
+* **Active**: A boolean indicating if the entity is currently in use. This will disable its use on new transactions.
 
 ---
 
@@ -264,37 +292,98 @@ This can be useful for savings accounts or other interest accruing investments.!
 
 ### Monthly
 
-TO-DO
+The Monthly view provides an overview of your financial activity for a specific month. It includes:
+
+* Total income and expenses for the month
+* Daily spending allowance calculation
+* List of transactions for the month
+
+> [!NOTE]
+> Reference dates are taken into account here.
 
 ### Yearly by currency
 
-TO-DO
+This view gives you a yearly summary of your finances grouped by currency. It shows:
+
+* Total income and expenses for each currency
+* Monthly breakdown of income and expenses
 
 ### Yearly by account
 
-TO-DO
+Similar to the [yearly by currency](#yearly-by-currency) view, but groups the data by account instead.
 
 ### Calendar
 
-TO-DO
+The Calendar view presents your transactions in a monthly calendar format, allowing you to see your financial activity day by day. It includes:
+
+* Visual representation of daily transaction totals
+* Ability to view details of transactions for each day
+
+> [!NOTE]
+> Reference dates are **not** taken into account here.
 
 ### Networh
 
 #### Current
 
-TO-DO
+The Current Net Worth view shows your present financial standing, including:
+
+* Total value of all asset accounts
+* Breakdown of assets by account and currency
+* Historical net worth trend
 
 #### Projected
 
-TO-DO
+The Projected Net Worth view estimates your future financial position based on current data and recurring transactions. It includes:
+
+* Your total net worth with projected and current transactions
+* Breakdown of assets by account and currency
+* Historical and future net worth trend
 
 ### All Transactions
 
-TO-DO
+This view provides a comprehensive list of all transactions across all accounts. Features include:
+
+* Advanced filtering and sorting options
+* Detailed information
+
+You can use this to see how much you spent on a given category, or a given day, etc..
 
 ### Configuration and Management
 
-TO-DO
+#### Management
+The Management section in the navbar allows you to add and edit most elements of WYGIWYH, including:
+
+* Accounts and Groups
+* Currencies and Exchange Rates
+* Categories, Tags and Entities
+* Rules
+
+#### User Settings
+
+WYGIWYH allows users to personalize their experience through customizable settings. Each user can configure:
+
+* **Language**: Choose your preferred interface language.
+* **Timezone**: Set your local timezone for accurate date and time display.
+* **Start Page**: Select which page you want to see first when you log in.
+* **Sound Preferences**: Toggle sound effects on or off.
+* **Amount Display**: Choose to show or hide monetary amounts by default.
+
+To access and modify these settings:
+
+1. Click on your username in the top-right corner of the page.
+2. Select "Settings" from the dropdown menu.
+3. Adjust your preferences as desired.
+4. Click "Save" to apply your changes.
+
+These settings ensure that WYGIWYH adapts to your personal preferences and working style.
+
+#### Django Admin
+From here you can also access Django's own admin site.
+
+> [!WARNING]
+> Most side effects aren't triggered from the admin.
+> Only use it if you know what you're doing or were told by a developer to do so.
 
 ---
 
@@ -302,7 +391,7 @@ TO-DO
 
 ### Calculator
 
-The calculator is a floating widget that can be toggled by clicking the calculator icon on the navbar.
+The calculator is a floating widget that can be toggled by clicking the calculator icon on the navbar or by pressing <kbd>Alt</kbd> + <kbd>C</kbd> on any page.
 
 It allows for any math expression supported by [math.js](https://mathjs.org).
 
@@ -336,16 +425,109 @@ You can add additional items by clicking the _Add_ button at the end of the page
 
 ### Currency Converter
 
-TO-DO
+The Currency Converter is a tool that allows you to quickly convert amounts between different currencies.
+
+> [!NOTE]
+> There's no external Exchange Rate fetching. This uses the Exchange Rates configured in the [Management](#configuration-and-management) page for [Exchange Rates](#exchange-rate)
+
+## Automation
+
+### API
+
+WYGIWYH has a comprehensive API, it's documentation can be accessed on `<your-wygiwyh-url>/api/docs/`
+
+> [!NOTE]
+> While the API works, there's still much to be added to it to equipare functionality with the main web app.
+
+### Transaction Rules
+
+Transaction Rules are a powerful feature in WYGIWYH that allow for automatic modification of transactions based on specified criteria. This can save time and ensure consistency in your financial tracking.
+
+Key Aspects of Transaction Rules:
+
+* **Conditions**: Set specific criteria that a transaction must meet for the rule to apply. This can include attributes like description, amount, account, etc.
+* **Actions**: Define what changes should be made to a transaction when the conditions are met. This can include setting categories, tags, or modifying other fields.
+* **Activation Options**: Rules can be set to apply when transactions are created, updated, or both.
+
+#### Actions and Conditions
+
+When creating a new rule, you will need to add a Condition and, later, Actions.
+
+Both use a limited subset of Python, via [SimpleEval](https://github.com/danthedeckie/simpleeval).
+
+The Condition must evaluate to True or False, and the Action must evaluate to a value that will be set on the selected field.
+
+You may use any of the available [variables](#available-variables) and [functions](#available-functions).
+
+#### Available variables
+
+* `account_name`
+* `account_id`
+* `account_group_name`
+* `account_group_id`
+* `is_asset_account`
+* `is_archived_account`
+* `category_name`
+* `category_id`
+* `tag_names`
+* `tag_ids`
+* `entities_names`
+* `entities_ids`
+* `is_expense`
+* `is_income`
+* `is_paid`
+* `description`
+* `amount`
+* `notes`
+* `date`
+* `reference_date`
+
+#### Available functions
+
+* `relativedelta`
+
+#### Examples
+
+Add a tag to an income transaction if it happens in a specific account
+
+```
+If...
+account_name == "My Investing Account" and is_income
+
+Then...
+Set Tags to
+tag_names + ["Yield"]
+```
+
+---
+
+Move credit card transactions to next month when they happen at a cutoff date
+
+```
+If...
+account_name == "My credit card" and date.day >= 26 and reference_date.month == date.month
+
+Then...
+Set Reference Date to
+reference_date + relativedelta(months=1)).replace(day=1)
+```
+# Caveats and Warnings
+
+- I'm not an accountant, some terms and even calculations might be wrong. Make sure to open an issue if you see anything that could be improved.
+- Pretty much all calculations are done at run time, this can lead to some perfomance degradation. On my personal instance, I have 3000+ transactions over 4+ years and 4000+ exchange rates, and load times average at around 500ms for each page, not bad overall.
+- This isn't a budgeting or double-entry-accounting application, if you need those features there's a lot of options out there, if you really need them in WYGIWYH, open a discussion.
 
 # Built with
 
 WYGIWYH is possible thanks to a lot of amazing open source tools, to name a few:
 
-- Django
-- HTMX
-- _hyperscript
-- Procrastinate
-- Bootstrap
-- Tailwind
-- Webpack
+* Django
+* HTMX
+* _hyperscript
+* Procrastinate
+* Bootstrap
+* Tailwind
+* Webpack
+* PostgreSQL
+* Django REST framework
+* Alpine.js
