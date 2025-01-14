@@ -101,7 +101,9 @@ class Transaction(models.Model):
         validators=[validate_non_negative, validate_decimal_places],
     )
 
-    description = models.CharField(max_length=500, verbose_name=_("Description"))
+    description = models.CharField(
+        max_length=500, verbose_name=_("Description"), blank=True
+    )
     notes = models.TextField(blank=True, verbose_name=_("Notes"))
     category = models.ForeignKey(
         TransactionCategory,
