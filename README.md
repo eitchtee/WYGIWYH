@@ -514,7 +514,7 @@ reference_date + relativedelta(months=1)).replace(day=1)
 # Caveats and Warnings
 
 - I'm not an accountant, some terms and even calculations might be wrong. Make sure to open an issue if you see anything that could be improved.
-- Pretty much all calculations are done at run time, this can lead to some perfomance degradation. On my personal instance, I have 3000+ transactions over 4+ years and 4000+ exchange rates, and load times average at around 500ms for each page, not bad overall.
+- Pretty much all calculations are done at run time, this can lead to some performance degradation. On my personal instance, I have 3000+ transactions over 4+ years and 4000+ exchange rates, and load times average at around 500ms for each page, not bad overall.
 - This isn't a budgeting or double-entry-accounting application, if you need those features there's a lot of options out there, if you really need them in WYGIWYH, open a discussion.
 
 # Built with
