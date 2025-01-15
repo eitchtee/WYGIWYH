@@ -21,7 +21,8 @@
             <hr>
             <form hx-get="{% url 'transactions_all_list' %}" hx-trigger="change, submit, search"
                     hx-target="#transactions" id="filter" hx-indicator="#transactions"
-                    _="install init_tom_select">
+                    _="install init_tom_select
+                       install init_datepicker">
                 {% crispy filter.form %}
             </form>
           </div>

@@ -6,9 +6,10 @@ from django.forms import CharField
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.datepicker import AirDateTimePickerInput
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
-from apps.currencies.models import Currency, ExchangeRate
 from apps.common.widgets.tom_select import TomSelect
+from apps.currencies.models import Currency, ExchangeRate
 
 
 class CurrencyForm(forms.ModelForm):
@@ -64,9 +65,10 @@ class CurrencyForm(forms.ModelForm):
 
 class ExchangeRateForm(forms.ModelForm):
     date = forms.DateTimeField(
-        widget=forms.DateTimeInput(
-            attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M"
-        )
+        widget=AirDateTimePickerInput(
+            clear_button=False,
+        ),
+        label=_("Date"),
     )
 
     class Meta:

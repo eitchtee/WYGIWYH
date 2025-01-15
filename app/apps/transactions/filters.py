@@ -8,6 +8,7 @@ from django_filters import Filter
 
 from apps.accounts.models import Account
 from apps.common.fields.month_year import MonthYearFormField
+from apps.common.widgets.datepicker import AirDatePickerInput
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelectMultiple
 from apps.currencies.models import Currency
@@ -87,13 +88,13 @@ class TransactionsFilter(django_filters.FilterSet):
     date_start = django_filters.DateFilter(
         field_name="date",
         lookup_expr="gte",
-        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        widget=AirDatePickerInput(),
         label=_("Date from"),
     )
     date_end = django_filters.DateFilter(
         field_name="date",
         lookup_expr="lte",
-        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        widget=AirDatePickerInput(),
         label=_("Until"),
     )
     reference_date_start = MonthYearFilter(

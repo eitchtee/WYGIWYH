@@ -1,13 +1,14 @@
 from crispy_forms.bootstrap import FormActions
-from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
+from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.datepicker import AirDatePickerInput
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelect
 from apps.dca.models import DCAStrategy, DCAEntry
-from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
-from apps.common.widgets.crispy.submit import NoClassSubmit
 
 
 class DCAStrategyForm(forms.ModelForm):
@@ -61,7 +62,7 @@ class DCAEntryForm(forms.ModelForm):
             "notes",
         ]
         widgets = {
-            "date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "date": AirDatePickerInput(clear_button=False),
             "notes": forms.Textarea(attrs={"rows": 3}),
         }
 
