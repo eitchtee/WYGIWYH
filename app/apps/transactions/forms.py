@@ -16,10 +16,11 @@ from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
 )
-from apps.common.fields.month_year import MonthYearFormField
 from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.datepicker import AirDatePickerInput, AirMonthYearPickerInput
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelect
+from apps.rules.signals import transaction_created, transaction_updated
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
@@ -28,7 +29,6 @@ from apps.transactions.models import (
     RecurringTransaction,
     TransactionEntity,
 )
-from apps.rules.signals import transaction_created, transaction_updated
 
 
 class TransactionForm(forms.ModelForm):
@@ -59,7 +59,14 @@ class TransactionForm(forms.ModelForm):
         label=_("Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
     )
-    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
+
+    date = forms.DateField(
+        widget=AirDatePickerInput(clear_button=False), label=_("Date")
+    )
+
+    reference_date = forms.DateField(
+        widget=AirMonthYearPickerInput(), label=_("Reference Date"), required=False
+    )
 
     class Meta:
         model = Transaction
@@ -77,7 +84,6 @@ class TransactionForm(forms.ModelForm):
             "entities",
         ]
         widgets = {
-            "date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "notes": forms.Textarea(attrs={"rows": 3}),
             "account": TomSelect(clear_button=False, group_by="group"),
         }
@@ -118,8 +124,8 @@ class TransactionForm(forms.ModelForm):
                 css_class="form-row",
             ),
             Row(
-                Column("date", css_class="form-group col-md-6 mb-0"),
-                Column("reference_date", css_class="form-group col-md-6 mb-0"),
+                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
             "description",
@@ -235,10 +241,13 @@ class TransferForm(forms.Form):
     )
 
     date = forms.DateField(
-        label=_("Date"),
-        widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        widget=AirDatePickerInput(clear_button=False), label=_("Date")
     )
-    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
+
+    reference_date = forms.DateField(
+        widget=AirMonthYearPickerInput(), label=_("Reference Date"), required=False
+    )
+
     description = forms.CharField(max_length=500, label=_("Description"))
     notes = forms.CharField(
         required=False,
@@ -404,7 +413,10 @@ class InstallmentPlanForm(forms.ModelForm):
         queryset=TransactionEntity.objects.filter(active=True),
     )
     type = forms.ChoiceField(choices=Transaction.Type.choices)
-    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
+
+    reference_date = forms.DateField(
+        widget=AirMonthYearPickerInput(), label=_("Reference Date"), required=False
+    )
 
     class Meta:
         model = InstallmentPlan
@@ -424,10 +436,10 @@ class InstallmentPlanForm(forms.ModelForm):
             "entities",
         ]
         widgets = {
-            "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "account": TomSelect(),
             "recurrence": TomSelect(clear_button=False),
             "notes": forms.Textarea(attrs={"rows": 3}),
+            "start_date": AirDatePickerInput(clear_button=False),
         }
 
     def __init__(self, *args, **kwargs):
@@ -646,7 +658,6 @@ class RecurringTransactionForm(forms.ModelForm):
         queryset=TransactionEntity.objects.filter(active=True),
     )
     type = forms.ChoiceField(choices=Transaction.Type.choices)
-    reference_date = MonthYearFormField(label=_("Reference Date"), required=False)
 
     class Meta:
         model = RecurringTransaction
@@ -666,8 +677,9 @@ class RecurringTransactionForm(forms.ModelForm):
             "entities",
         ]
         widgets = {
-            "start_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
-            "end_date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "start_date": AirDatePickerInput(clear_button=False),
+            "end_date": AirDatePickerInput(),
+            "reference_date": AirMonthYearPickerInput(),
             "recurrence_type": TomSelect(clear_button=False),
             "notes": forms.Textarea(
                 attrs={

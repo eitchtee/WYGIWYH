@@ -1,9 +1,11 @@
 import datetime
 
 from django import forms
-from django.db import models
 from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 
+from apps.common.widgets.datepicker import AirMonthYearPickerInput
 from apps.common.widgets.month_year import MonthYearWidget
 
 
@@ -27,7 +29,7 @@ class MonthYearModelField(models.DateField):
 
 
 class MonthYearFormField(forms.DateField):
-    widget = MonthYearWidget
+    widget = AirMonthYearPickerInput
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,7 +44,11 @@ class MonthYearFormField(forms.DateField):
             date = datetime.datetime.strptime(value, "%Y-%m")
             return date.replace(day=1).date()
         except ValueError:
-            raise ValidationError(_("Invalid date format. Use YYYY-MM."))
+            try:
+                date = datetime.datetime.strptime(value, "%Y-%m-%d")
+                return date.replace(day=1).date()
+            except ValueError:
+                raise ValidationError(_("Invalid date format. Use YYYY-MM."))
 
     def prepare_value(self, value):
         if isinstance(value, datetime.date):

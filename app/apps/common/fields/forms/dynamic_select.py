@@ -61,7 +61,6 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
                         self._created_instance = instance
                         return instance
                 except Exception as e:
-                    print(e)
                     raise ValidationError(
                         self.error_messages["invalid_choice"], code="invalid_choice"
                     )

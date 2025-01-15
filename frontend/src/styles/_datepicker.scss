@@ -1,0 +1,89 @@
+@import 'air-datepicker/air-datepicker.css';
+
+.air-datepicker-global-container {
+  z-index: 2000;  // Allows the datepicker to be shown on top of offcanvas
+}
+
+.air-datepicker {
+    --adp-accent-color: #fbb700;
+    --adp-day-name-color: #fbb700;
+    --adp-background-color: #303030; /* $gray-800 */
+    --adp-color: #fff;
+    --adb-color-other-month: #888; /* $gray-600 */
+    --adp-cell-background-color-selected: #fbb700;
+
+    --adp-border-color-inline: #444;
+
+    --adp-background-color-selected-other-month-focused: #e6a600; /* Slightly darker than $yellow */
+    --adp-background-color-selected-other-month: #fbb700;
+
+    --adp-color-secondary: #adb5bd; /* $gray-500 */
+    --adp-background-color-hover: #444;
+    --adp-background-color-active: #3c3c3c;
+    --adp-cell-background-color-selected-hover: #e6a600;
+    --adp-color-other-month: #888; /* $gray-600 */
+    --adp-color-disabled: #444; /* $gray-700 */
+    --adp-color-disabled-in-range: #666; /* Between $gray-600 and $gray-700 */
+    --adp-color-other-month-hover: #ced4da; /* $gray-400 */
+    --adp-time-track-color: #444; /* $gray-700 */
+    --adp-time-track-color-hover: #888; /* $gray-600 */
+}
+
+.air-datepicker-cell.-selected-,
+.air-datepicker-cell.-selected-.-current-,
+.-selected-.air-datepicker-cell.-year-.-other-decade-,
+.-selected-.air-datepicker-cell.-day-.-other-month-{
+    color: #222; /* $gray-900 */
+}
+
+/* Additional styles for better dark theme integration */
+.air-datepicker {
+    border-color: #444; /* $gray-700 */
+}
+
+.air-datepicker-body--day-names {
+    color: #fbb700; /* $yellow */
+}
+
+.air-datepicker-cell:hover {
+    background-color: #444; /* $gray-700 */
+}
+
+.air-datepicker-cell.-current- {
+    color: #fbb700; /* $yellow */
+}
+
+.air-datepicker-cell.-range-from-,
+.air-datepicker-cell.-range-to- {
+    border: 1px solid #fbb700; /* $yellow */
+}
+
+.air-datepicker-cell.-range-from-::before,
+.air-datepicker-cell.-range-to-::before {
+    background-color: rgba(251, 183, 0, 0.1); /* $yellow with opacity */
+}
+
+.air-datepicker-cell.-in-range- {
+    background-color: rgba(251, 183, 0, 0.1); /* $yellow with opacity */
+}
+
+.air-datepicker-time--row input[type='range']::-webkit-slider-thumb {
+    background-color: #fbb700; /* $yellow */
+}
+
+.air-datepicker-time--row input[type='range']::-moz-range-thumb {
+    background-color: #fbb700; /* $yellow */
+}
+
+.air-datepicker-button,
+.air-datepicker-button:hover {
+    color: #fbb700; /* $yellow */
+}
+
+.air-datepicker-button:hover {
+    background-color: #444; /* $gray-700 */
+}
+
+.air-datepicker--pointer:after {
+    background: #303030
+}

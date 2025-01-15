@@ -1,0 +1,22 @@
+<script type="text/hyperscript">
+  behavior init_datepicker
+    init
+      set datepickers to <.airdatepickerinput/> in me
+      for x in datepickers
+        js(it)
+          DatePicker(it)
+        end
+      end
+      set datepickers to <.airdatetimepickerinput/> in me
+      for x in datepickers
+        js(it)
+          DatePicker(it)
+        end
+      end
+      set datepickers to <.airmonthyearpickerinput/> in me
+      for x in datepickers
+        MonthYearPicker(it)
+      end
+    end
+  end
+</script>

@@ -3,19 +3,18 @@
 {% javascript_pack 'bootstrap' attrs="defer" %}
 {% javascript_pack 'sweetalert2' attrs="defer" %}
 {% javascript_pack 'select' attrs="defer" %}
+{% javascript_pack 'datepicker' %}
 
 {% include 'includes/scripts/hyperscript/init_tom_select.html' %}
+{% include 'includes/scripts/hyperscript/init_date_picker.html' %}
 {% include 'includes/scripts/hyperscript/hide_amount.html' %}
 {% include 'includes/scripts/hyperscript/tooltip.html' %}
 {% include 'includes/scripts/hyperscript/htmx_error_handler.html' %}
 {% include 'includes/scripts/hyperscript/sounds.html' %}
 {% include 'includes/scripts/hyperscript/swal.html' %}
-<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 
 {% javascript_pack 'htmx' attrs="defer" %}
 {% javascript_pack 'charts' %}
-{#<script src="https://unpkg.com/htmx-ext-alpine-morph@2.0.0/alpine-morph.js"></script>#}
-
 
 <script>
 let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
