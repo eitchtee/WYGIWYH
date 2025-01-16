@@ -1,5 +1,5 @@
 services:
-  web: &django
+  web:
     image: eitchtee/wygiwyh:latest
     container_name: ${SERVER_NAME}
     command: /start
@@ -23,10 +23,11 @@ services:
       - POSTGRES_DB=${SQL_DATABASE}
 
   procrastinate:
-    <<: *django
+    image: eitchtee/wygiwyh:latest
     container_name: ${PROCRASTINATE_NAME}
     depends_on:
       - db
-    ports: [ ]
+    env_file:
+      - .env
     command: /start-procrastinate
     restart: unless-stopped
