@@ -77,6 +77,22 @@ $ docker compose up -d
 $ docker compose exec -it web python manage.py createsuperuser
 ```
 
+## Running locally
+
+If you want to run WYGIWYH locally, on your env file:
+
+1. Remove `URL`
+2. Set `HTTPS_ENABLED` to `false`
+3. Leave the default `DJANGO_ALLOWED_HOSTS` (localhost 127.0.0.1 [::1])
+
+You can now access localhost:OUTBOUND_PORT
+
+> [!NOTE]
+> If you're planning on running this behind Tailscale or other similar service also add your machine given IP to `DJANGO_ALLOWED_HOSTS`
+
+> [!NOTE]
+> If you're going to use another IP that isn't localhost, add it to `DJANGO_ALLOWED_HOSTS`, without `http://`
+
 # How it works
 
 ## Models
