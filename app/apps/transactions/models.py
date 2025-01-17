@@ -141,6 +141,7 @@ class Transaction(models.Model):
         related_name="transactions",
         verbose_name=_("Recurring Transaction"),
     )
+    internal_note = models.TextField(blank=True, verbose_name=_("Internal Note"))
 
     class Meta:
         verbose_name = _("Transaction")
