@@ -57,10 +57,10 @@ To run this application, you'll need [Docker](https://docs.docker.com/engine/ins
 From your command line:
 
 ```bash
-# Clone this repository
+# Create a folder for WYGIWYH (optional)
 $ mkdir WYGIWYH
 
-# Go into the repository
+# Go into the folder
 $ cd WYGIWYH
 
 $ touch docker-compose.yml
