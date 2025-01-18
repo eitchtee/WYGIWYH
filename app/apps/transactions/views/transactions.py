@@ -1,4 +1,5 @@
 import datetime
+from copy import deepcopy
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -12,6 +13,7 @@ from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
 from apps.common.utils.dicts import remove_falsey_entries
+from apps.rules.signals import transaction_created
 from apps.transactions.filters import TransactionsFilter
 from apps.transactions.forms import TransactionForm, TransferForm
 from apps.transactions.models import Transaction
@@ -86,6 +88,55 @@ def transaction_edit(request, transaction_id, **kwargs):
         request,
         "transactions/fragments/edit.html",
         {"form": form, "transaction": transaction},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def transaction_clone(request, transaction_id, **kwargs):
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    new_transaction = deepcopy(transaction)
+    new_transaction.pk = None
+    new_transaction.installment_plan = None
+    new_transaction.installment_id = None
+    new_transaction.recurring_transaction = None
+    new_transaction.save()
+
+    new_transaction.tags.add(*transaction.tags.all())
+    new_transaction.entities.add(*transaction.entities.all())
+
+    messages.success(request, _("Transaction duplicated successfully"))
+
+    transaction_created.send(sender=transaction)
+
+    # THIS HAS BEEN DISABLE DUE TO HTMX INCOMPATIBILITY
+    # SEE https://github.com/bigskysoftware/htmx/issues/3115 and https://github.com/bigskysoftware/htmx/issues/2706
+
+    # if request.GET.get("edit") == "true":
+    #     return HttpResponse(
+    #         status=200,
+    #         headers={
+    #             "HX-Trigger": "updated",
+    #             "HX-Push-Url": "false",
+    #             "HX-Location": json.dumps(
+    #                 {
+    #                     "path": reverse(
+    #                         "transaction_edit",
+    #                         kwargs={"transaction_id": new_transaction.id},
+    #                     ),
+    #                     "target": "#generic-offcanvas",
+    #                     "swap": "innerHTML",
+    #                 }
+    #             ),
+    #         },
+    #     )
+    # else:
+    #     transaction_created.send(sender=transaction)
+
+    return HttpResponse(
+        status=204,
+        headers={"HX-Trigger": "updated"},
     )
 
 
