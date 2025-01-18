@@ -95,6 +95,32 @@ You can now access localhost:OUTBOUND_PORT
 > [!NOTE]
 > If you're going to use another IP that isn't localhost, add it to `DJANGO_ALLOWED_HOSTS`, without `http://`
 
+
+## Building from source
+
+Features are only added to `main` when ready, if you want to run the latest version, you must build from source.
+
+```bash
+# Create a folder for WYGIWYH (optional)
+$ mkdir WYGIWYH
+
+# Go into the folder
+$ cd WYGIWYH
+
+# Clone this repository
+$ git clone https://github.com/eitchtee/WYGIWYH.git .
+
+$ cp docker-compose.prod.yml docker-compose.yml
+$ cp .env.example .env
+# Now edit both files as you see fit
+
+# Run the app
+$ docker compose up -d --build
+
+# Create the first admin account
+$ docker compose exec -it web python manage.py createsuperuser
+```
+
 # How it works
 
 ## Models
