@@ -111,6 +111,14 @@
                 hx-target="#generic-offcanvas" hx-swap="innerHTML">
           <i class="fa-solid fa-pencil fa-fw"></i></a>
           <a class="btn btn-secondary btn-sm transaction-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Duplicate" %}"
+                hx-get="{% url 'transaction_clone' transaction_id=transaction.id %}"
+                _="on click if event.ctrlKey set @hx-get to `{% url 'transaction_clone' transaction_id=transaction.id %}?edit=true` then call htmx.process(me) end then trigger ready"
+                hx-trigger="ready" >
+          <i class="fa-solid fa-clone fa-fw"></i></a>
+          <a class="btn btn-secondary btn-sm transaction-action"
                   role="button"
                   data-bs-toggle="tooltip"
                   data-bs-title="{% translate "Delete" %}"
