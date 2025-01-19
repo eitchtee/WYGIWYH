@@ -336,3 +336,5 @@ else:
     }
 
 CACHALOT_UNCACHABLE_TABLES = ("django_migrations", "procrastinate_jobs")
+
+ENABLE_SOFT_DELETION = os.environ.get("ENABLE_SOFT_DELETION", "False").lower() == "true"
