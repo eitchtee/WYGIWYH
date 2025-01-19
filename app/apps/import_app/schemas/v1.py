@@ -69,6 +69,7 @@ class CSVImportSettings(BaseModel):
     skip_lines: int = Field(
         default=0, description="Number of rows to skip at the beginning of the file"
     )
+    trigger_transaction_rules: bool = True
     importing: Literal[
         "transactions", "accounts", "currencies", "categories", "tags", "entities"
     ]
