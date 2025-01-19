@@ -22,6 +22,7 @@ from apps.transactions.models import (
     TransactionTag,
     TransactionEntity,
 )
+from apps.rules.signals import transaction_created
 
 logger = logging.getLogger(__name__)
 
@@ -227,6 +228,9 @@ class ImportService:
             new_transaction.tags.set(tags)
         if entities:
             new_transaction.entities.set(entities)
+
+        if self.settings.trigger_transaction_rules:
+            transaction_created.send(sender=new_transaction)
 
         return new_transaction
 
