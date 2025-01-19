@@ -337,4 +337,5 @@ else:
 
 CACHALOT_UNCACHABLE_TABLES = ("django_migrations", "procrastinate_jobs")
 
-ENABLE_SOFT_DELETION = os.environ.get("ENABLE_SOFT_DELETION", "False").lower() == "true"
+ENABLE_SOFT_DELETION = os.getenv("ENABLE_SOFT_DELETION", "True").lower() == "true"
+KEEP_DELETED_TRANSACTIONS_FOR = int(os.getenv("KEEP_DELETED_ENTRIES_FOR", "365"))
