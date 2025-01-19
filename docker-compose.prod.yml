@@ -9,6 +9,8 @@ services:
       - .env
     depends_on:
       - db
+    volumes:
+      - wygiwyh_temp:/usr/src/app/temp/
     restart: unless-stopped
 
   db:
@@ -29,5 +31,10 @@ services:
       - db
     env_file:
       - .env
+    volumes:
+      - wygiwyh_temp:/usr/src/app/temp/
     command: /start-procrastinate
     restart: unless-stopped
+
+volumes:
+  wygiwyh_temp:
