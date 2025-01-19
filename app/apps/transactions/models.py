@@ -6,6 +6,7 @@ from django.db import models, transaction
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 from apps.common.fields.month_year import MonthYearModelField
 from apps.common.functions.decimals import truncate_decimal
@@ -13,6 +14,53 @@ from apps.currencies.utils.convert import convert
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
 
 logger = logging.getLogger()
+
+
+class SoftDeleteQuerySet(models.QuerySet):
+    def delete(self):
+        if not settings.ENABLE_SOFT_DELETION:
+            # If soft deletion is disabled, perform a normal delete
+            return super().delete()
+
+        # Separate the queryset into already deleted and not deleted objects
+        already_deleted = self.filter(deleted=True)
+        not_deleted = self.filter(deleted=False)
+
+        # Use a transaction to ensure atomicity
+        with transaction.atomic():
+            # Perform hard delete on already deleted objects
+            hard_deleted_count = already_deleted._raw_delete(already_deleted.db)
+
+            # Perform soft delete on not deleted objects
+            soft_deleted_count = not_deleted.update(
+                deleted=True, deleted_at=timezone.now()
+            )
+
+        # Return a tuple of counts as expected by Django's delete method
+        return (
+            hard_deleted_count + soft_deleted_count,
+            {"Transaction": hard_deleted_count + soft_deleted_count},
+        )
+
+    def hard_delete(self):
+        return super().delete()
+
+
+class SoftDeleteManager(models.Manager):
+    def get_queryset(self):
+        qs = SoftDeleteQuerySet(self.model, using=self._db)
+        return qs if not settings.ENABLE_SOFT_DELETION else qs.filter(deleted=False)
+
+
+class AllObjectsManager(models.Manager):
+    def get_queryset(self):
+        return SoftDeleteQuerySet(self.model, using=self._db)
+
+
+class DeletedObjectsManager(models.Manager):
+    def get_queryset(self):
+        qs = SoftDeleteQuerySet(self.model, using=self._db)
+        return qs if not settings.ENABLE_SOFT_DELETION else qs.filter(deleted=True)
 
 
 class TransactionCategory(models.Model):
@@ -143,10 +191,24 @@ class Transaction(models.Model):
     )
     internal_note = models.TextField(blank=True, verbose_name=_("Internal Note"))
 
+    deleted = models.BooleanField(
+        default=False, verbose_name=_("Deleted"), db_index=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(
+        null=True, blank=True, verbose_name=_("Deleted At")
+    )
+
+    objects = SoftDeleteManager.from_queryset(SoftDeleteQuerySet)()
+    all_objects = AllObjectsManager.from_queryset(SoftDeleteQuerySet)()
+    deleted_objects = DeletedObjectsManager.from_queryset(SoftDeleteQuerySet)()
+
     class Meta:
         verbose_name = _("Transaction")
         verbose_name_plural = _("Transactions")
         db_table = "transactions"
+        default_manager_name = "objects"
 
     def save(self, *args, **kwargs):
         self.amount = truncate_decimal(
@@ -160,6 +222,17 @@ class Transaction(models.Model):
 
         self.full_clean()
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        if settings.ENABLE_SOFT_DELETION:
+            self.deleted = True
+            self.deleted_at = timezone.now()
+            self.save()
+        else:
+            super().delete(*args, **kwargs)
+
+    def hard_delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
 
     def exchanged_amount(self):
         if self.account.exchange_currency:
@@ -178,6 +251,10 @@ class Transaction(models.Model):
                 }
 
         return None
+
+    def __str__(self):
+        type_display = self.get_type_display()
+        return f"{self.description} - {type_display} - {self.account} - {self.date}"
 
 
 class InstallmentPlan(models.Model):

@@ -12,7 +12,14 @@ from apps.transactions.models import (
 
 @admin.register(Transaction)
 class TransactionModelAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        # Use the all_objects manager to show all transactions, including deleted ones
+        return self.model.all_objects.all()
+
+    list_filter = ["deleted", "type", "is_paid", "date", "account"]
+
     list_display = [
+        "deleted",
         "description",
         "type",
         "account__name",
@@ -21,6 +28,17 @@ class TransactionModelAdmin(admin.ModelAdmin):
         "date",
         "reference_date",
     ]
+
+    actions = ["hard_delete_selected"]
+
+    def hard_delete_selected(self, request, queryset):
+        for obj in queryset:
+            obj.hard_delete()
+        self.message_user(
+            request, f"Successfully hard deleted {queryset.count()} transactions."
+        )
+
+    hard_delete_selected.short_description = "Hard delete selected transactions"
 
 
 class TransactionInline(admin.TabularInline):
