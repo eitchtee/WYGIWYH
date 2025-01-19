@@ -7,8 +7,9 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Dict, Any, Literal, Union
 
+import cachalot.api
 import yaml
-from django.db import transaction
+from cachalot.api import cachalot_disabled
 from django.utils import timezone
 
 from apps.accounts.models import Account, AccountGroup
@@ -277,7 +278,7 @@ class ImportService:
     def _check_duplicate_transaction(self, transaction_data: Dict[str, Any]) -> bool:
         for rule in self.deduplication:
             if rule.type == "compare":
-                query = Transaction.objects.all().values("id")
+                query = Transaction.all_objects.all().values("id")
 
                 # Build query conditions for each field in the rule
                 for field, header in rule.fields.items():
@@ -484,10 +485,9 @@ class ImportService:
 
             self._log("info", f"Starting import with {self.import_run.total_rows} rows")
 
-            with transaction.atomic():
-                for row_number, row in enumerate(reader, start=1):
-                    self._process_row(row, row_number)
-                    self._increment_totals("processed", value=1)
+            for row_number, row in enumerate(reader, start=1):
+                self._process_row(row, row_number)
+                self._increment_totals("processed", value=1)
 
     def _validate_file_path(self, file_path: str) -> str:
         """
@@ -500,42 +500,46 @@ class ImportService:
         return abs_path
 
     def process_file(self, file_path: str):
-        # Validate and get absolute path
-        file_path = self._validate_file_path(file_path)
+        with cachalot_disabled():
+            # Validate and get absolute path
+            file_path = self._validate_file_path(file_path)
 
-        self._update_status("PROCESSING")
-        self.import_run.started_at = timezone.now()
-        self.import_run.save(update_fields=["started_at"])
+            self._update_status("PROCESSING")
+            self.import_run.started_at = timezone.now()
+            self.import_run.save(update_fields=["started_at"])
 
-        self._log("info", "Starting import process")
+            self._log("info", "Starting import process")
 
-        try:
-            if self.settings.file_type == "csv":
-                self._process_csv(file_path)
-
-            if self.import_run.processed_rows == self.import_run.total_rows:
-                self._update_status("FINISHED")
-                self._log(
-                    "info",
-                    f"Import completed successfully. "
-                    f"Successful: {self.import_run.successful_rows}, "
-                    f"Failed: {self.import_run.failed_rows}, "
-                    f"Skipped: {self.import_run.skipped_rows}",
-                )
-
-        except Exception as e:
-            self._update_status("FAILED")
-            self._log("error", f"Import failed: {str(e)}")
-            raise Exception("Import failed")
-
-        finally:
-            self._log("info", "Cleaning up temporary files")
             try:
-                if os.path.exists(file_path):
-                    os.remove(file_path)
-                    self._log("info", f"Deleted temporary file: {file_path}")
-            except OSError as e:
-                self._log("warning", f"Failed to delete temporary file: {str(e)}")
+                if self.settings.file_type == "csv":
+                    self._process_csv(file_path)
 
-            self.import_run.finished_at = timezone.now()
-            self.import_run.save(update_fields=["finished_at"])
+                if self.import_run.processed_rows == self.import_run.total_rows:
+                    self._update_status("FINISHED")
+                    self._log(
+                        "info",
+                        f"Import completed successfully. "
+                        f"Successful: {self.import_run.successful_rows}, "
+                        f"Failed: {self.import_run.failed_rows}, "
+                        f"Skipped: {self.import_run.skipped_rows}",
+                    )
+
+            except Exception as e:
+                self._update_status("FAILED")
+                self._log("error", f"Import failed: {str(e)}")
+                raise Exception("Import failed")
+
+            finally:
+                self._log("info", "Cleaning up temporary files")
+                try:
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                        self._log("info", f"Deleted temporary file: {file_path}")
+                except OSError as e:
+                    self._log("warning", f"Failed to delete temporary file: {str(e)}")
+
+                self.import_run.finished_at = timezone.now()
+                self.import_run.save(update_fields=["finished_at"])
+
+        if self.import_run.successful_rows >= 1:
+            cachalot.api.invalidate()
