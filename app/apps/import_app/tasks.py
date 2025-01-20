@@ -8,7 +8,7 @@ from apps.import_app.services import ImportServiceV1
 logger = logging.getLogger(__name__)
 
 
-@app.task(queue="imports")
+@app.task
 def process_import(import_run_id: int, file_path: str):
     try:
         import_run = ImportRun.objects.get(id=import_run_id)
