@@ -1,26 +1,156 @@
-from django.views.generic import CreateView
-from apps.import_app.models import ImportRun
-from apps.import_app.services import ImportServiceV1
+import shutil
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_http_methods
+from django.utils.translation import gettext_lazy as _
+
+from apps.common.decorators.htmx import only_htmx
+from apps.import_app.forms import ImportRunFileUploadForm, ImportProfileForm
+from apps.import_app.models import ImportRun, ImportProfile
+from apps.import_app.tasks import process_import
 
 
-class ImportRunCreateView(CreateView):
-    model = ImportRun
-    fields = ["profile"]
+def import_view(request):
+    import_profile = ImportProfile.objects.get(id=2)
+    shutil.copyfile(
+        "/usr/src/app/apps/import_app/teste2.csv", "/usr/src/app/temp/teste2.csv"
+    )
+    ir = ImportRun.objects.create(profile=import_profile, file_name="teste.csv")
+    process_import.defer(
+        import_run_id=ir.id,
+        file_path="/usr/src/app/temp/teste2.csv",
+    )
+    return HttpResponse("Hello, world. You're at the polls page.")
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
 
-        import_run = form.instance
-        file = self.request.FILES["file"]
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_profile_index(request):
+    return render(
+        request,
+        "import_app/pages/profiles_index.html",
+    )
 
-        # Save uploaded file temporarily
-        temp_file_path = f"/tmp/import_{import_run.id}.csv"
-        with open(temp_file_path, "wb+") as destination:
-            for chunk in file.chunks():
-                destination.write(chunk)
 
-        # Process the import
-        import_service = ImportServiceV1(import_run)
-        import_service.process_file(temp_file_path)
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_profile_list(request):
+    profiles = ImportProfile.objects.all()
 
-        return response
+    return render(
+        request,
+        "import_app/fragments/profiles/list.html",
+        {"profiles": profiles},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_profile_add(request):
+    if request.method == "POST":
+        form = ImportProfileForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Import Profile added successfully"))
+
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
+    else:
+        form = ImportProfileForm()
+
+    return render(
+        request,
+        "import_app/fragments/profiles/add.html",
+        {"form": form},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_profile_edit(request, profile_id):
+    profile = get_object_or_404(ImportProfile, id=profile_id)
+
+    if request.method == "POST":
+        form = ImportProfileForm(request.POST, instance=profile)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Import Profile update successfully"))
+
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
+    else:
+        form = ImportProfileForm(instance=profile)
+
+    return render(
+        request,
+        "import_app/fragments/profiles/edit.html",
+        {"form": form, "profile": profile},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_run_list(request, profile_id):
+    profile = ImportProfile.objects.get(id=profile_id)
+
+    runs = ImportRun.objects.filter(profile=profile).order_by("id")
+
+    return render(
+        request,
+        "import_app/fragments/runs/list.html",
+        {"profile": profile, "runs": runs},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_run_add(request, profile_id):
+    profile = ImportProfile.objects.get(id=profile_id)
+
+    if request.method == "POST":
+        form = ImportRunFileUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            uploaded_file = request.FILES["file"]
+            fs = FileSystemStorage(location="/usr/src/app/temp")
+            filename = fs.save(uploaded_file.name, uploaded_file)
+            file_path = fs.path(filename)
+
+            import_run = ImportRun.objects.create(profile=profile, file_name=filename)
+
+            # Defer the procrastinate task
+            process_import.defer(import_run_id=import_run.id, file_path=file_path)
+
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
+    else:
+        form = ImportRunFileUploadForm()
+
+    return render(
+        request,
+        "import_app/fragments/runs/add.html",
+        {"form": form, "profile": profile},
+    )
