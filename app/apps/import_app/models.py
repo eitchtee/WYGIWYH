@@ -1,13 +1,18 @@
+import yaml
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from apps.import_app.schemas import version_1
 
 
 class ImportProfile(models.Model):
     class Versions(models.IntegerChoices):
         VERSION_1 = 1, _("Version 1")
 
-    name = models.CharField(max_length=100)
-    yaml_config = models.TextField(help_text=_("YAML configuration"))
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    yaml_config = models.TextField(verbose_name=_("YAML Configuration"))
     version = models.IntegerField(
         choices=Versions,
         default=Versions.VERSION_1,
@@ -19,6 +24,14 @@ class ImportProfile(models.Model):
 
     class Meta:
         ordering = ["name"]
+
+    def clean(self):
+        if self.version and self.version == self.Versions.VERSION_1:
+            try:
+                yaml_data = yaml.safe_load(self.yaml_config)
+                version_1.ImportProfileSchema(**yaml_data)
+            except Exception as e:
+                raise ValidationError({"yaml_config": _("Invalid YAML Configuration")})
 
 
 class ImportRun(models.Model):
