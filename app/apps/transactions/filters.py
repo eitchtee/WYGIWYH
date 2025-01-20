@@ -88,13 +88,11 @@ class TransactionsFilter(django_filters.FilterSet):
     date_start = django_filters.DateFilter(
         field_name="date",
         lookup_expr="gte",
-        widget=AirDatePickerInput(),
         label=_("Date from"),
     )
     date_end = django_filters.DateFilter(
         field_name="date",
         lookup_expr="lte",
-        widget=AirDatePickerInput(),
         label=_("Until"),
     )
     reference_date_start = MonthYearFilter(
@@ -135,7 +133,7 @@ class TransactionsFilter(django_filters.FilterSet):
             "to_amount",
         ]
 
-    def __init__(self, data=None, *args, **kwargs):
+    def __init__(self, data=None, user=None, *args, **kwargs):
         # if filterset is bound, use initial values as defaults
         if data is not None:
             # get a mutable copy of the QueryDict
@@ -184,3 +182,5 @@ class TransactionsFilter(django_filters.FilterSet):
 
         self.form.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()
         self.form.fields["from_amount"].widget = ArbitraryDecimalDisplayNumberInput()
+        self.form.fields["date_start"].widget = AirDatePickerInput(user=user)
+        self.form.fields["date_end"].widget = AirDatePickerInput(user=user)

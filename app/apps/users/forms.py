@@ -46,9 +46,57 @@ class LoginForm(AuthenticationForm):
 
 
 class UserSettingsForm(forms.ModelForm):
+    DATE_FORMAT_CHOICES = [
+        ("SHORT_DATE_FORMAT", _("Default")),
+        ("d-m-Y", "20-01-2025"),
+        ("m-d-Y", "01-20-2025"),
+        ("Y-m-d", "2025-01-20"),
+        ("d/m/Y", "20/01/2025"),
+        ("m/d/Y", "01/20/2025"),
+        ("Y/m/d", "2025/01/20"),
+        ("d.m.Y", "20.01.2025"),
+        ("m.d.Y", "01.20.2025"),
+        ("Y.m.d", "2025.01.20"),
+    ]
+
+    DATETIME_FORMAT_CHOICES = [
+        ("SHORT_DATETIME_FORMAT", _("Default")),
+        ("d-m-Y H:i", "20-01-2025 15:30"),
+        ("m-d-Y H:i", "01-20-2025 15:30"),
+        ("Y-m-d H:i", "2025-01-20 15:30"),
+        ("d-m-Y h:i A", "20-01-2025 03:30 PM"),
+        ("m-d-Y h:i A", "01-20-2025 03:30 PM"),
+        ("Y-m-d h:i A", "2025-01-20 03:30 PM"),
+        ("d/m/Y H:i", "20/01/2025 15:30"),
+        ("m/d/Y H:i", "01/20/2025 15:30"),
+        ("Y/m/d H:i", "2025/01/20 15:30"),
+        ("d/m/Y h:i A", "20/01/2025 03:30 PM"),
+        ("m/d/Y h:i A", "01/20/2025 03:30 PM"),
+        ("Y/m/d h:i A", "2025/01/20 03:30 PM"),
+        ("d.m.Y H:i", "20.01.2025 15:30"),
+        ("m.d.Y H:i", "01.20.2025 15:30"),
+        ("Y.m.d H:i", "2025.01.20 15:30"),
+        ("d.m.Y h:i A", "20.01.2025 03:30 PM"),
+        ("m.d.Y h:i A", "01.20.2025 03:30 PM"),
+        ("Y.m.d h:i A", "2025.01.20 03:30 PM"),
+    ]
+
+    date_format = forms.ChoiceField(
+        choices=DATE_FORMAT_CHOICES, initial="SHORT_DATE_FORMAT"
+    )
+    datetime_format = forms.ChoiceField(
+        choices=DATETIME_FORMAT_CHOICES, initial="SHORT_DATETIME_FORMAT"
+    )
+
     class Meta:
         model = UserSettings
-        fields = ["language", "timezone", "start_page"]
+        fields = [
+            "language",
+            "timezone",
+            "start_page",
+            "date_format",
+            "datetime_format",
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -59,6 +107,8 @@ class UserSettingsForm(forms.ModelForm):
         self.helper.layout = Layout(
             "language",
             "timezone",
+            "date_format",
+            "datetime_format",
             "start_page",
             FormActions(
                 NoClassSubmit(

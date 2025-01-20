@@ -157,7 +157,7 @@ def strategy_detail(request, strategy_id):
 def strategy_entry_add(request, strategy_id):
     strategy = get_object_or_404(DCAStrategy, id=strategy_id)
     if request.method == "POST":
-        form = DCAEntryForm(request.POST)
+        form = DCAEntryForm(request.POST, user=request.user)
         if form.is_valid():
             entry = form.save(commit=False)
             entry.strategy = strategy
@@ -171,7 +171,7 @@ def strategy_entry_add(request, strategy_id):
                 },
             )
     else:
-        form = DCAEntryForm()
+        form = DCAEntryForm(user=request.user)
 
     return render(
         request,
@@ -186,7 +186,7 @@ def strategy_entry_edit(request, strategy_id, entry_id):
     dca_entry = get_object_or_404(DCAEntry, id=entry_id, strategy__id=strategy_id)
 
     if request.method == "POST":
-        form = DCAEntryForm(request.POST, instance=dca_entry)
+        form = DCAEntryForm(request.POST, instance=dca_entry, user=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Entry updated successfully"))
@@ -198,7 +198,7 @@ def strategy_entry_edit(request, strategy_id, entry_id):
                 },
             )
     else:
-        form = DCAEntryForm(instance=dca_entry)
+        form = DCAEntryForm(instance=dca_entry, user=request.user)
 
     return render(
         request,

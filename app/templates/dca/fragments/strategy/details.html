@@ -1,3 +1,4 @@
+{% load date %}
 {% load currency_display %}
 {% load i18n %}
 <div class="container-fluid px-md-3 py-3 column-gap-5">
@@ -16,7 +17,7 @@
               :prefix="strategy.payment_currency.prefix"
               :suffix="strategy.payment_currency.suffix"
               :decimal_places="strategy.payment_currency.decimal_places">
-           • {{ strategy.current_price.1|date:"SHORT_DATETIME_FORMAT" }}
+           • {{ strategy.current_price.1|custom_date:request.user }}
           </c-amount.display>
           {% else %}
           <div class="tw-text-red-400">{% trans "No exchange rate available" %}</div>
@@ -83,7 +84,7 @@
                            _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
                       </div>
                     </td>
-                    <td>{{ entry.date|date:"SHORT_DATE_FORMAT" }}</td>
+                    <td>{{ entry.date|custom_date:request.user }}</td>
                     <td>
                       <c-amount.display
                           :amount="entry.amount_received"
@@ -221,7 +222,7 @@
                 new Chart(perfomancectx, {
     type: 'line',
     data: {
-        labels: [{% for entry in entries_data %}'{{ entry.entry.date|date:"SHORT_DATE_FORMAT" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+        labels: [{% for entry in entries_data %}'{{ entry.entry.date|custom_date:request.user }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
         datasets: [{
             label: '{% trans "P/L %" %}',
             data: [{% for entry in entries_data %}{{ entry.profit_loss_percentage|floatformat:"-40u" }}{% if not forloop.last %}, {% endif %}{% endfor %}],
