@@ -82,10 +82,12 @@ class UserSettingsForm(forms.ModelForm):
     ]
 
     date_format = forms.ChoiceField(
-        choices=DATE_FORMAT_CHOICES, initial="SHORT_DATE_FORMAT"
+        choices=DATE_FORMAT_CHOICES, initial="SHORT_DATE_FORMAT", label=_("Date Format")
     )
     datetime_format = forms.ChoiceField(
-        choices=DATETIME_FORMAT_CHOICES, initial="SHORT_DATETIME_FORMAT"
+        choices=DATETIME_FORMAT_CHOICES,
+        initial="SHORT_DATETIME_FORMAT",
+        label=_("Datetime Format"),
     )
 
     class Meta:
