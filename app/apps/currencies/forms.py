@@ -65,9 +65,6 @@ class CurrencyForm(forms.ModelForm):
 
 class ExchangeRateForm(forms.ModelForm):
     date = forms.DateTimeField(
-        widget=AirDateTimePickerInput(
-            clear_button=False,
-        ),
         label=_("Date"),
     )
 
@@ -75,7 +72,7 @@ class ExchangeRateForm(forms.ModelForm):
         model = ExchangeRate
         fields = ["from_currency", "to_currency", "rate", "date"]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
@@ -84,6 +81,9 @@ class ExchangeRateForm(forms.ModelForm):
         self.helper.layout = Layout("date", "from_currency", "to_currency", "rate")
 
         self.fields["rate"].widget = ArbitraryDecimalDisplayNumberInput()
+        self.fields["date"].widget = AirDateTimePickerInput(
+            clear_button=False, user=user
+        )
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(

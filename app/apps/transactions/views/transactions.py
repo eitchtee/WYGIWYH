@@ -41,7 +41,7 @@ def transaction_add(request):
     ).date()
 
     if request.method == "POST":
-        form = TransactionForm(request.POST)
+        form = TransactionForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Transaction added successfully"))
@@ -52,10 +52,11 @@ def transaction_add(request):
             )
     else:
         form = TransactionForm(
+            user=request.user,
             initial={
                 "date": expected_date,
                 "type": transaction_type,
-            }
+            },
         )
 
     return render(
@@ -72,7 +73,7 @@ def transaction_edit(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction, id=transaction_id)
 
     if request.method == "POST":
-        form = TransactionForm(request.POST, instance=transaction)
+        form = TransactionForm(request.POST, user=request.user, instance=transaction)
         if form.is_valid():
             form.save()
             messages.success(request, _("Transaction updated successfully"))
@@ -82,7 +83,7 @@ def transaction_edit(request, transaction_id, **kwargs):
                 headers={"HX-Trigger": "updated, hide_offcanvas"},
             )
     else:
-        form = TransactionForm(instance=transaction)
+        form = TransactionForm(instance=transaction, user=request.user)
 
     return render(
         request,
@@ -172,7 +173,7 @@ def transactions_transfer(request):
     ).date()
 
     if request.method == "POST":
-        form = TransferForm(request.POST)
+        form = TransferForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Transfer added successfully"))
@@ -185,7 +186,8 @@ def transactions_transfer(request):
             initial={
                 "reference_date": expected_date,
                 "date": expected_date,
-            }
+            },
+            user=request.user,
         )
 
     return render(request, "transactions/fragments/transfer.html", {"form": form})
@@ -214,7 +216,7 @@ def transaction_pay(request, transaction_id):
 @login_required
 @require_http_methods(["GET"])
 def transaction_all_index(request):
-    f = TransactionsFilter(request.GET)
+    f = TransactionsFilter(request.GET, user=request.user)
     return render(request, "transactions/pages/transactions.html", {"filter": f})
 
 
@@ -236,7 +238,7 @@ def transaction_all_list(request):
 
     transactions = default_order(transactions, order=order)
 
-    f = TransactionsFilter(request.GET, queryset=transactions)
+    f = TransactionsFilter(request.GET, user=request.user, queryset=transactions)
 
     page_number = request.GET.get("page", 1)
     paginator = Paginator(f.qs, 100)
@@ -266,7 +268,7 @@ def transaction_all_summary(request):
         "installment_plan",
     ).all()
 
-    f = TransactionsFilter(request.GET, queryset=transactions)
+    f = TransactionsFilter(request.GET, user=request.user, queryset=transactions)
 
     currency_data = calculate_currency_totals(f.qs.all(), ignore_empty=True)
     currency_percentages = calculate_percentage_distribution(currency_data)

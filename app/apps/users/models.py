@@ -36,6 +36,9 @@ class UserSettings(models.Model):
     hide_amounts = models.BooleanField(default=False)
     mute_sounds = models.BooleanField(default=False)
 
+    date_format = models.CharField(max_length=100, default="SHORT_DATE_FORMAT")
+    datetime_format = models.CharField(max_length=100, default="SHORT_DATETIME_FORMAT")
+
     language = models.CharField(
         max_length=10,
         choices=(("auto", _("Auto")),) + settings.LANGUAGES,

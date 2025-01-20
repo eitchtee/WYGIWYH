@@ -62,11 +62,10 @@ class DCAEntryForm(forms.ModelForm):
             "notes",
         ]
         widgets = {
-            "date": AirDatePickerInput(clear_button=False),
             "notes": forms.Textarea(attrs={"rows": 3}),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -107,3 +106,4 @@ class DCAEntryForm(forms.ModelForm):
 
         self.fields["amount_paid"].widget = ArbitraryDecimalDisplayNumberInput()
         self.fields["amount_received"].widget = ArbitraryDecimalDisplayNumberInput()
+        self.fields["date"].widget = AirDatePickerInput(clear_button=False, user=user)

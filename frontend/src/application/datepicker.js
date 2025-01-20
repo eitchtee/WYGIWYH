@@ -26,6 +26,8 @@ window.DatePicker = function createDynamicDatePicker(element) {
 
     let baseOpts = {
         isMobile: isOnMobile,
+        dateFormat: element.dataset.dateFormat,
+        timeFormat: element.dataset.timeFormat,
         timepicker: element.dataset.timepicker === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', 'today'] : ['today'],

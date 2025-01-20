@@ -1,8 +1,9 @@
 {% extends 'extends/offcanvas.html' %}
+{% load date %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{% translate 'Transactions on' %} {{ date|date:"SHORT_DATE_FORMAT" }}{% endblock %}
+{% block title %}{% translate 'Transactions on' %} {{ date|custom_date:request.user }}{% endblock %}
 
 {% block body %}
 <div hx-get="{% url 'calendar_transactions_list' day=date.day month=date.month year=date.year %}" hx-trigger="updated from:window" hx-vals='{"disable_selection": true}'  hx-target="closest .offcanvas" class="show-loading">

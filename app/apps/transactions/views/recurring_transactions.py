@@ -108,7 +108,7 @@ def recurring_transaction_transactions(request, recurring_transaction_id):
 @require_http_methods(["GET", "POST"])
 def recurring_transaction_add(request):
     if request.method == "POST":
-        form = RecurringTransactionForm(request.POST)
+        form = RecurringTransactionForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, _("Recurring Transaction added successfully"))
@@ -120,7 +120,7 @@ def recurring_transaction_add(request):
                 },
             )
     else:
-        form = RecurringTransactionForm()
+        form = RecurringTransactionForm(user=request.user)
 
     return render(
         request,
@@ -138,7 +138,9 @@ def recurring_transaction_edit(request, recurring_transaction_id):
     )
 
     if request.method == "POST":
-        form = RecurringTransactionForm(request.POST, instance=recurring_transaction)
+        form = RecurringTransactionForm(
+            request.POST, instance=recurring_transaction, user=request.user
+        )
         if form.is_valid():
             form.save()
             messages.success(request, _("Recurring Transaction updated successfully"))
@@ -150,7 +152,9 @@ def recurring_transaction_edit(request, recurring_transaction_id):
                 },
             )
     else:
-        form = RecurringTransactionForm(instance=recurring_transaction)
+        form = RecurringTransactionForm(
+            instance=recurring_transaction, user=request.user
+        )
 
     return render(
         request,

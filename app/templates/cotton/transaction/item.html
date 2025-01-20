@@ -1,3 +1,4 @@
+{% load date %}
 {% load i18n %}
 <div class="transaction d-flex my-1 {% if transaction.type == "EX" %}expense{% else %}income{% endif %}">
   {% if not disable_selection %}
@@ -26,7 +27,7 @@
 {#      Date#}
       <div class="row mb-2 mb-lg-1 tw-text-gray-400">
           <div class="col-auto pe-1"><i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i></div>
-          <div class="col ps-0">{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
+          <div class="col ps-0">{{ transaction.date|custom_date:request.user }} • {{ transaction.reference_date|date:"b/Y" }}</div>
       </div>
 {#      Description#}
       <div class="mb-2 mb-lg-1 text-white tw-text-base">
