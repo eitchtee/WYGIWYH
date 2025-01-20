@@ -42,7 +42,6 @@ class AirDatePickerInput(widgets.DateInput):
 
         if self.user and hasattr(self.user, "settings"):
             user_format = self.user.settings.date_format
-            print(user_format)
             if user_format == "SHORT_DATE_FORMAT":
                 return get_format("SHORT_DATE_FORMAT", use_l10n=True)
             return user_format
