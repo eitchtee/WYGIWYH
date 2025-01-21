@@ -190,6 +190,9 @@ class Transaction(models.Model):
         verbose_name=_("Recurring Transaction"),
     )
     internal_note = models.TextField(blank=True, verbose_name=_("Internal Note"))
+    internal_id = models.TextField(
+        blank=True, null=True, unique=True, verbose_name=_("Internal ID")
+    )
 
     deleted = models.BooleanField(
         default=False, verbose_name=_("Deleted"), db_index=True

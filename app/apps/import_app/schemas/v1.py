@@ -167,8 +167,15 @@ class TransactionCategoryMapping(ColumnMapping):
     coerce_to: Literal["str|int"] = Field("str|int", frozen=True)
 
 
-class TransactionInternalMapping(ColumnMapping):
+class TransactionInternalNoteMapping(ColumnMapping):
     target: Literal["internal_note"] = Field(
+        ..., description="Transaction field to map to"
+    )
+    coerce_to: Literal["str"] = Field("str", frozen=True)
+
+
+class TransactionInternalIDMapping(ColumnMapping):
+    target: Literal["internal_id"] = Field(
         ..., description="Transaction field to map to"
     )
     coerce_to: Literal["str"] = Field("str", frozen=True)
@@ -314,7 +321,8 @@ class ImportProfileSchema(BaseModel):
         | TransactionTagsMapping
         | TransactionEntitiesMapping
         | TransactionCategoryMapping
-        | TransactionInternalMapping
+        | TransactionInternalNoteMapping
+        | TransactionInternalIDMapping
         | CategoryNameMapping
         | CategoryMuteMapping
         | CategoryActiveMapping
@@ -358,7 +366,8 @@ class ImportProfileSchema(BaseModel):
                 TransactionTagsMapping,
                 TransactionEntitiesMapping,
                 TransactionCategoryMapping,
-                TransactionInternalMapping,
+                TransactionInternalNoteMapping,
+                TransactionInternalIDMapping,
             ),
             "accounts": (
                 AccountNameMapping,
