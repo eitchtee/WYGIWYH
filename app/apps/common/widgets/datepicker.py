@@ -3,6 +3,7 @@ import datetime
 from django.forms import widgets
 from django.utils import formats, translation, dates
 from django.utils.formats import get_format
+from django.utils.translation import gettext_lazy as _
 
 from apps.common.utils.django import (
     django_to_python_datetime,
@@ -51,6 +52,7 @@ class AirDatePickerInput(widgets.DateInput):
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
 
+        attrs["data-now-button-txt"] = _("Today")
         attrs["data-auto-close"] = str(self.auto_close).lower()
         attrs["data-clear-button"] = str(self.clear_button).lower()
         attrs["data-language"] = self._get_current_language()
@@ -134,6 +136,7 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
         )
 
         # Add data attributes for AirDatepicker configuration
+        attrs["data-now-button-txt"] = _("Now")
         attrs["data-timepicker"] = str(self.timepicker).lower()
         attrs["data-auto-close"] = str(self.auto_close).lower()
         attrs["data-clear-button"] = str(self.clear_button).lower()
@@ -186,6 +189,14 @@ class AirMonthYearPickerInput(AirDatePickerInput):
     def _get_month_names():
         """Get month names using Django's date translation"""
         return {dates.MONTHS[i]: i for i in range(1, 13)}
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+
+        # Add data attributes for AirDatepicker configuration
+        attrs["data-now-button-txt"] = _("Today")
+
+        return attrs
 
     def format_value(self, value):
         """Format the value for display in the widget."""

@@ -22,6 +22,15 @@ function isMobile() {
 }
 
 window.DatePicker = function createDynamicDatePicker(element) {
+    let todayButton = {
+        content: element.dataset.nowButtonTxt,
+        onClick: (dp) => {
+            let date = new Date();
+            dp.selectDate(date, {updateTime: true});
+            dp.setViewDate(date);
+        }
+    }
+
     let isOnMobile = isMobile();
 
     let baseOpts = {
@@ -30,7 +39,7 @@ window.DatePicker = function createDynamicDatePicker(element) {
         timeFormat: element.dataset.timeFormat,
         timepicker: element.dataset.timepicker === 'true',
         autoClose: element.dataset.autoClose === 'true',
-        buttons: element.dataset.clearButton === 'true' ? ['clear', 'today'] : ['today'],
+        buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: locales[element.dataset.language],
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
@@ -87,6 +96,15 @@ window.DatePicker = function createDynamicDatePicker(element) {
 
 
 window.MonthYearPicker = function createDynamicDatePicker(element) {
+    let todayButton = {
+        content: element.dataset.nowButtonTxt,
+        onClick: (dp) => {
+            let date = new Date();
+            dp.selectDate(date, {updateTime: true});
+            dp.setViewDate(date);
+        }
+    }
+
     let isOnMobile = isMobile();
 
     let baseOpts = {
@@ -95,7 +113,7 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
         minView: 'months',
         dateFormat: 'MMMM yyyy',
         autoClose: element.dataset.autoClose === 'true',
-        buttons: element.dataset.clearButton === 'true' ? ['clear', 'today'] : ['today'],
+        buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: locales[element.dataset.language],
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
