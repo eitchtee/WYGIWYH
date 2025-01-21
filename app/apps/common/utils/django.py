@@ -76,12 +76,12 @@ def django_to_airdatepicker_datetime(django_format):
 def django_to_airdatepicker_datetime_separated(django_format):
     format_map = {
         # Time formats
-        "h": "h",  # Hour (12-hour)
-        "H": "H",  # Hour (24-hour)
-        "i": "m",  # Minutes
+        "h": "hH",  # Hour (12-hour)
+        "H": "HH",  # Hour (24-hour)
+        "i": "mm",  # Minutes
         "A": "AA",  # AM/PM uppercase
         "a": "aa",  # am/pm lowercase
-        "P": "h:mm AA",  # Localized time format
+        "P": "h:mm aa",  # Localized time format
         # Date formats
         "D": "E",  # Short weekday name
         "l": "EEEE",  # Full weekday name
