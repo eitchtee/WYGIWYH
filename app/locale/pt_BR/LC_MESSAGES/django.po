@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 22:42+0000\n"
-"PO-Revision-Date: 2025-01-20 19:43-0300\n"
+"POT-Creation-Date: 2025-01-21 01:12+0000\n"
+"PO-Revision-Date: 2025-01-20 22:12-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -320,6 +320,14 @@ msgstr "Erro"
 #: apps/common/templatetags/toast_bg.py:40
 msgid "Info"
 msgstr "Informação"
+
+#: apps/common/widgets/datepicker.py:55 apps/common/widgets/datepicker.py:197
+msgid "Today"
+msgstr "Hoje"
+
+#: apps/common/widgets/datepicker.py:139
+msgid "Now"
+msgstr "Agora"
 
 #: apps/common/widgets/tom_select.py:10
 msgid "Remove"
@@ -1019,7 +1027,15 @@ msgstr "Essa conta está desativada"
 msgid "Default"
 msgstr "Padrão"
 
-#: apps/users/forms.py:115
+#: apps/users/forms.py:85 apps/users/models.py:40
+msgid "Date Format"
+msgstr "Formato de Data"
+
+#: apps/users/forms.py:90 apps/users/models.py:45
+msgid "Datetime Format"
+msgstr "Formato de Data e Hora"
+
+#: apps/users/forms.py:117
 msgid "Save"
 msgstr "Salvar"
 
@@ -1042,14 +1058,6 @@ msgstr "Todas as transações"
 #: apps/users/models.py:31 templates/includes/navbar.html:31
 msgid "Calendar"
 msgstr "Calendário"
-
-#: apps/users/models.py:40
-msgid "Date Format"
-msgstr "Formato de Data"
-
-#: apps/users/models.py:45
-msgid "Datetime Format"
-msgstr "Formato de Data e Hora"
 
 #: apps/users/models.py:50 apps/users/models.py:56
 msgid "Auto"
