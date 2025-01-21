@@ -19,15 +19,16 @@ class TransactionModelAdmin(admin.ModelAdmin):
     list_filter = ["deleted", "type", "is_paid", "date", "account"]
 
     list_display = [
-        "deleted",
+        "date",
         "description",
         "type",
         "account__name",
         "amount",
         "account__currency__code",
-        "date",
         "reference_date",
+        "deleted",
     ]
+    readonly_fields = ["deleted_at"]
 
     actions = ["hard_delete_selected"]
 
