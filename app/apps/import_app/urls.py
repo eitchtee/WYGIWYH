@@ -14,6 +14,11 @@ urlpatterns = [
         name="import_profiles_list",
     ),
     path(
+        "import/profiles/<int:profile_id>/delete/",
+        views.import_profile_delete,
+        name="import_profile_delete",
+    ),
+    path(
         "import/profiles/add/",
         views.import_profile_add,
         name="import_profiles_add",
@@ -24,14 +29,19 @@ urlpatterns = [
         name="import_profile_edit",
     ),
     path(
-        "import/profiles/<int:profile_id>/runs/",
-        views.import_run_add,
-        name="import_profile_runs_index",
+        "import/profiles/<int:profile_id>/runs/list/",
+        views.import_runs_list,
+        name="import_profile_runs_list",
     ),
     path(
-        "import/profiles/<int:profile_id>/runs/list/",
-        views.import_run_add,
-        name="import_profile_runs_list",
+        "import/profiles/<int:profile_id>/runs/<int:run_id>/log/",
+        views.import_run_log,
+        name="import_run_log",
+    ),
+    path(
+        "import/profiles/<int:profile_id>/runs/<int:run_id>/delete/",
+        views.import_run_delete,
+        name="import_run_delete",
     ),
     path(
         "import/profiles/<int:profile_id>/runs/add/",

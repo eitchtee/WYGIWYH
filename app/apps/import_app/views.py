@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.utils.translation import gettext_lazy as _
 
@@ -107,16 +108,48 @@ def import_profile_edit(request, profile_id):
 
 @only_htmx
 @login_required
-@require_http_methods(["GET", "POST"])
-def import_run_list(request, profile_id):
+@csrf_exempt
+@require_http_methods(["DELETE"])
+def import_profile_delete(request, profile_id):
     profile = ImportProfile.objects.get(id=profile_id)
 
-    runs = ImportRun.objects.filter(profile=profile).order_by("id")
+    profile.delete()
+
+    messages.success(request, _("Import Profile deleted successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated",
+        },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_runs_list(request, profile_id):
+    profile = ImportProfile.objects.get(id=profile_id)
+
+    runs = ImportRun.objects.filter(profile=profile).order_by("-id")
 
     return render(
         request,
         "import_app/fragments/runs/list.html",
         {"profile": profile, "runs": runs},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def import_run_log(request, profile_id, run_id):
+    run = ImportRun.objects.get(profile__id=profile_id, id=run_id)
+
+    return render(
+        request,
+        "import_app/fragments/runs/log.html",
+        {"run": run},
     )
 
 
@@ -140,6 +173,8 @@ def import_run_add(request, profile_id):
             # Defer the procrastinate task
             process_import.defer(import_run_id=import_run.id, file_path=file_path)
 
+            messages.success(request, _("Import Run queued successfully"))
+
             return HttpResponse(
                 status=204,
                 headers={
@@ -153,4 +188,23 @@ def import_run_add(request, profile_id):
         request,
         "import_app/fragments/runs/add.html",
         {"form": form, "profile": profile},
+    )
+
+
+@only_htmx
+@login_required
+@csrf_exempt
+@require_http_methods(["DELETE"])
+def import_run_delete(request, profile_id, run_id):
+    run = ImportRun.objects.get(profile__id=profile_id, id=run_id)
+
+    run.delete()
+
+    messages.success(request, _("Run deleted successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated",
+        },
     )

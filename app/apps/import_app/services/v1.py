@@ -491,7 +491,6 @@ class ImportService:
 
             for row_number, row in enumerate(reader, start=1):
                 self._process_row(row, row_number)
-                self._increment_totals("processed", value=1)
 
     def _validate_file_path(self, file_path: str) -> str:
         """
@@ -518,15 +517,14 @@ class ImportService:
                 if self.settings.file_type == "csv":
                     self._process_csv(file_path)
 
-                if self.import_run.processed_rows == self.import_run.total_rows:
-                    self._update_status("FINISHED")
-                    self._log(
-                        "info",
-                        f"Import completed successfully. "
-                        f"Successful: {self.import_run.successful_rows}, "
-                        f"Failed: {self.import_run.failed_rows}, "
-                        f"Skipped: {self.import_run.skipped_rows}",
-                    )
+                self._update_status("FINISHED")
+                self._log(
+                    "info",
+                    f"Import completed successfully. "
+                    f"Successful: {self.import_run.successful_rows}, "
+                    f"Failed: {self.import_run.failed_rows}, "
+                    f"Skipped: {self.import_run.skipped_rows}",
+                )
 
             except Exception as e:
                 self._update_status("FAILED")
