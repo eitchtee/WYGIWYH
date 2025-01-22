@@ -55,4 +55,11 @@ class ImportRunFileUploadForm(forms.Form):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        self.helper.layout = Layout("file")
+        self.helper.layout = Layout(
+            "file",
+            FormActions(
+                NoClassSubmit(
+                    "submit", _("Import"), css_class="btn btn-outline-primary w-100"
+                ),
+            ),
+        )
