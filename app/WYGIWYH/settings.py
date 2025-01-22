@@ -161,6 +161,7 @@ AUTH_USER_MODEL = "users.User"
 LANGUAGE_CODE = "en"
 LANGUAGES = (
     ("en", "English"),
+    ("nl", "Nederlands"),
     ("pt-br", "Português (Brasil)"),
 )
 
