@@ -6,21 +6,22 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-22 13:17+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-01-22 19:35+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
-msgstr ""
+msgstr "Groepsnaam"
 
 #: apps/accounts/forms.py:40 apps/accounts/forms.py:96
 #: apps/currencies/forms.py:52 apps/currencies/forms.py:92 apps/dca/forms.py:41
@@ -29,7 +30,7 @@ msgstr ""
 #: apps/transactions/forms.py:549 apps/transactions/forms.py:581
 #: apps/transactions/forms.py:616 apps/transactions/forms.py:754
 msgid "Update"
-msgstr ""
+msgstr "Bijwerken"
 
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:104
 #: apps/common/widgets/tom_select.py:12 apps/currencies/forms.py:60
@@ -52,16 +53,16 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/rules/fragments/list.html:9 templates/tags/fragments/list.html:9
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 #: apps/accounts/forms.py:57 templates/accounts/fragments/list.html:26
 #: templates/import_app/fragments/list.html:26
 msgid "Group"
-msgstr ""
+msgstr "Groep"
 
 #: apps/accounts/forms.py:113
 msgid "New balance"
-msgstr ""
+msgstr "Nieuw saldo"
 
 #: apps/accounts/forms.py:119 apps/rules/models.py:27
 #: apps/transactions/forms.py:39 apps/transactions/forms.py:214
@@ -69,7 +70,7 @@ msgstr ""
 #: apps/transactions/forms.py:648 apps/transactions/models.py:111
 #: apps/transactions/models.py:230 apps/transactions/models.py:410
 msgid "Category"
-msgstr ""
+msgstr "Categorie"
 
 #: apps/accounts/forms.py:126 apps/rules/models.py:28
 #: apps/transactions/filters.py:74 apps/transactions/forms.py:47
@@ -79,7 +80,7 @@ msgstr ""
 #: apps/transactions/models.py:414 templates/includes/navbar.html:98
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
-msgstr ""
+msgstr "Labels"
 
 #: apps/accounts/models.py:9 apps/accounts/models.py:21 apps/dca/models.py:14
 #: apps/rules/models.py:9 apps/transactions/models.py:19
@@ -95,42 +96,46 @@ msgstr ""
 #: templates/rules/fragments/list.html:26
 #: templates/tags/fragments/table.html:16
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:25
 msgid "Account Group"
-msgstr ""
+msgstr "Accountgroep"
 
 #: apps/accounts/models.py:13 templates/account_groups/fragments/list.html:5
 #: templates/account_groups/pages/index.html:4
 #: templates/includes/navbar.html:108
 msgid "Account Groups"
-msgstr ""
+msgstr "Accountgroepen"
 
 #: apps/accounts/models.py:31 apps/currencies/models.py:32
 #: templates/accounts/fragments/list.html:27
 #: templates/import_app/fragments/list.html:27
 msgid "Currency"
-msgstr ""
+msgstr "Munteenheid"
 
 #: apps/accounts/models.py:37 apps/currencies/models.py:20
 #: templates/accounts/fragments/list.html:28
 #: templates/import_app/fragments/list.html:28
+#, fuzzy
 msgid "Exchange Currency"
-msgstr ""
+msgstr "Wisselkoers Munteenheid"
 
 #: apps/accounts/models.py:42 apps/currencies/models.py:25
+#, fuzzy
 msgid "Default currency for exchange calculations"
-msgstr ""
+msgstr "Standaard munteenheid voor wisselberekeningen"
 
 #: apps/accounts/models.py:47
 msgid "Asset account"
-msgstr ""
+msgstr "Vermogensrekening"
 
 #: apps/accounts/models.py:49
 msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
 msgstr ""
+"Vermogensrekeningen tellen mee voor je 'Netto Waarde', maar niet voor je "
+"maand."
 
 #: apps/accounts/models.py:54 templates/accounts/fragments/list.html:30
 #: templates/categories/fragments/list.html:24
@@ -138,18 +143,20 @@ msgstr ""
 #: templates/import_app/fragments/list.html:30
 #: templates/tags/fragments/list.html:24
 msgid "Archived"
-msgstr ""
+msgstr "Gearchiveerd"
 
 #: apps/accounts/models.py:55
 msgid "Archived accounts don't show up nor count towards your net worth"
 msgstr ""
+"Gearchiveerde rekeningen worden niet weergegeven en tellen niet mee voor je "
+"\"Netto Waarde\"."
 
 #: apps/accounts/models.py:59 apps/rules/models.py:19
 #: apps/transactions/forms.py:59 apps/transactions/forms.py:386
 #: apps/transactions/forms.py:633 apps/transactions/models.py:84
 #: apps/transactions/models.py:190 apps/transactions/models.py:392
 msgid "Account"
-msgstr ""
+msgstr "Rekening"
 
 #: apps/accounts/models.py:60 apps/transactions/filters.py:53
 #: templates/accounts/fragments/list.html:5
@@ -158,106 +165,111 @@ msgstr ""
 #: templates/includes/navbar.html:104 templates/includes/navbar.html:106
 #: templates/transactions/fragments/summary.html:9
 msgid "Accounts"
-msgstr ""
+msgstr "Rekeningen"
 
 #: apps/accounts/models.py:71
+#, fuzzy
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr ""
+"Wisselkoers munteenheid kan niet dezelfde zijn als de munteenheid van de "
+"rekening."
 
 #: apps/accounts/views/account_groups.py:44
 msgid "Account Group added successfully"
-msgstr ""
+msgstr "Rekeninggroep succesvol toegevoegd"
 
 #: apps/accounts/views/account_groups.py:72
 msgid "Account Group updated successfully"
-msgstr ""
+msgstr "Rekeninggroep succesvol bijgewerkt"
 
 #: apps/accounts/views/account_groups.py:99
 msgid "Account Group deleted successfully"
-msgstr ""
+msgstr "Rekeninggroep succesvol verwijderd"
 
 #: apps/accounts/views/accounts.py:44
 msgid "Account added successfully"
-msgstr ""
+msgstr "Rekening succesvol toegevoegd"
 
 #: apps/accounts/views/accounts.py:72
 msgid "Account updated successfully"
-msgstr ""
+msgstr "Rekening succesvol bijgewerkt"
 
 #: apps/accounts/views/accounts.py:99
 msgid "Account deleted successfully"
-msgstr ""
+msgstr "Rekening succesvol verwijderd"
 
 #: apps/accounts/views/balance.py:77
+#, fuzzy
 msgid "Balance reconciliation"
-msgstr ""
+msgstr "Saldi afstemming"
 
 #: apps/accounts/views/balance.py:85
+#, fuzzy
 msgid "Account balances have been reconciled successfully"
-msgstr ""
+msgstr "Rekeningsaldi zijn succesvol afgestemd"
 
 #: apps/api/fields/transactions.py:29
 msgid "Category with this ID does not exist."
-msgstr ""
+msgstr "De categorie met deze ID bestaat niet."
 
 #: apps/api/fields/transactions.py:35
 msgid "Invalid category data. Provide an ID or name."
-msgstr ""
+msgstr "Ongeldige categoriegegevens. Geef een ID of naam op."
 
 #: apps/api/fields/transactions.py:65
 msgid "Tag with this ID does not exist."
-msgstr ""
+msgstr "Label met dit ID bestaat niet."
 
 #: apps/api/fields/transactions.py:71
 msgid "Invalid tag data. Provide an ID or name."
-msgstr ""
+msgstr "Ongeldige labelgegevens. Geef een ID of naam op."
 
 #: apps/api/fields/transactions.py:89
 msgid "Entity with this ID does not exist."
-msgstr ""
+msgstr "Entiteit met dit ID bestaat niet."
 
 #: apps/api/fields/transactions.py:95
 msgid "Invalid entity data. Provide an ID or name."
-msgstr ""
+msgstr "Ongeldige entiteitsgegevens. Geef een ID of naam op."
 
 #: apps/api/serializers/transactions.py:168
 msgid "Either 'date' or 'reference_date' must be provided."
-msgstr ""
+msgstr "'datum' of 'referentiedatum' moet worden opgegeven."
 
 #: apps/common/fields/forms/dynamic_select.py:127
 #: apps/common/fields/forms/dynamic_select.py:163
 msgid "Error creating new instance"
-msgstr ""
+msgstr "Fout bij het aanmaken van een nieuwe instantie"
 
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:91 apps/common/widgets/tom_select.py:94
 msgid "Ungrouped"
-msgstr ""
+msgstr "Niet gegroepeerd"
 
 #: apps/common/fields/month_year.py:23 apps/common/fields/month_year.py:51
 msgid "Invalid date format. Use YYYY-MM."
-msgstr ""
+msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM."
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:9
 msgid "today"
-msgstr ""
+msgstr "vandaag"
 
 #: apps/common/templatetags/natural.py:22
 msgid "tomorrow"
-msgstr ""
+msgstr "morgen"
 
 #: apps/common/templatetags/natural.py:24
 msgid "yesterday"
-msgstr ""
+msgstr "gisteren"
 
 #: apps/common/templatetags/natural.py:26
 msgid "last 7 days"
-msgstr ""
+msgstr "afgelopen 7 dagen"
 
 #: apps/common/templatetags/natural.py:28
 msgid "in the next 7 days"
-msgstr ""
+msgstr "in de komende 7 dagen"
 
 #: apps/common/templatetags/natural.py:31
 #, python-format
