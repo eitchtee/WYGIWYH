@@ -17,7 +17,6 @@ class CompareDeduplicationRule(BaseModel):
 
 
 class ReplaceTransformationRule(BaseModel):
-    field: str
     type: Literal["replace", "regex"] = Field(
         ..., description="Type of transformation: replace or regex"
     )
@@ -30,9 +29,8 @@ class ReplaceTransformationRule(BaseModel):
 
 
 class DateFormatTransformationRule(BaseModel):
-    field: str
     type: Literal["date_format"] = Field(
-        ..., description="Type of transformation: replace or regex"
+        ..., description="Type of transformation: date_format"
     )
     original_format: str = Field(..., description="Original date format")
     new_format: str = Field(..., description="New date format to use")
@@ -50,7 +48,6 @@ class MergeTransformationRule(BaseModel):
 
 
 class SplitTransformationRule(BaseModel):
-    fields: List[str]
     type: Literal["split"]
     separator: str = Field(default=",", description="Separator to use when splitting")
     index: int | None = Field(
@@ -97,6 +94,7 @@ class TransactionAccountMapping(ColumnMapping):
     target: Literal["account"] = Field(..., description="Transaction field to map to")
     type: Literal["id", "name"] = "name"
     coerce_to: Literal["str|int"] = Field("str|int", frozen=True)
+    required: bool = Field(True, frozen=True)
 
 
 class TransactionTypeMapping(ColumnMapping):
@@ -115,6 +113,7 @@ class TransactionDateMapping(ColumnMapping):
     target: Literal["date"] = Field(..., description="Transaction field to map to")
     format: List[str] | str
     coerce_to: Literal["date"] = Field("date", frozen=True)
+    required: bool = Field(True, frozen=True)
 
 
 class TransactionReferenceDateMapping(ColumnMapping):
@@ -128,6 +127,7 @@ class TransactionReferenceDateMapping(ColumnMapping):
 class TransactionAmountMapping(ColumnMapping):
     target: Literal["amount"] = Field(..., description="Transaction field to map to")
     coerce_to: Literal["positive_decimal"] = Field("positive_decimal", frozen=True)
+    required: bool = Field(True, frozen=True)
 
 
 class TransactionDescriptionMapping(ColumnMapping):
@@ -144,6 +144,7 @@ class TransactionNotesMapping(ColumnMapping):
 
 class TransactionTagsMapping(ColumnMapping):
     target: Literal["tags"] = Field(..., description="Transaction field to map to")
+    type: Literal["id", "name"] = "name"
     create: bool = Field(
         default=True, description="Create new tags if they doesn't exist"
     )
@@ -218,7 +219,7 @@ class EntityNameMapping(ColumnMapping):
 
 
 class EntityActiveMapping(ColumnMapping):
-    target: Literal["entitiy_active"] = Field(..., description="Entity field to map to")
+    target: Literal["entity_active"] = Field(..., description="Entity field to map to")
     coerce_to: Literal["bool"] = Field("bool", frozen=True)
 
 

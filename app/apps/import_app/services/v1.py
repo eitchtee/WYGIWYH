@@ -200,14 +200,14 @@ class ImportService:
             # self.import_run.acc.add(category)
 
         if "tags" in data:
-            tag_names = data.pop("tags").split(",")
+            tag_names = data.pop("tags")
             for tag_name in tag_names:
                 tag, _ = TransactionTag.objects.get_or_create(name=tag_name.strip())
                 tags.append(tag)
                 self.import_run.tags.add(tag)
 
         if "entities" in data:
-            entity_names = data.pop("entities").split(",")
+            entity_names = data.pop("entities")
             for entity_name in entity_names:
                 entity, _ = TransactionEntity.objects.get_or_create(
                     name=entity_name.strip()
