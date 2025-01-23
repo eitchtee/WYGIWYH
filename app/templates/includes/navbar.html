@@ -120,6 +120,8 @@
             <li><h6 class="dropdown-header">{% trans 'Automation' %}</h6></li>
             <li><a class="dropdown-item {% active_link views='rules_index' %}"
                    href="{% url 'rules_index' %}">{% translate 'Rules' %}</a></li>
+            <li><a class="dropdown-item {% active_link views='rules_index' %}"
+                   href="{% url 'import_profiles_index' %}">{% translate 'Import' %} <span class="badge text-bg-primary">beta</span></a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
