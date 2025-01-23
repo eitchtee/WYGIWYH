@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-22 13:17+0000\n"
-"PO-Revision-Date: 2025-01-22 19:35+0100\n"
+"PO-Revision-Date: 2025-01-23 07:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -117,9 +117,8 @@ msgstr "Munteenheid"
 #: apps/accounts/models.py:37 apps/currencies/models.py:20
 #: templates/accounts/fragments/list.html:28
 #: templates/import_app/fragments/list.html:28
-#, fuzzy
 msgid "Exchange Currency"
-msgstr "Wisselkoers Munteenheid"
+msgstr "Eenheid Wisselgeld"
 
 #: apps/accounts/models.py:42 apps/currencies/models.py:25
 #, fuzzy
@@ -168,11 +167,9 @@ msgid "Accounts"
 msgstr "Rekeningen"
 
 #: apps/accounts/models.py:71
-#, fuzzy
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr ""
-"Wisselkoers munteenheid kan niet dezelfde zijn als de munteenheid van de "
-"rekening."
+"Eenheid wisselgeld kan niet dezelfde zijn als de munteenheid van de rekening."
 
 #: apps/accounts/views/account_groups.py:44
 msgid "Account Group added successfully"
@@ -275,89 +272,91 @@ msgstr "in de komende 7 dagen"
 #, python-format
 msgid "%(years)s year ago"
 msgid_plural "%(years)s years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(years)s jaar geleden"
+msgstr[1] "%(years)s jaren geleden"
 
 #: apps/common/templatetags/natural.py:37
 #, python-format
 msgid "%(months)s month ago"
 msgid_plural "%(months)s months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(months)s maand geleden"
+msgstr[1] "%(months)s maanden geleden"
 
 #: apps/common/templatetags/natural.py:41
 #, python-format
 msgid "%(weeks)s week ago"
 msgid_plural "%(weeks)s weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(weeks)s week geleden"
+msgstr[1] "%(weeks)s weken geleden"
 
 #: apps/common/templatetags/natural.py:46
 #, python-format
 msgid "in %(years)s year"
 msgid_plural "in %(years)s years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %(years)s jaar"
+msgstr[1] "over %(years)s jaren"
 
 #: apps/common/templatetags/natural.py:51
 #, python-format
 msgid "in %(months)s month"
 msgid_plural "in %(months)s months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %(months)s  maand"
+msgstr[1] "over %(months)s  maanden"
 
 #: apps/common/templatetags/natural.py:56
 #, python-format
 msgid "in %(weeks)s week"
 msgid_plural "in %(weeks)s weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %(weeks)s week"
+msgstr[1] "over %(weeks)s weken"
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
-msgstr ""
+msgstr "Succes"
 
 #: apps/common/templatetags/toast_bg.py:36
 msgid "Warning"
-msgstr ""
+msgstr "Waarschuwing"
 
 #: apps/common/templatetags/toast_bg.py:38
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #: apps/common/templatetags/toast_bg.py:40
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: apps/common/widgets/datepicker.py:55 apps/common/widgets/datepicker.py:197
 msgid "Today"
-msgstr ""
+msgstr "Vandaag"
 
 #: apps/common/widgets/datepicker.py:139
 msgid "Now"
-msgstr ""
+msgstr "Nu"
 
 #: apps/common/widgets/tom_select.py:10
 msgid "Remove"
-msgstr ""
+msgstr "Verwijder"
 
 #: apps/common/widgets/tom_select.py:14
 #: templates/mini_tools/unit_price_calculator.html:174
 #: templates/transactions/pages/transactions.html:18
 msgid "Clear"
-msgstr ""
+msgstr "Leegmaken"
 
 #: apps/common/widgets/tom_select.py:15
 msgid "No results..."
-msgstr ""
+msgstr "Geen resultaten..."
 
 #: apps/currencies/forms.py:16 apps/currencies/models.py:15
+#, fuzzy
 msgid "Prefix"
-msgstr ""
+msgstr "Voorvoegsel"
 
 #: apps/currencies/forms.py:17 apps/currencies/models.py:16
+#, fuzzy
 msgid "Suffix"
-msgstr ""
+msgstr "Achtervoegsel"
 
 #: apps/currencies/forms.py:68 apps/dca/models.py:156 apps/rules/models.py:22
 #: apps/transactions/forms.py:63 apps/transactions/forms.py:242
@@ -365,19 +364,21 @@ msgstr ""
 #: templates/dca/fragments/strategy/details.html:53
 #: templates/exchange_rates/fragments/table.html:11
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: apps/currencies/models.py:8
+#, fuzzy
 msgid "Currency Code"
-msgstr ""
+msgstr "Munteenheids Code"
 
 #: apps/currencies/models.py:9
+#, fuzzy
 msgid "Currency Name"
-msgstr ""
+msgstr "Munteenheids Naam"
 
 #: apps/currencies/models.py:13
 msgid "Decimal Places"
-msgstr ""
+msgstr "Cijfers na de komma"
 
 #: apps/currencies/models.py:33 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
@@ -385,191 +386,197 @@ msgstr ""
 #: templates/includes/navbar.html:114
 #: templates/transactions/fragments/summary.html:6
 msgid "Currencies"
-msgstr ""
+msgstr "Munteenheden"
 
 #: apps/currencies/models.py:41
 msgid "Currency cannot have itself as exchange currency."
-msgstr ""
+msgstr "Munteenheid kan zichzelf niet als ruilmiddel hebben."
 
 #: apps/currencies/models.py:52
 msgid "From Currency"
-msgstr ""
+msgstr "Van Munteenheid"
 
 #: apps/currencies/models.py:58
 msgid "To Currency"
-msgstr ""
+msgstr "Naar Munteenheid"
 
 #: apps/currencies/models.py:61 apps/currencies/models.py:66
 msgid "Exchange Rate"
-msgstr ""
+msgstr "Wisselkoers"
 
 #: apps/currencies/models.py:63
 msgid "Date and Time"
-msgstr ""
+msgstr "Datum en Tijd"
 
 #: apps/currencies/models.py:67 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:116
 msgid "Exchange Rates"
-msgstr ""
+msgstr "Wisselkoersen"
 
 #: apps/currencies/models.py:77
 msgid "From and To currencies cannot be the same."
-msgstr ""
+msgstr "Van en Naar munteenheid kunnen niet dezelfde zijn."
 
 #: apps/currencies/views/currencies.py:44
 msgid "Currency added successfully"
-msgstr ""
+msgstr "Munteenheid succesvol toegevoegd"
 
 #: apps/currencies/views/currencies.py:72
 msgid "Currency updated successfully"
-msgstr ""
+msgstr "Munteenheid succesvol bijgewerkt"
 
 #: apps/currencies/views/currencies.py:99
 msgid "Currency deleted successfully"
-msgstr ""
+msgstr "Munteenheid succesvol verwijderd"
 
 #: apps/currencies/views/exchange_rates.py:90
 msgid "Exchange rate added successfully"
-msgstr ""
+msgstr "Wisselkoers succesvol toegevoegd"
 
 #: apps/currencies/views/exchange_rates.py:118
 msgid "Exchange rate updated successfully"
-msgstr ""
+msgstr "Wisselkoers succesvol bijgewerkt"
 
 #: apps/currencies/views/exchange_rates.py:145
 msgid "Exchange rate deleted successfully"
-msgstr ""
+msgstr "Wisselkoers succesvol verwijderd"
 
 #: apps/dca/models.py:17
 msgid "Target Currency"
-msgstr ""
+msgstr "Doel Munteenheid"
 
 #: apps/dca/models.py:23
 msgid "Payment Currency"
-msgstr ""
+msgstr "Betaal Munteenheid"
 
 #: apps/dca/models.py:27 apps/dca/models.py:179 apps/rules/models.py:26
 #: apps/transactions/forms.py:256 apps/transactions/models.py:107
 #: apps/transactions/models.py:239 apps/transactions/models.py:420
 msgid "Notes"
-msgstr ""
+msgstr "Opmerkingen"
 
 #: apps/dca/models.py:32
+#, fuzzy
 msgid "DCA Strategy"
-msgstr ""
+msgstr "Strategie voor gemiddelde dollarkosten"
 
 #: apps/dca/models.py:33
+#, fuzzy
 msgid "DCA Strategies"
-msgstr ""
+msgstr "Strategieën voor gemiddelde dollarkosten"
 
 #: apps/dca/models.py:154
 msgid "Strategy"
-msgstr ""
+msgstr "Strategie"
 
 #: apps/dca/models.py:158 templates/dca/fragments/strategy/details.html:55
 msgid "Amount Paid"
-msgstr ""
+msgstr "Betaald bedrag"
 
 #: apps/dca/models.py:161 templates/dca/fragments/strategy/details.html:54
 msgid "Amount Received"
-msgstr ""
+msgstr "Ontvangen bedrag"
 
 #: apps/dca/models.py:169
 msgid "Expense Transaction"
-msgstr ""
+msgstr "Uitgave Transactie"
 
 #: apps/dca/models.py:177
 msgid "Income Transaction"
-msgstr ""
+msgstr "Ontvangsten Transactie"
 
 #: apps/dca/models.py:184
 msgid "DCA Entry"
-msgstr ""
+msgstr "Instap voor gemiddelde dollarkosten"
 
 #: apps/dca/models.py:185
+#, fuzzy
 msgid "DCA Entries"
-msgstr ""
+msgstr "Dollar Kosten Gemiddelden"
 
 #: apps/dca/views.py:38
+#, fuzzy
 msgid "DCA Strategy added successfully"
-msgstr ""
+msgstr "Strategie voor gemiddelde dollarkosten succesvol toegevoegd"
 
 #: apps/dca/views.py:65
+#, fuzzy
 msgid "DCA Strategy updated successfully"
-msgstr ""
+msgstr "Strategie voor gemiddelde dollarkosten succesvol bijgewerkt"
 
 #: apps/dca/views.py:92
+#, fuzzy
 msgid "DCA strategy deleted successfully"
-msgstr ""
+msgstr "Strategie voor gemiddelde dollarkosten succesvol verwijderd"
 
 #: apps/dca/views.py:165
 msgid "Entry added successfully"
-msgstr ""
+msgstr "Item succesvol toegevoegd"
 
 #: apps/dca/views.py:192
 msgid "Entry updated successfully"
-msgstr ""
+msgstr "Item succesvol bijgewerkt"
 
 #: apps/dca/views.py:219
 msgid "Entry deleted successfully"
-msgstr ""
+msgstr "Item succesvol verwijderd"
 
 #: apps/rules/forms.py:20
 msgid "Run on creation"
-msgstr ""
+msgstr "Uitvoeren na het aanmaken"
 
 #: apps/rules/forms.py:21
 msgid "Run on update"
-msgstr ""
+msgstr "Uitvoeren na het bijwerken"
 
 #: apps/rules/forms.py:22
 msgid "If..."
-msgstr ""
+msgstr "Als..."
 
 #: apps/rules/forms.py:64
 msgid "Set field"
-msgstr ""
+msgstr "Veld instellen"
 
 #: apps/rules/forms.py:65
 msgid "To"
-msgstr ""
+msgstr "Naar"
 
 #: apps/rules/forms.py:115
 msgid "A value for this field already exists in the rule."
-msgstr ""
+msgstr "Een waarde voor dit veld bestaat al in de regel."
 
 #: apps/rules/models.py:10 apps/rules/models.py:25
 #: apps/transactions/forms.py:248 apps/transactions/models.py:105
 #: apps/transactions/models.py:197 apps/transactions/models.py:406
 msgid "Description"
-msgstr ""
+msgstr "Beschrijving"
 
 #: apps/rules/models.py:11
 msgid "Trigger"
-msgstr ""
+msgstr "Trigger"
 
 #: apps/rules/models.py:20 apps/transactions/models.py:91
 #: apps/transactions/models.py:195 apps/transactions/models.py:398
 msgid "Type"
-msgstr ""
+msgstr "Soort"
 
 #: apps/rules/models.py:21 apps/transactions/filters.py:23
 #: apps/transactions/models.py:93
 msgid "Paid"
-msgstr ""
+msgstr "Betaald"
 
 #: apps/rules/models.py:23 apps/transactions/forms.py:66
 #: apps/transactions/forms.py:245 apps/transactions/forms.py:415
 #: apps/transactions/models.py:95 apps/transactions/models.py:213
 #: apps/transactions/models.py:422
 msgid "Reference Date"
-msgstr ""
+msgstr "Referentiedatum"
 
 #: apps/rules/models.py:24 apps/transactions/models.py:100
 #: apps/transactions/models.py:403
 msgid "Amount"
-msgstr ""
+msgstr "Bedrag"
 
 #: apps/rules/models.py:29 apps/transactions/filters.py:81
 #: apps/transactions/forms.py:55 apps/transactions/forms.py:409
@@ -578,100 +585,100 @@ msgstr ""
 #: apps/transactions/models.py:417 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:100
 msgid "Entities"
-msgstr ""
+msgstr "Bedrijven"
 
 #: apps/rules/models.py:35
 msgid "Rule"
-msgstr ""
+msgstr "Regel"
 
 #: apps/rules/models.py:40
 msgid "Field"
-msgstr ""
+msgstr "Veld"
 
 #: apps/rules/models.py:42
 msgid "Value"
-msgstr ""
+msgstr "Waarde"
 
 #: apps/rules/views.py:45
 msgid "Rule deactivated successfully"
-msgstr ""
+msgstr "Regel succesvol uitgeschakeld"
 
 #: apps/rules/views.py:47
 msgid "Rule activated successfully"
-msgstr ""
+msgstr "Regel succesvol ingeschakeld"
 
 #: apps/rules/views.py:65
 msgid "Rule added successfully"
-msgstr ""
+msgstr "Regel succesvol toegevoegd"
 
 #: apps/rules/views.py:88
 msgid "Rule updated successfully"
-msgstr ""
+msgstr "Regel succesvol bijgewerkt"
 
 #: apps/rules/views.py:128
 msgid "Rule deleted successfully"
-msgstr ""
+msgstr "Regel succesvol verwijderd"
 
 #: apps/rules/views.py:182
 msgid "Action updated successfully"
-msgstr ""
+msgstr "Actie succesvol bijgewerkt"
 
 #: apps/rules/views.py:213
 msgid "Action deleted successfully"
-msgstr ""
+msgstr "Actie succesvol verwijderd"
 
 #: apps/transactions/filters.py:24 templates/includes/navbar.html:45
 msgid "Projected"
-msgstr ""
+msgstr "Ingepland"
 
 #: apps/transactions/filters.py:41
 msgid "Content"
-msgstr ""
+msgstr "Inhoud"
 
 #: apps/transactions/filters.py:47
 msgid "Transaction Type"
-msgstr ""
+msgstr "Soort transactie"
 
 #: apps/transactions/filters.py:67 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:96
 msgid "Categories"
-msgstr ""
+msgstr "Categorieën"
 
 #: apps/transactions/filters.py:91
 msgid "Date from"
-msgstr ""
+msgstr "Datum vanaf"
 
 #: apps/transactions/filters.py:96 apps/transactions/filters.py:106
 msgid "Until"
-msgstr ""
+msgstr "Tot"
 
 #: apps/transactions/filters.py:101
 msgid "Reference date from"
-msgstr ""
+msgstr "Referentiedatum vanaf"
 
 #: apps/transactions/filters.py:111
 msgid "Amount min"
-msgstr ""
+msgstr "Minimum bedrag"
 
 #: apps/transactions/filters.py:116
 msgid "Amount max"
-msgstr ""
+msgstr "Maximaal bedrag"
 
 #: apps/transactions/forms.py:189
 msgid "From Account"
-msgstr ""
+msgstr "Van rekening"
 
 #: apps/transactions/forms.py:194
 msgid "To Account"
-msgstr ""
+msgstr "Naar rekening"
 
 #: apps/transactions/forms.py:201
 msgid "From Amount"
-msgstr ""
+msgstr "Van Bedrag"
 
 #: apps/transactions/forms.py:206
 msgid "To Amount"
-msgstr ""
+msgstr "Naar Bedrag"
 
 #: apps/transactions/forms.py:321
 #: templates/calendar_view/pages/calendar.html:84
@@ -679,35 +686,35 @@ msgstr ""
 #: templates/yearly_overview/pages/overview_by_account.html:79
 #: templates/yearly_overview/pages/overview_by_currency.html:81
 msgid "Transfer"
-msgstr ""
+msgstr "Overschrijving"
 
 #: apps/transactions/forms.py:336
 msgid "From and To accounts must be different."
-msgstr ""
+msgstr "Van en Naar rekening moeten verschillend zijn."
 
 #: apps/transactions/forms.py:535
 msgid "Tag name"
-msgstr ""
+msgstr "Labelnaam"
 
 #: apps/transactions/forms.py:567
 msgid "Entity name"
-msgstr ""
+msgstr "Naam van bedrijf"
 
 #: apps/transactions/forms.py:599
 msgid "Category name"
-msgstr ""
+msgstr "Naam van categorie"
 
 #: apps/transactions/forms.py:601
 msgid "Muted categories won't count towards your monthly total"
-msgstr ""
+msgstr "Gedempte categorieën tellen niet mee voor je maandtotaal"
 
 #: apps/transactions/forms.py:773
 msgid "End date should be after the start date"
-msgstr ""
+msgstr "De einddatum moet na de begindatum vallen"
 
 #: apps/transactions/models.py:20
 msgid "Mute"
-msgstr ""
+msgstr "Gedempt"
 
 #: apps/transactions/models.py:23 apps/transactions/models.py:42
 #: apps/transactions/models.py:61 templates/categories/fragments/list.html:21
@@ -715,13 +722,15 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:21
 #: templates/tags/fragments/list.html:21
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #: apps/transactions/models.py:25
 msgid ""
 "Deactivated categories won't be able to be selected when creating new "
 "transactions"
 msgstr ""
+"Gedeactiveerde categorieën kunnen niet worden geselecteerd bij het maken van "
+"nieuwe transacties"
 
 #: apps/transactions/models.py:30
 msgid "Transaction Category"
