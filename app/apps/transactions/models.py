@@ -18,7 +18,7 @@ logger = logging.getLogger()
 
 class SoftDeleteQuerySet(models.QuerySet):
     def delete(self):
-        if not settings.ENABLE_SOFT_DELETION:
+        if not settings.ENABLE_SOFT_DELETE:
             # If soft deletion is disabled, perform a normal delete
             return super().delete()
 
@@ -49,7 +49,7 @@ class SoftDeleteQuerySet(models.QuerySet):
 class SoftDeleteManager(models.Manager):
     def get_queryset(self):
         qs = SoftDeleteQuerySet(self.model, using=self._db)
-        return qs if not settings.ENABLE_SOFT_DELETION else qs.filter(deleted=False)
+        return qs if not settings.ENABLE_SOFT_DELETE else qs.filter(deleted=False)
 
 
 class AllObjectsManager(models.Manager):
@@ -60,7 +60,7 @@ class AllObjectsManager(models.Manager):
 class DeletedObjectsManager(models.Manager):
     def get_queryset(self):
         qs = SoftDeleteQuerySet(self.model, using=self._db)
-        return qs if not settings.ENABLE_SOFT_DELETION else qs.filter(deleted=True)
+        return qs if not settings.ENABLE_SOFT_DELETE else qs.filter(deleted=True)
 
 
 class TransactionCategory(models.Model):
@@ -227,7 +227,7 @@ class Transaction(models.Model):
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        if settings.ENABLE_SOFT_DELETION:
+        if settings.ENABLE_SOFT_DELETE:
             self.deleted = True
             self.deleted_at = timezone.now()
             self.save()

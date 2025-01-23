@@ -29,13 +29,10 @@ def generate_recurring_transactions(timestamp=None):
 @app.task
 def cleanup_deleted_transactions():
     with cachalot_disabled():
-        if (
-            settings.ENABLE_SOFT_DELETION
-            and settings.KEEP_DELETED_TRANSACTIONS_FOR == 0
-        ):
+        if settings.ENABLE_SOFT_DELETE and settings.KEEP_DELETED_TRANSACTIONS_FOR == 0:
             return "KEEP_DELETED_TRANSACTIONS_FOR is 0, no cleanup performed."
 
-        if not settings.ENABLE_SOFT_DELETION:
+        if not settings.ENABLE_SOFT_DELETE:
             # Hard delete all soft-deleted transactions
             deleted_count, _ = Transaction.deleted_objects.all().hard_delete()
             return (
