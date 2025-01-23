@@ -70,7 +70,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_cotton",
-    "django_ace",
     "apps.rules.apps.RulesConfig",
     "apps.calendar_view.apps.CalendarViewConfig",
     "apps.dca.apps.DcaConfig",
