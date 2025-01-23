@@ -48,4 +48,5 @@ urlpatterns = [
     path("", include("apps.calendar_view.urls")),
     path("", include("apps.dca.urls")),
     path("", include("apps.mini_tools.urls")),
+    path("", include("apps.import_app.urls")),
 ]
