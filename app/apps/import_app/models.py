@@ -9,9 +9,9 @@ from apps.import_app.schemas import version_1
 
 class ImportProfile(models.Model):
     class Versions(models.IntegerChoices):
-        VERSION_1 = 1, _("Version 1")
+        VERSION_1 = 1, _("Version") + " 1"
 
-    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    name = models.CharField(max_length=100, verbose_name=_("Name"), unique=True)
     yaml_config = models.TextField(verbose_name=_("YAML Configuration"))
     version = models.IntegerField(
         choices=Versions,

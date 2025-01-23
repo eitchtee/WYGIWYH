@@ -3,13 +3,24 @@
   <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
     {% spaceless %}
     <div>{% translate 'Import Profiles' %}<span>
-      <a class="text-decoration-none tw-text-2xl p-1 category-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Add" %}"
-                hx-get="{% url 'import_profiles_add' %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
+      <span class="dropdown" data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Add" %}">
+        <a class="text-decoration-none tw-text-2xl p-1" role="button"
+                data-bs-toggle="dropdown"
+                data-bs-title="{% translate "Add" %}" aria-expanded="false">
+          <i class="fa-solid fa-circle-plus fa-fw"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item"
+                 role="button"
+                 hx-get="{% url 'import_profiles_add' %}"
+                 hx-target="#generic-offcanvas">{% trans 'New' %}</a></li>
+          <li><a class="dropdown-item"
+                 role="button"
+                 hx-get="{% url 'import_presets_list' %}"
+                 hx-target="#persistent-generic-offcanvas-left">{% trans 'From preset' %}</a></li>
+        </ul>
+      </span>
     </span></div>
     {% endspaceless %}
   </div>

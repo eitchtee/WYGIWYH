@@ -13,6 +13,7 @@ from apps.common.decorators.htmx import only_htmx
 from apps.import_app.forms import ImportRunFileUploadForm, ImportProfileForm
 from apps.import_app.models import ImportRun, ImportProfile
 from apps.import_app.tasks import process_import
+from apps.import_app.services import PresetService
 
 
 def import_view(request):
@@ -26,6 +27,18 @@ def import_view(request):
         file_path="/usr/src/app/temp/teste2.csv",
     )
     return HttpResponse("Hello, world. You're at the polls page.")
+
+
+@login_required
+@require_http_methods(["GET"])
+def import_presets_list(request):
+    presets = PresetService.get_all_presets()
+    print(presets)
+    return render(
+        request,
+        "import_app/fragments/profiles/list_presets.html",
+        {"presets": presets},
+    )
 
 
 @login_required
@@ -54,6 +67,8 @@ def import_profile_list(request):
 @login_required
 @require_http_methods(["GET", "POST"])
 def import_profile_add(request):
+    message = request.GET.get("message", None) or request.POST.get("message", None)
+
     if request.method == "POST":
         form = ImportProfileForm(request.POST)
 
@@ -68,12 +83,19 @@ def import_profile_add(request):
                 },
             )
     else:
-        form = ImportProfileForm()
+        print(int(request.GET.get("version", 1)))
+        form = ImportProfileForm(
+            initial={
+                "name": request.GET.get("name"),
+                "version": int(request.GET.get("version", 1)),
+                "yaml_config": request.GET.get("yaml_config"),
+            }
+        )
 
     return render(
         request,
         "import_app/fragments/profiles/add.html",
-        {"form": form},
+        {"form": form, "message": message},
     )
 
 

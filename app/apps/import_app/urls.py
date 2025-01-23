@@ -4,6 +4,11 @@ import apps.import_app.views as views
 urlpatterns = [
     path("import/", views.import_view, name="import"),
     path(
+        "import/presets/",
+        views.import_presets_list,
+        name="import_presets_list",
+    ),
+    path(
         "import/profiles/",
         views.import_profile_index,
         name="import_profiles_index",
