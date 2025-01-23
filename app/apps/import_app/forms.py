@@ -5,7 +5,6 @@ from crispy_forms.layout import (
 )
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django_ace import AceWidget
 
 from apps.import_app.models import ImportProfile
 from apps.common.widgets.crispy.submit import NoClassSubmit
