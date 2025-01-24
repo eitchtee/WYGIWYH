@@ -1,5 +1,6 @@
 import logging
 
+import cachalot.api
 from procrastinate.contrib.django import app
 
 from apps.import_app.models import ImportRun
@@ -14,5 +15,7 @@ def process_import(import_run_id: int, file_path: str):
         import_run = ImportRun.objects.get(id=import_run_id)
         import_service = ImportServiceV1(import_run)
         import_service.process_file(file_path)
+        cachalot.api.invalidate()
     except ImportRun.DoesNotExist:
+        cachalot.api.invalidate()
         raise ValueError(f"ImportRun with id {import_run_id} not found")

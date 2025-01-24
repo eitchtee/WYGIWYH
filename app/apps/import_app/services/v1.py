@@ -542,6 +542,4 @@ class ImportService:
 
                 self.import_run.finished_at = timezone.now()
                 self.import_run.save(update_fields=["finished_at"])
-
-        if self.import_run.successful_rows >= 1:
-            cachalot.api.invalidate()
+        cachalot.api.invalidate()
