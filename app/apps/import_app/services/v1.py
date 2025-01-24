@@ -406,14 +406,14 @@ class ImportService:
             if value is None:
                 value = mapping.default
 
-            if mapping.required and value is None and not mapping.transformations:
-                raise ValueError(f"Required field {field} is missing")
-
             # Apply transformations
             if mapping.transformations:
                 value = self._transform_value(value, mapping, row)
 
             value = self._coerce_type(value, mapping)
+
+            if mapping.required and value is None:
+                raise ValueError(f"Required field {field} is missing")
 
             if value is not None:
                 # Remove the prefix from the target field
