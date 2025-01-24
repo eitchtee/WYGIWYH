@@ -27,6 +27,7 @@ urlpatterns = [
     path("hijack/", include("hijack.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
+    path("", include("pwa.urls")),
     # path("api/", include("rest_framework.urls")),
     path("api/", include("apps.api.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
@@ -47,4 +48,5 @@ urlpatterns = [
     path("", include("apps.calendar_view.urls")),
     path("", include("apps.dca.urls")),
     path("", include("apps.mini_tools.urls")),
+    path("", include("apps.import_app.urls")),
 ]

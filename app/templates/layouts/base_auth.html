@@ -1,3 +1,4 @@
+{% load pwa %}
 {% load title %}
 {% load webpack_loader %}
 <!doctype html>
@@ -11,8 +12,9 @@
         {% endblock title %}
       {% endfilter %}
     </title>
-  
+
     {% include 'includes/head/favicons.html' %}
+    {% progressive_web_app_meta %}
 
     {% include 'includes/styles.html' %}
     {% block extra_styles %}{% endblock %}

@@ -1,9 +1,13 @@
 import logging
+from datetime import timedelta
+
+from cachalot.api import cachalot_disabled, invalidate
+from django.utils import timezone
+from django.conf import settings
 
 from procrastinate.contrib.django import app
 
-from apps.transactions.models import RecurringTransaction
-
+from apps.transactions.models import RecurringTransaction, Transaction
 
 logger = logging.getLogger(__name__)
 
@@ -19,3 +23,31 @@ def generate_recurring_transactions(timestamp=None):
             exc_info=True,
         )
         raise e
+
+
+@app.periodic(cron="10 1 * * *")
+@app.task
+def cleanup_deleted_transactions():
+    with cachalot_disabled():
+        if settings.ENABLE_SOFT_DELETE and settings.KEEP_DELETED_TRANSACTIONS_FOR == 0:
+            return "KEEP_DELETED_TRANSACTIONS_FOR is 0, no cleanup performed."
+
+        if not settings.ENABLE_SOFT_DELETE:
+            # Hard delete all soft-deleted transactions
+            deleted_count, _ = Transaction.deleted_objects.all().hard_delete()
+            return (
+                f"Hard deleted {deleted_count} transactions (soft deletion disabled)."
+            )
+
+        # Calculate the cutoff date
+        cutoff_date = timezone.now() - timedelta(
+            days=settings.KEEP_DELETED_TRANSACTIONS_FOR
+        )
+
+    invalidate("transactions.Transaction")
+
+    # Hard delete soft-deleted transactions older than the cutoff date
+    old_transactions = Transaction.deleted_objects.filter(deleted_at__lt=cutoff_date)
+    deleted_count, _ = old_transactions.hard_delete()
+
+    return f"Hard deleted {deleted_count} objects older than {settings.KEEP_DELETED_TRANSACTIONS_FOR} days."

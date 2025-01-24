@@ -1,0 +1,19 @@
+{% extends 'extends/offcanvas.html' %}
+{% load json %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Add new import profile' %}{% endblock %}
+
+{% block body %}
+{% if message %}
+<div class="alert alert-info" role="alert" id="msg" hx-preserve="true">
+  <h6 class="alert-heading tw-italic tw-font-bold">{% trans 'A message from the author' %}</h6>
+  <hr>
+  <p class="mb-0">{{ message|linebreaksbr }}</p>
+</div>
+{% endif %}
+<form hx-post="{% url 'import_profiles_add' %}" hx-target="#generic-offcanvas" novalidate hx-vals='{"message": {% if message %}{{ message|json }}{% else %}""{% endif %}}'>
+    {% crispy form %}
+</form>
+{% endblock %}

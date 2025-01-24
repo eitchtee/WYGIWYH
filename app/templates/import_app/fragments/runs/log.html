@@ -1,0 +1,13 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Logs for' %} #{{ run.id }}{% endblock %}
+
+{% block body %}
+<div class="card tw-max-h-full tw-overflow-auto">
+  <div class="card-body">
+    {{ run.logs|linebreaks }}
+  </div>
+</div>
+{% endblock %}

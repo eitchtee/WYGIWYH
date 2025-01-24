@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     "apps.accounts.apps.AccountsConfig",
     "apps.common.apps.CommonConfig",
     "apps.net_worth.apps.NetWorthConfig",
+    "apps.import_app.apps.ImportConfig",
     "apps.api.apps.ApiConfig",
     "cachalot",
     "rest_framework",
@@ -72,6 +73,7 @@ INSTALLED_APPS = [
     "apps.rules.apps.RulesConfig",
     "apps.calendar_view.apps.CalendarViewConfig",
     "apps.dca.apps.DcaConfig",
+    "pwa",
 ]
 
 MIDDLEWARE = [
@@ -335,3 +337,47 @@ else:
     }
 
 CACHALOT_UNCACHABLE_TABLES = ("django_migrations", "procrastinate_jobs")
+
+
+# PWA
+PWA_APP_NAME = SITE_TITLE
+PWA_APP_DESCRIPTION = "A simple and powerful finance tracker"
+PWA_APP_THEME_COLOR = "#fbb700"
+PWA_APP_BACKGROUND_COLOR = "#222222"
+PWA_APP_DISPLAY = "standalone"
+PWA_APP_SCOPE = "/"
+PWA_APP_ORIENTATION = "any"
+PWA_APP_START_URL = "/"
+PWA_APP_STATUS_BAR_COLOR = "default"
+PWA_APP_ICONS = [
+    {"src": "/static/img/favicon/android-icon-192x192.png", "sizes": "192x192"}
+]
+PWA_APP_ICONS_APPLE = [
+    {"src": "/static/img/favicon/apple-icon-180x180.png", "sizes": "180x180"}
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        "src": "/static/img/pwa/splash-640x1136.png",
+        "media": "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)",
+    }
+]
+PWA_APP_DIR = "ltr"
+PWA_APP_LANG = "en-US"
+PWA_APP_SHORTCUTS = []
+PWA_APP_SCREENSHOTS = [
+    {
+        "src": "/static/img/pwa/splash-750x1334.png",
+        "sizes": "750x1334",
+        "type": "image/png",
+        "form_factor": "wide",
+    },
+    {
+        "src": "/static/img/pwa/splash-750x1334.png",
+        "sizes": "750x1334",
+        "type": "image/png",
+    },
+]
+PWA_SERVICE_WORKER_PATH = BASE_DIR / "templates" / "pwa" / "serviceworker.js"
+
+ENABLE_SOFT_DELETE = os.getenv("ENABLE_SOFT_DELETE", "false").lower() == "true"
+KEEP_DELETED_TRANSACTIONS_FOR = int(os.getenv("KEEP_DELETED_ENTRIES_FOR", "365"))

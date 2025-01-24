@@ -18,7 +18,7 @@ class AccountGroup(models.Model):
 
 
 class Account(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
     group = models.ForeignKey(
         AccountGroup,
         on_delete=models.SET_NULL,

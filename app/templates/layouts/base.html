@@ -1,3 +1,4 @@
+{% load pwa %}
 {% load formats %}
 {% load i18n %}
 {% load title %}
@@ -15,6 +16,7 @@
     </title>
 
     {% include 'includes/head/favicons.html' %}
+    {% progressive_web_app_meta %}
 
     {% include 'includes/styles.html' %}
     {% block extra_styles %}{% endblock %}
