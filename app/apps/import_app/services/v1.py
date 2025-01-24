@@ -296,14 +296,19 @@ class ImportService:
             for entity_name in entity_names:
                 try:
                     if entities_mapping:
-                        if getattr(entities_mapping, "create", False):
-                            entity, _ = TransactionEntity.objects.get_or_create(
-                                name=entity_name.strip()
-                            )
-                        else:
-                            entity = TransactionEntity.objects.filter(
-                                name=entity_name.strip()
+                        if entities_mapping.type == "id":
+                            entity = TransactionTag.objects.filter(
+                                id=entity_name
                             ).first()
+                        else:  # name
+                            if getattr(entities_mapping, "create", False):
+                                entity, _ = TransactionEntity.objects.get_or_create(
+                                    name=entity_name.strip()
+                                )
+                            else:
+                                entity = TransactionEntity.objects.filter(
+                                    name=entity_name.strip()
+                                ).first()
 
                         if entity:
                             entities.append(entity)
@@ -468,9 +473,7 @@ class ImportService:
             raise ValueError("Invalid transaction type detection method")
         elif coerce_to == "is_paid":
             if isinstance(mapping, version_1.TransactionIsPaidMapping):
-                if mapping.detection_method == "sign":
-                    return not value.startswith("-")
-                elif mapping.detection_method == "boolean":
+                if mapping.detection_method == "boolean":
                     return value.lower() in ["true", "1", "yes", "y", "on"]
                 elif mapping.detection_method == "always_paid":
                     return True

@@ -7,12 +7,6 @@ class CompareDeduplicationRule(BaseModel):
     fields: list[str] = Field(..., description="Compare fields for deduplication")
     match_type: Literal["lax", "strict"] = "lax"
 
-    @field_validator("fields", mode="before")
-    def coerce_fields_to_dict(cls, v):
-        if isinstance(v, list):
-            return {k: v for d in v for k, v in d.items()}
-        return v
-
 
 class ReplaceTransformationRule(BaseModel):
     type: Literal["replace", "regex"] = Field(
@@ -103,7 +97,7 @@ class TransactionTypeMapping(ColumnMapping):
 
 class TransactionIsPaidMapping(ColumnMapping):
     target: Literal["is_paid"] = Field(..., description="Transaction field to map to")
-    detection_method: Literal["sign", "boolean", "always_paid", "always_unpaid"]
+    detection_method: Literal["boolean", "always_paid", "always_unpaid"]
     coerce_to: Literal["is_paid"] = Field("is_paid", frozen=True)
 
 
@@ -151,6 +145,7 @@ class TransactionTagsMapping(ColumnMapping):
 
 class TransactionEntitiesMapping(ColumnMapping):
     target: Literal["entities"] = Field(..., description="Transaction field to map to")
+    type: Literal["id", "name"] = "name"
     create: bool = Field(
         default=True, description="Create new entities if they doesn't exist"
     )
