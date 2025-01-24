@@ -20,7 +20,7 @@
   {% for preset in presets %}
     <a class="text-decoration-none"
        role="button"
-       hx-get="{% url 'import_profiles_add' %}"
+       hx-post="{% url 'import_profiles_add' %}"
        hx-vals='{"yaml_config": {{ preset.config }}, "name": "{{ preset.name }}", "version": "{{ preset.schema_version }}", "message": {{ preset.message }}}'
        hx-target="#generic-offcanvas">
 

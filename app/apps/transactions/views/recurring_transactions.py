@@ -1,5 +1,4 @@
 from dateutil.relativedelta import relativedelta
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -7,7 +6,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
@@ -230,7 +228,6 @@ def recurring_transaction_finish(request, recurring_transaction_id):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def recurring_transaction_delete(request, recurring_transaction_id):
     recurring_transaction = get_object_or_404(
