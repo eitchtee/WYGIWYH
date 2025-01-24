@@ -23,6 +23,12 @@ from apps.transactions.models import (
     TransactionEntity,
 )
 from apps.rules.signals import transaction_created
+from apps.import_app.schemas.v1 import (
+    TransactionCategoryMapping,
+    TransactionAccountMapping,
+    TransactionTagsMapping,
+    TransactionEntitiesMapping,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -184,40 +190,127 @@ class ImportService:
         entities = []
         # Handle related objects first
         if "category" in data:
-            category_name = data.pop("category")
-            category, _ = TransactionCategory.objects.get_or_create(name=category_name)
-            data["category"] = category
-            self.import_run.categories.add(category)
+            if "category" in data:
+                category_name = data.pop("category")
+                category_mapping = next(
+                    (
+                        m
+                        for m in self.mapping.values()
+                        if isinstance(m, TransactionCategoryMapping)
+                        and m.target == "category"
+                    ),
+                    None,
+                )
+                print(category_mapping)
+
+                try:
+                    if category_mapping:
+                        if category_mapping.type == "id":
+                            category = TransactionCategory.objects.get(id=category_name)
+                        else:  # name
+                            if getattr(category_mapping, "create", False):
+                                category, _ = TransactionCategory.objects.get_or_create(
+                                    name=category_name
+                                )
+                            else:
+                                category = TransactionCategory.objects.filter(
+                                    name=category_name
+                                ).first()
+
+                        if category:
+                            data["category"] = category
+                            self.import_run.categories.add(category)
+                except (TransactionCategory.DoesNotExist, ValueError):
+                    # Ignore if category doesn't exist and create is False or not set
+                    data["category"] = None
 
         if "account" in data:
             account_id = data.pop("account")
-            account = None
-            if isinstance(account_id, str):
-                account = Account.objects.get(name=account_id)
-            elif isinstance(account_id, int):
-                account = Account.objects.get(id=account_id)
-            data["account"] = account
-            # self.import_run.acc.add(category)
+            account_mapping = next(
+                (
+                    m
+                    for m in self.mapping.values()
+                    if isinstance(m, TransactionAccountMapping)
+                    and m.target == "account"
+                ),
+                None,
+            )
+
+            try:
+                if account_mapping and account_mapping.type == "id":
+                    account = Account.objects.filter(id=account_id).first()
+                else:  # name
+                    account = Account.objects.filter(name=account_id).first()
+
+                if account:
+                    data["account"] = account
+            except ValueError:
+                # Ignore if account doesn't exist
+                pass
 
         if "tags" in data:
             tag_names = data.pop("tags")
+            tags_mapping = next(
+                (
+                    m
+                    for m in self.mapping.values()
+                    if isinstance(m, TransactionTagsMapping) and m.target == "tags"
+                ),
+                None,
+            )
+
             for tag_name in tag_names:
-                tag, _ = TransactionTag.objects.get_or_create(name=tag_name.strip())
-                tags.append(tag)
-                self.import_run.tags.add(tag)
+                try:
+                    if tags_mapping:
+                        if tags_mapping.type == "id":
+                            tag = TransactionTag.objects.filter(id=tag_name).first()
+                        else:  # name
+                            if getattr(tags_mapping, "create", False):
+                                tag, _ = TransactionTag.objects.get_or_create(
+                                    name=tag_name.strip()
+                                )
+                            else:
+                                tag = TransactionTag.objects.filter(
+                                    name=tag_name.strip()
+                                ).first()
+
+                        if tag:
+                            tags.append(tag)
+                            self.import_run.tags.add(tag)
+                except ValueError:
+                    # Ignore if tag doesn't exist and create is False or not set
+                    continue
 
         if "entities" in data:
             entity_names = data.pop("entities")
-            for entity_name in entity_names:
-                entity, _ = TransactionEntity.objects.get_or_create(
-                    name=entity_name.strip()
-                )
-                entities.append(entity)
-                self.import_run.entities.add(entity)
+            entities_mapping = next(
+                (
+                    m
+                    for m in self.mapping.values()
+                    if isinstance(m, TransactionEntitiesMapping)
+                    and m.target == "entities"
+                ),
+                None,
+            )
 
-        if "amount" in data:
-            amount = data.pop("amount")
-            data["amount"] = abs(Decimal(amount))
+            for entity_name in entity_names:
+                try:
+                    if entities_mapping:
+                        if getattr(entities_mapping, "create", False):
+                            entity, _ = TransactionEntity.objects.get_or_create(
+                                name=entity_name.strip()
+                            )
+                        else:
+                            entity = TransactionEntity.objects.filter(
+                                name=entity_name.strip()
+                            ).first()
+
+                        if entity:
+                            entities.append(entity)
+                            self.import_run.entities.add(entity)
+                except ValueError:
+                    # Ignore if entity doesn't exist and create is False or not set
+                    continue
 
         # Create the transaction
         new_transaction = Transaction.objects.create(**data)
@@ -308,31 +401,23 @@ class ImportService:
 
         coerce_to = mapping.coerce_to
 
-        if "|" in coerce_to:
-            types = coerce_to.split("|")
-            for t in types:
-                try:
-                    return self._coerce_single_type(value, t, mapping)
-                except ValueError:
-                    continue
-            raise ValueError(
-                f"Could not coerce '{value}' to any of the types: {coerce_to}"
-            )
-        else:
-            return self._coerce_single_type(value, coerce_to, mapping)
+        return self._coerce_single_type(value, coerce_to, mapping)
 
+    @staticmethod
     def _coerce_single_type(
-        self, value: str, coerce_to: str, mapping: version_1.ColumnMapping
+        value: str, coerce_to: str, mapping: version_1.ColumnMapping
     ) -> Union[str, int, bool, Decimal, datetime.date, list]:
         if coerce_to == "str":
             return str(value)
         elif coerce_to == "int":
+            return int(value)
+        elif coerce_to == "str|int":
             if hasattr(mapping, "type") and mapping.type == "id":
                 return int(value)
             elif hasattr(mapping, "type") and mapping.type in ["name", "code"]:
                 return str(value)
             else:
-                return int(value)
+                return str(value)
         elif coerce_to == "bool":
             return value.lower() in ["true", "1", "yes", "y", "on"]
         elif coerce_to == "positive_decimal":
