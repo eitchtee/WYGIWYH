@@ -31,7 +31,9 @@ class ImportProfile(models.Model):
                 yaml_data = yaml.safe_load(self.yaml_config)
                 version_1.ImportProfileSchema(**yaml_data)
             except Exception as e:
-                raise ValidationError({"yaml_config": _("Invalid YAML Configuration")})
+                raise ValidationError(
+                    {"yaml_config": _("Invalid YAML Configuration: ") + str(e)}
+                )
 
 
 class ImportRun(models.Model):
@@ -79,9 +81,3 @@ class ImportRun(models.Model):
     failed_rows = models.IntegerField(default=0)
     started_at = models.DateTimeField(null=True)
     finished_at = models.DateTimeField(null=True)
-
-    @property
-    def progress(self):
-        if self.total_rows == 0:
-            return 0
-        return (self.processed_rows / self.total_rows) * 100
