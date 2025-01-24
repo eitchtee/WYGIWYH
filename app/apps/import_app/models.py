@@ -9,7 +9,7 @@ from apps.import_app.schemas import version_1
 
 class ImportProfile(models.Model):
     class Versions(models.IntegerChoices):
-        VERSION_1 = 1, _("Version") + " 1"
+        VERSION_1 = 1, "Version 1"
 
     name = models.CharField(max_length=100, verbose_name=_("Name"), unique=True)
     yaml_config = models.TextField(verbose_name=_("YAML Configuration"))
@@ -24,6 +24,10 @@ class ImportProfile(models.Model):
 
     class Meta:
         ordering = ["name"]
+
+    def get_version_display(self):
+        version_number = self.Versions(self.version).name.split("_")[1]
+        return _("Version {number}").format(number=version_number)
 
     def clean(self):
         if self.version and self.version == self.Versions.VERSION_1:
