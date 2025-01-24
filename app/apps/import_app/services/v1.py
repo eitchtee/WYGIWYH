@@ -285,7 +285,7 @@ class ImportService:
                 query = Transaction.all_objects.all().values("id")
 
                 # Build query conditions for each field in the rule
-                for field, header in rule.fields.items():
+                for field in rule.fields:
                     if field in transaction_data:
                         if rule.match_type == "strict":
                             query = query.filter(**{field: transaction_data[field]})

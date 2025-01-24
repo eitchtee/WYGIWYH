@@ -4,10 +4,8 @@ from pydantic import BaseModel, Field, model_validator, field_validator
 
 class CompareDeduplicationRule(BaseModel):
     type: Literal["compare"]
-    fields: Dict = Field(
-        ..., description="Match header and fields to compare for deduplication"
-    )
-    match_type: Literal["lax", "strict"]
+    fields: list[str] = Field(..., description="Compare fields for deduplication")
+    match_type: Literal["lax", "strict"] = "lax"
 
     @field_validator("fields", mode="before")
     def coerce_fields_to_dict(cls, v):
