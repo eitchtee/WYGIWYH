@@ -1,0 +1,54 @@
+settings:
+  file_type: csv
+  delimiter: ","
+  encoding: utf-8
+  skip_lines: 0
+  importing: transactions
+  trigger_transaction_rules: true
+  skip_errors: true
+
+mapping:
+  account:
+    target: account
+    default: <NOME DA SUA CONTA>
+    type: name
+
+  date:
+    target: date
+    source: Data
+    format: "%d/%m/%Y"
+
+  amount:
+    target: amount
+    source: Valor
+
+  description:
+    target: description
+    source: Descrição
+    transformations:
+      - type: split
+        separator: " - "
+        index: 0
+
+  type:
+    source: "Valor"
+    target: "type"
+    detection_method: sign
+
+  notes:
+    target: notes
+    source: Notes
+
+  internal_id:
+    target: internal_id
+    source: Identificador
+
+  is_paid:
+    target: is_paid
+    detection_method: always_paid
+
+deduplicate:
+  - type: compare
+    fields:
+      - internal_id
+    match_type: lax
