@@ -378,5 +378,5 @@ PWA_APP_SCREENSHOTS = [
     },
 ]
 
-ENABLE_SOFT_DELETE = os.getenv("ENABLE_SOFT_DELETION", "false").lower() == "true"
+ENABLE_SOFT_DELETE = os.getenv("ENABLE_SOFT_DELETE", "false").lower() == "true"
 KEEP_DELETED_TRANSACTIONS_FOR = int(os.getenv("KEEP_DELETED_ENTRIES_FOR", "365"))
