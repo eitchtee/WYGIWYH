@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline</title>
+    <style>
+        .offline, body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            color: #fbb700;
+            font-family: Arial, sans-serif;
+        }
+        .wifi-icon {
+            width: 100px;
+            height: 100px;
+        }
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .flashing {
+            animation: flash 1s infinite;
+        }
+        #offline-countdown {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+  <div class="offline">
+    <svg class="wifi-icon flashing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" fill="#fbb700"/>
+        <path d="M23 21L1 3" stroke="#fbb700" stroke-width="2"/>
+    </svg>
+    <p>Either you or your WYGIWYH instance is offline.</p>
+    <div id="offline-countdown"></div>
+  </div>
+
+  <script>
+    function attemptReload() {
+        const countdownElement = document.getElementById('offline-countdown');
+        let secondsLeft = 30;
+
+        function updateCountdown() {
+            countdownElement.textContent = `Retrying in ${secondsLeft} seconds...`;
+            secondsLeft--;
+
+            if (secondsLeft < 0) {
+                window.location.reload();
+            } else {
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+        updateCountdown();
+    }
+
+    // Start the reload attempt process immediately
+    attemptReload();
+
+    // Also attempt reload when coming back online
+    window.addEventListener('online', () => {
+        window.location.reload();
+    });
+
+    // For HTMX compatibility
+    document.body.addEventListener('htmx:load', attemptReload);
+  </script>
+</body>
+</html>
