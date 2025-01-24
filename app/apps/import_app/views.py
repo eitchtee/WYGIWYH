@@ -33,7 +33,6 @@ def import_view(request):
 @require_http_methods(["GET"])
 def import_presets_list(request):
     presets = PresetService.get_all_presets()
-    print(presets)
     return render(
         request,
         "import_app/fragments/profiles/list_presets.html",
@@ -83,7 +82,6 @@ def import_profile_add(request):
                 },
             )
     else:
-        print(int(request.GET.get("version", 1)))
         form = ImportProfileForm(
             initial={
                 "name": request.GET.get("name"),

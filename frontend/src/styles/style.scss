@@ -53,3 +53,27 @@ select[multiple] {
 .transaction:has(input[type="checkbox"]:checked) > .transaction-item {
   background-color: $primary-bg-subtle-dark;
 }
+
+.offline {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #222;
+  color: #fbb700;
+  font-family: Arial, sans-serif;
+}
+
+.wifi-icon {
+  width: 100px;
+  height: 100px;
+}
+
+#offline-countdown {
+  margin-top: 20px;
+  font-size: 14px;
+}

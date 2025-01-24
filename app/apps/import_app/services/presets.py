@@ -38,7 +38,7 @@ class PresetService:
                             preset["schema_version"]
                         )  # Check if schema version is valid
                     except Exception as e:
-                        print(e)
+                        pass
                     else:
                         presets.append(preset)
 

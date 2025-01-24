@@ -201,7 +201,6 @@ class ImportService:
                     ),
                     None,
                 )
-                print(category_mapping)
 
                 try:
                     if category_mapping:
