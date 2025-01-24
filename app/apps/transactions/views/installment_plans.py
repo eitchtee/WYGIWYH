@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
@@ -152,7 +151,6 @@ def installment_plan_refresh(request, installment_plan_id):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def installment_plan_delete(request, installment_plan_id):
     installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)

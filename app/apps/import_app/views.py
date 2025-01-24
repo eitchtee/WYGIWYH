@@ -5,15 +5,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
 from apps.import_app.forms import ImportRunFileUploadForm, ImportProfileForm
 from apps.import_app.models import ImportRun, ImportProfile
-from apps.import_app.tasks import process_import
 from apps.import_app.services import PresetService
+from apps.import_app.tasks import process_import
 
 
 def import_view(request):
@@ -66,9 +65,9 @@ def import_profile_list(request):
 @login_required
 @require_http_methods(["GET", "POST"])
 def import_profile_add(request):
-    message = request.GET.get("message", None) or request.POST.get("message", None)
+    message = request.POST.get("message", None)
 
-    if request.method == "POST":
+    if request.method == "POST" and request.POST.get("submit"):
         form = ImportProfileForm(request.POST)
 
         if form.is_valid():
@@ -84,9 +83,9 @@ def import_profile_add(request):
     else:
         form = ImportProfileForm(
             initial={
-                "name": request.GET.get("name"),
-                "version": int(request.GET.get("version", 1)),
-                "yaml_config": request.GET.get("yaml_config"),
+                "name": request.POST.get("name"),
+                "version": int(request.POST.get("version", 1)),
+                "yaml_config": request.POST.get("yaml_config"),
             }
         )
 
@@ -128,7 +127,6 @@ def import_profile_edit(request, profile_id):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def import_profile_delete(request, profile_id):
     profile = ImportProfile.objects.get(id=profile_id)
@@ -213,7 +211,6 @@ def import_run_add(request, profile_id):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def import_run_delete(request, profile_id, run_id):
     run = ImportRun.objects.get(profile__id=profile_id, id=run_id)
