@@ -1,8 +1,0 @@
-{% extends "layouts/base.html" %}
-{% load i18n %}
-
-{% block title %}{% translate 'Import Runs' %}{% endblock %}
-
-{% block content %}
-<div hx-get="{% url 'impor' %}" hx-trigger="load, updated from:window" class="show-loading"></div>
-{% endblock %}

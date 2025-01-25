@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
@@ -110,7 +109,6 @@ def entity_edit(request, entity_id):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def entity_delete(request, entity_id):
     entity = get_object_or_404(TransactionEntity, id=entity_id)

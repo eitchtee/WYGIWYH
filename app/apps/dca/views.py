@@ -6,12 +6,11 @@ from django.db.models.functions import TruncMonth
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
-from apps.dca.models import DCAStrategy, DCAEntry
 from apps.dca.forms import DCAEntryForm, DCAStrategyForm
+from apps.dca.models import DCAStrategy, DCAEntry
 
 
 @login_required
@@ -82,7 +81,6 @@ def strategy_edit(request, strategy_id):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def strategy_delete(request, strategy_id):
     dca_strategy = get_object_or_404(DCAStrategy, id=strategy_id)
@@ -209,7 +207,6 @@ def strategy_entry_edit(request, strategy_id, entry_id):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def strategy_entry_delete(request, entry_id, strategy_id):
     dca_entry = get_object_or_404(DCAEntry, id=entry_id, strategy__id=strategy_id)

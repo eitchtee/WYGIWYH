@@ -14,8 +14,7 @@
             <div class="d-flex mb-3 align-self-center">
               <div class="me-auto"><h4><i class="fa-solid fa-filter me-2"></i>{% translate 'Filter' %}</h4></div>
               <div class="align-self-center">
-                <a href="{% url 'transactions_all_index' %}" type="button" class="btn btn-outline-danger btn-sm"
-                   hx-target="body" hx-boost="true">{% translate 'Clear' %}</a>
+                <button class="btn btn-outline-danger btn-sm" _="on click call #filter.reset() then trigger change on #filter">{% translate 'Clear' %}</button>
               </div>
             </div>
             <hr>

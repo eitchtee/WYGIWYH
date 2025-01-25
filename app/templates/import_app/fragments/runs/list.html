@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{% translate 'Runs for ' %}{{ profile.name }}{% endblock %}
+{% block title %}{% translate 'Runs for' %} {{ profile.name }}{% endblock %}
 
 {% block body %}
   <div hx-get="{% url "import_profile_runs_list" profile_id=profile.id %}"
