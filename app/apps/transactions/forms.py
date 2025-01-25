@@ -115,7 +115,7 @@ class TransactionForm(forms.ModelForm):
                 "type",
                 template="transactions/widgets/income_expense_toggle_buttons.html",
             ),
-            Switch("is_paid"),
+            Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
             Row(
                 Column("account", css_class="form-group col-md-6 mb-0"),
                 Column("entities", css_class="form-group col-md-6 mb-0"),
