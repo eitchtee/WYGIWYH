@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load crispy_forms_field %}
+
+<div class="form-group mb-3">
+    <div class="btn-group w-100" role="group" aria-label="{{ field.label }}">
+        <input type="radio" class="btn-check" name="{{ field.name }}" id="{{ field.id_for_label }}_null"
+               value="" {% if field.value is None %}checked{% endif %}>
+        <label class="btn btn-outline-secondary w-100" for="{{ field.id_for_label }}_null">{% trans 'Unchaged' %}</label>
+
+        <input type="radio" class="btn-check" name="{{ field.name }}" id="{{ field.id_for_label }}_false"
+               value="false" {% if field.value is False %}checked{% endif %}">
+        <label class="btn btn-outline-primary w-100" for="{{ field.id_for_label }}_false">{% trans 'Projected' %}</label>
+
+        <input type="radio" class="btn-check" name="{{ field.name }}" id="{{ field.id_for_label }}_true"
+               value="true" {% if field.value is True %}checked{% endif %}>
+        <label class="btn btn-outline-success w-100" for="{{ field.id_for_label }}_true">{% trans 'Paid' %}</label>
+    </div>
+
+    {% if field.help_text %}
+        <div class="help-text">{{ field.help_text|safe }}</div>
+    {% endif %}
+</div>

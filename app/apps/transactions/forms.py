@@ -223,6 +223,43 @@ class TransactionForm(forms.ModelForm):
         return instance
 
 
+class BulkEditTransactionForm(TransactionForm):
+    is_paid = forms.NullBooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Make all fields optional
+        for field_name, field in self.fields.items():
+            field.required = False
+
+        del self.helper.layout[-1]  # Remove button
+        del self.helper.layout[0:2]  # Remove type, is_paid field
+
+        self.helper.layout.insert(
+            0,
+            Field(
+                "type",
+                template="transactions/widgets/unselectable_income_expense_toggle_buttons.html",
+            ),
+        )
+
+        self.helper.layout.insert(
+            1,
+            Field(
+                "is_paid",
+                template="transactions/widgets/unselectable_paid_toggle_button.html",
+            ),
+        )
+
+        self.helper.layout.append(
+            FormActions(
+                NoClassSubmit(
+                    "submit", _("Update"), css_class="btn btn-outline-primary w-100"
+                ),
+            ),
+        )
+
+
 class TransferForm(forms.Form):
     from_account = forms.ModelChoiceField(
         queryset=Account.objects.filter(is_archived=False),
