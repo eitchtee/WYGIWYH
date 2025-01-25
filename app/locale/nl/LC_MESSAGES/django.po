@@ -6,21 +6,30 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD
+"POT-Creation-Date: 2025-01-22 13:17+0000\n"
+"PO-Revision-Date: 2025-01-25 18:43+0100\n"
+"Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
+"Language-Team: \n"
+"Language: nl\n"
+=======
 "POT-Creation-Date: 2025-01-25 16:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
+>>>>>>> c9d1b5b5f39ec7c11a75a90d37c0a99ad6976b1d
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
-msgstr ""
+msgstr "Groepsnaam"
 
 #: apps/accounts/forms.py:40 apps/accounts/forms.py:96
 #: apps/currencies/forms.py:52 apps/currencies/forms.py:92 apps/dca/forms.py:41
@@ -30,7 +39,7 @@ msgstr ""
 #: apps/transactions/forms.py:626 apps/transactions/forms.py:658
 #: apps/transactions/forms.py:693 apps/transactions/forms.py:831
 msgid "Update"
-msgstr ""
+msgstr "Bijwerken"
 
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:104
 #: apps/common/widgets/tom_select.py:12 apps/currencies/forms.py:60
@@ -55,15 +64,15 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/rules/fragments/list.html:9 templates/tags/fragments/list.html:9
 msgid "Add"
-msgstr ""
+msgstr "Toevoegen"
 
 #: apps/accounts/forms.py:57 templates/accounts/fragments/list.html:26
 msgid "Group"
-msgstr ""
+msgstr "Groep"
 
 #: apps/accounts/forms.py:113
 msgid "New balance"
-msgstr ""
+msgstr "Nieuw saldo"
 
 #: apps/accounts/forms.py:119 apps/rules/models.py:27
 #: apps/transactions/forms.py:39 apps/transactions/forms.py:291
@@ -71,7 +80,7 @@ msgstr ""
 #: apps/transactions/forms.py:725 apps/transactions/models.py:159
 #: apps/transactions/models.py:311 apps/transactions/models.py:491
 msgid "Category"
-msgstr ""
+msgstr "Categorie"
 
 #: apps/accounts/forms.py:126 apps/rules/models.py:28
 #: apps/transactions/filters.py:74 apps/transactions/forms.py:47
@@ -81,7 +90,7 @@ msgstr ""
 #: apps/transactions/models.py:495 templates/includes/navbar.html:98
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
-msgstr ""
+msgstr "Labels"
 
 #: apps/accounts/models.py:9 apps/accounts/models.py:21 apps/dca/models.py:14
 #: apps/import_app/models.py:14 apps/rules/models.py:9
@@ -98,58 +107,63 @@ msgstr ""
 #: templates/rules/fragments/list.html:26
 #: templates/tags/fragments/table.html:16
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:25
 msgid "Account Group"
-msgstr ""
+msgstr "Accountgroep"
 
 #: apps/accounts/models.py:13 templates/account_groups/fragments/list.html:5
 #: templates/account_groups/pages/index.html:4
 #: templates/includes/navbar.html:108
 msgid "Account Groups"
-msgstr ""
+msgstr "Accountgroepen"
 
 #: apps/accounts/models.py:31 apps/currencies/models.py:32
 #: templates/accounts/fragments/list.html:27
 msgid "Currency"
-msgstr ""
+msgstr "Munteenheid"
 
 #: apps/accounts/models.py:37 apps/currencies/models.py:20
 #: templates/accounts/fragments/list.html:28
 msgid "Exchange Currency"
-msgstr ""
+msgstr "Eenheid Wisselgeld"
 
 #: apps/accounts/models.py:42 apps/currencies/models.py:25
+#, fuzzy
 msgid "Default currency for exchange calculations"
-msgstr ""
+msgstr "Standaard munteenheid voor wisselberekeningen"
 
 #: apps/accounts/models.py:47
 msgid "Asset account"
-msgstr ""
+msgstr "Vermogensrekening"
 
 #: apps/accounts/models.py:49
 msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
 msgstr ""
+"Vermogensrekeningen tellen mee voor je 'Netto Waarde', maar niet voor je "
+"maand."
 
 #: apps/accounts/models.py:54 templates/accounts/fragments/list.html:30
 #: templates/categories/fragments/list.html:24
 #: templates/entities/fragments/list.html:24
 #: templates/tags/fragments/list.html:24
 msgid "Archived"
-msgstr ""
+msgstr "Gearchiveerd"
 
 #: apps/accounts/models.py:55
 msgid "Archived accounts don't show up nor count towards your net worth"
 msgstr ""
+"Gearchiveerde rekeningen worden niet weergegeven en tellen niet mee voor je "
+"\"Netto Waarde\"."
 
 #: apps/accounts/models.py:59 apps/rules/models.py:19
 #: apps/transactions/forms.py:59 apps/transactions/forms.py:463
 #: apps/transactions/forms.py:710 apps/transactions/models.py:132
 #: apps/transactions/models.py:271 apps/transactions/models.py:473
 msgid "Account"
-msgstr ""
+msgstr "Rekening"
 
 #: apps/accounts/models.py:60 apps/transactions/filters.py:53
 #: templates/accounts/fragments/list.html:5
@@ -157,195 +171,200 @@ msgstr ""
 #: templates/includes/navbar.html:106
 #: templates/transactions/fragments/summary.html:9
 msgid "Accounts"
-msgstr ""
+msgstr "Rekeningen"
 
 #: apps/accounts/models.py:71
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr ""
+"Eenheid wisselgeld kan niet dezelfde zijn als de munteenheid van de rekening."
 
 #: apps/accounts/views/account_groups.py:42
 msgid "Account Group added successfully"
-msgstr ""
+msgstr "Rekeninggroep succesvol toegevoegd"
 
 #: apps/accounts/views/account_groups.py:70
 msgid "Account Group updated successfully"
-msgstr ""
+msgstr "Rekeninggroep succesvol bijgewerkt"
 
 #: apps/accounts/views/account_groups.py:96
 msgid "Account Group deleted successfully"
-msgstr ""
+msgstr "Rekeninggroep succesvol verwijderd"
 
 #: apps/accounts/views/accounts.py:42
 msgid "Account added successfully"
-msgstr ""
+msgstr "Rekening succesvol toegevoegd"
 
 #: apps/accounts/views/accounts.py:70
 msgid "Account updated successfully"
-msgstr ""
+msgstr "Rekening succesvol bijgewerkt"
 
 #: apps/accounts/views/accounts.py:96
 msgid "Account deleted successfully"
-msgstr ""
+msgstr "Rekening succesvol verwijderd"
 
 #: apps/accounts/views/balance.py:77
+#, fuzzy
 msgid "Balance reconciliation"
-msgstr ""
+msgstr "Saldi afstemming"
 
 #: apps/accounts/views/balance.py:85
+#, fuzzy
 msgid "Account balances have been reconciled successfully"
-msgstr ""
+msgstr "Rekeningsaldi zijn succesvol afgestemd"
 
 #: apps/api/fields/transactions.py:29
 msgid "Category with this ID does not exist."
-msgstr ""
+msgstr "De categorie met deze ID bestaat niet."
 
 #: apps/api/fields/transactions.py:35
 msgid "Invalid category data. Provide an ID or name."
-msgstr ""
+msgstr "Ongeldige categoriegegevens. Geef een ID of naam op."
 
 #: apps/api/fields/transactions.py:65
 msgid "Tag with this ID does not exist."
-msgstr ""
+msgstr "Label met dit ID bestaat niet."
 
 #: apps/api/fields/transactions.py:71
 msgid "Invalid tag data. Provide an ID or name."
-msgstr ""
+msgstr "Ongeldige labelgegevens. Geef een ID of naam op."
 
 #: apps/api/fields/transactions.py:89
 msgid "Entity with this ID does not exist."
-msgstr ""
+msgstr "Bedrijf met dit ID bestaat niet."
 
 #: apps/api/fields/transactions.py:95
 msgid "Invalid entity data. Provide an ID or name."
-msgstr ""
+msgstr "Ongeldige bedrijfsgegevens. Geef een ID of naam op."
 
 #: apps/api/serializers/transactions.py:168
 msgid "Either 'date' or 'reference_date' must be provided."
-msgstr ""
+msgstr "'datum' of 'referentiedatum' moet worden opgegeven."
 
 #: apps/common/fields/forms/dynamic_select.py:127
 #: apps/common/fields/forms/dynamic_select.py:163
 msgid "Error creating new instance"
-msgstr ""
+msgstr "Fout bij het aanmaken van een nieuwe instantie"
 
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:91 apps/common/widgets/tom_select.py:94
 msgid "Ungrouped"
-msgstr ""
+msgstr "Niet gegroepeerd"
 
 #: apps/common/fields/month_year.py:23 apps/common/fields/month_year.py:51
 msgid "Invalid date format. Use YYYY-MM."
-msgstr ""
+msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM."
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:9
 msgid "today"
-msgstr ""
+msgstr "vandaag"
 
 #: apps/common/templatetags/natural.py:22
 msgid "tomorrow"
-msgstr ""
+msgstr "morgen"
 
 #: apps/common/templatetags/natural.py:24
 msgid "yesterday"
-msgstr ""
+msgstr "gisteren"
 
 #: apps/common/templatetags/natural.py:26
 msgid "last 7 days"
-msgstr ""
+msgstr "afgelopen 7 dagen"
 
 #: apps/common/templatetags/natural.py:28
 msgid "in the next 7 days"
-msgstr ""
+msgstr "in de komende 7 dagen"
 
 #: apps/common/templatetags/natural.py:31
 #, python-format
 msgid "%(years)s year ago"
 msgid_plural "%(years)s years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(years)s jaar geleden"
+msgstr[1] "%(years)s jaren geleden"
 
 #: apps/common/templatetags/natural.py:37
 #, python-format
 msgid "%(months)s month ago"
 msgid_plural "%(months)s months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(months)s maand geleden"
+msgstr[1] "%(months)s maanden geleden"
 
 #: apps/common/templatetags/natural.py:41
 #, python-format
 msgid "%(weeks)s week ago"
 msgid_plural "%(weeks)s weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(weeks)s week geleden"
+msgstr[1] "%(weeks)s weken geleden"
 
 #: apps/common/templatetags/natural.py:46
 #, python-format
 msgid "in %(years)s year"
 msgid_plural "in %(years)s years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %(years)s jaar"
+msgstr[1] "over %(years)s jaren"
 
 #: apps/common/templatetags/natural.py:51
 #, python-format
 msgid "in %(months)s month"
 msgid_plural "in %(months)s months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %(months)s  maand"
+msgstr[1] "over %(months)s  maanden"
 
 #: apps/common/templatetags/natural.py:56
 #, python-format
 msgid "in %(weeks)s week"
 msgid_plural "in %(weeks)s weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "over %(weeks)s week"
+msgstr[1] "over %(weeks)s weken"
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
-msgstr ""
+msgstr "Succes"
 
 #: apps/common/templatetags/toast_bg.py:36
 msgid "Warning"
-msgstr ""
+msgstr "Waarschuwing"
 
 #: apps/common/templatetags/toast_bg.py:38
 msgid "Error"
-msgstr ""
+msgstr "Fout"
 
 #: apps/common/templatetags/toast_bg.py:40
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: apps/common/widgets/datepicker.py:55 apps/common/widgets/datepicker.py:197
 msgid "Today"
-msgstr ""
+msgstr "Vandaag"
 
 #: apps/common/widgets/datepicker.py:139
 msgid "Now"
-msgstr ""
+msgstr "Nu"
 
 #: apps/common/widgets/tom_select.py:10
 msgid "Remove"
-msgstr ""
+msgstr "Verwijder"
 
 #: apps/common/widgets/tom_select.py:14
 #: templates/mini_tools/unit_price_calculator.html:174
 #: templates/monthly_overview/pages/overview.html:132
 #: templates/transactions/pages/transactions.html:17
 msgid "Clear"
-msgstr ""
+msgstr "Leegmaken"
 
 #: apps/common/widgets/tom_select.py:15
 msgid "No results..."
-msgstr ""
+msgstr "Geen resultaten..."
 
 #: apps/currencies/forms.py:16 apps/currencies/models.py:15
+#, fuzzy
 msgid "Prefix"
-msgstr ""
+msgstr "Voorvoegsel"
 
 #: apps/currencies/forms.py:17 apps/currencies/models.py:16
+#, fuzzy
 msgid "Suffix"
-msgstr ""
+msgstr "Achtervoegsel"
 
 #: apps/currencies/forms.py:68 apps/dca/models.py:156 apps/rules/models.py:22
 #: apps/transactions/forms.py:63 apps/transactions/forms.py:319
@@ -353,19 +372,21 @@ msgstr ""
 #: templates/dca/fragments/strategy/details.html:53
 #: templates/exchange_rates/fragments/table.html:11
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: apps/currencies/models.py:8
+#, fuzzy
 msgid "Currency Code"
-msgstr ""
+msgstr "Munteenheids Code"
 
 #: apps/currencies/models.py:9
+#, fuzzy
 msgid "Currency Name"
-msgstr ""
+msgstr "Munteenheids Naam"
 
 #: apps/currencies/models.py:13
 msgid "Decimal Places"
-msgstr ""
+msgstr "Cijfers na de komma"
 
 #: apps/currencies/models.py:33 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
@@ -373,135 +394,135 @@ msgstr ""
 #: templates/includes/navbar.html:114
 #: templates/transactions/fragments/summary.html:6
 msgid "Currencies"
-msgstr ""
+msgstr "Munteenheden"
 
 #: apps/currencies/models.py:41
 msgid "Currency cannot have itself as exchange currency."
-msgstr ""
+msgstr "Munteenheid kan zichzelf niet als ruilmiddel hebben."
 
 #: apps/currencies/models.py:52
 msgid "From Currency"
-msgstr ""
+msgstr "Van Munteenheid"
 
 #: apps/currencies/models.py:58
 msgid "To Currency"
-msgstr ""
+msgstr "Naar Munteenheid"
 
 #: apps/currencies/models.py:61 apps/currencies/models.py:66
 msgid "Exchange Rate"
-msgstr ""
+msgstr "Wisselkoers"
 
 #: apps/currencies/models.py:63
 msgid "Date and Time"
-msgstr ""
+msgstr "Datum en Tijd"
 
 #: apps/currencies/models.py:67 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:116
 msgid "Exchange Rates"
-msgstr ""
+msgstr "Wisselkoersen"
 
 #: apps/currencies/models.py:77
 msgid "From and To currencies cannot be the same."
-msgstr ""
+msgstr "Van en Naar munteenheid kunnen niet dezelfde zijn."
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
-msgstr ""
+msgstr "Munteenheid succesvol toegevoegd"
 
 #: apps/currencies/views/currencies.py:70
 msgid "Currency updated successfully"
-msgstr ""
+msgstr "Munteenheid succesvol bijgewerkt"
 
 #: apps/currencies/views/currencies.py:96
 msgid "Currency deleted successfully"
-msgstr ""
+msgstr "Munteenheid succesvol verwijderd"
 
 #: apps/currencies/views/exchange_rates.py:89
 msgid "Exchange rate added successfully"
-msgstr ""
+msgstr "Wisselkoers succesvol toegevoegd"
 
 #: apps/currencies/views/exchange_rates.py:117
 msgid "Exchange rate updated successfully"
-msgstr ""
+msgstr "Wisselkoers succesvol bijgewerkt"
 
 #: apps/currencies/views/exchange_rates.py:143
 msgid "Exchange rate deleted successfully"
-msgstr ""
+msgstr "Wisselkoers succesvol verwijderd"
 
 #: apps/dca/models.py:17
 msgid "Target Currency"
-msgstr ""
+msgstr "Doel Munteenheid"
 
 #: apps/dca/models.py:23
 msgid "Payment Currency"
-msgstr ""
+msgstr "Betaal Munteenheid"
 
 #: apps/dca/models.py:27 apps/dca/models.py:179 apps/rules/models.py:26
 #: apps/transactions/forms.py:333 apps/transactions/models.py:155
 #: apps/transactions/models.py:320 apps/transactions/models.py:501
 msgid "Notes"
-msgstr ""
+msgstr "Opmerkingen"
 
 #: apps/dca/models.py:32
 msgid "DCA Strategy"
-msgstr ""
+msgstr "DCA Strategie"
 
 #: apps/dca/models.py:33
 msgid "DCA Strategies"
-msgstr ""
+msgstr "DCA Strategieën"
 
 #: apps/dca/models.py:154
 msgid "Strategy"
-msgstr ""
+msgstr "Strategie"
 
 #: apps/dca/models.py:158 templates/dca/fragments/strategy/details.html:55
 msgid "Amount Paid"
-msgstr ""
+msgstr "Betaald bedrag"
 
 #: apps/dca/models.py:161 templates/dca/fragments/strategy/details.html:54
 msgid "Amount Received"
-msgstr ""
+msgstr "Ontvangen bedrag"
 
 #: apps/dca/models.py:169
 msgid "Expense Transaction"
-msgstr ""
+msgstr "Uitgave Transactie"
 
 #: apps/dca/models.py:177
 msgid "Income Transaction"
-msgstr ""
+msgstr "Ontvangsten Transactie"
 
 #: apps/dca/models.py:184
 msgid "DCA Entry"
-msgstr ""
+msgstr "DCA Instap"
 
 #: apps/dca/models.py:185
 msgid "DCA Entries"
-msgstr ""
+msgstr "DCA Idems"
 
 #: apps/dca/views.py:37
 msgid "DCA Strategy added successfully"
-msgstr ""
+msgstr "Strategie voor DCA succesvol toegevoegd"
 
 #: apps/dca/views.py:64
 msgid "DCA Strategy updated successfully"
-msgstr ""
+msgstr "Strategie voor DCA succesvol bijgewerkt"
 
 #: apps/dca/views.py:90
 msgid "DCA strategy deleted successfully"
-msgstr ""
+msgstr "Strategie voor DCA succesvol verwijderd"
 
 #: apps/dca/views.py:163
 msgid "Entry added successfully"
-msgstr ""
+msgstr "Item succesvol toegevoegd"
 
 #: apps/dca/views.py:190
 msgid "Entry updated successfully"
-msgstr ""
+msgstr "Item succesvol bijgewerkt"
 
 #: apps/dca/views.py:216
 msgid "Entry deleted successfully"
-msgstr ""
+msgstr "Item succesvol verwijderd"
 
 #: apps/import_app/forms.py:49
 msgid "Select a file"
@@ -579,61 +600,61 @@ msgstr ""
 
 #: apps/rules/forms.py:20
 msgid "Run on creation"
-msgstr ""
+msgstr "Uitvoeren na het aanmaken"
 
 #: apps/rules/forms.py:21
 msgid "Run on update"
-msgstr ""
+msgstr "Uitvoeren na het bijwerken"
 
 #: apps/rules/forms.py:22
 msgid "If..."
-msgstr ""
+msgstr "Als..."
 
 #: apps/rules/forms.py:64
 msgid "Set field"
-msgstr ""
+msgstr "Veld instellen"
 
 #: apps/rules/forms.py:65
 msgid "To"
-msgstr ""
+msgstr "Naar"
 
 #: apps/rules/forms.py:115
 msgid "A value for this field already exists in the rule."
-msgstr ""
+msgstr "Een waarde voor dit veld bestaat al in de regel."
 
 #: apps/rules/models.py:10 apps/rules/models.py:25
 #: apps/transactions/forms.py:325 apps/transactions/models.py:153
 #: apps/transactions/models.py:278 apps/transactions/models.py:487
 msgid "Description"
-msgstr ""
+msgstr "Beschrijving"
 
 #: apps/rules/models.py:11
 msgid "Trigger"
-msgstr ""
+msgstr "Trigger"
 
 #: apps/rules/models.py:20 apps/transactions/models.py:139
 #: apps/transactions/models.py:276 apps/transactions/models.py:479
 msgid "Type"
-msgstr ""
+msgstr "Soort"
 
 #: apps/rules/models.py:21 apps/transactions/filters.py:23
 #: apps/transactions/models.py:141
 #: templates/transactions/widgets/paid_toggle_button.html:12
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:16
 msgid "Paid"
-msgstr ""
+msgstr "Betaald"
 
 #: apps/rules/models.py:23 apps/transactions/forms.py:66
 #: apps/transactions/forms.py:322 apps/transactions/forms.py:492
 #: apps/transactions/models.py:143 apps/transactions/models.py:294
 #: apps/transactions/models.py:503
 msgid "Reference Date"
-msgstr ""
+msgstr "Referentiedatum"
 
 #: apps/rules/models.py:24 apps/transactions/models.py:148
 #: apps/transactions/models.py:484
 msgid "Amount"
-msgstr ""
+msgstr "Bedrag"
 
 #: apps/rules/models.py:29 apps/transactions/filters.py:81
 #: apps/transactions/forms.py:55 apps/transactions/forms.py:486
@@ -642,86 +663,86 @@ msgstr ""
 #: apps/transactions/models.py:498 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:100
 msgid "Entities"
-msgstr ""
+msgstr "Bedrijven"
 
 #: apps/rules/models.py:35
 msgid "Rule"
-msgstr ""
+msgstr "Regel"
 
 #: apps/rules/models.py:40
 msgid "Field"
-msgstr ""
+msgstr "Veld"
 
 #: apps/rules/models.py:42
 msgid "Value"
-msgstr ""
+msgstr "Waarde"
 
 #: apps/rules/views.py:44
 msgid "Rule deactivated successfully"
-msgstr ""
+msgstr "Regel succesvol uitgeschakeld"
 
 #: apps/rules/views.py:46
 msgid "Rule activated successfully"
-msgstr ""
+msgstr "Regel succesvol ingeschakeld"
 
 #: apps/rules/views.py:64
 msgid "Rule added successfully"
-msgstr ""
+msgstr "Regel succesvol toegevoegd"
 
 #: apps/rules/views.py:87
 msgid "Rule updated successfully"
-msgstr ""
+msgstr "Regel succesvol bijgewerkt"
 
 #: apps/rules/views.py:126
 msgid "Rule deleted successfully"
-msgstr ""
+msgstr "Regel succesvol verwijderd"
 
 #: apps/rules/views.py:180
 msgid "Action updated successfully"
-msgstr ""
+msgstr "Actie succesvol bijgewerkt"
 
 #: apps/rules/views.py:210
 msgid "Action deleted successfully"
-msgstr ""
+msgstr "Actie succesvol verwijderd"
 
 #: apps/transactions/filters.py:24 templates/includes/navbar.html:45
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 msgid "Projected"
-msgstr ""
+msgstr "Ingepland"
 
 #: apps/transactions/filters.py:41
 msgid "Content"
-msgstr ""
+msgstr "Inhoud"
 
 #: apps/transactions/filters.py:47
 msgid "Transaction Type"
-msgstr ""
+msgstr "Soort transactie"
 
 #: apps/transactions/filters.py:67 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:96
 msgid "Categories"
-msgstr ""
+msgstr "Categorieën"
 
 #: apps/transactions/filters.py:91
 msgid "Date from"
-msgstr ""
+msgstr "Datum vanaf"
 
 #: apps/transactions/filters.py:96 apps/transactions/filters.py:106
 msgid "Until"
-msgstr ""
+msgstr "Tot"
 
 #: apps/transactions/filters.py:101
 msgid "Reference date from"
-msgstr ""
+msgstr "Referentiedatum vanaf"
 
 #: apps/transactions/filters.py:111
 msgid "Amount min"
-msgstr ""
+msgstr "Minimum bedrag"
 
 #: apps/transactions/filters.py:116
 msgid "Amount max"
-msgstr ""
+msgstr "Maximaal bedrag"
 
 #: apps/transactions/forms.py:158
 msgid "More"
@@ -729,19 +750,19 @@ msgstr ""
 
 #: apps/transactions/forms.py:266
 msgid "From Account"
-msgstr ""
+msgstr "Van rekening"
 
 #: apps/transactions/forms.py:271
 msgid "To Account"
-msgstr ""
+msgstr "Naar rekening"
 
 #: apps/transactions/forms.py:278
 msgid "From Amount"
-msgstr ""
+msgstr "Van Bedrag"
 
 #: apps/transactions/forms.py:283
 msgid "To Amount"
-msgstr ""
+msgstr "Naar Bedrag"
 
 #: apps/transactions/forms.py:398
 #: templates/calendar_view/pages/calendar.html:84
@@ -749,35 +770,35 @@ msgstr ""
 #: templates/yearly_overview/pages/overview_by_account.html:79
 #: templates/yearly_overview/pages/overview_by_currency.html:81
 msgid "Transfer"
-msgstr ""
+msgstr "Overschrijving"
 
 #: apps/transactions/forms.py:413
 msgid "From and To accounts must be different."
-msgstr ""
+msgstr "Van en Naar rekening moeten verschillend zijn."
 
 #: apps/transactions/forms.py:612
 msgid "Tag name"
-msgstr ""
+msgstr "Labelnaam"
 
 #: apps/transactions/forms.py:644
 msgid "Entity name"
-msgstr ""
+msgstr "Naam van bedrijf"
 
 #: apps/transactions/forms.py:676
 msgid "Category name"
-msgstr ""
+msgstr "Naam van categorie"
 
 #: apps/transactions/forms.py:678
 msgid "Muted categories won't count towards your monthly total"
-msgstr ""
+msgstr "Gedempte categorieën tellen niet mee voor je maandtotaal"
 
 #: apps/transactions/forms.py:850
 msgid "End date should be after the start date"
-msgstr ""
+msgstr "De einddatum moet na de begindatum vallen"
 
 #: apps/transactions/models.py:68
 msgid "Mute"
-msgstr ""
+msgstr "Gedempt"
 
 #: apps/transactions/models.py:71 apps/transactions/models.py:90
 #: apps/transactions/models.py:109 templates/categories/fragments/list.html:21
@@ -785,40 +806,46 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:21
 #: templates/tags/fragments/list.html:21
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #: apps/transactions/models.py:73
 msgid ""
 "Deactivated categories won't be able to be selected when creating new "
 "transactions"
 msgstr ""
+"Gedeactiveerde categorieën kunnen niet worden geselecteerd bij het maken van "
+"nieuwe transacties"
 
 #: apps/transactions/models.py:78
 msgid "Transaction Category"
-msgstr ""
+msgstr "Transactie categorie"
 
 #: apps/transactions/models.py:79
 msgid "Transaction Categories"
-msgstr ""
+msgstr "Transactie categorieën"
 
 #: apps/transactions/models.py:92
 msgid ""
 "Deactivated tags won't be able to be selected when creating new transactions"
 msgstr ""
+"Gedeactiveerde labels kunnen niet worden geselecteerd bij het maken van "
+"nieuwe verrichtingen"
 
 #: apps/transactions/models.py:97 apps/transactions/models.py:98
 msgid "Transaction Tags"
-msgstr ""
+msgstr "Verrichting Labels"
 
 #: apps/transactions/models.py:111
 msgid ""
 "Deactivated entities won't be able to be selected when creating new "
 "transactions"
 msgstr ""
+"Gedeactiveerde bedrijven kunnen niet worden geselecteerd bij het maken van "
+"nieuwe verrichtingen"
 
 #: apps/transactions/models.py:116
 msgid "Entity"
-msgstr ""
+msgstr "Bedrijf"
 
 #: apps/transactions/models.py:126
 #: templates/calendar_view/pages/calendar.html:54
@@ -828,7 +855,7 @@ msgstr ""
 #: templates/yearly_overview/pages/overview_by_account.html:49
 #: templates/yearly_overview/pages/overview_by_currency.html:51
 msgid "Income"
-msgstr ""
+msgstr "Ontvangsten Transactie"
 
 #: apps/transactions/models.py:127
 #: templates/calendar_view/pages/calendar.html:62
@@ -836,15 +863,15 @@ msgstr ""
 #: templates/yearly_overview/pages/overview_by_account.html:57
 #: templates/yearly_overview/pages/overview_by_currency.html:59
 msgid "Expense"
-msgstr ""
+msgstr "Uitgave Transactie"
 
 #: apps/transactions/models.py:181 apps/transactions/models.py:323
 msgid "Installment Plan"
-msgstr ""
+msgstr "Afbetalingsplan"
 
 #: apps/transactions/models.py:190 apps/transactions/models.py:524
 msgid "Recurring Transaction"
-msgstr ""
+msgstr "Terugkerende verrichting"
 
 #: apps/transactions/models.py:192
 msgid "Internal Note"
@@ -864,7 +891,7 @@ msgstr ""
 
 #: apps/transactions/models.py:211
 msgid "Transaction"
-msgstr ""
+msgstr "Verrichting"
 
 #: apps/transactions/models.py:212 templates/includes/navbar.html:53
 #: templates/includes/navbar.html:94
@@ -872,111 +899,111 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Verrichtingen"
 
 #: apps/transactions/models.py:265
 msgid "Yearly"
-msgstr ""
+msgstr "Jaarlijks"
 
 #: apps/transactions/models.py:266 apps/users/models.py:26
 #: templates/includes/navbar.html:25
 msgid "Monthly"
-msgstr ""
+msgstr "Maandelijks"
 
 #: apps/transactions/models.py:267
 msgid "Weekly"
-msgstr ""
+msgstr "Wekelijks"
 
 #: apps/transactions/models.py:268
 msgid "Daily"
-msgstr ""
+msgstr "Dagelijks"
 
 #: apps/transactions/models.py:281
 msgid "Number of Installments"
-msgstr ""
+msgstr "Aantal aflossingen"
 
 #: apps/transactions/models.py:286
 msgid "Installment Start"
-msgstr ""
+msgstr "Begin afbetaling"
 
 #: apps/transactions/models.py:287
 msgid "The installment number to start counting from"
-msgstr ""
+msgstr "Het nummer van de aflevering om mee te beginnen"
 
 #: apps/transactions/models.py:292 apps/transactions/models.py:507
 msgid "Start Date"
-msgstr ""
+msgstr "Startdatum"
 
 #: apps/transactions/models.py:296 apps/transactions/models.py:508
 msgid "End Date"
-msgstr ""
+msgstr "Einddatum"
 
 #: apps/transactions/models.py:301
 msgid "Recurrence"
-msgstr ""
+msgstr "Terugkeerpatroon"
 
 #: apps/transactions/models.py:304
 msgid "Installment Amount"
-msgstr ""
+msgstr "Termijnbedrag"
 
 #: apps/transactions/models.py:324 templates/includes/navbar.html:62
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
-msgstr ""
+msgstr "Afbetalingsplannen"
 
 #: apps/transactions/models.py:466
 msgid "day(s)"
-msgstr ""
+msgstr "dag(en)"
 
 #: apps/transactions/models.py:467
 msgid "week(s)"
-msgstr ""
+msgstr "we(e)k(en)"
 
 #: apps/transactions/models.py:468
 msgid "month(s)"
-msgstr ""
+msgstr "maand(en)"
 
 #: apps/transactions/models.py:469
 msgid "year(s)"
-msgstr ""
+msgstr "ja(a)r(en)"
 
 #: apps/transactions/models.py:471
 #: templates/recurring_transactions/fragments/list.html:24
 msgid "Paused"
-msgstr ""
+msgstr "Gepauzeerd"
 
 #: apps/transactions/models.py:510
 msgid "Recurrence Type"
-msgstr ""
+msgstr "Type Terugkeerpatroon"
 
 #: apps/transactions/models.py:513
 msgid "Recurrence Interval"
-msgstr ""
+msgstr "Terugkeer Interval"
 
 #: apps/transactions/models.py:517
 msgid "Last Generated Date"
-msgstr ""
+msgstr "Laatste Gegenereerde Datum"
 
 #: apps/transactions/models.py:520
 msgid "Last Generated Reference Date"
-msgstr ""
+msgstr "Laatste Gegenereerde Referentiedatum"
 
 #: apps/transactions/models.py:525 templates/includes/navbar.html:64
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
-msgstr ""
+msgstr "Terugkerende Verrichtingen"
 
 #: apps/transactions/validators.py:8
 #, python-format
 msgid "%(value)s has too many decimal places. Maximum is 30."
-msgstr ""
+msgstr "%(value)s heeft te veel decimalen. Het maximum is 30."
 
 #: apps/transactions/validators.py:16
 #, python-format
 msgid "%(value)s is not a non-negative number"
-msgstr ""
+msgstr "%(value)s is geen niet-negatief getal"
 
 #: apps/transactions/views/actions.py:23
 #, python-format
@@ -1008,88 +1035,88 @@ msgstr[1] ""
 
 #: apps/transactions/views/categories.py:64
 msgid "Category added successfully"
-msgstr ""
+msgstr "Categorie succesvol toegevoegd"
 
 #: apps/transactions/views/categories.py:92
 msgid "Category updated successfully"
-msgstr ""
+msgstr "Categorie succesvol bijgewerkt"
 
 #: apps/transactions/views/categories.py:118
 msgid "Category deleted successfully"
-msgstr ""
+msgstr "Categorie succesvol verwijderd"
 
 #: apps/transactions/views/entities.py:64
 msgid "Entity added successfully"
-msgstr ""
+msgstr "Bedrijf succesvol toegevoegd"
 
 #: apps/transactions/views/entities.py:92
 msgid "Entity updated successfully"
-msgstr ""
+msgstr "Bedrijf succesvol bijgewerkt"
 
 #: apps/transactions/views/entities.py:118
 msgid "Entity deleted successfully"
-msgstr ""
+msgstr "Bedrijf succesvol verwijderd"
 
 #: apps/transactions/views/installment_plans.py:87
 msgid "Installment Plan added successfully"
-msgstr ""
+msgstr "Afbetalingsplan succesvol toegevoegd"
 
 #: apps/transactions/views/installment_plans.py:117
 msgid "Installment Plan updated successfully"
-msgstr ""
+msgstr "Afbetalingsplan succesvol bijgewerkt"
 
 #: apps/transactions/views/installment_plans.py:142
 msgid "Installment Plan refreshed successfully"
-msgstr ""
+msgstr "Afbetalingsplan succesvol vernieuwd"
 
 #: apps/transactions/views/installment_plans.py:160
 msgid "Installment Plan deleted successfully"
-msgstr ""
+msgstr "Afbetalingsplan succesvol verwijderd"
 
 #: apps/transactions/views/recurring_transactions.py:112
 msgid "Recurring Transaction added successfully"
-msgstr ""
+msgstr "Terugkerende Verrichting succesvol toegevoegd"
 
 #: apps/transactions/views/recurring_transactions.py:144
 msgid "Recurring Transaction updated successfully"
-msgstr ""
+msgstr "Terugkerende Verrichting succesvol bijgewerkt"
 
 #: apps/transactions/views/recurring_transactions.py:190
 msgid "Recurring transaction unpaused successfully"
-msgstr ""
+msgstr "Terugkerende Verrichting succesvol hervat"
 
 #: apps/transactions/views/recurring_transactions.py:193
 msgid "Recurring transaction paused successfully"
-msgstr ""
+msgstr "Terugkerende Verrichting succesvol onderbroken"
 
 #: apps/transactions/views/recurring_transactions.py:219
 msgid "Recurring transaction finished successfully"
-msgstr ""
+msgstr "Terugkerende Verrichting succesvol voltooid"
 
 #: apps/transactions/views/recurring_transactions.py:239
 msgid "Recurring Transaction deleted successfully"
-msgstr ""
+msgstr "Terugkerende Verrichting succesvol verwijderd"
 
 #: apps/transactions/views/tags.py:64
 msgid "Tag added successfully"
-msgstr ""
+msgstr "Label succesvol toegevoegd"
 
 #: apps/transactions/views/tags.py:92
 msgid "Tag updated successfully"
-msgstr ""
+msgstr "Label succesvol bijgewerkt"
 
 #: apps/transactions/views/tags.py:118
 msgid "Tag deleted successfully"
-msgstr ""
+msgstr "Label succesvol verwijderd"
 
 #: apps/transactions/views/transactions.py:50
 #: apps/transactions/views/transactions.py:90
 msgid "Transaction added successfully"
-msgstr ""
+msgstr "Verrichting succesvol toegevoegd"
 
 #: apps/transactions/views/transactions.py:126
 msgid "Transaction updated successfully"
-msgstr ""
+msgstr "Verrichting succesvol bijgewerkt"
 
 #: apps/transactions/views/transactions.py:176
 #, python-format
@@ -1100,133 +1127,133 @@ msgstr[1] ""
 
 #: apps/transactions/views/transactions.py:214
 msgid "Transaction duplicated successfully"
-msgstr ""
+msgstr "Verrichting succesvol gedupliceerd"
 
 #: apps/transactions/views/transactions.py:256
 msgid "Transaction deleted successfully"
-msgstr ""
+msgstr "Verrichting succesvol verwijderd"
 
 #: apps/transactions/views/transactions.py:282
 msgid "Transfer added successfully"
-msgstr ""
+msgstr "Transactie succesvol toegevoegd"
 
 #: apps/users/admin.py:22 templates/users/fragments/user_settings.html:5
 msgid "User Settings"
-msgstr ""
+msgstr "Gebruikersinstellingen"
 
 #: apps/users/admin.py:23
 msgid "User Setting"
-msgstr ""
+msgstr "Gebruikersinstelling"
 
 #: apps/users/admin.py:48
 msgid "Personal info"
-msgstr ""
+msgstr "Persoonlijke gegevens"
 
 #: apps/users/admin.py:50
 msgid "Permissions"
-msgstr ""
+msgstr "Rechten"
 
 #: apps/users/admin.py:61
 msgid "Important dates"
-msgstr ""
+msgstr "Belangrijke datums"
 
 #: apps/users/forms.py:19 apps/users/models.py:13
 msgid "E-mail"
-msgstr ""
+msgstr "E-mailadres"
 
 #: apps/users/forms.py:25
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 #: apps/users/forms.py:33
 msgid "Invalid e-mail or password"
-msgstr ""
+msgstr "Ongeldig e-mailadres of wachtwoord"
 
 #: apps/users/forms.py:34
 msgid "This account is deactivated"
-msgstr ""
+msgstr "Deze gebruiker is gedeactiveerd"
 
 #: apps/users/forms.py:50 apps/users/forms.py:63
 #: templates/monthly_overview/pages/overview.html:116
 #: templates/transactions/pages/transactions.html:35
 msgid "Default"
-msgstr ""
+msgstr "Standaard"
 
 #: apps/users/forms.py:85 apps/users/models.py:40
 msgid "Date Format"
-msgstr ""
+msgstr "Datumnotatie"
 
 #: apps/users/forms.py:90 apps/users/models.py:45
 msgid "Datetime Format"
-msgstr ""
+msgstr "Tijdsnotatie"
 
 #: apps/users/forms.py:117
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: apps/users/models.py:27 templates/includes/navbar.html:27
 msgid "Yearly by currency"
-msgstr ""
+msgstr "Jaarlijks per munteenheid"
 
 #: apps/users/models.py:28 templates/includes/navbar.html:29
 msgid "Yearly by account"
-msgstr ""
+msgstr "Jaarlijks per rekening"
 
 #: apps/users/models.py:29 templates/includes/navbar.html:39
 msgid "Net Worth"
-msgstr ""
+msgstr "Netto Waarde"
 
 #: apps/users/models.py:30
 msgid "All Transactions"
-msgstr ""
+msgstr "Alle Verrichtingen"
 
 #: apps/users/models.py:31 templates/includes/navbar.html:31
 msgid "Calendar"
-msgstr ""
+msgstr "Kalender"
 
 #: apps/users/models.py:50 apps/users/models.py:56
 msgid "Auto"
-msgstr ""
+msgstr "Automatisch"
 
 #: apps/users/models.py:52
 msgid "Language"
-msgstr ""
+msgstr "Taal"
 
 #: apps/users/models.py:58
 msgid "Time Zone"
-msgstr ""
+msgstr "Tijdszone"
 
 #: apps/users/models.py:64
 msgid "Start page"
-msgstr ""
+msgstr "Startpagina"
 
 #: apps/users/views.py:58
 msgid "Transaction amounts are now hidden"
-msgstr ""
+msgstr "Verrichtingsbedragen worden nu verborgen"
 
 #: apps/users/views.py:61
 msgid "Transaction amounts are now displayed"
-msgstr ""
+msgstr "Verrichtingsbedragen worden nu weergegeven"
 
 #: apps/users/views.py:79
 msgid "Sounds are now muted"
-msgstr ""
+msgstr "De Geluiden zijn nu gedempt"
 
 #: apps/users/views.py:82
 msgid "Sounds will now play"
-msgstr ""
+msgstr "De geluiden worden nu afgespeeld"
 
 #: apps/users/views.py:98
 msgid "Your settings have been updated"
-msgstr ""
+msgstr "Jouw instellingen zijn bijgewerkt"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
-msgstr ""
+msgstr "Rekeningsgroep toevoegen"
 
 #: templates/account_groups/fragments/edit.html:5
 msgid "Edit account group"
-msgstr ""
+msgstr "Rekeningsgroep bewerken"
 
 #: templates/account_groups/fragments/list.html:32
 #: templates/accounts/fragments/list.html:37
@@ -1241,7 +1268,7 @@ msgstr ""
 #: templates/rules/fragments/list.html:33
 #: templates/tags/fragments/table.html:23
 msgid "Actions"
-msgstr ""
+msgstr "Acties"
 
 #: templates/account_groups/fragments/list.html:36
 #: templates/accounts/fragments/list.html:41
@@ -1260,7 +1287,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:48
 #: templates/tags/fragments/table.html:28
 msgid "Edit"
-msgstr ""
+msgstr "Bijwerken"
 
 #: templates/account_groups/fragments/list.html:43
 #: templates/accounts/fragments/list.html:48
@@ -1281,7 +1308,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:56
 #: templates/tags/fragments/table.html:36
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: templates/account_groups/fragments/list.html:47
 #: templates/accounts/fragments/list.html:52
@@ -1305,7 +1332,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:60
 #: templates/tags/fragments/table.html:40
 msgid "Are you sure?"
-msgstr ""
+msgstr "Weet je het zeker?"
 
 #: templates/account_groups/fragments/list.html:48
 #: templates/accounts/fragments/list.html:53
@@ -1322,7 +1349,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:61
 #: templates/tags/fragments/table.html:41
 msgid "You won't be able to revert this!"
-msgstr ""
+msgstr "Je kunt dit niet meer terugdraaien!"
 
 #: templates/account_groups/fragments/list.html:49
 #: templates/accounts/fragments/list.html:54
@@ -1341,176 +1368,203 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:62
 #: templates/tags/fragments/table.html:42
 msgid "Yes, delete it!"
-msgstr ""
+msgstr "Ja, verwijder het!"
 
 #: templates/account_groups/fragments/list.html:59
 msgid "No account groups"
-msgstr ""
+msgstr "Geen Rekeningsgroepen"
 
 #: templates/accounts/fragments/account_reconciliation.html:6
 msgid "Account Reconciliation"
-msgstr ""
+msgstr "Rekeningen Gelijkstellen"
 
 #: templates/accounts/fragments/account_reconciliation.html:26
 msgid "Current balance"
-msgstr ""
+msgstr "Huidige saldo"
 
 #: templates/accounts/fragments/account_reconciliation.html:39
 msgid "Difference"
-msgstr ""
+msgstr "Verschil"
 
 #: templates/accounts/fragments/account_reconciliation.html:70
 msgid "Reconcile balances"
-msgstr ""
+msgstr "Correcte saldo"
 
 #: templates/accounts/fragments/add.html:5
 msgid "Add account"
-msgstr ""
+msgstr "Rekening toevoegen"
 
 #: templates/accounts/fragments/edit.html:5
 msgid "Edit account"
-msgstr ""
+msgstr "Rekening bewerken"
 
 #: templates/accounts/fragments/list.html:29
 msgid "Is Asset"
-msgstr ""
+msgstr "Is Vermogen"
 
 #: templates/accounts/fragments/list.html:70
 msgid "No accounts"
-msgstr ""
+msgstr "Geen rekeningen"
 
 #: templates/calendar_view/fragments/list.html:7
 msgid "MON"
-msgstr ""
+msgstr "MA"
 
 #: templates/calendar_view/fragments/list.html:10
 msgid "TUE"
-msgstr ""
+msgstr "DI"
 
 #: templates/calendar_view/fragments/list.html:13
 msgid "WED"
-msgstr ""
+msgstr "WOE"
 
 #: templates/calendar_view/fragments/list.html:16
 msgid "THU"
-msgstr ""
+msgstr "DO"
 
 #: templates/calendar_view/fragments/list.html:19
 msgid "FRI"
-msgstr ""
+msgstr "VR"
 
 #: templates/calendar_view/fragments/list.html:22
 msgid "SAT"
-msgstr ""
+msgstr "ZAT"
 
 #: templates/calendar_view/fragments/list.html:25
 msgid "SUN"
-msgstr ""
+msgstr "ZON"
 
 #: templates/calendar_view/fragments/list_transactions.html:6
 msgid "Transactions on"
-msgstr ""
+msgstr "Verrichtingen op"
 
 #: templates/calendar_view/fragments/list_transactions.html:16
 msgid "No transactions on this date"
-msgstr ""
+msgstr "Geen verrichtingen op deze datum"
 
 #: templates/calendar_view/pages/calendar.html:8
 #: templates/monthly_overview/pages/overview.html:8
 msgid "Monthly Overview"
-msgstr ""
+msgstr "Overzicht per maand"
 
 #: templates/calendar_view/pages/calendar.html:69
 #: templates/monthly_overview/pages/overview.html:69
 #: templates/yearly_overview/pages/overview_by_account.html:64
 #: templates/yearly_overview/pages/overview_by_currency.html:66
 msgid "Installment"
-msgstr ""
+msgstr "Afbetaling"
 
 #: templates/calendar_view/pages/calendar.html:76
 #: templates/monthly_overview/pages/overview.html:76
 #: templates/yearly_overview/pages/overview_by_account.html:71
 #: templates/yearly_overview/pages/overview_by_currency.html:73
 msgid "Recurring"
-msgstr ""
+msgstr "Terugkerende"
 
 #: templates/calendar_view/pages/calendar.html:91
 #: templates/monthly_overview/pages/overview.html:91
 #: templates/yearly_overview/pages/overview_by_account.html:86
 #: templates/yearly_overview/pages/overview_by_currency.html:88
+#, fuzzy
 msgid "Balance"
-msgstr ""
+msgstr "Saldo"
 
 #: templates/categories/fragments/add.html:5
 msgid "Add category"
-msgstr ""
+msgstr "Categorie toevoegen"
 
 #: templates/categories/fragments/edit.html:5
 msgid "Edit category"
-msgstr ""
+msgstr "Categorie bewerken"
 
 #: templates/categories/fragments/table.html:17
 msgid "Muted"
-msgstr ""
+msgstr "Gedempt"
 
 #: templates/categories/fragments/table.html:57
 msgid "No categories"
-msgstr ""
+msgstr "Geen categorieën"
 
 #: templates/common/fragments/month_year_picker.html:5
 msgid "Pick a month"
-msgstr ""
+msgstr "Kies een maand"
 
 #: templates/common/fragments/toasts.html:15 templates/extends/offcanvas.html:5
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 #: templates/cotton/config/search.html:6
 #: templates/import_app/fragments/profiles/list_presets.html:13
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: templates/cotton/transaction/item.html:6
 msgid "Select"
-msgstr ""
+msgstr "Selecteer"
 
 #: templates/cotton/transaction/item.html:117
 #: templates/cotton/ui/transactions_action_bar.html:72
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliceren"
 
 #: templates/cotton/ui/percentage_distribution.html:3
 #: templates/cotton/ui/percentage_distribution.html:7
 msgid "Projected Income"
-msgstr ""
+msgstr "Verwachte inkomsten"
 
 #: templates/cotton/ui/percentage_distribution.html:10
 #: templates/cotton/ui/percentage_distribution.html:14
 msgid "Current Income"
-msgstr ""
+msgstr "Huidige inkomsten"
 
 #: templates/cotton/ui/percentage_distribution.html:17
 #: templates/cotton/ui/percentage_distribution.html:21
 msgid "Projected Expenses"
-msgstr ""
+msgstr "Verwachte uitgaven"
 
 #: templates/cotton/ui/percentage_distribution.html:24
 #: templates/cotton/ui/percentage_distribution.html:28
 msgid "Current Expenses"
-msgstr ""
+msgstr "Huidige uitgaven"
 
 #: templates/cotton/ui/transactions_action_bar.html:25
 msgid "Select All"
-msgstr ""
+msgstr "Alles selecteren"
 
 #: templates/cotton/ui/transactions_action_bar.html:31
 msgid "Unselect All"
-msgstr ""
+msgstr "Alles deselecteren"
 
+<<<<<<< HEAD
+#: templates/cotton/ui/transactions_action_bar.html:34
+msgid "Mark as paid"
+msgstr "Markeren als betaald"
+
+#: templates/cotton/ui/transactions_action_bar.html:41
+msgid "Mark as unpaid"
+msgstr "Markeren als niet betaald"
+
+#: templates/cotton/ui/transactions_action_bar.html:54
+msgid "Yes, delete them!"
+msgstr "Ja, verwijder ze!"
+
+#: templates/cotton/ui/transactions_action_bar.html:101
+#: templates/cotton/ui/transactions_action_bar.html:125
+#: templates/cotton/ui/transactions_action_bar.html:145
+#: templates/cotton/ui/transactions_action_bar.html:165
+#: templates/cotton/ui/transactions_action_bar.html:185
+#: templates/cotton/ui/transactions_action_bar.html:205
+#: templates/cotton/ui/transactions_action_bar.html:225
+msgid "copied!"
+msgstr "gekopieerd!"
+
+#: templates/cotton/ui/transactions_action_bar.html:110
+=======
 #: templates/cotton/ui/transactions_action_bar.html:48
 #: templates/cotton/ui/transactions_action_bar.html:139
+>>>>>>> c9d1b5b5f39ec7c11a75a90d37c0a99ad6976b1d
 msgid "Toggle Dropdown"
-msgstr ""
+msgstr "In- Uitklapbaar"
 
 #: templates/cotton/ui/transactions_action_bar.html:56
 msgid "Mark as unpaid"
@@ -1536,176 +1590,181 @@ msgstr ""
 
 #: templates/cotton/ui/transactions_action_bar.html:147
 msgid "Flat Total"
-msgstr ""
+msgstr "Vast Totaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:167
 msgid "Real Total"
-msgstr ""
+msgstr "Werkelijk Totaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:187
 msgid "Mean"
-msgstr ""
+msgstr "Gemiddelde"
 
 #: templates/cotton/ui/transactions_action_bar.html:207
 msgid "Max"
-msgstr ""
+msgstr "Maximaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:227
 msgid "Min"
-msgstr ""
+msgstr "Minimaal"
 
+<<<<<<< HEAD
+#: templates/cotton/ui/transactions_action_bar.html:218
+#, fuzzy
+=======
 #: templates/cotton/ui/transactions_action_bar.html:247
+>>>>>>> c9d1b5b5f39ec7c11a75a90d37c0a99ad6976b1d
 msgid "Count"
-msgstr ""
+msgstr "Rekenen"
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
-msgstr ""
+msgstr "Munteenheid toevoegen"
 
 #: templates/currencies/fragments/edit.html:5
 msgid "Edit currency"
-msgstr ""
+msgstr "Munteenheid bewerken"
 
 #: templates/currencies/fragments/list.html:25
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: templates/currencies/fragments/list.html:61
 msgid "No currencies"
-msgstr ""
+msgstr "Geen munteenheden"
 
 #: templates/dca/fragments/entry/add.html:5
 msgid "Add DCA entry"
-msgstr ""
+msgstr "DCA-item toevoegen"
 
 #: templates/dca/fragments/entry/edit.html:5
 msgid "Edit DCA entry"
-msgstr ""
+msgstr "DCA-item bewerken"
 
 #: templates/dca/fragments/strategy/add.html:5
 msgid "Add DCA strategy"
-msgstr ""
+msgstr "DCA-strategie toevoegen"
 
 #: templates/dca/fragments/strategy/details.html:23
 msgid "No exchange rate available"
-msgstr ""
+msgstr "Geen wisselkoers beschikbaar"
 
 #: templates/dca/fragments/strategy/details.html:34
 msgid "Entries"
-msgstr ""
+msgstr "Idems"
 
 #: templates/dca/fragments/strategy/details.html:56
 msgid "Current Value"
-msgstr ""
+msgstr "Actuele waarde"
 
 #: templates/dca/fragments/strategy/details.html:57
 msgid "P/L"
-msgstr ""
+msgstr "W&V"
 
 #: templates/dca/fragments/strategy/details.html:125
 msgid "No entries for this DCA"
-msgstr ""
+msgstr "Geen idems in deze DCA"
 
 #: templates/dca/fragments/strategy/details.html:126
 #: templates/monthly_overview/fragments/list.html:41
 #: templates/transactions/fragments/list_all.html:40
 msgid "Try adding one"
-msgstr ""
+msgstr "Probeer er een toe te voegen"
 
 #: templates/dca/fragments/strategy/details.html:136
 msgid "Total Invested"
-msgstr ""
+msgstr "Totaal Geïnvesteerd"
 
 #: templates/dca/fragments/strategy/details.html:150
 msgid "Total Received"
-msgstr ""
+msgstr "Totaal Ontvangen"
 
 #: templates/dca/fragments/strategy/details.html:164
 msgid "Current Total Value"
-msgstr ""
+msgstr "Huidige Totaalwaarde"
 
 #: templates/dca/fragments/strategy/details.html:178
 msgid "Average Entry Price"
-msgstr ""
+msgstr "Gemiddelde Instapprijs"
 
 #: templates/dca/fragments/strategy/details.html:192
 msgid "Total P/L"
-msgstr ""
+msgstr "Totaal W&V"
 
 #: templates/dca/fragments/strategy/details.html:208
 #, python-format
 msgid "Total %% P/L"
-msgstr ""
+msgstr "Totaal %% W&V"
 
 #: templates/dca/fragments/strategy/details.html:227
 #, python-format
 msgid "P/L %%"
-msgstr ""
+msgstr "W&V %%"
 
 #: templates/dca/fragments/strategy/details.html:289
 msgid "Performance Over Time"
-msgstr ""
+msgstr "Prestaties Na Verloop Van Tijd"
 
 #: templates/dca/fragments/strategy/details.html:307
 msgid "Entry Price"
-msgstr ""
+msgstr "Ingangsprijs"
 
 #: templates/dca/fragments/strategy/details.html:315
 msgid "Current Price"
-msgstr ""
+msgstr "Actuele Prijs"
 
 #: templates/dca/fragments/strategy/details.html:323
 msgid "Amount Bought"
-msgstr ""
+msgstr "Gekocht Bedrag"
 
 #: templates/dca/fragments/strategy/details.html:391
 msgid "Entry Price vs Current Price"
-msgstr ""
+msgstr "Instapprijs vs Huidige Prijs"
 
 #: templates/dca/fragments/strategy/details.html:407
 msgid "Days Between Investments"
-msgstr ""
+msgstr "Dagen Tussen Investeringen"
 
 #: templates/dca/fragments/strategy/details.html:454
 msgid "Investment Frequency"
-msgstr ""
+msgstr "Investeringsfrequentie"
 
 #: templates/dca/fragments/strategy/details.html:456
 msgid "The straighter the blue line, the more consistent your DCA strategy is."
-msgstr ""
+msgstr "Hoe rechter de blauwe lijn, hoe consistenter je DCA-strategie is."
 
 #: templates/dca/fragments/strategy/edit.html:5
 msgid "Edit DCA strategy"
-msgstr ""
+msgstr "DCA strategie bewerken"
 
 #: templates/dca/fragments/strategy/list.html:5
 #: templates/dca/pages/strategy_index.html:4
 msgid "Dollar Cost Average Strategies"
-msgstr ""
+msgstr "Dollar Kosten Gemiddelde Strategieën"
 
 #: templates/dca/pages/strategy_detail_index.html:4
 msgid "Dollar Cost Average Strategy"
-msgstr ""
+msgstr "Dollar Kosten Gemiddelde Strategie"
 
 #: templates/entities/fragments/add.html:5
 msgid "Add entity"
-msgstr ""
+msgstr "Bedrijf tevoegen"
 
 #: templates/entities/fragments/edit.html:5
 msgid "Edit entity"
-msgstr ""
+msgstr "Bewerk bedrijf"
 
 #: templates/entities/fragments/table.html:53
 msgid "No entities"
-msgstr ""
+msgstr "Geen bedrijven"
 
 #: templates/exchange_rates/fragments/add.html:5
 msgid "Add exchange rate"
-msgstr ""
+msgstr "Wisselkoers toevoegen"
 
 #: templates/exchange_rates/fragments/edit.html:5
 msgid "Edit exchange rate"
-msgstr ""
+msgstr "Wisselkoers bewerken"
 
 #: templates/exchange_rates/fragments/list.html:25
 #: templates/includes/navbar.html:57
@@ -1713,24 +1772,25 @@ msgstr ""
 #: templates/yearly_overview/pages/overview_by_account.html:135
 #: templates/yearly_overview/pages/overview_by_currency.html:137
 msgid "All"
-msgstr ""
+msgstr "Allemaal"
 
 #: templates/exchange_rates/fragments/table.html:12
 msgid "Pairing"
-msgstr ""
+msgstr "Koppelen"
 
 #: templates/exchange_rates/fragments/table.html:13
+#, fuzzy
 msgid "Rate"
-msgstr ""
+msgstr "Tarief"
 
 #: templates/exchange_rates/fragments/table.html:52
 msgid "No exchange rates"
-msgstr ""
+msgstr "Geen wisselkoersen"
 
 #: templates/exchange_rates/fragments/table.html:59
 #: templates/transactions/fragments/list_all.html:47
 msgid "Page navigation"
-msgstr ""
+msgstr "Paginanavigatie"
 
 #: templates/import_app/fragments/profiles/add.html:6
 msgid "Add new import profile"
@@ -1819,163 +1879,175 @@ msgstr ""
 
 #: templates/import_app/fragments/runs/log.html:5
 msgid "Logs for"
-msgstr ""
+msgstr "Logboek voor"
 
 #: templates/includes/navbar.html:10
 msgid "Toggle navigation"
-msgstr ""
+msgstr "Navigatie Knop"
 
 #: templates/includes/navbar.html:21
 msgid "Overview"
-msgstr ""
+msgstr "Overzicht"
 
 #: templates/includes/navbar.html:43
 msgid "Current"
-msgstr ""
+msgstr "Huidige"
 
 #: templates/includes/navbar.html:72
 msgid "Tools"
-msgstr ""
+msgstr "Hulpmiddelen"
 
 #: templates/includes/navbar.html:76
 msgid "Dollar Cost Average Tracker"
-msgstr ""
+msgstr "Dollar Kostgemiddelde Tracker"
 
 #: templates/includes/navbar.html:79
 #: templates/mini_tools/unit_price_calculator.html:5
 #: templates/mini_tools/unit_price_calculator.html:10
 msgid "Unit Price Calculator"
-msgstr ""
+msgstr "Eenheidsprijs berekenen"
 
 #: templates/includes/navbar.html:82
 #: templates/mini_tools/currency_converter/currency_converter.html:8
 #: templates/mini_tools/currency_converter/currency_converter.html:15
 msgid "Currency Converter"
-msgstr ""
+msgstr "Valuta omrekenen"
 
 #: templates/includes/navbar.html:91
 msgid "Management"
-msgstr ""
+msgstr "Beheer"
 
 #: templates/includes/navbar.html:120
 msgid "Automation"
-msgstr ""
+msgstr "Automatisatie"
 
 #: templates/includes/navbar.html:122 templates/rules/fragments/list.html:5
 #: templates/rules/pages/index.html:4
 msgid "Rules"
-msgstr ""
+msgstr "Regels"
 
 #: templates/includes/navbar.html:134
 msgid "Only use this if you know what you're doing"
-msgstr ""
+msgstr "Gebruik dit alleen als je weet wat je doet"
 
 #: templates/includes/navbar.html:135
 msgid "Django Admin"
-msgstr ""
+msgstr "Django Beheerder"
 
 #: templates/includes/navbar.html:144
 msgid "Calculator"
-msgstr ""
+msgstr "Rekenmachine"
 
 #: templates/includes/navbar/user_menu.html:11
 msgid "Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #: templates/includes/navbar/user_menu.html:37
 msgid "Logout"
-msgstr ""
+msgstr "Uitloggen"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:5
 msgid "Something went wrong loading your data"
-msgstr ""
+msgstr "Er is iets misgegaan bij het laden van uw gegevens"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:6
 msgid "Try reloading the page or check the console for more information."
 msgstr ""
+"Probeer de pagina opnieuw te laden of controleer de console voor meer "
+"informatie."
 
 #: templates/includes/scripts/hyperscript/swal.html:13
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleer"
 
 #: templates/includes/scripts/hyperscript/swal.html:14
 msgid "Confirm"
-msgstr ""
+msgstr "Bevestig"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
-msgstr ""
+msgstr "Afbetalingsplan toevoegen"
 
 #: templates/installment_plans/fragments/edit.html:5
 msgid "Edit installment plan"
-msgstr ""
+msgstr "Afbetalingsplan bewerken"
 
+<<<<<<< HEAD
+#: templates/installment_plans/fragments/list.html:24
+#: templates/recurring_transactions/fragments/list.html:27
+msgid "Finished"
+msgstr "Voltooid"
+
+=======
+>>>>>>> c9d1b5b5f39ec7c11a75a90d37c0a99ad6976b1d
 #: templates/installment_plans/fragments/list_transactions.html:5
 #: templates/installment_plans/fragments/table.html:35
 msgid "Installments"
-msgstr ""
+msgstr "Aflossingen"
 
 #: templates/installment_plans/fragments/table.html:43
 msgid "Refresh"
-msgstr ""
+msgstr "Vernieuw"
 
 #: templates/installment_plans/fragments/table.html:49
 msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
 msgstr ""
+"Hiermee worden alle verrichtingen bijgewerkt die aan dit plan zijn gekoppeld "
+"en worden ontbrekende verrichtingen opnieuw aangemaakt"
 
 #: templates/installment_plans/fragments/table.html:50
 msgid "Yes, refresh it!"
-msgstr ""
+msgstr "Ja, vernieuw het!"
 
 #: templates/installment_plans/fragments/table.html:61
 msgid "This will delete the plan and all transactions associated with it"
-msgstr ""
+msgstr "Hiermee worden het plan en alle bijbehorende verrichtingen verwijderd"
 
 #: templates/installment_plans/fragments/table.html:78
 msgid "No installment plans"
-msgstr ""
+msgstr "Geen afbetalingsplannen"
 
 #: templates/mini_tools/currency_converter/currency_converter.html:58
 msgid "Invert"
-msgstr ""
+msgstr "Omdraaien"
 
 #: templates/mini_tools/unit_price_calculator.html:27
 #: templates/mini_tools/unit_price_calculator.html:100
 #: templates/mini_tools/unit_price_calculator.html:125
 msgid "Item price"
-msgstr ""
+msgstr "Artikelprijs"
 
 #: templates/mini_tools/unit_price_calculator.html:33
 #: templates/mini_tools/unit_price_calculator.html:106
 #: templates/mini_tools/unit_price_calculator.html:131
 msgid "Item amount"
-msgstr ""
+msgstr "Artikelaantal"
 
 #: templates/mini_tools/unit_price_calculator.html:38
 #: templates/mini_tools/unit_price_calculator.html:111
 #: templates/mini_tools/unit_price_calculator.html:136
 msgid "Unit price"
-msgstr ""
+msgstr "Eenheidsprijs"
 
 #: templates/mini_tools/unit_price_calculator.html:94
 #: templates/mini_tools/unit_price_calculator.html:119
 #: templates/mini_tools/unit_price_calculator.html:158
 msgid "Item"
-msgstr ""
+msgstr "Artikel"
 
 #: templates/monthly_overview/fragments/list.html:40
 msgid "No transactions this month"
-msgstr ""
+msgstr "Geen verrichtingen deze maand"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
 msgid "Daily Spending Allowance"
-msgstr ""
+msgstr "Dagelijks Toegestane Besteding"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
 msgid "This is the final total divided by the remaining days in the month"
-msgstr ""
+msgstr "Dit is het eindtotaal gedeeld door de resterende dagen in de maand"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 #: templates/monthly_overview/fragments/monthly_summary.html:106
@@ -1984,7 +2056,7 @@ msgstr ""
 #: templates/transactions/fragments/summary.html:84
 #: templates/transactions/fragments/summary.html:148
 msgid "current"
-msgstr ""
+msgstr "actueel"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:72
 #: templates/monthly_overview/fragments/monthly_summary.html:136
@@ -1993,202 +2065,208 @@ msgstr ""
 #: templates/transactions/fragments/summary.html:114
 #: templates/transactions/fragments/summary.html:177
 msgid "projected"
-msgstr ""
+msgstr "verwacht"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:103
 #: templates/transactions/fragments/summary.html:81
 msgid "Expenses"
-msgstr ""
+msgstr "Uitgaven"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 #: templates/transactions/fragments/summary.html:145
 msgid "Total"
-msgstr ""
+msgstr "Totaal"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:256
 #: templates/transactions/fragments/summary.html:234
 msgid "Distribution"
-msgstr ""
+msgstr "Verdeling"
 
 #: templates/monthly_overview/pages/overview.html:108
 msgid "Filter transactions"
-msgstr ""
+msgstr "Filter verrichtingen"
 
 #: templates/monthly_overview/pages/overview.html:114
 #: templates/transactions/pages/transactions.html:33
 msgid "Order by"
-msgstr ""
+msgstr "Sorteer op"
 
 #: templates/monthly_overview/pages/overview.html:117
 #: templates/transactions/pages/transactions.html:36
 msgid "Oldest first"
-msgstr ""
+msgstr "Oudste eerst"
 
 #: templates/monthly_overview/pages/overview.html:118
 #: templates/transactions/pages/transactions.html:37
 msgid "Newest first"
-msgstr ""
+msgstr "Nieuwste eerst"
 
 #: templates/net_worth/net_worth.html:9
 msgid "Current Net Worth"
-msgstr ""
+msgstr "Huidige Nettowaarde"
 
 #: templates/net_worth/net_worth.html:9
 msgid "Projected Net Worth"
-msgstr ""
+msgstr "Verwachte Nettowaarde"
 
 #: templates/net_worth/net_worth.html:17
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
-msgstr ""
+msgstr "Op munteenheid"
 
 #: templates/net_worth/net_worth.html:65
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
-msgstr ""
+msgstr "Op rekening"
 
 #: templates/net_worth/net_worth.html:172
 msgid "Evolution by currency"
-msgstr ""
+msgstr "Evolutie per munteenheid"
 
 #: templates/net_worth/net_worth.html:236
 msgid "Evolution by account"
-msgstr ""
+msgstr "Evolutie per rekening"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
-msgstr ""
+msgstr "Voeg terugkerende verrichtingen toe"
 
 #: templates/recurring_transactions/fragments/edit.html:5
 msgid "Edit recurring transaction"
-msgstr ""
+msgstr "Bewerk terugkerende verrichtingen"
 
 #: templates/recurring_transactions/fragments/table.html:47
 msgid "Unpause"
-msgstr ""
+msgstr "Hervatten"
 
 #: templates/recurring_transactions/fragments/table.html:54
 msgid "This will start creating new transactions until you pause it"
 msgstr ""
+"Dit zal beginnen met het maken van nieuwe verrichtingen totdat je de taak "
+"onderbreekt"
 
 #: templates/recurring_transactions/fragments/table.html:55
 msgid "Yes, unpause it!"
-msgstr ""
+msgstr "Ja, hervat het!"
 
 #: templates/recurring_transactions/fragments/table.html:61
 msgid "Pause"
-msgstr ""
+msgstr "Onderbreken"
 
 #: templates/recurring_transactions/fragments/table.html:68
 msgid "This will stop the creation of new transactions until you unpause it"
 msgstr ""
+"Dit stopt het aanmaken van nieuwe verrichtingen totdat je de taak hervat"
 
 #: templates/recurring_transactions/fragments/table.html:69
 msgid "Yes, pause it!"
-msgstr ""
+msgstr "Ja, onderbreek het!"
 
 #: templates/recurring_transactions/fragments/table.html:76
 msgid "Finish"
-msgstr ""
+msgstr "Voltooi"
 
 #: templates/recurring_transactions/fragments/table.html:83
 msgid ""
 "This will stop the creation of new transactions and delete any unpaid "
 "transactions after today"
 msgstr ""
+"Hierdoor wordt het aanmaken van nieuwe verrichtingen gestopt en worden alle "
+"onbetaalde verrichtingen na vandaag verwijderd"
 
 #: templates/recurring_transactions/fragments/table.html:84
 msgid "Yes, finish it!"
-msgstr ""
+msgstr "Ja, Voltooi het!"
 
 #: templates/recurring_transactions/fragments/table.html:97
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
+"Dit verwijdert de herhaling en alle verrichtingen die ermee verbonden zijn"
 
 #: templates/recurring_transactions/fragments/table.html:114
 msgid "No recurring transactions"
-msgstr ""
+msgstr "Geen terugkerende verrichtingen"
 
 #: templates/rules/fragments/list.html:37
 msgid "View"
-msgstr ""
+msgstr "Toon"
 
 #: templates/rules/fragments/list.html:58
 msgid "Deactivate"
-msgstr ""
+msgstr "Uitschakelen"
 
 #: templates/rules/fragments/list.html:58
 msgid "Activate"
-msgstr ""
+msgstr "Inschakelen"
 
 #: templates/rules/fragments/list.html:72
 msgid "No rules"
-msgstr ""
+msgstr "Geen regels"
 
 #: templates/rules/fragments/transaction_rule/add.html:5
 msgid "Add transaction rule"
-msgstr ""
+msgstr "Verrichtingsregel toevoegen"
 
 #: templates/rules/fragments/transaction_rule/edit.html:5
 msgid "Edit transaction rule"
-msgstr ""
+msgstr "Verrichtingsregel bewerken"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/add.html:5
 msgid "Add action to transaction rule"
-msgstr ""
+msgstr "Actie toevoegen aan verrichtingsregel"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/edit.html:5
 msgid "Edit transaction rule action"
-msgstr ""
+msgstr "Bewerk verrichtingsregel actie"
 
 #: templates/rules/fragments/transaction_rule/view.html:5
 msgid "Transaction Rule"
-msgstr ""
+msgstr "Verrichtingsregel"
 
 #: templates/rules/fragments/transaction_rule/view.html:13
 msgid "If transaction..."
-msgstr ""
+msgstr "Als verrichting..."
 
 #: templates/rules/fragments/transaction_rule/view.html:31
 msgid "Then..."
-msgstr ""
+msgstr "Dan..."
 
 #: templates/rules/fragments/transaction_rule/view.html:36
 msgid "Set"
-msgstr ""
+msgstr "Stel"
 
 #: templates/rules/fragments/transaction_rule/view.html:40
 msgid "to"
-msgstr ""
+msgstr "naar"
 
 #: templates/rules/fragments/transaction_rule/view.html:71
 msgid "This rule has no actions"
-msgstr ""
+msgstr "Deze regel heeft geen acties"
 
 #: templates/rules/fragments/transaction_rule/view.html:80
 msgid "Add new"
-msgstr ""
+msgstr "Nieuwe toevoegen"
 
 #: templates/tags/fragments/add.html:5
 msgid "Add tag"
-msgstr ""
+msgstr "Label toevoegen"
 
 #: templates/tags/fragments/edit.html:5
 msgid "Edit tag"
-msgstr ""
+msgstr "Label bewerken"
 
 #: templates/tags/fragments/table.html:53
 msgid "No tags"
-msgstr ""
+msgstr "Geen labels"
 
 #: templates/transactions/fragments/add.html:5
 #: templates/transactions/pages/add.html:5
 msgid "New transaction"
-msgstr ""
+msgstr "Nieuwe verrichting"
 
 #: templates/transactions/fragments/add_installment_plan.html:5
 msgid "Add Installment Plan"
-msgstr ""
+msgstr "Afbetalingsplan Toevoegen"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
@@ -2205,67 +2283,67 @@ msgstr ""
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
 msgid "Edit transaction"
-msgstr ""
+msgstr "Bewerk verrichting"
 
 #: templates/transactions/fragments/list_all.html:39
 msgid "No transactions found"
-msgstr ""
+msgstr "Geen Verrichtingen gevonden"
 
 #: templates/transactions/fragments/summary.html:255
 #: templates/yearly_overview/fragments/account_data.html:14
 #: templates/yearly_overview/fragments/currency_data.html:14
 msgid "projected income"
-msgstr ""
+msgstr "verwachte inkomsten"
 
 #: templates/transactions/fragments/summary.html:277
 #: templates/yearly_overview/fragments/account_data.html:36
 #: templates/yearly_overview/fragments/currency_data.html:36
 msgid "projected expenses"
-msgstr ""
+msgstr "verwachte uitgaven"
 
 #: templates/transactions/fragments/summary.html:301
 #: templates/yearly_overview/fragments/account_data.html:60
 #: templates/yearly_overview/fragments/currency_data.html:60
 msgid "projected total"
-msgstr ""
+msgstr "verwachte totaal"
 
 #: templates/transactions/fragments/summary.html:326
 #: templates/yearly_overview/fragments/account_data.html:85
 #: templates/yearly_overview/fragments/currency_data.html:85
 msgid "current income"
-msgstr ""
+msgstr "huidige inkomsten"
 
 #: templates/transactions/fragments/summary.html:348
 #: templates/yearly_overview/fragments/account_data.html:107
 #: templates/yearly_overview/fragments/currency_data.html:107
 msgid "current expenses"
-msgstr ""
+msgstr "huidige uitgaven"
 
 #: templates/transactions/fragments/summary.html:370
 #: templates/yearly_overview/fragments/account_data.html:129
 #: templates/yearly_overview/fragments/currency_data.html:129
 msgid "current total"
-msgstr ""
+msgstr "huidige totaal"
 
 #: templates/transactions/fragments/summary.html:396
 #: templates/yearly_overview/fragments/account_data.html:155
 #: templates/yearly_overview/fragments/currency_data.html:155
 msgid "final total"
-msgstr ""
+msgstr "eindtotaal"
 
 #: templates/transactions/fragments/summary.html:426
 #: templates/yearly_overview/fragments/account_data.html:185
 #: templates/yearly_overview/fragments/currency_data.html:184
 msgid "No information to display"
-msgstr ""
+msgstr "Geen informatie om weer te geven"
 
 #: templates/transactions/fragments/transfer.html:5
 msgid "New transfer"
-msgstr ""
+msgstr "Nieuwe overschrijving"
 
 #: templates/transactions/pages/transactions.html:15
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:14
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
@@ -2274,26 +2352,26 @@ msgstr ""
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
-msgstr ""
+msgstr "Bedragen verbergen"
 
 #: templates/users/generic/mute_sounds.html:2
 msgid "Mute sounds"
-msgstr ""
+msgstr "Geluiden dempen"
 
 #: templates/users/generic/play_sounds.html:2
 msgid "Play sounds"
-msgstr ""
+msgstr "Geluiden afspelen"
 
 #: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
-msgstr ""
+msgstr "Bedragen tonen"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
-msgstr ""
+msgstr "Jaaroverzicht"
 
 #: templates/yearly_overview/pages/overview_by_account.html:104
 #: templates/yearly_overview/pages/overview_by_currency.html:106
 msgid "Year"
-msgstr ""
+msgstr "Jaar"
