@@ -12,9 +12,13 @@ from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
 from apps.common.utils.dicts import remove_falsey_entries
-from apps.rules.signals import transaction_created
+from apps.rules.signals import transaction_created, transaction_updated
 from apps.transactions.filters import TransactionsFilter
-from apps.transactions.forms import TransactionForm, TransferForm
+from apps.transactions.forms import (
+    TransactionForm,
+    TransferForm,
+    BulkEditTransactionForm,
+)
 from apps.transactions.models import Transaction
 from apps.transactions.utils.calculations import (
     calculate_currency_totals,
@@ -133,6 +137,61 @@ def transaction_edit(request, transaction_id, **kwargs):
         "transactions/fragments/edit.html",
         {"form": form, "transaction": transaction},
     )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def transactions_bulk_edit(request):
+    # Get selected transaction IDs from the URL parameter
+    transaction_ids = request.GET.getlist("transactions") or request.POST.getlist(
+        "transactions"
+    )
+    print(transaction_ids)
+    # Load the selected transactions
+    transactions = Transaction.objects.filter(id__in=transaction_ids)
+
+    if request.method == "POST":
+        form = BulkEditTransactionForm(request.POST, user=request.user)
+        if form.is_valid():
+            print(form.cleaned_data)
+            # Apply changes from the form to all selected transactions
+            for transaction in transactions:
+                for field_name, value in form.cleaned_data.items():
+                    if value or isinstance(
+                        value, bool
+                    ):  # Only update fields that have been filled in the form
+                        if field_name == "tags":
+                            transaction.tags.set(value)
+                        elif field_name == "entities":
+                            transaction.entities.set(value)
+                        else:
+                            setattr(transaction, field_name, value)
+
+                print(transaction.is_paid)
+                transaction.save()
+                transaction_updated.send(sender=transaction)
+
+            messages.success(
+                request,
+                _("{count} transactions updated successfully").format(
+                    count=len(transaction_ids)
+                ),
+            )
+            return HttpResponse(
+                status=204,
+                headers={"HX-Trigger": "updated, hide_offcanvas"},
+            )
+    else:
+        form = BulkEditTransactionForm(
+            initial={"is_paid": None, "type": None}, user=request.user
+        )
+
+    context = {
+        "form": form,
+        "transactions": transactions,
+    }
+    return render(request, "transactions/fragments/bulk_edit.html", context)
 
 
 @only_htmx

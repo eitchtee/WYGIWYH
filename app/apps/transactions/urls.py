@@ -42,6 +42,11 @@ urlpatterns = [
         name="transaction_edit",
     ),
     path(
+        "transactions/bulk-edit/",
+        views.transactions_bulk_edit,
+        name="transactions_bulk_edit",
+    ),
+    path(
         "transaction/<int:transaction_id>/clone/",
         views.transaction_clone,
         name="transaction_clone",

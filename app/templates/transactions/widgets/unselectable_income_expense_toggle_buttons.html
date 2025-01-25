@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load crispy_forms_field %}
+
+<div class="form-group mb-3">
+    <div class="btn-group w-100" role="group" aria-label="{{ field.label }}">
+            <input type="radio"
+                   class="btn-check"
+                   name="{{ field.html_name }}"
+                   id="{{ field.html_name }}_none_tr"
+                   value=""
+                   {% if field.value is None %}checked{% endif %}>
+            <label class="btn btn-outline-secondary {% if field.errors %}is-invalid{% endif %} w-100"
+                   for="{{ field.html_name }}_none_tr">
+                {% trans 'Unchanged' %}
+            </label>
+
+        {% for choice in field.field.choices %}
+            <input type="radio"
+                   class="btn-check"
+                   name="{{ field.html_name }}"
+                   id="{{ field.html_name }}_{{ forloop.counter }}_tr"
+                   value="{{ choice.0 }}"
+                   {% if choice.0 == field.value %}checked{% endif %}>
+            <label class="btn {% if forloop.first %}btn-outline-success{% elif forloop.last %}btn-outline-danger{% else %}btn-outline-primary{% endif %} {% if field.errors %}is-invalid{% endif %} w-100"
+                   for="{{ field.html_name }}_{{ forloop.counter }}_tr">
+                {{ choice.1 }}
+            </label>
+        {% endfor %}
+    </div>
+    {% if field.errors %}
+        <div class="invalid-feedback d-block">
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+</div>

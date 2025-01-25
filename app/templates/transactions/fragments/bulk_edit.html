@@ -1,0 +1,17 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Bulk Editing' %}{% endblock %}
+
+{% block body %}
+<p>{% trans 'Editing' %} {{ transactions|length }} {% trans 'transactions' %}</p>
+<div class="editing-transactions">
+  {% for transaction in transactions %}
+    <input type="hidden" name="transactions" value="{{ transaction.id }}"/>
+  {% endfor %}
+</div>
+<form hx-post="{% url 'transactions_bulk_edit' %}" hx-target="#generic-offcanvas" hx-include=".editing-transactions" novalidate>
+    {% crispy form %}
+</form>
+{% endblock %}
