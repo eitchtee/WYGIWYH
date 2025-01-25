@@ -5,7 +5,7 @@
     <div class="btn-group w-100" role="group" aria-label="{{ field.label }}">
         <input type="radio" class="btn-check" name="{{ field.name }}" id="{{ field.id_for_label }}_null"
                value="" {% if field.value is None %}checked{% endif %}>
-        <label class="btn btn-outline-secondary w-100" for="{{ field.id_for_label }}_null">{% trans 'Unchaged' %}</label>
+        <label class="btn btn-outline-secondary w-100" for="{{ field.id_for_label }}_null">{% trans 'Unchanged' %}</label>
 
         <input type="radio" class="btn-check" name="{{ field.name }}" id="{{ field.id_for_label }}_false"
                value="false" {% if field.value is False %}checked{% endif %}">
