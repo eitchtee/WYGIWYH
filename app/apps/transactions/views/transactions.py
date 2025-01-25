@@ -7,15 +7,18 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_exempt
+from django.utils.translation import gettext_lazy as _, ngettext_lazy
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
 from apps.common.utils.dicts import remove_falsey_entries
-from apps.rules.signals import transaction_created
+from apps.rules.signals import transaction_created, transaction_updated
 from apps.transactions.filters import TransactionsFilter
-from apps.transactions.forms import TransactionForm, TransferForm
+from apps.transactions.forms import (
+    TransactionForm,
+    TransferForm,
+    BulkEditTransactionForm,
+)
 from apps.transactions.models import Transaction
 from apps.transactions.utils.calculations import (
     calculate_currency_totals,
@@ -66,6 +69,50 @@ def transaction_add(request):
     )
 
 
+@login_required
+@require_http_methods(["GET", "POST"])
+def transaction_simple_add(request):
+    month = int(request.GET.get("month", timezone.localdate(timezone.now()).month))
+    year = int(request.GET.get("year", timezone.localdate(timezone.now()).year))
+    transaction_type = Transaction.Type(request.GET.get("type", "IN"))
+
+    now = timezone.localdate(timezone.now())
+    expected_date = datetime.datetime(
+        day=now.day if month == now.month and year == now.year else 1,
+        month=month,
+        year=year,
+    ).date()
+
+    if request.method == "POST":
+        form = TransactionForm(request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Transaction added successfully"))
+
+        form = TransactionForm(
+            user=request.user,
+            initial={
+                "date": expected_date,
+                "type": transaction_type,
+            },
+        )
+
+    else:
+        form = TransactionForm(
+            user=request.user,
+            initial={
+                "date": expected_date,
+                "type": transaction_type,
+            },
+        )
+
+    return render(
+        request,
+        "transactions/pages/add.html",
+        {"form": form},
+    )
+
+
 @only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -95,6 +142,62 @@ def transaction_edit(request, transaction_id, **kwargs):
 @only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])
+def transactions_bulk_edit(request):
+    # Get selected transaction IDs from the URL parameter
+    transaction_ids = request.GET.getlist("transactions") or request.POST.getlist(
+        "transactions"
+    )
+    # Load the selected transactions
+    transactions = Transaction.objects.filter(id__in=transaction_ids)
+    count = transactions.count()
+
+    if request.method == "POST":
+        form = BulkEditTransactionForm(request.POST, user=request.user)
+        if form.is_valid():
+            # Apply changes from the form to all selected transactions
+            for transaction in transactions:
+                for field_name, value in form.cleaned_data.items():
+                    if value or isinstance(
+                        value, bool
+                    ):  # Only update fields that have been filled in the form
+                        if field_name == "tags":
+                            transaction.tags.set(value)
+                        elif field_name == "entities":
+                            transaction.entities.set(value)
+                        else:
+                            setattr(transaction, field_name, value)
+
+                transaction.save()
+                transaction_updated.send(sender=transaction)
+
+            messages.success(
+                request,
+                ngettext_lazy(
+                    "%(count)s transaction updated successfully",
+                    "%(count)s transactions updated successfully",
+                    count,
+                )
+                % {"count": count},
+            )
+            return HttpResponse(
+                status=204,
+                headers={"HX-Trigger": "updated, hide_offcanvas"},
+            )
+    else:
+        form = BulkEditTransactionForm(
+            initial={"is_paid": None, "type": None}, user=request.user
+        )
+
+    context = {
+        "form": form,
+        "transactions": transactions,
+    }
+    return render(request, "transactions/fragments/bulk_edit.html", context)
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
 def transaction_clone(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction, id=transaction_id)
     new_transaction = deepcopy(transaction)
@@ -102,6 +205,7 @@ def transaction_clone(request, transaction_id, **kwargs):
     new_transaction.installment_plan = None
     new_transaction.installment_id = None
     new_transaction.recurring_transaction = None
+    new_transaction.internal_id = None
     new_transaction.save()
 
     new_transaction.tags.add(*transaction.tags.all())
@@ -143,7 +247,6 @@ def transaction_clone(request, transaction_id, **kwargs):
 
 @only_htmx
 @login_required
-@csrf_exempt
 @require_http_methods(["DELETE"])
 def transaction_delete(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction, id=transaction_id)

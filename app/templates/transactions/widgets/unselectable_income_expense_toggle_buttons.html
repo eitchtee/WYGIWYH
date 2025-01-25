@@ -1,7 +1,19 @@
+{% load i18n %}
 {% load crispy_forms_field %}
 
 <div class="form-group mb-3">
     <div class="btn-group w-100" role="group" aria-label="{{ field.label }}">
+            <input type="radio"
+                   class="btn-check"
+                   name="{{ field.html_name }}"
+                   id="{{ field.html_name }}_none_tr"
+                   value=""
+                   {% if field.value is None %}checked{% endif %}>
+            <label class="btn btn-outline-secondary {% if field.errors %}is-invalid{% endif %} w-100"
+                   for="{{ field.html_name }}_none_tr">
+                {% trans 'Unchanged' %}
+            </label>
+
         {% for choice in field.field.choices %}
             <input type="radio"
                    class="btn-check"

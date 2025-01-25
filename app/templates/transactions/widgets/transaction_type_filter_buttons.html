@@ -15,7 +15,7 @@
                id="{{ field.html_name }}_{{ forloop.counter }}"
                value="{{ choice.0 }}"
                {% if choice.0 in field.value %}checked{% endif %}>
-        <label class="btn btn-outline-dark"
+        <label class="btn btn-outline-dark w-100"
                for="{{ field.html_name }}_{{ forloop.counter }}">
             {{ choice.1 }}
         </label>

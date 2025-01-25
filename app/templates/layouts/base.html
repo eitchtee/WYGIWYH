@@ -28,7 +28,8 @@
   <body class="font-monospace">
     <div _="install hide_amounts
             install htmx_error_handler
-           {% block body_hyperscript %}{% endblock %}">
+           {% block body_hyperscript %}{% endblock %}"
+          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
       {% include 'includes/navbar.html' %}
 
       <div id="content">

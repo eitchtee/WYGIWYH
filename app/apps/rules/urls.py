@@ -52,19 +52,4 @@ urlpatterns = [
         views.transaction_rule_action_delete,
         name="transaction_rule_action_delete",
     ),
-    # path(
-    #     "rules/<int:installment_plan_id>/transactions/",
-    #     views.installment_plan_transactions,
-    #     name="rule_view",
-    # ),
-    # path(
-    #     "rules/<int:installment_plan_id>/edit/",
-    #     views.installment_plan_edit,
-    #     name="rule_edit",
-    # ),
-    # path(
-    #     "rules/<int:installment_plan_id>/delete/",
-    #     views.installment_plan_delete,
-    #     name="rule_delete",
-    # ),
 ]
