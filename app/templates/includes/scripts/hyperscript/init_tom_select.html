@@ -9,4 +9,10 @@
       end
     end
   end
+
+  on reset
+    for elm in <select/> in event.target
+      call elm.tomselect.clear()
+    end
+  end
 </script>
