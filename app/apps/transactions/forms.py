@@ -1,5 +1,5 @@
-from crispy_bootstrap5.bootstrap5 import Switch
-from crispy_forms.bootstrap import FormActions
+from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
+from crispy_forms.bootstrap import FormActions, AccordionGroup
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Layout,
@@ -134,6 +134,46 @@ class TransactionForm(forms.ModelForm):
                 css_class="form-row",
             ),
             "notes",
+        )
+
+        self.helper_simple = FormHelper()
+        self.helper_simple.form_tag = False
+        self.helper_simple.form_method = "post"
+        self.helper_simple.layout = Layout(
+            Field(
+                "type",
+                template="transactions/widgets/income_expense_toggle_buttons.html",
+            ),
+            Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
+            "account",
+            Row(
+                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            "description",
+            Field("amount", inputmode="decimal"),
+            BS5Accordion(
+                AccordionGroup(
+                    _("More"),
+                    "entities",
+                    Row(
+                        Column("category", css_class="form-group col-md-6 mb-0"),
+                        Column("tags", css_class="form-group col-md-6 mb-0"),
+                        css_class="form-row",
+                    ),
+                    "notes",
+                    active=False,
+                ),
+                flush=False,
+                always_open=False,
+                css_class="mb-3",
+            ),
+            FormActions(
+                NoClassSubmit(
+                    "submit", _("Add"), css_class="btn btn-outline-primary w-100"
+                ),
+            ),
         )
 
         self.fields["reference_date"].required = False
