@@ -27,6 +27,11 @@ urlpatterns = [
         name="transactions_bulk_delete",
     ),
     path(
+        "transactions/actions/duplicate/",
+        views.bulk_clone_transactions,
+        name="transactions_bulk_clone",
+    ),
+    path(
         "transaction/<int:transaction_id>/pay/",
         views.transaction_pay,
         name="transaction_pay",
