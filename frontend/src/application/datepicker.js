@@ -1,11 +1,13 @@
 import AirDatepicker from 'air-datepicker';
 import en from 'air-datepicker/locale/en';
 import ptBr from 'air-datepicker/locale/pt-BR';
+import nl from 'air-datepicker/locale/nl';
 import {createPopper} from '@popperjs/core';
 
 const locales = {
     'pt': ptBr,
-    'en': en
+    'en': en,
+    'nl': nl
 };
 
 function isMobileDevice() {
