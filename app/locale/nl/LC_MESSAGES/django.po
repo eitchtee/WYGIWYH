@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-22 13:17+0000\n"
-"PO-Revision-Date: 2025-01-24 19:19+0100\n"
+"PO-Revision-Date: 2025-01-25 14:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -457,14 +457,12 @@ msgid "Notes"
 msgstr "Opmerkingen"
 
 #: apps/dca/models.py:32
-#, fuzzy
 msgid "DCA Strategy"
-msgstr "Strategie voor gemiddelde dollarkosten"
+msgstr "DCA Strategie"
 
 #: apps/dca/models.py:33
-#, fuzzy
 msgid "DCA Strategies"
-msgstr "Strategieën voor gemiddelde dollarkosten"
+msgstr "DCA Strategieën"
 
 #: apps/dca/models.py:154
 msgid "Strategy"
@@ -488,27 +486,23 @@ msgstr "Ontvangsten Transactie"
 
 #: apps/dca/models.py:184
 msgid "DCA Entry"
-msgstr "Instap voor gemiddelde dollarkosten"
+msgstr "DCA Instap"
 
 #: apps/dca/models.py:185
-#, fuzzy
 msgid "DCA Entries"
-msgstr "Dollar Kosten Gemiddelden"
+msgstr "DCA Idems"
 
 #: apps/dca/views.py:38
-#, fuzzy
 msgid "DCA Strategy added successfully"
-msgstr "Strategie voor gemiddelde dollarkosten succesvol toegevoegd"
+msgstr "Strategie voor DCA succesvol toegevoegd"
 
 #: apps/dca/views.py:65
-#, fuzzy
 msgid "DCA Strategy updated successfully"
-msgstr "Strategie voor gemiddelde dollarkosten succesvol bijgewerkt"
+msgstr "Strategie voor DCA succesvol bijgewerkt"
 
 #: apps/dca/views.py:92
-#, fuzzy
 msgid "DCA strategy deleted successfully"
-msgstr "Strategie voor gemiddelde dollarkosten succesvol verwijderd"
+msgstr "Strategie voor DCA succesvol verwijderd"
 
 #: apps/dca/views.py:165
 msgid "Entry added successfully"
@@ -1307,104 +1301,105 @@ msgstr "Geen verrichtingen op deze datum"
 #: templates/calendar_view/pages/calendar.html:8
 #: templates/monthly_overview/pages/overview.html:8
 msgid "Monthly Overview"
-msgstr ""
+msgstr "Overzicht per maand"
 
 #: templates/calendar_view/pages/calendar.html:69
 #: templates/monthly_overview/pages/overview.html:69
 #: templates/yearly_overview/pages/overview_by_account.html:64
 #: templates/yearly_overview/pages/overview_by_currency.html:66
 msgid "Installment"
-msgstr ""
+msgstr "Afbetaling"
 
 #: templates/calendar_view/pages/calendar.html:76
 #: templates/monthly_overview/pages/overview.html:76
 #: templates/yearly_overview/pages/overview_by_account.html:71
 #: templates/yearly_overview/pages/overview_by_currency.html:73
 msgid "Recurring"
-msgstr ""
+msgstr "Terugkerende"
 
 #: templates/calendar_view/pages/calendar.html:91
 #: templates/monthly_overview/pages/overview.html:91
 #: templates/yearly_overview/pages/overview_by_account.html:86
 #: templates/yearly_overview/pages/overview_by_currency.html:88
+#, fuzzy
 msgid "Balance"
-msgstr ""
+msgstr "Saldo"
 
 #: templates/categories/fragments/add.html:5
 msgid "Add category"
-msgstr ""
+msgstr "Categorie toevoegen"
 
 #: templates/categories/fragments/edit.html:5
 msgid "Edit category"
-msgstr ""
+msgstr "Categorie bewerken"
 
 #: templates/categories/fragments/table.html:17
 msgid "Muted"
-msgstr ""
+msgstr "Gedempt"
 
 #: templates/categories/fragments/table.html:57
 msgid "No categories"
-msgstr ""
+msgstr "Geen categorieën"
 
 #: templates/common/fragments/month_year_picker.html:5
 msgid "Pick a month"
-msgstr ""
+msgstr "Kies een maand"
 
 #: templates/common/fragments/toasts.html:15 templates/extends/offcanvas.html:5
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 #: templates/cotton/config/search.html:6
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: templates/cotton/transaction/item.html:6
 msgid "Select"
-msgstr ""
+msgstr "Selecteer"
 
 #: templates/cotton/transaction/item.html:117
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliceren"
 
 #: templates/cotton/ui/percentage_distribution.html:3
 #: templates/cotton/ui/percentage_distribution.html:7
 msgid "Projected Income"
-msgstr ""
+msgstr "Verwachte inkomsten"
 
 #: templates/cotton/ui/percentage_distribution.html:10
 #: templates/cotton/ui/percentage_distribution.html:14
 msgid "Current Income"
-msgstr ""
+msgstr "Huidige inkomsten"
 
 #: templates/cotton/ui/percentage_distribution.html:17
 #: templates/cotton/ui/percentage_distribution.html:21
 msgid "Projected Expenses"
-msgstr ""
+msgstr "Verwachte uitgaven"
 
 #: templates/cotton/ui/percentage_distribution.html:24
 #: templates/cotton/ui/percentage_distribution.html:28
 msgid "Current Expenses"
-msgstr ""
+msgstr "Huidige uitgaven"
 
 #: templates/cotton/ui/transactions_action_bar.html:17
 msgid "Select All"
-msgstr ""
+msgstr "Alles selecteren"
 
 #: templates/cotton/ui/transactions_action_bar.html:23
 msgid "Unselect All"
-msgstr ""
+msgstr "Alles deselecteren"
 
 #: templates/cotton/ui/transactions_action_bar.html:34
 msgid "Mark as paid"
-msgstr ""
+msgstr "Markeren als betaald"
 
 #: templates/cotton/ui/transactions_action_bar.html:41
 msgid "Mark as unpaid"
-msgstr ""
+msgstr "Markeren als niet betaald"
 
 #: templates/cotton/ui/transactions_action_bar.html:54
 msgid "Yes, delete them!"
-msgstr ""
+msgstr "Ja, verwijder ze!"
 
 #: templates/cotton/ui/transactions_action_bar.html:101
 #: templates/cotton/ui/transactions_action_bar.html:125
@@ -1414,164 +1409,165 @@ msgstr ""
 #: templates/cotton/ui/transactions_action_bar.html:205
 #: templates/cotton/ui/transactions_action_bar.html:225
 msgid "copied!"
-msgstr ""
+msgstr "gekopieerd!"
 
 #: templates/cotton/ui/transactions_action_bar.html:110
 msgid "Toggle Dropdown"
-msgstr ""
+msgstr "in- uitklapbaar"
 
 #: templates/cotton/ui/transactions_action_bar.html:118
 msgid "Flat Total"
-msgstr ""
+msgstr "Vast Totaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:138
 msgid "Real Total"
-msgstr ""
+msgstr "Werkelijk Totaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:158
 msgid "Mean"
-msgstr ""
+msgstr "Gemiddelde"
 
 #: templates/cotton/ui/transactions_action_bar.html:178
 msgid "Max"
-msgstr ""
+msgstr "Maximaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:198
 msgid "Min"
-msgstr ""
+msgstr "Minimaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:218
+#, fuzzy
 msgid "Count"
-msgstr ""
+msgstr "Rekenen"
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
-msgstr ""
+msgstr "Munteenheid toevoegen"
 
 #: templates/currencies/fragments/edit.html:5
 msgid "Edit currency"
-msgstr ""
+msgstr "Munteenheid bewerken"
 
 #: templates/currencies/fragments/list.html:25
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: templates/currencies/fragments/list.html:61
 msgid "No currencies"
-msgstr ""
+msgstr "Geen munteenheden"
 
 #: templates/dca/fragments/entry/add.html:5
 msgid "Add DCA entry"
-msgstr ""
+msgstr "DCA-item toevoegen"
 
 #: templates/dca/fragments/entry/edit.html:5
 msgid "Edit DCA entry"
-msgstr ""
+msgstr "DCA-item bewerken"
 
 #: templates/dca/fragments/strategy/add.html:5
 msgid "Add DCA strategy"
-msgstr ""
+msgstr "DCA-strategie toevoegen"
 
 #: templates/dca/fragments/strategy/details.html:23
 msgid "No exchange rate available"
-msgstr ""
+msgstr "Geen wisselkoers beschikbaar"
 
 #: templates/dca/fragments/strategy/details.html:34
 msgid "Entries"
-msgstr ""
+msgstr "Idems"
 
 #: templates/dca/fragments/strategy/details.html:56
 msgid "Current Value"
-msgstr ""
+msgstr "Actuele waarde"
 
 #: templates/dca/fragments/strategy/details.html:57
 msgid "P/L"
-msgstr ""
+msgstr "W&V"
 
 #: templates/dca/fragments/strategy/details.html:125
 msgid "No entries for this DCA"
-msgstr ""
+msgstr "Geen idems in deze DCA"
 
 #: templates/dca/fragments/strategy/details.html:126
 #: templates/monthly_overview/fragments/list.html:41
 #: templates/transactions/fragments/list_all.html:40
 msgid "Try adding one"
-msgstr ""
+msgstr "Probeer er een toe te voegen"
 
 #: templates/dca/fragments/strategy/details.html:136
 msgid "Total Invested"
-msgstr ""
+msgstr "Totaal Geïnvesteerd"
 
 #: templates/dca/fragments/strategy/details.html:150
 msgid "Total Received"
-msgstr ""
+msgstr "Totaal Ontvangen"
 
 #: templates/dca/fragments/strategy/details.html:164
 msgid "Current Total Value"
-msgstr ""
+msgstr "Huidige Totaalwaarde"
 
 #: templates/dca/fragments/strategy/details.html:178
 msgid "Average Entry Price"
-msgstr ""
+msgstr "Gemiddelde Instapprijs"
 
 #: templates/dca/fragments/strategy/details.html:192
 msgid "Total P/L"
-msgstr ""
+msgstr "Totaal W&V"
 
 #: templates/dca/fragments/strategy/details.html:208
 #, python-format
 msgid "Total %% P/L"
-msgstr ""
+msgstr "Totaal %% W&V"
 
 #: templates/dca/fragments/strategy/details.html:227
 #, python-format
 msgid "P/L %%"
-msgstr ""
+msgstr "W&V %%"
 
 #: templates/dca/fragments/strategy/details.html:289
 msgid "Performance Over Time"
-msgstr ""
+msgstr "Prestaties Na Verloop Van Tijd"
 
 #: templates/dca/fragments/strategy/details.html:307
 msgid "Entry Price"
-msgstr ""
+msgstr "Ingangsprijs"
 
 #: templates/dca/fragments/strategy/details.html:315
 msgid "Current Price"
-msgstr ""
+msgstr "Actuele Prijs"
 
 #: templates/dca/fragments/strategy/details.html:323
 msgid "Amount Bought"
-msgstr ""
+msgstr "Gekocht Bedrag"
 
 #: templates/dca/fragments/strategy/details.html:391
 msgid "Entry Price vs Current Price"
-msgstr ""
+msgstr "Instapprijs vs Huidige Prijs"
 
 #: templates/dca/fragments/strategy/details.html:407
 msgid "Days Between Investments"
-msgstr ""
+msgstr "Dagen Tussen Investeringen"
 
 #: templates/dca/fragments/strategy/details.html:454
 msgid "Investment Frequency"
-msgstr ""
+msgstr "Investeringsfrequentie"
 
 #: templates/dca/fragments/strategy/details.html:456
 msgid "The straighter the blue line, the more consistent your DCA strategy is."
-msgstr ""
+msgstr "Hoe rechter de blauwe lijn, hoe consistenter je DCA-strategie is."
 
 #: templates/dca/fragments/strategy/edit.html:5
 msgid "Edit DCA strategy"
-msgstr ""
+msgstr "DCA strategie bewerken"
 
 #: templates/dca/fragments/strategy/list.html:5
 #: templates/dca/pages/strategy_index.html:4
 msgid "Dollar Cost Average Strategies"
-msgstr ""
+msgstr "Dollar Kosten Gemiddelde Strategieën"
 
 #: templates/dca/pages/strategy_detail_index.html:4
 msgid "Dollar Cost Average Strategy"
-msgstr ""
+msgstr "Dollar Kosten Gemiddelde Strategie"
 
 #: templates/entities/fragments/add.html:5
 msgid "Add entity"
@@ -1583,15 +1579,15 @@ msgstr "Bewerk bedrijf"
 
 #: templates/entities/fragments/table.html:53
 msgid "No entities"
-msgstr ""
+msgstr "Geen bedrijven"
 
 #: templates/exchange_rates/fragments/add.html:5
 msgid "Add exchange rate"
-msgstr ""
+msgstr "Wisselkoers toevoegen"
 
 #: templates/exchange_rates/fragments/edit.html:5
 msgid "Edit exchange rate"
-msgstr ""
+msgstr "Wisselkoers bewerken"
 
 #: templates/exchange_rates/fragments/list.html:25
 #: templates/includes/navbar.html:57
@@ -1599,28 +1595,29 @@ msgstr ""
 #: templates/yearly_overview/pages/overview_by_account.html:135
 #: templates/yearly_overview/pages/overview_by_currency.html:137
 msgid "All"
-msgstr ""
+msgstr "Allemaal"
 
 #: templates/exchange_rates/fragments/table.html:12
 msgid "Pairing"
-msgstr ""
+msgstr "Koppelen"
 
 #: templates/exchange_rates/fragments/table.html:13
+#, fuzzy
 msgid "Rate"
-msgstr ""
+msgstr "Tarief"
 
 #: templates/exchange_rates/fragments/table.html:52
 msgid "No exchange rates"
-msgstr ""
+msgstr "Geen wisselkoersen"
 
 #: templates/exchange_rates/fragments/table.html:59
 #: templates/transactions/fragments/list_all.html:47
 msgid "Page navigation"
-msgstr ""
+msgstr "Paginanavigatie"
 
 #: templates/import_app/fragments/runs/log.html:5
 msgid "Logs for"
-msgstr ""
+msgstr "Logboek voor"
 
 #: templates/includes/navbar.html:10
 msgid "Toggle navigation"
@@ -1908,7 +1905,7 @@ msgid ""
 "transactions after today"
 msgstr ""
 "Hierdoor wordt het aanmaken van nieuwe verrichtingen gestopt en worden alle "
-"onbetaalde verrichtingen na vandaag verwijderd."
+"onbetaalde verrichtingen na vandaag verwijderd"
 
 #: templates/recurring_transactions/fragments/table.html:84
 msgid "Yes, finish it!"
