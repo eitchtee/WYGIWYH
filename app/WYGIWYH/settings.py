@@ -363,7 +363,13 @@ PWA_APP_SPLASH_SCREEN = [
 ]
 PWA_APP_DIR = "ltr"
 PWA_APP_LANG = "en-US"
-PWA_APP_SHORTCUTS = []
+PWA_APP_SHORTCUTS = [
+    {
+        "name": "New Transaction",
+        "url": "/add/",
+        "description": "Add new transaction",
+    }
+]
 PWA_APP_SCREENSHOTS = [
     {
         "src": "/static/img/pwa/splash-750x1334.png",

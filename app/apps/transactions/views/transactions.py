@@ -65,6 +65,50 @@ def transaction_add(request):
     )
 
 
+@login_required
+@require_http_methods(["GET", "POST"])
+def transaction_simple_add(request):
+    month = int(request.GET.get("month", timezone.localdate(timezone.now()).month))
+    year = int(request.GET.get("year", timezone.localdate(timezone.now()).year))
+    transaction_type = Transaction.Type(request.GET.get("type", "IN"))
+
+    now = timezone.localdate(timezone.now())
+    expected_date = datetime.datetime(
+        day=now.day if month == now.month and year == now.year else 1,
+        month=month,
+        year=year,
+    ).date()
+
+    if request.method == "POST":
+        form = TransactionForm(request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Transaction added successfully"))
+
+        form = TransactionForm(
+            user=request.user,
+            initial={
+                "date": expected_date,
+                "type": transaction_type,
+            },
+        )
+
+    else:
+        form = TransactionForm(
+            user=request.user,
+            initial={
+                "date": expected_date,
+                "type": transaction_type,
+            },
+        )
+
+    return render(
+        request,
+        "transactions/pages/add.html",
+        {"form": form},
+    )
+
+
 @only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])

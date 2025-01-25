@@ -52,6 +52,11 @@ urlpatterns = [
         name="transaction_add",
     ),
     path(
+        "add/",
+        views.transaction_simple_add,
+        name="transaction_simple_add",
+    ),
+    path(
         "transactions/transfer",
         views.transactions_transfer,
         name="transactions_transfer",

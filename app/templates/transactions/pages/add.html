@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% translate 'New transaction' %}{% endblock %}
+
+{% block content %}
+<div class="container py-3 column-gap-5"
+     _="install init_tom_select
+        install init_datepicker">
+  <form hx-post="{% url 'transaction_simple_add' %}" hx-swap="outerHTML" hx-target="body" novalidate>
+    {% crispy form form.helper_simple %}
+  </form>
+</div>
+{% endblock %}
