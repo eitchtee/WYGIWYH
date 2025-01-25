@@ -201,6 +201,7 @@ def transaction_clone(request, transaction_id, **kwargs):
     new_transaction.installment_plan = None
     new_transaction.installment_id = None
     new_transaction.recurring_transaction = None
+    new_transaction.internal_id = None
     new_transaction.save()
 
     new_transaction.tags.add(*transaction.tags.all())
