@@ -147,14 +147,12 @@ def transactions_bulk_edit(request):
     transaction_ids = request.GET.getlist("transactions") or request.POST.getlist(
         "transactions"
     )
-    print(transaction_ids)
     # Load the selected transactions
     transactions = Transaction.objects.filter(id__in=transaction_ids)
 
     if request.method == "POST":
         form = BulkEditTransactionForm(request.POST, user=request.user)
         if form.is_valid():
-            print(form.cleaned_data)
             # Apply changes from the form to all selected transactions
             for transaction in transactions:
                 for field_name, value in form.cleaned_data.items():
@@ -168,7 +166,6 @@ def transactions_bulk_edit(request):
                         else:
                             setattr(transaction, field_name, value)
 
-                print(transaction.is_paid)
                 transaction.save()
                 transaction_updated.send(sender=transaction)
 
