@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, ngettext_lazy
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
@@ -149,6 +149,7 @@ def transactions_bulk_edit(request):
     )
     # Load the selected transactions
     transactions = Transaction.objects.filter(id__in=transaction_ids)
+    count = transactions.count()
 
     if request.method == "POST":
         form = BulkEditTransactionForm(request.POST, user=request.user)
@@ -171,9 +172,12 @@ def transactions_bulk_edit(request):
 
             messages.success(
                 request,
-                _("{count} transactions updated successfully").format(
-                    count=len(transaction_ids)
-                ),
+                ngettext_lazy(
+                    "%(count)s transaction updated successfully",
+                    "%(count)s transactions updated successfully",
+                    count,
+                )
+                % {"count": count},
             )
             return HttpResponse(
                 status=204,
