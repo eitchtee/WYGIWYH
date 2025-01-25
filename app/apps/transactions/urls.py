@@ -12,7 +12,7 @@ urlpatterns = [
         name="transactions_all_summary",
     ),
     path(
-        "transactions/actions/pay",
+        "transactions/actions/pay/",
         views.bulk_pay_transactions,
         name="transactions_bulk_pay",
     ),
@@ -27,27 +27,27 @@ urlpatterns = [
         name="transactions_bulk_delete",
     ),
     path(
-        "transaction/<int:transaction_id>/pay",
+        "transaction/<int:transaction_id>/pay/",
         views.transaction_pay,
         name="transaction_pay",
     ),
     path(
-        "transaction/<int:transaction_id>/delete",
+        "transaction/<int:transaction_id>/delete/",
         views.transaction_delete,
         name="transaction_delete",
     ),
     path(
-        "transaction/<int:transaction_id>/edit",
+        "transaction/<int:transaction_id>/edit/",
         views.transaction_edit,
         name="transaction_edit",
     ),
     path(
-        "transaction/<int:transaction_id>/clone",
+        "transaction/<int:transaction_id>/clone/",
         views.transaction_clone,
         name="transaction_clone",
     ),
     path(
-        "transaction/add",
+        "transaction/add/",
         views.transaction_add,
         name="transaction_add",
     ),
@@ -57,7 +57,7 @@ urlpatterns = [
         name="transaction_simple_add",
     ),
     path(
-        "transactions/transfer",
+        "transactions/transfer/",
         views.transactions_transfer,
         name="transactions_transfer",
     ),
