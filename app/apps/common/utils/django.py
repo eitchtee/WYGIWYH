@@ -35,7 +35,7 @@ def django_to_python_datetime(django_format):
 def django_to_airdatepicker_datetime(django_format):
     format_map = {
         # Time
-        "h": "h",  # Hour (12-hour)
+        "h": "hh",  # Hour (12-hour)
         "H": "H",  # Hour (24-hour)
         "i": "m",  # Minutes
         "A": "AA",  # AM/PM uppercase
@@ -76,7 +76,7 @@ def django_to_airdatepicker_datetime(django_format):
 def django_to_airdatepicker_datetime_separated(django_format):
     format_map = {
         # Time formats
-        "h": "hH",  # Hour (12-hour)
+        "h": "hh",  # Hour (12-hour)
         "H": "HH",  # Hour (24-hour)
         "i": "mm",  # Minutes
         "A": "AA",  # AM/PM uppercase

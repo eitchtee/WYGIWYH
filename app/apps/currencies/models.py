@@ -72,7 +72,9 @@ class ExchangeRate(models.Model):
 
     def clean(self):
         super().clean()
-        if self.from_currency == self.to_currency:
-            raise ValidationError(
-                {"to_currency": _("From and To currencies cannot be the same.")}
-            )
+        # Check if the attributes exist before comparing them
+        if hasattr(self, "from_currency") and hasattr(self, "to_currency"):
+            if self.from_currency == self.to_currency:
+                raise ValidationError(
+                    {"to_currency": _("From and To currencies cannot be the same.")}
+                )
