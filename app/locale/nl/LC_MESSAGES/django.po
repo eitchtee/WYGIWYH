@@ -2,17 +2,17 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-25 18:49+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2025-01-26 12:50+0100\n"
+"Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
+"Language-Team: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -122,7 +122,6 @@ msgid "Exchange Currency"
 msgstr "Eenheid Wisselgeld"
 
 #: apps/accounts/models.py:42 apps/currencies/models.py:25
-#, fuzzy
 msgid "Default currency for exchange calculations"
 msgstr "Standaard munteenheid voor wisselberekeningen"
 
@@ -195,12 +194,10 @@ msgid "Account deleted successfully"
 msgstr "Rekening succesvol verwijderd"
 
 #: apps/accounts/views/balance.py:77
-#, fuzzy
 msgid "Balance reconciliation"
 msgstr "Saldi afstemming"
 
 #: apps/accounts/views/balance.py:85
-#, fuzzy
 msgid "Account balances have been reconciled successfully"
 msgstr "Rekeningsaldi zijn succesvol afgestemd"
 
@@ -349,12 +346,10 @@ msgid "No results..."
 msgstr "Geen resultaten..."
 
 #: apps/currencies/forms.py:16 apps/currencies/models.py:15
-#, fuzzy
 msgid "Prefix"
 msgstr "Voorvoegsel"
 
 #: apps/currencies/forms.py:17 apps/currencies/models.py:16
-#, fuzzy
 msgid "Suffix"
 msgstr "Achtervoegsel"
 
@@ -367,12 +362,10 @@ msgid "Date"
 msgstr "Datum"
 
 #: apps/currencies/models.py:8
-#, fuzzy
 msgid "Currency Code"
 msgstr "Munteenheids Code"
 
 #: apps/currencies/models.py:9
-#, fuzzy
 msgid "Currency Name"
 msgstr "Munteenheids Naam"
 
@@ -518,43 +511,43 @@ msgstr "Item succesvol verwijderd"
 
 #: apps/import_app/forms.py:49
 msgid "Select a file"
-msgstr ""
+msgstr "Selecteer een bestand"
 
 #: apps/import_app/forms.py:61
 #: templates/import_app/fragments/profiles/list.html:62
 #: templates/includes/navbar.html:124
 msgid "Import"
-msgstr ""
+msgstr "Importeer"
 
 #: apps/import_app/models.py:15
 msgid "YAML Configuration"
-msgstr ""
+msgstr "YAML Configuratie"
 
 #: apps/import_app/models.py:19
 #: templates/import_app/fragments/profiles/list.html:37
 msgid "Version"
-msgstr ""
+msgstr "Versie"
 
 #: apps/import_app/models.py:30
 #, python-brace-format
 msgid "Version {number}"
-msgstr ""
+msgstr "Versie {number}"
 
 #: apps/import_app/models.py:39
 msgid "Invalid YAML Configuration: "
-msgstr ""
+msgstr "Ongeldige YAML Configuratie: "
 
 #: apps/import_app/models.py:45
 msgid "Queued"
-msgstr ""
+msgstr "In wachtrij"
 
 #: apps/import_app/models.py:46
 msgid "Processing"
-msgstr ""
+msgstr "Verwerking"
 
 #: apps/import_app/models.py:47
 msgid "Failed"
-msgstr ""
+msgstr "Mislukt"
 
 #: apps/import_app/models.py:48
 #: templates/installment_plans/fragments/list.html:24
@@ -564,31 +557,31 @@ msgstr "Voltooid"
 
 #: apps/import_app/models.py:54
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: apps/import_app/models.py:62
 msgid "File name"
-msgstr ""
+msgstr "Bestandsnaam"
 
 #: apps/import_app/views.py:75
 msgid "Import Profile added successfully"
-msgstr ""
+msgstr "Importprofiel succesvol toegevoegd"
 
 #: apps/import_app/views.py:110
 msgid "Import Profile update successfully"
-msgstr ""
+msgstr "Importprofiel succesvol bijgewerkt"
 
 #: apps/import_app/views.py:136
 msgid "Import Profile deleted successfully"
-msgstr ""
+msgstr "Importprofiel succesvol verwijderd"
 
 #: apps/import_app/views.py:194
 msgid "Import Run queued successfully"
-msgstr ""
+msgstr "Importrun met succes in de wachtrij geplaatst"
 
 #: apps/import_app/views.py:220
 msgid "Run deleted successfully"
-msgstr ""
+msgstr "Run met succes verwijderd"
 
 #: apps/rules/forms.py:20
 msgid "Run on creation"
@@ -738,7 +731,7 @@ msgstr "Maximaal bedrag"
 
 #: apps/transactions/forms.py:158
 msgid "More"
-msgstr ""
+msgstr "Meer"
 
 #: apps/transactions/forms.py:266
 msgid "From Account"
@@ -867,19 +860,19 @@ msgstr "Terugkerende verrichting"
 
 #: apps/transactions/models.py:192
 msgid "Internal Note"
-msgstr ""
+msgstr "Interne opmerking"
 
 #: apps/transactions/models.py:194
 msgid "Internal ID"
-msgstr ""
+msgstr "Interne ID"
 
 #: apps/transactions/models.py:198
 msgid "Deleted"
-msgstr ""
+msgstr "Verwijderd"
 
 #: apps/transactions/models.py:203
 msgid "Deleted At"
-msgstr ""
+msgstr "Verwijderd Op"
 
 #: apps/transactions/models.py:211
 msgid "Transaction"
@@ -1001,29 +994,29 @@ msgstr "%(value)s is geen niet-negatief getal"
 #, python-format
 msgid "%(count)s transaction marked as paid"
 msgid_plural "%(count)s transactions marked as paid"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s verrichting gemarkeerd als betaald"
+msgstr[1] "%(count)s verrichtingen gemarkeerd als betaald"
 
 #: apps/transactions/views/actions.py:47
 #, python-format
 msgid "%(count)s transaction marked as not paid"
 msgid_plural "%(count)s transactions marked as not paid"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s verrichting gemarkeerd als niet betaald"
+msgstr[1] "%(count)s verrichtingen gemarkeerd als niet betaald"
 
 #: apps/transactions/views/actions.py:71
 #, python-format
 msgid "%(count)s transaction deleted successfully"
 msgid_plural "%(count)s transactions deleted successfully"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s verrichting succesvol verwijderd"
+msgstr[1] "%(count)s verrichtingen succesvol verwijderd"
 
 #: apps/transactions/views/actions.py:106
 #, python-format
 msgid "%(count)s transaction duplicated successfully"
 msgid_plural "%(count)s transactions duplicated successfully"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s verrichting succesvol gedupliceerd"
+msgstr[1] "%(count)s verrichtingen succesvol gedupliceerd"
 
 #: apps/transactions/views/categories.py:64
 msgid "Category added successfully"
@@ -1114,8 +1107,8 @@ msgstr "Verrichting succesvol bijgewerkt"
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(count)s verrichting succesvol bijgewerkt"
+msgstr[1] "%(count)s verrichtingen succesvol bijgewerkt"
 
 #: apps/transactions/views/transactions.py:214
 msgid "Transaction duplicated successfully"
@@ -1457,7 +1450,6 @@ msgstr "Terugkerende"
 #: templates/monthly_overview/pages/overview.html:91
 #: templates/yearly_overview/pages/overview_by_account.html:86
 #: templates/yearly_overview/pages/overview_by_currency.html:88
-#, fuzzy
 msgid "Balance"
 msgstr "Saldo"
 
@@ -1575,7 +1567,6 @@ msgid "Min"
 msgstr "Minimaal"
 
 #: templates/cotton/ui/transactions_action_bar.html:247
-#, fuzzy
 msgid "Count"
 msgstr "Rekenen"
 
@@ -1741,7 +1732,6 @@ msgid "Pairing"
 msgstr "Koppelen"
 
 #: templates/exchange_rates/fragments/table.html:13
-#, fuzzy
 msgid "Rate"
 msgstr "Tarief"
 
@@ -1756,88 +1746,89 @@ msgstr "Paginanavigatie"
 
 #: templates/import_app/fragments/profiles/add.html:6
 msgid "Add new import profile"
-msgstr ""
+msgstr "Nieuw importprofiel toevoegen"
 
 #: templates/import_app/fragments/profiles/add.html:11
 msgid "A message from the author"
-msgstr ""
+msgstr "Een bericht van de auteur"
 
 #: templates/import_app/fragments/profiles/edit.html:5
 msgid "Edit import profile"
-msgstr ""
+msgstr "Importprofiel bewerken"
 
 #: templates/import_app/fragments/profiles/list.html:5
 #: templates/import_app/pages/profiles_index.html:4
 msgid "Import Profiles"
-msgstr ""
+msgstr "Profielen importeren"
 
 #: templates/import_app/fragments/profiles/list.html:17
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: templates/import_app/fragments/profiles/list.html:21
 msgid "From preset"
-msgstr ""
+msgstr "Van voorinstelling"
 
 #: templates/import_app/fragments/profiles/list.html:55
 msgid "Runs"
-msgstr ""
+msgstr "Runs"
 
 #: templates/import_app/fragments/profiles/list.html:86
 msgid "No import profiles"
-msgstr ""
+msgstr "Geen importprofielen"
 
 #: templates/import_app/fragments/profiles/list_presets.html:5
 msgid "Import Presets"
-msgstr ""
+msgstr "Presets importeren"
 
 #: templates/import_app/fragments/profiles/list_presets.html:33
 msgid "By"
-msgstr ""
+msgstr "Bij"
 
 #: templates/import_app/fragments/profiles/list_presets.html:40
 msgid "No presets yet"
-msgstr ""
+msgstr "Nog geen voorinstellingen"
 
 #: templates/import_app/fragments/runs/add.html:5
 msgid "Import file with profile"
-msgstr ""
+msgstr "Bestand met profiel importeren"
 
 #: templates/import_app/fragments/runs/list.html:5
 msgid "Runs for"
-msgstr ""
+msgstr "Runs voor"
 
 #: templates/import_app/fragments/runs/list.html:29
 msgid "Total Items"
-msgstr ""
+msgstr "Totale artikelen"
 
 #: templates/import_app/fragments/runs/list.html:42
 msgid "Processed Items"
-msgstr ""
+msgstr "Verwerkte artikelen"
 
 #: templates/import_app/fragments/runs/list.html:55
 msgid "Skipped Items"
-msgstr ""
+msgstr "Overgeslagen artikelen"
 
 #: templates/import_app/fragments/runs/list.html:68
 msgid "Failed Items"
-msgstr ""
+msgstr "Mislukte artikelen"
 
 #: templates/import_app/fragments/runs/list.html:81
 msgid "Successful Items"
-msgstr ""
+msgstr "Succesvolle Artikelen"
 
 #: templates/import_app/fragments/runs/list.html:96
 msgid "Logs"
-msgstr ""
+msgstr "Logboeken"
 
 #: templates/import_app/fragments/runs/list.html:107
 msgid "You won't be able to revert this! All imported items will be kept."
 msgstr ""
+"Je kunt dit niet terugdraaien! Alle geïmporteerde items blijven behouden."
 
 #: templates/import_app/fragments/runs/list.html:116
 msgid "No runs yet"
-msgstr ""
+msgstr "Nog geen runs"
 
 #: templates/import_app/fragments/runs/log.html:5
 msgid "Logs for"
@@ -2224,15 +2215,15 @@ msgstr "Afbetalingsplan Toevoegen"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Bulkbewerking"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "Editing"
-msgstr ""
+msgstr "Bewerking"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "transactions"
-msgstr ""
+msgstr "verrichtingen"
 
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
@@ -2302,7 +2293,7 @@ msgstr "Filter"
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:14
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
 msgid "Unchanged"
-msgstr ""
+msgstr "Ongewijzigd"
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
