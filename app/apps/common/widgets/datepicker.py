@@ -148,9 +148,14 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
 
     def format_value(self, value):
         """Format the value for display in the widget."""
-        if value:
+        if value and isinstance(value, (datetime.date, datetime.datetime)):
             self.attrs["data-value"] = datetime.datetime.strftime(
-                value, "%Y-%m-%d %H:%M:00"
+                value, "%Y-%m-%dT%H:%M:00"
+            )
+        elif value and isinstance(value, str):
+            value = datetime.datetime.strptime(value, "%Y-%m-%d %H:%M:00")
+            self.attrs["data-value"] = datetime.datetime.strftime(
+                value, "%Y-%m-%dT%H:%M:00"
             )
 
         if value is None:
@@ -195,6 +200,7 @@ class AirMonthYearPickerInput(AirDatePickerInput):
 
         # Add data attributes for AirDatepicker configuration
         attrs["data-now-button-txt"] = _("Today")
+        attrs["data-date-format"] = "MMMM yyyy"
 
         return attrs
 

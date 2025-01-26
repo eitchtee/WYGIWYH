@@ -163,8 +163,8 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
     let opts = {...baseOpts, ...positionConfig};
 
     if (element.dataset.value) {
-        opts["selectedDates"] = [element.dataset.value];
-        opts["startDate"] = [element.dataset.value];
+        opts["selectedDates"] = [new Date(element.dataset.value  + "T00:00:00")];
+        opts["startDate"] = [new Date(element.dataset.value  + "T00:00:00")];
     }
     return new AirDatepicker(element, opts);
 };
