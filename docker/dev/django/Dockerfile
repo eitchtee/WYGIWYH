@@ -1,4 +1,4 @@
-FROM python:3.11-slim-buster AS python-build-stage
+FROM python:3.11-slim-bookworm AS python-build-stage
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 COPY ../requirements.txt .
 RUN pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
 
-FROM python:3.11-slim-buster AS python-run-stage
+FROM python:3.11-slim-bookworm AS python-run-stage
 
 WORKDIR /usr/src/app
 
