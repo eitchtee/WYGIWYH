@@ -81,7 +81,7 @@ def installment_plan_transactions(request, installment_plan_id):
 @require_http_methods(["GET", "POST"])
 def installment_plan_add(request):
     if request.method == "POST":
-        form = InstallmentPlanForm(request.POST, user=request.user)
+        form = InstallmentPlanForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, _("Installment Plan added successfully"))
@@ -93,7 +93,7 @@ def installment_plan_add(request):
                 },
             )
     else:
-        form = InstallmentPlanForm(user=request.user)
+        form = InstallmentPlanForm()
 
     return render(
         request,
@@ -109,9 +109,7 @@ def installment_plan_edit(request, installment_plan_id):
     installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
 
     if request.method == "POST":
-        form = InstallmentPlanForm(
-            request.POST, instance=installment_plan, user=request.user
-        )
+        form = InstallmentPlanForm(request.POST, instance=installment_plan)
         if form.is_valid():
             form.save()
             messages.success(request, _("Installment Plan updated successfully"))
@@ -123,7 +121,7 @@ def installment_plan_edit(request, installment_plan_id):
                 },
             )
     else:
-        form = InstallmentPlanForm(instance=installment_plan, user=request.user)
+        form = InstallmentPlanForm(instance=installment_plan)
 
     return render(
         request,

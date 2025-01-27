@@ -83,7 +83,7 @@ def exchange_rates_list_pair(request):
 @require_http_methods(["GET", "POST"])
 def exchange_rate_add(request):
     if request.method == "POST":
-        form = ExchangeRateForm(request.POST, user=request.user)
+        form = ExchangeRateForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, _("Exchange rate added successfully"))
@@ -95,7 +95,7 @@ def exchange_rate_add(request):
                 },
             )
     else:
-        form = ExchangeRateForm(user=request.user)
+        form = ExchangeRateForm()
 
     return render(
         request,
@@ -111,7 +111,7 @@ def exchange_rate_edit(request, pk):
     exchange_rate = get_object_or_404(ExchangeRate, id=pk)
 
     if request.method == "POST":
-        form = ExchangeRateForm(request.POST, instance=exchange_rate, user=request.user)
+        form = ExchangeRateForm(request.POST, instance=exchange_rate)
         if form.is_valid():
             form.save()
             messages.success(request, _("Exchange rate updated successfully"))
@@ -123,7 +123,7 @@ def exchange_rate_edit(request, pk):
                 },
             )
     else:
-        form = ExchangeRateForm(instance=exchange_rate, user=request.user)
+        form = ExchangeRateForm(instance=exchange_rate)
 
     return render(
         request,

@@ -19,12 +19,10 @@ class AirDatePickerInput(widgets.DateInput):
         format=None,
         clear_button=True,
         auto_close=True,
-        user=None,
         *args,
         **kwargs,
     ):
         attrs = attrs or {}
-        self.user = user
         super().__init__(attrs=attrs, format=format, *args, **kwargs)
         self.clear_button = clear_button
         self.auto_close = auto_close
@@ -91,12 +89,10 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
         timepicker=True,
         clear_button=True,
         auto_close=True,
-        user=None,
         *args,
         **kwargs,
     ):
         attrs = attrs or {}
-        self.user = user
         super().__init__(attrs=attrs, format=format, *args, **kwargs)
         self.timepicker = timepicker
         self.clear_button = clear_button
