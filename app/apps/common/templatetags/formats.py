@@ -1,6 +1,6 @@
 from django import template
-from django.utils.formats import get_format
 
+from apps.common.functions.format import get_format
 
 register = template.Library()
 
