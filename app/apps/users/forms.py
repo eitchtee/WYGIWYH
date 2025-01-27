@@ -81,6 +81,12 @@ class UserSettingsForm(forms.ModelForm):
         ("Y.m.d h:i A", "2025.01.20 03:30 PM"),
     ]
 
+    NUMBER_FORMAT_CHOICES = [
+        ("AA", _("Default")),
+        ("DC", "1.234,50"),
+        ("CD", "1,234.50"),
+    ]
+
     date_format = forms.ChoiceField(
         choices=DATE_FORMAT_CHOICES, initial="SHORT_DATE_FORMAT", label=_("Date Format")
     )
@@ -88,6 +94,12 @@ class UserSettingsForm(forms.ModelForm):
         choices=DATETIME_FORMAT_CHOICES,
         initial="SHORT_DATETIME_FORMAT",
         label=_("Datetime Format"),
+    )
+
+    number_format = forms.ChoiceField(
+        choices=NUMBER_FORMAT_CHOICES,
+        initial="AA",
+        label=_("Number Format"),
     )
 
     class Meta:
@@ -98,6 +110,7 @@ class UserSettingsForm(forms.ModelForm):
             "start_page",
             "date_format",
             "datetime_format",
+            "number_format",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -111,6 +124,7 @@ class UserSettingsForm(forms.ModelForm):
             "timezone",
             "date_format",
             "datetime_format",
+            "number_format",
             "start_page",
             FormActions(
                 NoClassSubmit(
