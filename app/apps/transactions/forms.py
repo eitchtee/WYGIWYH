@@ -86,7 +86,7 @@ class TransactionForm(forms.ModelForm):
             "account": TomSelect(clear_button=False, group_by="group"),
         }
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # if editing a transaction display non-archived items and it's own item even if it's archived
@@ -177,7 +177,7 @@ class TransactionForm(forms.ModelForm):
         )
 
         self.fields["reference_date"].required = False
-        self.fields["date"].widget = AirDatePickerInput(clear_button=False, user=user)
+        self.fields["date"].widget = AirDatePickerInput(clear_button=False)
 
         if self.instance and self.instance.pk:
             decimal_places = self.instance.account.currency.decimal_places
@@ -333,7 +333,7 @@ class TransferForm(forms.Form):
         label=_("Notes"),
     )
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
@@ -402,7 +402,7 @@ class TransferForm(forms.Form):
 
         self.fields["from_amount"].widget = ArbitraryDecimalDisplayNumberInput()
         self.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()
-        self.fields["date"].widget = AirDatePickerInput(clear_button=False, user=user)
+        self.fields["date"].widget = AirDatePickerInput(clear_button=False)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -515,7 +515,7 @@ class InstallmentPlanForm(forms.ModelForm):
             "notes": forms.Textarea(attrs={"rows": 3}),
         }
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # if editing display non-archived items and it's own item even if it's archived
@@ -572,9 +572,7 @@ class InstallmentPlanForm(forms.ModelForm):
         )
 
         self.fields["installment_amount"].widget = ArbitraryDecimalDisplayNumberInput()
-        self.fields["start_date"].widget = AirDatePickerInput(
-            clear_button=False, user=user
-        )
+        self.fields["start_date"].widget = AirDatePickerInput(clear_button=False)
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(
@@ -762,7 +760,7 @@ class RecurringTransactionForm(forms.ModelForm):
             ),
         }
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # if editing display non-archived items and it's own item even if it's archived
@@ -819,10 +817,8 @@ class RecurringTransactionForm(forms.ModelForm):
         )
 
         self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()
-        self.fields["start_date"].widget = AirDatePickerInput(
-            clear_button=False, user=user
-        )
-        self.fields["end_date"].widget = AirDatePickerInput(user=user)
+        self.fields["start_date"].widget = AirDatePickerInput(clear_button=False)
+        self.fields["end_date"].widget = AirDatePickerInput()
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(

@@ -77,6 +77,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "apps.common.middleware.thread_local.ThreadLocalMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",

@@ -2,7 +2,6 @@ import datetime
 
 from django.forms import widgets
 from django.utils import formats, translation, dates
-from django.utils.formats import get_format
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.utils.django import (
@@ -10,6 +9,7 @@ from apps.common.utils.django import (
     django_to_airdatepicker_datetime,
     django_to_airdatepicker_datetime_separated,
 )
+from apps.common.functions.format import get_format
 
 
 class AirDatePickerInput(widgets.DateInput):
@@ -19,12 +19,10 @@ class AirDatePickerInput(widgets.DateInput):
         format=None,
         clear_button=True,
         auto_close=True,
-        user=None,
         *args,
         **kwargs,
     ):
         attrs = attrs or {}
-        self.user = user
         super().__init__(attrs=attrs, format=format, *args, **kwargs)
         self.clear_button = clear_button
         self.auto_close = auto_close
@@ -40,12 +38,6 @@ class AirDatePickerInput(widgets.DateInput):
         """Get the format string based on user settings or default"""
         if self.format:
             return self.format
-
-        if self.user and hasattr(self.user, "settings"):
-            user_format = self.user.settings.date_format
-            if user_format == "SHORT_DATE_FORMAT":
-                return get_format("SHORT_DATE_FORMAT", use_l10n=True)
-            return user_format
 
         return get_format("SHORT_DATE_FORMAT", use_l10n=True)
 
@@ -97,12 +89,10 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
         timepicker=True,
         clear_button=True,
         auto_close=True,
-        user=None,
         *args,
         **kwargs,
     ):
         attrs = attrs or {}
-        self.user = user
         super().__init__(attrs=attrs, format=format, *args, **kwargs)
         self.timepicker = timepicker
         self.clear_button = clear_button
@@ -119,12 +109,6 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
         """Get the format string based on user settings or default"""
         if self.format:
             return self.format
-
-        if self.user and hasattr(self.user, "settings"):
-            user_format = self.user.settings.datetime_format
-            if user_format == "SHORT_DATETIME_FORMAT":
-                return get_format("SHORT_DATETIME_FORMAT", use_l10n=True)
-            return user_format
 
         return get_format("SHORT_DATETIME_FORMAT", use_l10n=True)
 

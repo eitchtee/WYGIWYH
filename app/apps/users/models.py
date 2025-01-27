@@ -1,8 +1,8 @@
 import pytz
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db import models
 from django.contrib.auth.models import AbstractUser, Group
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.managers import UserManager
@@ -44,6 +44,9 @@ class UserSettings(models.Model):
         default="SHORT_DATETIME_FORMAT",
         verbose_name=_("Datetime Format"),
     )
+    number_format = models.CharField(
+        max_length=2, default="AA", verbose_name=_("Number Format")
+    )
 
     language = models.CharField(
         max_length=10,
@@ -66,3 +69,6 @@ class UserSettings(models.Model):
 
     def __str__(self):
         return f"{self.user.email}'s settings"
+
+    def clean(self):
+        super().clean()

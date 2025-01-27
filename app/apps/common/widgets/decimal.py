@@ -1,7 +1,9 @@
 from decimal import Decimal, InvalidOperation
 
 from django import forms
-from django.utils.formats import get_format, number_format
+from django.utils.formats import number_format
+
+from apps.common.functions.format import get_format
 
 
 def convert_to_decimal(value: str):
