@@ -39,23 +39,23 @@
           {% for transaction in date.transactions %}
             {% if transaction.is_paid %}
               {% if transaction.type == "IN" and not transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw-text-green-400" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-solid fa-circle-check tw-text-green-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "IN" and transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw-text-green-300" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-solid fa-circle-check tw-text-green-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and not transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw-text-red-400" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-solid fa-circle-check tw-text-red-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw-text-red-300" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-solid fa-circle-check tw-text-red-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% endif %}
             {% else %}
               {% if transaction.type == "IN" and not transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw-text-green-400" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-regular fa-circle tw-text-green-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "IN" and transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw-text-green-300" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-regular fa-circle tw-text-green-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and not transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw-text-red-400" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-regular fa-circle tw-text-red-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw-text-green-300" data-bs-toggle="tooltip" data-bs-title="{{ transaction.description }}"></i>
+                <i class="fa-regular fa-circle tw-text-red-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% endif %}
             {% endif %}
           {% endfor %}
