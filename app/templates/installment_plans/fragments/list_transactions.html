@@ -5,11 +5,11 @@
 {% block title %}{% translate 'Installments' %}{% endblock %}
 
 {% block body %}
-<div hx-get="{% url 'installment_plan_transactions' installment_plan_id=installment_plan.id %}" hx-trigger="updated from:window" hx-vals='{"disable_selection": true}' hx-target="closest .offcanvas" class="show-loading">
-{% for transaction in transactions %}
-  <c-transaction.item
-    :transaction="transaction"
-    :disable-selection="True"></c-transaction.item>
-{% endfor %}
+<div hx-get="{% url 'installment_plan_transactions' installment_plan_id=installment_plan.id %}" hx-trigger="updated from:window" hx-vals='{"disable_selection": true}' hx-target="closest .offcanvas" class="show-loading" id="transactions-list">
+  {% for transaction in transactions %}
+    <c-transaction.item :transaction="transaction"></c-transaction.item>
+  {% endfor %}
+  {# Floating bar #}
+  <c-ui.transactions-action-bar></c-ui.transactions-action-bar>
 </div>
 {% endblock %}
