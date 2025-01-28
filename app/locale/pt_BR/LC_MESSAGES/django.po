@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-27 16:26+0000\n"
-"PO-Revision-Date: 2025-01-27 13:27-0300\n"
+"POT-Creation-Date: 2025-01-28 00:49+0000\n"
+"PO-Revision-Date: 2025-01-27 21:49-0300\n"
 "Last-Translator: Herculino Trotta\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -319,6 +319,10 @@ msgstr "Erro"
 #: apps/common/templatetags/toast_bg.py:40
 msgid "Info"
 msgstr "Informação"
+
+#: apps/common/views.py:110
+msgid "Cache cleared successfully"
+msgstr "Cache limpo com sucesso"
 
 #: apps/common/widgets/datepicker.py:47 apps/common/widgets/datepicker.py:186
 msgid "Today"
@@ -1898,7 +1902,11 @@ msgstr "Calculadora"
 msgid "Settings"
 msgstr "Configurações"
 
-#: templates/includes/navbar/user_menu.html:37
+#: templates/includes/navbar/user_menu.html:38
+msgid "Clear cache"
+msgstr "Limpar cache"
+
+#: templates/includes/navbar/user_menu.html:42
 msgid "Logout"
 msgstr "Sair"
 
