@@ -33,6 +33,11 @@
     </li>
     {% endspaceless %}
     <li><hr class="dropdown-divider"></li>
+    <li>
+      <a class="dropdown-item" hx-get="{% url 'invalidate_cache' %}" role="button">
+        <i class="fa-solid fa-broom me-2 fa-fw"></i>{% translate 'Clear cache' %}
+      </a>
+    </li>
     <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2 fa-fw"></i
     >{% translate 'Logout' %}</a></li>
   </ul>

@@ -13,4 +13,9 @@ urlpatterns = [
         views.month_year_picker,
         name="month_year_picker",
     ),
+    path(
+        "cache/invalidate/",
+        views.invalidate_cache,
+        name="invalidate_cache",
+    ),
 ]
