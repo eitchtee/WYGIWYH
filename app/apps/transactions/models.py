@@ -49,7 +49,7 @@ class SoftDeleteQuerySet(models.QuerySet):
 class SoftDeleteManager(models.Manager):
     def get_queryset(self):
         qs = SoftDeleteQuerySet(self.model, using=self._db)
-        return qs if not settings.ENABLE_SOFT_DELETE else qs.filter(deleted=False)
+        return qs.filter(deleted=False)
 
 
 class AllObjectsManager(models.Manager):
@@ -60,7 +60,7 @@ class AllObjectsManager(models.Manager):
 class DeletedObjectsManager(models.Manager):
     def get_queryset(self):
         qs = SoftDeleteQuerySet(self.model, using=self._db)
-        return qs if not settings.ENABLE_SOFT_DELETE else qs.filter(deleted=True)
+        return qs.filter(deleted=True)
 
 
 class TransactionCategory(models.Model):

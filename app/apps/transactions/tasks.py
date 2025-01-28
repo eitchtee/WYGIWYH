@@ -27,7 +27,7 @@ def generate_recurring_transactions(timestamp=None):
 
 @app.periodic(cron="10 1 * * *")
 @app.task
-def cleanup_deleted_transactions():
+def cleanup_deleted_transactions(timestamp=None):
     with cachalot_disabled():
         if settings.ENABLE_SOFT_DELETE and settings.KEEP_DELETED_TRANSACTIONS_FOR == 0:
             return "KEEP_DELETED_TRANSACTIONS_FOR is 0, no cleanup performed."
@@ -44,7 +44,7 @@ def cleanup_deleted_transactions():
             days=settings.KEEP_DELETED_TRANSACTIONS_FOR
         )
 
-    invalidate("transactions.Transaction")
+    invalidate()
 
     # Hard delete soft-deleted transactions older than the cutoff date
     old_transactions = Transaction.deleted_objects.filter(deleted_at__lt=cutoff_date)
