@@ -4,14 +4,22 @@ from django.db.models.functions import ExtractYear, ExtractMonth
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
+from django.views.decorators.http import require_http_methods
 
+from apps.common.decorators.htmx import only_htmx
 from apps.transactions.models import Transaction
 
 
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
 def toasts(request):
     return render(request, "common/fragments/toasts.html")
 
 
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
 def month_year_picker(request):
     field = request.GET.get("field", "reference_date")
     for_ = request.GET.get("for", None)
