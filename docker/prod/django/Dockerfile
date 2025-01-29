@@ -47,7 +47,7 @@ RUN sed -i 's/\r$//g' /start && \
     sed -i 's/\r$//g' /start-procrastinate && \
     chmod +x /start-procrastinate && \
     sed -i 's/\r$//g' /start-single && \
-    chmod +x /start-supervisor
+    chmod +x /start-single
 
 COPY --chown=app:app ./app .
 
