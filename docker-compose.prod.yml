@@ -2,15 +2,13 @@ services:
   web:
     image: eitchtee/wygiwyh:latest
     container_name: ${SERVER_NAME}
-    command: /start
+    command: /start-single
     ports:
       - "${OUTBOUND_PORT}:8000"
     env_file:
       - .env
     depends_on:
       - db
-    volumes:
-      - wygiwyh_temp:/usr/src/app/temp/
     restart: unless-stopped
 
   db:
@@ -23,18 +21,3 @@ services:
       - POSTGRES_USER=${SQL_USER}
       - POSTGRES_PASSWORD=${SQL_PASSWORD}
       - POSTGRES_DB=${SQL_DATABASE}
-
-  procrastinate:
-    image: eitchtee/wygiwyh:latest
-    container_name: ${PROCRASTINATE_NAME}
-    depends_on:
-      - db
-    env_file:
-      - .env
-    volumes:
-      - wygiwyh_temp:/usr/src/app/temp/
-    command: /start-procrastinate
-    restart: unless-stopped
-
-volumes:
-  wygiwyh_temp:

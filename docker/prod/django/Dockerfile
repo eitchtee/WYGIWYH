@@ -41,12 +41,12 @@ COPY --chown=app:app ./docker/prod/django/start /start
 COPY --chown=app:app ./docker/prod/procrastinate/start /start-procrastinate
 COPY --chown=app:app ./docker/prod/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY --chown=app:app ./docker/prod/supervisord/supervisord.conf /etc/supervisord.conf
-COPY --chown=app:app ./docker/prod/supervisord/start /start-supervisor
+COPY --chown=app:app ./docker/prod/supervisord/start /start-single
 RUN sed -i 's/\r$//g' /start && \
     chmod +x /start && \
     sed -i 's/\r$//g' /start-procrastinate && \
     chmod +x /start-procrastinate && \
-    sed -i 's/\r$//g' /start-supervisor && \
+    sed -i 's/\r$//g' /start-single && \
     chmod +x /start-supervisor
 
 COPY --chown=app:app ./app .
