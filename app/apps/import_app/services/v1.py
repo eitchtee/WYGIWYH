@@ -486,8 +486,18 @@ class ImportService:
         mapped_data = {}
 
         for field, mapping in self.mapping.items():
-            # If source is None, use None as the initial value
-            value = row.get(mapping.source) if mapping.source else None
+            value = None
+
+            if isinstance(mapping.source, str):
+                value = row.get(mapping.source)
+            elif isinstance(mapping.source, list):
+                for source in mapping.source:
+                    value = row.get(source)
+                    if value is not None:
+                        break
+            else:
+                # If source is None, use None as the initial value
+                value = None
 
             # Use default_value if value is None
             if value is None:
