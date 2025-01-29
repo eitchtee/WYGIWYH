@@ -328,7 +328,8 @@ def transaction_all_list(request):
 
     if "order" in request.GET:
         order = request.GET["order"]
-        request.session["all_transactions_order"] = order
+        if order != request.session["all_transactions_order"]:
+            request.session["all_transactions_order"] = order
 
     transactions = Transaction.objects.prefetch_related(
         "account",

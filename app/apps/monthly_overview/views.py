@@ -69,7 +69,8 @@ def transactions_list(request, month: int, year: int):
 
     if "order" in request.GET:
         order = request.GET["order"]
-        request.session["monthly_transactions_order"] = order
+        if order != request.session["monthly_transactions_order"]:
+            request.session["monthly_transactions_order"] = order
 
     f = TransactionsFilter(request.GET)
     transactions_filtered = (
