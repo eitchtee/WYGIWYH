@@ -222,7 +222,7 @@ SESSION_COOKIE_SECURE = os.getenv("HTTPS_ENABLED", "false").lower() == "true"
 
 DEBUG_TOOLBAR_CONFIG = {
     "ROOT_TAG_EXTRA_ATTRS": "hx-preserve",
-    "SHOW_TOOLBAR_CALLBACK": lambda r: False,  # disables it}
+    # "SHOW_TOOLBAR_CALLBACK": lambda r: False,  # disables it
 }
 DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.history.HistoryPanel",

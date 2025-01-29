@@ -30,6 +30,8 @@ def index(request):
 @login_required
 @require_http_methods(["GET"])
 def monthly_overview(request, month: int, year: int):
+    order = request.session.get("monthly_transactions_order", "default")
+
     if month < 1 or month > 12:
         from django.http import Http404
 
@@ -54,6 +56,7 @@ def monthly_overview(request, month: int, year: int):
             "previous_month": previous_month,
             "previous_year": previous_year,
             "filter": f,
+            "order": order,
         },
     )
 
@@ -62,7 +65,12 @@ def monthly_overview(request, month: int, year: int):
 @login_required
 @require_http_methods(["GET"])
 def transactions_list(request, month: int, year: int):
-    order = request.GET.get("order")
+    order = request.session.get("monthly_transactions_order", "default")
+
+    if "order" in request.GET:
+        order = request.GET["order"]
+        if order != request.session.get("monthly_transactions_order", "default"):
+            request.session["monthly_transactions_order"] = order
 
     f = TransactionsFilter(request.GET)
     transactions_filtered = (

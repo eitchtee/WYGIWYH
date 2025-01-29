@@ -3,13 +3,13 @@ volumes:
   wygiwyh_temp:
 
 services:
-  web: &django
+  web:
     build:
       context: .
       dockerfile: ./docker/dev/django/Dockerfile
     image: wygiwyh_dev_server
     container_name: wygiwyh_dev_server
-    command: /start
+    command: /start-supervisor
     volumes:
       - ./app/:/usr/src/app/:z
       - ./frontend/:/usr/src/frontend:z
@@ -54,12 +54,12 @@ services:
       - '${SQL_PORT}:5432'
     restart: unless-stopped
 
-  procrastinate:
-    <<: *django
-    image: wygiwyh_dev_procrastinate
-    container_name: wygiwyh_dev_procrastinate
-    depends_on:
-      - db
-    ports: [ ]
-    command: /start-procrastinate
-    restart: unless-stopped
+#  procrastinate:
+#    <<: *django
+#    image: wygiwyh_dev_procrastinate
+#    container_name: wygiwyh_dev_procrastinate
+#    depends_on:
+#      - db
+#    ports: [ ]
+#    command: /start-procrastinate
+#    restart: unless-stopped

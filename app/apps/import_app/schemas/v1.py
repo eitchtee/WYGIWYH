@@ -65,7 +65,7 @@ class CSVImportSettings(BaseModel):
 
 
 class ColumnMapping(BaseModel):
-    source: Optional[str] = Field(
+    source: Optional[str] | Optional[list[str]] = Field(
         default=None,
         description="CSV column header. If None, the field will be generated from transformations",
     )

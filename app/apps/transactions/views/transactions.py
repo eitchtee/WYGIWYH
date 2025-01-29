@@ -313,15 +313,23 @@ def transaction_pay(request, transaction_id):
 @login_required
 @require_http_methods(["GET"])
 def transaction_all_index(request):
+    order = request.session.get("all_transactions_order", "default")
     f = TransactionsFilter(request.GET)
-    return render(request, "transactions/pages/transactions.html", {"filter": f})
+    return render(
+        request, "transactions/pages/transactions.html", {"filter": f, "order": order}
+    )
 
 
 @only_htmx
 @login_required
 @require_http_methods(["GET"])
 def transaction_all_list(request):
-    order = request.GET.get("order")
+    order = request.session.get("all_transactions_order", "default")
+
+    if "order" in request.GET:
+        order = request.GET["order"]
+        if order != request.session.get("all_transactions_order", "default"):
+            request.session["all_transactions_order"] = order
 
     transactions = Transaction.objects.prefetch_related(
         "account",

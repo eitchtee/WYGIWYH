@@ -1,5 +1,8 @@
 import logging
 
+from asgiref.sync import sync_to_async
+from django.core import management
+
 from procrastinate import builtin_tasks
 from procrastinate.contrib.django import app
 
@@ -24,3 +27,16 @@ async def remove_old_jobs(context, timestamp):
             exc_info=True,
         )
         raise e
+
+
+@app.periodic(cron="0 6 1 * *")
+@app.task(queueing_lock="remove_expired_sessions")
+async def remove_expired_sessions(timestamp=None):
+    """Cleanup expired sessions by using Django management command."""
+    try:
+        await sync_to_async(management.call_command)("clearsessions", verbosity=0)
+    except Exception:
+        logger.error(
+            "Error while executing 'remove_expired_sessions' task",
+            exc_info=True,
+        )
