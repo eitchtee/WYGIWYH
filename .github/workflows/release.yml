@@ -5,8 +5,6 @@ on:
     types: [created]
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 env:
   IMAGE_NAME: wygiwyh
@@ -34,7 +32,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build and push nightly image
-        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        if: github.event_name == 'push'
         uses: docker/build-push-action@v6
         with:
           context: .
