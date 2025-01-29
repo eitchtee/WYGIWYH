@@ -18,7 +18,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY --from=python-build-stage /usr/src/app/wheels /wheels/
 
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y gettext && \
+    apt-get install --no-install-recommends -y gettext supervisor && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip && \
     pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
@@ -26,9 +26,15 @@ RUN apt-get update && \
 
 COPY ./docker/dev/django/start /start
 COPY ./docker/dev/procrastinate/start /start-procrastinate
+COPY ./docker/dev/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./docker/dev/supervisord/supervisord.conf /etc/supervisord.conf
+COPY ./docker/dev/supervisord/start /start-supervisor
+
 RUN sed -i 's/\r$//g' /start && \
     chmod +x /start && \
     sed -i 's/\r$//g' /start-procrastinate && \
-    chmod +x /start-procrastinate
+    chmod +x /start-procrastinate && \
+    sed -i 's/\r$//g' /start-supervisor && \
+    chmod +x /start-supervisor
 
 COPY ./app .
