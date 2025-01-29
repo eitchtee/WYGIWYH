@@ -31,7 +31,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 COPY --from=python-build-stage /usr/src/app/wheels /wheels/
 RUN --mount=type=cache,target=/root/.cache/apt \
     apt-get update && \
-    apt-get install --no-install-recommends -y gettext && \
+    apt-get install --no-install-recommends -y gettext supervisor && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --upgrade pip && \
     pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
@@ -39,10 +39,15 @@ RUN --mount=type=cache,target=/root/.cache/apt \
 
 COPY --chown=app:app ./docker/prod/django/start /start
 COPY --chown=app:app ./docker/prod/procrastinate/start /start-procrastinate
+COPY --chown=app:app ./docker/prod/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY --chown=app:app ./docker/prod/supervisord/supervisord.conf /etc/supervisord.conf
+COPY --chown=app:app ./docker/prod/supervisord/start /start-supervisor
 RUN sed -i 's/\r$//g' /start && \
     chmod +x /start && \
     sed -i 's/\r$//g' /start-procrastinate && \
-    chmod +x /start-procrastinate
+    chmod +x /start-procrastinate && \
+    sed -i 's/\r$//g' /start-supervisor && \
+    chmod +x /start-supervisor
 
 COPY --chown=app:app ./app .
 
