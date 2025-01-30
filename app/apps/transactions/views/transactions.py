@@ -336,12 +336,10 @@ def transaction_all_list(request):
         "account__group",
         "category",
         "tags",
-        "tags__id",
         "account__exchange_currency",
         "account__currency",
         "installment_plan",
-        "entities__name",
-        "entities__id",
+        "entities",
     ).all()
 
     transactions = default_order(transactions, order=order)
