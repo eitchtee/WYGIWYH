@@ -94,8 +94,8 @@ You can now access localhost:OUTBOUND_PORT
 > - If you're going to use another IP that isn't localhost, add it to `DJANGO_ALLOWED_HOSTS`, without `http://`
 
 
-## Building from source
-Features are only added to main when ready, if you want to run the latest version, you must build from source.
+## Latest changes
+Features are only added to `main` when ready, if you want to run the latest version, you must build from source or use the `:nightly` tag on docker. Keep in mind that there can be undocumented breaking changes.
 
 All the required Dockerfiles are [here](https://github.com/eitchtee/WYGIWYH/tree/main/docker/prod).
 
