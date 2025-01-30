@@ -84,7 +84,6 @@ def transactions_list(request, month: int, year: int):
             "account__group",
             "category",
             "tags",
-            "tags__id",
             "account__exchange_currency",
             "account__currency",
             "installment_plan",
