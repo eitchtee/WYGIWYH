@@ -103,7 +103,7 @@ All the required Dockerfiles are [here](https://github.com/eitchtee/WYGIWYH/tree
 
 [nwithan8](https://github.com/nwithan8) has kindly provided a Unraid template for WYGIWYH, have a look at the [unraid_templates](https://github.com/nwithan8/unraid_templates) repo.
 
-WYGIWYH and WYGIWYH--Procrastinate should be available on the Unraid Store. You need both for all features.
+WYGIWYH is available on the Unraid Store. You'll need to provision your own postgres (version 15 or up) database.
 
 ## Enviroment Variables
 
