@@ -3,7 +3,7 @@
     <i class="{{ icon }}"></i>
   </div>
   <div class="card-body">
-    <h5 class="tw-text-{{ color }}-400 fw-bold" {{ attrs }}>{{ title }}{% if help_text %}{% include 'includes/help_icon.html' with content=help_text %}{% endif %}</h5>
+    <h5 class="tw-text-{{ color }}-400 fw-bold tw-mr-[50px]" {{ attrs }}>{{ title }}{% if help_text %}{% include 'includes/help_icon.html' with content=help_text %}{% endif %}</h5>
     {{ slot }}
   </div>
 </div>
