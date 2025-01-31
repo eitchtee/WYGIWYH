@@ -1,0 +1,50 @@
+{% load i18n %}
+<div class="d-grid gap-2 d-xl-flex justify-content-xl-end">
+  <div class="d-grid gap-2 d-xl-flex flex-wrap justify-content-xl-center">
+    <button class="btn btn-sm btn-outline-success"
+            hx-get="{% url 'transaction_add' %}"
+            hx-target="#generic-offcanvas"
+            hx-trigger="click, add_income from:window"
+            hx-vals='{"year": {{ year }}, {% if month %}"month": {{ month }},{% endif %} "type": "IN"}'>
+      <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>
+      {% translate "Income" %}
+    </button>
+    <button class="btn btn-sm btn-outline-danger"
+            hx-get="{% url 'transaction_add' %}"
+            hx-target="#generic-offcanvas"
+            hx-trigger="click, add_expense from:window"
+            hx-vals='{"year": {{ year }}, {% if month %}"month": {{ month }},{% endif %} "type": "EX"}'>
+      <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+      {% translate "Expense" %}
+    </button>
+    <button class="btn btn-sm btn-outline-warning"
+            hx-get="{% url 'installment_plan_add' %}"
+            hx-trigger="click, installment from:window"
+            hx-target="#generic-offcanvas">
+      <i class="fa-solid fa-divide me-2"></i>
+      {% translate "Installment" %}
+    </button>
+    <button class="btn btn-sm btn-outline-warning"
+            hx-get="{% url 'recurring_transaction_add' %}"
+            hx-trigger="click, balance from:window"
+            hx-target="#generic-offcanvas">
+      <i class="fa-solid fa-repeat me-2"></i>
+      {% translate "Recurring" %}
+    </button>
+    <button class="btn btn-sm btn-outline-info"
+            hx-get="{% url 'transactions_transfer' %}"
+            hx-target="#generic-offcanvas"
+            hx-trigger="click, add_transfer from:window"
+            hx-vals='{"year": {{ year }} {% if month %}, "month": {{ month }}{% endif %}}'>
+      <i class="fa-solid fa-money-bill-transfer me-2"></i>
+      {% translate "Transfer" %}
+    </button>
+    <button class="btn btn-sm btn-outline-info"
+            hx-get="{% url 'account_reconciliation' %}"
+            hx-trigger="click, balance from:window"
+            hx-target="#generic-offcanvas">
+      <i class="fa-solid fa-scale-balanced me-2"></i>
+      {% translate "Balance" %}
+    </button>
+  </div>
+</div>
