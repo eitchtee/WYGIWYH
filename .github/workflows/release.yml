@@ -57,6 +57,8 @@ jobs:
           file: ./docker/prod/django/Dockerfile
           push: true
           provenance: false
+          build-args: |
+            VERSION=nightly
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:nightly
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
@@ -70,6 +72,8 @@ jobs:
           file: ./docker/prod/django/Dockerfile
           push: true
           provenance: false
+          build-args: |
+            VERSION=${{ github.event.release.tag_name }}
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
@@ -85,6 +89,8 @@ jobs:
           file: ./docker/prod/django/Dockerfile
           push: true
           provenance: false
+          build-args: |
+            VERSION=${{ github.event.inputs.tag }}
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha

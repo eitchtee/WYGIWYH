@@ -18,6 +18,10 @@ RUN --mount=type=cache,target=/root/.npm \
     npm run build
 
 FROM python:3.11-slim-bookworm AS python-run-stage
+
+ARG VERSION=dev
+ENV APP_VERSION=$VERSION
+
 COPY --from=webpack_build /usr/src/frontend/build /usr/src/frontend/build
 
 WORKDIR /usr/src/app
