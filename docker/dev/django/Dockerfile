@@ -10,6 +10,9 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 FROM python:3.11-slim-bookworm AS python-run-stage
 
+ARG VERSION=dev
+ENV APP_VERSION=$VERSION
+
 WORKDIR /usr/src/app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \

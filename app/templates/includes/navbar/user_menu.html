@@ -1,3 +1,4 @@
+{% load settings %}
 {% load i18n %}
 <div class="dropdown">
   <a class="tw-text-2xl" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,5 +41,7 @@
     </li>
     <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2 fa-fw"></i
     >{% translate 'Logout' %}</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="https://github.com/eitchtee/WYGIWYH/releases" target="_blank" rel="nofollow">v. {% settings "APP_VERSION" %}</a></li>
   </ul>
 </div>
