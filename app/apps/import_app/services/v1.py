@@ -489,18 +489,18 @@ class ImportService:
             value = None
 
             if isinstance(mapping.source, str):
-                value = row.get(mapping.source)
+                value = row.get(mapping.source, None)
             elif isinstance(mapping.source, list):
                 for source in mapping.source:
-                    value = row.get(source)
-                    if value is not None:
+                    value = row.get(source, None)
+                    if value:
                         break
             else:
                 # If source is None, use None as the initial value
                 value = None
 
             # Use default_value if value is None
-            if value is None:
+            if not value:
                 value = mapping.default
 
             # Apply transformations
