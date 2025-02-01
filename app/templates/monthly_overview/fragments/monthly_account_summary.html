@@ -1,0 +1,17 @@
+{% load tools %}
+{% load i18n %}
+{% load currency_display %}
+
+<div class="row row-cols-1 g-4 mt-1 mb-3">
+  {% for account_id, account in account_data.items %}
+    <div class="col">
+      <c-ui.account_card :account="account" :account_id="account_id"
+                         :percentages="account_percentages"></c-ui.account_card>
+    </div>
+  {% empty %}
+    <div class="col">
+    <c-msg.empty
+        title="{% translate "No information to display" %}"></c-msg.empty>
+  {% endfor %}
+  </div>
+</div>

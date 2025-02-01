@@ -19,4 +19,19 @@ urlpatterns = [
         views.monthly_summary,
         name="monthly_summary",
     ),
+    path(
+        "monthly/<int:month>/<int:year>/summary/accounts/",
+        views.monthly_account_summary,
+        name="monthly_account_summary",
+    ),
+    path(
+        "monthly/<int:month>/<int:year>/summary/currencies/",
+        views.monthly_currency_summary,
+        name="monthly_currency_summary",
+    ),
+    path(
+        "monthly/summary/select/<str:selected>/",
+        views.monthly_summary_select,
+        name="monthly_summary_select",
+    ),
 ]

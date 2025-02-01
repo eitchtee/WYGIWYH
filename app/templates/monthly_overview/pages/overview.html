@@ -13,89 +13,172 @@
 {% endblock %}
 
 {% block content %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="row mb-3 gx-xl-4 gy-3 mb-4">
-{#    Date picker#}
-    <div class="col-12 col-xl-4 flex-row align-items-center d-flex">
-      <div class="tw-text-base h-100 align-items-center d-flex">
-        <a role="button"
-           class="pe-4 py-2"
-           hx-boost="true"
-           hx-trigger="click, previous_month from:window"
-           href="{% url 'monthly_overview' month=previous_month year=previous_year %}"><i
-            class="fa-solid fa-chevron-left"></i></a>
-      </div>
-      <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"
-           hx-get="{% url 'month_year_picker' %}"
-           hx-target="#generic-offcanvas-left"
-           hx-trigger="click, date_picker from:window"
-           hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "monthly_overview", "field": "reference_date"}' role="button">
-        {{ month|month_name }} {{ year }}
-      </div>
-      <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
-        <a role="button"
-           class="ps-3 py-2"
-           hx-boost="true"
-           hx-trigger="click, next_month from:window"
-           href="{% url 'monthly_overview' month=next_month year=next_year %}">
-          <i class="fa-solid fa-chevron-right"></i>
-        </a>
-      </div>
-    </div>
-{#    Action buttons#}
-    <div class="col-12 col-xl-8">
-      <c-ui.quick-transactions-buttons
-        :year="year"
-        :month="month"
-      ></c-ui.quick-transactions-buttons>
-    </div>
-  </div>
-{#  Monthly summary#}
-  <div class="row gx-xl-4 gy-3">
-    <div class="col-12 col-xl-4 order-0 order-xl-2">
-      <div id="summary" hx-get="{% url 'monthly_summary' month=month year=year %}" class="show-loading"
-           hx-trigger="load, updated from:window, selective_update from:window">
-      </div>
-    </div>
-    <div class="col-12 col-xl-8 order-2 order-xl-1">
-      <div class="row mb-1">
-        <div class="col-sm-6 col-12">
-{#        Filter transactions button #}
-          <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-filter" aria-expanded="false" aria-controls="collapse-filter">
-              <i class="fa-solid fa-filter fa-fw me-2"></i>{% translate 'Filter transactions' %}
-          </button>
+  <div class="container px-md-3 py-3 column-gap-5">
+    <div class="row mb-3 gx-xl-4 gy-3 mb-4">
+      {#    Date picker#}
+      <div class="col-12 col-xl-4 flex-row align-items-center d-flex">
+        <div class="tw-text-base h-100 align-items-center d-flex">
+          <a role="button"
+             class="pe-4 py-2"
+             hx-boost="true"
+             hx-trigger="click, previous_month from:window"
+             href="{% url 'monthly_overview' month=previous_month year=previous_year %}"><i
+              class="fa-solid fa-chevron-left"></i></a>
         </div>
-{#        Ordering button#}
-        <div class="col-sm-6 col-12 tw-content-center my-3 my-sm-0">
-          <div class="text-sm-end" _="on change trigger updated on window">
-            <label for="order">{% translate "Order by" %}</label>
-            <select class="tw-border-0 focus-visible:tw-outline-0 w-full pe-2 tw-leading-normal text-bg-tertiary tw-font-medium rounded" name="order" id="order">
-              <option value="default" {% if order == 'default' %}selected{% endif %}>{% translate 'Default' %}</option>
-              <option value="older" {% if order == 'older' %}selected{% endif %}>{% translate 'Oldest first' %}</option>
-              <option value="newer" {% if order == 'newer' %}selected{% endif %}>{% translate 'Newest first' %}</option>
-            </select>
+        <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"
+             hx-get="{% url 'month_year_picker' %}"
+             hx-target="#generic-offcanvas-left"
+             hx-trigger="click, date_picker from:window"
+             hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "monthly_overview", "field": "reference_date"}'
+             role="button">
+          {{ month|month_name }} {{ year }}
+        </div>
+        <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
+          <a role="button"
+             class="ps-3 py-2"
+             hx-boost="true"
+             hx-trigger="click, next_month from:window"
+             href="{% url 'monthly_overview' month=next_month year=next_year %}">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </div>
+      </div>
+      {#    Action buttons#}
+      <div class="col-12 col-xl-8">
+        <c-ui.quick-transactions-buttons
+            :year="year"
+            :month="month"
+        ></c-ui.quick-transactions-buttons>
+      </div>
+    </div>
+    {#  Monthly summary#}
+    <div class="row gx-xl-4 gy-3">
+      <div class="col-12 col-xl-4 order-0 order-xl-2">
+        <ul class="nav nav-tabs" id="monthly-summary" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link {% if summary_tab == 'summary' %}active{% endif %}"
+                    id="summary-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#summary-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="summary-tab-pane"
+                    _="on click fetch {% url 'monthly_summary_select' selected='summary' %}"
+                    aria-selected="{% if summary_tab == 'summary' or not summary_tab %}true{% else %}false{% endif %}">
+              {% trans 'Summary' %}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link {% if summary_tab == 'currency' %}active{% endif %}"
+                    id="currency-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#currency-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="currency-tab-pane"
+                    _="on click fetch {% url 'monthly_summary_select' selected='currency' %}"
+                    aria-selected="{% if summary_tab == 'currency' %}true{% else %}false{% endif %}">
+              {% trans 'Currencies' %}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link {% if summary_tab == 'account' %}active{% endif %}"
+                    id="account-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#account-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="account-tab-pane"
+                    _="on click fetch {% url 'monthly_summary_select' selected='account' %}"
+                    aria-selected="{% if summary_tab == 'account' %}true{% else %}false{% endif %}">
+              {% trans 'Accounts' %}
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content" id="monthly-summary-content">
+          <div class="tab-pane fade {% if summary_tab == 'summary' %}show active{% endif %}"
+               id="summary-tab-pane"
+               role="tabpanel"
+               aria-labelledby="summary-tab"
+               tabindex="0">
+            <div id="summary"
+                 hx-get="{% url 'monthly_summary' month=month year=year %}"
+                 class="show-loading"
+                 hx-trigger="load, updated from:window, selective_update from:window">
+            </div>
+          </div>
+          <div class="tab-pane fade {% if summary_tab == 'currency' %}show active{% endif %}"
+               id="currency-tab-pane"
+               role="tabpanel"
+               aria-labelledby="currency-tab"
+               tabindex="0">
+            <div id="currency-summary"
+                 hx-get="{% url 'monthly_currency_summary' month=month year=year %}"
+                 class="show-loading"
+                 hx-trigger="load, updated from:window, selective_update from:window">
+            </div>
+          </div>
+          <div class="tab-pane fade {% if summary_tab == 'account' %}show active{% endif %}"
+               id="account-tab-pane"
+               role="tabpanel"
+               aria-labelledby="account-tab"
+               tabindex="0">
+            <div id="account-summary"
+                 hx-get="{% url 'monthly_account_summary' month=month year=year %}"
+                 class="show-loading"
+                 hx-trigger="load, updated from:window, selective_update from:window">
+            </div>
           </div>
         </div>
+
       </div>
-{#      Filter transactions form#}
-      <div class="collapse" id="collapse-filter">
-        <div class="card card-body">
-          <form _="on change or submit or search trigger updated on window end
+      <div class="col-12 col-xl-8 order-2 order-xl-1">
+        <div class="row mb-1">
+          <div class="col-sm-6 col-12">
+            {#        Filter transactions button #}
+            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapse-filter" aria-expanded="false"
+                    aria-controls="collapse-filter">
+              <i class="fa-solid fa-filter fa-fw me-2"></i>{% translate 'Filter transactions' %}
+            </button>
+          </div>
+          {#        Ordering button#}
+          <div class="col-sm-6 col-12 tw-content-center my-3 my-sm-0">
+            <div class="text-sm-end" _="on change trigger updated on window">
+              <label for="order">{% translate "Order by" %}</label>
+              <select
+                  class="tw-border-0 focus-visible:tw-outline-0 w-full pe-2 tw-leading-normal text-bg-tertiary tw-font-medium rounded"
+                  name="order" id="order">
+                <option value="default"
+                        {% if order == 'default' %}selected{% endif %}>{% translate 'Default' %}</option>
+                <option value="older"
+                        {% if order == 'older' %}selected{% endif %}>{% translate 'Oldest first' %}</option>
+                <option value="newer"
+                        {% if order == 'newer' %}selected{% endif %}>{% translate 'Newest first' %}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        {#      Filter transactions form#}
+        <div class="collapse" id="collapse-filter">
+          <div class="card card-body">
+            <form _="on change or submit or search trigger updated on window end
                    install init_tom_select
                    install init_datepicker"
-                id="filter">
-            {% crispy filter.form %}
-          </form>
-          <button class="btn btn-outline-danger btn-sm" _="on click call #filter.reset() then trigger change on #filter">{% translate 'Clear' %}</button>
+                  id="filter">
+              {% crispy filter.form %}
+            </form>
+            <button class="btn btn-outline-danger btn-sm"
+                    _="on click call #filter.reset() then trigger change on #filter">{% translate 'Clear' %}</button>
+          </div>
         </div>
-      </div>
-{#      Transactions list#}
-      <div id="transactions"
-           class="show-loading"
-           hx-get="{% url 'monthly_transactions_list' month=month year=year %}"
-           hx-trigger="load, updated from:window" hx-include="#filter, #order">
+        {#      Transactions list#}
+        <div id="transactions"
+             class="show-loading"
+             hx-get="{% url 'monthly_transactions_list' month=month year=year %}"
+             hx-trigger="load, updated from:window" hx-include="#filter, #order">
+        </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}

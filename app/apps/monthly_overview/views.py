@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import (
     Q,
 )
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
@@ -16,6 +17,7 @@ from apps.transactions.models import Transaction
 from apps.transactions.utils.calculations import (
     calculate_currency_totals,
     calculate_percentage_distribution,
+    calculate_account_totals,
 )
 from apps.transactions.utils.default_ordering import default_order
 
@@ -31,6 +33,7 @@ def index(request):
 @require_http_methods(["GET"])
 def monthly_overview(request, month: int, year: int):
     order = request.session.get("monthly_transactions_order", "default")
+    summary_tab = request.session.get("monthly_summary_tab", "summary")
 
     if month < 1 or month > 12:
         from django.http import Http404
@@ -57,6 +60,7 @@ def monthly_overview(request, month: int, year: int):
             "previous_year": previous_year,
             "filter": f,
             "order": order,
+            "summary_tab": summary_tab,
         },
     )
 
@@ -130,4 +134,62 @@ def monthly_summary(request, month: int, year: int):
         request,
         "monthly_overview/fragments/monthly_summary.html",
         context=context,
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def monthly_account_summary(request, month: int, year: int):
+    # Base queryset with all required filters
+    base_queryset = Transaction.objects.filter(
+        reference_date__year=year,
+        reference_date__month=month,
+    ).exclude(Q(category__mute=True) & ~Q(category=None))
+
+    account_data = calculate_account_totals(transactions_queryset=base_queryset.all())
+    account_percentages = calculate_percentage_distribution(account_data)
+
+    context = {
+        "account_data": account_data,
+        "account_percentages": account_percentages,
+    }
+
+    return render(
+        request,
+        "monthly_overview/fragments/monthly_account_summary.html",
+        context=context,
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def monthly_currency_summary(request, month: int, year: int):
+    # Base queryset with all required filters
+    base_queryset = Transaction.objects.filter(
+        reference_date__year=year,
+        reference_date__month=month,
+    ).exclude(Q(category__mute=True) & ~Q(category=None))
+
+    currency_data = calculate_currency_totals(base_queryset.all(), ignore_empty=True)
+    currency_percentages = calculate_percentage_distribution(currency_data)
+
+    context = {
+        "currency_data": currency_data,
+        "currency_percentages": currency_percentages,
+    }
+
+    return render(
+        request, "monthly_overview/fragments/monthly_currency_summary.html", context
+    )
+
+
+@login_required
+@require_http_methods(["GET"])
+def monthly_summary_select(request, selected):
+    request.session["monthly_summary_tab"] = selected
+
+    return HttpResponse(
+        status=204,
     )

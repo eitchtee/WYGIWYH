@@ -45,10 +45,59 @@
       </div>
     </div>
     <div class="col-12 col-xl-3 order-1 order-xl-2">
-      <div id="transactions"
-           class="show-loading"
-           hx-get="{% url 'transactions_all_summary' %}"
-           hx-trigger="load, updated from:window, change from:#filter, submit from:#filter, search from:#filter" hx-include="#filter">
+      <ul class="nav nav-tabs" id="all-transactions-summary" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link {% if summary_tab == 'currency' %}active{% endif %}"
+                    id="currency-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#currency-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="currency-tab-pane"
+                    _="on click fetch {% url 'transaction_all_summary_select' selected='currency' %}"
+                    aria-selected="{% if summary_tab == 'currency' %}true{% else %}false{% endif %}">
+              {% trans 'Currencies' %}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link {% if summary_tab == 'account' %}active{% endif %}"
+                    id="account-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#account-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="account-tab-pane"
+                    _="on click fetch {% url 'transaction_all_summary_select' selected='account' %}"
+                    aria-selected="{% if summary_tab == 'account' %}true{% else %}false{% endif %}">
+              {% trans 'Accounts' %}
+            </button>
+          </li>
+        </ul>
+      <div class="tab-content" id="all-transactions-content">
+          <div class="tab-pane fade {% if summary_tab == 'currency' %}show active{% endif %}"
+               id="currency-tab-pane"
+               role="tabpanel"
+               aria-labelledby="currency-tab"
+               tabindex="0">
+            <div id="currency-summary"
+                 hx-get="{% url 'transaction_all_currency_summary' %}"
+                 class="show-loading"
+                 hx-trigger="load, selective_update from:window, updated from:window, change from:#filter, submit from:#filter, search from:#filter"
+                 hx-include="#filter">
+            </div>
+          </div>
+          <div class="tab-pane fade {% if summary_tab == 'account' %}show active{% endif %}"
+               id="account-tab-pane"
+               role="tabpanel"
+               aria-labelledby="account-tab"
+               tabindex="0">
+            <div id="account-summary"
+                 hx-get="{% url 'transaction_all_account_summary' %}"
+                 class="show-loading"
+                 hx-trigger="load, selective_update from:window, updated from:window, change from:#filter, submit from:#filter, search from:#filter"
+                 hx-include="#filter">
+            </div>
+          </div>
       </div>
     </div>
   </div>

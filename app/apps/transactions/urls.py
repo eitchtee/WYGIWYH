@@ -12,6 +12,21 @@ urlpatterns = [
         name="transactions_all_summary",
     ),
     path(
+        "transactions/summary/account/",
+        views.transaction_all_account_summary,
+        name="transaction_all_account_summary",
+    ),
+    path(
+        "transactions/summary/currency/",
+        views.transaction_all_currency_summary,
+        name="transaction_all_currency_summary",
+    ),
+    path(
+        "transactions/summary/select/<str:selected>/",
+        views.transaction_all_summary_select,
+        name="transaction_all_summary_select",
+    ),
+    path(
         "transactions/actions/pay/",
         views.bulk_pay_transactions,
         name="transactions_bulk_pay",

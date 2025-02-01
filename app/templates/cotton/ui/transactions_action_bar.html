@@ -1,16 +1,18 @@
 {% load i18n %}
 <div class="tw-sticky tw-bottom-4 tw-left-0 tw-right-0 tw-z-50 tw-hidden mx-auto tw-w-fit" id="actions-bar"
      _="on change from #transactions-list or htmx:afterSettle from window
-          if no <input[type='checkbox']:checked/> in #transactions-list
-            if #actions-bar
-              add .slide-in-bottom-reverse then settle
-              then add .tw-hidden to #actions-bar
-              then remove .slide-in-bottom-reverse
-            end
-          else
-            if #actions-bar
-              remove .tw-hidden from #actions-bar
-              then trigger selected_transactions_updated
+        if #actions-bar then
+            if no <input[type='checkbox']:checked/> in #transactions-list
+              if #actions-bar
+                add .slide-in-bottom-reverse then settle
+                then add .tw-hidden to #actions-bar
+                then remove .slide-in-bottom-reverse
+              end
+            else
+              if #actions-bar
+                remove .tw-hidden from #actions-bar
+                then trigger selected_transactions_updated
+              end
             end
           end
         end">
