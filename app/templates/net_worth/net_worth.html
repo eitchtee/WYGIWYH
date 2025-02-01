@@ -46,6 +46,22 @@
                         color="grey"></c-amount.display>
                   </div>
                 {% endif %}
+                {% if currency.consolidated %}
+                  <div class="d-flex align-items-baseline w-100">
+                        <div class="account-name text-start font-monospace tw-text-gray-300">
+                          <span class="hierarchy-line-icon"></span>{% trans 'Consolidated' %}</div>
+                        <div class="dotted-line flex-grow-1"></div>
+                        <div class="">
+                          <c-amount.display
+                            :amount="currency.consolidated.total_final"
+                            :prefix="currency.consolidated.currency.prefix"
+                            :suffix="currency.consolidated.currency.suffix"
+                            :decimal_places="currency.consolidated.currency.decimal_places"
+                            color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
+                            text-end></c-amount.display>
+                        </div>
+                      </div>
+                {% endif %}
               {% endfor %}
             </c-ui.info-card>
           </div>
