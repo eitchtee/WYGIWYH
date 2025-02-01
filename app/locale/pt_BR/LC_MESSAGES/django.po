@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-01 14:09+0000\n"
-"PO-Revision-Date: 2025-02-01 11:10-0300\n"
+"POT-Creation-Date: 2025-02-01 22:04+0000\n"
+"PO-Revision-Date: 2025-02-01 19:04-0300\n"
 "Last-Translator: Herculino Trotta\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -629,7 +629,8 @@ msgid "Type"
 msgstr "Tipo"
 
 #: apps/rules/models.py:21 apps/transactions/filters.py:23
-#: apps/transactions/models.py:141
+#: apps/transactions/models.py:141 templates/cotton/transaction/item.html:20
+#: templates/cotton/transaction/item.html:30
 #: templates/transactions/widgets/paid_toggle_button.html:12
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:16
 msgid "Paid"
@@ -696,7 +697,8 @@ msgstr "Ação atualizada com sucesso"
 msgid "Action deleted successfully"
 msgstr "Ação apagada com sucesso"
 
-#: apps/transactions/filters.py:24 templates/includes/navbar.html:46
+#: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:20
+#: templates/cotton/transaction/item.html:30 templates/includes/navbar.html:46
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 msgid "Projected"
@@ -1230,23 +1232,23 @@ msgstr "Fuso horário"
 msgid "Start page"
 msgstr "Página inicial"
 
-#: apps/users/views.py:58
+#: apps/users/views.py:60
 msgid "Transaction amounts are now hidden"
 msgstr "Os valores das transações agora estão ocultos"
 
-#: apps/users/views.py:61
+#: apps/users/views.py:63
 msgid "Transaction amounts are now displayed"
 msgstr "Os valores das transações agora estão sendo exibidos"
 
-#: apps/users/views.py:79
+#: apps/users/views.py:81
 msgid "Sounds are now muted"
 msgstr "Os sons agora estão silenciados"
 
-#: apps/users/views.py:82
+#: apps/users/views.py:84
 msgid "Sounds will now play"
 msgstr "Os sons agora serão reproduzidos"
 
-#: apps/users/views.py:98
+#: apps/users/views.py:100
 msgid "Your settings have been updated"
 msgstr "Suas configurações foram atualizadas"
 
@@ -1276,7 +1278,7 @@ msgstr "Ações"
 #: templates/account_groups/fragments/list.html:36
 #: templates/accounts/fragments/list.html:41
 #: templates/categories/fragments/table.html:29
-#: templates/cotton/transaction/item.html:123
+#: templates/cotton/transaction/item.html:126
 #: templates/cotton/ui/transactions_action_bar.html:49
 #: templates/currencies/fragments/list.html:37
 #: templates/dca/fragments/strategy/details.html:67
@@ -1295,8 +1297,8 @@ msgstr "Editar"
 #: templates/account_groups/fragments/list.html:43
 #: templates/accounts/fragments/list.html:48
 #: templates/categories/fragments/table.html:36
-#: templates/cotton/transaction/item.html:138
-#: templates/cotton/transaction/item.html:157
+#: templates/cotton/transaction/item.html:141
+#: templates/cotton/transaction/item.html:160
 #: templates/cotton/ui/deleted_transactions_action_bar.html:55
 #: templates/cotton/ui/transactions_action_bar.html:86
 #: templates/currencies/fragments/list.html:44
@@ -1318,8 +1320,8 @@ msgstr "Apagar"
 #: templates/account_groups/fragments/list.html:47
 #: templates/accounts/fragments/list.html:52
 #: templates/categories/fragments/table.html:41
-#: templates/cotton/transaction/item.html:142
-#: templates/cotton/transaction/item.html:161
+#: templates/cotton/transaction/item.html:145
+#: templates/cotton/transaction/item.html:164
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:88
 #: templates/currencies/fragments/list.html:48
@@ -1344,8 +1346,8 @@ msgstr "Tem certeza?"
 #: templates/account_groups/fragments/list.html:48
 #: templates/accounts/fragments/list.html:53
 #: templates/categories/fragments/table.html:42
-#: templates/cotton/transaction/item.html:143
-#: templates/cotton/transaction/item.html:162
+#: templates/cotton/transaction/item.html:146
+#: templates/cotton/transaction/item.html:165
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:89
 #: templates/currencies/fragments/list.html:49
@@ -1363,8 +1365,8 @@ msgstr "Você não será capaz de reverter isso!"
 #: templates/account_groups/fragments/list.html:49
 #: templates/accounts/fragments/list.html:54
 #: templates/categories/fragments/table.html:43
-#: templates/cotton/transaction/item.html:144
-#: templates/cotton/transaction/item.html:163
+#: templates/cotton/transaction/item.html:147
+#: templates/cotton/transaction/item.html:166
 #: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:48
@@ -1490,12 +1492,12 @@ msgstr "Buscar"
 msgid "Select"
 msgstr "Selecionar"
 
-#: templates/cotton/transaction/item.html:130
+#: templates/cotton/transaction/item.html:133
 #: templates/cotton/ui/transactions_action_bar.html:78
 msgid "Duplicate"
 msgstr "Duplicar"
 
-#: templates/cotton/transaction/item.html:151
+#: templates/cotton/transaction/item.html:154
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
 msgid "Restore"
 msgstr "Restaurar"
@@ -2147,16 +2149,20 @@ msgstr "Patrimônio Previsto"
 msgid "By currency"
 msgstr "Por moeda"
 
-#: templates/net_worth/net_worth.html:65
+#: templates/net_worth/net_worth.html:52
+msgid "Consolidated"
+msgstr "Consolidado"
+
+#: templates/net_worth/net_worth.html:81
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Por conta"
 
-#: templates/net_worth/net_worth.html:172
+#: templates/net_worth/net_worth.html:188
 msgid "Evolution by currency"
 msgstr "Evolução por moeda"
 
-#: templates/net_worth/net_worth.html:236
+#: templates/net_worth/net_worth.html:252
 msgid "Evolution by account"
 msgstr "Evolução por conta"
 

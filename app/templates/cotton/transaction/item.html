@@ -111,7 +111,8 @@
           {% endif %}
         {% endwith %}
         <div>
-          {% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
+          {% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}
+        </div>
       </div>
       <div>
         {#      Item actions#}
