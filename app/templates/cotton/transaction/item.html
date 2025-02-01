@@ -2,83 +2,93 @@
 {% load i18n %}
 <div class="transaction d-flex my-1 {% if transaction.type == "EX" %}expense{% else %}income{% endif %}">
   {% if not disable_selection %}
-  <label class="px-3 d-flex align-items-center justify-content-center">
-    <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}" id="check-{{ transaction.id }}" aria-label="{% translate 'Select' %}" hx-preserve>
-  </label>
+    <label class="px-3 d-flex align-items-center justify-content-center">
+      <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}"
+             id="check-{{ transaction.id }}" aria-label="{% translate 'Select' %}" hx-preserve>
+    </label>
   {% endif %}
   <div class="tw-border-s-6 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
   hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
   {% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} tw-relative
   w-100 transaction-item"
-     _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
+       _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
         on mouseout add .tw-invisible to the first .transaction-actions in me end">
     <div class="row font-monospace tw-text-sm align-items-center">
-    <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center">
-      <a class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500"
-         role="button"
-         hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
-         hx-target="closest .transaction"
-         hx-swap="outerHTML">
+      <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center">
+        {% if not transaction.deleted %}
+        <a class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500"
+           role="button"
+           hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
+           hx-target="closest .transaction"
+           hx-swap="outerHTML">
           {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
               class="fa-regular fa-circle"></i>{% endif %}
-      </a>
-    </div>
-    <div class="col-lg-8 col-12">
-{#      Date#}
-      <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+        </a>
+        {% else %}
+          <div class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500">
+          {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
+              class="fa-regular fa-circle"></i>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-8 col-12">
+        {#      Date#}
+        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
           <div class="col-auto pe-1"><i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i></div>
-          <div class="col ps-0">{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
+          <div
+              class="col ps-0">{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
+        </div>
+        {#      Description#}
+        <div class="mb-2 mb-lg-1 text-white tw-text-base">
+          {% spaceless %}
+            <span>{{ transaction.description }}</span>
+            {% if transaction.installment_plan and transaction.installment_id %}
+              <span
+                  class="badge text-bg-secondary ms-2">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
+            {% endif %}
+            {% if transaction.recurring_transaction %}
+              <span class="text-primary tw-text-xs ms-2"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
+            {% endif %}
+          {% endspaceless %}
+        </div>
+        <div class="tw-text-gray-400 tw-text-sm">
+          {#        Entities #}
+          {% with transaction.entities.all as entities %}
+            {% if entities %}
+              <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+                <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
+                <div class="col ps-0">{{ entities|join:", " }}</div>
+              </div>
+            {% endif %}
+          {% endwith %}
+          {#        Notes#}
+          {% if transaction.notes %}
+            <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+              <div class="col-auto pe-1"><i class="fa-solid fa-align-left fa-fw me-1 fa-xs"></i></div>
+              <div class="col ps-0">{{ transaction.notes | limited_markdown | linebreaksbr }}</div>
+            </div>
+          {% endif %}
+          {#        Category#}
+          {% if transaction.category %}
+            <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+              <div class="col-auto pe-1"><i class="fa-solid fa-icons fa-fw me-1 fa-xs"></i></div>
+              <div class="col ps-0">{{ transaction.category.name }}</div>
+            </div>
+          {% endif %}
+          {#        Tags#}
+          {% with transaction.tags.all as tags %}
+            {% if tags %}
+              <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+                <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
+                <div class="col ps-0">{{ tags|join:", " }}</div>
+              </div>
+            {% endif %}
+          {% endwith %}
+        </div>
       </div>
-{#      Description#}
-      <div class="mb-2 mb-lg-1 text-white tw-text-base">
-        {% spaceless %}
-        <span>{{ transaction.description }}</span>
-        {% if transaction.installment_plan and transaction.installment_id %}
-        <span class="badge text-bg-secondary ms-2">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
-        {% endif %}
-        {% if transaction.recurring_transaction %}
-        <span class="text-primary tw-text-xs ms-2"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
-        {% endif %}
-        {% endspaceless %}
-      </div>
-      <div class="tw-text-gray-400 tw-text-sm">
-      {#        Entities #}
-        {% with transaction.entities.all as entities %}
-        {% if entities %}
-        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
-          <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
-          <div class="col ps-0">{{ entities|join:", " }}</div>
-        </div>
-        {% endif %}
-        {% endwith %}
-{#        Notes#}
-        {% if transaction.notes %}
-        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
-          <div class="col-auto pe-1"><i class="fa-solid fa-align-left fa-fw me-1 fa-xs"></i></div>
-          <div class="col ps-0">{{ transaction.notes | limited_markdown | linebreaksbr }}</div>
-        </div>
-        {% endif %}
-{#        Category#}
-        {% if transaction.category %}
-        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
-          <div class="col-auto pe-1"><i class="fa-solid fa-icons fa-fw me-1 fa-xs"></i></div>
-          <div class="col ps-0">{{ transaction.category.name }}</div>
-        </div>
-        {% endif %}
-        {#        Tags#}
-        {% with transaction.tags.all as tags %}
-        {% if tags %}
-        <div class="row mb-2 mb-lg-1 tw-text-gray-400">
-          <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
-          <div class="col ps-0">{{ tags|join:", " }}</div>
-        </div>
-        {% endif %}
-        {% endwith %}
-      </div>
-    </div>
-    <div class="col-lg-3 col-12 text-lg-end align-self-end">
+      <div class="col-lg-3 col-12 text-lg-end align-self-end">
         <div class="main-amount mb-2 mb-lg-0">
-          <c-amount.display 
+          <c-amount.display
               :amount="transaction.amount"
               :prefix="transaction.account.currency.prefix"
               :suffix="transaction.account.currency.suffix"
@@ -87,53 +97,76 @@
         </div>
         {#    Exchange Rate#}
         {% with exchanged=transaction.exchanged_amount %}
-        {% if exchanged %}
-        <div class="exchanged-amount mb-2 mb-lg-0">
-          <c-amount.display 
-              :amount="exchanged.amount"
-              :prefix="exchanged.prefix"
-              :suffix="exchanged.suffix"
-              :decimal_places="exchanged.decimal_places"
-              color="grey"></c-amount.display>
-        </div>
-        {% endif %}
+          {% if exchanged %}
+            <div class="exchanged-amount mb-2 mb-lg-0">
+              <c-amount.display
+                  :amount="exchanged.amount"
+                  :prefix="exchanged.prefix"
+                  :suffix="exchanged.suffix"
+                  :decimal_places="exchanged.decimal_places"
+                  color="grey"></c-amount.display>
+            </div>
+          {% endif %}
         {% endwith %}
-        <div>{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
-    </div>
-    <div>
-{#      Item actions#}
-      <div class="transaction-actions !tw-absolute tw-left-1/2 tw-top-0 tw--translate-x-1/2 tw--translate-y-1/2 tw-invisible d-flex flex-row card">
-        <div class="card-body p-1 shadow-lg">
-          <a class="btn btn-secondary btn-sm transaction-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Edit" %}"
-                hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
-                hx-target="#generic-offcanvas" hx-swap="innerHTML">
-          <i class="fa-solid fa-pencil fa-fw"></i></a>
-          <a class="btn btn-secondary btn-sm transaction-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Duplicate" %}"
-                hx-get="{% url 'transaction_clone' transaction_id=transaction.id %}"
-                _="on click if event.ctrlKey set @hx-get to `{% url 'transaction_clone' transaction_id=transaction.id %}?edit=true` then call htmx.process(me) end then trigger ready"
-                hx-trigger="ready" >
-          <i class="fa-solid fa-clone fa-fw"></i></a>
-          <a class="btn btn-secondary btn-sm transaction-action"
-                  role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Delete" %}"
-                  hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
-                  hx-trigger='confirmed'
-                  data-bypass-on-ctrl="true"
-                  data-title="{% translate "Are you sure?" %}"
-                  data-text="{% translate "You won't be able to revert this!" %}"
-                  data-confirm-text="{% translate "Yes, delete it!" %}"
-                  _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-danger"></i>
-          </a>
+        <div>
+          {% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
+      </div>
+      <div>
+        {#      Item actions#}
+        <div
+            class="transaction-actions !tw-absolute tw-left-1/2 tw-top-0 tw--translate-x-1/2 tw--translate-y-1/2 tw-invisible d-flex flex-row card">
+          <div class="card-body p-1 shadow-lg">
+            {% if not transaction.deleted %}
+              <a class="btn btn-secondary btn-sm transaction-action"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate "Edit" %}"
+                 hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
+                 hx-target="#generic-offcanvas" hx-swap="innerHTML">
+                <i class="fa-solid fa-pencil fa-fw"></i></a>
+              <a class="btn btn-secondary btn-sm transaction-action"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate "Duplicate" %}"
+                 hx-get="{% url 'transaction_clone' transaction_id=transaction.id %}"
+                 _="on click if event.ctrlKey set @hx-get to `{% url 'transaction_clone' transaction_id=transaction.id %}?edit=true` then call htmx.process(me) end then trigger ready"
+                 hx-trigger="ready">
+                <i class="fa-solid fa-clone fa-fw"></i></a>
+              <a class="btn btn-secondary btn-sm transaction-action"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate "Delete" %}"
+                 hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                 hx-trigger='confirmed'
+                 data-bypass-on-ctrl="true"
+                 data-title="{% translate "Are you sure?" %}"
+                 data-text="{% translate "You won't be able to revert this!" %}"
+                 data-confirm-text="{% translate "Yes, delete it!" %}"
+                 _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-danger"></i>
+              </a>
+            {% else %}
+              <a class="btn btn-secondary btn-sm transaction-action"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate "Restore" %}"
+                 hx-get="{% url 'transaction_undelete' transaction_id=transaction.id %}"><i
+                  class="fa-solid fa-trash-arrow-up"></i></a>
+              <a class="btn btn-secondary btn-sm transaction-action"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate "Delete" %}"
+                 hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                 hx-trigger='confirmed'
+                 data-bypass-on-ctrl="true"
+                 data-title="{% translate "Are you sure?" %}"
+                 data-text="{% translate "You won't be able to revert this!" %}"
+                 data-confirm-text="{% translate "Yes, delete it!" %}"
+                 _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-danger"></i>
+              </a>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>

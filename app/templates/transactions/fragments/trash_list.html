@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="trash-list-container" id="transactions-list">
+  {% for transaction in transactions %}
+    <c-transaction.item :transaction="transaction"></c-transaction.item>
+  {% empty %}
+    <c-msg.empty
+      title="{% translate "No deleted transactions to show" %}"></c-msg.empty>
+  {% endfor %}
+  {# Floating bar #}
+  <c-ui.deleted-transactions-action-bar></c-ui.deleted-transactions-action-bar>
+</div>

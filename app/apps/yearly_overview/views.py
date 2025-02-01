@@ -89,7 +89,6 @@ def yearly_overview_by_currency(request, year: int):
             "year": year,
             "totals": data,
             "percentages": percentages,
-            "single": True if currency else False,
         },
     )
 
@@ -159,6 +158,5 @@ def yearly_overview_by_account(request, year: int):
             "year": year,
             "totals": data,
             "percentages": percentages,
-            "single": True if account else False,
         },
     )

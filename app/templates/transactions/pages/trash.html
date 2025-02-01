@@ -1,0 +1,14 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate 'Deleted transactions' %}{% endblock %}
+
+{% block content %}
+  <div class="container px-md-3 py-3 column-gap-5">
+    <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
+      <div>{% translate 'Deleted transactions' %}</div>
+    </div>
+
+    <div hx-get="{% url 'transactions_trash_list' %}" hx-trigger="load, updated from:window" class="show-loading"></div>
+  </div>
+{% endblock %}

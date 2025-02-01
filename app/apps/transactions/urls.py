@@ -7,6 +7,16 @@ urlpatterns = [
         "transactions/list/", views.transaction_all_list, name="transactions_all_list"
     ),
     path(
+        "transactions/trash/",
+        views.transactions_trash_can_index,
+        name="transactions_trash_index",
+    ),
+    path(
+        "transactions/trash/list/",
+        views.transactions_trash_can_list,
+        name="transactions_trash_list",
+    ),
+    path(
         "transactions/summary/",
         views.transaction_all_summary,
         name="transactions_all_summary",
@@ -42,6 +52,11 @@ urlpatterns = [
         name="transactions_bulk_delete",
     ),
     path(
+        "transactions/actions/undelete/",
+        views.bulk_undelete_transactions,
+        name="transactions_bulk_undelete",
+    ),
+    path(
         "transactions/actions/duplicate/",
         views.bulk_clone_transactions,
         name="transactions_bulk_clone",
@@ -55,6 +70,11 @@ urlpatterns = [
         "transaction/<int:transaction_id>/delete/",
         views.transaction_delete,
         name="transaction_delete",
+    ),
+    path(
+        "transaction/<int:transaction_id>/undelete/",
+        views.transaction_undelete,
+        name="transaction_undelete",
     ),
     path(
         "transaction/<int:transaction_id>/edit/",

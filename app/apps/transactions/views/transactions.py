@@ -244,11 +244,29 @@ def transaction_clone(request, transaction_id, **kwargs):
 @login_required
 @require_http_methods(["DELETE"])
 def transaction_delete(request, transaction_id, **kwargs):
-    transaction = get_object_or_404(Transaction, id=transaction_id)
+    transaction = get_object_or_404(Transaction.all_objects, id=transaction_id)
 
     transaction.delete()
 
     messages.success(request, _("Transaction deleted successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={"HX-Trigger": "updated"},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_undelete(request, transaction_id, **kwargs):
+    transaction = get_object_or_404(Transaction.deleted_objects, id=transaction_id)
+
+    transaction.deleted = False
+    transaction.deleted_at = None
+    transaction.save()
+
+    messages.success(request, _("Transaction restored successfully"))
 
     return HttpResponse(
         status=204,
@@ -456,4 +474,28 @@ def transaction_all_summary_select(request, selected):
 
     return HttpResponse(
         status=204,
+    )
+
+
+@login_required
+@require_http_methods(["GET"])
+def transactions_trash_can_index(request):
+    return render(request, "transactions/pages/trash.html")
+
+
+def transactions_trash_can_list(request):
+    transactions = Transaction.deleted_objects.prefetch_related(
+        "account",
+        "account__group",
+        "category",
+        "tags",
+        "account__exchange_currency",
+        "account__currency",
+        "installment_plan",
+    ).all()
+
+    return render(
+        request,
+        "transactions/fragments/trash_list.html",
+        {"transactions": transactions},
     )
