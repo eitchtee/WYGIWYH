@@ -228,9 +228,12 @@ class Transaction(models.Model):
 
     def delete(self, *args, **kwargs):
         if settings.ENABLE_SOFT_DELETE:
-            self.deleted = True
-            self.deleted_at = timezone.now()
-            self.save()
+            if not self.deleted:
+                self.deleted = True
+                self.deleted_at = timezone.now()
+                self.save()
+            else:
+                super().delete(*args, **kwargs)
         else:
             super().delete(*args, **kwargs)
 

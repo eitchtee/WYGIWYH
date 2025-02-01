@@ -61,7 +61,7 @@ def bulk_unpay_transactions(request):
 @login_required
 def bulk_delete_transactions(request):
     selected_transactions = request.GET.getlist("transactions", [])
-    transactions = Transaction.objects.filter(id__in=selected_transactions)
+    transactions = Transaction.all_objects.filter(id__in=selected_transactions)
     count = transactions.count()
     transactions.delete()
 
@@ -70,6 +70,30 @@ def bulk_delete_transactions(request):
         ngettext_lazy(
             "%(count)s transaction deleted successfully",
             "%(count)s transactions deleted successfully",
+            count,
+        )
+        % {"count": count},
+    )
+
+    return HttpResponse(
+        status=204,
+        headers={"HX-Trigger": "updated"},
+    )
+
+
+@only_htmx
+@login_required
+def bulk_undelete_transactions(request):
+    selected_transactions = request.GET.getlist("transactions", [])
+    transactions = Transaction.deleted_objects.filter(id__in=selected_transactions)
+    count = transactions.count()
+    transactions.update(deleted=False, deleted_at=None)
+
+    messages.success(
+        request,
+        ngettext_lazy(
+            "%(count)s transaction restored successfully",
+            "%(count)s transactions restored successfully",
             count,
         )
         % {"count": count},

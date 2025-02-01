@@ -1,3 +1,4 @@
+{% load settings %}
 {% load static %}
 {% load i18n %}
 {% load active_link %}
@@ -56,7 +57,13 @@
             <li><a class="dropdown-item {% active_link views='transactions_all_index' %}"
                    href="{% url 'transactions_all_index' %}">{% translate 'All' %}</a></li>
             <li>
-              <hr class="dropdown-divider">
+            {% settings "ENABLE_SOFT_DELETE" as enable_soft_delete %}
+            {% if enable_soft_delete %}
+            <li><a class="dropdown-item {% active_link views='transactions_trash_index' %}"
+                   href="{% url 'transactions_trash_index' %}">{% translate 'Trash Can' %}</a></li>
+            <li>
+            {% endif %}
+            <hr class="dropdown-divider">
             </li>
             <li><a class="dropdown-item {% active_link views='installment_plans_index' %}"
                    href="{% url 'installment_plans_index' %}">{% translate 'Installment Plans' %}</a></li>
