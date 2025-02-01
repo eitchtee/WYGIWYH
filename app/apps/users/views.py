@@ -26,8 +26,10 @@ def logout_view(request):
 def index(request):
     if request.user.settings.start_page == UserSettings.StartPage.MONTHLY:
         return redirect(reverse("monthly_index"))
-    elif request.user.settings.start_page == UserSettings.StartPage.YEARLY:
-        return redirect(reverse("yearly_index"))
+    elif request.user.settings.start_page == UserSettings.StartPage.YEARLY_ACCOUNT:
+        return redirect(reverse("yearly_index_account"))
+    elif request.user.settings.start_page == UserSettings.StartPage.YEARLY_CURRENCY:
+        return redirect(reverse("yearly_index_currency"))
     elif request.user.settings.start_page == UserSettings.StartPage.NETWORTH:
         return redirect(reverse("net_worth"))
     elif request.user.settings.start_page == UserSettings.StartPage.ALL_TRANSACTIONS:
