@@ -314,9 +314,13 @@ def transaction_pay(request, transaction_id):
 @require_http_methods(["GET"])
 def transaction_all_index(request):
     order = request.session.get("all_transactions_order", "default")
+    summary_tab = request.session.get("transaction_all_summary_tab", "currency")
+
     f = TransactionsFilter(request.GET)
     return render(
-        request, "transactions/pages/transactions.html", {"filter": f, "order": order}
+        request,
+        "transactions/pages/transactions.html",
+        {"filter": f, "order": order, "summary_tab": summary_tab},
     )
 
 
@@ -382,16 +386,74 @@ def transaction_all_summary(request):
     account_percentages = calculate_percentage_distribution(account_data)
 
     context = {
-        "income_current": remove_falsey_entries(currency_data, "income_current"),
-        "income_projected": remove_falsey_entries(currency_data, "income_projected"),
-        "expense_current": remove_falsey_entries(currency_data, "expense_current"),
-        "expense_projected": remove_falsey_entries(currency_data, "expense_projected"),
-        "total_current": remove_falsey_entries(currency_data, "total_current"),
-        "total_final": remove_falsey_entries(currency_data, "total_final"),
-        "total_projected": remove_falsey_entries(currency_data, "total_projected"),
+        "currency_data": currency_data,
         "currency_percentages": currency_percentages,
         "account_data": account_data,
         "account_percentages": account_percentages,
     }
 
     return render(request, "transactions/fragments/summary.html", context)
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_all_account_summary(request):
+    transactions = Transaction.objects.prefetch_related(
+        "account",
+        "account__group",
+        "category",
+        "tags",
+        "account__exchange_currency",
+        "account__currency",
+        "installment_plan",
+    ).all()
+
+    f = TransactionsFilter(request.GET, queryset=transactions)
+
+    account_data = calculate_account_totals(transactions_queryset=f.qs.all())
+    account_percentages = calculate_percentage_distribution(account_data)
+
+    context = {
+        "account_data": account_data,
+        "account_percentages": account_percentages,
+    }
+
+    return render(request, "transactions/fragments/all_account_summary.html", context)
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_all_currency_summary(request):
+    transactions = Transaction.objects.prefetch_related(
+        "account",
+        "account__group",
+        "category",
+        "tags",
+        "account__exchange_currency",
+        "account__currency",
+        "installment_plan",
+    ).all()
+
+    f = TransactionsFilter(request.GET, queryset=transactions)
+
+    currency_data = calculate_currency_totals(f.qs.all(), ignore_empty=True)
+    currency_percentages = calculate_percentage_distribution(currency_data)
+
+    context = {
+        "currency_data": currency_data,
+        "currency_percentages": currency_percentages,
+    }
+
+    return render(request, "transactions/fragments/all_currency_summary.html", context)
+
+
+@login_required
+@require_http_methods(["GET"])
+def transaction_all_summary_select(request, selected):
+    request.session["transaction_all_summary_tab"] = selected
+
+    return HttpResponse(
+        status=204,
+    )
