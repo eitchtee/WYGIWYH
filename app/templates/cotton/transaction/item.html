@@ -17,6 +17,7 @@
       <div class="col-lg-1 col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center">
         {% if not transaction.deleted %}
         <a class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500"
+           title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}"
            role="button"
            hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
            hx-target="closest .transaction"
@@ -25,7 +26,8 @@
               class="fa-regular fa-circle"></i>{% endif %}
         </a>
         {% else %}
-          <div class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500">
+          <div class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500"
+               title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}">
           {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
               class="fa-regular fa-circle"></i>{% endif %}
           </div>
