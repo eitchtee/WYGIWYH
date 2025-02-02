@@ -30,8 +30,10 @@ def index(request):
         return redirect(reverse("yearly_index_account"))
     elif request.user.settings.start_page == UserSettings.StartPage.YEARLY_CURRENCY:
         return redirect(reverse("yearly_index_currency"))
-    elif request.user.settings.start_page == UserSettings.StartPage.NETWORTH:
-        return redirect(reverse("net_worth"))
+    elif request.user.settings.start_page == UserSettings.StartPage.NETWORTH_CURRENT:
+        return redirect(reverse("net_worth_current"))
+    elif request.user.settings.start_page == UserSettings.StartPage.NETWORTH_PROJECTED:
+        return redirect(reverse("net_worth_projected"))
     elif request.user.settings.start_page == UserSettings.StartPage.ALL_TRANSACTIONS:
         return redirect(reverse("transactions_all_index"))
     elif request.user.settings.start_page == UserSettings.StartPage.CALENDAR:

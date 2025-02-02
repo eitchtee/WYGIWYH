@@ -26,7 +26,8 @@ class UserSettings(models.Model):
         MONTHLY = "MONTHLY_OVERVIEW", _("Monthly")
         YEARLY_CURRENCY = "YEARLY_OVERVIEW_CURRENCY", _("Yearly by currency")
         YEARLY_ACCOUNT = "YEARLY_OVERVIEW_ACCOUNT", _("Yearly by account")
-        NETWORTH = "NETWORTH", _("Net Worth")
+        NETWORTH_CURRENT = "NETWORTH_CURRENT", _("Current Net Worth")
+        NETWORTH_PROJECTED = "NETWORTH_PROJECTED", _("Projected Net Worth")
         ALL_TRANSACTIONS = "ALL_TRANSACTIONS", _("All Transactions")
         CALENDAR = "CALENDAR", _("Calendar")
 
