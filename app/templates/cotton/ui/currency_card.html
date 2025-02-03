@@ -24,7 +24,7 @@
     {% if currency.exchanged and currency.exchanged.income_projected %}
       <div class="text-end font-monospace tw-text-gray-500">
         <c-amount.display
-            :amount="currency.exchanged.currency.income_projected"
+            :amount="currency.exchanged.income_projected"
             :prefix="currency.exchanged.currency.prefix"
             :suffix="currency.exchanged.currency.suffix"
             :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
