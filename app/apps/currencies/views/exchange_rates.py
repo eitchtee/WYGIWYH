@@ -27,17 +27,17 @@ def exchange_rates_index(request):
 @require_http_methods(["GET"])
 def exchange_rates_list(request):
     pairings = (
-        ExchangeRate.objects.values("from_currency__code", "to_currency__code")
+        ExchangeRate.objects.values("from_currency__name", "to_currency__name")
         .distinct()
         .annotate(
             pair=Concat(
-                "from_currency__code",
+                "from_currency__name",
                 Value(" x "),
-                "to_currency__code",
+                "to_currency__name",
                 output_field=CharField(),
             )
         )
-        .values_list("pair", "from_currency__code", "to_currency__code")
+        .values_list("pair", "from_currency__name", "to_currency__name")
     )
 
     return render(
@@ -56,7 +56,7 @@ def exchange_rates_list_pair(request):
 
     if from_currency and to_currency:
         exchange_rates = ExchangeRate.objects.filter(
-            from_currency__code=from_currency, to_currency__code=to_currency
+            from_currency__name=from_currency, to_currency__name=to_currency
         ).order_by("-date")
     else:
         exchange_rates = ExchangeRate.objects.all().order_by("-date")
