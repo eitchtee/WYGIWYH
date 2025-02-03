@@ -9,7 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 class Currency(models.Model):
-    code = models.CharField(max_length=10, unique=True, verbose_name=_("Currency Code"))
+    code = models.CharField(
+        max_length=255, unique=False, verbose_name=_("Currency Code")
+    )
     name = models.CharField(max_length=50, verbose_name=_("Currency Name"), unique=True)
     decimal_places = models.PositiveIntegerField(
         default=2,
