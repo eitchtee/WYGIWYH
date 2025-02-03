@@ -40,8 +40,8 @@
             </div>
           </td>
           <td class="col-3">{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
-          <td class="col-3"><span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.from_currency.code }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.to_currency.code }}</span></td>
-          <td class="col-3">1 {{ exchange_rate.from_currency.code }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places%}</td>
+          <td class="col-3"><span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.from_currency.name }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.to_currency.name }}</span></td>
+          <td class="col-3">1 {{ exchange_rate.from_currency.name }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places%}</td>
         </tr>
         {% endfor %}
       </tbody>
