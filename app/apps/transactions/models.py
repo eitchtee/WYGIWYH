@@ -255,6 +255,20 @@ class Transaction(models.Model):
                     "suffix": suffix,
                     "decimal_places": decimal_places,
                 }
+        elif self.account.currency.exchange_currency:
+            converted_amount, prefix, suffix, decimal_places = convert(
+                self.amount,
+                to_currency=self.account.currency.exchange_currency,
+                from_currency=self.account.currency,
+                date=self.date,
+            )
+            if converted_amount:
+                return {
+                    "amount": converted_amount,
+                    "prefix": prefix,
+                    "suffix": suffix,
+                    "decimal_places": decimal_places,
+                }
 
         return None
 
