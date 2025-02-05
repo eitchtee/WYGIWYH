@@ -4,4 +4,12 @@ set -o errexit
 set -o nounset
 
 
+# Wait for migrations to complete
+until [ -f /tmp/migrations_complete ]; do
+    echo "Procastinate is waiting for web app to start..."
+    sleep 2
+done
+
+rm -f /tmp/migrations_complete
+
 exec watchfiles --filter python "python manage.py procrastinate worker"

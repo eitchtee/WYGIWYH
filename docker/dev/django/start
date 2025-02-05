@@ -4,5 +4,11 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+rm -f /tmp/migrations_complete
+
 python manage.py migrate
+
+# Create flag file to signal migrations are complete
+touch /tmp/migrations_complete
+
 exec python manage.py runserver 0.0.0.0:8000
