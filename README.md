@@ -79,6 +79,9 @@ $ docker compose up -d
 $ docker compose exec -it web python manage.py createsuperuser
 ```
 
+> [!NOTE]
+> If you're using Unraid, you don't need to follow these steps, use the app on the store. Make sure to read the [Unraid section](#unraid) and [Enviroment Variables](#enviroment-variables) for an explanation of all available variables
+
 ## Running locally
 
 If you want to run WYGIWYH locally, on your env file:
@@ -104,6 +107,8 @@ All the required Dockerfiles are [here](https://github.com/eitchtee/WYGIWYH/tree
 [nwithan8](https://github.com/nwithan8) has kindly provided a Unraid template for WYGIWYH, have a look at the [unraid_templates](https://github.com/nwithan8/unraid_templates) repo.
 
 WYGIWYH is available on the Unraid Store. You'll need to provision your own postgres (version 15 or up) database.
+
+To create the first user, open the container's console using Unraid's UI, by clicking on WYGIWYH icon on the Docker page and selecting `Console`, then type `python manage.py createsuperuser`, you'll them be prompted to input your e-mail and password.
 
 ## Enviroment Variables
 
