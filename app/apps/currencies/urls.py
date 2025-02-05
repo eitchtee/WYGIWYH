@@ -34,4 +34,34 @@ urlpatterns = [
         views.exchange_rate_delete,
         name="exchange_rate_delete",
     ),
+    path(
+        "automatic-exchange-rates/",
+        views.exchange_rates_services_index,
+        name="automatic_exchange_rates_index",
+    ),
+    path(
+        "automatic-exchange-rates/list/",
+        views.exchange_rates_services_list,
+        name="automatic_exchange_rates_list",
+    ),
+    path(
+        "automatic-exchange-rates/add/",
+        views.exchange_rate_service_add,
+        name="automatic_exchange_rate_add",
+    ),
+    path(
+        "automatic-exchange-rates/force-fetch/",
+        views.exchange_rate_service_force_fetch,
+        name="automatic_exchange_rate_force_fetch",
+    ),
+    path(
+        "automatic-exchange-rates/<int:pk>/edit/",
+        views.exchange_rate_service_edit,
+        name="automatic_exchange_rate_edit",
+    ),
+    path(
+        "automatic-exchange-rates/<int:pk>/delete/",
+        views.exchange_rate_service_delete,
+        name="automatic_exchange_rate_delete",
+    ),
 ]
