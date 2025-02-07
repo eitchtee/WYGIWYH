@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-04 03:20+0000\n"
-"PO-Revision-Date: 2025-02-04 00:22-0300\n"
+"POT-Creation-Date: 2025-02-07 11:45-0300\n"
+"PO-Revision-Date: 2025-02-07 11:46-0300\n"
 "Last-Translator: Herculino Trotta\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -25,7 +25,7 @@ msgstr "Nome do grupo"
 
 #: apps/accounts/forms.py:40 apps/accounts/forms.py:96
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:91
-#: apps/currencies/forms.py:138 apps/dca/forms.py:41 apps/dca/forms.py:93
+#: apps/currencies/forms.py:142 apps/dca/forms.py:41 apps/dca/forms.py:93
 #: apps/import_app/forms.py:34 apps/rules/forms.py:45 apps/rules/forms.py:87
 #: apps/transactions/forms.py:190 apps/transactions/forms.py:257
 #: apps/transactions/forms.py:581 apps/transactions/forms.py:624
@@ -36,7 +36,7 @@ msgstr "Atualizar"
 
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:104
 #: apps/common/widgets/tom_select.py:12 apps/currencies/forms.py:61
-#: apps/currencies/forms.py:99 apps/currencies/forms.py:146
+#: apps/currencies/forms.py:99 apps/currencies/forms.py:150
 #: apps/dca/forms.py:49 apps/dca/forms.py:102 apps/import_app/forms.py:42
 #: apps/rules/forms.py:53 apps/rules/forms.py:95 apps/transactions/forms.py:174
 #: apps/transactions/forms.py:199 apps/transactions/forms.py:589
@@ -114,17 +114,17 @@ msgstr "Grupo da Conta"
 msgid "Account Groups"
 msgstr "Grupos da Conta"
 
-#: apps/accounts/models.py:31 apps/currencies/models.py:38
+#: apps/accounts/models.py:31 apps/currencies/models.py:39
 #: templates/accounts/fragments/list.html:27
 msgid "Currency"
 msgstr "Moeda"
 
-#: apps/accounts/models.py:37 apps/currencies/models.py:26
+#: apps/accounts/models.py:37 apps/currencies/models.py:27
 #: templates/accounts/fragments/list.html:28
 msgid "Exchange Currency"
 msgstr "Moeda de Câmbio"
 
-#: apps/accounts/models.py:42 apps/currencies/models.py:31
+#: apps/accounts/models.py:42 apps/currencies/models.py:32
 msgid "Default currency for exchange calculations"
 msgstr "Moeda padrão para os cálculos de câmbio"
 
@@ -352,11 +352,11 @@ msgstr "Limpar"
 msgid "No results..."
 msgstr "Sem resultados..."
 
-#: apps/currencies/forms.py:17 apps/currencies/models.py:21
+#: apps/currencies/forms.py:17 apps/currencies/models.py:22
 msgid "Prefix"
 msgstr "Prefixo"
 
-#: apps/currencies/forms.py:18 apps/currencies/models.py:22
+#: apps/currencies/forms.py:18 apps/currencies/models.py:23
 msgid "Suffix"
 msgstr "Sufixo"
 
@@ -369,19 +369,19 @@ msgstr "Sufixo"
 msgid "Date"
 msgstr "Data"
 
-#: apps/currencies/models.py:13
+#: apps/currencies/models.py:14
 msgid "Currency Code"
 msgstr "Código da Moeda"
 
-#: apps/currencies/models.py:15
+#: apps/currencies/models.py:16
 msgid "Currency Name"
 msgstr "Nome da Moeda"
 
-#: apps/currencies/models.py:19
+#: apps/currencies/models.py:20
 msgid "Decimal Places"
 msgstr "Casas Decimais"
 
-#: apps/currencies/models.py:39 apps/transactions/filters.py:60
+#: apps/currencies/models.py:40 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
 #: templates/currencies/pages/index.html:4 templates/includes/navbar.html:119
 #: templates/includes/navbar.html:121
@@ -391,45 +391,57 @@ msgstr "Casas Decimais"
 msgid "Currencies"
 msgstr "Moedas"
 
-#: apps/currencies/models.py:47
+#: apps/currencies/models.py:48
 msgid "Currency cannot have itself as exchange currency."
 msgstr "A moeda não pode ter a si mesma como moeda de câmbio."
 
-#: apps/currencies/models.py:58
+#: apps/currencies/models.py:59
 msgid "From Currency"
 msgstr "Moeda de origem"
 
-#: apps/currencies/models.py:64
+#: apps/currencies/models.py:65
 msgid "To Currency"
 msgstr "Moeda de destino"
 
-#: apps/currencies/models.py:67 apps/currencies/models.py:72
+#: apps/currencies/models.py:68 apps/currencies/models.py:73
 msgid "Exchange Rate"
 msgstr "Taxa de Câmbio"
 
-#: apps/currencies/models.py:69
+#: apps/currencies/models.py:70
 msgid "Date and Time"
 msgstr "Data e Tempo"
 
-#: apps/currencies/models.py:73 templates/exchange_rates/fragments/list.html:6
+#: apps/currencies/models.py:74 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:123
 msgid "Exchange Rates"
 msgstr "Taxas de Câmbio"
 
-#: apps/currencies/models.py:85
+#: apps/currencies/models.py:86
 msgid "From and To currencies cannot be the same."
 msgstr "As moedas De e Para não podem ser as mesmas."
 
-#: apps/currencies/models.py:97
+#: apps/currencies/models.py:99
+msgid "On"
+msgstr "Em"
+
+#: apps/currencies/models.py:100
+msgid "Every X hours"
+msgstr "A cada X horas"
+
+#: apps/currencies/models.py:101
+msgid "Not on"
+msgstr "Não em"
+
+#: apps/currencies/models.py:103
 msgid "Service Name"
 msgstr "Nome do Serviço"
 
-#: apps/currencies/models.py:99
+#: apps/currencies/models.py:105
 msgid "Service Type"
 msgstr "Tipo de Serviço"
 
-#: apps/currencies/models.py:101 apps/transactions/models.py:71
+#: apps/currencies/models.py:107 apps/transactions/models.py:71
 #: apps/transactions/models.py:90 apps/transactions/models.py:109
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
@@ -438,27 +450,31 @@ msgstr "Tipo de Serviço"
 msgid "Active"
 msgstr "Ativo"
 
-#: apps/currencies/models.py:106
+#: apps/currencies/models.py:112
 msgid "API Key"
 msgstr "Chave de API"
 
-#: apps/currencies/models.py:107
+#: apps/currencies/models.py:113
 msgid "API key for the service (if required)"
 msgstr "Chave de API para o serviço (se necessário)"
 
-#: apps/currencies/models.py:112
-msgid "Fetch Interval (hours)"
-msgstr "Intervalo de busca (horas)"
+#: apps/currencies/models.py:118
+msgid "Interval Type"
+msgstr "Tipo de Intervalo"
 
-#: apps/currencies/models.py:115
+#: apps/currencies/models.py:122
+msgid "Interval"
+msgstr "Intervalo"
+
+#: apps/currencies/models.py:125
 msgid "Last Successful Fetch"
 msgstr "Última execução bem-sucedida"
 
-#: apps/currencies/models.py:120
+#: apps/currencies/models.py:130
 msgid "Target Currencies"
 msgstr "Moedas-alvo"
 
-#: apps/currencies/models.py:122
+#: apps/currencies/models.py:132
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -466,11 +482,11 @@ msgstr ""
 "Selecione as moedas para as quais deseja obter as taxas de câmbio. As taxas "
 "serão obtidas para cada moeda em relação à moeda de câmbio definida."
 
-#: apps/currencies/models.py:130
+#: apps/currencies/models.py:140
 msgid "Target Accounts"
 msgstr "Contas-alvo"
 
-#: apps/currencies/models.py:132
+#: apps/currencies/models.py:142
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -479,13 +495,38 @@ msgstr ""
 "serão obtidas para a moeda de cada conta em relação à moeda de câmbio "
 "definida."
 
-#: apps/currencies/models.py:139
+#: apps/currencies/models.py:149
 msgid "Exchange Rate Service"
 msgstr "Serviço de Taxa de Câmbio"
 
-#: apps/currencies/models.py:140
+#: apps/currencies/models.py:150
 msgid "Exchange Rate Services"
 msgstr "Serviços de Taxa de Câmbio"
+
+#: apps/currencies/models.py:202
+msgid "'Every X hours' interval type requires a positive integer."
+msgstr ""
+"Intervalo do tipo 'A cada X horas' requerer um número inteiro positivo."
+
+#: apps/currencies/models.py:211
+msgid "'Every X hours' interval must be between 0 and 23."
+msgstr "Intervalo do tipo 'A cada X horas' requerer um número entre 0 e 23."
+
+#: apps/currencies/models.py:225
+msgid ""
+"Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
+"'1-5,8,10-12')."
+msgstr ""
+"Formato inválido de hora. Use uma lista de horas separada por vírgulas "
+"(0-23) e/ou uma faixa (ex.: '1-5,8,10-12')"
+
+#: apps/currencies/models.py:236
+msgid ""
+"Invalid format. Please check the requirements for your selected interval "
+"type."
+msgstr ""
+"Formato inválido. Por favor cheque os requisitos para o seu tipo de "
+"intervalo."
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
@@ -1349,7 +1390,7 @@ msgstr "Editar grupo de conta"
 #: templates/dca/fragments/strategy/details.html:63
 #: templates/entities/fragments/table.html:23
 #: templates/exchange_rates/fragments/table.html:19
-#: templates/exchange_rates_services/fragments/list.html:43
+#: templates/exchange_rates_services/fragments/list.html:42
 #: templates/exchange_rates_services/fragments/table.html:19
 #: templates/import_app/fragments/profiles/list.html:44
 #: templates/installment_plans/fragments/table.html:23
@@ -1369,7 +1410,7 @@ msgstr "Ações"
 #: templates/dca/fragments/strategy/list.html:34
 #: templates/entities/fragments/table.html:28
 #: templates/exchange_rates/fragments/table.html:23
-#: templates/exchange_rates_services/fragments/list.html:47
+#: templates/exchange_rates_services/fragments/list.html:46
 #: templates/exchange_rates_services/fragments/table.html:23
 #: templates/import_app/fragments/profiles/list.html:48
 #: templates/installment_plans/fragments/table.html:27
@@ -1392,7 +1433,7 @@ msgstr "Editar"
 #: templates/dca/fragments/strategy/list.html:42
 #: templates/entities/fragments/table.html:36
 #: templates/exchange_rates/fragments/table.html:31
-#: templates/exchange_rates_services/fragments/list.html:54
+#: templates/exchange_rates_services/fragments/list.html:53
 #: templates/exchange_rates_services/fragments/table.html:31
 #: templates/import_app/fragments/profiles/list.html:69
 #: templates/import_app/fragments/runs/list.html:102
@@ -1417,7 +1458,7 @@ msgstr "Apagar"
 #: templates/dca/fragments/strategy/list.html:46
 #: templates/entities/fragments/table.html:40
 #: templates/exchange_rates/fragments/table.html:36
-#: templates/exchange_rates_services/fragments/list.html:58
+#: templates/exchange_rates_services/fragments/list.html:57
 #: templates/exchange_rates_services/fragments/table.html:36
 #: templates/import_app/fragments/profiles/list.html:73
 #: templates/import_app/fragments/runs/list.html:106
@@ -1445,7 +1486,7 @@ msgstr "Tem certeza?"
 #: templates/dca/fragments/strategy/list.html:47
 #: templates/entities/fragments/table.html:41
 #: templates/exchange_rates/fragments/table.html:37
-#: templates/exchange_rates_services/fragments/list.html:59
+#: templates/exchange_rates_services/fragments/list.html:58
 #: templates/exchange_rates_services/fragments/table.html:37
 #: templates/import_app/fragments/profiles/list.html:74
 #: templates/rules/fragments/list.html:49
@@ -1464,7 +1505,7 @@ msgstr "Você não será capaz de reverter isso!"
 #: templates/dca/fragments/strategy/list.html:48
 #: templates/entities/fragments/table.html:42
 #: templates/exchange_rates/fragments/table.html:38
-#: templates/exchange_rates_services/fragments/list.html:60
+#: templates/exchange_rates_services/fragments/list.html:59
 #: templates/exchange_rates_services/fragments/table.html:38
 #: templates/import_app/fragments/profiles/list.html:75
 #: templates/import_app/fragments/runs/list.html:108
@@ -1939,26 +1980,18 @@ msgid "Targeting"
 msgstr "Alvos"
 
 #: templates/exchange_rates_services/fragments/list.html:35
-msgid "Fetch every"
-msgstr "Buscar a cada"
-
-#: templates/exchange_rates_services/fragments/list.html:36
 msgid "Last fetch"
 msgstr "Última execução"
 
-#: templates/exchange_rates_services/fragments/list.html:68
+#: templates/exchange_rates_services/fragments/list.html:67
 msgid "currencies"
 msgstr "moedas"
 
-#: templates/exchange_rates_services/fragments/list.html:68
+#: templates/exchange_rates_services/fragments/list.html:67
 msgid "accounts"
 msgstr "contas"
 
-#: templates/exchange_rates_services/fragments/list.html:69
-msgid "hours"
-msgstr "horas"
-
-#: templates/exchange_rates_services/fragments/list.html:77
+#: templates/exchange_rates_services/fragments/list.html:75
 msgid "No services configured"
 msgstr "Nenhum serviço configurado"
 
@@ -2510,6 +2543,15 @@ msgstr "Visão Anual"
 #: templates/yearly_overview/pages/overview_by_currency.html:63
 msgid "Year"
 msgstr "Ano"
+
+#~ msgid "Fetch Interval (hours)"
+#~ msgstr "Intervalo de busca (horas)"
+
+#~ msgid "Fetch every"
+#~ msgstr "Buscar a cada"
+
+#~ msgid "hours"
+#~ msgstr "horas"
 
 #, fuzzy
 #~ msgid "Exchange rates queued to be fetched successfully"
