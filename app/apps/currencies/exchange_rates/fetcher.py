@@ -23,17 +23,67 @@ PROVIDER_MAPPING = {
 
 
 class ExchangeRateFetcher:
+    def _should_fetch_at_hour(service: ExchangeRateService, current_hour: int) -> bool:
+        """Check if service should fetch rates at given hour based on interval type."""
+        try:
+            if service.interval_type == ExchangeRateService.IntervalType.NOT_ON:
+                blocked_hours = ExchangeRateService._parse_hour_ranges(
+                    service.fetch_interval
+                )
+                should_fetch = current_hour not in blocked_hours
+                logger.debug(
+                    f"NOT_ON check for {service.name}: "
+                    f"current_hour={current_hour}, "
+                    f"blocked_hours={blocked_hours}, "
+                    f"should_fetch={should_fetch}"
+                )
+                return should_fetch
+
+            if service.interval_type == ExchangeRateService.IntervalType.ON:
+                allowed_hours = ExchangeRateService._parse_hour_ranges(
+                    service.fetch_interval
+                )
+                return current_hour in allowed_hours
+
+            if service.interval_type == ExchangeRateService.IntervalType.EVERY:
+                try:
+                    interval_hours = int(service.fetch_interval)
+                    if service.last_fetch is None:
+                        return True
+                    hours_since_last = (
+                        timezone.now() - service.last_fetch
+                    ).total_seconds() / 3600
+                    should_fetch = hours_since_last >= interval_hours
+                    logger.debug(
+                        f"EVERY check for {service.name}: "
+                        f"hours_since_last={hours_since_last:.1f}, "
+                        f"interval={interval_hours}, "
+                        f"should_fetch={should_fetch}"
+                    )
+                    return should_fetch
+                except ValueError:
+                    logger.error(
+                        f"Invalid EVERY interval format for {service.name}: "
+                        f"expected single number, got '{service.fetch_interval}'"
+                    )
+                    return False
+
+            return False
+
+        except ValueError as e:
+            logger.error(f"Error parsing fetch_interval for {service.name}: {e}")
+            return False
+
     @staticmethod
     def fetch_due_rates(force: bool = False) -> None:
         """
         Fetch rates for all services that are due for update.
-
         Args:
-            force (bool): If True, fetches all active services regardless of their last fetch time.
-                         If False, only fetches services that are due according to their interval.
+            force (bool): If True, fetches all active services regardless of their schedule.
         """
         services = ExchangeRateService.objects.filter(is_active=True)
-        current_time = timezone.now().replace(minute=0, second=0, microsecond=0)
+        current_time = timezone.now().astimezone()
+        current_hour = current_time.hour
 
         for service in services:
             try:
@@ -42,29 +92,21 @@ class ExchangeRateFetcher:
                     ExchangeRateFetcher._fetch_service_rates(service)
                     continue
 
-                # Regular schedule-based fetching
-                if service.last_fetch is None:
-                    logger.info(f"First fetch for service: {service.name}")
-                    ExchangeRateFetcher._fetch_service_rates(service)
-                    continue
-
-                # Calculate when the next fetch should occur
-                next_fetch_due = (
-                    service.last_fetch + timedelta(hours=service.fetch_interval_hours)
-                ).replace(minute=0, second=0, microsecond=0)
-
-                # Check if it's time for the next fetch
-                if current_time >= next_fetch_due:
+                # Check if service should fetch based on interval type
+                if ExchangeRateFetcher._should_fetch_at_hour(service, current_hour):
                     logger.info(
                         f"Fetching rates for {service.name}. "
                         f"Last fetch: {service.last_fetch}, "
-                        f"Interval: {service.fetch_interval_hours}h"
+                        f"Interval type: {service.interval_type}, "
+                        f"Current hour: {current_hour}"
                     )
                     ExchangeRateFetcher._fetch_service_rates(service)
                 else:
                     logger.debug(
                         f"Skipping {service.name}. "
-                        f"Next fetch due at: {next_fetch_due}"
+                        f"Current hour: {current_hour}, "
+                        f"Interval type: {service.interval_type}, "
+                        f"Fetch interval: {service.fetch_interval}"
                     )
 
             except Exception as e:
