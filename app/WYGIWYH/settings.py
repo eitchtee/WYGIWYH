@@ -166,7 +166,7 @@ LANGUAGES = (
     ("pt-br", "Português (Brasil)"),
 )
 
-TIME_ZONE = "UTC"
+TIME_ZONE = os.getenv("TZ", "UTC")
 
 USE_I18N = True
 
