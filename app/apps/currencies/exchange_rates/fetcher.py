@@ -31,7 +31,7 @@ class ExchangeRateFetcher:
                     service.fetch_interval
                 )
                 should_fetch = current_hour not in blocked_hours
-                logger.debug(
+                logger.info(
                     f"NOT_ON check for {service.name}: "
                     f"current_hour={current_hour}, "
                     f"blocked_hours={blocked_hours}, "
@@ -43,18 +43,35 @@ class ExchangeRateFetcher:
                 allowed_hours = ExchangeRateService._parse_hour_ranges(
                     service.fetch_interval
                 )
-                return current_hour in allowed_hours
+
+                should_fetch = current_hour in allowed_hours
+
+                logger.info(
+                    f"ON check for {service.name}: "
+                    f"current_hour={current_hour}, "
+                    f"allowed_hours={allowed_hours}, "
+                    f"should_fetch={should_fetch}"
+                )
+
+                return should_fetch
 
             if service.interval_type == ExchangeRateService.IntervalType.EVERY:
                 try:
                     interval_hours = int(service.fetch_interval)
+
                     if service.last_fetch is None:
                         return True
-                    hours_since_last = (
-                        timezone.now() - service.last_fetch
-                    ).total_seconds() / 3600
+
+                    # Round down to nearest hour
+                    now = timezone.now().replace(minute=0, second=0, microsecond=0)
+                    last_fetch = service.last_fetch.replace(
+                        minute=0, second=0, microsecond=0
+                    )
+
+                    hours_since_last = (now - last_fetch).total_seconds() / 3600
                     should_fetch = hours_since_last >= interval_hours
-                    logger.debug(
+
+                    logger.info(
                         f"EVERY check for {service.name}: "
                         f"hours_since_last={hours_since_last:.1f}, "
                         f"interval={interval_hours}, "
