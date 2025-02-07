@@ -18,7 +18,7 @@ from apps.transactions.models import (
 logger = logging.getLogger(__name__)
 
 
-@app.task
+@app.task(name="check_for_transaction_rules")
 def check_for_transaction_rules(
     instance_id: int,
     signal,

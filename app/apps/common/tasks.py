@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 @app.periodic(cron="0 4 * * *")
-@app.task(queueing_lock="remove_old_jobs", pass_context=True)
+@app.task(queueing_lock="remove_old_jobs", pass_context=True, name="remove_old_jobs")
 async def remove_old_jobs(context, timestamp):
     try:
         return await builtin_tasks.remove_old_jobs(
@@ -30,7 +30,7 @@ async def remove_old_jobs(context, timestamp):
 
 
 @app.periodic(cron="0 6 1 * *")
-@app.task(queueing_lock="remove_expired_sessions")
+@app.task(queueing_lock="remove_expired_sessions", name="remove_expired_sessions")
 async def remove_expired_sessions(timestamp=None):
     """Cleanup expired sessions by using Django management command."""
     try:
