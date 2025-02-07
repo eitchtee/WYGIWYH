@@ -77,8 +77,8 @@ class SynthFinanceProvider(ExchangeRateProvider):
         return results
 
 
-class CoinGeckoProvider(ExchangeRateProvider):
-    """Implementation for CoinGecko API"""
+class CoinGeckoFreeProvider(ExchangeRateProvider):
+    """Implementation for CoinGecko Free API"""
 
     BASE_URL = "https://api.coingecko.com/api/v3"
     rates_inverted = True
@@ -138,3 +138,15 @@ class CoinGeckoProvider(ExchangeRateProvider):
             logger.error(f"Error fetching rates from CoinGecko API: {e}")
 
         return results
+
+
+class CoinGeckoProProvider(CoinGeckoFreeProvider):
+    """Implementation for CoinGecko Pro API"""
+
+    BASE_URL = "https://pro-api.coingecko.com/api/v3/simple/price"
+    rates_inverted = True
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+        self.session = requests.Session()
+        self.session.headers.update({"x-cg-pro-api-key": api_key})

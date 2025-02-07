@@ -6,7 +6,8 @@ from django.utils import timezone
 
 from apps.currencies.exchange_rates.providers import (
     SynthFinanceProvider,
-    CoinGeckoProvider,
+    CoinGeckoFreeProvider,
+    CoinGeckoProProvider,
 )
 from apps.currencies.models import ExchangeRateService, ExchangeRate, Currency
 
@@ -16,7 +17,8 @@ logger = logging.getLogger(__name__)
 # Map service types to provider classes
 PROVIDER_MAPPING = {
     "synth_finance": SynthFinanceProvider,
-    "coingecko": CoinGeckoProvider,
+    "coingecko_free": CoinGeckoFreeProvider,
+    "coingecko_pro": CoinGeckoProProvider,
 }
 
 
@@ -31,7 +33,7 @@ class ExchangeRateFetcher:
                          If False, only fetches services that are due according to their interval.
         """
         services = ExchangeRateService.objects.filter(is_active=True)
-        current_time = timezone.now()
+        current_time = timezone.now().replace(minute=0, second=0, microsecond=0)
 
         for service in services:
             try:
@@ -47,9 +49,9 @@ class ExchangeRateFetcher:
                     continue
 
                 # Calculate when the next fetch should occur
-                next_fetch_due = service.last_fetch + timedelta(
-                    hours=service.fetch_interval_hours
-                )
+                next_fetch_due = (
+                    service.last_fetch + timedelta(hours=service.fetch_interval_hours)
+                ).replace(minute=0, second=0, microsecond=0)
 
                 # Check if it's time for the next fetch
                 if current_time >= next_fetch_due:

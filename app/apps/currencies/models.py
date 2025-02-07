@@ -91,7 +91,8 @@ class ExchangeRateService(models.Model):
 
     class ServiceType(models.TextChoices):
         SYNTH_FINANCE = "synth_finance", "Synth Finance"
-        COINGECKO = "coingecko", "CoinGecko"
+        COINGECKO_FREE = "coingecko_free", "CoinGecko (Demo/Free)"
+        COINGECKO_PRO = "coingecko_pro", "CoinGecko (Pro)"
 
     name = models.CharField(max_length=255, unique=True, verbose_name=_("Service Name"))
     service_type = models.CharField(

@@ -1,9 +1,8 @@
 import logging
 
 from procrastinate.contrib.django import app
+
 from apps.currencies.exchange_rates.fetcher import ExchangeRateFetcher
-from apps.currencies.models import ExchangeRateService
-from django.utils import timezone
 
 logger = logging.getLogger(__name__)
 

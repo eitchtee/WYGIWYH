@@ -1,0 +1,11 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Edit exchange rate' %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% url 'automatic_exchange_rate_edit' pk=service.id %}" hx-target="#generic-offcanvas" novalidate>
+    {% crispy form %}
+</form>
+{% endblock %}
