@@ -278,28 +278,42 @@ if "procrastinate" in sys.argv:
         "disable_existing_loggers": False,
         "formatters": {
             "procrastinate": {
-                "format": "%(asctime)s %(levelname)-7s %(name)s %(message)s"
+                "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s -> %(procrastinate)s",
+                "datefmt": "%Y-%m-%d %H:%M:%S",
+            },
+            "standard": {
+                "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s",
+                "datefmt": "%Y-%m-%d %H:%M:%S",
+            },
+        },
+        "filters": {
+            "procrastinate": {
+                "()": "WYGIWYH.logs.ProcrastinateFilter.ProcrastinateFilter",
+                "name": "procrastinate",
             },
         },
         "handlers": {
             "procrastinate": {
-                "level": "DEBUG",
+                "level": "INFO",
                 "class": "logging.StreamHandler",
                 "formatter": "procrastinate",
+                "filters": ["procrastinate"],
             },
             "console": {
                 "class": "logging.StreamHandler",
+                "formatter": "standard",
+                "level": "INFO",
             },
         },
         "loggers": {
             "procrastinate": {
                 "handlers": ["procrastinate"],
-                "level": "INFO",
-                "propagate": False,
+                "propagate": True,
             },
             "root": {
-                "handlers": ["console"],
+                "handlers": None,
                 "level": "INFO",
+                "propagate": False,
             },
         },
     }
@@ -308,24 +322,25 @@ else:
         "version": 1,
         "disable_existing_loggers": False,
         "formatters": {
-            "procrastinate": {
-                "format": "%(asctime)s %(levelname)-7s %(name)s %(message)s"
+            "standard": {
+                "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s",
+                "datefmt": "%Y-%m-%d %H:%M:%S",
             },
         },
         "handlers": {
-            "procrastinate": {
-                "level": "DEBUG",
-                "class": "logging.StreamHandler",
-                "formatter": "procrastinate",
-            },
             "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "standard",
+                "level": "INFO",
+            },
+            "procrastinate": {
+                "level": "INFO",
                 "class": "logging.StreamHandler",
             },
         },
         "loggers": {
             "procrastinate": {
                 "handlers": None,
-                "level": "INFO",
                 "propagate": False,
             },
             "root": {
