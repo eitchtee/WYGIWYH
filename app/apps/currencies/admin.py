@@ -17,7 +17,8 @@ class ExchangeRateServiceAdmin(admin.ModelAdmin):
         "name",
         "service_type",
         "is_active",
-        "fetch_interval_hours",
+        "interval_type",
+        "fetch_interval",
         "last_fetch",
     ]
     list_filter = ["is_active", "service_type"]

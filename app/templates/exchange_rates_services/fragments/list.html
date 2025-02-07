@@ -32,7 +32,6 @@
               <th scope="col" class="col-auto">{% translate 'Name' %}</th>
               <th scope="col" class="col">{% translate 'Service' %}</th>
               <th scope="col" class="col">{% translate 'Targeting' %}</th>
-              <th scope="col" class="col">{% translate 'Fetch every' %}</th>
               <th scope="col" class="col">{% translate 'Last fetch' %}</th>
             </tr>
             </thead>
@@ -66,7 +65,6 @@
                 <td class="col-auto">{{ service.name }}</td>
                 <td class="col">{{ service.get_service_type_display }}</td>
                 <td class="col">{{ service.target_currencies.count }} {% trans 'currencies' %}, {{ service.target_accounts.count }} {% trans 'accounts' %}</td>
-                <td class="col">{{ service.fetch_interval_hours }} {% trans 'hours' %}</td>
                 <td class="col">{{ service.last_fetch|date:"SHORT_DATETIME_FORMAT" }}</td>
               </tr>
             {% endfor %}

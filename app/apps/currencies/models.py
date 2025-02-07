@@ -1,4 +1,5 @@
 import logging
+from typing import Set
 
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -94,6 +95,11 @@ class ExchangeRateService(models.Model):
         COINGECKO_FREE = "coingecko_free", "CoinGecko (Demo/Free)"
         COINGECKO_PRO = "coingecko_pro", "CoinGecko (Pro)"
 
+    class IntervalType(models.TextChoices):
+        ON = "on", _("On")
+        EVERY = "every", _("Every X hours")
+        NOT_ON = "not_on", _("Not on")
+
     name = models.CharField(max_length=255, unique=True, verbose_name=_("Service Name"))
     service_type = models.CharField(
         max_length=255, choices=ServiceType.choices, verbose_name=_("Service Type")
@@ -106,10 +112,14 @@ class ExchangeRateService(models.Model):
         verbose_name=_("API Key"),
         help_text=_("API key for the service (if required)"),
     )
-    fetch_interval_hours = models.PositiveIntegerField(
-        default=24,
-        validators=[MinValueValidator(1)],
-        verbose_name=_("Fetch Interval (hours)"),
+    interval_type = models.CharField(
+        max_length=255,
+        choices=IntervalType.choices,
+        verbose_name=_("Interval Type"),
+        default=IntervalType.EVERY,
+    )
+    fetch_interval = models.CharField(
+        max_length=1000, verbose_name=_("Interval"), default="24"
     )
     last_fetch = models.DateTimeField(
         null=True, blank=True, verbose_name=_("Last Successful Fetch")
@@ -148,3 +158,82 @@ class ExchangeRateService(models.Model):
 
         provider_class = PROVIDER_MAPPING[self.service_type]
         return provider_class(self.api_key)
+
+    @staticmethod
+    def _parse_hour_ranges(interval_str: str) -> Set[int]:
+        """
+        Parse hour ranges and individual hours from string.
+
+        Valid formats:
+        - Single hours: "1,5,9"
+        - Ranges: "1-5"
+        - Mixed: "1-5,8,10-12"
+
+        Returns set of hours.
+        """
+        hours = set()
+
+        for part in interval_str.strip().split(","):
+            part = part.strip()
+            if "-" in part:
+                start, end = part.split("-")
+                start, end = int(start), int(end)
+                if not (0 <= start <= 23 and 0 <= end <= 23):
+                    raise ValueError("Hours must be between 0 and 23")
+                if start > end:
+                    raise ValueError(f"Invalid range: {start}-{end}")
+                hours.update(range(start, end + 1))
+            else:
+                hour = int(part)
+                if not 0 <= hour <= 23:
+                    raise ValueError("Hours must be between 0 and 23")
+                hours.add(hour)
+
+        return hours
+
+    def clean(self):
+        super().clean()
+        try:
+            if self.interval_type == self.IntervalType.EVERY:
+                if not self.fetch_interval.isdigit():
+                    raise ValidationError(
+                        {
+                            "fetch_interval": _(
+                                "'Every X hours' interval type requires a positive integer."
+                            )
+                        }
+                    )
+                hours = int(self.fetch_interval)
+                if hours < 0 or hours > 23:
+                    raise ValidationError(
+                        {
+                            "fetch_interval": _(
+                                "'Every X hours' interval must be between 0 and 23."
+                            )
+                        }
+                    )
+            else:
+                try:
+                    # Parse and validate hour ranges
+                    hours = self._parse_hour_ranges(self.fetch_interval)
+                    # Store in normalized format (optional)
+                    self.fetch_interval = ",".join(str(h) for h in sorted(hours))
+                except ValueError as e:
+                    raise ValidationError(
+                        {
+                            "fetch_interval": _(
+                                "Invalid hour format. Use comma-separated hours (0-23) "
+                                "and/or ranges (e.g., '1-5,8,10-12')."
+                            )
+                        }
+                    )
+        except ValidationError:
+            raise
+        except Exception as e:
+            raise ValidationError(
+                {
+                    "fetch_interval": _(
+                        "Invalid format. Please check the requirements for your selected interval type."
+                    )
+                }
+            )

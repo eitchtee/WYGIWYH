@@ -1,7 +1,7 @@
 from crispy_bootstrap5.bootstrap5 import Switch
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
+from crispy_forms.layout import Layout, Row, Column
 from django import forms
 from django.forms import CharField
 from django.utils.translation import gettext_lazy as _
@@ -110,7 +110,8 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "service_type",
             "is_active",
             "api_key",
-            "fetch_interval_hours",
+            "interval_type",
+            "fetch_interval",
             "target_currencies",
             "target_accounts",
         ]
@@ -126,7 +127,10 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "service_type",
             Switch("is_active"),
             "api_key",
-            "fetch_interval_hours",
+            Row(
+                Column("interval_type", css_class="form-group col-md-6"),
+                Column("fetch_interval", css_class="form-group col-md-6"),
+            ),
             "target_currencies",
             "target_accounts",
         )
