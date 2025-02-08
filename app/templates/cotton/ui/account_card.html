@@ -15,6 +15,7 @@
         <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
+      {% if account.income_projected != 0 %}
       <div class="text-end font-monospace tw-text-green-400">
         <c-amount.display
             :amount="account.income_projected"
@@ -22,6 +23,9 @@
             :suffix="account.currency.suffix"
             :decimal_places="account.currency.decimal_places"></c-amount.display>
       </div>
+      {% else %}
+        <div class="text-end font-monospace">-</div>
+      {% endif %}
     </div>
     {% if account.exchanged and account.exchanged.income_projected %}
       <div class="text-end font-monospace tw-text-gray-500">
@@ -38,6 +42,7 @@
       </div>
       <div class="dotted-line flex-grow-1"></div>
       <div>
+        {% if account.expense_projected != 0 %}
         <div class="text-end font-monospace tw-text-red-400">
           <c-amount.display
               :amount="account.expense_projected"
@@ -45,6 +50,9 @@
               :suffix="account.currency.suffix"
               :decimal_places="account.currency.decimal_places"></c-amount.display>
         </div>
+        {% else %}
+          <div class="text-end font-monospace">-</div>
+        {% endif %}
       </div>
     </div>
     {% if account.exchanged and account.exchanged.expense_projected %}
@@ -86,6 +94,7 @@
         <div class="tw-text-gray-400">{% translate 'current income' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
+      {% if account.income_current != 0 %}
       <div class="text-end font-monospace tw-text-green-400">
         <c-amount.display
             :amount="account.income_current"
@@ -93,6 +102,9 @@
             :suffix="account.currency.suffix"
             :decimal_places="account.currency.decimal_places"></c-amount.display>
       </div>
+      {% else %}
+        <div class="text-end font-monospace">-</div>
+      {% endif %}
     </div>
     {% if account.exchanged and account.exchanged.income_current %}
       <div class="text-end font-monospace tw-text-gray-500">
@@ -108,6 +120,7 @@
         <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
+      {% if account.expense_current != 0 %}
       <div class="text-end font-monospace tw-text-red-400">
         <c-amount.display
             :amount="account.expense_current"
@@ -115,6 +128,9 @@
             :suffix="account.currency.suffix"
             :decimal_places="account.currency.decimal_places"></c-amount.display>
       </div>
+      {% else %}
+        <div class="text-end font-monospace">-</div>
+      {% endif %}
     </div>
     {% if account.exchanged and account.exchanged.expense_current %}
       <div class="text-end font-monospace tw-text-gray-500">
@@ -130,8 +146,7 @@
         <div class="tw-text-gray-400">{% translate 'current total' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
-      <div
-          class="text-end font-monospace">
+      <div class="text-end font-monospace">
         <c-amount.display
             :amount="account.total_current"
             :prefix="account.currency.prefix"
