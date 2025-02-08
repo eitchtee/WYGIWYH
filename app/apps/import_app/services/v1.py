@@ -490,9 +490,16 @@ class ImportService:
 
             if isinstance(mapping.source, str):
                 value = row.get(mapping.source, None)
+
+                if not value and mapping.source.startswith("__"):
+                    value = mapped_data.get(mapping.source[2:], None)
             elif isinstance(mapping.source, list):
                 for source in mapping.source:
                     value = row.get(source, None)
+
+                    if not value and source.startswith("__"):
+                        value = mapped_data.get(source[2:], None)
+
                     if value:
                         break
             else:
