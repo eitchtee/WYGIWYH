@@ -277,27 +277,16 @@ if "procrastinate" in sys.argv:
         "version": 1,
         "disable_existing_loggers": False,
         "formatters": {
-            "procrastinate": {
-                "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s -> %(procrastinate)s",
-                "datefmt": "%Y-%m-%d %H:%M:%S",
-            },
             "standard": {
                 "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s",
                 "datefmt": "%Y-%m-%d %H:%M:%S",
-            },
-        },
-        "filters": {
-            "procrastinate": {
-                "()": "WYGIWYH.logs.ProcrastinateFilter.ProcrastinateFilter",
-                "name": "procrastinate",
             },
         },
         "handlers": {
             "procrastinate": {
                 "level": "INFO",
                 "class": "logging.StreamHandler",
-                "formatter": "procrastinate",
-                "filters": ["procrastinate"],
+                "formatter": "standard",
             },
             "console": {
                 "class": "logging.StreamHandler",
@@ -308,10 +297,10 @@ if "procrastinate" in sys.argv:
         "loggers": {
             "procrastinate": {
                 "handlers": ["procrastinate"],
-                "propagate": True,
+                "propagate": False,
             },
             "root": {
-                "handlers": None,
+                "handlers": ["console"],
                 "level": "INFO",
                 "propagate": False,
             },

@@ -12,4 +12,4 @@ done
 
 rm -f /tmp/migrations_complete
 
-exec python manage.py procrastinate worker
+exec watchfiles --filter python "python manage.py procrastinate worker"
