@@ -6,8 +6,16 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
-from apps.rules.forms import TransactionRuleForm, TransactionRuleActionForm
-from apps.rules.models import TransactionRule, TransactionRuleAction
+from apps.rules.forms import (
+    TransactionRuleForm,
+    TransactionRuleActionForm,
+    UpdateOrCreateTransactionRuleActionForm,
+)
+from apps.rules.models import (
+    TransactionRule,
+    TransactionRuleAction,
+    UpdateOrCreateTransactionRuleAction,
+)
 
 
 @login_required
@@ -60,10 +68,15 @@ def transaction_rule_add(request, **kwargs):
     if request.method == "POST":
         form = TransactionRuleForm(request.POST)
         if form.is_valid():
-            instance = form.save()
+            form.save()
             messages.success(request, _("Rule added successfully"))
 
-            return redirect("transaction_rule_action_add", instance.id)
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
     else:
         form = TransactionRuleForm()
 
@@ -208,6 +221,91 @@ def transaction_rule_action_delete(request, transaction_rule_action_id):
     transaction_rule_action.delete()
 
     messages.success(request, _("Action deleted successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas",
+        },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def update_or_create_transaction_rule_action_add(request, transaction_rule_id):
+    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+
+    if request.method == "POST":
+        form = UpdateOrCreateTransactionRuleActionForm(
+            request.POST, rule=transaction_rule
+        )
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, _("Update or Create Transaction action added successfully")
+            )
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
+    else:
+        form = UpdateOrCreateTransactionRuleActionForm(rule=transaction_rule)
+
+    return render(
+        request,
+        "rules/fragments/transaction_rule/update_or_create_transaction_rule_action/add.html",
+        {"form": form, "transaction_rule_id": transaction_rule_id},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def update_or_create_transaction_rule_action_edit(request, pk):
+    linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)
+    transaction_rule = linked_action.rule
+
+    if request.method == "POST":
+        form = UpdateOrCreateTransactionRuleActionForm(
+            request.POST, instance=linked_action, rule=transaction_rule
+        )
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, _("Update or Create Transaction action updated successfully")
+            )
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
+    else:
+        form = UpdateOrCreateTransactionRuleActionForm(
+            instance=linked_action, rule=transaction_rule
+        )
+
+    return render(
+        request,
+        "rules/fragments/transaction_rule/update_or_create_transaction_rule_action/edit.html",
+        {"form": form, "action": linked_action},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["DELETE"])
+def update_or_create_transaction_rule_action_delete(request, pk):
+    linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)
+
+    linked_action.delete()
+
+    messages.success(
+        request, _("Update or Create Transaction action deleted successfully")
+    )
 
     return HttpResponse(
         status=204,

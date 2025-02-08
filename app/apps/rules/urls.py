@@ -38,18 +38,33 @@ urlpatterns = [
         name="transaction_rule_delete",
     ),
     path(
-        "rules/transaction/<int:transaction_rule_id>/action/add/",
+        "rules/transaction/<int:transaction_rule_id>/transaction-action/add/",
         views.transaction_rule_action_add,
         name="transaction_rule_action_add",
     ),
     path(
-        "rules/transaction/action/<int:transaction_rule_action_id>/edit/",
+        "rules/transaction/transaction-action/<int:transaction_rule_action_id>/edit/",
         views.transaction_rule_action_edit,
         name="transaction_rule_action_edit",
     ),
     path(
-        "rules/transaction/action/<int:transaction_rule_action_id>/delete/",
+        "rules/transaction/transaction-action/<int:transaction_rule_action_id>/delete/",
         views.transaction_rule_action_delete,
         name="transaction_rule_action_delete",
+    ),
+    path(
+        "rules/transaction/<int:transaction_rule_id>/update-or-create-transaction-action/add/",
+        views.update_or_create_transaction_rule_action_add,
+        name="update_or_create_transaction_rule_action_add",
+    ),
+    path(
+        "rules/transaction/update-or-create-transaction-action/<int:pk>/edit/",
+        views.update_or_create_transaction_rule_action_edit,
+        name="update_or_create_transaction_rule_action_edit",
+    ),
+    path(
+        "rules/transaction/update-or-create-transaction-action/<int:pk>/delete/",
+        views.update_or_create_transaction_rule_action_delete,
+        name="update_or_create_transaction_rule_action_delete",
     ),
 ]
