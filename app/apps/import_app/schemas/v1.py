@@ -86,7 +86,6 @@ class TransactionAccountMapping(ColumnMapping):
     target: Literal["account"] = Field(..., description="Transaction field to map to")
     type: Literal["id", "name"] = "name"
     coerce_to: Literal["str|int"] = Field("str|int", frozen=True)
-    required: bool = Field(True, frozen=True)
 
 
 class TransactionTypeMapping(ColumnMapping):
@@ -105,7 +104,6 @@ class TransactionDateMapping(ColumnMapping):
     target: Literal["date"] = Field(..., description="Transaction field to map to")
     format: List[str] | str
     coerce_to: Literal["date"] = Field("date", frozen=True)
-    required: bool = Field(True, frozen=True)
 
 
 class TransactionReferenceDateMapping(ColumnMapping):
@@ -119,7 +117,6 @@ class TransactionReferenceDateMapping(ColumnMapping):
 class TransactionAmountMapping(ColumnMapping):
     target: Literal["amount"] = Field(..., description="Transaction field to map to")
     coerce_to: Literal["positive_decimal"] = Field("positive_decimal", frozen=True)
-    required: bool = Field(True, frozen=True)
 
 
 class TransactionDescriptionMapping(ColumnMapping):
