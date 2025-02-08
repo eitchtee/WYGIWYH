@@ -131,7 +131,10 @@ class ImportService:
 
     @staticmethod
     def _transform_value(
-        value: str, mapping: version_1.ColumnMapping, row: Dict[str, str] = None
+        value: str,
+        mapping: version_1.ColumnMapping,
+        row: Dict[str, str] = None,
+        mapped_data: Dict[str, Any] = None,
     ) -> Any:
         transformed = value
 
@@ -142,8 +145,12 @@ class ImportService:
                 for field in transform.fields:
                     if field in row:
                         values_to_hash.append(str(row[field]))
-
-                # Create hash from concatenated values
+                    elif (
+                        field.startswith("__")
+                        and mapped_data
+                        and field[2:] in mapped_data
+                    ):
+                        values_to_hash.append(str(mapped_data[field[2:]]))
                 if values_to_hash:
                     concatenated = "|".join(values_to_hash)
                     transformed = hashlib.sha256(concatenated.encode()).hexdigest()
@@ -175,6 +182,12 @@ class ImportService:
                 for field in transform.fields:
                     if field in row:
                         values_to_merge.append(str(row[field]))
+                    elif (
+                        field.startswith("__")
+                        and mapped_data
+                        and field[2:] in mapped_data
+                    ):
+                        values_to_merge.append(str(mapped_data[field[2:]]))
                 transformed = transform.separator.join(values_to_merge)
             elif transform.type == "split":
                 parts = transformed.split(transform.separator)
@@ -484,35 +497,30 @@ class ImportService:
 
     def _map_row(self, row: Dict[str, str]) -> Dict[str, Any]:
         mapped_data = {}
-
         for field, mapping in self.mapping.items():
             value = None
-
             if isinstance(mapping.source, str):
-                value = row.get(mapping.source, None)
-
-                if not value and mapping.source.startswith("__"):
-                    value = mapped_data.get(mapping.source[2:], None)
+                if mapping.source in row:
+                    value = row[mapping.source]
+                elif (
+                    mapping.source.startswith("__")
+                    and mapping.source[2:] in mapped_data
+                ):
+                    value = mapped_data[mapping.source[2:]]
             elif isinstance(mapping.source, list):
                 for source in mapping.source:
-                    value = row.get(source, None)
-
-                    if not value and source.startswith("__"):
-                        value = mapped_data.get(source[2:], None)
-
-                    if value:
+                    if source in row:
+                        value = row[source]
                         break
-            else:
-                # If source is None, use None as the initial value
-                value = None
+                    elif source.startswith("__") and source[2:] in mapped_data:
+                        value = mapped_data[source[2:]]
+                        break
 
-            # Use default_value if value is None
-            if not value:
+            if value is None:
                 value = mapping.default
 
-            # Apply transformations
             if mapping.transformations:
-                value = self._transform_value(value, mapping, row)
+                value = self._transform_value(value, mapping, row, mapped_data)
 
             value = self._coerce_type(value, mapping)
 
@@ -520,12 +528,10 @@ class ImportService:
                 raise ValueError(f"Required field {field} is missing")
 
             if value is not None:
-                # Remove the prefix from the target field
                 target = mapping.target
                 if self.settings.importing == "transactions":
                     mapped_data[target] = value
                 else:
-                    # Remove the model prefix (e.g., "account_" from "account_name")
                     field_name = target.split("_", 1)[1]
                     mapped_data[field_name] = value
 
