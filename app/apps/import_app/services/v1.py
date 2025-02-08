@@ -4,10 +4,9 @@ import logging
 import os
 import re
 from datetime import datetime
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from typing import Dict, Any, Literal, Union
 
-import cachalot.api
 import yaml
 from cachalot.api import cachalot_disabled
 from django.utils import timezone
@@ -129,8 +128,8 @@ class ImportService:
 
         self.import_run.save(update_fields=["status"])
 
-    @staticmethod
     def _transform_value(
+        self,
         value: str,
         mapping: version_1.ColumnMapping,
         row: Dict[str, str] = None,
@@ -195,7 +194,38 @@ class ImportService:
                     transformed = parts[transform.index] if parts else ""
                 else:
                     transformed = parts
+            elif transform.type in ["add", "subtract"]:
+                try:
+                    source_value = Decimal(transformed)
 
+                    # First check row data, then mapped data if not found
+                    field_value = row.get(transform.field)
+                    if field_value is None and transform.field.startswith("__"):
+                        field_value = mapped_data.get(transform.field[2:])
+
+                    if field_value is None:
+                        raise KeyError(
+                            f"Field '{transform.field}' not found in row or mapped data"
+                        )
+
+                    field_value = self._prepare_numeric_value(
+                        str(field_value),
+                        transform.thousand_separator,
+                        transform.decimal_separator,
+                    )
+
+                    if transform.absolute_values:
+                        source_value = abs(source_value)
+                        field_value = abs(field_value)
+
+                    if transform.type == "add":
+                        transformed = str(source_value + field_value)
+                    else:  # subtract
+                        transformed = str(source_value - field_value)
+                except (InvalidOperation, KeyError, AttributeError) as e:
+                    logger.warning(
+                        f"Error in {transform.type} transformation: {e}. Values: {transformed}, {transform.field}"
+                    )
         return transformed
 
     def _create_transaction(self, data: Dict[str, Any]) -> Transaction:
@@ -537,6 +567,20 @@ class ImportService:
 
         return mapped_data
 
+    @staticmethod
+    def _prepare_numeric_value(
+        value: str, thousand_separator: str, decimal_separator: str
+    ) -> Decimal:
+        # Remove thousand separators
+        if thousand_separator:
+            value = value.replace(thousand_separator, "")
+
+        # Replace decimal separator with dot
+        if decimal_separator != ".":
+            value = value.replace(decimal_separator, ".")
+
+        return Decimal(value)
+
     def _process_row(self, row: Dict[str, str], row_number: int) -> None:
         try:
             mapped_data = self._map_row(row)
@@ -652,4 +696,3 @@ class ImportService:
 
                 self.import_run.finished_at = timezone.now()
                 self.import_run.save(update_fields=["finished_at"])
-        cachalot.api.invalidate()
