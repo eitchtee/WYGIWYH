@@ -47,6 +47,34 @@ class SplitTransformationRule(BaseModel):
     )
 
 
+class AddTransformationRule(BaseModel):
+    type: Literal["add"]
+    field: str = Field(..., description="Field to add to the source value")
+    absolute_values: bool = Field(
+        default=False, description="Use absolute values for addition"
+    )
+    thousand_separator: str = Field(
+        default="", description="Thousand separator character"
+    )
+    decimal_separator: str = Field(
+        default=".", description="Decimal separator character"
+    )
+
+
+class SubtractTransformationRule(BaseModel):
+    type: Literal["subtract"]
+    field: str = Field(..., description="Field to subtract from the source value")
+    absolute_values: bool = Field(
+        default=False, description="Use absolute values for subtraction"
+    )
+    thousand_separator: str = Field(
+        default="", description="Thousand separator character"
+    )
+    decimal_separator: str = Field(
+        default=".", description="Decimal separator character"
+    )
+
+
 class CSVImportSettings(BaseModel):
     skip_errors: bool = Field(
         default=False,
@@ -78,6 +106,8 @@ class ColumnMapping(BaseModel):
             | HashTransformationRule
             | MergeTransformationRule
             | SplitTransformationRule
+            | AddTransformationRule
+            | SubtractTransformationRule
         ]
     ] = Field(default_factory=list)
 
