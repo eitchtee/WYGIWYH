@@ -1,7 +1,12 @@
 from django.contrib import admin
 
-from apps.rules.models import TransactionRule, TransactionRuleAction
+from apps.rules.models import (
+    TransactionRule,
+    TransactionRuleAction,
+    UpdateOrCreateTransactionRuleAction,
+)
 
-# Register your models here.
+
 admin.site.register(TransactionRule)
 admin.site.register(TransactionRuleAction)
+admin.site.register(UpdateOrCreateTransactionRuleAction)
