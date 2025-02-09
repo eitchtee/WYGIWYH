@@ -80,7 +80,7 @@ $ docker compose exec -it web python manage.py createsuperuser
 ```
 
 > [!NOTE]
-> If you're using Unraid, you don't need to follow these steps, use the app on the store. Make sure to read the [Unraid section](#unraid) and [Enviroment Variables](#enviroment-variables) for an explanation of all available variables
+> If you're using Unraid, you don't need to follow these steps, use the app on the store. Make sure to read the [Unraid section](#unraid) and [Environment Variables](#environment-variables) for an explanation of all available variables
 
 ## Running locally
 
@@ -110,7 +110,7 @@ WYGIWYH is available on the Unraid Store. You'll need to provision your own post
 
 To create the first user, open the container's console using Unraid's UI, by clicking on WYGIWYH icon on the Docker page and selecting `Console`, then type `python manage.py createsuperuser`, you'll them be prompted to input your e-mail and password.
 
-## Enviroment Variables
+## Environment Variables
 
 | variable                      | type        | default                           | explanation                                                                                                                                                                                                                              |
 |-------------------------------|-------------|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -122,7 +122,7 @@ To create the first user, open the container's console using Unraid's UI, by cli
 | SQL_DATABASE                  | string      | None *required                    | The name of your postgres database                                                                                                                                                                                                       |
 | SQL_USER                      | string      | user                              | The username used to connect to your postgres database                                                                                                                                                                                   |
 | SQL_PASSWORD                  | string      | password                          | The password used to connect to your postgres database                                                                                                                                                                                   |
-| SQL_HOST                      | string      | localhost                         | The adress used to connect to your postgres database                                                                                                                                                                                     |
+| SQL_HOST                      | string      | localhost                         | The address used to connect to your postgres database                                                                                                                                                                                    |
 | SQL_PORT                      | string      | 5432                              | The port used to connect to your postgres database                                                                                                                                                                                       |
 | SESSION_EXPIRY_TIME           | int         | 2678400 (31 days)                 | The age of session cookies, in seconds. E.g. how long you will stay logged in                                                                                                                                                            |
 | ENABLE_SOFT_DELETE            | true\|false | false                             | Whether to enable transactions soft delete, if enabled, deleted transactions will remain in the database. Useful for imports and avoiding duplicate entries.                                                                             |
