@@ -57,9 +57,8 @@
             </td>
             <td class="col">{{ account.name }}</td>
             <td class="col">{{ account.group.name }}</td>
-            <td class="col">{{ account.currency }} ({{ account.currency.code }})</td>
-            <td class="col">{% if account.exchange_currency %}{{ account.exchange_currency }} (
-              {{ account.exchange_currency.code }}){% else %}-{% endif %}</td>
+            <td class="col">{{ account.currency }}</td>
+            <td class="col">{% if account.exchange_currency %}{{ account.exchange_currency }}{% else %}-{% endif %}</td>
             <td class="col">{% if account.is_asset %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
             <td class="col">{% if account.is_archived %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
           </tr>
