@@ -1,0 +1,46 @@
+settings:
+  file_type: xls
+  skip_errors: true
+  trigger_transaction_rules: true
+  importing: transactions
+  start_row: 1
+  sheets: "*"
+
+mapping:
+  account:
+    target: account
+    default: "<TU NOMBRE DE CUENTA>"
+    type: name
+
+  type:
+    source: Importe
+    target: type
+    detection_method: sign
+
+  internal_id:
+    target: internal_id
+    transformations:
+        - type: hash
+          fields: ["Fecha", "Concepto", "Importe", "Saldo"]
+  date:
+    source: "Fecha"
+    target: date
+    format: "%d-%m-%Y"
+
+  description:
+    source: Concepto
+    target: description
+
+  amount:
+    source: Importe
+    target: amount
+
+  is_paid:
+    target: is_paid
+    detection_method: always_paid
+
+deduplication:
+  - type: compare
+    fields:
+      - internal_id
+    match_type: strict
