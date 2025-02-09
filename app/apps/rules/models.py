@@ -88,226 +88,201 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
 
     # Search fields with operators
     search_account = models.TextField(
-        verbose_name=_("Search Account"),
+        verbose_name="Search Account",
         blank=True,
-        help_text=_("Expression to match transaction account (ID or name)"),
     )
     search_account_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Account Operator"),
+        verbose_name="Account Operator",
     )
 
     search_type = models.TextField(
-        verbose_name=_("Search Type"),
+        verbose_name="Search Type",
         blank=True,
-        help_text=_("Expression to match transaction type ('IN' or 'EX')"),
     )
     search_type_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Type Operator"),
+        verbose_name="Type Operator",
     )
 
     search_is_paid = models.TextField(
-        verbose_name=_("Search Is Paid"),
+        verbose_name="Search Is Paid",
         blank=True,
-        help_text=_("Expression to match transaction paid status"),
     )
     search_is_paid_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Is Paid Operator"),
+        verbose_name="Is Paid Operator",
     )
 
     search_date = models.TextField(
-        verbose_name=_("Search Date"),
+        verbose_name="Search Date",
         blank=True,
-        help_text=_("Expression to match transaction date"),
+        help_text="Expression to match transaction date",
     )
     search_date_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Date Operator"),
+        verbose_name="Date Operator",
     )
 
     search_reference_date = models.TextField(
-        verbose_name=_("Search Reference Date"),
+        verbose_name="Search Reference Date",
         blank=True,
-        help_text=_("Expression to match transaction reference date"),
     )
     search_reference_date_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Reference Date Operator"),
+        verbose_name="Reference Date Operator",
     )
 
     search_amount = models.TextField(
-        verbose_name=_("Search Amount"),
+        verbose_name="Search Amount",
         blank=True,
-        help_text=_("Expression to match transaction amount"),
     )
     search_amount_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Amount Operator"),
+        verbose_name="Amount Operator",
     )
 
     search_description = models.TextField(
-        verbose_name=_("Search Description"),
+        verbose_name="Search Description",
         blank=True,
-        help_text=_("Expression to match transaction description"),
     )
     search_description_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.CONTAINS,
-        verbose_name=_("Description Operator"),
+        verbose_name="Description Operator",
     )
 
     search_notes = models.TextField(
-        verbose_name=_("Search Notes"),
+        verbose_name="Search Notes",
         blank=True,
-        help_text=_("Expression to match transaction notes"),
     )
     search_notes_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.CONTAINS,
-        verbose_name=_("Notes Operator"),
+        verbose_name="Notes Operator",
     )
 
     search_category = models.TextField(
-        verbose_name=_("Search Category"),
+        verbose_name="Search Category",
         blank=True,
-        help_text=_("Expression to match transaction category (ID or name)"),
     )
     search_category_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Category Operator"),
+        verbose_name="Category Operator",
     )
 
     search_tags = models.TextField(
-        verbose_name=_("Search Tags"),
+        verbose_name="Search Tags",
         blank=True,
-        help_text=_("Expression to match transaction tags (list of IDs or names)"),
     )
     search_tags_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.CONTAINS,
-        verbose_name=_("Tags Operator"),
+        verbose_name="Tags Operator",
     )
 
     search_entities = models.TextField(
-        verbose_name=_("Search Entities"),
+        verbose_name="Search Entities",
         blank=True,
-        help_text=_("Expression to match transaction entities (list of IDs or names)"),
     )
     search_entities_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.CONTAINS,
-        verbose_name=_("Entities Operator"),
+        verbose_name="Entities Operator",
     )
 
     search_internal_note = models.TextField(
-        verbose_name=_("Search Internal Note"),
+        verbose_name="Search Internal Note",
         blank=True,
-        help_text=_("Expression to match transaction internal note"),
     )
     search_internal_note_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Internal Note Operator"),
+        verbose_name="Internal Note Operator",
     )
 
     search_internal_id = models.TextField(
-        verbose_name=_("Search Internal ID"),
+        verbose_name="Search Internal ID",
         blank=True,
-        help_text=_("Expression to match transaction internal ID"),
     )
     search_internal_id_operator = models.CharField(
         max_length=10,
         choices=SearchOperator.choices,
         default=SearchOperator.EXACT,
-        verbose_name=_("Internal ID Operator"),
+        verbose_name="Internal ID Operator",
     )
 
     # Set fields
     set_account = models.TextField(
-        verbose_name=_("Set Account"),
+        verbose_name=_("Account"),
         blank=True,
-        help_text=_("Expression for account to set (ID or name)"),
     )
     set_type = models.TextField(
-        verbose_name=_("Set Type"),
+        verbose_name=_("Type"),
         blank=True,
-        help_text=_("Expression for type to set ('IN' or 'EX')"),
     )
     set_is_paid = models.TextField(
-        verbose_name=_("Set Is Paid"),
+        verbose_name=_("Paid"),
         blank=True,
-        help_text=_("Expression for paid status to set"),
     )
     set_date = models.TextField(
-        verbose_name=_("Set Date"),
+        verbose_name=_("Date"),
         blank=True,
-        help_text=_("Expression for date to set"),
     )
     set_reference_date = models.TextField(
-        verbose_name=_("Set Reference Date"),
+        verbose_name=_("Reference Date"),
         blank=True,
-        help_text=_("Expression for reference date to set"),
     )
     set_amount = models.TextField(
-        verbose_name=_("Set Amount"),
+        verbose_name=_("Amount"),
         blank=True,
-        help_text=_("Expression for amount to set"),
     )
     set_description = models.TextField(
-        verbose_name=_("Set Description"),
+        verbose_name=_("Description"),
         blank=True,
-        help_text=_("Expression for description to set"),
     )
     set_notes = models.TextField(
-        verbose_name=_("Set Notes"),
+        verbose_name=_("Notes"),
         blank=True,
-        help_text=_("Expression for notes to set"),
     )
     set_internal_note = models.TextField(
-        verbose_name=_("Set Internal Note"),
+        verbose_name=_("Internal Note"),
         blank=True,
-        help_text=_("Expression for internal note to set"),
     )
     set_internal_id = models.TextField(
-        verbose_name=_("Set Internal ID"),
+        verbose_name=_("Internal ID"),
         blank=True,
-        help_text=_("Expression for internal ID to set"),
     )
     set_entities = models.TextField(
-        verbose_name=_("Set Entities"),
+        verbose_name=_("Entities"),
         blank=True,
-        help_text=_("Expression for entities to set (list of IDs or names)"),
     )
     set_category = models.TextField(
-        verbose_name=_("Set Category"),
+        verbose_name=_("Category"),
         blank=True,
-        help_text=_("Expression for category to set (ID or name)"),
     )
     set_tags = models.TextField(
-        verbose_name=_("Set Tags"),
+        verbose_name=_("Tags"),
         blank=True,
-        help_text=_("Expression for tags to set (list of IDs or names)"),
     )
 
     class Meta:
