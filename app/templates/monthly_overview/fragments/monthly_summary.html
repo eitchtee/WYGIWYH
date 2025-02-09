@@ -256,7 +256,7 @@
   <div class="col">
     <c-ui.info-card color="yellow" icon="fa-solid fa-percent" title="{% trans 'Distribution' %}">
       {% for p in percentages.values %}
-        <p class="tw-text-gray-400 mb-2 {% if not forloop.first %}mt-3{% endif %}">{{ p.currency.name }} ({{ p.currency.code }})</p>
+        <p class="tw-text-gray-400 mb-2 {% if not forloop.first %}mt-3{% endif %}">{{ p.currency.name }}</p>
         <c-ui.percentage-distribution :percentage="p"></c-ui.percentage-distribution>
       {% endfor %}
     </c-ui.info-card>
