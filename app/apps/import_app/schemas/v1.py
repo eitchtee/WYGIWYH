@@ -92,6 +92,20 @@ class CSVImportSettings(BaseModel):
     ]
 
 
+class ExcelImportSettings(BaseModel):
+    skip_errors: bool = Field(
+        default=False,
+        description="If True, errors during import will be logged and skipped",
+    )
+    file_type: Literal["xls", "xlsx"]
+    trigger_transaction_rules: bool = True
+    importing: Literal[
+        "transactions", "accounts", "currencies", "categories", "tags", "entities"
+    ]
+    start_row: int = Field(default=1, description="Where your header is located")
+    sheets: list[str] | str = "*"
+
+
 class ColumnMapping(BaseModel):
     source: Optional[str] | Optional[list[str]] = Field(
         default=None,
@@ -328,7 +342,7 @@ class CurrencyExchangeMapping(ColumnMapping):
 
 
 class ImportProfileSchema(BaseModel):
-    settings: CSVImportSettings
+    settings: CSVImportSettings | ExcelImportSettings
     mapping: Dict[
         str,
         TransactionAccountMapping
