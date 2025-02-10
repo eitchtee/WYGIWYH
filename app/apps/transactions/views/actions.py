@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _, ngettext_lazy
 
 from apps.common.decorators.htmx import only_htmx
 from apps.transactions.models import Transaction
+from apps.rules.signals import transaction_updated
 
 
 @only_htmx
@@ -16,6 +17,9 @@ def bulk_pay_transactions(request):
     transactions = Transaction.objects.filter(id__in=selected_transactions)
     count = transactions.count()
     transactions.update(is_paid=True)
+
+    for transaction in transactions:
+        transaction_updated.send(sender=transaction)
 
     messages.success(
         request,
@@ -40,6 +44,9 @@ def bulk_unpay_transactions(request):
     transactions = Transaction.objects.filter(id__in=selected_transactions)
     count = transactions.count()
     transactions.update(is_paid=False)
+
+    for transaction in transactions:
+        transaction_updated.send(sender=transaction)
 
     messages.success(
         request,

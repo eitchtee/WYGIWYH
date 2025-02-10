@@ -316,6 +316,7 @@ def transaction_pay(request, transaction_id):
     new_is_paid = False if transaction.is_paid else True
     transaction.is_paid = new_is_paid
     transaction.save()
+    transaction_updated.send(sender=transaction)
 
     response = render(
         request,
