@@ -47,7 +47,7 @@ def generate_sankey_data(transactions_queryset):
     # Function to add flow
     def add_flow(from_node, to_node, amount, currency):
         percentage = (amount / total_amount) * 100 if total_amount else 0
-        scaled_flow = 1 + min(percentage / 5, 2)  # Scale 1-5, capping at 100%
+        scaled_flow = 1 + min(percentage / 20, 4)  # Scale 1-5, capping at 100%
         flows.append(
             {
                 "from_node": from_node,
