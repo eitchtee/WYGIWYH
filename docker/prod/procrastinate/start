@@ -10,6 +10,4 @@ until [ -f /tmp/migrations_complete ]; do
     sleep 2
 done
 
-rm -f /tmp/migrations_complete
-
 exec python manage.py procrastinate worker
