@@ -5,69 +5,27 @@
 
 <script>
   function setupSankeyChart(data, chartId = 'sankeyChart') {
-    // Color generation function
-    function generateColors(nodes) {
-        const colorMap = {};
-        const incomeColor = '#4CAF50';  // Green
-        const expenseColor = '#F44336';  // Red
-        const savingsColor = '#4CAF50';  // Green (same as income)
-        const accountColor = '#2196F3';  // Blue
-
-        nodes.forEach((node) => {
-            if (node.name.includes('(')) {
-                const [category, currency] = node.name.split(' (');
-                if (category.toLowerCase() === 'savings') {
-                    colorMap[node.name] = savingsColor;
-                } else if (data.flows.some(flow => flow.from_node === node.name)) {
-                    colorMap[node.name] = incomeColor;
-                } else if (data.flows.some(flow => flow.to_node === node.name)) {
-                    colorMap[node.name] = expenseColor;
-                } else {
-                    colorMap[node.name] = accountColor;
-                }
-            } else {
-                colorMap[node.name] = accountColor;
-            }
-        });
-
-        return colorMap;
-    }
-
     // Format currency value
     function formatCurrency(value, currency) {
-        return new Intl.NumberFormat('pt-BR', {
+        return new Intl.NumberFormat(undefined, {
             minimumFractionDigits: currency.decimal_places,
             maximumFractionDigits: currency.decimal_places
         }).format(value);
     }
 
-    // Generate colors for nodes
-    const colorMap = generateColors(data.nodes);
-
-    // Create a mapping of node names to indices
     const nodeIndices = {};
-    const nodeSizes = {};
     data.nodes.forEach((node, index) => {
         nodeIndices[node.name] = index;
-        nodeSizes[node.name] = node.size;
     });
 
-    console.log(data.flows.map(flow => ({
-                from: nodeIndices[flow.from_node],
-                to: nodeIndices[flow.to_node],
-                flow: flow.flow
-            })),);
-    console.log(nodeSizes)
     // Format data for Chart.js
     const chartData = {
         datasets: [{
             data: data.flows.map(flow => ({
-                from: nodeIndices[flow.from_node],
-                to: nodeIndices[flow.to_node],
+                from: flow.from_node,
+                to: flow.to_node,
                 flow: flow.flow
             })),
-            colorFrom: (c) => colorMap[data.nodes[c.dataset.data[c.dataIndex].from].name],
-            colorTo: (c) => colorMap[data.nodes[c.dataset.data[c.dataIndex].to].name],
             colorMode: 'to',
             labels: data.nodes.map(node => node.name),
             size: 'max',
