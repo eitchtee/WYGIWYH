@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-09 17:27-0300\n"
-"PO-Revision-Date: 2025-01-29 06:12+0100\n"
+"PO-Revision-Date: 2025-02-12 06:58+0100\n"
 "Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -430,25 +430,23 @@ msgstr "Van en Naar munteenheid kunnen niet dezelfde zijn."
 
 #: apps/currencies/models.py:99
 msgid "On"
-msgstr ""
+msgstr "Op"
 
 #: apps/currencies/models.py:100
 msgid "Every X hours"
-msgstr ""
+msgstr "Elke X Uren"
 
 #: apps/currencies/models.py:101
 msgid "Not on"
-msgstr ""
+msgstr "Niet op"
 
 #: apps/currencies/models.py:103
 msgid "Service Name"
-msgstr ""
+msgstr "Dienstnaam"
 
 #: apps/currencies/models.py:105
-#, fuzzy
-#| msgid "Recurrence Type"
 msgid "Service Type"
-msgstr "Type Terugkeerpatroon"
+msgstr "Soort Dienst"
 
 #: apps/currencies/models.py:107 apps/transactions/models.py:71
 #: apps/transactions/models.py:90 apps/transactions/models.py:109
@@ -461,85 +459,80 @@ msgstr "Actief"
 
 #: apps/currencies/models.py:112
 msgid "API Key"
-msgstr ""
+msgstr "API Sleutel"
 
 #: apps/currencies/models.py:113
 msgid "API key for the service (if required)"
-msgstr ""
+msgstr "API sleutel voor de dienst (indien verplicht)"
 
 #: apps/currencies/models.py:118
-#, fuzzy
-#| msgid "Internal Note"
 msgid "Interval Type"
-msgstr "Interne opmerking"
+msgstr "Soort Interval"
 
 #: apps/currencies/models.py:122
-#, fuzzy
-#| msgid "Internal ID"
 msgid "Interval"
-msgstr "Interne ID"
+msgstr "Interval"
 
 #: apps/currencies/models.py:125
-#, fuzzy
-#| msgid "Successful Items"
 msgid "Last Successful Fetch"
-msgstr "Succesvolle Artikelen"
+msgstr "Laatste Succesvolle Ophaling"
 
 #: apps/currencies/models.py:130
-#, fuzzy
-#| msgid "Target Currency"
 msgid "Target Currencies"
-msgstr "Doel Munteenheid"
+msgstr "Doel Munteenheden"
 
 #: apps/currencies/models.py:132
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 msgstr ""
+"Selecteer munteenheden om wisselkoersen voor op te halen. De koersen worden "
+"voor elke munteenheid opgehaald ten opzichte van de ingestelde wisselkoers."
 
 #: apps/currencies/models.py:140
-#, fuzzy
-#| msgid "To Account"
 msgid "Target Accounts"
-msgstr "Naar rekening"
+msgstr "Naar rekeningen"
 
 #: apps/currencies/models.py:142
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr ""
+"Selecteer rekeningen om wisselkoersen voor op te halen. De koersen worden "
+"opgehaald voor de munteenheid van elke rekening ten opzichte van de "
+"ingestelde wisselkoers."
 
 #: apps/currencies/models.py:149
-#, fuzzy
-#| msgid "Exchange Rate"
 msgid "Exchange Rate Service"
-msgstr "Wisselkoers"
+msgstr "Wisselkoersdienst"
 
 #: apps/currencies/models.py:150
-#, fuzzy
-#| msgid "Exchange Rates"
 msgid "Exchange Rate Services"
-msgstr "Wisselkoersen"
+msgstr "Wisselkoersdiensten"
 
 #: apps/currencies/models.py:202
 msgid "'Every X hours' interval type requires a positive integer."
-msgstr ""
+msgstr "Voor het intervaltype ‘Elke X uur’ is een positief geheel getal nodig."
 
 #: apps/currencies/models.py:211
 msgid "'Every X hours' interval must be between 0 and 23."
-msgstr ""
+msgstr "Het interval ‘Elke X uur’ moet tussen 0 en 23 liggen."
 
 #: apps/currencies/models.py:225
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
+"Ongeldige urennotatie. Gebruik door komma's gescheiden uren (0-23) en/of "
+"reeksen (bijv. ‘1-5,8,10-12’)."
 
 #: apps/currencies/models.py:236
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
 msgstr ""
+"Ongeldig formaat. Controleer de vereisten voor de geselecteerde "
+"intervalsoort."
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
@@ -566,28 +559,20 @@ msgid "Exchange rate deleted successfully"
 msgstr "Wisselkoers succesvol verwijderd"
 
 #: apps/currencies/views/exchange_rates_services.py:46
-#, fuzzy
-#| msgid "Rule added successfully"
 msgid "Service added successfully"
-msgstr "Regel succesvol toegevoegd"
+msgstr "Dienst succesvol toegevoegd"
 
 #: apps/currencies/views/exchange_rates_services.py:74
-#, fuzzy
-#| msgid "Rule updated successfully"
 msgid "Service updated successfully"
-msgstr "Regel succesvol bijgewerkt"
+msgstr "Dienst succesvol bijgewerkt"
 
 #: apps/currencies/views/exchange_rates_services.py:100
-#, fuzzy
-#| msgid "Rule deleted successfully"
 msgid "Service deleted successfully"
-msgstr "Regel succesvol verwijderd"
+msgstr "Dienst succesvol verwijderd"
 
 #: apps/currencies/views/exchange_rates_services.py:115
-#, fuzzy
-#| msgid "Rule updated successfully"
 msgid "Services queued successfully"
-msgstr "Regel succesvol bijgewerkt"
+msgstr "Diensten succesvol in de wachtrij geplaatst"
 
 #: apps/dca/models.py:17
 msgid "Target Currency"
@@ -768,7 +753,7 @@ msgstr "Een waarde voor dit veld bestaat al in de regel."
 #: apps/rules/forms.py:156 apps/rules/forms.py:157 apps/rules/forms.py:158
 #: apps/rules/forms.py:159
 msgid "Operator"
-msgstr ""
+msgstr "Operator"
 
 #: apps/rules/forms.py:161 apps/rules/forms.py:174 apps/rules/models.py:25
 #: apps/rules/models.py:240 apps/transactions/models.py:139
@@ -828,29 +813,23 @@ msgstr "Bedrijven"
 
 #: apps/rules/forms.py:199
 msgid "Search Criteria"
-msgstr ""
+msgstr "Zoek Vereisten"
 
 #: apps/rules/forms.py:334
-#, fuzzy
-#| msgid "Current Value"
 msgid "Set Values"
-msgstr "Actuele waarde"
+msgstr "Waarden Instellen"
 
 #: apps/rules/models.py:12
 msgid "Trigger"
 msgstr "Trigger"
 
 #: apps/rules/models.py:15
-#, fuzzy
-#| msgid "Transaction Rule"
 msgid "Transaction rule"
 msgstr "Verrichtingsregel"
 
 #: apps/rules/models.py:16
-#, fuzzy
-#| msgid "Transaction Rule"
 msgid "Transaction rules"
-msgstr "Verrichtingsregel"
+msgstr "Verrichtingsregels"
 
 #: apps/rules/models.py:40 apps/rules/models.py:78
 msgid "Rule"
@@ -865,74 +844,69 @@ msgid "Value"
 msgstr "Waarde"
 
 #: apps/rules/models.py:53
-#, fuzzy
-#| msgid "Edit transaction rule action"
 msgid "Edit transaction action"
 msgstr "Bewerk verrichtingsregel actie"
 
 #: apps/rules/models.py:54
-#, fuzzy
-#| msgid "Edit transaction rule action"
 msgid "Edit transaction actions"
-msgstr "Bewerk verrichtingsregel actie"
+msgstr "Bewerk verrichtingsregel acties"
 
 #: apps/rules/models.py:64
 msgid "is exactly"
-msgstr ""
+msgstr "is precies"
 
 #: apps/rules/models.py:65
 msgid "contains"
-msgstr ""
+msgstr "bevat"
 
 #: apps/rules/models.py:66
 msgid "starts with"
-msgstr ""
+msgstr "begint met"
 
 #: apps/rules/models.py:67
 msgid "ends with"
-msgstr ""
+msgstr "eindigd op"
 
 #: apps/rules/models.py:68
 msgid "equals"
-msgstr ""
+msgstr "gelijk aan"
 
 #: apps/rules/models.py:69
 msgid "greater than"
-msgstr ""
+msgstr "groter dan"
 
 #: apps/rules/models.py:70
 msgid "less than"
-msgstr ""
+msgstr "kleiner dan"
 
 #: apps/rules/models.py:71
 msgid "greater than or equal"
-msgstr ""
+msgstr "groter dan of gelijk aan"
 
 #: apps/rules/models.py:72
 msgid "less than or equal"
-msgstr ""
+msgstr "kleiner dan of gelijk aan"
 
 #: apps/rules/models.py:82 templates/transactions/pages/transactions.html:15
 msgid "Filter"
 msgstr "Filter"
 
 #: apps/rules/models.py:85
+#, fuzzy
 msgid ""
 "Generic expression to enable or disable execution. Should evaluate to True "
 "or False"
 msgstr ""
+"Generieke expressie om uitvoering in of uit te schakelen. Moet evalueren "
+"naar True of False"
 
 #: apps/rules/models.py:289
-#, fuzzy
-#| msgid "Edit transaction rule action"
 msgid "Update or create transaction action"
-msgstr "Bewerk verrichtingsregel actie"
+msgstr "Bewerk of maak verrichtingsregel actie"
 
 #: apps/rules/models.py:290
-#, fuzzy
-#| msgid "Edit transaction rule action"
 msgid "Update or create transaction actions"
-msgstr "Bewerk verrichtingsregel actie"
+msgstr "Bewerk of maak verrichtingsregel acties"
 
 #: apps/rules/views.py:52
 msgid "Rule deactivated successfully"
@@ -963,22 +937,16 @@ msgid "Action deleted successfully"
 msgstr "Actie succesvol verwijderd"
 
 #: apps/rules/views.py:246
-#, fuzzy
-#| msgid "Recurring Transaction added successfully"
 msgid "Update or Create Transaction action added successfully"
-msgstr "Terugkerende Verrichting succesvol toegevoegd"
+msgstr "Verrichting Bijwerken Of Maken succesvol toegevoegd"
 
 #: apps/rules/views.py:278
-#, fuzzy
-#| msgid "Recurring Transaction updated successfully"
 msgid "Update or Create Transaction action updated successfully"
-msgstr "Terugkerende Verrichting succesvol bijgewerkt"
+msgstr "Verrichting Bijwerken Of Maken succesvol bijgewerkt"
 
 #: apps/rules/views.py:307
-#, fuzzy
-#| msgid "Recurring Transaction deleted successfully"
 msgid "Update or Create Transaction action deleted successfully"
-msgstr "Terugkerende Verrichting succesvol verwijderd"
+msgstr "Verrichting Bijwerken Of Maken succesvol verwijderd"
 
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:31 templates/includes/navbar.html:46
@@ -1285,13 +1253,11 @@ msgstr[0] "%(count)s verrichting succesvol verwijderd"
 msgstr[1] "%(count)s verrichtingen succesvol verwijderd"
 
 #: apps/transactions/views/actions.py:95
-#, fuzzy, python-format
-#| msgid "%(count)s transaction deleted successfully"
-#| msgid_plural "%(count)s transactions deleted successfully"
+#, python-format
 msgid "%(count)s transaction restored successfully"
 msgid_plural "%(count)s transactions restored successfully"
-msgstr[0] "%(count)s verrichting succesvol verwijderd"
-msgstr[1] "%(count)s verrichtingen succesvol verwijderd"
+msgstr[0] "%(count)s verrichting succesvol hersteld"
+msgstr[1] "%(count)s verrichtingen succesvol hersteld"
 
 #: apps/transactions/views/actions.py:130
 #, python-format
@@ -1401,10 +1367,8 @@ msgid "Transaction deleted successfully"
 msgstr "Verrichting succesvol verwijderd"
 
 #: apps/transactions/views/transactions.py:269
-#, fuzzy
-#| msgid "Transaction deleted successfully"
 msgid "Transaction restored successfully"
-msgstr "Verrichting succesvol verwijderd"
+msgstr "Verrichting succesvol hersteld"
 
 #: apps/transactions/views/transactions.py:295
 msgid "Transfer added successfully"
@@ -1793,7 +1757,7 @@ msgstr "Dupliceren"
 #: templates/cotton/transaction/item.html:155
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
 msgid "Restore"
-msgstr ""
+msgstr "Herstel"
 
 #: templates/cotton/ui/account_card.html:15
 #: templates/cotton/ui/currency_card.html:10
@@ -2121,44 +2085,36 @@ msgstr "Paginanavigatie"
 #: templates/exchange_rates_services/fragments/list.html:6
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/navbar.html:133
-#, fuzzy
-#| msgid "Exchange Rates"
 msgid "Automatic Exchange Rates"
-msgstr "Wisselkoersen"
+msgstr "Automatische Wisselkoersen"
 
 #: templates/exchange_rates_services/fragments/list.html:21
 msgid "Fetch all"
-msgstr ""
+msgstr "Alles Ophalen"
 
 #: templates/exchange_rates_services/fragments/list.html:33
-#, fuzzy
-#| msgid "Overview"
 msgid "Service"
-msgstr "Overzicht"
+msgstr "Dienst"
 
 #: templates/exchange_rates_services/fragments/list.html:34
 msgid "Targeting"
-msgstr ""
+msgstr "Gericht op"
 
 #: templates/exchange_rates_services/fragments/list.html:35
 msgid "Last fetch"
-msgstr ""
+msgstr "Laatst opgehaald"
 
 #: templates/exchange_rates_services/fragments/list.html:67
-#, fuzzy
-#| msgid "Currencies"
 msgid "currencies"
-msgstr "Munteenheden"
+msgstr "munteenheden"
 
 #: templates/exchange_rates_services/fragments/list.html:67
-#, fuzzy
-#| msgid "Accounts"
 msgid "accounts"
-msgstr "Rekeningen"
+msgstr "rekeningen"
 
 #: templates/exchange_rates_services/fragments/list.html:75
 msgid "No services configured"
-msgstr ""
+msgstr "Geen diensten ingesteld"
 
 #: templates/import_app/fragments/profiles/add.html:6
 msgid "Add new import profile"
@@ -2268,7 +2224,7 @@ msgstr "Huidige"
 
 #: templates/includes/navbar.html:63
 msgid "Trash Can"
-msgstr ""
+msgstr "Prullenbak"
 
 #: templates/includes/navbar.html:79
 msgid "Tools"
@@ -2459,7 +2415,7 @@ msgstr "Verdeling"
 
 #: templates/monthly_overview/pages/overview.html:68
 msgid "Summary"
-msgstr ""
+msgstr "Overzicht"
 
 #: templates/monthly_overview/pages/overview.html:142
 msgid "Filter transactions"
@@ -2487,7 +2443,7 @@ msgstr "Op munteenheid"
 
 #: templates/net_worth/net_worth.html:52
 msgid "Consolidated"
-msgstr ""
+msgstr "Samengevoegd"
 
 #: templates/net_worth/net_worth.html:81
 #: templates/yearly_overview/pages/overview_by_account.html:7
@@ -2623,16 +2579,12 @@ msgid "to"
 msgstr "naar"
 
 #: templates/rules/fragments/transaction_rule/view.html:71
-#, fuzzy
-#| msgid "Edit recurring transaction"
 msgid "Update or create transaction"
-msgstr "Bewerk terugkerende verrichtingen"
+msgstr "Bewerk of maak verrichtingen"
 
 #: templates/rules/fragments/transaction_rule/view.html:74
-#, fuzzy
-#| msgid "Edit entity"
 msgid "Edit to view"
-msgstr "Bewerk bedrijf"
+msgstr "Bewerken om te bekijken"
 
 #: templates/rules/fragments/transaction_rule/view.html:104
 msgid "This rule has no actions"
@@ -2643,16 +2595,12 @@ msgid "Add new"
 msgstr "Nieuwe toevoegen"
 
 #: templates/rules/fragments/transaction_rule/view.html:117
-#, fuzzy
-#| msgid "Edit transaction"
 msgid "Edit Transaction"
 msgstr "Bewerk verrichting"
 
 #: templates/rules/fragments/transaction_rule/view.html:120
-#, fuzzy
-#| msgid "Expense Transaction"
 msgid "Update or Create Transaction"
-msgstr "Uitgave Transactie"
+msgstr "Bewerk of Maak Verrichting"
 
 #: templates/tags/fragments/add.html:5
 msgid "Add tag"
@@ -2696,17 +2644,13 @@ msgid "New transfer"
 msgstr "Nieuwe overschrijving"
 
 #: templates/transactions/fragments/trash_list.html:7
-#, fuzzy
-#| msgid "No transactions this month"
 msgid "No deleted transactions to show"
-msgstr "Geen verrichtingen deze maand"
+msgstr "Geen verwijderde verrichtingen om te tonen"
 
 #: templates/transactions/pages/trash.html:4
 #: templates/transactions/pages/trash.html:9
-#, fuzzy
-#| msgid "Filter transactions"
 msgid "Deleted transactions"
-msgstr "Filter verrichtingen"
+msgstr "Verwijderde verrichtingen"
 
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:14
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
