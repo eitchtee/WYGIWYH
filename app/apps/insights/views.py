@@ -4,6 +4,10 @@ from apps.transactions.models import Transaction
 from apps.insights.utils.sankey import generate_sankey_data
 
 
+def index(request):
+    return render(request, "insights/pages/index.html")
+
+
 def sankey(request):
     # Get filtered transactions
     transactions = Transaction.objects.filter(date__year=2025)
