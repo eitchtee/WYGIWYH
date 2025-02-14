@@ -1,22 +1,66 @@
 import logging
 
 from dateutil.relativedelta import relativedelta
+from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import Q
+from django.dispatch import Signal
+from django.template.defaultfilters import date
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
 
 from apps.common.fields.month_year import MonthYearModelField
 from apps.common.functions.decimals import truncate_decimal
+from apps.common.templatetags.decimal import localize_number, drop_trailing_zeros
 from apps.currencies.utils.convert import convert
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
 
 logger = logging.getLogger()
 
 
+transaction_created = Signal()
+transaction_updated = Signal()
+
+
 class SoftDeleteQuerySet(models.QuerySet):
+    @staticmethod
+    def _emit_signals(instances, created=False):
+        """Helper to emit signals for multiple instances"""
+        for instance in instances:
+            if created:
+                transaction_created.send(sender=instance)
+            else:
+                transaction_updated.send(sender=instance)
+
+    def bulk_create(self, objs, emit_signal=True, **kwargs):
+        instances = super().bulk_create(objs, **kwargs)
+
+        if emit_signal:
+            self._emit_signals(instances, created=True)
+
+        return instances
+
+    def bulk_update(self, objs, fields, emit_signal=True, **kwargs):
+        result = super().bulk_update(objs, fields, **kwargs)
+
+        if emit_signal:
+            self._emit_signals(objs, created=False)
+
+        return result
+
+    def update(self, emit_signal=True, **kwargs):
+        # Get instances before update
+        instances = list(self)
+        result = super().update(**kwargs)
+
+        if emit_signal:
+            # Refresh instances to get new values
+            refreshed = self.model.objects.filter(pk__in=[obj.pk for obj in instances])
+            self._emit_signals(refreshed, created=False)
+
+        return result
+
     def delete(self):
         if not settings.ENABLE_SOFT_DELETE:
             # If soft deletion is disabled, perform a normal delete
@@ -274,7 +318,13 @@ class Transaction(models.Model):
 
     def __str__(self):
         type_display = self.get_type_display()
-        return f"{self.description} - {type_display} - {self.account} - {self.date}"
+        frmt_date = date(self.date, "SHORT_DATE_FORMAT")
+        account = self.account
+        tags = ", ".join([x.name for x in self.tags.all()]) or _("No Tags")
+        category = self.category or _("No Category")
+        amount = localize_number(drop_trailing_zeros(self.amount))
+        description = self.description or _("No Description")
+        return f"[{frmt_date}][{type_display}][{account}] {description} • {category} • {tags} • {amount}"
 
 
 class InstallmentPlan(models.Model):

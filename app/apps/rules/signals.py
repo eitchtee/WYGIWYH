@@ -1,10 +1,11 @@
-from django.dispatch import Signal, receiver
+from django.dispatch import receiver
 
-from apps.transactions.models import Transaction
+from apps.transactions.models import (
+    Transaction,
+    transaction_created,
+    transaction_updated,
+)
 from apps.rules.tasks import check_for_transaction_rules
-
-transaction_created = Signal()
-transaction_updated = Signal()
 
 
 @receiver(transaction_created)

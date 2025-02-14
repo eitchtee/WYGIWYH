@@ -18,9 +18,6 @@ def bulk_pay_transactions(request):
     count = transactions.count()
     transactions.update(is_paid=True)
 
-    for transaction in transactions:
-        transaction_updated.send(sender=transaction)
-
     messages.success(
         request,
         ngettext_lazy(
@@ -44,9 +41,6 @@ def bulk_unpay_transactions(request):
     transactions = Transaction.objects.filter(id__in=selected_transactions)
     count = transactions.count()
     transactions.update(is_paid=False)
-
-    for transaction in transactions:
-        transaction_updated.send(sender=transaction)
 
     messages.success(
         request,
@@ -94,7 +88,7 @@ def bulk_undelete_transactions(request):
     selected_transactions = request.GET.getlist("transactions", [])
     transactions = Transaction.deleted_objects.filter(id__in=selected_transactions)
     count = transactions.count()
-    transactions.update(deleted=False, deleted_at=None)
+    transactions.update(deleted=False, deleted_at=None, emit_signal=False)
 
     messages.success(
         request,
