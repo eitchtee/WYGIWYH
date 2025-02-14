@@ -50,7 +50,7 @@ select[multiple] {
   padding: 0 8px !important;
 }
 
-.transaction:has(input[type="checkbox"]:checked) > .transaction-item {
+.transaction:has(input[type="checkbox"]:checked) > div > .transaction-item {
   background-color: $primary-bg-subtle-dark;
 }
 
