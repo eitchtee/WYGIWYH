@@ -12,14 +12,13 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
         self.to_field_name = kwargs.pop("to_field_name", "pk")
 
         self.create_field = kwargs.pop("create_field", None)
-        if not self.create_field:
-            raise ValueError("The 'create_field' parameter is required.")
 
         self.queryset = kwargs.pop("queryset", model.objects.all())
-        super().__init__(queryset=self.queryset, *args, **kwargs)
-        self._created_instance = None
 
         self.widget = TomSelect(clear_button=True, create=True)
+
+        super().__init__(queryset=self.queryset, *args, **kwargs)
+        self._created_instance = None
 
     def to_python(self, value):
         if value in self.empty_values:
@@ -53,14 +52,19 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
                 else:
                     raise self.model.DoesNotExist
             except self.model.DoesNotExist:
-                try:
-                    with transaction.atomic():
-                        instance, _ = self.model.objects.update_or_create(
-                            **{self.create_field: value}
+                if self.create_field:
+                    try:
+                        with transaction.atomic():
+                            instance, _ = self.model.objects.update_or_create(
+                                **{self.create_field: value}
+                            )
+                            self._created_instance = instance
+                            return instance
+                    except Exception as e:
+                        raise ValidationError(
+                            self.error_messages["invalid_choice"], code="invalid_choice"
                         )
-                        self._created_instance = instance
-                        return instance
-                except Exception as e:
+                else:
                     raise ValidationError(
                         self.error_messages["invalid_choice"], code="invalid_choice"
                     )

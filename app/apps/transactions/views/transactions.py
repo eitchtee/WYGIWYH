@@ -4,14 +4,14 @@ from copy import deepcopy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.db.models import Q
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _, ngettext_lazy
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
-from apps.common.utils.dicts import remove_falsey_entries
 from apps.rules.signals import transaction_created, transaction_updated
 from apps.transactions.filters import TransactionsFilter
 from apps.transactions.forms import (
@@ -363,6 +363,8 @@ def transaction_all_list(request):
         "account__currency",
         "installment_plan",
         "entities",
+        "dca_expense_entries",
+        "dca_income_entries",
     ).all()
 
     transactions = default_order(transactions, order=order)
@@ -395,6 +397,9 @@ def transaction_all_summary(request):
         "account__exchange_currency",
         "account__currency",
         "installment_plan",
+        "entities",
+        "dca_expense_entries",
+        "dca_income_entries",
     ).all()
 
     f = TransactionsFilter(request.GET, queryset=transactions)
@@ -426,6 +431,9 @@ def transaction_all_account_summary(request):
         "account__exchange_currency",
         "account__currency",
         "installment_plan",
+        "entities",
+        "dca_expense_entries",
+        "dca_income_entries",
     ).all()
 
     f = TransactionsFilter(request.GET, queryset=transactions)
@@ -453,6 +461,9 @@ def transaction_all_currency_summary(request):
         "account__exchange_currency",
         "account__currency",
         "installment_plan",
+        "entities",
+        "dca_expense_entries",
+        "dca_income_entries",
     ).all()
 
     f = TransactionsFilter(request.GET, queryset=transactions)
@@ -484,6 +495,9 @@ def transactions_trash_can_index(request):
     return render(request, "transactions/pages/trash.html")
 
 
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
 def transactions_trash_can_list(request):
     transactions = Transaction.deleted_objects.prefetch_related(
         "account",
@@ -493,6 +507,10 @@ def transactions_trash_can_list(request):
         "account__exchange_currency",
         "account__currency",
         "installment_plan",
+        "entities",
+        "entities",
+        "dca_expense_entries",
+        "dca_income_entries",
     ).all()
 
     return render(
@@ -500,3 +518,43 @@ def transactions_trash_can_list(request):
         "transactions/fragments/trash_list.html",
         {"transactions": transactions},
     )
+
+
+@login_required
+@require_http_methods(["GET"])
+def get_recent_transactions(request, filter_type=None):
+    """Return the 100 most recent non-deleted transactions with optional search."""
+    # Get search term from query params
+    search_term = request.GET.get("q", "").strip()
+
+    # Base queryset with selected fields
+    queryset = (
+        Transaction.objects.filter(deleted=False)
+        .select_related("account", "category")
+        .order_by("-created_at")
+    )
+
+    if filter_type:
+        if filter_type == "expenses":
+            queryset = queryset.filter(type=Transaction.Type.EXPENSE)
+        elif filter_type == "income":
+            queryset = queryset.filter(type=Transaction.Type.INCOME)
+
+    # Apply search if provided
+    if search_term:
+        queryset = queryset.filter(
+            Q(description__icontains=search_term)
+            | Q(notes__icontains=search_term)
+            | Q(internal_note__icontains=search_term)
+            | Q(tags__name__icontains=search_term)
+            | Q(category__name__icontains=search_term)
+        )
+
+    # Prepare data for JSON response
+    data = []
+    for t in queryset:
+        data.append({"text": str(t), "value": str(t.id)})
+
+    print(data)
+
+    return JsonResponse(data, safe=False)

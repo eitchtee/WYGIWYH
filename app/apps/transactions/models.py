@@ -320,10 +320,10 @@ class Transaction(models.Model):
         type_display = self.get_type_display()
         frmt_date = date(self.date, "SHORT_DATE_FORMAT")
         account = self.account
-        tags = ", ".join([x.name for x in self.tags.all()]) or _("No Tags")
-        category = self.category or _("No Category")
+        tags = ", ".join([x.name for x in self.tags.all()]) or _("No tags")
+        category = self.category or _("No category")
         amount = localize_number(drop_trailing_zeros(self.amount))
-        description = self.description or _("No Description")
+        description = self.description or _("No description")
         return f"[{frmt_date}][{type_display}][{account}] {description} • {category} • {tags} • {amount}"
 
 

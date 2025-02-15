@@ -155,11 +155,9 @@ def strategy_detail(request, strategy_id):
 def strategy_entry_add(request, strategy_id):
     strategy = get_object_or_404(DCAStrategy, id=strategy_id)
     if request.method == "POST":
-        form = DCAEntryForm(request.POST)
+        form = DCAEntryForm(request.POST, strategy=strategy)
         if form.is_valid():
-            entry = form.save(commit=False)
-            entry.strategy = strategy
-            entry.save()
+            entry = form.save()
             messages.success(request, _("Entry added successfully"))
 
             return HttpResponse(
@@ -169,7 +167,7 @@ def strategy_entry_add(request, strategy_id):
                 },
             )
     else:
-        form = DCAEntryForm()
+        form = DCAEntryForm(strategy=strategy)
 
     return render(
         request,
