@@ -87,6 +87,16 @@ urlpatterns = [
         name="transactions_bulk_edit",
     ),
     path(
+        "transactions/json/search/",
+        views.get_recent_transactions,
+        name="transactions_search",
+    ),
+    path(
+        "transactions/json/search/<str:filter_type>/",
+        views.get_recent_transactions,
+        name="transactions_search",
+    ),
+    path(
         "transaction/<int:transaction_id>/clone/",
         views.transaction_clone,
         name="transaction_clone",

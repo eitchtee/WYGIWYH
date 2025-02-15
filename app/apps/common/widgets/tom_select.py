@@ -1,4 +1,5 @@
 from django.forms import widgets, SelectMultiple
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
@@ -129,3 +130,28 @@ class TomSelect(widgets.Select):
 
 class TomSelectMultiple(SelectMultiple, TomSelect):
     pass
+
+
+class TransactionSelect(TomSelect):
+    def __init__(self, income: bool = True, expense: bool = True, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.load_income = income
+        self.load_expense = expense
+        self.create = False
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+
+        if self.load_income and self.load_expense:
+            attrs["data-load"] = reverse("transactions_search")
+        elif self.load_income and not self.load_expense:
+            attrs["data-load"] = reverse(
+                "transactions_search", kwargs={"filter_type": "income"}
+            )
+        elif self.load_expense and not self.load_income:
+            attrs["data-load"] = reverse(
+                "transactions_search", kwargs={"filter_type": "expenses"}
+            )
+
+        return attrs
