@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-16 00:03-0300\n"
+"POT-Creation-Date: 2025-02-16 13:04-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,12 +69,12 @@ msgid "New balance"
 msgstr ""
 
 #: apps/accounts/forms.py:119 apps/dca/forms.py:85 apps/dca/forms.py:92
-#: apps/rules/forms.py:168 apps/rules/forms.py:183 apps/rules/models.py:32
-#: apps/rules/models.py:280 apps/transactions/forms.py:39
-#: apps/transactions/forms.py:291 apps/transactions/forms.py:298
-#: apps/transactions/forms.py:478 apps/transactions/forms.py:723
-#: apps/transactions/models.py:203 apps/transactions/models.py:378
-#: apps/transactions/models.py:558
+#: apps/insights/forms.py:117 apps/rules/forms.py:168 apps/rules/forms.py:183
+#: apps/rules/models.py:32 apps/rules/models.py:280
+#: apps/transactions/forms.py:39 apps/transactions/forms.py:291
+#: apps/transactions/forms.py:298 apps/transactions/forms.py:478
+#: apps/transactions/forms.py:723 apps/transactions/models.py:203
+#: apps/transactions/models.py:378 apps/transactions/models.py:558
 msgid "Category"
 msgstr ""
 
@@ -745,12 +745,33 @@ msgstr ""
 msgid "Run deleted successfully"
 msgstr ""
 
-#: apps/insights/utils/sankey.py:37 apps/insights/utils/sankey.py:154
+#: apps/insights/utils/category_explorer.py:44
+#: apps/insights/utils/category_explorer.py:93 apps/transactions/models.py:170
+#: templates/calendar_view/fragments/list.html:42
+#: templates/calendar_view/fragments/list.html:44
+#: templates/calendar_view/fragments/list.html:52
+#: templates/calendar_view/fragments/list.html:54
+#: templates/cotton/ui/quick_transactions_buttons.html:10
+#: templates/insights/fragments/category_explorer/charts/account.html:54
+#: templates/insights/fragments/category_explorer/charts/currency.html:55
+#: templates/monthly_overview/fragments/monthly_summary.html:39
+msgid "Income"
+msgstr ""
+
+#: apps/insights/utils/category_explorer.py:48
+#: apps/insights/utils/category_explorer.py:97
+#: templates/insights/fragments/category_explorer/charts/account.html:60
+#: templates/insights/fragments/category_explorer/charts/currency.html:61
+#: templates/monthly_overview/fragments/monthly_summary.html:103
+msgid "Expenses"
+msgstr ""
+
+#: apps/insights/utils/sankey.py:36 apps/insights/utils/sankey.py:167
 msgid "Uncategorized"
 msgstr ""
 
-#: apps/insights/utils/sankey.py:118 apps/insights/utils/sankey.py:119
-#: apps/insights/utils/sankey.py:234 apps/insights/utils/sankey.py:235
+#: apps/insights/utils/sankey.py:133 apps/insights/utils/sankey.py:134
+#: apps/insights/utils/sankey.py:263 apps/insights/utils/sankey.py:264
 msgid "Saved"
 msgstr ""
 
@@ -770,7 +791,7 @@ msgstr ""
 msgid "Set field"
 msgstr ""
 
-#: apps/rules/forms.py:65 templates/insights/fragments/sankey.html:84
+#: apps/rules/forms.py:65 templates/insights/fragments/sankey.html:90
 msgid "To"
 msgstr ""
 
@@ -811,7 +832,7 @@ msgstr ""
 
 #: apps/rules/forms.py:165 apps/rules/forms.py:178 apps/rules/models.py:29
 #: apps/rules/models.py:256 apps/transactions/models.py:192
-#: apps/transactions/models.py:551 templates/insights/fragments/sankey.html:85
+#: apps/transactions/models.py:551 templates/insights/fragments/sankey.html:91
 msgid "Amount"
 msgstr ""
 
@@ -1088,16 +1109,6 @@ msgstr ""
 
 #: apps/transactions/models.py:160
 msgid "Entity"
-msgstr ""
-
-#: apps/transactions/models.py:170
-#: templates/calendar_view/fragments/list.html:42
-#: templates/calendar_view/fragments/list.html:44
-#: templates/calendar_view/fragments/list.html:52
-#: templates/calendar_view/fragments/list.html:54
-#: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/monthly_overview/fragments/monthly_summary.html:39
-msgid "Income"
 msgstr ""
 
 #: apps/transactions/models.py:171
@@ -2328,11 +2339,19 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-#: templates/insights/fragments/sankey.html:83
+#: templates/insights/fragments/category_explorer/index.html:13
+msgid "Income/Expense by Account"
+msgstr ""
+
+#: templates/insights/fragments/category_explorer/index.html:25
+msgid "Income/Expense by Currency"
+msgstr ""
+
+#: templates/insights/fragments/sankey.html:89
 msgid "From"
 msgstr ""
 
-#: templates/insights/fragments/sankey.html:86
+#: templates/insights/fragments/sankey.html:92
 msgid "Percentage"
 msgstr ""
 
@@ -2364,6 +2383,10 @@ msgstr ""
 
 #: templates/insights/pages/index.html:81
 msgid "Currency Flow"
+msgstr ""
+
+#: templates/insights/pages/index.html:88
+msgid "Category Explorer"
 msgstr ""
 
 #: templates/installment_plans/fragments/add.html:5
@@ -2462,10 +2485,6 @@ msgstr ""
 #: templates/monthly_overview/fragments/monthly_summary.html:136
 #: templates/monthly_overview/fragments/monthly_summary.html:199
 msgid "projected"
-msgstr ""
-
-#: templates/monthly_overview/fragments/monthly_summary.html:103
-msgid "Expenses"
 msgstr ""
 
 #: templates/monthly_overview/fragments/monthly_summary.html:167
