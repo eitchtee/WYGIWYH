@@ -555,6 +555,4 @@ def get_recent_transactions(request, filter_type=None):
     for t in queryset:
         data.append({"text": str(t), "value": str(t.id)})
 
-    print(data)
-
     return JsonResponse(data, safe=False)

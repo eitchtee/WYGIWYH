@@ -227,3 +227,56 @@ class AirMonthYearPickerInput(AirDatePickerInput):
             except (ValueError, KeyError):
                 return None
         return None
+
+
+class AirYearPickerInput(AirDatePickerInput):
+    def __init__(self, attrs=None, format=None, *args, **kwargs):
+        super().__init__(attrs=attrs, format=format, *args, **kwargs)
+        # Store the display format for AirDatepicker
+        self.display_format = "yyyy"
+        # Store the Python format for internal use
+        self.python_format = "%Y"
+
+    def build_attrs(self, base_attrs, extra_attrs=None):
+        attrs = super().build_attrs(base_attrs, extra_attrs)
+
+        # Add data attributes for AirDatepicker configuration
+        attrs["data-now-button-txt"] = _("Today")
+        attrs["data-date-format"] = "yyyy"
+
+        return attrs
+
+    def format_value(self, value):
+        """Format the value for display in the widget."""
+        if value:
+            self.attrs["data-value"] = (
+                value  # We use this to dynamically select the initial date on AirDatePicker
+            )
+
+        if value is None:
+            return ""
+        if isinstance(value, str):
+            try:
+                value = datetime.datetime.strptime(value, "%Y-%m-%d").date()
+            except ValueError:
+                return value
+        if isinstance(value, (datetime.datetime, datetime.date)):
+            # Use Django's date translation
+            return f"{value.year}"
+        return value
+
+    def value_from_datadict(self, data, files, name):
+        """Convert the value from the widget format back to a format Django can handle."""
+        value = super().value_from_datadict(data, files, name)
+        if value:
+            try:
+                # Split the value into month name and year
+                year_str = value
+                year = int(year_str)
+
+                if year:
+                    # Return the first day of the month in Django's expected format
+                    return datetime.date(year, 1, 1).strftime("%Y-%m-%d")
+            except (ValueError, KeyError):
+                return None
+        return None

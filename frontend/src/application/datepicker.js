@@ -168,3 +168,75 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
     }
     return new AirDatepicker(element, opts);
 };
+
+window.YearPicker = function createDynamicDatePicker(element) {
+    let todayButton = {
+        content: element.dataset.nowButtonTxt,
+        onClick: (dp) => {
+            let date = new Date();
+            dp.selectDate(date, {updateTime: true});
+            dp.setViewDate(date);
+        }
+    }
+
+    let isOnMobile = isMobile();
+
+    let baseOpts = {
+        isMobile: isOnMobile,
+        view: 'years',
+        minView: 'years',
+        dateFormat: 'yyyy',
+        autoClose: element.dataset.autoClose === 'true',
+        buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
+        locale: locales[element.dataset.language],
+        onSelect: ({date, formattedDate, datepicker}) => {
+            const _event = new CustomEvent("change", {
+                bubbles: true,
+            });
+            datepicker.$el.dispatchEvent(_event);
+        }
+    };
+
+    const positionConfig = !isOnMobile ? {
+        position({$datepicker, $target, $pointer, done}) {
+            let popper = createPopper($target, $datepicker, {
+                placement: 'bottom',
+                modifiers: [
+                    {
+                        name: 'flip',
+                        options: {
+                            padding: {
+                                top: 64
+                            }
+                        }
+                    },
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 20]
+                        }
+                    },
+                    {
+                        name: 'arrow',
+                        options: {
+                            element: $pointer
+                        }
+                    }
+                ]
+            });
+
+            return function completeHide() {
+                popper.destroy();
+                done();
+            };
+        }
+    } : {};
+
+    let opts = {...baseOpts, ...positionConfig};
+
+    if (element.dataset.value) {
+        opts["selectedDates"] = [new Date(element.dataset.value  + "T00:00:00")];
+        opts["startDate"] = [new Date(element.dataset.value  + "T00:00:00")];
+    }
+    return new AirDatepicker(element, opts);
+};

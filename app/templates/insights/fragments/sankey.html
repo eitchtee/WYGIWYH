@@ -1,0 +1,120 @@
+{% load i18n %}
+
+{% if type == 'account' %}
+<div class="show-loading" hx-get="{% url 'insights_sankey_by_account' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+{% else %}
+<div class="show-loading" hx-get="{% url 'insights_sankey_by_currency' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+{% endif %}
+  <div class="chart-container position-relative tw-min-h-[60vh] tw-max-h-[60vh] tw-h-full tw-w-full"
+       id="sankeyContainer"
+       _="init call setupSankeyChart() end">
+    <canvas id="sankeyChart"></canvas>
+  </div>
+</div>
+
+<script>
+    var data = {{ sankey_data|safe }};
+
+    function setupSankeyChart(chartId = 'sankeyChart') {
+        function formatCurrency(value, currency) {
+            return new Intl.NumberFormat(undefined, {
+                minimumFractionDigits: currency.decimal_places,
+                maximumFractionDigits: currency.decimal_places
+            }).format(value);
+        }
+
+        // Create labels object mapping node IDs to display names
+        const labels = data.nodes.reduce((acc, node) => {
+            acc[node.id] = node.name;
+            return acc;
+        }, {});
+
+        // Define colors for each node based on its type
+        const colors = {};
+        data.nodes.forEach(node => {
+            if (node.id.startsWith('income_')) {
+                colors[node.id] = '#4dde80';  // Green for income
+            } else if (node.id.startsWith('expense_')) {
+                colors[node.id] = '#f87171';  // Red for expenses
+            } else {
+                colors[node.id] = '#fbb700';  // Primary for others
+            }
+        });
+
+        // Color getter functions
+        const getColor = (nodeId) => colors[nodeId];
+        const getHover = (nodeId) => colors[nodeId];
+
+        // Format data for Chart.js
+        const chartData = {
+            datasets: [{
+                data: data.flows.map(flow => ({
+                    from: flow.from_node,
+                    to: flow.to_node,
+                    flow: flow.flow
+                })),
+                labels: labels,
+                colorFrom: (c) => getColor(c.dataset.data[c.dataIndex].from),
+                colorTo: (c) => getColor(c.dataset.data[c.dataIndex].to),
+                hoverColorFrom: (c) => getHover(c.dataset.data[c.dataIndex].from),
+                hoverColorTo: (c) => getHover(c.dataset.data[c.dataIndex].to),
+                colorMode: 'gradient',
+                alpha: 0.5,
+                size: 'max',
+                color: "white"
+            }]
+        };
+
+        const config = {
+            type: 'sankey',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const flow = data.flows[context.dataIndex];
+                                const fromNode = data.nodes.find(n => n.id === flow.from_node);
+                                const toNode = data.nodes.find(n => n.id === flow.to_node);
+                                const formattedValue = formatCurrency(flow.original_amount, flow.currency);
+                                return [
+                                    `{% trans 'From' %}: ${fromNode.name}`,
+                                    `{% trans 'To' %}: ${toNode.name}`,
+                                    `{% trans 'Amount' %}: ${flow.currency.prefix}${formattedValue}${flow.currency.suffix}`,
+                                    `{% trans 'Percentage' %}: ${flow.percentage.toFixed(2)}%`
+                                ];
+                            }
+                        }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false,
+                    }
+                }
+            }
+        };
+
+        // Destroy existing chart if it exists
+        const existingChart = Chart.getChart(chartId);
+        if (existingChart) {
+            existingChart.destroy();
+        }
+
+        // Create new chart
+        var chart = new Chart(
+            document.getElementById(chartId),
+            config
+        );
+        window.addEventListener('resize', () => {
+            chart.resize();
+        });
+        document.addEventListener('fullscreenchange', function () {
+            console.log('oi');
+            chart.resize();
+        });
+    }
+</script>

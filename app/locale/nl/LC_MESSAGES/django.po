@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-15 00:42-0300\n"
+"POT-Creation-Date: 2025-02-16 00:03-0300\n"
 "PO-Revision-Date: 2025-02-12 06:58+0100\n"
 "Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
 "Language-Team: \n"
@@ -86,7 +86,7 @@ msgstr "Categorie"
 #: apps/transactions/forms.py:315 apps/transactions/forms.py:471
 #: apps/transactions/forms.py:716 apps/transactions/models.py:209
 #: apps/transactions/models.py:380 apps/transactions/models.py:562
-#: templates/includes/navbar.html:105 templates/tags/fragments/list.html:5
+#: templates/includes/navbar.html:108 templates/tags/fragments/list.html:5
 #: templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Labels"
@@ -115,7 +115,7 @@ msgstr "Accountgroep"
 
 #: apps/accounts/models.py:13 templates/account_groups/fragments/list.html:5
 #: templates/account_groups/pages/index.html:4
-#: templates/includes/navbar.html:115
+#: templates/includes/navbar.html:118
 msgid "Account Groups"
 msgstr "Accountgroepen"
 
@@ -167,8 +167,8 @@ msgstr "Rekening"
 
 #: apps/accounts/models.py:60 apps/transactions/filters.py:53
 #: templates/accounts/fragments/list.html:5
-#: templates/accounts/pages/index.html:4 templates/includes/navbar.html:111
-#: templates/includes/navbar.html:113
+#: templates/accounts/pages/index.html:4 templates/includes/navbar.html:114
+#: templates/includes/navbar.html:116
 #: templates/monthly_overview/pages/overview.html:94
 #: templates/transactions/fragments/summary.html:12
 #: templates/transactions/pages/transactions.html:72
@@ -338,6 +338,7 @@ msgid "Cache cleared successfully"
 msgstr "Categorie succesvol bijgewerkt"
 
 #: apps/common/widgets/datepicker.py:47 apps/common/widgets/datepicker.py:186
+#: apps/common/widgets/datepicker.py:244
 msgid "Today"
 msgstr "Vandaag"
 
@@ -392,8 +393,8 @@ msgstr "Cijfers na de komma"
 
 #: apps/currencies/models.py:40 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
-#: templates/currencies/pages/index.html:4 templates/includes/navbar.html:119
-#: templates/includes/navbar.html:121
+#: templates/currencies/pages/index.html:4 templates/includes/navbar.html:122
+#: templates/includes/navbar.html:124
 #: templates/monthly_overview/pages/overview.html:81
 #: templates/transactions/fragments/summary.html:8
 #: templates/transactions/pages/transactions.html:59
@@ -422,7 +423,7 @@ msgstr "Datum en Tijd"
 
 #: apps/currencies/models.py:74 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
-#: templates/includes/navbar.html:123
+#: templates/includes/navbar.html:126
 msgid "Exchange Rates"
 msgstr "Wisselkoersen"
 
@@ -696,7 +697,7 @@ msgstr "Selecteer een bestand"
 
 #: apps/import_app/forms.py:61
 #: templates/import_app/fragments/profiles/list.html:62
-#: templates/includes/navbar.html:131
+#: templates/includes/navbar.html:134
 msgid "Import"
 msgstr "Importeer"
 
@@ -764,6 +765,19 @@ msgstr "Importrun met succes in de wachtrij geplaatst"
 msgid "Run deleted successfully"
 msgstr "Run met succes verwijderd"
 
+#: apps/insights/utils/sankey.py:37 apps/insights/utils/sankey.py:154
+#, fuzzy
+#| msgid "Categories"
+msgid "Uncategorized"
+msgstr "Categorieën"
+
+#: apps/insights/utils/sankey.py:118 apps/insights/utils/sankey.py:119
+#: apps/insights/utils/sankey.py:234 apps/insights/utils/sankey.py:235
+#, fuzzy
+#| msgid "Save"
+msgid "Saved"
+msgstr "Opslaan"
+
 #: apps/rules/forms.py:20
 msgid "Run on creation"
 msgstr "Uitvoeren na het aanmaken"
@@ -780,7 +794,7 @@ msgstr "Als..."
 msgid "Set field"
 msgstr "Veld instellen"
 
-#: apps/rules/forms.py:65
+#: apps/rules/forms.py:65 templates/insights/fragments/sankey.html:84
 msgid "To"
 msgstr "Naar"
 
@@ -821,7 +835,7 @@ msgstr "Referentiedatum"
 
 #: apps/rules/forms.py:165 apps/rules/forms.py:178 apps/rules/models.py:29
 #: apps/rules/models.py:256 apps/transactions/models.py:192
-#: apps/transactions/models.py:551
+#: apps/transactions/models.py:551 templates/insights/fragments/sankey.html:85
 msgid "Amount"
 msgstr "Bedrag"
 
@@ -848,7 +862,7 @@ msgstr "Interne ID"
 #: apps/transactions/forms.py:731 apps/transactions/models.py:161
 #: apps/transactions/models.py:214 apps/transactions/models.py:383
 #: apps/transactions/models.py:565 templates/entities/fragments/list.html:5
-#: templates/entities/pages/index.html:4 templates/includes/navbar.html:107
+#: templates/entities/pages/index.html:4 templates/includes/navbar.html:110
 msgid "Entities"
 msgstr "Bedrijven"
 
@@ -1005,7 +1019,7 @@ msgid "Transaction Type"
 msgstr "Soort transactie"
 
 #: apps/transactions/filters.py:67 templates/categories/fragments/list.html:5
-#: templates/categories/pages/index.html:4 templates/includes/navbar.html:103
+#: templates/categories/pages/index.html:4 templates/includes/navbar.html:106
 msgid "Categories"
 msgstr "Categorieën"
 
@@ -1148,8 +1162,8 @@ msgstr "Verwijderd Op"
 msgid "Transaction"
 msgstr "Verrichting"
 
-#: apps/transactions/models.py:256 templates/includes/navbar.html:54
-#: templates/includes/navbar.html:101
+#: apps/transactions/models.py:256 templates/includes/navbar.html:57
+#: templates/includes/navbar.html:104
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
@@ -1217,7 +1231,7 @@ msgstr "Terugkeerpatroon"
 msgid "Installment Amount"
 msgstr "Termijnbedrag"
 
-#: apps/transactions/models.py:391 templates/includes/navbar.html:69
+#: apps/transactions/models.py:391 templates/includes/navbar.html:72
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
@@ -1260,7 +1274,7 @@ msgstr "Laatste Gegenereerde Datum"
 msgid "Last Generated Reference Date"
 msgstr "Laatste Gegenereerde Referentiedatum"
 
-#: apps/transactions/models.py:592 templates/includes/navbar.html:71
+#: apps/transactions/models.py:592 templates/includes/navbar.html:74
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
@@ -2103,7 +2117,7 @@ msgid "Edit exchange rate"
 msgstr "Wisselkoers bewerken"
 
 #: templates/exchange_rates/fragments/list.html:25
-#: templates/includes/navbar.html:58
+#: templates/includes/navbar.html:61
 #: templates/installment_plans/fragments/list.html:21
 #: templates/yearly_overview/pages/overview_by_account.html:92
 #: templates/yearly_overview/pages/overview_by_currency.html:94
@@ -2133,7 +2147,7 @@ msgstr "Paginanavigatie"
 
 #: templates/exchange_rates_services/fragments/list.html:6
 #: templates/exchange_rates_services/pages/index.html:4
-#: templates/includes/navbar.html:133
+#: templates/includes/navbar.html:136
 msgid "Automatic Exchange Rates"
 msgstr "Automatische Wisselkoersen"
 
@@ -2271,52 +2285,56 @@ msgstr "Netto Waarde"
 msgid "Current"
 msgstr "Huidige"
 
-#: templates/includes/navbar.html:63
+#: templates/includes/navbar.html:50
+msgid "Insights"
+msgstr ""
+
+#: templates/includes/navbar.html:66
 msgid "Trash Can"
 msgstr "Prullenbak"
 
-#: templates/includes/navbar.html:79
+#: templates/includes/navbar.html:82
 msgid "Tools"
 msgstr "Hulpmiddelen"
 
-#: templates/includes/navbar.html:83
+#: templates/includes/navbar.html:86
 msgid "Dollar Cost Average Tracker"
 msgstr "Dollar Kostgemiddelde Tracker"
 
-#: templates/includes/navbar.html:86
+#: templates/includes/navbar.html:89
 #: templates/mini_tools/unit_price_calculator.html:5
 #: templates/mini_tools/unit_price_calculator.html:10
 msgid "Unit Price Calculator"
 msgstr "Eenheidsprijs berekenen"
 
-#: templates/includes/navbar.html:89
+#: templates/includes/navbar.html:92
 #: templates/mini_tools/currency_converter/currency_converter.html:8
 #: templates/mini_tools/currency_converter/currency_converter.html:15
 msgid "Currency Converter"
 msgstr "Valuta omrekenen"
 
-#: templates/includes/navbar.html:98
+#: templates/includes/navbar.html:101
 msgid "Management"
 msgstr "Beheer"
 
-#: templates/includes/navbar.html:127
+#: templates/includes/navbar.html:130
 msgid "Automation"
 msgstr "Automatisatie"
 
-#: templates/includes/navbar.html:129 templates/rules/fragments/list.html:5
+#: templates/includes/navbar.html:132 templates/rules/fragments/list.html:5
 #: templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Regels"
 
-#: templates/includes/navbar.html:143
+#: templates/includes/navbar.html:146
 msgid "Only use this if you know what you're doing"
 msgstr "Gebruik dit alleen als je weet wat je doet"
 
-#: templates/includes/navbar.html:144
+#: templates/includes/navbar.html:147
 msgid "Django Admin"
 msgstr "Django Beheerder"
 
-#: templates/includes/navbar.html:153
+#: templates/includes/navbar.html:156
 msgid "Calculator"
 msgstr "Rekenmachine"
 
@@ -2349,6 +2367,54 @@ msgstr "Annuleer"
 #: templates/includes/scripts/hyperscript/swal.html:14
 msgid "Confirm"
 msgstr "Bevestig"
+
+#: templates/insights/fragments/sankey.html:83
+msgid "From"
+msgstr ""
+
+#: templates/insights/fragments/sankey.html:86
+msgid "Percentage"
+msgstr ""
+
+#: templates/insights/pages/index.html:33
+#, fuzzy
+#| msgid "Monthly"
+msgid "Month"
+msgstr "Maandelijks"
+
+#: templates/insights/pages/index.html:36
+#: templates/yearly_overview/pages/overview_by_account.html:61
+#: templates/yearly_overview/pages/overview_by_currency.html:63
+msgid "Year"
+msgstr "Jaar"
+
+#: templates/insights/pages/index.html:39
+#, fuzzy
+#| msgid "Unchanged"
+msgid "Month Range"
+msgstr "Ongewijzigd"
+
+#: templates/insights/pages/index.html:42
+msgid "Year Range"
+msgstr ""
+
+#: templates/insights/pages/index.html:45
+#, fuzzy
+#| msgid "Date and Time"
+msgid "Date Range"
+msgstr "Datum en Tijd"
+
+#: templates/insights/pages/index.html:74
+#, fuzzy
+#| msgid "Account"
+msgid "Account Flow"
+msgstr "Rekening"
+
+#: templates/insights/pages/index.html:81
+#, fuzzy
+#| msgid "Currency Code"
+msgid "Currency Flow"
+msgstr "Munteenheids Code"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
@@ -2722,11 +2788,6 @@ msgstr "Bedragen tonen"
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
 msgstr "Jaaroverzicht"
-
-#: templates/yearly_overview/pages/overview_by_account.html:61
-#: templates/yearly_overview/pages/overview_by_currency.html:63
-msgid "Year"
-msgstr "Jaar"
 
 #, fuzzy
 #~| msgid "Start Date"
