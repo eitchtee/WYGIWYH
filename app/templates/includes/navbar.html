@@ -46,8 +46,11 @@
                    href="{% url 'net_worth_projected' %}">{% translate 'Projected' %}</a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {% active_link views='insights_index' %}" href="{% url 'insights_index' %}">{% trans 'Insights' %}</a>
+        </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||recurring_trasanctions_index||transactions_all_index' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||recurring_trasanctions_index||transactions_all_index||transactions_trash_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">
@@ -91,7 +94,7 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">

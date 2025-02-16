@@ -1,23 +1,94 @@
 {% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
 {% load i18n %}
 
 {% block content %}
-<div class="container-fluid">
-  <div class="row mx-3 mt-3">
-    <div class="card shadow w-auto">
-      <div class="card-body">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" _="on change log 'oi'">
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-          <label class="btn btn-sm btn-outline-primary" for="btnradio1">{% translate 'Month' %}</label>
+  <div class="container-fluid">
+    <div class="row my-3">
+      <div class="col-lg-2 col-md-3 mb-3 mb-md-0">
+        <div class="">
+          <div class="mb-2 w-100 d-lg-inline-flex d-grid gap-2 flex-wrap justify-content-lg-center" role="group"
+               _="on change
+                    set type to event.target.value
+                    add .tw-hidden to <#picker-form > div:not(.tw-hidden)/>
 
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-          <label class="btn btn-sm btn-outline-primary" for="btnradio2">{% translate 'Year' %}</label>
+                    if type == 'month'
+                      remove .tw-hidden from #month-form
+                    end
+                    if type == 'year'
+                      remove .tw-hidden from #year-form
+                    end
+                    if type == 'month-range'
+                      remove .tw-hidden from #month-range-form
+                    end
+                    if type == 'year-range'
+                      remove .tw-hidden from #year-range-form
+                    end
+                    if type == 'date-range'
+                      remove .tw-hidden from #date-range-form
+                    end
+                    then trigger updated"
+               id="picker-type">
+            <input type="radio" class="btn-check" name="type" value="month" id="monthradio" autocomplete="off" checked>
+            <label class="btn btn-sm btn-outline-primary flex-grow-1" for="monthradio">{% translate 'Month' %}</label>
 
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-          <label class="btn btn-sm btn-outline-primary" for="btnradio3">{% translate 'Range' %}</label>
+            <input type="radio" class="btn-check" name="type" value="year" id="yearradio" autocomplete="off">
+            <label class="btn btn-sm btn-outline-primary flex-grow-1" for="yearradio">{% translate 'Year' %}</label>
+
+            <input type="radio" class="btn-check" name="type" value="month-range" id="monthrangeradio" autocomplete="off">
+            <label class="btn btn-sm btn-outline-primary flex-grow-1" for="monthrangeradio">{% translate 'Month Range' %}</label>
+
+            <input type="radio" class="btn-check" name="type" value="year-range" id="yearrangeradio" autocomplete="off">
+            <label class="btn btn-sm btn-outline-primary flex-grow-1" for="yearrangeradio">{% translate 'Year Range' %}</label>
+
+            <input type="radio" class="btn-check" name="type" value="date-range" id="daterangeradio" autocomplete="off">
+            <label class="btn btn-sm btn-outline-primary flex-grow-1" for="daterangeradio">{% translate 'Date Range' %}</label>
+          </div>
+          <form id="picker-form"
+               _="install init_datepicker
+                  on change trigger updated">
+            <div id="month-form" class="">
+              {% crispy month_form %}
+            </div>
+            <div id="year-form" class="tw-hidden">
+              {% crispy year_form %}
+            </div>
+            <div id="month-range-form" class="tw-hidden">
+              {% crispy month_range_form %}
+            </div>
+            <div id="year-range-form" class="tw-hidden">
+              {% crispy year_range_form %}
+            </div>
+            <div id="date-range-form" class="tw-hidden">
+              {% crispy date_range_form %}
+            </div>
+          </form>
+        </div>
+        <hr class="mt-0">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+             aria-orientation="vertical">
+          <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+                  type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
+                  hx-get="{% url 'insights_sankey_by_account' %}" hx-include="#picker-form, #picker-type"
+                  hx-indicator="#tab-content"
+                  hx-target="#tab-content">{% trans 'Account Flow' %}
+          </button>
+          <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+                  type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
+                  hx-get="{% url 'insights_sankey_by_currency' %}"
+                  hx-include="#picker-form, #picker-type"
+                  hx-indicator="#tab-content"
+                  hx-target="#tab-content">{% trans 'Currency Flow' %}
+          </button>
+        </div>
+      </div>
+      <div class="col-md-9 col-lg-10">
+        <div class="tab-content w-100" id="v-pills-tabContent">
+          <div class="tab-pane fade" id="v-pills-content" role="tabpanel" tabindex="0">
+            <div id="tab-content" class="show-loading"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}

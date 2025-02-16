@@ -1,107 +1,120 @@
-{% extends "layouts/base.html" %}
+{% load i18n %}
 
-{% block content %}
-<canvas id="sankeyChart" height="379"></canvas>
+{% if type == 'account' %}
+<div class="show-loading" hx-get="{% url 'insights_sankey_by_account' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+{% else %}
+<div class="show-loading" hx-get="{% url 'insights_sankey_by_currency' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+{% endif %}
+  <div class="chart-container position-relative tw-min-h-[60vh] tw-max-h-[60vh] tw-h-full tw-w-full"
+       id="sankeyContainer"
+       _="init call setupSankeyChart() end">
+    <canvas id="sankeyChart"></canvas>
+  </div>
+</div>
 
 <script>
-  function setupSankeyChart(data, chartId = 'sankeyChart') {
-    // Format currency value
-    function formatCurrency(value, currency) {
-        return new Intl.NumberFormat(undefined, {
-            minimumFractionDigits: currency.decimal_places,
-            maximumFractionDigits: currency.decimal_places
-        }).format(value);
-    }
+    var data = {{ sankey_data|safe }};
 
-    const nodeIndices = {};
-    data.nodes.forEach((node, index) => {
-        nodeIndices[node.name] = index;
-    });
+    function setupSankeyChart(chartId = 'sankeyChart') {
+        function formatCurrency(value, currency) {
+            return new Intl.NumberFormat(undefined, {
+                minimumFractionDigits: currency.decimal_places,
+                maximumFractionDigits: currency.decimal_places
+            }).format(value);
+        }
 
-    // Format data for Chart.js
-    const chartData = {
-        datasets: [{
-            data: data.flows.map(flow => ({
-                from: flow.from_node,
-                to: flow.to_node,
-                flow: flow.flow
-            })),
-            colorMode: 'to',
-            labels: data.nodes.map(node => node.name),
-            size: 'max',
-        }]
-    };
+        // Create labels object mapping node IDs to display names
+        const labels = data.nodes.reduce((acc, node) => {
+            acc[node.id] = node.name;
+            return acc;
+        }, {});
 
-    // Chart configuration
-    const config = {
-        type: 'sankey',
-        data: chartData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: (context) => {
-                            const flow = data.flows[context.dataIndex];
-                            const formattedValue = formatCurrency(flow.original_amount, flow.currency);
-                            return [
-                                `De: ${flow.from_node}`,
-                                `Para: ${flow.to_node}`,
-                                `Valor: ${flow.currency.prefix}${formattedValue}${flow.currency.suffix}`,
-                                `Porcentagem: ${flow.percentage.toFixed(2)}%`
-                            ];
+        // Define colors for each node based on its type
+        const colors = {};
+        data.nodes.forEach(node => {
+            if (node.id.startsWith('income_')) {
+                colors[node.id] = '#4dde80';  // Green for income
+            } else if (node.id.startsWith('expense_')) {
+                colors[node.id] = '#f87171';  // Red for expenses
+            } else {
+                colors[node.id] = '#fbb700';  // Primary for others
+            }
+        });
+
+        // Color getter functions
+        const getColor = (nodeId) => colors[nodeId];
+        const getHover = (nodeId) => colors[nodeId];
+
+        // Format data for Chart.js
+        const chartData = {
+            datasets: [{
+                data: data.flows.map(flow => ({
+                    from: flow.from_node,
+                    to: flow.to_node,
+                    flow: flow.flow
+                })),
+                labels: labels,
+                colorFrom: (c) => getColor(c.dataset.data[c.dataIndex].from),
+                colorTo: (c) => getColor(c.dataset.data[c.dataIndex].to),
+                hoverColorFrom: (c) => getHover(c.dataset.data[c.dataIndex].from),
+                hoverColorTo: (c) => getHover(c.dataset.data[c.dataIndex].to),
+                colorMode: 'gradient',
+                alpha: 0.5,
+                size: 'max',
+                color: "white"
+            }]
+        };
+
+        const config = {
+            type: 'sankey',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                const flow = data.flows[context.dataIndex];
+                                const fromNode = data.nodes.find(n => n.id === flow.from_node);
+                                const toNode = data.nodes.find(n => n.id === flow.to_node);
+                                const formattedValue = formatCurrency(flow.original_amount, flow.currency);
+                                return [
+                                    `{% trans 'From' %}: ${fromNode.name}`,
+                                    `{% trans 'To' %}: ${toNode.name}`,
+                                    `{% trans 'Amount' %}: ${flow.currency.prefix}${formattedValue}${flow.currency.suffix}`,
+                                    `{% trans 'Percentage' %}: ${flow.percentage.toFixed(2)}%`
+                                ];
+                            }
                         }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false,
                     }
-                },
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: 'Fluxo de Transações',
-                    font: {
-                        size: 16
-                    }
-                }
-            },
-            layout: {
-                padding: {
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 20
                 }
             }
+        };
+
+        // Destroy existing chart if it exists
+        const existingChart = Chart.getChart(chartId);
+        if (existingChart) {
+            existingChart.destroy();
         }
-    };
 
-    // Destroy existing chart if it exists
-    const existingChart = Chart.getChart(chartId);
-    if (existingChart) {
-        existingChart.destroy();
+        // Create new chart
+        var chart = new Chart(
+            document.getElementById(chartId),
+            config
+        );
+        window.addEventListener('resize', () => {
+            chart.resize();
+        });
+        document.addEventListener('fullscreenchange', function () {
+            console.log('oi');
+            chart.resize();
+        });
     }
-
-    // Create new chart
-    return new Chart(
-        document.getElementById(chartId),
-        config
-    );
-}
-
-// Usage in Django template or JavaScript file
-document.addEventListener('DOMContentLoaded', function() {
-    // Assuming you have the Sankey data in a variable called sankeyData
-    // For Django template:
-    const sankeyData = {{ sankey_data|safe }};
-    console.log(sankeyData);
-
-    const chart = setupSankeyChart(sankeyData);
-
-    // Optional: Handle resize
-    window.addEventListener('resize', () => {
-        chart.resize();
-    });
-});
 </script>
-{% endblock %}
