@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-16 00:03-0300\n"
-"PO-Revision-Date: 2025-02-16 00:04-0300\n"
+"POT-Creation-Date: 2025-02-16 13:04-0300\n"
+"PO-Revision-Date: 2025-02-16 13:05-0300\n"
 "Last-Translator: Herculino Trotta\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -70,12 +70,12 @@ msgid "New balance"
 msgstr "Novo saldo"
 
 #: apps/accounts/forms.py:119 apps/dca/forms.py:85 apps/dca/forms.py:92
-#: apps/rules/forms.py:168 apps/rules/forms.py:183 apps/rules/models.py:32
-#: apps/rules/models.py:280 apps/transactions/forms.py:39
-#: apps/transactions/forms.py:291 apps/transactions/forms.py:298
-#: apps/transactions/forms.py:478 apps/transactions/forms.py:723
-#: apps/transactions/models.py:203 apps/transactions/models.py:378
-#: apps/transactions/models.py:558
+#: apps/insights/forms.py:117 apps/rules/forms.py:168 apps/rules/forms.py:183
+#: apps/rules/models.py:32 apps/rules/models.py:280
+#: apps/transactions/forms.py:39 apps/transactions/forms.py:291
+#: apps/transactions/forms.py:298 apps/transactions/forms.py:478
+#: apps/transactions/forms.py:723 apps/transactions/models.py:203
+#: apps/transactions/models.py:378 apps/transactions/models.py:558
 msgid "Category"
 msgstr "Categoria"
 
@@ -759,12 +759,33 @@ msgstr "Importação adicionada à fila com sucesso"
 msgid "Run deleted successfully"
 msgstr "Importação apagada com sucesso"
 
-#: apps/insights/utils/sankey.py:37 apps/insights/utils/sankey.py:154
+#: apps/insights/utils/category_explorer.py:44
+#: apps/insights/utils/category_explorer.py:93 apps/transactions/models.py:170
+#: templates/calendar_view/fragments/list.html:42
+#: templates/calendar_view/fragments/list.html:44
+#: templates/calendar_view/fragments/list.html:52
+#: templates/calendar_view/fragments/list.html:54
+#: templates/cotton/ui/quick_transactions_buttons.html:10
+#: templates/insights/fragments/category_explorer/charts/account.html:54
+#: templates/insights/fragments/category_explorer/charts/currency.html:55
+#: templates/monthly_overview/fragments/monthly_summary.html:39
+msgid "Income"
+msgstr "Renda"
+
+#: apps/insights/utils/category_explorer.py:48
+#: apps/insights/utils/category_explorer.py:97
+#: templates/insights/fragments/category_explorer/charts/account.html:60
+#: templates/insights/fragments/category_explorer/charts/currency.html:61
+#: templates/monthly_overview/fragments/monthly_summary.html:103
+msgid "Expenses"
+msgstr "Despesas"
+
+#: apps/insights/utils/sankey.py:36 apps/insights/utils/sankey.py:167
 msgid "Uncategorized"
 msgstr "Sem categoria"
 
-#: apps/insights/utils/sankey.py:118 apps/insights/utils/sankey.py:119
-#: apps/insights/utils/sankey.py:234 apps/insights/utils/sankey.py:235
+#: apps/insights/utils/sankey.py:133 apps/insights/utils/sankey.py:134
+#: apps/insights/utils/sankey.py:263 apps/insights/utils/sankey.py:264
 msgid "Saved"
 msgstr "Salvo"
 
@@ -784,7 +805,7 @@ msgstr "Se..."
 msgid "Set field"
 msgstr "Definir campo"
 
-#: apps/rules/forms.py:65 templates/insights/fragments/sankey.html:84
+#: apps/rules/forms.py:65 templates/insights/fragments/sankey.html:90
 msgid "To"
 msgstr "Para"
 
@@ -825,7 +846,7 @@ msgstr "Data de Referência"
 
 #: apps/rules/forms.py:165 apps/rules/forms.py:178 apps/rules/models.py:29
 #: apps/rules/models.py:256 apps/transactions/models.py:192
-#: apps/transactions/models.py:551 templates/insights/fragments/sankey.html:85
+#: apps/transactions/models.py:551 templates/insights/fragments/sankey.html:91
 msgid "Amount"
 msgstr "Quantia"
 
@@ -1110,16 +1131,6 @@ msgstr ""
 #: apps/transactions/models.py:160
 msgid "Entity"
 msgstr "Entidade"
-
-#: apps/transactions/models.py:170
-#: templates/calendar_view/fragments/list.html:42
-#: templates/calendar_view/fragments/list.html:44
-#: templates/calendar_view/fragments/list.html:52
-#: templates/calendar_view/fragments/list.html:54
-#: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/monthly_overview/fragments/monthly_summary.html:39
-msgid "Income"
-msgstr "Renda"
 
 #: apps/transactions/models.py:171
 #: templates/calendar_view/fragments/list.html:46
@@ -2353,11 +2364,19 @@ msgstr "Cancelar"
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: templates/insights/fragments/sankey.html:83
+#: templates/insights/fragments/category_explorer/index.html:13
+msgid "Income/Expense by Account"
+msgstr "Gasto/Despesa por Conta"
+
+#: templates/insights/fragments/category_explorer/index.html:25
+msgid "Income/Expense by Currency"
+msgstr "Gasto/Despesa por Moeda"
+
+#: templates/insights/fragments/sankey.html:89
 msgid "From"
 msgstr "De"
 
-#: templates/insights/fragments/sankey.html:86
+#: templates/insights/fragments/sankey.html:92
 msgid "Percentage"
 msgstr "Porcentagem"
 
@@ -2390,6 +2409,10 @@ msgstr "Fluxo de Conta"
 #: templates/insights/pages/index.html:81
 msgid "Currency Flow"
 msgstr "Fluxo de Moeda"
+
+#: templates/insights/pages/index.html:88
+msgid "Category Explorer"
+msgstr "Explorador de Categoria"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
@@ -2490,10 +2513,6 @@ msgstr "atual"
 #: templates/monthly_overview/fragments/monthly_summary.html:199
 msgid "projected"
 msgstr "previsto"
-
-#: templates/monthly_overview/fragments/monthly_summary.html:103
-msgid "Expenses"
-msgstr "Despesas"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
@@ -2855,11 +2874,6 @@ msgstr "Visão Anual"
 #~| msgid "Category"
 #~ msgid "Search Category"
 #~ msgstr "Categoria"
-
-#, fuzzy
-#~| msgid "Category name"
-#~ msgid "Category Operator"
-#~ msgstr "Nome da Categoria"
 
 #, fuzzy
 #~| msgid "Search"
