@@ -1,0 +1,79 @@
+{% load i18n %}
+<div class="chart-container" style="position: relative; height:400px; width:100%" _="init call setupAccountChart() end">
+  <canvas id="accountChart"></canvas>
+</div>
+
+<script>
+    // Get the data from your Django view (passed as JSON)
+    var accountData = {{ account_data|safe }};
+
+    function setupAccountChart() {
+        var chartOptions = {
+            indexAxis: 'y',  // This makes the chart horizontal
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    stacked: true,  // Enable stacking on the x-axis
+                    title: {
+                        display: false,
+                    },
+                },
+                y: {
+                    stacked: true,  // Enable stacking on the y-axis
+                    title: {
+                        display: false,
+                    },
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            if (context.parsed.x !== null) {
+                                return new Intl.NumberFormat(undefined).format(Math.abs(context.parsed.x)); // Using abs for display
+                            }
+                            return "";
+                        },
+                    }
+                }
+            }
+        };
+
+        new Chart(
+            document.getElementById('accountChart'),
+            {
+                type: 'bar',
+                data: {
+                    labels: accountData.labels,
+                    datasets: [
+                        {
+                            label: "{% trans 'Income' %}",
+                            data: accountData.datasets[0].data,
+                            backgroundColor: '#4dde80',
+                            stack: 'stack0'
+                        },
+                        {
+                            label: "{% trans 'Expenses' %}",
+                            data: accountData.datasets[1].data,
+                            backgroundColor: '#f87171',
+                            stack: 'stack0'
+                        }
+                    ]
+                },
+                options: {
+                    ...chartOptions,
+                    plugins: {
+                        ...chartOptions.plugins,
+                        title: {
+                            display: false,
+                        }
+                    }
+                }
+            }
+        );
+    }
+</script>

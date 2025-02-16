@@ -1,24 +1,28 @@
+from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
-from dateutil.relativedelta import relativedelta
-
-from apps.transactions.models import Transaction
-from apps.insights.utils.sankey import (
-    generate_sankey_data_by_account,
-    generate_sankey_data_by_currency,
-)
+from apps.common.decorators.htmx import only_htmx
 from apps.insights.forms import (
     SingleMonthForm,
     SingleYearForm,
     MonthRangeForm,
     YearRangeForm,
     DateRangeForm,
+    CategoryForm,
 )
-from apps.common.decorators.htmx import only_htmx
+from apps.insights.utils.category_explorer import (
+    get_category_sums_by_account,
+    get_category_sums_by_currency,
+)
+from apps.insights.utils.sankey import (
+    generate_sankey_data_by_account,
+    generate_sankey_data_by_currency,
+)
 from apps.insights.utils.transactions import get_transactions
+from apps.transactions.models import TransactionCategory
 
 
 @login_required
@@ -61,7 +65,7 @@ def index(request):
 
 @only_htmx
 @login_required
-@require_http_methods(["GET", "POST"])
+@require_http_methods(["GET"])
 def sankey_by_account(request):
     # Get filtered transactions
 
@@ -79,7 +83,7 @@ def sankey_by_account(request):
 
 @only_htmx
 @login_required
-@require_http_methods(["GET", "POST"])
+@require_http_methods(["GET"])
 def sankey_by_currency(request):
     # Get filtered transactions
     transactions = get_transactions(request)
@@ -91,4 +95,67 @@ def sankey_by_currency(request):
         request,
         "insights/fragments/sankey.html",
         {"sankey_data": sankey_data, "type": "currency"},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def category_explorer_index(request):
+    category_form = CategoryForm()
+
+    return render(
+        request,
+        "insights/fragments/category_explorer/index.html",
+        {"category_form": category_form},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def category_sum_by_account(request):
+    # Get filtered transactions
+    transactions = get_transactions(request)
+
+    category = request.GET.get("category")
+
+    if category:
+        category = TransactionCategory.objects.get(id=category)
+
+        # Generate data
+        account_data = get_category_sums_by_account(transactions, category)
+    else:
+        account_data = None
+
+    return render(
+        request,
+        "insights/fragments/category_explorer/charts/account.html",
+        {"account_data": account_data},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def category_sum_by_currency(request):
+    # Get filtered transactions
+    transactions = get_transactions(request)
+
+    category = request.GET.get("category")
+
+    if category:
+        category = TransactionCategory.objects.get(id=category)
+
+        # Generate data
+        currency_data = get_category_sums_by_currency(transactions, category)
+    else:
+        currency_data = None
+
+    print(currency_data)
+
+    return render(
+        request,
+        "insights/fragments/category_explorer/charts/currency.html",
+        {"currency_data": currency_data},
     )

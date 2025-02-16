@@ -8,6 +8,7 @@ from apps.common.widgets.datepicker import (
     AirYearPickerInput,
     AirDatePickerInput,
 )
+from apps.transactions.models import TransactionCategory
 
 
 class SingleMonthForm(forms.Form):
@@ -108,3 +109,20 @@ class DateRangeForm(forms.Form):
                 css_class="mb-0",
             ),
         )
+
+
+class CategoryForm(forms.Form):
+    category = forms.ModelChoiceField(
+        required=False,
+        label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.disable_csrf = True
+
+        self.helper.layout = Layout("category")

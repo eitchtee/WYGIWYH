@@ -104,23 +104,10 @@
             }
         };
 
-        // Destroy existing chart if it exists
-        const existingChart = Chart.getChart(chartId);
-        if (existingChart) {
-            existingChart.destroy();
-        }
-
         // Create new chart
-        var chart = new Chart(
+        new Chart(
             document.getElementById(chartId),
             config
         );
-        window.addEventListener('resize', () => {
-            chart.resize();
-        });
-        document.addEventListener('fullscreenchange', function () {
-            console.log('oi');
-            chart.resize();
-        });
     }
 </script>
