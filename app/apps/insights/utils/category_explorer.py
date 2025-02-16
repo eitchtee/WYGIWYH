@@ -58,7 +58,7 @@ def get_category_sums_by_currency(queryset, category):
     """
     sums = (
         queryset.filter(category=category)
-        .values("account__currency__code")
+        .values("account__currency__name")
         .annotate(
             income=Coalesce(
                 Sum(
@@ -83,11 +83,11 @@ def get_category_sums_by_currency(queryset, category):
                 output_field=DecimalField(max_digits=42, decimal_places=30),
             ),
         )
-        .order_by("account__currency__code")
+        .order_by("account__currency__name")
     )
 
     return {
-        "labels": [item["account__currency__code"] for item in sums],
+        "labels": [item["account__currency__name"] for item in sums],
         "datasets": [
             {
                 "label": _("Income"),
