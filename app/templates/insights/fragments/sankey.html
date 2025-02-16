@@ -1,15 +1,17 @@
 {% load i18n %}
 
 {% if type == 'account' %}
-<div class="show-loading" hx-get="{% url 'insights_sankey_by_account' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+  <div class="show-loading" hx-get="{% url 'insights_sankey_by_account' %}" hx-trigger="updated from:window"
+       hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
 {% else %}
-<div class="show-loading" hx-get="{% url 'insights_sankey_by_currency' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+  <div class="show-loading" hx-get="{% url 'insights_sankey_by_currency' %}" hx-trigger="updated from:window"
+       hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
 {% endif %}
-  <div class="chart-container position-relative tw-min-h-[60vh] tw-max-h-[60vh] tw-h-full tw-w-full"
-       id="sankeyContainer"
-       _="init call setupSankeyChart() end">
-    <canvas id="sankeyChart"></canvas>
-  </div>
+<div class="chart-container position-relative tw-min-h-[60vh] tw-max-h-[60vh] tw-h-full tw-w-full"
+     id="sankeyContainer"
+     _="init call setupSankeyChart() end">
+  <canvas id="sankeyChart"></canvas>
+</div>
 </div>
 
 <script>
@@ -61,7 +63,11 @@
                 colorMode: 'gradient',
                 alpha: 0.5,
                 size: 'max',
-                color: "white"
+                color: "white",
+                priority: data.nodes.reduce((acc, node) => {
+                    acc[node.id] = node.priority;
+                    return acc;
+                }, {}),
             }]
         };
 

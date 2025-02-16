@@ -52,13 +52,29 @@ def generate_sankey_data_by_account(transactions_queryset):
             total_volume_by_currency.get(currency, Decimal("0")) + amount
         )
 
+    unique_accounts = {
+        account_id: idx
+        for idx, account_id in enumerate(
+            transactions_queryset.values_list("account", flat=True).distinct()
+        )
+    }
+
+    def get_node_priority(node_id: str) -> int:
+        """Get priority based on the account ID embedded in the node ID."""
+        account_id = int(node_id.split("_")[-1])
+        return unique_accounts[account_id]
+
     def get_node_id(node_type: str, name: str, account_id: int) -> str:
         """Generate unique node ID."""
         return f"{node_type}_{name}_{account_id}".lower().replace(" ", "_")
 
     def add_node(node_id: str, display_name: str) -> None:
-        """Add node with both ID and display name."""
-        nodes[node_id] = {"id": node_id, "name": display_name}
+        """Add node with ID, display name and priority."""
+        nodes[node_id] = {
+            "id": node_id,
+            "name": display_name,
+            "priority": get_node_priority(node_id),
+        }
 
     def add_flow(
         from_node_id: str, to_node_id: str, amount: Decimal, currency, is_income: bool
@@ -167,13 +183,29 @@ def generate_sankey_data_by_currency(transactions_queryset):
             total_volume_by_currency.get(currency, Decimal("0")) + amount
         )
 
+    unique_currencies = {
+        currency_id: idx
+        for idx, currency_id in enumerate(
+            transactions_queryset.values_list("account__currency", flat=True).distinct()
+        )
+    }
+
+    def get_node_priority(node_id: str) -> int:
+        """Get priority based on the currency ID embedded in the node ID."""
+        currency_id = int(node_id.split("_")[-1])
+        return unique_currencies[currency_id]
+
     def get_node_id(node_type: str, name: str, currency_id: int) -> str:
         """Generate unique node ID including currency information."""
         return f"{node_type}_{name}_{currency_id}".lower().replace(" ", "_")
 
     def add_node(node_id: str, display_name: str) -> None:
-        """Add node with both ID and display name."""
-        nodes[node_id] = {"id": node_id, "name": display_name}
+        """Add node with ID, display name and priority."""
+        nodes[node_id] = {
+            "id": node_id,
+            "name": display_name,
+            "priority": get_node_priority(node_id),
+        }
 
     def add_flow(
         from_node_id: str, to_node_id: str, amount: Decimal, currency, is_income: bool
