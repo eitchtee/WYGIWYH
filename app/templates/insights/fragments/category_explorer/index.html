@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<form _="install init_tom_select
+         on change trigger updated" id="category-form">
+  {% crispy category_form %}
+</form>
+
+<div class="row row-cols-1 row-cols-lg-2 gx-3 gy-3">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        {% trans "Income/Expense by Account" %}
+      </div>
+      <div class="card-body">
+        <div id="account-card" class="show-loading" hx-get="{% url 'category_sum_by_account' %}"
+             hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        {% trans "Income/Expense by Currency" %}
+      </div>
+      <div class="card-body">
+        <div id="currency-card" class="show-loading" hx-get="{% url 'category_sum_by_currency' %}"
+             hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
