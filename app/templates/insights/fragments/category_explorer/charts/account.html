@@ -1,4 +1,5 @@
 {% load i18n %}
+{% if account_data.labels %}
 <div class="chart-container" style="position: relative; height:400px; width:100%" _="init call setupAccountChart() end">
   <canvas id="accountChart"></canvas>
 </div>
@@ -77,3 +78,6 @@
         );
     }
 </script>
+{% else %}
+<c-msg.empty title="{% translate "No information to display" %}"></c-msg.empty>
+{% endif %}
