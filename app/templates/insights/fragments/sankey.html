@@ -7,7 +7,7 @@
   <div class="show-loading" hx-get="{% url 'insights_sankey_by_currency' %}" hx-trigger="updated from:window"
        hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
 {% endif %}
-<div class="chart-container position-relative tw-min-h-[60vh] tw-max-h-[60vh] tw-h-full tw-w-full"
+<div class="chart-container position-relative tw-min-h-[85vh] tw-max-h-[85vh] tw-h-full tw-w-full"
      id="sankeyContainer"
      _="init call setupSankeyChart() end">
   <canvas id="sankeyChart"></canvas>
@@ -64,6 +64,7 @@
                 alpha: 0.5,
                 size: 'max',
                 color: "white",
+                nodePadding: 30,
                 priority: data.nodes.reduce((acc, node) => {
                     acc[node.id] = node.priority;
                     return acc;
@@ -77,6 +78,9 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: {
+                    padding: 20
+                },
                 plugins: {
                     tooltip: {
                         callbacks: {
