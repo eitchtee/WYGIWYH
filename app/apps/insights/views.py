@@ -116,7 +116,7 @@ def category_explorer_index(request):
 @require_http_methods(["GET"])
 def category_sum_by_account(request):
     # Get filtered transactions
-    transactions = get_transactions(request)
+    transactions = get_transactions(request, include_silent=True)
 
     category = request.GET.get("category")
 
@@ -140,7 +140,7 @@ def category_sum_by_account(request):
 @require_http_methods(["GET"])
 def category_sum_by_currency(request):
     # Get filtered transactions
-    transactions = get_transactions(request)
+    transactions = get_transactions(request, include_silent=True)
 
     category = request.GET.get("category")
 
