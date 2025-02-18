@@ -2,7 +2,8 @@
 {% load crispy_forms_tags %}
 
 <form _="install init_tom_select
-         on change trigger updated" id="category-form">
+         on change trigger updated
+         init trigger updated" id="category-form">
   {% crispy category_form %}
 </form>
 
@@ -15,7 +16,6 @@
       <div class="card-body">
         <div id="account-card" class="show-loading" hx-get="{% url 'category_sum_by_account' %}"
              hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
-          <c-msg.empty title="{% translate "No information to display" %}"></c-msg.empty>
         </div>
       </div>
     </div>
@@ -28,7 +28,6 @@
       <div class="card-body">
         <div id="currency-card" class="show-loading" hx-get="{% url 'category_sum_by_currency' %}"
              hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
-          <c-msg.empty title="{% translate "No information to display" %}"></c-msg.empty>
         </div>
       </div>
     </div>

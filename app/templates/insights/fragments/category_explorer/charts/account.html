@@ -1,83 +1,100 @@
 {% load i18n %}
 {% if account_data.labels %}
-<div class="chart-container" style="position: relative; height:400px; width:100%" _="init call setupAccountChart() end">
-  <canvas id="accountChart"></canvas>
-</div>
+  <div class="chart-container" style="position: relative; height:400px; width:100%"
+       _="init call setupAccountChart() end">
+    <canvas id="accountChart"></canvas>
+  </div>
 
-<script>
-    // Get the data from your Django view (passed as JSON)
-    var accountData = {{ account_data|safe }};
+  <script>
+      // Get the data from your Django view (passed as JSON)
+      var accountData = {{ account_data|safe }};
 
-    function setupAccountChart() {
-        var chartOptions = {
-            indexAxis: 'y',  // This makes the chart horizontal
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    stacked: true,  // Enable stacking on the x-axis
-                    title: {
-                        display: false,
-                    },
-                },
-                y: {
-                    stacked: true,  // Enable stacking on the y-axis
-                    title: {
-                        display: false,
-                    },
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false,
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            if (context.parsed.x !== null) {
-                                return new Intl.NumberFormat(undefined).format(Math.abs(context.parsed.x)); // Using abs for display
-                            }
-                            return "";
-                        },
-                    }
-                }
-            }
-        };
+      function setupAccountChart() {
+          var chartOptions = {
+              indexAxis: 'y',  // This makes the chart horizontal
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                  x: {
+                      stacked: true,  // Enable stacking on the x-axis
+                      title: {
+                          display: false,
+                      },
+                  },
+                  y: {
+                      stacked: true,  // Enable stacking on the y-axis
+                      title: {
+                          display: false,
+                      },
+                  }
+              },
+              plugins: {
+                  legend: {
+                      display: false,
+                  },
+                  tooltip: {
+                      callbacks: {
+                          label: function (context) {
+                              if (context.parsed.x !== null) {
+                                  return `${context.dataset.label}: ${new Intl.NumberFormat(undefined, {
+                                      minimumFractionDigits: 0,
+                                      maximumFractionDigits: 30,
+                                      roundingMode: 'trunc'
+                                  }).format(Math.abs(context.parsed.x))}`;
+                              }
+                              return "";
+                          },
+                      }
+                  }
+              }
+          };
 
-        new Chart(
-            document.getElementById('accountChart'),
-            {
-                type: 'bar',
-                data: {
-                    labels: accountData.labels,
-                    datasets: [
-                        {
-                            label: "{% trans 'Income' %}",
-                            data: accountData.datasets[0].data,
-                            backgroundColor: '#4dde80',
-                            stack: 'stack0'
-                        },
-                        {
-                            label: "{% trans 'Expenses' %}",
-                            data: accountData.datasets[1].data,
-                            backgroundColor: '#f87171',
-                            stack: 'stack0'
-                        }
-                    ]
-                },
-                options: {
-                    ...chartOptions,
-                    plugins: {
-                        ...chartOptions.plugins,
-                        title: {
-                            display: false,
-                        }
-                    }
-                }
-            }
-        );
-    }
-</script>
+          new Chart(
+              document.getElementById('accountChart'),
+              {
+                  type: 'bar',
+                  data: {
+                      labels: accountData.labels,
+                      datasets: [
+                          {
+                              label: "{% trans 'Current Income' %}",
+                              data: accountData.datasets[0].data,
+                              backgroundColor: '#4dde80',
+                              stack: 'stack0'
+                          },
+                          {
+                              label: "{% trans 'Current Expenses' %}",
+                              data: accountData.datasets[1].data,
+                              backgroundColor: '#f87171',
+                              stack: 'stack0'
+                          },
+                          {
+                              label: "{% trans 'Projected Income' %}",
+                              data: accountData.datasets[2].data,
+                              backgroundColor: '#4dde8080', // Added transparency
+                              stack: 'stack0'
+                          },
+                          {
+                              label: "{% trans 'Projected Expenses' %}",
+                              data: accountData.datasets[3].data,
+                              backgroundColor: '#f8717180', // Added transparency
+                              stack: 'stack0'
+                          }
+                      ]
+                  },
+                  options: {
+                      ...chartOptions,
+                      plugins: {
+                          ...chartOptions.plugins,
+                          title: {
+                              display: false,
+                          }
+                      }
+                  }
+              }
+          );
+      }
+  </script>
 {% else %}
-<c-msg.empty title="{% translate "No information to display" %}"></c-msg.empty>
+  <c-msg.empty title="{% translate "No information to display" %}"></c-msg.empty>
 {% endif %}
