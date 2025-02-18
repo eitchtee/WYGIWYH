@@ -152,8 +152,6 @@ def category_sum_by_currency(request):
     else:
         currency_data = None
 
-    print(currency_data)
-
     return render(
         request,
         "insights/fragments/category_explorer/charts/currency.html",
