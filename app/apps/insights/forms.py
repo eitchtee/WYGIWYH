@@ -9,6 +9,7 @@ from apps.common.widgets.datepicker import (
     AirDatePickerInput,
 )
 from apps.transactions.models import TransactionCategory
+from apps.common.widgets.tom_select import TomSelect
 
 
 class SingleMonthForm(forms.Form):
@@ -115,7 +116,9 @@ class CategoryForm(forms.Form):
     category = forms.ModelChoiceField(
         required=False,
         label=_("Category"),
+        empty_label=_("Uncategorized"),
         queryset=TransactionCategory.objects.filter(active=True),
+        widget=TomSelect(clear_button=True),
     )
 
     def __init__(self, *args, **kwargs):
