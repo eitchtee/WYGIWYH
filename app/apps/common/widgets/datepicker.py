@@ -19,6 +19,8 @@ class AirDatePickerInput(widgets.DateInput):
         format=None,
         clear_button=True,
         auto_close=True,
+        read_only=True,
+        toggle_selected=None,
         *args,
         **kwargs,
     ):
@@ -26,6 +28,10 @@ class AirDatePickerInput(widgets.DateInput):
         super().__init__(attrs=attrs, format=format, *args, **kwargs)
         self.clear_button = clear_button
         self.auto_close = auto_close
+        self.read_only = read_only
+        self.toggle_selected = (
+            toggle_selected if isinstance(toggle_selected, bool) else self.clear_button
+        )
 
     @staticmethod
     def _get_current_language():
@@ -47,8 +53,12 @@ class AirDatePickerInput(widgets.DateInput):
         attrs["data-now-button-txt"] = _("Today")
         attrs["data-auto-close"] = str(self.auto_close).lower()
         attrs["data-clear-button"] = str(self.clear_button).lower()
+        attrs["data-toggle-selected"] = str(self.toggle_selected).lower()
         attrs["data-language"] = self._get_current_language()
         attrs["data-date-format"] = django_to_airdatepicker_datetime(self._get_format())
+
+        if self.read_only:
+            attrs["readonly"] = True
 
         return attrs
 
@@ -89,6 +99,8 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
         timepicker=True,
         clear_button=True,
         auto_close=True,
+        read_only=True,
+        toggle_selected=None,
         *args,
         **kwargs,
     ):
@@ -97,6 +109,10 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
         self.timepicker = timepicker
         self.clear_button = clear_button
         self.auto_close = auto_close
+        self.read_only = read_only
+        self.toggle_selected = (
+            toggle_selected if isinstance(toggle_selected, bool) else self.clear_button
+        )
 
     @staticmethod
     def _get_current_language():
@@ -123,10 +139,14 @@ class AirDateTimePickerInput(widgets.DateTimeInput):
         attrs["data-now-button-txt"] = _("Now")
         attrs["data-timepicker"] = str(self.timepicker).lower()
         attrs["data-auto-close"] = str(self.auto_close).lower()
+        attrs["data-toggle-selected"] = str(self.toggle_selected).lower()
         attrs["data-clear-button"] = str(self.clear_button).lower()
         attrs["data-language"] = self._get_current_language()
         attrs["data-date-format"] = date_format
         attrs["data-time-format"] = time_format
+
+        if self.read_only:
+            attrs["readonly"] = True
 
         return attrs
 
