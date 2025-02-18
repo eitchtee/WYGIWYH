@@ -13,7 +13,7 @@ from apps.transactions.models import TransactionCategory
 
 class SingleMonthForm(forms.Form):
     month = forms.DateField(
-        widget=AirMonthYearPickerInput(clear_button=False), label="", required=False
+        widget=AirMonthYearPickerInput(clear_button=False), label="", required=True
     )
 
     def __init__(self, *args, **kwargs):
@@ -28,7 +28,7 @@ class SingleMonthForm(forms.Form):
 
 class SingleYearForm(forms.Form):
     year = forms.DateField(
-        widget=AirYearPickerInput(clear_button=False), label="", required=False
+        widget=AirYearPickerInput(clear_button=False), label="", required=True
     )
 
     def __init__(self, *args, **kwargs):
@@ -43,10 +43,10 @@ class SingleYearForm(forms.Form):
 
 class MonthRangeForm(forms.Form):
     month_from = forms.DateField(
-        widget=AirMonthYearPickerInput(clear_button=False), label="", required=False
+        widget=AirMonthYearPickerInput(clear_button=False), label="", required=True
     )
     month_to = forms.DateField(
-        widget=AirMonthYearPickerInput(clear_button=False), label="", required=False
+        widget=AirMonthYearPickerInput(clear_button=False), label="", required=True
     )
 
     def __init__(self, *args, **kwargs):
@@ -66,10 +66,10 @@ class MonthRangeForm(forms.Form):
 
 class YearRangeForm(forms.Form):
     year_from = forms.DateField(
-        widget=AirYearPickerInput(clear_button=False), label="", required=False
+        widget=AirYearPickerInput(clear_button=False), label="", required=True
     )
     year_to = forms.DateField(
-        widget=AirYearPickerInput(clear_button=False), label="", required=False
+        widget=AirYearPickerInput(clear_button=False), label="", required=True
     )
 
     def __init__(self, *args, **kwargs):
@@ -89,10 +89,10 @@ class YearRangeForm(forms.Form):
 
 class DateRangeForm(forms.Form):
     date_from = forms.DateField(
-        widget=AirDatePickerInput(clear_button=False), label="", required=False
+        widget=AirDatePickerInput(clear_button=False), label="", required=True
     )
     date_to = forms.DateField(
-        widget=AirDatePickerInput(clear_button=False), label="", required=False
+        widget=AirDatePickerInput(clear_button=False), label="", required=True
     )
 
     def __init__(self, *args, **kwargs):
