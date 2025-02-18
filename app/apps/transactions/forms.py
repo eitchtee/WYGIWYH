@@ -63,7 +63,9 @@ class TransactionForm(forms.ModelForm):
     date = forms.DateField(label=_("Date"))
 
     reference_date = forms.DateField(
-        widget=AirMonthYearPickerInput(), label=_("Reference Date"), required=False
+        widget=AirMonthYearPickerInput(),
+        label=_("Reference Date"),
+        required=False,
     )
 
     class Meta:
@@ -176,7 +178,6 @@ class TransactionForm(forms.ModelForm):
             ),
         )
 
-        self.fields["reference_date"].required = False
         self.fields["date"].widget = AirDatePickerInput(clear_button=False)
 
         if self.instance and self.instance.pk:

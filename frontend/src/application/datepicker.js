@@ -40,6 +40,7 @@ window.DatePicker = function createDynamicDatePicker(element) {
         dateFormat: element.dataset.dateFormat,
         timeFormat: element.dataset.timeFormat,
         timepicker: element.dataset.timepicker === 'true',
+        toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: locales[element.dataset.language],
@@ -96,7 +97,6 @@ window.DatePicker = function createDynamicDatePicker(element) {
     return new AirDatepicker(element, opts);
 };
 
-
 window.MonthYearPicker = function createDynamicDatePicker(element) {
     let todayButton = {
         content: element.dataset.nowButtonTxt,
@@ -114,6 +114,7 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
         view: 'months',
         minView: 'months',
         dateFormat: 'MMMM yyyy',
+        toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: locales[element.dataset.language],
@@ -163,8 +164,8 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
     let opts = {...baseOpts, ...positionConfig};
 
     if (element.dataset.value) {
-        opts["selectedDates"] = [new Date(element.dataset.value  + "T00:00:00")];
-        opts["startDate"] = [new Date(element.dataset.value  + "T00:00:00")];
+        opts["selectedDates"] = [new Date(element.dataset.value + "T00:00:00")];
+        opts["startDate"] = [new Date(element.dataset.value + "T00:00:00")];
     }
     return new AirDatepicker(element, opts);
 };
@@ -186,6 +187,7 @@ window.YearPicker = function createDynamicDatePicker(element) {
         view: 'years',
         minView: 'years',
         dateFormat: 'yyyy',
+        toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: locales[element.dataset.language],
@@ -235,8 +237,8 @@ window.YearPicker = function createDynamicDatePicker(element) {
     let opts = {...baseOpts, ...positionConfig};
 
     if (element.dataset.value) {
-        opts["selectedDates"] = [new Date(element.dataset.value  + "T00:00:00")];
-        opts["startDate"] = [new Date(element.dataset.value  + "T00:00:00")];
+        opts["selectedDates"] = [new Date(element.dataset.value + "T00:00:00")];
+        opts["startDate"] = [new Date(element.dataset.value + "T00:00:00")];
     }
     return new AirDatepicker(element, opts);
 };
