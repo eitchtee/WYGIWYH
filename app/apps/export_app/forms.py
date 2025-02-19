@@ -53,7 +53,7 @@ class ExportForm(forms.Form):
     installment_plans = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(),
-        label=_("Installment Planss"),
+        label=_("Installment Plans"),
         initial=True,
     )
     exchange_rates = forms.BooleanField(

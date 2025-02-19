@@ -184,7 +184,7 @@ def import_form(request):
         if form.is_valid():
             try:
                 process_imports(request, form.cleaned_data)
-                messages.success(request, _("Data imported successfully"))
+                messages.success(request, _("Data restored successfully"))
                 return HttpResponse(
                     status=204,
                     headers={
@@ -195,7 +195,9 @@ def import_form(request):
                 logger.error("Error importing", exc_info=e)
                 messages.error(
                     request,
-                    _("There was an error importing. Check the logs for more details."),
+                    _(
+                        "There was an error restoring your data. Check the logs for more details."
+                    ),
                 )
     else:
         form = RestoreForm()
