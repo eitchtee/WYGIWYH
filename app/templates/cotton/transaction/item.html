@@ -1,7 +1,7 @@
 {% load markdown %}
 {% load i18n %}
-<div class="transaction">
-  <div class="d-flex my-1 {% if transaction.type == "EX" %}expense{% else %}income{% endif %}">
+<div class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %}">
+  <div class="d-flex my-1">
     {% if not disable_selection %}
       <label class="px-3 d-flex align-items-center justify-content-center">
         <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}"
