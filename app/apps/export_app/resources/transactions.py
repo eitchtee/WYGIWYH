@@ -13,6 +13,7 @@ from apps.transactions.models import (
     RecurringTransaction,
     InstallmentPlan,
 )
+from apps.export_app.widgets.numbers import UniversalDecimalWidget
 
 
 class TransactionResource(resources.ModelResource):
@@ -42,6 +43,12 @@ class TransactionResource(resources.ModelResource):
 
     internal_id = EmptyStringToNoneField(
         column_name="internal_id", attribute="internal_id"
+    )
+
+    amount = fields.Field(
+        attribute="amount",
+        column_name="amount",
+        widget=UniversalDecimalWidget(),
     )
 
     class Meta:
@@ -91,6 +98,12 @@ class RecurringTransactionResource(resources.ModelResource):
         widget=AutoCreateManyToManyWidget(TransactionEntity, field="name"),
     )
 
+    amount = fields.Field(
+        attribute="amount",
+        column_name="amount",
+        widget=UniversalDecimalWidget(),
+    )
+
     class Meta:
         model = RecurringTransaction
 
@@ -118,6 +131,12 @@ class InstallmentPlanResource(resources.ModelResource):
         attribute="entities",
         column_name="entities",
         widget=AutoCreateManyToManyWidget(TransactionEntity, field="name"),
+    )
+
+    installment_amount = fields.Field(
+        attribute="installment_amount",
+        column_name="installment_amount",
+        widget=UniversalDecimalWidget(),
     )
 
     class Meta:
