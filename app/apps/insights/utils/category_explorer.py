@@ -14,8 +14,7 @@ def get_category_sums_by_account(queryset, category=None):
             current_income=Coalesce(
                 Sum(
                     Case(
-                        When(type="IN", then="amount"),
-                        When(is_paid=True, then="amount"),
+                        When(type="IN", is_paid=True, then="amount"),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
@@ -26,8 +25,7 @@ def get_category_sums_by_account(queryset, category=None):
             current_expense=Coalesce(
                 Sum(
                     Case(
-                        When(type="EX", then=-F("amount")),
-                        When(is_paid=True, then="amount"),
+                        When(type="EX", is_paid=True, then=-F("amount")),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
@@ -38,8 +36,7 @@ def get_category_sums_by_account(queryset, category=None):
             projected_income=Coalesce(
                 Sum(
                     Case(
-                        When(type="IN", then="amount"),
-                        When(is_paid=False, then="amount"),
+                        When(type="IN", is_paid=False, then="amount"),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
@@ -50,8 +47,7 @@ def get_category_sums_by_account(queryset, category=None):
             projected_expense=Coalesce(
                 Sum(
                     Case(
-                        When(type="EX", then=-F("amount")),
-                        When(is_paid=False, then="amount"),
+                        When(type="EX", is_paid=False, then=-F("amount")),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
@@ -97,8 +93,7 @@ def get_category_sums_by_currency(queryset, category=None):
             current_income=Coalesce(
                 Sum(
                     Case(
-                        When(type="IN", then="amount"),
-                        When(is_paid=True, then="amount"),
+                        When(type="IN", is_paid=True, then="amount"),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
@@ -109,8 +104,7 @@ def get_category_sums_by_currency(queryset, category=None):
             current_expense=Coalesce(
                 Sum(
                     Case(
-                        When(type="EX", then=-F("amount")),
-                        When(is_paid=True, then="amount"),
+                        When(type="EX", is_paid=True, then=-F("amount")),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
@@ -121,8 +115,7 @@ def get_category_sums_by_currency(queryset, category=None):
             projected_income=Coalesce(
                 Sum(
                     Case(
-                        When(type="IN", then="amount"),
-                        When(is_paid=False, then="amount"),
+                        When(type="IN", is_paid=False, then="amount"),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
@@ -133,8 +126,7 @@ def get_category_sums_by_currency(queryset, category=None):
             projected_expense=Coalesce(
                 Sum(
                     Case(
-                        When(type="EX", then=-F("amount")),
-                        When(is_paid=False, then="amount"),
+                        When(type="EX", is_paid=False, then=-F("amount")),
                         default=Value(0),
                         output_field=DecimalField(max_digits=42, decimal_places=30),
                     )
