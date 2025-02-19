@@ -50,7 +50,6 @@ def export_index(request):
     return render(request, "export_app/pages/index.html")
 
 
-@only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])
 def export_form(request):
