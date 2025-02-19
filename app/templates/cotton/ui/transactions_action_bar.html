@@ -27,7 +27,7 @@
           <ul class="dropdown-menu">
             <li>
               <div class="dropdown-item px-3 tw-cursor-pointer"
-                   _="on click set <#transactions-list input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
+                   _="on click set <#transactions-list .transaction:not([style*='display: none']) input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
                 <i class="fa-regular fa-square-check tw-text-green-400 me-3"></i>{% translate 'Select All' %}
               </div>
             </li>
