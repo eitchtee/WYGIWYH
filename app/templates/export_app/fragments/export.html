@@ -1,0 +1,13 @@
+{% extends "extends/offcanvas.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% translate 'Export' %}{% endblock %}
+
+{% block body %}
+  <div class="container p-3">
+    <form method="post" action="{% url 'export_form' %}" id="export-form" class="show-loading px-1" _="on submit trigger hide_offcanvas" target="_blank">
+      {% crispy form %}
+    </form>
+  </div>
+{% endblock %}

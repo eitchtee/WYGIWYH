@@ -1,0 +1,17 @@
+{% extends "extends/offcanvas.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% translate 'Restore' %}{% endblock %}
+
+{% block body %}
+  <div class="container p-3">
+    <form hx-post="{% url 'restore_form' %}"
+          hx-target="#generic-offcanvas"
+          id="restore-form"
+          enctype="multipart/form-data"
+          class="show-loading px-1">
+      {% crispy form %}
+    </form>
+  </div>
+{% endblock %}
