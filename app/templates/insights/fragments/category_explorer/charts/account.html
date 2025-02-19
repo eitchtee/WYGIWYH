@@ -57,9 +57,9 @@
                       labels: accountData.labels,
                       datasets: [
                           {
-                              label: "{% trans 'Current Income' %}",
-                              data: accountData.datasets[0].data,
-                              backgroundColor: '#4dde80',
+                              label: "{% trans 'Projected Expenses' %}",
+                              data: accountData.datasets[3].data,
+                              backgroundColor: '#f8717180', // Added transparency
                               stack: 'stack0'
                           },
                           {
@@ -69,17 +69,18 @@
                               stack: 'stack0'
                           },
                           {
+                              label: "{% trans 'Current Income' %}",
+                              data: accountData.datasets[0].data,
+                              backgroundColor: '#4dde80',
+                              stack: 'stack0'
+                          },
+                          {
                               label: "{% trans 'Projected Income' %}",
                               data: accountData.datasets[2].data,
                               backgroundColor: '#4dde8080', // Added transparency
                               stack: 'stack0'
                           },
-                          {
-                              label: "{% trans 'Projected Expenses' %}",
-                              data: accountData.datasets[3].data,
-                              backgroundColor: '#f8717180', // Added transparency
-                              stack: 'stack0'
-                          }
+
                       ]
                   },
                   options: {
