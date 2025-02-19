@@ -126,7 +126,7 @@ def category_sum_by_account(request):
         # Generate data
         account_data = get_category_sums_by_account(transactions, category)
     else:
-        account_data = None
+        account_data = get_category_sums_by_account(transactions, category=None)
 
     return render(
         request,
@@ -150,7 +150,7 @@ def category_sum_by_currency(request):
         # Generate data
         currency_data = get_category_sums_by_currency(transactions, category)
     else:
-        currency_data = None
+        currency_data = get_category_sums_by_currency(transactions, category=None)
 
     return render(
         request,
