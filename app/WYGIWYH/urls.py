@@ -49,5 +49,6 @@ urlpatterns = [
     path("", include("apps.dca.urls")),
     path("", include("apps.mini_tools.urls")),
     path("", include("apps.import_app.urls")),
+    path("", include("apps.export_app.urls")),
     path("", include("apps.insights.urls")),
 ]

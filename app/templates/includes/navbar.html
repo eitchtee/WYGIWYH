@@ -94,7 +94,7 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">
@@ -132,6 +132,8 @@
                    href="{% url 'rules_index' %}">{% translate 'Rules' %}</a></li>
             <li><a class="dropdown-item {% active_link views='import_profiles_index' %}"
                    href="{% url 'import_profiles_index' %}">{% translate 'Import' %} <span class="badge text-bg-primary">beta</span></a></li>
+            <li><a class="dropdown-item {% active_link views='export_index' %}"
+                   href="{% url 'export_index' %}">{% translate 'Export and Restore' %}</a></li>
             <li><a class="dropdown-item {% active_link views='automatic_exchange_rates_index' %}"
                    href="{% url 'automatic_exchange_rates_index' %}">{% translate 'Automatic Exchange Rates' %}</a></li>
             <li>
