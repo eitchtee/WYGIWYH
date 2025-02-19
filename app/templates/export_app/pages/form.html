@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% translate 'Import Profiles' %}{% endblock %}
+
+{% block content %}
+  <div class="container p-3">
+    <form method="post" action="{% url 'export_form' %}" id="export-form">
+      {% crispy form %}
+    </form>
+  </div>
+{% endblock %}

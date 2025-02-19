@@ -1,4 +1,5 @@
 from import_export import fields, resources
+from import_export.widgets import ForeignKeyWidget
 
 from apps.export_app.widgets.foreign_key import AutoCreateForeignKeyWidget
 from apps.export_app.widgets.many_to_many import AutoCreateManyToManyWidget
@@ -14,7 +15,7 @@ class TransactionResource(resources.ModelResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
-        widget=AutoCreateForeignKeyWidget("accounts.Account", "name"),
+        widget=ForeignKeyWidget("accounts.Account", "name"),
     )
 
     category = fields.Field(
@@ -37,3 +38,18 @@ class TransactionResource(resources.ModelResource):
 
     class Meta:
         model = Transaction
+
+
+class TransactionTagResource(resources.ModelResource):
+    class Meta:
+        model = TransactionTag
+
+
+class TransactionEntityResource(resources.ModelResource):
+    class Meta:
+        model = TransactionEntity
+
+
+class TransactionCategoyResource(resources.ModelResource):
+    class Meta:
+        model = TransactionCategory
