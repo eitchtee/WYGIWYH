@@ -240,11 +240,6 @@ def process_imports(request, cleaned_data):
             dataset = Dataset()
             dataset.load(content, format="csv")
 
-            # Debug logging
-            logger.debug(f"Importing {field_name}")
-            logger.debug(f"Headers: {dataset.headers}")
-            logger.debug(f"First row: {dataset[0] if len(dataset) > 0 else 'No data'}")
-
             # Perform the import
             result = resource.import_data(
                 dataset,
@@ -265,6 +260,8 @@ def process_imports(request, cleaned_data):
             raise ImportError(f"Error importing {field_name}: {str(e)}")
 
     with transaction.atomic():
+        files = {}
+
         if zip_file := cleaned_data.get("zip_file"):
             # Process ZIP file
             with zipfile.ZipFile(zip_file) as z:
@@ -273,10 +270,12 @@ def process_imports(request, cleaned_data):
                     with z.open(filename) as f:
                         content = f.read().decode("utf-8")
 
-                        for field_name, resource_class in import_order:
-                            if name == field_name:
-                                import_dataset(content, resource_class, field_name)
-                                break
+                        files[name] = content
+
+            for field_name, resource_class in import_order:
+                if field_name in files.keys():
+                    content = files[field_name]
+                    import_dataset(content, resource_class, field_name)
         else:
             # Process individual files
             for field_name, resource_class in import_order:
