@@ -22,7 +22,7 @@ from apps.insights.utils.sankey import (
     generate_sankey_data_by_currency,
 )
 from apps.insights.utils.transactions import get_transactions
-from apps.transactions.models import TransactionCategory
+from apps.transactions.models import TransactionCategory, Transaction
 
 
 @login_required
@@ -156,4 +156,32 @@ def category_sum_by_currency(request):
         request,
         "insights/fragments/category_explorer/charts/currency.html",
         {"currency_data": currency_data},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def latest_transactions(request):
+    limit = timezone.now() - relativedelta(days=3)
+    transactions = Transaction.objects.filter(created_at__gte=limit)[:30]
+
+    return render(
+        request,
+        "insights/fragments/latest_transactions.html",
+        {"transactions": transactions},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def late_transactions(request):
+    now = timezone.localdate(timezone.now())
+    transactions = Transaction.objects.filter(is_paid=False, date__lt=now)
+
+    return render(
+        request,
+        "insights/fragments/late_transactions.html",
+        {"transactions": transactions},
     )

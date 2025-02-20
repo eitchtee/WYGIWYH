@@ -29,4 +29,14 @@ urlpatterns = [
         views.category_sum_by_currency,
         name="category_sum_by_currency",
     ),
+    path(
+        "insights/late-transactions/",
+        views.late_transactions,
+        name="insights_late_transactions",
+    ),
+    path(
+        "insights/latest-transactions/",
+        views.latest_transactions,
+        name="insights_latest_transactions",
+    ),
 ]

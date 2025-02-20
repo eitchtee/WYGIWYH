@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-19 13:44-0300\n"
+"POT-Creation-Date: 2025-02-19 23:05-0300\n"
 "PO-Revision-Date: 2025-02-12 06:58+0100\n"
 "Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
 "Language-Team: \n"
@@ -795,17 +795,17 @@ msgstr "Herstel"
 msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr ""
 
-#: apps/export_app/views.py:169
+#: apps/export_app/views.py:168
 msgid "You have to select at least one export"
 msgstr ""
 
-#: apps/export_app/views.py:187
+#: apps/export_app/views.py:186
 #, fuzzy
 #| msgid "Tag updated successfully"
 msgid "Data restored successfully"
 msgstr "Label succesvol bijgewerkt"
 
-#: apps/export_app/views.py:199
+#: apps/export_app/views.py:198
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
@@ -891,17 +891,17 @@ msgstr "Run met succes verwijderd"
 msgid "Uncategorized"
 msgstr "Categorieën"
 
-#: apps/insights/utils/category_explorer.py:70
-#: apps/insights/utils/category_explorer.py:153
+#: apps/insights/utils/category_explorer.py:66
+#: apps/insights/utils/category_explorer.py:145
 #: templates/cotton/ui/percentage_distribution.html:10
 #: templates/cotton/ui/percentage_distribution.html:14
-#: templates/insights/fragments/category_explorer/charts/account.html:60
-#: templates/insights/fragments/category_explorer/charts/currency.html:60
+#: templates/insights/fragments/category_explorer/charts/account.html:72
+#: templates/insights/fragments/category_explorer/charts/currency.html:72
 msgid "Current Income"
 msgstr "Huidige inkomsten"
 
-#: apps/insights/utils/category_explorer.py:74
-#: apps/insights/utils/category_explorer.py:157
+#: apps/insights/utils/category_explorer.py:70
+#: apps/insights/utils/category_explorer.py:149
 #: templates/cotton/ui/percentage_distribution.html:24
 #: templates/cotton/ui/percentage_distribution.html:28
 #: templates/insights/fragments/category_explorer/charts/account.html:66
@@ -909,21 +909,21 @@ msgstr "Huidige inkomsten"
 msgid "Current Expenses"
 msgstr "Huidige uitgaven"
 
-#: apps/insights/utils/category_explorer.py:78
-#: apps/insights/utils/category_explorer.py:161
+#: apps/insights/utils/category_explorer.py:74
+#: apps/insights/utils/category_explorer.py:153
 #: templates/cotton/ui/percentage_distribution.html:3
 #: templates/cotton/ui/percentage_distribution.html:7
-#: templates/insights/fragments/category_explorer/charts/account.html:72
-#: templates/insights/fragments/category_explorer/charts/currency.html:72
+#: templates/insights/fragments/category_explorer/charts/account.html:78
+#: templates/insights/fragments/category_explorer/charts/currency.html:78
 msgid "Projected Income"
 msgstr "Verwachte inkomsten"
 
-#: apps/insights/utils/category_explorer.py:82
-#: apps/insights/utils/category_explorer.py:165
+#: apps/insights/utils/category_explorer.py:78
+#: apps/insights/utils/category_explorer.py:157
 #: templates/cotton/ui/percentage_distribution.html:17
 #: templates/cotton/ui/percentage_distribution.html:21
-#: templates/insights/fragments/category_explorer/charts/account.html:78
-#: templates/insights/fragments/category_explorer/charts/currency.html:78
+#: templates/insights/fragments/category_explorer/charts/account.html:60
+#: templates/insights/fragments/category_explorer/charts/currency.html:60
 msgid "Projected Expenses"
 msgstr "Verwachte uitgaven"
 
@@ -2436,8 +2436,8 @@ msgstr "Annuleer"
 msgid "Confirm"
 msgstr "Bevestig"
 
-#: templates/insights/fragments/category_explorer/charts/account.html:99
-#: templates/insights/fragments/category_explorer/charts/currency.html:91
+#: templates/insights/fragments/category_explorer/charts/account.html:100
+#: templates/insights/fragments/category_explorer/charts/currency.html:92
 #: templates/monthly_overview/fragments/monthly_account_summary.html:14
 #: templates/monthly_overview/fragments/monthly_currency_summary.html:13
 #: templates/transactions/fragments/all_account_summary.html:14
@@ -2458,6 +2458,22 @@ msgstr ""
 #| msgid "Exchange Currency"
 msgid "Income/Expense by Currency"
 msgstr "Eenheid Wisselgeld"
+
+#: templates/insights/fragments/late_transactions.html:15
+msgid "All good!"
+msgstr ""
+
+#: templates/insights/fragments/late_transactions.html:16
+#, fuzzy
+#| msgid "Filter transactions"
+msgid "No late transactions"
+msgstr "Filter verrichtingen"
+
+#: templates/insights/fragments/latest_transactions.html:14
+#, fuzzy
+#| msgid "No recurring transactions"
+msgid "No recent transactions"
+msgstr "Geen terugkerende verrichtingen"
 
 #: templates/insights/fragments/sankey.html:93
 msgid "From"
@@ -2495,23 +2511,35 @@ msgstr ""
 msgid "Date Range"
 msgstr "Datum en Tijd"
 
-#: templates/insights/pages/index.html:82
+#: templates/insights/pages/index.html:81
 #, fuzzy
 #| msgid "Account"
 msgid "Account Flow"
 msgstr "Rekening"
 
-#: templates/insights/pages/index.html:89
+#: templates/insights/pages/index.html:88
 #, fuzzy
 #| msgid "Currency Code"
 msgid "Currency Flow"
 msgstr "Munteenheids Code"
 
-#: templates/insights/pages/index.html:96
+#: templates/insights/pages/index.html:95
 #, fuzzy
 #| msgid "Category name"
 msgid "Category Explorer"
 msgstr "Naam van categorie"
+
+#: templates/insights/pages/index.html:102
+#, fuzzy
+#| msgid "Transactions"
+msgid "Late Transactions"
+msgstr "Verrichtingen"
+
+#: templates/insights/pages/index.html:108
+#, fuzzy
+#| msgid "Transactions"
+msgid "Latest Transactions"
+msgstr "Verrichtingen"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"

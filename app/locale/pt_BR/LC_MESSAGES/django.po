@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-19 13:44-0300\n"
-"PO-Revision-Date: 2025-02-19 13:50-0300\n"
+"POT-Creation-Date: 2025-02-19 23:05-0300\n"
+"PO-Revision-Date: 2025-02-19 23:06-0300\n"
 "Last-Translator: Herculino Trotta\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -774,7 +774,7 @@ msgstr "Ação de editar de transação"
 
 #: apps/export_app/forms.py:143 apps/rules/models.py:290
 msgid "Update or create transaction actions"
-msgstr "Ações de atualizar ou criar transação "
+msgstr "Ações de atualizar ou criar transação"
 
 #: apps/export_app/forms.py:176 templates/cotton/transaction/item.html:158
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
@@ -787,15 +787,15 @@ msgstr "Restaurar"
 msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr "Carregue um arquivo ZIP ou pelo menos um arquivo CSV"
 
-#: apps/export_app/views.py:169
+#: apps/export_app/views.py:168
 msgid "You have to select at least one export"
 msgstr "É necessário selecionar pelo menos uma exportação"
 
-#: apps/export_app/views.py:187
+#: apps/export_app/views.py:186
 msgid "Data restored successfully"
 msgstr "Dados restaurados com sucesso"
 
-#: apps/export_app/views.py:199
+#: apps/export_app/views.py:198
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
@@ -881,17 +881,17 @@ msgstr "Importação apagada com sucesso"
 msgid "Uncategorized"
 msgstr "Sem categoria"
 
-#: apps/insights/utils/category_explorer.py:70
-#: apps/insights/utils/category_explorer.py:153
+#: apps/insights/utils/category_explorer.py:66
+#: apps/insights/utils/category_explorer.py:145
 #: templates/cotton/ui/percentage_distribution.html:10
 #: templates/cotton/ui/percentage_distribution.html:14
-#: templates/insights/fragments/category_explorer/charts/account.html:60
-#: templates/insights/fragments/category_explorer/charts/currency.html:60
+#: templates/insights/fragments/category_explorer/charts/account.html:72
+#: templates/insights/fragments/category_explorer/charts/currency.html:72
 msgid "Current Income"
 msgstr "Renda Atual"
 
-#: apps/insights/utils/category_explorer.py:74
-#: apps/insights/utils/category_explorer.py:157
+#: apps/insights/utils/category_explorer.py:70
+#: apps/insights/utils/category_explorer.py:149
 #: templates/cotton/ui/percentage_distribution.html:24
 #: templates/cotton/ui/percentage_distribution.html:28
 #: templates/insights/fragments/category_explorer/charts/account.html:66
@@ -899,21 +899,21 @@ msgstr "Renda Atual"
 msgid "Current Expenses"
 msgstr "Despesas Atuais"
 
-#: apps/insights/utils/category_explorer.py:78
-#: apps/insights/utils/category_explorer.py:161
+#: apps/insights/utils/category_explorer.py:74
+#: apps/insights/utils/category_explorer.py:153
 #: templates/cotton/ui/percentage_distribution.html:3
 #: templates/cotton/ui/percentage_distribution.html:7
-#: templates/insights/fragments/category_explorer/charts/account.html:72
-#: templates/insights/fragments/category_explorer/charts/currency.html:72
+#: templates/insights/fragments/category_explorer/charts/account.html:78
+#: templates/insights/fragments/category_explorer/charts/currency.html:78
 msgid "Projected Income"
 msgstr "Renda Prevista"
 
-#: apps/insights/utils/category_explorer.py:82
-#: apps/insights/utils/category_explorer.py:165
+#: apps/insights/utils/category_explorer.py:78
+#: apps/insights/utils/category_explorer.py:157
 #: templates/cotton/ui/percentage_distribution.html:17
 #: templates/cotton/ui/percentage_distribution.html:21
-#: templates/insights/fragments/category_explorer/charts/account.html:78
-#: templates/insights/fragments/category_explorer/charts/currency.html:78
+#: templates/insights/fragments/category_explorer/charts/account.html:60
+#: templates/insights/fragments/category_explorer/charts/currency.html:60
 msgid "Projected Expenses"
 msgstr "Despesas Previstas"
 
@@ -1082,7 +1082,7 @@ msgstr ""
 
 #: apps/rules/models.py:289
 msgid "Update or create transaction action"
-msgstr " Ação de atualizar ou criar transação"
+msgstr "Ação de atualizar ou criar transação"
 
 #: apps/rules/views.py:52
 msgid "Rule deactivated successfully"
@@ -2419,8 +2419,8 @@ msgstr "Cancelar"
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: templates/insights/fragments/category_explorer/charts/account.html:99
-#: templates/insights/fragments/category_explorer/charts/currency.html:91
+#: templates/insights/fragments/category_explorer/charts/account.html:100
+#: templates/insights/fragments/category_explorer/charts/currency.html:92
 #: templates/monthly_overview/fragments/monthly_account_summary.html:14
 #: templates/monthly_overview/fragments/monthly_currency_summary.html:13
 #: templates/transactions/fragments/all_account_summary.html:14
@@ -2439,6 +2439,18 @@ msgstr "Gasto/Despesa por Conta"
 #: templates/insights/fragments/category_explorer/index.html:26
 msgid "Income/Expense by Currency"
 msgstr "Gasto/Despesa por Moeda"
+
+#: templates/insights/fragments/late_transactions.html:15
+msgid "All good!"
+msgstr "Tudo certo!"
+
+#: templates/insights/fragments/late_transactions.html:16
+msgid "No late transactions"
+msgstr "Nenhuma transação atrasada"
+
+#: templates/insights/fragments/latest_transactions.html:14
+msgid "No recent transactions"
+msgstr "Nenhuma transação recente"
 
 #: templates/insights/fragments/sankey.html:93
 msgid "From"
@@ -2470,17 +2482,25 @@ msgstr "Intervalo de Ano"
 msgid "Date Range"
 msgstr "Intervalo de Data"
 
-#: templates/insights/pages/index.html:82
+#: templates/insights/pages/index.html:81
 msgid "Account Flow"
 msgstr "Fluxo de Conta"
 
-#: templates/insights/pages/index.html:89
+#: templates/insights/pages/index.html:88
 msgid "Currency Flow"
 msgstr "Fluxo de Moeda"
 
-#: templates/insights/pages/index.html:96
+#: templates/insights/pages/index.html:95
 msgid "Category Explorer"
 msgstr "Explorador de Categoria"
+
+#: templates/insights/pages/index.html:102
+msgid "Late Transactions"
+msgstr "Transações Atrasadas"
+
+#: templates/insights/pages/index.html:108
+msgid "Latest Transactions"
+msgstr "Últimas Transações"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
