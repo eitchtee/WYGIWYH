@@ -5,6 +5,7 @@ from apps.common.widgets.decimal import convert_to_decimal
 from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
 from apps.mini_tools.forms import CurrencyConverterForm
+from apps.mini_tools.utils.exchange_rate_map import get_currency_exchange_map
 
 
 @login_required
@@ -14,11 +15,13 @@ def unit_price_calculator(request):
 
 @login_required
 def currency_converter(request):
+    rate_map = get_currency_exchange_map()
+
     form = CurrencyConverterForm()
     return render(
         request,
         "mini_tools/currency_converter/currency_converter.html",
-        context={"form": form},
+        context={"form": form, "rate_map": rate_map},
     )
 
 

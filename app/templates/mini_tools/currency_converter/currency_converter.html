@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="tw-cursor-pointer text-primary text-end" 
+      <div class="tw-cursor-pointer text-primary text-end"
            _="on click
                 set from_value to #id_from_currency's value
                 set to_value to #id_to_currency's value
@@ -57,6 +57,40 @@
               end">
         <i class="fa-solid fa-rotate me-2"></i><span>{% trans 'Invert' %}</span>
       </div>
+    </div>
+    <hr>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for currency, data in rate_map.items %}
+        <div class="col">
+          <c-ui.info-card color="yellow" title="{{ currency }}">
+            {% for rate in data.rates.values %}
+              <div class="d-flex justify-content-between align-items-baseline mt-2">
+                <div class="text-end font-monospace">
+                  <div class="tw-text-gray-400">
+{#                    <c-amount.display#}
+{#                        :amount="1"#}
+{#                        :prefix="data.prefix"#}
+{#                        :suffix="data.suffix"#}
+{#                        :decimal_places="data.decimal_places"></c-amount.display>#}
+                  </div>
+                </div>
+                <div class="dotted-line flex-grow-1"></div>
+                {% if currency.income_projected != 0 %}
+                  <div class="text-end font-monospace tw-text-green-400">
+                    <c-amount.display
+                        :amount="rate.rate"
+                        :prefix="rate.prefix"
+                        :suffix="rate.suffix"
+                        :decimal_places="rate.decimal_places"></c-amount.display>
+                  </div>
+                {% else %}
+                  <div class="text-end font-monospace">-</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </c-ui.info-card>
+        </div>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
