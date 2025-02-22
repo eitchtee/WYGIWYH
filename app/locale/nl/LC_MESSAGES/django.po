@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-19 23:05-0300\n"
-"PO-Revision-Date: 2025-02-12 06:58+0100\n"
+"PO-Revision-Date: 2025-02-22 15:03+0100\n"
 "Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -582,10 +582,8 @@ msgid "Services queued successfully"
 msgstr "Diensten succesvol in de wachtrij geplaatst"
 
 #: apps/dca/forms.py:65 apps/dca/forms.py:164
-#, fuzzy
-#| msgid "Deleted transactions"
 msgid "Create transaction"
-msgstr "Verwijderde verrichtingen"
+msgstr "Maak verrichtingen"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:267
 msgid "From Account"
@@ -602,31 +600,29 @@ msgstr "Uitgave Transactie"
 #: apps/dca/forms.py:120 apps/dca/forms.py:130
 msgid "Type to search for a transaction to link to this entry"
 msgstr ""
+"Type om een transactie te zoeken die aan dit item moet worden gekoppeld"
 
 #: apps/dca/forms.py:126 apps/dca/models.py:177
 msgid "Income Transaction"
 msgstr "Ontvangsten Transactie"
 
 #: apps/dca/forms.py:210
-#, fuzzy
-#| msgid "Edit transaction"
 msgid "Link transaction"
-msgstr "Bewerk verrichting"
+msgstr "Koppel verrichting"
 
 #: apps/dca/forms.py:279 apps/dca/forms.py:280 apps/dca/forms.py:285
 #: apps/dca/forms.py:289
 msgid "You must provide an account."
-msgstr ""
+msgstr "Je moet een account opgeven."
 
 #: apps/dca/forms.py:294 apps/transactions/forms.py:414
 msgid "From and To accounts must be different."
 msgstr "Van en Naar rekening moeten verschillend zijn."
 
 #: apps/dca/forms.py:308
-#, fuzzy, python-format
-#| msgid "DCA Strategies"
+#, python-format
 msgid "DCA for %(strategy_name)s"
-msgstr "DCA Strategieën"
+msgstr "DCA voor %(strategy_name)s"
 
 #: apps/dca/models.py:17
 msgid "Target Currency"
@@ -749,7 +745,7 @@ msgstr "Regels"
 
 #: apps/export_app/forms.py:80 templates/cotton/transaction/item.html:56
 msgid "DCA"
-msgstr ""
+msgstr "DCA"
 
 #: apps/export_app/forms.py:86 apps/export_app/forms.py:147
 #: templates/import_app/fragments/profiles/list.html:5
@@ -759,18 +755,16 @@ msgstr "Profielen importeren"
 
 #: apps/export_app/forms.py:112 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:15
-#, fuzzy
-#| msgid "Import"
 msgid "Export"
-msgstr "Importeer"
+msgstr "Exporteer"
 
 #: apps/export_app/forms.py:121
 msgid "Import a ZIP file exported from WYGIWYH"
-msgstr ""
+msgstr "Importeer een ZIP-bestand geëxporteerd vanuit WYGIWYH"
 
 #: apps/export_app/forms.py:122
 msgid "ZIP File"
-msgstr ""
+msgstr "ZIP-bestand"
 
 #: apps/export_app/forms.py:138 apps/rules/models.py:16
 msgid "Transaction rules"
@@ -793,22 +787,22 @@ msgstr "Herstel"
 
 #: apps/export_app/forms.py:187
 msgid "Please upload either a ZIP file or at least one CSV file"
-msgstr ""
+msgstr "Upload een ZIP-bestand of ten minste één CSV-bestand"
 
 #: apps/export_app/views.py:168
 msgid "You have to select at least one export"
-msgstr ""
+msgstr "U moet ten minste één export selecteren"
 
 #: apps/export_app/views.py:186
-#, fuzzy
-#| msgid "Tag updated successfully"
 msgid "Data restored successfully"
-msgstr "Label succesvol bijgewerkt"
+msgstr "Gegevens succesvol hersteld"
 
 #: apps/export_app/views.py:198
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
+"Er is een fout opgetreden bij het herstellen van uw gegevens. Controleer de "
+"logboeken voor meer details."
 
 #: apps/import_app/forms.py:49
 msgid "Select a file"
@@ -886,10 +880,8 @@ msgstr "Run met succes verwijderd"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#, fuzzy
-#| msgid "Categories"
 msgid "Uncategorized"
-msgstr "Categorieën"
+msgstr "Ongecategoriseerd"
 
 #: apps/insights/utils/category_explorer.py:66
 #: apps/insights/utils/category_explorer.py:145
@@ -929,10 +921,8 @@ msgstr "Verwachte uitgaven"
 
 #: apps/insights/utils/sankey.py:133 apps/insights/utils/sankey.py:134
 #: apps/insights/utils/sankey.py:263 apps/insights/utils/sankey.py:264
-#, fuzzy
-#| msgid "Save"
 msgid "Saved"
-msgstr "Opslaan"
+msgstr "Opgeslagen"
 
 #: apps/rules/forms.py:20
 msgid "Run on creation"
@@ -1085,13 +1075,12 @@ msgid "Filter"
 msgstr "Filter"
 
 #: apps/rules/models.py:85
-#, fuzzy
 msgid ""
 "Generic expression to enable or disable execution. Should evaluate to True "
 "or False"
 msgstr ""
 "Generieke expressie om uitvoering in of uit te schakelen. Moet evalueren "
-"naar True of False"
+"naar Waar of Onwaar"
 
 #: apps/rules/models.py:289
 msgid "Update or create transaction action"
@@ -1296,16 +1285,12 @@ msgid "No tags"
 msgstr "Geen labels"
 
 #: apps/transactions/models.py:324
-#, fuzzy
-#| msgid "No categories"
 msgid "No category"
-msgstr "Geen categorieën"
+msgstr "Geen categorie"
 
 #: apps/transactions/models.py:326
-#, fuzzy
-#| msgid "Description"
 msgid "No description"
-msgstr "Beschrijving"
+msgstr "Geen Beschrijving"
 
 #: apps/transactions/models.py:332
 msgid "Yearly"
@@ -2255,7 +2240,7 @@ msgstr "Geen diensten ingesteld"
 
 #: templates/export_app/pages/index.html:4 templates/includes/navbar.html:136
 msgid "Export and Restore"
-msgstr ""
+msgstr "Exporteren en Herstellen"
 
 #: templates/import_app/fragments/profiles/add.html:6
 msgid "Add new import profile"
@@ -2360,7 +2345,7 @@ msgstr "Huidige"
 
 #: templates/includes/navbar.html:50
 msgid "Insights"
-msgstr ""
+msgstr "Inzichten"
 
 #: templates/includes/navbar.html:66
 msgid "Trash Can"
@@ -2451,43 +2436,35 @@ msgstr "Geen informatie om weer te geven"
 
 #: templates/insights/fragments/category_explorer/index.html:14
 msgid "Income/Expense by Account"
-msgstr ""
+msgstr "Inkomsten/uitgaven per rekening"
 
 #: templates/insights/fragments/category_explorer/index.html:26
-#, fuzzy
-#| msgid "Exchange Currency"
 msgid "Income/Expense by Currency"
-msgstr "Eenheid Wisselgeld"
+msgstr "Inkomsten/uitgaven per Munteenheid"
 
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
-msgstr ""
+msgstr "Allemaal goed!"
 
 #: templates/insights/fragments/late_transactions.html:16
-#, fuzzy
-#| msgid "Filter transactions"
 msgid "No late transactions"
-msgstr "Filter verrichtingen"
+msgstr "Geen betalingsachterstanden"
 
 #: templates/insights/fragments/latest_transactions.html:14
-#, fuzzy
-#| msgid "No recurring transactions"
 msgid "No recent transactions"
-msgstr "Geen terugkerende verrichtingen"
+msgstr "Geen recente betalingen"
 
 #: templates/insights/fragments/sankey.html:93
 msgid "From"
-msgstr ""
+msgstr "Van"
 
 #: templates/insights/fragments/sankey.html:96
 msgid "Percentage"
-msgstr ""
+msgstr "Percentage"
 
 #: templates/insights/pages/index.html:35
-#, fuzzy
-#| msgid "Monthly"
 msgid "Month"
-msgstr "Maandelijks"
+msgstr "Maand"
 
 #: templates/insights/pages/index.html:38
 #: templates/yearly_overview/pages/overview_by_account.html:61
@@ -2496,50 +2473,36 @@ msgid "Year"
 msgstr "Jaar"
 
 #: templates/insights/pages/index.html:43
-#, fuzzy
-#| msgid "Unchanged"
 msgid "Month Range"
-msgstr "Ongewijzigd"
+msgstr "Maand Bereik"
 
 #: templates/insights/pages/index.html:48
 msgid "Year Range"
-msgstr ""
+msgstr "Jaar Bereik"
 
 #: templates/insights/pages/index.html:53
-#, fuzzy
-#| msgid "Date and Time"
 msgid "Date Range"
-msgstr "Datum en Tijd"
+msgstr "Datum Bereik"
 
 #: templates/insights/pages/index.html:81
-#, fuzzy
-#| msgid "Account"
 msgid "Account Flow"
-msgstr "Rekening"
+msgstr "Rekeningstroom"
 
 #: templates/insights/pages/index.html:88
-#, fuzzy
-#| msgid "Currency Code"
 msgid "Currency Flow"
-msgstr "Munteenheids Code"
+msgstr "Geldstroom"
 
 #: templates/insights/pages/index.html:95
-#, fuzzy
-#| msgid "Category name"
 msgid "Category Explorer"
-msgstr "Naam van categorie"
+msgstr "Categorie Verkenner"
 
 #: templates/insights/pages/index.html:102
-#, fuzzy
-#| msgid "Transactions"
 msgid "Late Transactions"
-msgstr "Verrichtingen"
+msgstr "Betalingsachterstanden"
 
 #: templates/insights/pages/index.html:108
-#, fuzzy
-#| msgid "Transactions"
 msgid "Latest Transactions"
-msgstr "Verrichtingen"
+msgstr "Laatste Verrichtingen"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
