@@ -164,7 +164,9 @@ def category_sum_by_currency(request):
 @require_http_methods(["GET"])
 def latest_transactions(request):
     limit = timezone.now() - relativedelta(days=3)
-    transactions = Transaction.objects.filter(created_at__gte=limit)[:30]
+    transactions = Transaction.objects.filter(created_at__gte=limit).order_by("-id")[
+        :30
+    ]
 
     return render(
         request,
