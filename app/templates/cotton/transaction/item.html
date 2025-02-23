@@ -15,9 +15,9 @@
          _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
         on mouseout add .tw-invisible to the first .transaction-actions in me end">
       <div class="row font-monospace tw-text-sm align-items-center">
-        <div class="col-lg-auto col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center">
+        <div class="col-lg-auto col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center p-0 ps-1">
           {% if not transaction.deleted %}
-            <a class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500"
+            <a class="text-decoration-none p-3 tw-text-gray-500"
                title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}"
                role="button"
                hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
@@ -27,7 +27,7 @@
                   class="fa-regular fa-circle"></i>{% endif %}
             </a>
           {% else %}
-            <div class="text-decoration-none my-lg-3 mx-lg-3 mx-2 my-2 tw-text-gray-500"
+            <div class="text-decoration-none p-3 tw-text-gray-500"
                  title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}">
               {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
                   class="fa-regular fa-circle"></i>{% endif %}
