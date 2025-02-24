@@ -2,12 +2,14 @@ import AirDatepicker from 'air-datepicker';
 import en from 'air-datepicker/locale/en';
 import ptBr from 'air-datepicker/locale/pt-BR';
 import nl from 'air-datepicker/locale/nl';
+import de from 'air-datepicker/locale/de';
 import {createPopper} from '@popperjs/core';
 
 const locales = {
     'pt': ptBr,
     'en': en,
-    'nl': nl
+    'nl': nl,
+    'de': de
 };
 
 function isMobileDevice() {
@@ -43,7 +45,7 @@ window.DatePicker = function createDynamicDatePicker(element) {
         toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
-        locale: locales[element.dataset.language],
+        locale: locales[element.dataset.language] || locales['en'],
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
@@ -117,7 +119,7 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
         toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
-        locale: locales[element.dataset.language],
+        locale: locales[element.dataset.language] || locales['en'],
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
@@ -190,7 +192,7 @@ window.YearPicker = function createDynamicDatePicker(element) {
         toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
-        locale: locales[element.dataset.language],
+        locale: locales[element.dataset.language] || locales['en'],
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
