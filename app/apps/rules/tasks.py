@@ -131,14 +131,16 @@ def _process_update_or_create_transaction_action(action, simple_eval):
 
     # Build search query using the helper method
     search_query = action.build_search_query(simple_eval)
+    logger.info("Searching transactions using: %s", search_query)
 
     # Find latest matching transaction or create new
     if search_query:
-        transaction = (
-            Transaction.objects.filter(search_query).order_by("-date", "-id").first()
-        )
+        transactions = Transaction.objects.filter(search_query).order_by("-date", "-id")
+        transaction = transactions.first()
+        logger.info("Found at least one matching transaction, using latest")
     else:
         transaction = None
+        logger.info("No matching transaction found, creating a new transaction")
 
     if not transaction:
         transaction = Transaction()

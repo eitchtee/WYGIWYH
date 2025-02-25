@@ -297,10 +297,8 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
         search_query = Q()
 
         def add_to_query(field_name, value, operator):
-            if isinstance(value, (int, str)):
-                lookup = f"{field_name}__{operator}"
-                return Q(**{lookup: value})
-            return Q()
+            lookup = f"{field_name}__{operator}"
+            return Q(**{lookup: value})
 
         if self.search_account:
             value = simple.eval(self.search_account)
