@@ -2,22 +2,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Herculino Trotta, 2025
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-24 16:30-0300\n"
-"PO-Revision-Date: 2025-02-22 15:03+0100\n"
-"Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
-"Language-Team: \n"
-"Language: nl\n"
+"POT-Creation-Date: 2025-02-24 23:04-0300\n"
+"PO-Revision-Date: 2025-02-25 02:07+0000\n"
+"Last-Translator: Herculino Trotta, 2025\n"
+"Language-Team: Dutch (https://app.transifex.com/wygiwyh/teams/205510/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -180,7 +182,8 @@ msgstr "Rekeningen"
 #: apps/accounts/models.py:71
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr ""
-"Eenheid wisselgeld kan niet dezelfde zijn als de munteenheid van de rekening."
+"Eenheid wisselgeld kan niet dezelfde zijn als de munteenheid van de "
+"rekening."
 
 #: apps/accounts/views/account_groups.py:42
 msgid "Account Group added successfully"
@@ -519,7 +522,8 @@ msgstr "Wisselkoersdiensten"
 
 #: apps/currencies/models.py:202
 msgid "'Every X hours' interval type requires a positive integer."
-msgstr "Voor het intervaltype ‘Elke X uur’ is een positief geheel getal nodig."
+msgstr ""
+"Voor het intervaltype ‘Elke X uur’ is een positief geheel getal nodig."
 
 #: apps/currencies/models.py:211
 msgid "'Every X hours' interval must be between 0 and 23."
@@ -1207,8 +1211,8 @@ msgid ""
 "Deactivated categories won't be able to be selected when creating new "
 "transactions"
 msgstr ""
-"Gedeactiveerde categorieën kunnen niet worden geselecteerd bij het maken van "
-"nieuwe transacties"
+"Gedeactiveerde categorieën kunnen niet worden geselecteerd bij het maken van"
+" nieuwe transacties"
 
 #: apps/transactions/models.py:122
 msgid "Transaction Category"
@@ -1889,7 +1893,8 @@ msgstr "Geen categorieën"
 msgid "Pick a month"
 msgstr "Kies een maand"
 
-#: templates/common/fragments/toasts.html:15 templates/extends/offcanvas.html:5
+#: templates/common/fragments/toasts.html:15
+#: templates/extends/offcanvas.html:5
 msgid "Close"
 msgstr "Sluiten"
 
@@ -2144,7 +2149,8 @@ msgid "Investment Frequency"
 msgstr "Investeringsfrequentie"
 
 #: templates/dca/fragments/strategy/details.html:455
-msgid "The straighter the blue line, the more consistent your DCA strategy is."
+msgid ""
+"The straighter the blue line, the more consistent your DCA strategy is."
 msgstr "Hoe rechter de blauwe lijn, hoe consistenter je DCA-strategie is."
 
 #: templates/dca/fragments/strategy/edit.html:5
@@ -2527,8 +2533,8 @@ msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
 msgstr ""
-"Hiermee worden alle verrichtingen bijgewerkt die aan dit plan zijn gekoppeld "
-"en worden ontbrekende verrichtingen opnieuw aangemaakt"
+"Hiermee worden alle verrichtingen bijgewerkt die aan dit plan zijn gekoppeld"
+" en worden ontbrekende verrichtingen opnieuw aangemaakt"
 
 #: templates/installment_plans/fragments/table.html:50
 msgid "Yes, refresh it!"
@@ -2703,7 +2709,8 @@ msgid "Yes, finish it!"
 msgstr "Ja, Voltooi het!"
 
 #: templates/recurring_transactions/fragments/table.html:97
-msgid "This will delete the recurrence and all transactions associated with it"
+msgid ""
+"This will delete the recurrence and all transactions associated with it"
 msgstr ""
 "Dit verwijdert de herhaling en alle verrichtingen die ermee verbonden zijn"
 
@@ -2866,208 +2873,3 @@ msgstr "Bedragen tonen"
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
 msgstr "Jaaroverzicht"
-
-#, fuzzy
-#~| msgid "From Amount"
-#~ msgid "Principal Amount"
-#~ msgstr "Van Bedrag"
-
-#, fuzzy
-#~| msgid "Interval"
-#~ msgid "Interest"
-#~ msgstr "Interval"
-
-#, fuzzy
-#~| msgid "Management"
-#~ msgid "Loan Payment"
-#~ msgstr "Beheer"
-
-#, fuzzy
-#~| msgid "Management"
-#~ msgid "Loan Payments"
-#~ msgstr "Beheer"
-
-#, fuzzy
-#~| msgid "Installment Plans"
-#~ msgid "Installment Planss"
-#~ msgstr "Afbetalingsplannen"
-
-#, fuzzy
-#~| msgid "Start Date"
-#~ msgid "Search Date"
-#~ msgstr "Startdatum"
-
-#, fuzzy
-#~| msgid "Internal Note"
-#~ msgid "Search Internal Note"
-#~ msgstr "Interne opmerking"
-
-#, fuzzy
-#~| msgid "Set field"
-#~ msgid "Is Paid"
-#~ msgstr "Veld instellen"
-
-#, fuzzy
-#~| msgid "From Account"
-#~ msgid "Search Account"
-#~ msgstr "Van rekening"
-
-#, fuzzy
-#~| msgid "Account Group"
-#~ msgid "Account Operator"
-#~ msgstr "Accountgroep"
-
-#, fuzzy
-#~| msgid "Recurrence Type"
-#~ msgid "Search Type"
-#~ msgstr "Type Terugkeerpatroon"
-
-#, fuzzy
-#~| msgid "Search"
-#~ msgid "Search Is Paid"
-#~ msgstr "Zoeken"
-
-#, fuzzy
-#~| msgid "Add action to transaction rule"
-#~ msgid "Expression to match transaction date"
-#~ msgstr "Actie toevoegen aan verrichtingsregel"
-
-#, fuzzy
-#~| msgid "Date Format"
-#~ msgid "Date Operator"
-#~ msgstr "Datumnotatie"
-
-#, fuzzy
-#~| msgid "Reference Date"
-#~ msgid "Search Reference Date"
-#~ msgstr "Referentiedatum"
-
-#, fuzzy
-#~| msgid "Reference date from"
-#~ msgid "Reference Date Operator"
-#~ msgstr "Referentiedatum vanaf"
-
-#, fuzzy
-#~| msgid "Amount max"
-#~ msgid "Amount Operator"
-#~ msgstr "Maximaal bedrag"
-
-#, fuzzy
-#~| msgid "Description"
-#~ msgid "Search Description"
-#~ msgstr "Beschrijving"
-
-#, fuzzy
-#~| msgid "Edit transaction rule action"
-#~ msgid "Expression to match transaction description"
-#~ msgstr "Bewerk verrichtingsregel actie"
-
-#, fuzzy
-#~| msgid "Description"
-#~ msgid "Description Operator"
-#~ msgstr "Beschrijving"
-
-#, fuzzy
-#~| msgid "Search"
-#~ msgid "Search Notes"
-#~ msgstr "Zoeken"
-
-#, fuzzy
-#~| msgid "Category"
-#~ msgid "Search Category"
-#~ msgstr "Categorie"
-
-#, fuzzy
-#~| msgid "Search"
-#~ msgid "Search Tags"
-#~ msgstr "Zoeken"
-
-#, fuzzy
-#~| msgid "Entities"
-#~ msgid "Search Entities"
-#~ msgstr "Bedrijven"
-
-#, fuzzy
-#~| msgid "Entities"
-#~ msgid "Entities Operator"
-#~ msgstr "Bedrijven"
-
-#, fuzzy
-#~| msgid "Internal Note"
-#~ msgid "Internal Note Operator"
-#~ msgstr "Interne opmerking"
-
-#, fuzzy
-#~| msgid "Internal ID"
-#~ msgid "Search Internal ID"
-#~ msgstr "Interne ID"
-
-#, fuzzy
-#~| msgid "Internal ID"
-#~ msgid "Internal ID Operator"
-#~ msgstr "Interne ID"
-
-#, fuzzy
-#~| msgid "Account"
-#~ msgid "Set Account"
-#~ msgstr "Rekening"
-
-#, fuzzy
-#~| msgid "Recurrence Type"
-#~ msgid "Set Type"
-#~ msgstr "Type Terugkeerpatroon"
-
-#, fuzzy
-#~| msgid "Start Date"
-#~ msgid "Set Date"
-#~ msgstr "Startdatum"
-
-#, fuzzy
-#~| msgid "Reference Date"
-#~ msgid "Set Reference Date"
-#~ msgstr "Referentiedatum"
-
-#, fuzzy
-#~| msgid "Amount"
-#~ msgid "Set Amount"
-#~ msgstr "Bedrag"
-
-#, fuzzy
-#~| msgid "Description"
-#~ msgid "Set Description"
-#~ msgstr "Beschrijving"
-
-#, fuzzy
-#~| msgid "Notes"
-#~ msgid "Set Notes"
-#~ msgstr "Opmerkingen"
-
-#, fuzzy
-#~| msgid "Internal Note"
-#~ msgid "Set Internal Note"
-#~ msgstr "Interne opmerking"
-
-#, fuzzy
-#~| msgid "Internal ID"
-#~ msgid "Set Internal ID"
-#~ msgstr "Interne ID"
-
-#, fuzzy
-#~| msgid "Entities"
-#~ msgid "Set Entities"
-#~ msgstr "Bedrijven"
-
-#, fuzzy
-#~| msgid "Category"
-#~ msgid "Set Category"
-#~ msgstr "Categorie"
-
-#, fuzzy
-#~| msgid "Tags"
-#~ msgid "Set Tags"
-#~ msgstr "Labels"
-
-#, fuzzy
-#~| msgid "Exchange rate deleted successfully"
-#~ msgid "Exchange rates queued to be fetched successfully"
-#~ msgstr "Wisselkoers succesvol verwijderd"
