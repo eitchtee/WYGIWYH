@@ -13,6 +13,7 @@
   <a href="#key-features">Features</a> •
   <a href="#how-to-use">Usage</a> •
   <a href="#how-it-works">How</a> •
+  <a href="#help-us-translate-wygiwyh">Translate</a> •
   <a href="#caveats-and-warnings">Caveats and Warnings</a> •
   <a href="#built-with">Built with</a>
 </p>
@@ -132,6 +133,14 @@ To create the first user, open the container's console using Unraid's UI, by cli
 # How it works
 
 Check out our [Wiki](https://github.com/eitchtee/WYGIWYH/wiki) for more information.
+
+# Help us translate WYGIWYH!
+<a href="https://translations.herculino.com/engage/wygiwyh/">
+<img src="https://translations.herculino.com/widget/wygiwyh/open-graph.png" alt="Translation status" />
+</a>
+
+> [!NOTE]
+> Login with your github account
 
 # Caveats and Warnings
 
