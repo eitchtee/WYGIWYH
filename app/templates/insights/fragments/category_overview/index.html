@@ -1,0 +1,69 @@
+{% load i18n %}
+
+<div hx-get="{% url 'category_overview' %}" hx-trigger="updated from:window" class="show-loading" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+  {% if total_table %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th scope="col">{% trans 'Category' %}</th>
+        <th scope="col">{% trans 'Income' %}</th>
+        <th scope="col">{% trans 'Expense' %}</th>
+        <th scope="col">{% trans 'Total' %}</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for category in total_table.values %}
+        <tr>
+          <th>{% if category.name %}{{ category.name }}{% else %}{% trans 'Uncategorized' %}{% endif %}</th>
+          <td>
+            {% for currency in category.currencies.values %}
+              {% if currency.total_income != 0 %}
+              <c-amount.display
+                  :amount="currency.total_income"
+                  :prefix="currency.currency.prefix"
+                  :suffix="currency.currency.suffix"
+                  :decimal_places="currency.currency.decimal_places"
+                  color="green"></c-amount.display>
+              {% else %}
+                <div>-</div>
+              {% endif %}
+            {% endfor %}
+          </td>
+          <td>
+            {% for currency in category.currencies.values %}
+              {% if currency.total_expense != 0 %}
+              <c-amount.display
+                  :amount="currency.total_expense"
+                  :prefix="currency.currency.prefix"
+                  :suffix="currency.currency.suffix"
+                  :decimal_places="currency.currency.decimal_places"
+                  color="red"></c-amount.display>
+              {% else %}
+                <div>-</div>
+              {% endif %}
+            {% endfor %}
+          </td>
+          <td>
+            {% for currency in category.currencies.values %}
+              {% if currency.total_final != 0 %}
+              <c-amount.display
+                  :amount="currency.total_final"
+                  :prefix="currency.currency.prefix"
+                  :suffix="currency.currency.suffix"
+                  :decimal_places="currency.currency.decimal_places"
+                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+              {% else %}
+                <div>-</div>
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <c-msg.empty title="{% translate "No categories" %}"></c-msg.empty>
+  {% endif %}
+</div>

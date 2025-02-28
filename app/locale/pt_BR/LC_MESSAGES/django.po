@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-24 16:30-0300\n"
+"POT-Creation-Date: 2025-02-27 23:32-0300\n"
 "PO-Revision-Date: 2025-02-19 23:06-0300\n"
 "Last-Translator: Herculino Trotta\n"
 "Language-Team: \n"
@@ -76,6 +76,7 @@ msgstr "Novo saldo"
 #: apps/transactions/forms.py:299 apps/transactions/forms.py:479
 #: apps/transactions/forms.py:724 apps/transactions/models.py:203
 #: apps/transactions/models.py:378 apps/transactions/models.py:558
+#: templates/insights/fragments/category_overview/index.html:9
 msgid "Category"
 msgstr "Categoria"
 
@@ -878,6 +879,7 @@ msgstr "Importação apagada com sucesso"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
+#: templates/insights/fragments/category_overview/index.html:18
 msgid "Uncategorized"
 msgstr "Sem categoria"
 
@@ -1244,6 +1246,7 @@ msgstr "Entidade"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
+#: templates/insights/fragments/category_overview/index.html:10
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Renda"
@@ -1254,6 +1257,7 @@ msgstr "Renda"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
+#: templates/insights/fragments/category_overview/index.html:11
 msgid "Expense"
 msgstr "Despesa"
 
@@ -1879,6 +1883,7 @@ msgid "Muted"
 msgstr "Silenciada"
 
 #: templates/categories/fragments/table.html:57
+#: templates/insights/fragments/category_overview/index.html:67
 msgid "No categories"
 msgstr "Nenhum categoria"
 
@@ -2441,6 +2446,11 @@ msgstr "Gasto/Despesa por Conta"
 msgid "Income/Expense by Currency"
 msgstr "Gasto/Despesa por Moeda"
 
+#: templates/insights/fragments/category_overview/index.html:12
+#: templates/monthly_overview/fragments/monthly_summary.html:167
+msgid "Total"
+msgstr "Total"
+
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
 msgstr "Tudo certo!"
@@ -2496,10 +2506,16 @@ msgid "Category Explorer"
 msgstr "Explorador de Categoria"
 
 #: templates/insights/pages/index.html:102
+#, fuzzy
+#| msgid "Categories"
+msgid "Categories Overview"
+msgstr "Categorias"
+
+#: templates/insights/pages/index.html:109
 msgid "Late Transactions"
 msgstr "Transações Atrasadas"
 
-#: templates/insights/pages/index.html:108
+#: templates/insights/pages/index.html:115
 msgid "Latest Transactions"
 msgstr "Últimas Transações"
 
@@ -2595,10 +2611,6 @@ msgstr "previsto"
 #: templates/monthly_overview/fragments/monthly_summary.html:103
 msgid "Expenses"
 msgstr "Despesas"
-
-#: templates/monthly_overview/fragments/monthly_summary.html:167
-msgid "Total"
-msgstr "Total"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:257
 msgid "Distribution"

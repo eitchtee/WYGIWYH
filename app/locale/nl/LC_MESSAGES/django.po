@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-24 16:30-0300\n"
+"POT-Creation-Date: 2025-02-27 23:32-0300\n"
 "PO-Revision-Date: 2025-02-22 15:03+0100\n"
 "Last-Translator: Dimitri Decrock <dimitri@fam-decrock.eu>\n"
 "Language-Team: \n"
@@ -76,6 +76,7 @@ msgstr "Nieuw saldo"
 #: apps/transactions/forms.py:299 apps/transactions/forms.py:479
 #: apps/transactions/forms.py:724 apps/transactions/models.py:203
 #: apps/transactions/models.py:378 apps/transactions/models.py:558
+#: templates/insights/fragments/category_overview/index.html:9
 msgid "Category"
 msgstr "Categorie"
 
@@ -880,6 +881,7 @@ msgstr "Run met succes verwijderd"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
+#: templates/insights/fragments/category_overview/index.html:18
 msgid "Uncategorized"
 msgstr "Ongecategoriseerd"
 
@@ -1247,6 +1249,7 @@ msgstr "Bedrijf"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
+#: templates/insights/fragments/category_overview/index.html:10
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Ontvangsten Transactie"
@@ -1257,6 +1260,7 @@ msgstr "Ontvangsten Transactie"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
+#: templates/insights/fragments/category_overview/index.html:11
 msgid "Expense"
 msgstr "Uitgave Transactie"
 
@@ -1882,6 +1886,7 @@ msgid "Muted"
 msgstr "Gedempt"
 
 #: templates/categories/fragments/table.html:57
+#: templates/insights/fragments/category_overview/index.html:67
 msgid "No categories"
 msgstr "Geen categorieën"
 
@@ -2443,6 +2448,11 @@ msgstr "Inkomsten/uitgaven per rekening"
 msgid "Income/Expense by Currency"
 msgstr "Inkomsten/uitgaven per Munteenheid"
 
+#: templates/insights/fragments/category_overview/index.html:12
+#: templates/monthly_overview/fragments/monthly_summary.html:167
+msgid "Total"
+msgstr "Totaal"
+
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
 msgstr "Allemaal goed!"
@@ -2498,10 +2508,16 @@ msgid "Category Explorer"
 msgstr "Categorie Verkenner"
 
 #: templates/insights/pages/index.html:102
+#, fuzzy
+#| msgid "Categories"
+msgid "Categories Overview"
+msgstr "Categorieën"
+
+#: templates/insights/pages/index.html:109
 msgid "Late Transactions"
 msgstr "Betalingsachterstanden"
 
-#: templates/insights/pages/index.html:108
+#: templates/insights/pages/index.html:115
 msgid "Latest Transactions"
 msgstr "Laatste Verrichtingen"
 
@@ -2597,10 +2613,6 @@ msgstr "verwacht"
 #: templates/monthly_overview/fragments/monthly_summary.html:103
 msgid "Expenses"
 msgstr "Uitgaven"
-
-#: templates/monthly_overview/fragments/monthly_summary.html:167
-msgid "Total"
-msgstr "Totaal"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:257
 msgid "Distribution"

@@ -30,6 +30,11 @@ urlpatterns = [
         name="category_sum_by_currency",
     ),
     path(
+        "insights/category-overview/",
+        views.category_overview,
+        name="category_overview",
+    ),
+    path(
         "insights/late-transactions/",
         views.late_transactions,
         name="insights_late_transactions",

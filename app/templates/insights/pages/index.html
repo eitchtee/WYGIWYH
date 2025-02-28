@@ -94,6 +94,13 @@
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Category Explorer' %}
             </button>
+            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+                    type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
+                    hx-get="{% url 'category_overview' %}"
+                    hx-include="#picker-form, #picker-type"
+                    hx-indicator="#tab-content"
+                    hx-target="#tab-content">{% trans 'Categories Overview' %}
+            </button>
             <hr>
             <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"

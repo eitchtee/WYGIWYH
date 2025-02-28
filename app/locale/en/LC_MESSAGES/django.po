@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-24 23:04-0300\n"
+"POT-Creation-Date: 2025-02-27 23:32-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,6 +75,7 @@ msgstr ""
 #: apps/transactions/forms.py:299 apps/transactions/forms.py:479
 #: apps/transactions/forms.py:724 apps/transactions/models.py:203
 #: apps/transactions/models.py:378 apps/transactions/models.py:558
+#: templates/insights/fragments/category_overview/index.html:9
 msgid "Category"
 msgstr ""
 
@@ -862,6 +863,7 @@ msgstr ""
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
+#: templates/insights/fragments/category_overview/index.html:18
 msgid "Uncategorized"
 msgstr ""
 
@@ -1221,6 +1223,7 @@ msgstr ""
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
+#: templates/insights/fragments/category_overview/index.html:10
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr ""
@@ -1231,6 +1234,7 @@ msgstr ""
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
+#: templates/insights/fragments/category_overview/index.html:11
 msgid "Expense"
 msgstr ""
 
@@ -1856,6 +1860,7 @@ msgid "Muted"
 msgstr ""
 
 #: templates/categories/fragments/table.html:57
+#: templates/insights/fragments/category_overview/index.html:67
 msgid "No categories"
 msgstr ""
 
@@ -2414,6 +2419,11 @@ msgstr ""
 msgid "Income/Expense by Currency"
 msgstr ""
 
+#: templates/insights/fragments/category_overview/index.html:12
+#: templates/monthly_overview/fragments/monthly_summary.html:167
+msgid "Total"
+msgstr ""
+
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
 msgstr ""
@@ -2469,10 +2479,14 @@ msgid "Category Explorer"
 msgstr ""
 
 #: templates/insights/pages/index.html:102
+msgid "Categories Overview"
+msgstr ""
+
+#: templates/insights/pages/index.html:109
 msgid "Late Transactions"
 msgstr ""
 
-#: templates/insights/pages/index.html:108
+#: templates/insights/pages/index.html:115
 msgid "Latest Transactions"
 msgstr ""
 
@@ -2565,10 +2579,6 @@ msgstr ""
 
 #: templates/monthly_overview/fragments/monthly_summary.html:103
 msgid "Expenses"
-msgstr ""
-
-#: templates/monthly_overview/fragments/monthly_summary.html:167
-msgid "Total"
 msgstr ""
 
 #: templates/monthly_overview/fragments/monthly_summary.html:257

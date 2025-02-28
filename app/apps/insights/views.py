@@ -1,3 +1,6 @@
+import decimal
+import json
+
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -23,6 +26,7 @@ from apps.insights.utils.sankey import (
 )
 from apps.insights.utils.transactions import get_transactions
 from apps.transactions.models import TransactionCategory, Transaction
+from apps.insights.utils.category_overview import get_categories_totals
 
 
 @login_required
@@ -156,6 +160,24 @@ def category_sum_by_currency(request):
         request,
         "insights/fragments/category_explorer/charts/currency.html",
         {"currency_data": currency_data},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def category_overview(request):
+    # Get filtered transactions
+    transactions = get_transactions(request, include_silent=True)
+
+    total_table = get_categories_totals(
+        transactions_queryset=transactions, ignore_empty=False
+    )
+
+    return render(
+        request,
+        "insights/fragments/category_overview/index.html",
+        {"total_table": total_table},
     )
 
 
