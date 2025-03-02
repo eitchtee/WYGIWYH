@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from apps.currencies.exchange_rates.providers import (
     SynthFinanceProvider,
+    SynthFinanceStockProvider,
     CoinGeckoFreeProvider,
     CoinGeckoProProvider,
 )
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 # Map service types to provider classes
 PROVIDER_MAPPING = {
     "synth_finance": SynthFinanceProvider,
+    "synth_finance_stock": SynthFinanceStockProvider,
     "coingecko_free": CoinGeckoFreeProvider,
     "coingecko_pro": CoinGeckoProProvider,
 }
