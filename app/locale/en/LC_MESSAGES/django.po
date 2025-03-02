@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-27 23:32-0300\n"
+"POT-Creation-Date: 2025-03-01 23:06-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -430,27 +430,27 @@ msgstr ""
 msgid "From and To currencies cannot be the same."
 msgstr ""
 
-#: apps/currencies/models.py:99
+#: apps/currencies/models.py:101
 msgid "On"
 msgstr ""
 
-#: apps/currencies/models.py:100
+#: apps/currencies/models.py:102
 msgid "Every X hours"
 msgstr ""
 
-#: apps/currencies/models.py:101
+#: apps/currencies/models.py:103
 msgid "Not on"
 msgstr ""
 
-#: apps/currencies/models.py:103
+#: apps/currencies/models.py:105
 msgid "Service Name"
 msgstr ""
 
-#: apps/currencies/models.py:105
+#: apps/currencies/models.py:107
 msgid "Service Type"
 msgstr ""
 
-#: apps/currencies/models.py:107 apps/transactions/models.py:115
+#: apps/currencies/models.py:109 apps/transactions/models.py:115
 #: apps/transactions/models.py:134 apps/transactions/models.py:153
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
@@ -459,69 +459,69 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: apps/currencies/models.py:112
+#: apps/currencies/models.py:114
 msgid "API Key"
 msgstr ""
 
-#: apps/currencies/models.py:113
+#: apps/currencies/models.py:115
 msgid "API key for the service (if required)"
 msgstr ""
 
-#: apps/currencies/models.py:118
+#: apps/currencies/models.py:120
 msgid "Interval Type"
 msgstr ""
 
-#: apps/currencies/models.py:122
+#: apps/currencies/models.py:124
 msgid "Interval"
 msgstr ""
 
-#: apps/currencies/models.py:125
+#: apps/currencies/models.py:127
 msgid "Last Successful Fetch"
 msgstr ""
 
-#: apps/currencies/models.py:130
+#: apps/currencies/models.py:132
 msgid "Target Currencies"
 msgstr ""
 
-#: apps/currencies/models.py:132
+#: apps/currencies/models.py:134
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 msgstr ""
 
-#: apps/currencies/models.py:140
+#: apps/currencies/models.py:142
 msgid "Target Accounts"
 msgstr ""
 
-#: apps/currencies/models.py:142
+#: apps/currencies/models.py:144
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr ""
 
-#: apps/currencies/models.py:149
+#: apps/currencies/models.py:151
 msgid "Exchange Rate Service"
 msgstr ""
 
-#: apps/currencies/models.py:150
+#: apps/currencies/models.py:152
 msgid "Exchange Rate Services"
 msgstr ""
 
-#: apps/currencies/models.py:202
+#: apps/currencies/models.py:204
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr ""
 
-#: apps/currencies/models.py:211
-msgid "'Every X hours' interval must be between 0 and 23."
+#: apps/currencies/models.py:213
+msgid "'Every X hours' interval must be between 1 and 24."
 msgstr ""
 
-#: apps/currencies/models.py:225
+#: apps/currencies/models.py:227
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
 
-#: apps/currencies/models.py:236
+#: apps/currencies/models.py:238
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
