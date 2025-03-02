@@ -206,11 +206,11 @@ class ExchangeRateService(models.Model):
                         }
                     )
                 hours = int(self.fetch_interval)
-                if hours < 0 or hours > 23:
+                if hours < 1 or hours > 24:
                     raise ValidationError(
                         {
                             "fetch_interval": _(
-                                "'Every X hours' interval must be between 0 and 23."
+                                "'Every X hours' interval must be between 1 and 24."
                             )
                         }
                     )
