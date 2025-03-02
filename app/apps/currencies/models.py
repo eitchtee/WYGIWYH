@@ -95,6 +95,7 @@ class ExchangeRateService(models.Model):
         SYNTH_FINANCE_STOCK = "synth_finance_stock", "Synth Finance Stock"
         COINGECKO_FREE = "coingecko_free", "CoinGecko (Demo/Free)"
         COINGECKO_PRO = "coingecko_pro", "CoinGecko (Pro)"
+        TRANSITIVE = "transitive", "Transitive (Calculated from Existing Rates)"
 
     class IntervalType(models.TextChoices):
         ON = "on", _("On")
