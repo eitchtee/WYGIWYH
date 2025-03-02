@@ -150,3 +150,68 @@ class CoinGeckoProProvider(CoinGeckoFreeProvider):
         super().__init__(api_key)
         self.session = requests.Session()
         self.session.headers.update({"x-cg-pro-api-key": api_key})
+
+
+class SynthFinanceStockProvider(ExchangeRateProvider):
+    """Implementation for Synth Finance API Real-Time Prices endpoint (synthfinance.com)"""
+
+    BASE_URL = "https://api.synthfinance.com/tickers"
+    rates_inverted = True
+
+    def __init__(self, api_key: str = None):
+        super().__init__(api_key)
+        self.session = requests.Session()
+        self.session.headers.update(
+            {"Authorization": f"Bearer {self.api_key}", "accept": "application/json"}
+        )
+
+    def get_rates(
+        self, target_currencies: QuerySet, exchange_currencies: set
+    ) -> List[Tuple[Currency, Currency, Decimal]]:
+        results = []
+
+        for currency in target_currencies:
+            if currency.exchange_currency not in exchange_currencies:
+                continue
+
+            try:
+                # Same currency has rate of 1
+                if currency.code == currency.exchange_currency.code:
+                    rate = Decimal("1")
+                    results.append((currency.exchange_currency, currency, rate))
+                    continue
+
+                # Fetch real-time price for this ticker
+                response = self.session.get(
+                    f"{self.BASE_URL}/{currency.code}/real-time"
+                )
+                response.raise_for_status()
+                data = response.json()
+
+                # Use fair market value as the rate
+                rate = Decimal(data["data"]["fair_market_value"])
+                results.append((currency.exchange_currency, currency, rate))
+
+                # Log API usage
+                credits_used = data["meta"]["credits_used"]
+                credits_remaining = data["meta"]["credits_remaining"]
+                logger.info(
+                    f"Synth Finance API call for {currency.code}: {credits_used} credits used, {credits_remaining} remaining"
+                )
+            except requests.RequestException as e:
+                logger.error(
+                    f"Error fetching rate from Synth Finance API for ticker {currency.code}: {e}",
+                    exc_info=True,
+                )
+            except KeyError as e:
+                logger.error(
+                    f"Unexpected response structure from Synth Finance API for ticker {currency.code}: {e}",
+                    exc_info=True,
+                )
+            except Exception as e:
+                logger.error(
+                    f"Unexpected error processing Synth Finance data for ticker {currency.code}: {e}",
+                    exc_info=True,
+                )
+
+        return results
