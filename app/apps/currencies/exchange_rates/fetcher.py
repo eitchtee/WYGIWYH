@@ -9,6 +9,7 @@ from apps.currencies.exchange_rates.providers import (
     SynthFinanceStockProvider,
     CoinGeckoFreeProvider,
     CoinGeckoProProvider,
+    TransitiveRateProvider,
 )
 from apps.currencies.models import ExchangeRateService, ExchangeRate, Currency
 
@@ -21,6 +22,7 @@ PROVIDER_MAPPING = {
     "synth_finance_stock": SynthFinanceStockProvider,
     "coingecko_free": CoinGeckoFreeProvider,
     "coingecko_pro": CoinGeckoProProvider,
+    "transitive": TransitiveRateProvider,
 }
 
 
