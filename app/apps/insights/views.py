@@ -1,8 +1,10 @@
 import decimal
 import json
+from collections import defaultdict
 
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Avg, F
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
@@ -27,6 +29,7 @@ from apps.insights.utils.sankey import (
 from apps.insights.utils.transactions import get_transactions
 from apps.transactions.models import TransactionCategory, Transaction
 from apps.insights.utils.category_overview import get_categories_totals
+from apps.transactions.utils.calculations import calculate_currency_totals
 
 
 @login_required
@@ -208,4 +211,56 @@ def late_transactions(request):
         request,
         "insights/fragments/late_transactions.html",
         {"transactions": transactions},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def emergency_fund(request):
+    transactions_currency_queryset = Transaction.objects.filter(
+        is_paid=True, account__is_archived=False, account__is_asset=False
+    ).order_by(
+        "account__currency__name",
+    )
+    currency_net_worth = calculate_currency_totals(
+        transactions_queryset=transactions_currency_queryset, ignore_empty=False
+    )
+
+    end_date = (timezone.now() - relativedelta(months=1)).replace(day=1)
+    start_date = (end_date - relativedelta(months=12)).replace(day=1)
+
+    # Step 1: Calculate total expense for each month and currency
+    monthly_expenses = (
+        Transaction.objects.filter(
+            type=Transaction.Type.EXPENSE,
+            is_paid=True,
+            account__is_asset=False,
+            reference_date__gte=start_date,
+            reference_date__lte=end_date,
+            category__mute=False,
+        )
+        .values("reference_date", "account__currency")
+        .annotate(monthly_total=Sum("amount"))
+    )
+
+    # Step 2: Calculate averages by currency using Python
+    currency_totals = defaultdict(list)
+    for expense in monthly_expenses:
+        currency_id = expense["account__currency"]
+        currency_totals[currency_id].append(expense["monthly_total"])
+
+    for currency_id, totals in currency_totals.items():
+        avg = currency_net_worth[currency_id]["average"] = sum(totals) / len(totals)
+        if currency_net_worth[currency_id]["total_current"] < 0:
+            currency_net_worth[currency_id]["months"] = 0
+        else:
+            currency_net_worth[currency_id]["months"] = int(
+                currency_net_worth[currency_id]["total_current"] / avg
+            )
+
+    return render(
+        request,
+        "insights/fragments/emergency_fund.html",
+        {"data": currency_net_worth},
     )
