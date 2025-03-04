@@ -114,6 +114,12 @@
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Latest Transactions' %}
             </button>
+            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+                    type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
+                    hx-get="{% url 'insights_emergency_fund' %}"
+                    hx-indicator="#tab-content"
+                    hx-target="#tab-content">{% trans 'Emergency Fund' %}
+            </button>
           </div>
         </div>
       </div>

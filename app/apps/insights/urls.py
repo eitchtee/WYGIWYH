@@ -44,4 +44,9 @@ urlpatterns = [
         views.latest_transactions,
         name="insights_latest_transactions",
     ),
+    path(
+        "insights/emergency-fund/",
+        views.emergency_fund,
+        name="insights_emergency_fund",
+    ),
 ]
