@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-01 23:06-0300\n"
+"POT-Creation-Date: 2025-03-04 06:28+0000\n"
 "PO-Revision-Date: 2025-03-02 02:08+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -2451,6 +2451,36 @@ msgstr "Gasto/Despesa por Moeda"
 msgid "Total"
 msgstr "Total"
 
+#: templates/insights/fragments/emergency_fund.html:15
+msgid "You've spent an average of"
+msgstr ""
+
+#: templates/insights/fragments/emergency_fund.html:23
+msgid "on the last 12 months, at this rate you could go by"
+msgstr ""
+
+#: templates/insights/fragments/emergency_fund.html:25
+msgid "months without any income."
+msgstr ""
+
+#: templates/insights/fragments/emergency_fund.html:34
+#, fuzzy
+#| msgid "current expenses"
+msgid "average expenses"
+msgstr "despesas atuais"
+
+#: templates/insights/fragments/emergency_fund.html:48
+#, fuzzy
+#| msgid "final total"
+msgid "liquid total"
+msgstr "total final"
+
+#: templates/insights/fragments/emergency_fund.html:62
+#, fuzzy
+#| msgid "month(s)"
+msgid "months left"
+msgstr "mês(es)"
+
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
 msgstr "Tudo certo!"
@@ -2516,6 +2546,10 @@ msgstr "Transações Atrasadas"
 #: templates/insights/pages/index.html:115
 msgid "Latest Transactions"
 msgstr "Últimas Transações"
+
+#: templates/insights/pages/index.html:121
+msgid "Emergency Fund"
+msgstr ""
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
