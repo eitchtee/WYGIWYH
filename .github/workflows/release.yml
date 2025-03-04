@@ -20,6 +20,10 @@ on:
 env:
   IMAGE_NAME: wygiwyh
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
