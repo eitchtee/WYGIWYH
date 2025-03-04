@@ -27,8 +27,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
+          token: ${{ secrets.PAT }}
           ref: ${{ github.head_ref }}
 
       - name: Set up Python 3.11
@@ -61,7 +62,7 @@ jobs:
 
       - name: Commit translation files
         if: steps.check_changes.outputs.changes_detected == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           push_options: --force
           commit_message: |
