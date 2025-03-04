@@ -2,11 +2,7 @@ name: Django Translation Update
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: [ main ]
   # Add manual trigger
   workflow_dispatch:
     inputs:
