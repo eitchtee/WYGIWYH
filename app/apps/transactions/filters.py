@@ -184,3 +184,8 @@ class TransactionsFilter(django_filters.FilterSet):
         self.form.fields["from_amount"].widget = ArbitraryDecimalDisplayNumberInput()
         self.form.fields["date_start"].widget = AirDatePickerInput()
         self.form.fields["date_end"].widget = AirDatePickerInput()
+
+        self.form.fields["account"].queryset = Account.objects.all()
+        self.form.fields["category"].queryset = TransactionCategory.objects.all()
+        self.form.fields["tags"].queryset = TransactionTag.objects.all()
+        self.form.fields["entities"].queryset = TransactionEntity.objects.all()

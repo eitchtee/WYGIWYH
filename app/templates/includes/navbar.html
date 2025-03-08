@@ -132,8 +132,10 @@
                    href="{% url 'rules_index' %}">{% translate 'Rules' %}</a></li>
             <li><a class="dropdown-item {% active_link views='import_profiles_index' %}"
                    href="{% url 'import_profiles_index' %}">{% translate 'Import' %} <span class="badge text-bg-primary">beta</span></a></li>
+            {% if user.is_superuser %}
             <li><a class="dropdown-item {% active_link views='export_index' %}"
                    href="{% url 'export_index' %}">{% translate 'Export and Restore' %}</a></li>
+            {% endif %}
             <li><a class="dropdown-item {% active_link views='automatic_exchange_rates_index' %}"
                    href="{% url 'automatic_exchange_rates_index' %}">{% translate 'Automatic Exchange Rates' %}</a></li>
             <li>

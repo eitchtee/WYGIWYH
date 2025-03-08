@@ -2,7 +2,6 @@ from django.urls import path
 import apps.import_app.views as views
 
 urlpatterns = [
-    path("import/", views.import_view, name="import"),
     path(
         "import/presets/",
         views.import_presets_list,

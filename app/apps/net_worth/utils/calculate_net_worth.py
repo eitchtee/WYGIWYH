@@ -2,20 +2,13 @@ from collections import OrderedDict, defaultdict
 from decimal import Decimal
 
 from dateutil.relativedelta import relativedelta
-from django.db.models import (
-    OuterRef,
-    Subquery,
-)
 from django.db.models import Sum, Min, Max, Case, When, F, Value, DecimalField
-from django.db.models.functions import Coalesce
 from django.db.models.functions import TruncMonth
 from django.template.defaultfilters import date as date_filter
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import Account
 from apps.currencies.models import Currency
-from apps.currencies.utils.convert import convert
 from apps.transactions.models import Transaction
 
 
@@ -104,7 +97,9 @@ def calculate_historical_currency_net_worth(is_paid=True):
 def calculate_historical_account_balance(is_paid=True):
     transactions_params = {**{k: v for k, v in [("is_paid", True)] if is_paid}}
     # Get all accounts
-    accounts = Account.objects.filter(is_archived=False)
+    accounts = Account.objects.filter(
+        is_archived=False,
+    )
 
     # Get the date range
     date_range = Transaction.objects.filter(**transactions_params).aggregate(

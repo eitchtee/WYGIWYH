@@ -24,3 +24,6 @@ class AccountResource(resources.ModelResource):
 
     class Meta:
         model = Account
+
+    def get_queryset(self):
+        return Account.all_objects.all()

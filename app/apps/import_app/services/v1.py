@@ -268,14 +268,17 @@ class ImportService:
                             category = TransactionCategory.objects.get(id=category_name)
                         else:  # name
                             if getattr(category_mapping, "create", False):
-                                category, _ = TransactionCategory.objects.get_or_create(
-                                    name=category_name
-                                )
+                                try:
+                                    category = TransactionCategory.objects.get(
+                                        name=category_name
+                                    )
+                                except TransactionCategory.DoesNotExist:
+                                    category = TransactionCategory(name=category_name)
+                                    category.save()
                             else:
                                 category = TransactionCategory.objects.filter(
                                     name=category_name
                                 ).first()
-
                         if category:
                             data["category"] = category
                             self.import_run.categories.add(category)
@@ -325,9 +328,13 @@ class ImportService:
                             tag = TransactionTag.objects.filter(id=tag_name).first()
                         else:  # name
                             if getattr(tags_mapping, "create", False):
-                                tag, _ = TransactionTag.objects.get_or_create(
-                                    name=tag_name.strip()
-                                )
+                                try:
+                                    tag = TransactionTag.objects.get(
+                                        name=tag_name.strip()
+                                    )
+                                except TransactionTag.DoesNotExist:
+                                    tag = TransactionTag(name=tag_name.strip())
+                                    tag.save()
                             else:
                                 tag = TransactionTag.objects.filter(
                                     name=tag_name.strip()
@@ -361,9 +368,13 @@ class ImportService:
                             ).first()
                         else:  # name
                             if getattr(entities_mapping, "create", False):
-                                entity, _ = TransactionEntity.objects.get_or_create(
-                                    name=entity_name.strip()
-                                )
+                                try:
+                                    entity = TransactionEntity.objects.get(
+                                        name=entity_name.strip()
+                                    )
+                                except TransactionEntity.DoesNotExist:
+                                    entity = TransactionEntity(name=entity_name.strip())
+                                    entity.save()
                             else:
                                 entity = TransactionEntity.objects.filter(
                                     name=entity_name.strip()
@@ -394,7 +405,11 @@ class ImportService:
     def _create_account(self, data: Dict[str, Any]) -> Account:
         if "group" in data:
             group_name = data.pop("group")
-            group, _ = AccountGroup.objects.get_or_create(name=group_name)
+            try:
+                group = AccountGroup.objects.get(name=group_name)
+            except AccountGroup.DoesNotExist:
+                group = AccountGroup(name=group_name)
+                group.save()
             data["group"] = group
 
         # Handle currency references

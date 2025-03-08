@@ -15,19 +15,6 @@ from apps.import_app.services import PresetService
 from apps.import_app.tasks import process_import
 
 
-def import_view(request):
-    import_profile = ImportProfile.objects.get(id=2)
-    shutil.copyfile(
-        "/usr/src/app/apps/import_app/teste2.csv", "/usr/src/app/temp/teste2.csv"
-    )
-    ir = ImportRun.objects.create(profile=import_profile, file_name="teste.csv")
-    process_import.defer(
-        import_run_id=ir.id,
-        file_path="/usr/src/app/temp/teste2.csv",
-    )
-    return HttpResponse("Hello, world. You're at the polls page.")
-
-
 @login_required
 @require_http_methods(["GET"])
 def import_presets_list(request):
@@ -189,7 +176,11 @@ def import_run_add(request, profile_id):
             import_run = ImportRun.objects.create(profile=profile, file_name=filename)
 
             # Defer the procrastinate task
-            process_import.defer(import_run_id=import_run.id, file_path=file_path)
+            process_import.defer(
+                import_run_id=import_run.id,
+                file_path=file_path,
+                user_id=request.user.id,
+            )
 
             messages.success(request, _("Import Run queued successfully"))
 

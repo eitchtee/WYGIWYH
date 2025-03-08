@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular import openapi
 from drf_spectacular.types import OpenApiTypes
@@ -48,9 +50,9 @@ class TransactionEntitySerializer(serializers.ModelSerializer):
 
 
 class InstallmentPlanSerializer(serializers.ModelSerializer):
-    category = TransactionCategoryField(required=False)
-    tags = TransactionTagField(required=False)
-    entities = TransactionEntityField(required=False)
+    category: str | int = TransactionCategoryField(required=False)
+    tags: str | int = TransactionTagField(required=False)
+    entities: str | int = TransactionEntityField(required=False)
 
     permission_classes = [IsAuthenticated]
 
@@ -88,9 +90,9 @@ class InstallmentPlanSerializer(serializers.ModelSerializer):
 
 
 class RecurringTransactionSerializer(serializers.ModelSerializer):
-    category = TransactionCategoryField(required=False)
-    tags = TransactionTagField(required=False)
-    entities = TransactionEntityField(required=False)
+    category: str | int = TransactionCategoryField(required=False)
+    tags: str | int = TransactionTagField(required=False)
+    entities: str | int = TransactionEntityField(required=False)
 
     class Meta:
         model = RecurringTransaction
@@ -127,9 +129,9 @@ class RecurringTransactionSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
-    category = TransactionCategoryField(required=False)
-    tags = TransactionTagField(required=False)
-    entities = TransactionEntityField(required=False)
+    category: str | int = TransactionCategoryField(required=False)
+    tags: str | int = TransactionTagField(required=False)
+    entities: str | int = TransactionEntityField(required=False)
 
     exchanged_amount = serializers.SerializerMethodField()
 
@@ -192,5 +194,5 @@ class TransactionSerializer(serializers.ModelSerializer):
         return instance
 
     @staticmethod
-    def get_exchanged_amount(obj):
+    def get_exchanged_amount(obj) -> Decimal:
         return obj.exchanged_amount()

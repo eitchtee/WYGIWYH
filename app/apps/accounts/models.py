@@ -1,24 +1,31 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from apps.transactions.models import Transaction
+from apps.common.models import SharedObject, SharedObjectManager
 
 
-class AccountGroup(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
+class AccountGroup(SharedObject):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
 
     class Meta:
         verbose_name = _("Account Group")
         verbose_name_plural = _("Account Groups")
         db_table = "account_groups"
+        unique_together = (("owner", "name"),)
 
     def __str__(self):
         return self.name
 
 
-class Account(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
+class Account(SharedObject):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
     group = models.ForeignKey(
         AccountGroup,
         on_delete=models.SET_NULL,
@@ -55,9 +62,13 @@ class Account(models.Model):
         help_text=_("Archived accounts don't show up nor count towards your net worth"),
     )
 
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
+
     class Meta:
         verbose_name = _("Account")
         verbose_name_plural = _("Accounts")
+        unique_together = (("owner", "name"),)
 
     def __str__(self):
         return self.name

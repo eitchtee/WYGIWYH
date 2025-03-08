@@ -1,16 +1,15 @@
-from datetime import timedelta
 from decimal import Decimal
-from statistics import mean, stdev
 
 from django.db import models
 from django.template.defaultfilters import date
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from apps.common.models import SharedObject, SharedObjectManager
 from apps.currencies.utils.convert import convert, get_exchange_rate
 
 
-class DCAStrategy(models.Model):
+class DCAStrategy(SharedObject):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     target_currency = models.ForeignKey(
         "currencies.Currency",
@@ -27,6 +26,9 @@ class DCAStrategy(models.Model):
     notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
 
     class Meta:
         verbose_name = _("DCA Strategy")

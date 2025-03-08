@@ -4,6 +4,7 @@ from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
+from apps.common.middleware.thread_local import get_current_user
 
 
 class DynamicModelChoiceField(forms.ModelChoiceField):
@@ -55,19 +56,24 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
                 if self.create_field:
                     try:
                         with transaction.atomic():
-                            instance, _ = self.model.objects.update_or_create(
-                                **{self.create_field: value}
-                            )
+                            # First try to get the object
+                            lookup = {self.create_field: value}
+                            try:
+                                instance = self.model.objects.get(**lookup)
+                            except self.model.DoesNotExist:
+                                # Create a new instance directly
+                                instance = self.model(**lookup)
+                                instance.save()
+
                             self._created_instance = instance
                             return instance
                     except Exception as e:
-                        raise ValidationError(
-                            self.error_messages["invalid_choice"], code="invalid_choice"
-                        )
+                        raise ValidationError(_("Error creating new instance"))
                 else:
                     raise ValidationError(
                         self.error_messages["invalid_choice"], code="invalid_choice"
                     )
+
         return super().clean(value)
 
     def bound_data(self, data, initial):
@@ -90,8 +96,6 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 
     def __init__(self, model, **kwargs):
         """
-        Initialize the CreateIfNotExistsModelMultipleChoiceField.
-
         Args:
             create_field (str): The name of the field to use when creating new instances.
             *args: Variable length argument list.
@@ -123,33 +127,28 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         """
         try:
             with transaction.atomic():
-                instance, _ = self.model.objects.update_or_create(
-                    **{self.create_field: value}
-                )
-            return instance
+                # Check if exists first without using update_or_create
+                lookup = {self.create_field: value}
+                try:
+                    # Use base manager to bypass distinct filters
+                    instance = self.model.objects.get(**lookup)
+                    return instance
+                except self.model.DoesNotExist:
+                    # Create a new instance directly
+                    instance = self.model(**lookup)
+                    instance.save()
+                    return instance
         except Exception as e:
+            print(e)
             raise ValidationError(_("Error creating new instance"))
 
     def clean(self, value):
-        """
-        Clean and validate the field value.
-
-        This method checks if each selected choice exists in the database.
-        If a choice doesn't exist, it creates a new instance of the model.
-
-        Args:
-            value (list): List of selected values.
-
-        Returns:
-            list: A list containing all selected and newly created model instances.
-
-        Raises:
-            ValidationError: If there's an error during the cleaning process.
-        """
         if not value:
             return []
 
         string_values = set(str(v) for v in value)
+
+        # Get existing objects first
         existing_objects = list(
             self.queryset.filter(**{f"{self.create_field}__in": string_values})
         )
@@ -157,13 +156,11 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
             str(getattr(obj, self.create_field)) for obj in existing_objects
         )
 
+        # Create new objects for missing values
         new_values = string_values - existing_values
         new_objects = []
 
         for new_value in new_values:
-            try:
-                new_objects.append(self._create_new_instance(new_value))
-            except ValidationError as e:
-                raise ValidationError(_("Error creating new instance"))
+            new_objects.append(self._create_new_instance(new_value))
 
         return existing_objects + new_objects

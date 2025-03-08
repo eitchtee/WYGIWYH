@@ -8,6 +8,12 @@ from apps.common.widgets.crispy.submit import NoClassSubmit
 
 
 class ExportForm(forms.Form):
+    users = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(),
+        label=_("Users"),
+        initial=True,
+    )
     accounts = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(),
@@ -94,6 +100,7 @@ class ExportForm(forms.Form):
         self.helper.form_tag = False
         self.helper.form_method = "post"
         self.helper.layout = Layout(
+            "users",
             "accounts",
             "currencies",
             "transactions",
@@ -121,6 +128,7 @@ class RestoreForm(forms.Form):
         help_text=_("Import a ZIP file exported from WYGIWYH"),
         label=_("ZIP File"),
     )
+    users = forms.FileField(required=False, label=_("Users"))
     accounts = forms.FileField(required=False, label=_("Accounts"))
     currencies = forms.FileField(required=False, label=_("Currencies"))
     transactions_categories = forms.FileField(required=False, label=_("Categories"))
@@ -155,6 +163,7 @@ class RestoreForm(forms.Form):
         self.helper.layout = Layout(
             "zip_file",
             HTML("<hr />"),
+            "users",
             "accounts",
             "currencies",
             "transactions",

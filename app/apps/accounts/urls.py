@@ -17,9 +17,19 @@ urlpatterns = [
         name="account_edit",
     ),
     path(
+        "account/<int:pk>/share/",
+        views.account_share,
+        name="account_share_settings",
+    ),
+    path(
         "account/<int:pk>/delete/",
         views.account_delete,
         name="account_delete",
+    ),
+    path(
+        "account/<int:pk>/take-ownership/",
+        views.account_take_ownership,
+        name="account_take_ownership",
     ),
     path("account-groups/", views.account_groups_index, name="account_groups_index"),
     path("account-groups/list/", views.account_groups_list, name="account_groups_list"),
@@ -33,5 +43,15 @@ urlpatterns = [
         "account-groups/<int:pk>/delete/",
         views.account_group_delete,
         name="account_group_delete",
+    ),
+    path(
+        "account-groups/<int:pk>/take-ownership/",
+        views.account_group_take_ownership,
+        name="account_group_take_ownership",
+    ),
+    path(
+        "account-groups/<int:pk>/share/",
+        views.account_share,
+        name="account_group_share_settings",
     ),
 ]
