@@ -1,7 +1,9 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 
 from apps.net_worth.utils.calculate_net_worth import (
     calculate_historical_currency_net_worth,
@@ -14,6 +16,8 @@ from apps.transactions.utils.calculations import (
 )
 
 
+@login_required
+@require_http_methods(["GET"])
 def net_worth_current(request):
     transactions_currency_queryset = Transaction.objects.filter(
         is_paid=True, account__is_archived=False
@@ -113,6 +117,8 @@ def net_worth_current(request):
     )
 
 
+@login_required
+@require_http_methods(["GET"])
 def net_worth_projected(request):
     transactions_currency_queryset = Transaction.objects.filter(
         account__is_archived=False

@@ -55,22 +55,31 @@ class TransactionResource(resources.ModelResource):
         model = Transaction
 
     def get_queryset(self):
-        return Transaction.all_objects.all()
+        return Transaction.userless_all_objects.all()
 
 
 class TransactionTagResource(resources.ModelResource):
     class Meta:
         model = TransactionTag
 
+    def get_queryset(self):
+        return TransactionTag.all_objects.all()
+
 
 class TransactionEntityResource(resources.ModelResource):
     class Meta:
         model = TransactionEntity
 
+    def get_queryset(self):
+        return TransactionEntity.all_objects.all()
+
 
 class TransactionCategoyResource(resources.ModelResource):
     class Meta:
         model = TransactionCategory
+
+    def get_queryset(self):
+        return TransactionCategory.all_objects.all()
 
 
 class RecurringTransactionResource(resources.ModelResource):
@@ -107,6 +116,9 @@ class RecurringTransactionResource(resources.ModelResource):
     class Meta:
         model = RecurringTransaction
 
+    def get_queryset(self):
+        return RecurringTransaction.all_objects.all()
+
 
 class InstallmentPlanResource(resources.ModelResource):
     account = fields.Field(
@@ -141,3 +153,6 @@ class InstallmentPlanResource(resources.ModelResource):
 
     class Meta:
         model = InstallmentPlan
+
+    def get_queryset(self):
+        return InstallmentPlan.all_objects.all()

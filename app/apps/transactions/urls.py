@@ -131,6 +131,16 @@ urlpatterns = [
         views.tag_delete,
         name="tag_delete",
     ),
+    path(
+        "tags/<int:tag_id>/take-ownership/",
+        views.tag_take_ownership,
+        name="tag_take_ownership",
+    ),
+    path(
+        "tags/<int:pk>/share/",
+        views.tag_share,
+        name="tag_share_settings",
+    ),
     path("entities/", views.entities_index, name="entities_index"),
     path("entities/list/", views.entities_list, name="entities_list"),
     path(
@@ -154,6 +164,16 @@ urlpatterns = [
         views.entity_delete,
         name="entity_delete",
     ),
+    path(
+        "entities/<int:entity_id>/take-ownership/",
+        views.entity_take_ownership,
+        name="entity_take_ownership",
+    ),
+    path(
+        "entities/<int:pk>/share/",
+        views.entity_share,
+        name="entity_share_settings",
+    ),
     path("categories/", views.categories_index, name="categories_index"),
     path("categories/list/", views.categories_list, name="categories_list"),
     path(
@@ -176,6 +196,16 @@ urlpatterns = [
         "categories/<int:category_id>/delete/",
         views.category_delete,
         name="category_delete",
+    ),
+    path(
+        "categories/<int:pk>/share/",
+        views.category_share,
+        name="category_share_settings",
+    ),
+    path(
+        "categories/<int:category_id>/take-ownership/",
+        views.category_take_ownership,
+        name="category_take_ownership",
     ),
     path(
         "installment-plans/",

@@ -8,13 +8,14 @@ from apps.transactions.models import (
     RecurringTransaction,
     TransactionEntity,
 )
+from apps.common.admin import SharedObjectModelAdmin
 
 
 @admin.register(Transaction)
 class TransactionModelAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         # Use the all_objects manager to show all transactions, including deleted ones
-        return self.model.all_objects.all()
+        return self.model.userless_all_objects.all()
 
     list_filter = ["deleted", "type", "is_paid", "date", "account"]
 
@@ -48,19 +49,29 @@ class TransactionInline(admin.TabularInline):
 
 
 @admin.register(InstallmentPlan)
-class InstallmentPlanAdmin(admin.ModelAdmin):
+class InstallmentPlanAdmin(SharedObjectModelAdmin):
     inlines = [
         TransactionInline,
     ]
 
 
 @admin.register(RecurringTransaction)
-class RecurringTransactionAdmin(admin.ModelAdmin):
+class RecurringTransactionAdmin(SharedObjectModelAdmin):
     inlines = [
         TransactionInline,
     ]
 
 
-admin.site.register(TransactionCategory)
-admin.site.register(TransactionTag)
-admin.site.register(TransactionEntity)
+@admin.register(TransactionCategory)
+class TransactionCategoryModelAdmin(SharedObjectModelAdmin):
+    pass
+
+
+@admin.register(TransactionTag)
+class TransactionTagModelAdmin(SharedObjectModelAdmin):
+    pass
+
+
+@admin.register(TransactionEntity)
+class TransactionEntityModelAdmin(SharedObjectModelAdmin):
+    pass

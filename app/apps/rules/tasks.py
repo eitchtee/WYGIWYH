@@ -4,6 +4,7 @@ from datetime import datetime, date
 
 from cachalot.api import cachalot_disabled
 from dateutil.relativedelta import relativedelta
+from django.contrib.auth import get_user_model
 from procrastinate.contrib.django import app
 from simpleeval import EvalWithCompoundTypes
 
@@ -18,6 +19,7 @@ from apps.transactions.models import (
     TransactionTag,
     TransactionEntity,
 )
+from apps.common.middleware.thread_local import write_current_user, delete_current_user
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +27,12 @@ logger = logging.getLogger(__name__)
 @app.task(name="check_for_transaction_rules")
 def check_for_transaction_rules(
     instance_id: int,
+    user_id: int,
     signal,
 ):
+    user = get_user_model().objects.get(id=user_id)
+    write_current_user(user)
+
     try:
         with cachalot_disabled():
             instance = Transaction.objects.get(id=instance_id)
@@ -91,7 +97,10 @@ def check_for_transaction_rules(
             "Error while executing 'check_for_transaction_rules' task",
             exc_info=True,
         )
+        delete_current_user()
         raise e
+
+    delete_current_user()
 
 
 def _get_names(instance):

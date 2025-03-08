@@ -6,6 +6,7 @@ from apps.transactions.models import (
     transaction_updated,
 )
 from apps.rules.tasks import check_for_transaction_rules
+from apps.common.middleware.thread_local import get_current_user
 
 
 @receiver(transaction_created)
@@ -20,6 +21,7 @@ def transaction_changed_receiver(sender: Transaction, signal, **kwargs):
 
     check_for_transaction_rules.defer(
         instance_id=sender.id,
+        user_id=get_current_user().id,
         signal=(
             "transaction_created"
             if signal is transaction_created

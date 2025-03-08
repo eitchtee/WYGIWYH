@@ -1,9 +1,9 @@
 import logging
 import zipfile
-from io import BytesIO, TextIOWrapper
+from io import BytesIO
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -12,25 +12,13 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 from tablib import Dataset
 
+from apps.common.decorators.htmx import only_htmx
 from apps.export_app.forms import ExportForm, RestoreForm
 from apps.export_app.resources.accounts import AccountResource
-from apps.export_app.resources.transactions import (
-    TransactionResource,
-    TransactionTagResource,
-    TransactionEntityResource,
-    TransactionCategoyResource,
-    InstallmentPlanResource,
-    RecurringTransactionResource,
-)
 from apps.export_app.resources.currencies import (
     CurrencyResource,
     ExchangeRateResource,
     ExchangeRateServiceResource,
-)
-from apps.export_app.resources.rules import (
-    TransactionRuleResource,
-    TransactionRuleActionResource,
-    UpdateOrCreateTransactionRuleResource,
 )
 from apps.export_app.resources.dca import (
     DCAStrategyResource,
@@ -39,18 +27,33 @@ from apps.export_app.resources.dca import (
 from apps.export_app.resources.import_app import (
     ImportProfileResource,
 )
-from apps.common.decorators.htmx import only_htmx
+from apps.export_app.resources.rules import (
+    TransactionRuleResource,
+    TransactionRuleActionResource,
+    UpdateOrCreateTransactionRuleResource,
+)
+from apps.export_app.resources.transactions import (
+    TransactionResource,
+    TransactionTagResource,
+    TransactionEntityResource,
+    TransactionCategoyResource,
+    InstallmentPlanResource,
+    RecurringTransactionResource,
+)
+from apps.export_app.resources.users import UserResource
 
 logger = logging.getLogger()
 
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 @require_http_methods(["GET"])
 def export_index(request):
     return render(request, "export_app/pages/index.html")
 
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 @require_http_methods(["GET", "POST"])
 def export_form(request):
     timestamp = timezone.localtime(timezone.now()).strftime("%Y-%m-%dT%H-%M-%S")
@@ -60,6 +63,7 @@ def export_form(request):
         if form.is_valid():
             zip_buffer = BytesIO()
 
+            export_users = form.cleaned_data.get("users", False)
             export_accounts = form.cleaned_data.get("accounts", False)
             export_currencies = form.cleaned_data.get("currencies", False)
             export_transactions = form.cleaned_data.get("transactions", False)
@@ -80,6 +84,8 @@ def export_form(request):
             export_import_profiles = form.cleaned_data.get("import_profiles", False)
 
             exports = []
+            if export_users:
+                exports.append((UserResource().export(), "users"))
             if export_accounts:
                 exports.append((AccountResource().export(), "accounts"))
             if export_currencies:
@@ -176,6 +182,7 @@ def export_form(request):
 
 @only_htmx
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 @require_http_methods(["GET", "POST"])
 def import_form(request):
     if request.method == "POST":
@@ -209,6 +216,7 @@ def import_form(request):
 def process_imports(request, cleaned_data):
     # Define import order to handle dependencies
     import_order = [
+        ("users", UserResource),
         ("currencies", CurrencyResource),
         (
             "currencies",

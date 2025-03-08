@@ -56,6 +56,16 @@ def get_current_user():
     if request:
         return getattr(request, "user", None)
 
+    return getattr(_thread_locals, "user", None)
+
+
+def write_current_user(user):
+    _thread_locals.user = user
+
+
+def delete_current_user():
+    del _thread_locals.user
+
 
 class ThreadLocalMiddleware(MiddlewareMixin):
     """Simple middleware that adds the request object in thread local storage."""

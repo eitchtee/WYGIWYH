@@ -16,6 +16,8 @@ from apps.rules.models import (
     TransactionRuleAction,
     UpdateOrCreateTransactionRuleAction,
 )
+from apps.common.models import SharedObject
+from apps.common.forms import SharedObjectForm
 
 
 @login_required
@@ -93,6 +95,16 @@ def transaction_rule_add(request, **kwargs):
 def transaction_rule_edit(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
 
+    if transaction_rule.owner and transaction_rule.owner != request.user:
+        messages.error(request, _("Only the owner can edit this"))
+
+        return HttpResponse(
+            status=204,
+            headers={
+                "HX-Trigger": "updated, hide_offcanvas",
+            },
+        )
+
     if request.method == "POST":
         form = TransactionRuleForm(request.POST, instance=transaction_rule)
         if form.is_valid():
@@ -134,15 +146,80 @@ def transaction_rule_view(request, transaction_rule_id):
 def transaction_rule_delete(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
 
-    transaction_rule.delete()
-
-    messages.success(request, _("Rule deleted successfully"))
+    if (
+        transaction_rule.owner != request.user
+        and request.user in transaction_rule.shared_with.all()
+    ):
+        transaction_rule.shared_with.remove(request.user)
+        messages.success(request, _("Item no longer shared with you"))
+    else:
+        transaction_rule.delete()
+        messages.success(request, _("Rule deleted successfully"))
 
     return HttpResponse(
         status=204,
         headers={
             "HX-Trigger": "updated, hide_offcanvas",
         },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_rule_take_ownership(request, transaction_rule_id):
+    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+
+    if not transaction_rule.owner:
+        transaction_rule.owner = request.user
+        transaction_rule.visibility = SharedObject.Visibility.private
+        transaction_rule.save()
+
+        messages.success(request, _("Ownership taken successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas",
+        },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def transaction_rule_share(request, pk):
+    obj = get_object_or_404(TransactionRule, id=pk)
+
+    if obj.owner and obj.owner != request.user:
+        messages.error(request, _("Only the owner can edit this"))
+
+        return HttpResponse(
+            status=204,
+            headers={
+                "HX-Trigger": "updated, hide_offcanvas",
+            },
+        )
+
+    if request.method == "POST":
+        form = SharedObjectForm(request.POST, instance=obj, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Configuration saved successfully"))
+
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
+    else:
+        form = SharedObjectForm(instance=obj, user=request.user)
+
+    return render(
+        request,
+        "rules/fragments/share.html",
+        {"form": form, "object": obj},
     )
 
 

@@ -2,14 +2,19 @@ from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
+from apps.common.models import SharedObject, SharedObjectManager
 
-class TransactionRule(models.Model):
+
+class TransactionRule(SharedObject):
     active = models.BooleanField(default=True)
     on_update = models.BooleanField(default=False)
     on_create = models.BooleanField(default=True)
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     trigger = models.TextField(verbose_name=_("Trigger"))
+
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
 
     class Meta:
         verbose_name = _("Transaction rule")

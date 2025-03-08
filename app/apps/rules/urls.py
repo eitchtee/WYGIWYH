@@ -38,6 +38,16 @@ urlpatterns = [
         name="transaction_rule_delete",
     ),
     path(
+        "rules/transaction/<int:transaction_rule_id>/take-ownership/",
+        views.transaction_rule_take_ownership,
+        name="transaction_rule_take_ownership",
+    ),
+    path(
+        "rules/transaction/<int:pk>/share/",
+        views.transaction_rule_share,
+        name="transaction_rule_share_settings",
+    ),
+    path(
         "rules/transaction/<int:transaction_rule_id>/transaction-action/add/",
         views.transaction_rule_action_add,
         name="transaction_rule_action_add",

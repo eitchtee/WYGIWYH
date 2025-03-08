@@ -168,7 +168,7 @@ class DCAEntryForm(forms.ModelForm):
                             Row(
                                 Column(
                                     "from_account",
-                                    css_class="form-group col-md-6 mb-0",
+                                    css_class="form-group",
                                 ),
                                 css_class="form-row",
                             ),
@@ -190,7 +190,7 @@ class DCAEntryForm(forms.ModelForm):
                             Row(
                                 Column(
                                     "to_account",
-                                    css_class="form-group col-md-6 mb-0",
+                                    css_class="form-group",
                                 ),
                                 css_class="form-row",
                             ),
@@ -265,6 +265,24 @@ class DCAEntryForm(forms.ModelForm):
             self.fields["expense_transaction"].queryset = Transaction.objects.filter(
                 id=expense_transaction.id
             )
+
+        self.fields["from_account"].queryset = Account.objects.filter(
+            is_archived=False,
+        )
+
+        self.fields["from_category"].queryset = TransactionCategory.objects.filter(
+            active=True
+        )
+        self.fields["from_tags"].queryset = TransactionTag.objects.filter(active=True)
+
+        self.fields["to_account"].queryset = Account.objects.filter(
+            is_archived=False,
+        )
+
+        self.fields["to_category"].queryset = TransactionCategory.objects.filter(
+            active=True
+        )
+        self.fields["to_tags"].queryset = TransactionTag.objects.filter(active=True)
 
     def clean(self):
         cleaned_data = super().clean()

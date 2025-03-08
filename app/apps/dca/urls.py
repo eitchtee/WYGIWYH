@@ -13,6 +13,16 @@ urlpatterns = [
         name="dca_strategy_delete",
     ),
     path(
+        "dca/<int:strategy_id>/take-ownership/",
+        views.strategy_take_ownership,
+        name="dca_strategy_take_ownership",
+    ),
+    path(
+        "dca/<int:pk>/share/",
+        views.strategy_share,
+        name="dca_strategy_share_settings",
+    ),
+    path(
         "dca/<int:strategy_id>/",
         views.strategy_detail_index,
         name="dca_strategy_detail_index",

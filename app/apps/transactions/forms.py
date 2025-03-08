@@ -29,6 +29,7 @@ from apps.transactions.models import (
     RecurringTransaction,
     TransactionEntity,
 )
+from apps.common.middleware.thread_local import get_current_user
 
 
 class TransactionForm(forms.ModelForm):
@@ -94,20 +95,30 @@ class TransactionForm(forms.ModelForm):
         # if editing a transaction display non-archived items and it's own item even if it's archived
         if self.instance.id:
             self.fields["account"].queryset = Account.objects.filter(
-                Q(is_archived=False) | Q(transactions=self.instance.id)
-            ).distinct()
+                Q(is_archived=False) | Q(transactions=self.instance.id),
+            )
 
             self.fields["category"].queryset = TransactionCategory.objects.filter(
                 Q(active=True) | Q(transaction=self.instance.id)
-            ).distinct()
+            )
 
             self.fields["tags"].queryset = TransactionTag.objects.filter(
                 Q(active=True) | Q(transaction=self.instance.id)
-            ).distinct()
+            )
 
             self.fields["entities"].queryset = TransactionEntity.objects.filter(
                 Q(active=True) | Q(transactions=self.instance.id)
-            ).distinct()
+            )
+        else:
+            self.fields["account"].queryset = Account.objects.filter(
+                is_archived=False,
+            )
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                active=True
+            )
+            self.fields["tags"].queryset = TransactionTag.objects.filter(active=True)
+            self.fields["entities"].queryset = TransactionEntity.objects.all()
 
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -405,6 +416,24 @@ class TransferForm(forms.Form):
         self.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()
         self.fields["date"].widget = AirDatePickerInput(clear_button=False)
 
+        self.fields["from_account"].queryset = Account.objects.filter(
+            is_archived=False,
+        )
+
+        self.fields["from_category"].queryset = TransactionCategory.objects.filter(
+            active=True
+        )
+        self.fields["from_tags"].queryset = TransactionTag.objects.filter(active=True)
+
+        self.fields["to_account"].queryset = Account.objects.filter(
+            is_archived=False,
+        )
+
+        self.fields["to_category"].queryset = TransactionCategory.objects.filter(
+            active=True
+        )
+        self.fields["to_tags"].queryset = TransactionTag.objects.filter(active=True)
+
     def clean(self):
         cleaned_data = super().clean()
         from_account = cleaned_data.get("from_account")
@@ -536,6 +565,18 @@ class InstallmentPlanForm(forms.ModelForm):
             self.fields["entities"].queryset = TransactionEntity.objects.filter(
                 Q(active=True) | Q(installmentplan=self.instance.id)
             ).distinct()
+        else:
+            self.fields["account"].queryset = Account.objects.filter(is_archived=False)
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                active=True
+            )
+
+            self.fields["tags"].queryset = TransactionTag.objects.filter(active=True)
+
+            self.fields["entities"].queryset = TransactionEntity.objects.filter(
+                active=True
+            )
 
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -781,6 +822,18 @@ class RecurringTransactionForm(forms.ModelForm):
             self.fields["entities"].queryset = TransactionEntity.objects.filter(
                 Q(active=True) | Q(recurringtransaction=self.instance.id)
             ).distinct()
+        else:
+            self.fields["account"].queryset = Account.objects.filter(is_archived=False)
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                active=True
+            )
+
+            self.fields["tags"].queryset = TransactionTag.objects.filter(active=True)
+
+            self.fields["entities"].queryset = TransactionEntity.objects.filter(
+                active=True
+            )
 
         self.helper = FormHelper()
         self.helper.form_method = "post"

@@ -15,6 +15,8 @@ from apps.common.functions.decimals import truncate_decimal
 from apps.common.templatetags.decimal import localize_number, drop_trailing_zeros
 from apps.currencies.utils.convert import convert
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
+from apps.common.middleware.thread_local import get_current_user
+from apps.common.models import SharedObject, SharedObjectManager, OwnedObject
 
 logger = logging.getLogger()
 
@@ -93,10 +95,40 @@ class SoftDeleteQuerySet(models.QuerySet):
 class SoftDeleteManager(models.Manager):
     def get_queryset(self):
         qs = SoftDeleteQuerySet(self.model, using=self._db)
-        return qs.filter(deleted=False)
+        user = get_current_user()
+        if user and not user.is_anonymous:
+            return qs.filter(
+                Q(account__visibility="public")
+                | Q(account__owner=user)
+                | Q(account__shared_with=user)
+                | Q(account__visibility="private", account__owner=None),
+                deleted=False,
+            ).distinct()
+        else:
+            return qs.filter(
+                deleted=False,
+            )
 
 
 class AllObjectsManager(models.Manager):
+    def get_queryset(self):
+        user = get_current_user()
+        if user and not user.is_anonymous:
+            return (
+                SoftDeleteQuerySet(self.model, using=self._db)
+                .filter(
+                    Q(account__visibility="public")
+                    | Q(account__owner=user)
+                    | Q(account__shared_with=user)
+                    | Q(account__visibility="private", account__owner=None),
+                )
+                .distinct()
+            )
+        else:
+            return SoftDeleteQuerySet(self.model, using=self._db)
+
+
+class UserlessAllObjectsManager(models.Manager):
     def get_queryset(self):
         return SoftDeleteQuerySet(self.model, using=self._db)
 
@@ -104,11 +136,45 @@ class AllObjectsManager(models.Manager):
 class DeletedObjectsManager(models.Manager):
     def get_queryset(self):
         qs = SoftDeleteQuerySet(self.model, using=self._db)
-        return qs.filter(deleted=True)
+        user = get_current_user()
+        if user and not user.is_anonymous:
+            return qs.filter(
+                Q(account__visibility="public")
+                | Q(account__owner=user)
+                | Q(account__shared_with=user)
+                | Q(account__visibility="private", account__owner=None),
+                deleted=True,
+            ).distinct()
+        else:
+            return qs.filter(
+                deleted=True,
+            )
 
 
-class TransactionCategory(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
+class UserlessDeletedObjectsManager(models.Manager):
+    def get_queryset(self):
+        qs = SoftDeleteQuerySet(self.model, using=self._db)
+        return qs.filter(
+            deleted=True,
+        )
+
+
+class GenericAccountOwnerManager(models.Manager):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = get_current_user()
+        if user and not user.is_anonymous:
+            return queryset.filter(
+                Q(account__visibility="public")
+                | Q(account__owner=user)
+                | Q(account__shared_with=user)
+                | Q(account__visibility="private", account__owner=None),
+            ).distinct()
+        return queryset.none()
+
+
+class TransactionCategory(SharedObject):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
     mute = models.BooleanField(default=False, verbose_name=_("Mute"))
     active = models.BooleanField(
         default=True,
@@ -118,17 +184,21 @@ class TransactionCategory(models.Model):
         ),
     )
 
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
+
     class Meta:
         verbose_name = _("Transaction Category")
         verbose_name_plural = _("Transaction Categories")
         db_table = "t_categories"
+        unique_together = (("owner", "name"),)
 
     def __str__(self):
         return self.name
 
 
-class TransactionTag(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
+class TransactionTag(SharedObject):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
     active = models.BooleanField(
         default=True,
         verbose_name=_("Active"),
@@ -137,16 +207,20 @@ class TransactionTag(models.Model):
         ),
     )
 
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
+
     class Meta:
         verbose_name = _("Transaction Tags")
         verbose_name_plural = _("Transaction Tags")
         db_table = "tags"
+        unique_together = (("owner", "name"),)
 
     def __str__(self):
         return self.name
 
 
-class TransactionEntity(models.Model):
+class TransactionEntity(SharedObject):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     active = models.BooleanField(
         default=True,
@@ -156,16 +230,20 @@ class TransactionEntity(models.Model):
         ),
     )
 
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
+
     class Meta:
         verbose_name = _("Entity")
         verbose_name_plural = _("Entities")
         db_table = "entities"
+        unique_together = (("owner", "name"),)
 
     def __str__(self):
         return self.name
 
 
-class Transaction(models.Model):
+class Transaction(OwnedObject):
     class Type(models.TextChoices):
         INCOME = "IN", _("Income")
         EXPENSE = "EX", _("Expense")
@@ -249,7 +327,11 @@ class Transaction(models.Model):
 
     objects = SoftDeleteManager.from_queryset(SoftDeleteQuerySet)()
     all_objects = AllObjectsManager.from_queryset(SoftDeleteQuerySet)()
+    userless_all_objects = UserlessAllObjectsManager.from_queryset(SoftDeleteQuerySet)()
     deleted_objects = DeletedObjectsManager.from_queryset(SoftDeleteQuerySet)()
+    userless_deleted_objects = UserlessDeletedObjectsManager.from_queryset(
+        SoftDeleteQuerySet
+    )()
 
     class Meta:
         verbose_name = _("Transaction")
@@ -386,6 +468,9 @@ class InstallmentPlan(models.Model):
 
     notes = models.TextField(blank=True, verbose_name=_("Notes"))
 
+    all_objects = models.Manager()  # Unfiltered manager
+    objects = GenericAccountOwnerManager()  # Default filtered manager
+
     class Meta:
         verbose_name = _("Installment Plan")
         verbose_name_plural = _("Installment Plans")
@@ -440,7 +525,7 @@ class InstallmentPlan(models.Model):
 
             transaction_date = self.start_date + delta
             transaction_reference_date = (self.reference_date + delta).replace(day=1)
-            new_transaction = Transaction.objects.create(
+            new_transaction = Transaction.all_objects.create(
                 account=self.account,
                 type=self.type,
                 date=transaction_date,
@@ -500,7 +585,7 @@ class InstallmentPlan(models.Model):
                 existing_transaction.entities.set(self.entities.all())
             else:
                 # If the transaction doesn't exist, create a new one
-                new_transaction = Transaction.objects.create(
+                new_transaction = Transaction.all_objects.create(
                     account=self.account,
                     type=self.type,
                     date=transaction_date,
@@ -587,6 +672,9 @@ class RecurringTransaction(models.Model):
         verbose_name=_("Last Generated Reference Date"), null=True, blank=True
     )
 
+    all_objects = models.Manager()  # Unfiltered manager
+    objects = GenericAccountOwnerManager()  # Default filtered manager
+
     class Meta:
         verbose_name = _("Recurring Transaction")
         verbose_name_plural = _("Recurring Transactions")
@@ -624,7 +712,7 @@ class RecurringTransaction(models.Model):
         )
 
     def create_transaction(self, date, reference_date):
-        created_transaction = Transaction.objects.create(
+        created_transaction = Transaction.all_objects.create(
             account=self.account,
             type=self.type,
             date=date,

@@ -77,6 +77,8 @@ class AccountForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.fields["group"].queryset = AccountGroup.objects.all()
+
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
@@ -150,6 +152,12 @@ class AccountBalanceForm(forms.Form):
         self.fields["new_balance"].widget = ArbitraryDecimalDisplayNumberInput(
             decimal_places=self.currency_decimal_places
         )
+
+        self.fields["category"].queryset = TransactionCategory.objects.filter(
+            active=True
+        )
+
+        self.fields["tags"].queryset = TransactionTag.objects.filter(active=True)
 
 
 AccountBalanceFormSet = forms.formset_factory(AccountBalanceForm, extra=0)

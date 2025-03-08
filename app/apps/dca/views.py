@@ -11,6 +11,8 @@ from django.views.decorators.http import require_http_methods
 from apps.common.decorators.htmx import only_htmx
 from apps.dca.forms import DCAEntryForm, DCAStrategyForm
 from apps.dca.models import DCAStrategy, DCAEntry
+from apps.common.models import SharedObject
+from apps.common.forms import SharedObjectForm
 
 
 @login_required
@@ -57,6 +59,16 @@ def strategy_add(request):
 def strategy_edit(request, strategy_id):
     dca_strategy = get_object_or_404(DCAStrategy, id=strategy_id)
 
+    if dca_strategy.owner and dca_strategy.owner != request.user:
+        messages.error(request, _("Only the owner can edit this"))
+
+        return HttpResponse(
+            status=204,
+            headers={
+                "HX-Trigger": "updated, hide_offcanvas",
+            },
+        )
+
     if request.method == "POST":
         form = DCAStrategyForm(request.POST, instance=dca_strategy)
         if form.is_valid():
@@ -85,15 +97,80 @@ def strategy_edit(request, strategy_id):
 def strategy_delete(request, strategy_id):
     dca_strategy = get_object_or_404(DCAStrategy, id=strategy_id)
 
-    dca_strategy.delete()
-
-    messages.success(request, _("DCA strategy deleted successfully"))
+    if (
+        dca_strategy.owner != request.user
+        and request.user in dca_strategy.shared_with.all()
+    ):
+        dca_strategy.shared_with.remove(request.user)
+        messages.success(request, _("Item no longer shared with you"))
+    else:
+        dca_strategy.delete()
+        messages.success(request, _("DCA strategy deleted successfully"))
 
     return HttpResponse(
         status=204,
         headers={
             "HX-Trigger": "updated, hide_offcanvas",
         },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def strategy_take_ownership(request, strategy_id):
+    dca_strategy = get_object_or_404(DCAStrategy, id=strategy_id)
+
+    if not dca_strategy.owner:
+        dca_strategy.owner = request.user
+        dca_strategy.visibility = SharedObject.Visibility.private
+        dca_strategy.save()
+
+        messages.success(request, _("Ownership taken successfully"))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated, hide_offcanvas",
+        },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def strategy_share(request, pk):
+    obj = get_object_or_404(DCAStrategy, id=pk)
+
+    if obj.owner and obj.owner != request.user:
+        messages.error(request, _("Only the owner can edit this"))
+
+        return HttpResponse(
+            status=204,
+            headers={
+                "HX-Trigger": "updated, hide_offcanvas",
+            },
+        )
+
+    if request.method == "POST":
+        form = SharedObjectForm(request.POST, instance=obj, user=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Configuration saved successfully"))
+
+            return HttpResponse(
+                status=204,
+                headers={
+                    "HX-Trigger": "updated, hide_offcanvas",
+                },
+            )
+    else:
+        form = SharedObjectForm(instance=obj, user=request.user)
+
+    return render(
+        request,
+        "dca/fragments/strategy/share.html",
+        {"form": form, "object": obj},
     )
 
 

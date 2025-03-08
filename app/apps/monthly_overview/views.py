@@ -77,24 +77,20 @@ def transactions_list(request, month: int, year: int):
             request.session["monthly_transactions_order"] = order
 
     f = TransactionsFilter(request.GET)
-    transactions_filtered = (
-        f.qs.filter()
-        .filter(
-            reference_date__year=year,
-            reference_date__month=month,
-        )
-        .prefetch_related(
-            "account",
-            "account__group",
-            "category",
-            "tags",
-            "account__exchange_currency",
-            "account__currency",
-            "installment_plan",
-            "entities",
-            "dca_expense_entries",
-            "dca_income_entries",
-        )
+    transactions_filtered = f.qs.filter(
+        reference_date__year=year,
+        reference_date__month=month,
+    ).prefetch_related(
+        "account",
+        "account__group",
+        "category",
+        "tags",
+        "account__exchange_currency",
+        "account__currency",
+        "installment_plan",
+        "entities",
+        "dca_expense_entries",
+        "dca_income_entries",
     )
 
     transactions_filtered = default_order(transactions_filtered, order=order)

@@ -34,7 +34,7 @@ def cleanup_deleted_transactions(timestamp=None):
 
         if not settings.ENABLE_SOFT_DELETE:
             # Hard delete all soft-deleted transactions
-            deleted_count, _ = Transaction.deleted_objects.all().hard_delete()
+            deleted_count, _ = Transaction.userless_deleted_objects.all().hard_delete()
             return (
                 f"Hard deleted {deleted_count} transactions (soft deletion disabled)."
             )
@@ -47,7 +47,9 @@ def cleanup_deleted_transactions(timestamp=None):
     invalidate()
 
     # Hard delete soft-deleted transactions older than the cutoff date
-    old_transactions = Transaction.deleted_objects.filter(deleted_at__lt=cutoff_date)
+    old_transactions = Transaction.userless_deleted_objects.filter(
+        deleted_at__lt=cutoff_date
+    )
     deleted_count, _ = old_transactions.hard_delete()
 
     return f"Hard deleted {deleted_count} objects older than {settings.KEEP_DELETED_TRANSACTIONS_FOR} days."
