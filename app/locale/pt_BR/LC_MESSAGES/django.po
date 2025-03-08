@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-08 15:04+0000\n"
-"PO-Revision-Date: 2025-03-04 06:46+0000\n"
+"PO-Revision-Date: 2025-03-08 16:05+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -195,7 +195,7 @@ msgstr "Grupo de Conta adicionado com sucesso"
 #: apps/transactions/views/entities.py:171 apps/transactions/views/tags.py:91
 #: apps/transactions/views/tags.py:171
 msgid "Only the owner can edit this"
-msgstr ""
+msgstr "Somente o proprietário pode editar isso"
 
 #: apps/accounts/views/account_groups.py:82
 msgid "Account Group updated successfully"
@@ -206,7 +206,7 @@ msgstr "Grupo de Conta atualizado com sucesso"
 #: apps/rules/views.py:154 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
-msgstr ""
+msgstr "Item não está mais compartilhado com você"
 
 #: apps/accounts/views/account_groups.py:114
 msgid "Account Group deleted successfully"
@@ -216,19 +216,15 @@ msgstr "Grupo de Conta apagado com sucesso"
 #: apps/accounts/views/accounts.py:169 apps/dca/views.py:129
 #: apps/rules/views.py:178 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
-#, fuzzy
-#| msgid "Service added successfully"
 msgid "Ownership taken successfully"
-msgstr "Serviço adicionado com sucesso"
+msgstr "Propriedade assumida com sucesso"
 
 #: apps/accounts/views/account_groups.py:165
 #: apps/accounts/views/accounts.py:119 apps/dca/views.py:159
 #: apps/rules/views.py:208 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
-#, fuzzy
-#| msgid "Transaction added successfully"
 msgid "Configuration saved successfully"
-msgstr "Transação adicionada com sucesso"
+msgstr "Configuração salva com sucesso"
 
 #: apps/accounts/views/accounts.py:44
 msgid "Account added successfully"
@@ -294,45 +290,48 @@ msgstr "Formato de data inválido. Use AAAA-MM."
 
 #: apps/common/forms.py:24
 msgid "Owner"
-msgstr ""
+msgstr "Proprietário"
 
 #: apps/common/forms.py:27
 msgid ""
 "The owner of this object, if empty all users can see, edit and take "
 "ownership."
 msgstr ""
+"O proprietário desse objeto, se estiver vazio, todos os usuários poderão "
+"ver, editar e assumir a propriedade."
 
 #: apps/common/forms.py:34
 msgid "Shared with users"
-msgstr ""
+msgstr "Compartilhado com os usuários"
 
 #: apps/common/forms.py:35
 msgid "Select users to share this object with"
-msgstr ""
+msgstr "Selecione os usuários com os quais compartilhar esse objeto"
 
 #: apps/common/forms.py:40
 msgid "Visibility"
-msgstr ""
+msgstr "Visibilidade"
 
 #: apps/common/forms.py:42
 msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
+"Privado: Exibido somente para o proprietário e usuários compartilhados. "
+"Somente editável pelo proprietário.<br/>Público: Exibido para todos os "
+"usuários. Somente editável pelo proprietário."
 
 #: apps/common/forms.py:79 apps/users/forms.py:131
 msgid "Save"
 msgstr "Salvar"
 
 #: apps/common/models.py:29
-#, fuzzy
-#| msgid "Activate"
 msgid "Private"
-msgstr "Ativar"
+msgstr "Privado"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:9
@@ -771,7 +770,7 @@ msgstr "Entrada apagada com sucesso"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
 msgid "Users"
-msgstr ""
+msgstr "Usuários"
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
 #: apps/transactions/models.py:338 templates/includes/navbar.html:57
@@ -1880,7 +1879,7 @@ msgstr "Sim, apague!"
 #: templates/rules/fragments/list.html:56
 #: templates/tags/fragments/table.html:48
 msgid "Take ownership"
-msgstr ""
+msgstr "Assumir propriedade"
 
 #: templates/account_groups/fragments/list.html:65
 #: templates/accounts/fragments/list.html:70
@@ -1890,7 +1889,7 @@ msgstr ""
 #: templates/rules/fragments/list.html:66
 #: templates/tags/fragments/table.html:58
 msgid "Share"
-msgstr ""
+msgstr "Compartilhar"
 
 #: templates/account_groups/fragments/list.html:77
 msgid "No account groups"
@@ -1902,10 +1901,8 @@ msgstr "Nenhum grupo de conta"
 #: templates/dca/fragments/strategy/share.html:5
 #: templates/entities/fragments/share.html:5
 #: templates/rules/fragments/share.html:5 templates/tags/fragments/share.html:5
-#, fuzzy
-#| msgid "Settings"
 msgid "Share settings"
-msgstr "Configurações"
+msgstr "Configurações de compartilhamento"
 
 #: templates/accounts/fragments/account_reconciliation.html:6
 msgid "Account Reconciliation"
