@@ -23,6 +23,7 @@ from apps.transactions.models import (
     TransactionEntity,
     RecurringTransaction,
 )
+from apps.common.middleware.thread_local import get_current_user
 
 
 class TransactionCategorySerializer(serializers.ModelSerializer):
@@ -31,6 +32,10 @@ class TransactionCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = TransactionCategory
         fields = "__all__"
+        read_only_fields = [
+            "id",
+            "owner",
+        ]
 
 
 class TransactionTagSerializer(serializers.ModelSerializer):
@@ -39,6 +44,10 @@ class TransactionTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = TransactionTag
         fields = "__all__"
+        read_only_fields = [
+            "id",
+            "owner",
+        ]
 
 
 class TransactionEntitySerializer(serializers.ModelSerializer):
@@ -47,6 +56,10 @@ class TransactionEntitySerializer(serializers.ModelSerializer):
     class Meta:
         model = TransactionEntity
         fields = "__all__"
+        read_only_fields = [
+            "id",
+            "owner",
+        ]
 
 
 class InstallmentPlanSerializer(serializers.ModelSerializer):
@@ -157,7 +170,15 @@ class TransactionSerializer(serializers.ModelSerializer):
             "installment_plan",
             "recurring_transaction",
             "installment_id",
+            "owner",
+            "deleted_at",
+            "deleted",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+
+        self.fields["account_id"].queryset = Account.objects.all()
 
     def validate(self, data):
         if not self.partial:
