@@ -20,6 +20,8 @@ class AccountViewSet(viewsets.ModelViewSet):
     pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
-        return Account.objects.all().select_related(
-            "group", "currency", "exchange_currency"
+        return (
+            Account.objects.all()
+            .order_by("id")
+            .select_related("group", "currency", "exchange_currency")
         )
