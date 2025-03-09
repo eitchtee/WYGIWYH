@@ -41,7 +41,7 @@ def get_currency_exchange_map(date=None) -> Dict[str, dict]:
             effective_rate=F("rate"),
         )
         .order_by("from_currency", "to_currency", "date_diff")
-        .distinct("from_currency", "to_currency")
+        .distinct()
     )
 
     # Initialize the result dictionary

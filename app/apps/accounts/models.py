@@ -19,6 +19,7 @@ class AccountGroup(SharedObject):
         verbose_name_plural = _("Account Groups")
         db_table = "account_groups"
         unique_together = (("owner", "name"),)
+        ordering = ["name", "id"]
 
     def __str__(self):
         return self.name
@@ -69,6 +70,7 @@ class Account(SharedObject):
         verbose_name = _("Account")
         verbose_name_plural = _("Accounts")
         unique_together = (("owner", "name"),)
+        ordering = ["name", "id"]
 
     def __str__(self):
         return self.name

@@ -38,6 +38,7 @@ class Currency(models.Model):
     class Meta:
         verbose_name = _("Currency")
         verbose_name_plural = _("Currencies")
+        ordering = ["name", "id"]
 
     def clean(self):
         super().clean()
