@@ -493,6 +493,13 @@ class InstallmentPlan(models.Model):
 
     notes = models.TextField(blank=True, verbose_name=_("Notes"))
 
+    add_description_to_transaction = models.BooleanField(
+        default=True, verbose_name=_("Add description to transactions")
+    )
+    add_notes_to_transaction = models.BooleanField(
+        default=True, verbose_name=_("Add notes to transactions")
+    )
+
     all_objects = models.Manager()  # Unfiltered manager
     objects = GenericAccountOwnerManager()  # Default filtered manager
 
@@ -557,11 +564,13 @@ class InstallmentPlan(models.Model):
                 is_paid=False,
                 reference_date=transaction_reference_date,
                 amount=self.installment_amount,
-                description=self.description,
+                description=(
+                    self.description if self.add_description_to_transaction else ""
+                ),
                 category=self.category,
                 installment_plan=self,
                 installment_id=i,
-                notes=self.notes,
+                notes=self.notes if self.add_notes_to_transaction else "",
             )
             new_transaction.tags.set(self.tags.all())
             new_transaction.entities.set(self.entities.all())
@@ -594,9 +603,13 @@ class InstallmentPlan(models.Model):
                 existing_transaction.type = self.type
                 existing_transaction.date = transaction_date
                 existing_transaction.reference_date = transaction_reference_date
-                existing_transaction.description = self.description
+                existing_transaction.description = (
+                    self.description if self.add_description_to_transaction else ""
+                )
                 existing_transaction.category = self.category
-                existing_transaction.notes = self.notes
+                existing_transaction.notes = (
+                    self.notes if self.add_notes_to_transaction else ""
+                )
 
                 if (
                     not existing_transaction.is_paid
@@ -617,11 +630,13 @@ class InstallmentPlan(models.Model):
                     is_paid=False,
                     reference_date=transaction_reference_date,
                     amount=self.installment_amount,
-                    description=self.description,
+                    description=(
+                        self.description if self.add_description_to_transaction else ""
+                    ),
                     category=self.category,
                     installment_plan=self,
                     installment_id=i,
-                    notes=self.notes,
+                    notes=self.notes if self.add_notes_to_transaction else "",
                 )
                 new_transaction.tags.set(self.tags.all())
                 new_transaction.entities.set(self.entities.all())
@@ -697,6 +712,13 @@ class RecurringTransaction(models.Model):
         verbose_name=_("Last Generated Reference Date"), null=True, blank=True
     )
 
+    add_description_to_transaction = models.BooleanField(
+        default=True, verbose_name=_("Add description to transactions")
+    )
+    add_notes_to_transaction = models.BooleanField(
+        default=True, verbose_name=_("Add notes to transactions")
+    )
+
     all_objects = models.Manager()  # Unfiltered manager
     objects = GenericAccountOwnerManager()  # Default filtered manager
 
@@ -743,11 +765,13 @@ class RecurringTransaction(models.Model):
             date=date,
             reference_date=reference_date.replace(day=1),
             amount=self.amount,
-            description=self.description,
+            description=(
+                self.description if self.add_description_to_transaction else ""
+            ),
             category=self.category,
             is_paid=False,
             recurring_transaction=self,
-            notes=self.notes,
+            notes=self.notes if self.add_notes_to_transaction else "",
         )
         if self.tags.exists():
             created_transaction.tags.set(self.tags.all())
@@ -821,9 +845,13 @@ class RecurringTransaction(models.Model):
         for existing_transaction in unpaid_transactions:
             # Update fields based on RecurringTransaction
             existing_transaction.amount = self.amount
-            existing_transaction.description = self.description
+            existing_transaction.description = (
+                self.description if self.add_description_to_transaction else ""
+            )
             existing_transaction.category = self.category
-            existing_transaction.notes = self.notes
+            existing_transaction.notes = (
+                self.notes if self.add_notes_to_transaction else ""
+            )
 
             # Update many-to-many relationships
             existing_transaction.tags.set(self.tags.all())
