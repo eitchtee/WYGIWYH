@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-09 04:55+0000\n"
-"PO-Revision-Date: 2025-03-04 06:28+0000\n"
+"PO-Revision-Date: 2025-03-09 12:05+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -197,7 +197,7 @@ msgstr "Rekeninggroep succesvol toegevoegd"
 #: apps/transactions/views/entities.py:171 apps/transactions/views/tags.py:91
 #: apps/transactions/views/tags.py:171
 msgid "Only the owner can edit this"
-msgstr ""
+msgstr "Alleen de eigenaar kan dit bewerken"
 
 #: apps/accounts/views/account_groups.py:82
 msgid "Account Group updated successfully"
@@ -208,7 +208,7 @@ msgstr "Rekeninggroep succesvol bijgewerkt"
 #: apps/rules/views.py:154 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
-msgstr ""
+msgstr "Item is niet langer met jouw gedeeld"
 
 #: apps/accounts/views/account_groups.py:114
 msgid "Account Group deleted successfully"
@@ -218,19 +218,15 @@ msgstr "Rekeninggroep succesvol verwijderd"
 #: apps/accounts/views/accounts.py:169 apps/dca/views.py:129
 #: apps/rules/views.py:178 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
-#, fuzzy
-#| msgid "Service added successfully"
 msgid "Ownership taken successfully"
-msgstr "Dienst succesvol toegevoegd"
+msgstr "Eigendom succesvol genomen"
 
 #: apps/accounts/views/account_groups.py:165
 #: apps/accounts/views/accounts.py:119 apps/dca/views.py:159
 #: apps/rules/views.py:208 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
-#, fuzzy
-#| msgid "Transaction added successfully"
 msgid "Configuration saved successfully"
-msgstr "Verrichting succesvol toegevoegd"
+msgstr "Configuratie succesvol opgeslagen"
 
 #: apps/accounts/views/accounts.py:44
 msgid "Account added successfully"
@@ -296,45 +292,48 @@ msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM."
 
 #: apps/common/forms.py:24
 msgid "Owner"
-msgstr ""
+msgstr "Eigenaar"
 
 #: apps/common/forms.py:27
 msgid ""
 "The owner of this object, if empty all users can see, edit and take "
 "ownership."
 msgstr ""
+"De eigenaar van dit object, indien leeg kunnen alle gebruikers dit object "
+"zien, bewerken en er eigenaar van worden."
 
 #: apps/common/forms.py:34
 msgid "Shared with users"
-msgstr ""
+msgstr "Gedeeld met gebruikers"
 
 #: apps/common/forms.py:35
 msgid "Select users to share this object with"
-msgstr ""
+msgstr "Selecteer gebruikers om dit object mee te delen"
 
 #: apps/common/forms.py:40
 msgid "Visibility"
-msgstr ""
+msgstr "Zichtbaarheid"
 
 #: apps/common/forms.py:42
 msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
+"Privé: Alleen weergegeven voor de eigenaar en gedeelde gebruikers. Alleen "
+"bewerkbaar door de eigenaar.<br/>Publiek: Weergegeven voor alle gebruikers. "
+"Alleen bewerkbaar door de eigenaar."
 
 #: apps/common/forms.py:79 apps/users/forms.py:131
 msgid "Save"
 msgstr "Opslaan"
 
 #: apps/common/models.py:29
-#, fuzzy
-#| msgid "Activate"
 msgid "Private"
-msgstr "Inschakelen"
+msgstr "Privé"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr ""
+msgstr "Openbaar"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:9
@@ -773,7 +772,7 @@ msgstr "Item succesvol verwijderd"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
 msgid "Users"
-msgstr ""
+msgstr "Gebruikers"
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
 #: apps/transactions/models.py:359 templates/includes/navbar.html:57
@@ -1018,10 +1017,8 @@ msgid "Run on update"
 msgstr "Uitvoeren na het bijwerken"
 
 #: apps/rules/forms.py:23
-#, fuzzy
-#| msgid "Run on update"
 msgid "Run on delete"
-msgstr "Uitvoeren na het bijwerken"
+msgstr "Uitvoeren bij het verwijderen"
 
 #: apps/rules/forms.py:24
 msgid "If..."
@@ -1779,7 +1776,7 @@ msgstr "Acties"
 #: templates/rules/fragments/transaction_rule/view.html:80
 #: templates/tags/fragments/table.html:28
 msgid "Edit"
-msgstr "Bijwerken"
+msgstr "Bewerken"
 
 #: templates/account_groups/fragments/list.html:43
 #: templates/accounts/fragments/list.html:48
@@ -1889,7 +1886,7 @@ msgstr "Ja, verwijder het!"
 #: templates/rules/fragments/list.html:56
 #: templates/tags/fragments/table.html:48
 msgid "Take ownership"
-msgstr ""
+msgstr "Eigendom nemen"
 
 #: templates/account_groups/fragments/list.html:65
 #: templates/accounts/fragments/list.html:70
@@ -1899,7 +1896,7 @@ msgstr ""
 #: templates/rules/fragments/list.html:66
 #: templates/tags/fragments/table.html:58
 msgid "Share"
-msgstr ""
+msgstr "Deel"
 
 #: templates/account_groups/fragments/list.html:77
 msgid "No account groups"
@@ -1911,10 +1908,8 @@ msgstr "Geen Rekeningsgroepen"
 #: templates/dca/fragments/strategy/share.html:5
 #: templates/entities/fragments/share.html:5
 #: templates/rules/fragments/share.html:5 templates/tags/fragments/share.html:5
-#, fuzzy
-#| msgid "Settings"
 msgid "Share settings"
-msgstr "Instellingen"
+msgstr "Deel instellingen"
 
 #: templates/accounts/fragments/account_reconciliation.html:6
 msgid "Account Reconciliation"
@@ -2571,33 +2566,27 @@ msgstr "Totaal"
 
 #: templates/insights/fragments/emergency_fund.html:15
 msgid "You've spent an average of"
-msgstr ""
+msgstr "Je bestede gemiddeld"
 
 #: templates/insights/fragments/emergency_fund.html:23
 msgid "on the last 12 months, at this rate you could go by"
-msgstr ""
+msgstr "over de laatste 12 maanden, in dit tempo zou je kunnen gaan door"
 
 #: templates/insights/fragments/emergency_fund.html:25
 msgid "months without any income."
-msgstr ""
+msgstr "maanden zonder inkomen."
 
 #: templates/insights/fragments/emergency_fund.html:34
-#, fuzzy
-#| msgid "current expenses"
 msgid "average expenses"
-msgstr "huidige uitgaven"
+msgstr "gemiddelde uitgaven"
 
 #: templates/insights/fragments/emergency_fund.html:48
-#, fuzzy
-#| msgid "final total"
 msgid "liquid total"
-msgstr "eindtotaal"
+msgstr "beschikbaar totaal"
 
 #: templates/insights/fragments/emergency_fund.html:62
-#, fuzzy
-#| msgid "month(s)"
 msgid "months left"
-msgstr "maand(en)"
+msgstr "maanden over"
 
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
@@ -2667,7 +2656,7 @@ msgstr "Laatste Verrichtingen"
 
 #: templates/insights/pages/index.html:121
 msgid "Emergency Fund"
-msgstr ""
+msgstr "Noodfonds"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
