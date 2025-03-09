@@ -23,6 +23,7 @@ logger = logging.getLogger()
 
 transaction_created = Signal()
 transaction_updated = Signal()
+transaction_deleted = Signal()
 
 
 class SoftDeleteQuerySet(models.QuerySet):
@@ -65,8 +66,14 @@ class SoftDeleteQuerySet(models.QuerySet):
 
     def delete(self):
         if not settings.ENABLE_SOFT_DELETE:
-            # If soft deletion is disabled, perform a normal delete
-            return super().delete()
+            # Get instances before hard delete
+            instances = list(self)
+            # Send signals for each instance before deletion
+            for instance in instances:
+                transaction_deleted.send(sender=instance)
+            # Perform hard delete
+            result = super().delete()
+            return result
 
         # Separate the queryset into already deleted and not deleted objects
         already_deleted = self.filter(deleted=True)
@@ -74,13 +81,27 @@ class SoftDeleteQuerySet(models.QuerySet):
 
         # Use a transaction to ensure atomicity
         with transaction.atomic():
+            # Get instances for hard delete before they're gone
+            already_deleted_instances = list(already_deleted)
+            for instance in already_deleted_instances:
+                transaction_deleted.send(sender=instance)
+
             # Perform hard delete on already deleted objects
             hard_deleted_count = already_deleted._raw_delete(already_deleted.db)
+
+            # Get instances for soft delete
+            instances_to_soft_delete = list(not_deleted)
 
             # Perform soft delete on not deleted objects
             soft_deleted_count = not_deleted.update(
                 deleted=True, deleted_at=timezone.now()
             )
+
+            # Send signals for soft deleted instances
+            for instance in instances_to_soft_delete:
+                instance.deleted = True
+                instance.deleted_at = timezone.now()
+                transaction_deleted.send(sender=instance)
 
         # Return a tuple of counts as expected by Django's delete method
         return (
@@ -358,10 +379,14 @@ class Transaction(OwnedObject):
                 self.deleted = True
                 self.deleted_at = timezone.now()
                 self.save()
+                transaction_deleted.send(sender=self)  # Emit signal for soft delete
             else:
-                super().delete(*args, **kwargs)
+                result = super().delete(*args, **kwargs)
+                return result
         else:
-            super().delete(*args, **kwargs)
+            # For hard delete mode
+            transaction_deleted.send(sender=self)  # Emit signal before hard delete
+            return super().delete(*args, **kwargs)
 
     def hard_delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)

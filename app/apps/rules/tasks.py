@@ -1,6 +1,8 @@
 import decimal
 import logging
 from datetime import datetime, date
+from decimal import Decimal
+from typing import Any
 
 from cachalot.api import cachalot_disabled
 from dateutil.relativedelta import relativedelta
@@ -26,16 +28,27 @@ logger = logging.getLogger(__name__)
 
 @app.task(name="check_for_transaction_rules")
 def check_for_transaction_rules(
-    instance_id: int,
-    user_id: int,
-    signal,
+    instance_id=None,
+    transaction_data=None,
+    user_id=None,
+    signal=None,
+    is_hard_deleted=False,
 ):
     user = get_user_model().objects.get(id=user_id)
     write_current_user(user)
 
     try:
         with cachalot_disabled():
-            instance = Transaction.objects.get(id=instance_id)
+            # For deleted transactions
+            if signal == "transaction_deleted" and transaction_data:
+                # Create a transaction-like object from the serialized data
+                if is_hard_deleted:
+                    instance = transaction_data
+                else:
+                    instance = Transaction.deleted_objects.get(id=instance_id)
+            else:
+                # Regular transaction processing for creates and updates
+                instance = Transaction.objects.get(id=instance_id)
 
             functions = {
                 "relativedelta": relativedelta,
@@ -47,10 +60,11 @@ def check_for_transaction_rules(
                 "date": date,
             }
 
-            simple = EvalWithCompoundTypes(
-                names=_get_names(instance), functions=functions
-            )
+            names = _get_names(instance)
 
+            simple = EvalWithCompoundTypes(names=names, functions=functions)
+
+            # Select rules based on the signal type
             if signal == "transaction_created":
                 rules = TransactionRule.objects.filter(
                     active=True, on_create=True
@@ -59,39 +73,56 @@ def check_for_transaction_rules(
                 rules = TransactionRule.objects.filter(
                     active=True, on_update=True
                 ).order_by("id")
+            elif signal == "transaction_deleted":
+                rules = TransactionRule.objects.filter(
+                    active=True, on_delete=True
+                ).order_by("id")
             else:
                 rules = TransactionRule.objects.filter(active=True).order_by("id")
 
+            # Process the rules as before
             for rule in rules:
                 if simple.eval(rule.trigger):
-                    for action in rule.transaction_actions.all():
-                        try:
-                            instance = _process_edit_transaction_action(
-                                instance=instance, action=action, simple_eval=simple
-                            )
-                        except Exception as e:
-                            logger.error(
-                                f"Error processing edit transaction action {action.id}",
-                                exc_info=True,
-                            )
-                        # else:
-                        #     simple.names.update(_get_names(instance))
-                        #     instance.save()
+                    # For deleted transactions, we might want to limit what actions can be performed
+                    if signal == "transaction_deleted":
+                        # Process only create/update actions, not edit actions
+                        for action in rule.update_or_create_transaction_actions.all():
+                            try:
+                                _process_update_or_create_transaction_action(
+                                    action=action, simple_eval=simple
+                                )
+                            except Exception as e:
+                                logger.error(
+                                    f"Error processing update or create transaction action {action.id} on deletion",
+                                    exc_info=True,
+                                )
+                    else:
+                        # Normal processing for non-deleted transactions
+                        for action in rule.transaction_actions.all():
+                            try:
+                                instance = _process_edit_transaction_action(
+                                    instance=instance, action=action, simple_eval=simple
+                                )
+                            except Exception as e:
+                                logger.error(
+                                    f"Error processing edit transaction action {action.id}",
+                                    exc_info=True,
+                                )
 
-                    simple.names.update(_get_names(instance))
-                    instance.save()
+                        simple.names.update(_get_names(instance))
+                        if signal != "transaction_deleted":
+                            instance.save()
 
-                    for action in rule.update_or_create_transaction_actions.all():
-                        try:
-                            _process_update_or_create_transaction_action(
-                                action=action, simple_eval=simple
-                            )
-                        except Exception as e:
-                            logger.error(
-                                f"Error processing update or create transaction action {action.id}",
-                                exc_info=True,
-                            )
-
+                        for action in rule.update_or_create_transaction_actions.all():
+                            try:
+                                _process_update_or_create_transaction_action(
+                                    action=action, simple_eval=simple
+                                )
+                            except Exception as e:
+                                logger.error(
+                                    f"Error processing update or create transaction action {action.id}",
+                                    exc_info=True,
+                                )
     except Exception as e:
         logger.error(
             "Error while executing 'check_for_transaction_rules' task",
@@ -99,40 +130,68 @@ def check_for_transaction_rules(
         )
         delete_current_user()
         raise e
-
     delete_current_user()
 
 
-def _get_names(instance):
-    return {
-        "id": instance.id,
-        "account_name": instance.account.name,
-        "account_id": instance.account.id,
-        "account_group_name": (
-            instance.account.group.name if instance.account.group else None
-        ),
-        "account_group_id": (
-            instance.account.group.id if instance.account.group else None
-        ),
-        "is_asset_account": instance.account.is_asset,
-        "is_archived_account": instance.account.is_archived,
-        "category_name": instance.category.name if instance.category else None,
-        "category_id": instance.category.id if instance.category else None,
-        "tag_names": [x.name for x in instance.tags.all()],
-        "tag_ids": [x.id for x in instance.tags.all()],
-        "entities_names": [x.name for x in instance.entities.all()],
-        "entities_ids": [x.id for x in instance.entities.all()],
-        "is_expense": instance.type == Transaction.Type.EXPENSE,
-        "is_income": instance.type == Transaction.Type.INCOME,
-        "is_paid": instance.is_paid,
-        "description": instance.description,
-        "amount": instance.amount,
-        "notes": instance.notes,
-        "date": instance.date,
-        "reference_date": instance.reference_date,
-        "internal_note": instance.internal_note,
-        "internal_id": instance.internal_id,
-    }
+def _get_names(instance: Transaction | dict):
+    if isinstance(instance, Transaction):
+        return {
+            "id": instance.id,
+            "account_name": instance.account.name,
+            "account_id": instance.account.id,
+            "account_group_name": (
+                instance.account.group.name if instance.account.group else None
+            ),
+            "account_group_id": (
+                instance.account.group.id if instance.account.group else None
+            ),
+            "is_asset_account": instance.account.is_asset,
+            "is_archived_account": instance.account.is_archived,
+            "category_name": instance.category.name if instance.category else None,
+            "category_id": instance.category.id if instance.category else None,
+            "tag_names": [x.name for x in instance.tags.all()],
+            "tag_ids": [x.id for x in instance.tags.all()],
+            "entities_names": [x.name for x in instance.entities.all()],
+            "entities_ids": [x.id for x in instance.entities.all()],
+            "is_expense": instance.type == Transaction.Type.EXPENSE,
+            "is_income": instance.type == Transaction.Type.INCOME,
+            "is_paid": instance.is_paid,
+            "description": instance.description,
+            "amount": instance.amount,
+            "notes": instance.notes,
+            "date": instance.date,
+            "reference_date": instance.reference_date,
+            "internal_note": instance.internal_note,
+            "internal_id": instance.internal_id,
+            "is_deleted": instance.deleted,
+        }
+    else:
+        return {
+            "id": instance.get("id"),
+            "account_name": instance.get("account", (None, None))[1],
+            "account_id": instance.get("account", (None, None))[0],
+            "account_group_name": instance.get("account_group", (None, None))[1],
+            "account_group_id": instance.get("account_group", (None, None))[0],
+            "is_asset_account": instance.get("is_asset"),
+            "is_archived_account": instance.get("is_archived"),
+            "category_name": instance.get("category", (None, None))[1],
+            "category_id": instance.get("category", (None, None))[0],
+            "tag_names": [x[1] for x in instance.get("tags", [])],
+            "tag_ids": [x[0] for x in instance.get("tags", [])],
+            "entities_names": [x[1] for x in instance.get("entities", [])],
+            "entities_ids": [x[0] for x in instance.get("entities", [])],
+            "is_expense": instance.get("type") == Transaction.Type.EXPENSE,
+            "is_income": instance.get("type") == Transaction.Type.INCOME,
+            "is_paid": instance.get("is_paid"),
+            "description": instance.get("description", ""),
+            "amount": Decimal(instance.get("amount")),
+            "notes": instance.get("notes", ""),
+            "date": datetime.fromisoformat(instance.get("date")),
+            "reference_date": datetime.fromisoformat(instance.get("reference_date")),
+            "internal_note": instance.get("internal_note", ""),
+            "internal_id": instance.get("internal_id", ""),
+            "is_deleted": instance.get("deleted", True),
+        }
 
 
 def _process_update_or_create_transaction_action(action, simple_eval):

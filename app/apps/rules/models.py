@@ -9,6 +9,7 @@ class TransactionRule(SharedObject):
     active = models.BooleanField(default=True)
     on_update = models.BooleanField(default=False)
     on_create = models.BooleanField(default=True)
+    on_delete = models.BooleanField(default=False)
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     trigger = models.TextField(verbose_name=_("Trigger"))
