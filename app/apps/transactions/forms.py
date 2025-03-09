@@ -334,7 +334,9 @@ class TransferForm(forms.Form):
         widget=AirMonthYearPickerInput(), label=_("Reference Date"), required=False
     )
 
-    description = forms.CharField(max_length=500, label=_("Description"))
+    description = forms.CharField(
+        max_length=500, label=_("Description"), required=False
+    )
     notes = forms.CharField(
         required=False,
         widget=forms.Textarea(
