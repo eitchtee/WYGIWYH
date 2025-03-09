@@ -5,7 +5,7 @@
 {% block title %}{% translate 'Transactions' %}{% endblock %}
 
 {% block body %}
-<div hx-get="{% url 'recurring_transaction_transactions' recurring_transaction_id=recurring_transaction.id %}" hx-trigger="updated from:window" hx-vals='{"disable_selection": true}' hx-target="closest .offcanvas" class="show-loading" id="transactions-list">
+<div hx-get="{% url 'recurring_transaction_transactions' recurring_transaction_id=recurring_transaction.id %}" hx-trigger="updated from:window" hx-target="closest .offcanvas" class="show-loading" id="transactions-list">
   {% for transaction in transactions %}
     <c-transaction.item :transaction="transaction"></c-transaction.item>
   {% endfor %}
