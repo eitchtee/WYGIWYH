@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-09 01:10+0000\n"
+"POT-Creation-Date: 2025-03-09 04:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,8 +25,8 @@ msgstr ""
 #: apps/accounts/forms.py:40 apps/accounts/forms.py:98
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:91
 #: apps/currencies/forms.py:142 apps/dca/forms.py:49 apps/dca/forms.py:224
-#: apps/import_app/forms.py:34 apps/rules/forms.py:45 apps/rules/forms.py:87
-#: apps/rules/forms.py:359 apps/transactions/forms.py:202
+#: apps/import_app/forms.py:34 apps/rules/forms.py:46 apps/rules/forms.py:88
+#: apps/rules/forms.py:360 apps/transactions/forms.py:202
 #: apps/transactions/forms.py:269 apps/transactions/forms.py:623
 #: apps/transactions/forms.py:666 apps/transactions/forms.py:698
 #: apps/transactions/forms.py:733 apps/transactions/forms.py:881
@@ -37,7 +37,7 @@ msgstr ""
 #: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:61
 #: apps/currencies/forms.py:99 apps/currencies/forms.py:150
 #: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
-#: apps/rules/forms.py:53 apps/rules/forms.py:95 apps/rules/forms.py:367
+#: apps/rules/forms.py:54 apps/rules/forms.py:96 apps/rules/forms.py:368
 #: apps/transactions/forms.py:187 apps/transactions/forms.py:211
 #: apps/transactions/forms.py:631 apps/transactions/forms.py:674
 #: apps/transactions/forms.py:706 apps/transactions/forms.py:741
@@ -69,7 +69,7 @@ msgid "New balance"
 msgstr ""
 
 #: apps/accounts/forms.py:121 apps/dca/forms.py:85 apps/dca/forms.py:92
-#: apps/insights/forms.py:118 apps/rules/forms.py:168 apps/rules/forms.py:183
+#: apps/insights/forms.py:118 apps/rules/forms.py:169 apps/rules/forms.py:184
 #: apps/rules/models.py:37 apps/rules/models.py:285
 #: apps/transactions/forms.py:40 apps/transactions/forms.py:303
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:508
@@ -81,7 +81,7 @@ msgstr ""
 
 #: apps/accounts/forms.py:128 apps/dca/forms.py:101 apps/dca/forms.py:109
 #: apps/export_app/forms.py:44 apps/export_app/forms.py:135
-#: apps/rules/forms.py:171 apps/rules/forms.py:180 apps/rules/models.py:38
+#: apps/rules/forms.py:172 apps/rules/forms.py:181 apps/rules/models.py:38
 #: apps/rules/models.py:289 apps/transactions/filters.py:74
 #: apps/transactions/forms.py:48 apps/transactions/forms.py:319
 #: apps/transactions/forms.py:327 apps/transactions/forms.py:501
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Archived accounts don't show up nor count towards your net worth"
 msgstr ""
 
-#: apps/accounts/models.py:69 apps/rules/forms.py:160 apps/rules/forms.py:173
+#: apps/accounts/models.py:69 apps/rules/forms.py:161 apps/rules/forms.py:174
 #: apps/rules/models.py:29 apps/rules/models.py:241
 #: apps/transactions/forms.py:60 apps/transactions/forms.py:493
 #: apps/transactions/forms.py:750 apps/transactions/models.py:254
@@ -439,8 +439,8 @@ msgstr ""
 msgid "Suffix"
 msgstr ""
 
-#: apps/currencies/forms.py:69 apps/dca/models.py:158 apps/rules/forms.py:163
-#: apps/rules/forms.py:176 apps/rules/models.py:32 apps/rules/models.py:253
+#: apps/currencies/forms.py:69 apps/dca/models.py:158 apps/rules/forms.py:164
+#: apps/rules/forms.py:177 apps/rules/models.py:32 apps/rules/models.py:253
 #: apps/transactions/forms.py:64 apps/transactions/forms.py:331
 #: apps/transactions/models.py:264
 #: templates/dca/fragments/strategy/details.html:52
@@ -690,8 +690,8 @@ msgstr ""
 msgid "Payment Currency"
 msgstr ""
 
-#: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:167
-#: apps/rules/forms.py:182 apps/rules/models.py:36 apps/rules/models.py:269
+#: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:168
+#: apps/rules/forms.py:183 apps/rules/models.py:36 apps/rules/models.py:269
 #: apps/transactions/forms.py:345 apps/transactions/models.py:277
 #: apps/transactions/models.py:469 apps/transactions/models.py:653
 msgid "Notes"
@@ -769,7 +769,7 @@ msgid "Categories"
 msgstr ""
 
 #: apps/export_app/forms.py:50 apps/export_app/forms.py:136
-#: apps/rules/forms.py:172 apps/rules/forms.py:181 apps/rules/models.py:39
+#: apps/rules/forms.py:173 apps/rules/forms.py:182 apps/rules/models.py:39
 #: apps/rules/models.py:281 apps/transactions/filters.py:81
 #: apps/transactions/forms.py:56 apps/transactions/forms.py:516
 #: apps/transactions/forms.py:773 apps/transactions/models.py:238
@@ -985,45 +985,45 @@ msgstr ""
 msgid "Saved"
 msgstr ""
 
-#: apps/rules/forms.py:20
+#: apps/rules/forms.py:21
 msgid "Run on creation"
 msgstr ""
 
-#: apps/rules/forms.py:21
+#: apps/rules/forms.py:22
 msgid "Run on update"
 msgstr ""
 
-#: apps/rules/forms.py:22
+#: apps/rules/forms.py:23
 msgid "If..."
 msgstr ""
 
-#: apps/rules/forms.py:64
+#: apps/rules/forms.py:65
 msgid "Set field"
 msgstr ""
 
-#: apps/rules/forms.py:65 templates/insights/fragments/sankey.html:94
+#: apps/rules/forms.py:66 templates/insights/fragments/sankey.html:94
 msgid "To"
 msgstr ""
 
-#: apps/rules/forms.py:115
+#: apps/rules/forms.py:116
 msgid "A value for this field already exists in the rule."
 msgstr ""
 
-#: apps/rules/forms.py:147 apps/rules/forms.py:148 apps/rules/forms.py:149
-#: apps/rules/forms.py:150 apps/rules/forms.py:151 apps/rules/forms.py:152
-#: apps/rules/forms.py:153 apps/rules/forms.py:154 apps/rules/forms.py:155
-#: apps/rules/forms.py:156 apps/rules/forms.py:157 apps/rules/forms.py:158
-#: apps/rules/forms.py:159
+#: apps/rules/forms.py:148 apps/rules/forms.py:149 apps/rules/forms.py:150
+#: apps/rules/forms.py:151 apps/rules/forms.py:152 apps/rules/forms.py:153
+#: apps/rules/forms.py:154 apps/rules/forms.py:155 apps/rules/forms.py:156
+#: apps/rules/forms.py:157 apps/rules/forms.py:158 apps/rules/forms.py:159
+#: apps/rules/forms.py:160
 msgid "Operator"
 msgstr ""
 
-#: apps/rules/forms.py:161 apps/rules/forms.py:174 apps/rules/models.py:30
+#: apps/rules/forms.py:162 apps/rules/forms.py:175 apps/rules/models.py:30
 #: apps/rules/models.py:245 apps/transactions/models.py:261
 #: apps/transactions/models.py:425 apps/transactions/models.py:631
 msgid "Type"
 msgstr ""
 
-#: apps/rules/forms.py:162 apps/rules/forms.py:175 apps/rules/models.py:31
+#: apps/rules/forms.py:163 apps/rules/forms.py:176 apps/rules/models.py:31
 #: apps/rules/models.py:249 apps/transactions/filters.py:23
 #: apps/transactions/models.py:263 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:31
@@ -1032,7 +1032,7 @@ msgstr ""
 msgid "Paid"
 msgstr ""
 
-#: apps/rules/forms.py:164 apps/rules/forms.py:177 apps/rules/models.py:33
+#: apps/rules/forms.py:165 apps/rules/forms.py:178 apps/rules/models.py:33
 #: apps/rules/models.py:257 apps/transactions/forms.py:68
 #: apps/transactions/forms.py:334 apps/transactions/forms.py:522
 #: apps/transactions/models.py:265 apps/transactions/models.py:443
@@ -1040,34 +1040,34 @@ msgstr ""
 msgid "Reference Date"
 msgstr ""
 
-#: apps/rules/forms.py:165 apps/rules/forms.py:178 apps/rules/models.py:34
+#: apps/rules/forms.py:166 apps/rules/forms.py:179 apps/rules/models.py:34
 #: apps/rules/models.py:261 apps/transactions/models.py:270
 #: apps/transactions/models.py:636 templates/insights/fragments/sankey.html:95
 msgid "Amount"
 msgstr ""
 
-#: apps/rules/forms.py:166 apps/rules/forms.py:179 apps/rules/models.py:13
+#: apps/rules/forms.py:167 apps/rules/forms.py:180 apps/rules/models.py:13
 #: apps/rules/models.py:35 apps/rules/models.py:265
 #: apps/transactions/forms.py:337 apps/transactions/models.py:275
 #: apps/transactions/models.py:427 apps/transactions/models.py:639
 msgid "Description"
 msgstr ""
 
-#: apps/rules/forms.py:169 apps/rules/forms.py:184 apps/rules/models.py:273
+#: apps/rules/forms.py:170 apps/rules/forms.py:185 apps/rules/models.py:273
 #: apps/transactions/models.py:314
 msgid "Internal Note"
 msgstr ""
 
-#: apps/rules/forms.py:170 apps/rules/forms.py:185 apps/rules/models.py:277
+#: apps/rules/forms.py:171 apps/rules/forms.py:186 apps/rules/models.py:277
 #: apps/transactions/models.py:316
 msgid "Internal ID"
 msgstr ""
 
-#: apps/rules/forms.py:199
+#: apps/rules/forms.py:200
 msgid "Search Criteria"
 msgstr ""
 
-#: apps/rules/forms.py:334
+#: apps/rules/forms.py:335
 msgid "Set Values"
 msgstr ""
 
