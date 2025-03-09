@@ -16,6 +16,7 @@ class TransactionRuleForm(forms.ModelForm):
     class Meta:
         model = TransactionRule
         fields = "__all__"
+        exclude = ("owner", "shared_with", "visibility")
         labels = {
             "on_create": _("Run on creation"),
             "on_update": _("Run on update"),
