@@ -213,6 +213,7 @@ class TransactionCategory(SharedObject):
         verbose_name_plural = _("Transaction Categories")
         db_table = "t_categories"
         unique_together = (("owner", "name"),)
+        ordering = ["name", "id"]
 
     def __str__(self):
         return self.name
@@ -236,6 +237,7 @@ class TransactionTag(SharedObject):
         verbose_name_plural = _("Transaction Tags")
         db_table = "tags"
         unique_together = (("owner", "name"),)
+        ordering = ["name", "id"]
 
     def __str__(self):
         return self.name
@@ -259,6 +261,7 @@ class TransactionEntity(SharedObject):
         verbose_name_plural = _("Entities")
         db_table = "entities"
         unique_together = (("owner", "name"),)
+        ordering = ["name", "id"]
 
     def __str__(self):
         return self.name
