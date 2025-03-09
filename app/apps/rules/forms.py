@@ -20,6 +20,7 @@ class TransactionRuleForm(forms.ModelForm):
         labels = {
             "on_create": _("Run on creation"),
             "on_update": _("Run on update"),
+            "on_delete": _("Run on delete"),
             "trigger": _("If..."),
         }
         widgets = {"description": forms.widgets.TextInput}
@@ -34,7 +35,11 @@ class TransactionRuleForm(forms.ModelForm):
         self.helper.layout = Layout(
             Switch("active"),
             "name",
-            Row(Column(Switch("on_update")), Column(Switch("on_create"))),
+            Row(
+                Column(Switch("on_update")),
+                Column(Switch("on_create")),
+                Column(Switch("on_delete")),
+            ),
             "description",
             "trigger",
         )
