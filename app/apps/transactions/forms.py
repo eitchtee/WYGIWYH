@@ -538,6 +538,8 @@ class InstallmentPlanForm(forms.ModelForm):
             "notes",
             "installment_start",
             "entities",
+            "add_description_to_transaction",
+            "add_notes_to_transaction",
         ]
         widgets = {
             "account": TomSelect(),
@@ -593,7 +595,9 @@ class InstallmentPlanForm(forms.ModelForm):
                 css_class="form-row",
             ),
             "description",
+            Switch("add_description_to_transaction"),
             "notes",
+            Switch("add_notes_to_transaction"),
             Row(
                 Column("number_of_installments", css_class="form-group col-md-6 mb-0"),
                 Column("installment_start", css_class="form-group col-md-6 mb-0"),
@@ -782,6 +786,7 @@ class RecurringTransactionForm(forms.ModelForm):
             "type",
             "amount",
             "description",
+            "add_description_to_transaction",
             "category",
             "tags",
             "start_date",
@@ -790,6 +795,7 @@ class RecurringTransactionForm(forms.ModelForm):
             "recurrence_type",
             "recurrence_interval",
             "notes",
+            "add_notes_to_transaction",
             "entities",
         ]
         widgets = {
@@ -850,6 +856,7 @@ class RecurringTransactionForm(forms.ModelForm):
                 css_class="form-row",
             ),
             "description",
+            Switch("add_description_to_transaction"),
             "amount",
             Row(
                 Column("category", css_class="form-group col-md-6 mb-0"),
@@ -857,6 +864,7 @@ class RecurringTransactionForm(forms.ModelForm):
                 css_class="form-row",
             ),
             "notes",
+            Switch("add_notes_to_transaction"),
             Row(
                 Column("start_date", css_class="form-group col-md-6 mb-0"),
                 Column("reference_date", css_class="form-group col-md-6 mb-0"),
