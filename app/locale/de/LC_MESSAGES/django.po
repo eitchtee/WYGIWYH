@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-09 21:56+0000\n"
-"PO-Revision-Date: 2025-03-02 02:08+0000\n"
-"Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
+"PO-Revision-Date: 2025-03-10 09:05+0000\n"
+"Last-Translator: Schmitz Schmitz <stefanschmitz@t-online.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
 "app/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.1\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -197,7 +197,7 @@ msgstr "Kontengruppe erfolgreich hinzugefügt"
 #: apps/transactions/views/entities.py:171 apps/transactions/views/tags.py:91
 #: apps/transactions/views/tags.py:171
 msgid "Only the owner can edit this"
-msgstr ""
+msgstr "Nur der Besitzer kann dies bearbeiten"
 
 #: apps/accounts/views/account_groups.py:82
 msgid "Account Group updated successfully"
@@ -208,7 +208,7 @@ msgstr "Kontengruppe erfolgreich aktualisiert"
 #: apps/rules/views.py:154 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
-msgstr ""
+msgstr "Einheit wird nicht länger mit dir geteilt"
 
 #: apps/accounts/views/account_groups.py:114
 msgid "Account Group deleted successfully"
@@ -218,19 +218,15 @@ msgstr "Kontengruppe erfolgreich gelöscht"
 #: apps/accounts/views/accounts.py:169 apps/dca/views.py:129
 #: apps/rules/views.py:178 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
-#, fuzzy
-#| msgid "Service added successfully"
 msgid "Ownership taken successfully"
-msgstr "Dienst erfolgreich hinzugefügt"
+msgstr "Besitzeigenschaft erfolgreich übernommen"
 
 #: apps/accounts/views/account_groups.py:165
 #: apps/accounts/views/accounts.py:119 apps/dca/views.py:159
 #: apps/rules/views.py:208 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
-#, fuzzy
-#| msgid "Transaction added successfully"
 msgid "Configuration saved successfully"
-msgstr "Transaktion erfolgreich hinzugefügt"
+msgstr "Konfiguration erfolgreich gespeichert"
 
 #: apps/accounts/views/accounts.py:44
 msgid "Account added successfully"
@@ -296,45 +292,47 @@ msgstr "Ungültiges Datumsformat. Nutze JJJJ-MM."
 
 #: apps/common/forms.py:24
 msgid "Owner"
-msgstr ""
+msgstr "Besitzer"
 
 #: apps/common/forms.py:27
 msgid ""
 "The owner of this object, if empty all users can see, edit and take "
 "ownership."
 msgstr ""
+"Der Besitzer dieses Objekts, falls leer können alle Nutzer es sehen, "
+"bearbeiten und die Besitzeigenschaft übernehmen."
 
 #: apps/common/forms.py:34
 msgid "Shared with users"
-msgstr ""
+msgstr "Mit Nutzern geteilt"
 
 #: apps/common/forms.py:35
 msgid "Select users to share this object with"
-msgstr ""
+msgstr "Nutzer auswählen, mit dem das Objekt geteilt werden soll"
 
 #: apps/common/forms.py:40
 msgid "Visibility"
-msgstr ""
+msgstr "Sichtbarkeit"
 
 #: apps/common/forms.py:42
 msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
+"Privat: Nur für den Besitzer und geteilte Nutzer sichtbar.<br/>Öffentlich: "
+"Sichtbar für alle Nutzer. Nur bearbeitbar durch Besitzer."
 
 #: apps/common/forms.py:79 apps/users/forms.py:131
 msgid "Save"
 msgstr "Speichern"
 
 #: apps/common/models.py:29
-#, fuzzy
-#| msgid "Activate"
 msgid "Private"
-msgstr "Aktivieren"
+msgstr "Privat"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr ""
+msgstr "Öffentlich"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:9
@@ -773,7 +771,7 @@ msgstr "Eintrag erfolgreich gelöscht"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
 msgid "Users"
-msgstr ""
+msgstr "Nutzer"
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
 #: apps/transactions/models.py:362 templates/includes/navbar.html:57
@@ -1018,10 +1016,8 @@ msgid "Run on update"
 msgstr "Starten bei Aktualisierung"
 
 #: apps/rules/forms.py:23
-#, fuzzy
-#| msgid "Run on update"
 msgid "Run on delete"
-msgstr "Starten bei Aktualisierung"
+msgstr "Starten bei Löschen"
 
 #: apps/rules/forms.py:24
 msgid "If..."
@@ -1437,16 +1433,12 @@ msgid "Installment Amount"
 msgstr "Ratenzahlungs-Wert"
 
 #: apps/transactions/models.py:500 apps/transactions/models.py:719
-#, fuzzy
-#| msgid "Add action to transaction rule"
 msgid "Add description to transactions"
-msgstr "Aktion zu Transaktions-Regeln hinzufügen"
+msgstr "Beschreibung zu Transaktionen hinzufügen"
 
 #: apps/transactions/models.py:503 apps/transactions/models.py:722
-#, fuzzy
-#| msgid "Add action to transaction rule"
 msgid "Add notes to transactions"
-msgstr "Aktion zu Transaktions-Regeln hinzufügen"
+msgstr "Notizen zu Transaktionen hinzufügen"
 
 #: apps/transactions/models.py:661
 msgid "day(s)"
@@ -1907,7 +1899,7 @@ msgstr "Ja, löschen!"
 #: templates/rules/fragments/list.html:56
 #: templates/tags/fragments/table.html:48
 msgid "Take ownership"
-msgstr ""
+msgstr "Besitzeigenschaft übernehmen"
 
 #: templates/account_groups/fragments/list.html:65
 #: templates/accounts/fragments/list.html:70
@@ -1917,7 +1909,7 @@ msgstr ""
 #: templates/rules/fragments/list.html:66
 #: templates/tags/fragments/table.html:58
 msgid "Share"
-msgstr ""
+msgstr "Teilen"
 
 #: templates/account_groups/fragments/list.html:77
 msgid "No account groups"
@@ -1929,10 +1921,8 @@ msgstr "Keine Kontrogruppen"
 #: templates/dca/fragments/strategy/share.html:5
 #: templates/entities/fragments/share.html:5
 #: templates/rules/fragments/share.html:5 templates/tags/fragments/share.html:5
-#, fuzzy
-#| msgid "Settings"
 msgid "Share settings"
-msgstr "Einstellungen"
+msgstr "Einstellungen teilen"
 
 #: templates/accounts/fragments/account_reconciliation.html:6
 msgid "Account Reconciliation"
@@ -2591,7 +2581,7 @@ msgstr "Gesamt"
 
 #: templates/insights/fragments/emergency_fund.html:15
 msgid "You've spent an average of"
-msgstr ""
+msgstr "Deine Ausgaben liegen im Durchschnitt bei"
 
 #: templates/insights/fragments/emergency_fund.html:23
 msgid "on the last 12 months, at this rate you could go by"
@@ -2599,13 +2589,11 @@ msgstr ""
 
 #: templates/insights/fragments/emergency_fund.html:25
 msgid "months without any income."
-msgstr ""
+msgstr "Monate ohne Einnahmen."
 
 #: templates/insights/fragments/emergency_fund.html:34
-#, fuzzy
-#| msgid "current expenses"
 msgid "average expenses"
-msgstr "aktuelle Ausgaben"
+msgstr "durchschnittliche Ausgaben"
 
 #: templates/insights/fragments/emergency_fund.html:48
 #, fuzzy
@@ -2614,10 +2602,8 @@ msgid "liquid total"
 msgstr "Gesamtbilanz"
 
 #: templates/insights/fragments/emergency_fund.html:62
-#, fuzzy
-#| msgid "month(s)"
 msgid "months left"
-msgstr "Monat(e)"
+msgstr "verbleibende Monate"
 
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
@@ -2687,7 +2673,7 @@ msgstr "Letzte Transaktionen"
 
 #: templates/insights/pages/index.html:121
 msgid "Emergency Fund"
-msgstr ""
+msgstr "Notfall-Budget"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
