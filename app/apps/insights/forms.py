@@ -117,12 +117,14 @@ class CategoryForm(forms.Form):
         required=False,
         label=_("Category"),
         empty_label=_("Uncategorized"),
-        queryset=TransactionCategory.objects.filter(active=True),
+        queryset=TransactionCategory.objects.all(),
         widget=TomSelect(clear_button=True),
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields["category"].queryset = TransactionCategory.objects.all()
 
         self.helper = FormHelper()
         self.helper.form_tag = False
