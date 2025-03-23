@@ -38,7 +38,9 @@ def net_worth_current(request):
         transactions_queryset=transactions_account_queryset
     )
 
-    historical_currency_net_worth = calculate_historical_currency_net_worth()
+    historical_currency_net_worth = calculate_historical_currency_net_worth(
+        queryset=transactions_currency_queryset
+    )
 
     labels = (
         list(historical_currency_net_worth.keys())
@@ -71,7 +73,9 @@ def net_worth_current(request):
 
     chart_data_currency_json = json.dumps(chart_data_currency, cls=DjangoJSONEncoder)
 
-    historical_account_balance = calculate_historical_account_balance()
+    historical_account_balance = calculate_historical_account_balance(
+        queryset=transactions_account_queryset
+    )
 
     labels = (
         list(historical_account_balance.keys()) if historical_account_balance else []
@@ -140,7 +144,7 @@ def net_worth_projected(request):
     )
 
     historical_currency_net_worth = calculate_historical_currency_net_worth(
-        is_paid=False
+        queryset=transactions_currency_queryset
     )
 
     labels = (
@@ -174,7 +178,9 @@ def net_worth_projected(request):
 
     chart_data_currency_json = json.dumps(chart_data_currency, cls=DjangoJSONEncoder)
 
-    historical_account_balance = calculate_historical_account_balance(is_paid=False)
+    historical_account_balance = calculate_historical_account_balance(
+        queryset=transactions_account_queryset
+    )
 
     labels = (
         list(historical_account_balance.keys()) if historical_account_balance else []
