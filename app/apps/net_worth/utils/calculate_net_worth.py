@@ -2,25 +2,38 @@ from collections import OrderedDict, defaultdict
 from decimal import Decimal
 
 from dateutil.relativedelta import relativedelta
-from django.db.models import Sum, Min, Max, Case, When, F, Value, DecimalField
+from django.db.models import Sum, Min, Max, Case, When, F, Value, DecimalField, Q
 from django.db.models.functions import TruncMonth
 from django.template.defaultfilters import date as date_filter
 from django.utils import timezone
 
 from apps.accounts.models import Account
+from apps.common.middleware.thread_local import get_current_user
 from apps.currencies.models import Currency
 from apps.transactions.models import Transaction
 
 
-def calculate_historical_currency_net_worth(is_paid=True):
-    transactions_params = {**{k: v for k, v in [("is_paid", True)] if is_paid}}
-
+def calculate_historical_currency_net_worth(queryset):
     # Get all currencies and date range in a single query
-    aggregates = Transaction.objects.aggregate(
+    aggregates = queryset.aggregate(
         min_date=Min("reference_date"),
         max_date=Max("reference_date"),
     )
-    currencies = list(Currency.objects.values_list("name", flat=True))
+
+    user = get_current_user()
+
+    currencies = list(
+        Currency.objects.filter(
+            Q(accounts__visibility="public")
+            | Q(accounts__owner=user)
+            | Q(accounts__shared_with=user)
+            | Q(accounts__visibility="private", accounts__owner=None),
+            accounts__is_archived=False,
+            accounts__isnull=False,
+        )
+        .values_list("name", flat=True)
+        .distinct()
+    )
 
     if not aggregates.get("min_date"):
         start_date = timezone.localdate(timezone.now())
@@ -34,8 +47,7 @@ def calculate_historical_currency_net_worth(is_paid=True):
 
     # Calculate cumulative balances for each account, currency, and month
     cumulative_balances = (
-        Transaction.objects.filter(**transactions_params)
-        .annotate(month=TruncMonth("reference_date"))
+        queryset.annotate(month=TruncMonth("reference_date"))
         .values("account__currency__name", "month")
         .annotate(
             balance=Sum(
@@ -94,15 +106,14 @@ def calculate_historical_currency_net_worth(is_paid=True):
     return historical_net_worth
 
 
-def calculate_historical_account_balance(is_paid=True):
-    transactions_params = {**{k: v for k, v in [("is_paid", True)] if is_paid}}
+def calculate_historical_account_balance(queryset):
     # Get all accounts
     accounts = Account.objects.filter(
         is_archived=False,
     )
 
     # Get the date range
-    date_range = Transaction.objects.filter(**transactions_params).aggregate(
+    date_range = queryset.aggregate(
         min_date=Min("reference_date"), max_date=Max("reference_date")
     )
 
@@ -118,8 +129,7 @@ def calculate_historical_account_balance(is_paid=True):
 
     # Calculate balances for each account and month
     balances = (
-        Transaction.objects.filter(**transactions_params)
-        .annotate(month=TruncMonth("reference_date"))
+        queryset.annotate(month=TruncMonth("reference_date"))
         .values("account", "month")
         .annotate(
             balance=Sum(
