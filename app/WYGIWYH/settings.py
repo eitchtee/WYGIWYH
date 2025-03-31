@@ -397,4 +397,4 @@ PWA_SERVICE_WORKER_PATH = BASE_DIR / "templates" / "pwa" / "serviceworker.js"
 ENABLE_SOFT_DELETE = os.getenv("ENABLE_SOFT_DELETE", "false").lower() == "true"
 KEEP_DELETED_TRANSACTIONS_FOR = int(os.getenv("KEEP_DELETED_ENTRIES_FOR", "365"))
 APP_VERSION = os.getenv("APP_VERSION", "unknown")
-DEMO = os.getenv("DEMO_MODE", "false").lower() == "true"
+DEMO = os.getenv("DEMO", "false").lower() == "true"
