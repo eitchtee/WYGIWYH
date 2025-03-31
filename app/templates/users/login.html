@@ -1,4 +1,6 @@
 {% extends "layouts/base_auth.html" %}
+{% load i18n %}
+{% load settings %}
 {% load crispy_forms_tags %}
 
 {% block title %}Login{% endblock %}
@@ -7,15 +9,26 @@
   <div>
     <div class="container">
       <div class="row vh-100 d-flex justify-content-center align-items-center">
-              <div class="col-md-6 col-xl-4 col-12">
-                  <div class="card shadow-lg">
-                      <div class="card-body">
-                          <h2 class="card-title text-center mb-4">Login</h2>
-                          {% crispy form %}
-                      </div>
-                  </div>
+        <div class="col-md-6 col-xl-4 col-12">
+          {% settings "DEMO" as demo_mode %}
+          {% if demo_mode %}
+            <div class="card shadow mb-3">
+              <div class="card-body">
+                <h1 class="h5 card-title text-center mb-4">{% trans "Welcome to WYGIWYH's demo!" %}</h1>
+                <p>{% trans 'Use the credentials below to login' %}:</p>
+                <p>{% trans 'E-mail' %}: <span class="badge text-bg-secondary user-select-all">demo@demo.com</span></p>
+                <p>{% trans 'Password' %}: <span class="badge text-bg-secondary user-select-all">wygiwyhdemo</span></p>
               </div>
+            </div>
+          {% endif %}
+          <div class="card shadow-lg">
+            <div class="card-body">
+              <h1 class="h2 card-title text-center mb-4">Login</h1>
+              {% crispy form %}
+            </div>
           </div>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}

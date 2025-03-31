@@ -1,3 +1,4 @@
+{% load settings %}
 {% load pwa %}
 {% load formats %}
 {% load i18n %}
@@ -5,43 +6,53 @@
 {% load webpack_loader %}
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-      {% filter site_title %}
-        {% block title %}
-        {% endblock title %}
-      {% endfilter %}
-    </title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    {% filter site_title %}
+      {% block title %}
+      {% endblock title %}
+    {% endfilter %}
+  </title>
 
-    {% include 'includes/head/favicons.html' %}
-    {% progressive_web_app_meta %}
+  {% include 'includes/head/favicons.html' %}
+  {% progressive_web_app_meta %}
 
-    {% include 'includes/styles.html' %}
-    {% block extra_styles %}{% endblock %}
-  
-    {% include 'includes/scripts.html' %}
+  {% include 'includes/styles.html' %}
+  {% block extra_styles %}{% endblock %}
 
-    {% block extra_js_head %}{% endblock %}
-  </head>
-  <body class="font-monospace">
-    <div _="install hide_amounts
+  {% include 'includes/scripts.html' %}
+
+  {% block extra_js_head %}{% endblock %}
+</head>
+<body class="font-monospace">
+<div _="install hide_amounts
             install htmx_error_handler
            {% block body_hyperscript %}{% endblock %}"
-          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-      {% include 'includes/navbar.html' %}
+     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  {% include 'includes/navbar.html' %}
 
-      <div id="content">
-        {% block content %}{% endblock %}
-      </div>
-      
-      {% include 'includes/offcanvas.html' %}
-      {% include 'includes/toasts.html' %}
+  {% settings "DEMO" as demo_mode %}
+  {% if demo_mode %}
+  <div class="px-3 m-0" id="demo-mode-alert" hx-preserve>
+    <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+      <strong>{% trans 'This is a demo!' %}</strong> {% trans 'Any data you add here will be wiped in 24hrs or less' %}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+  </div>
+  {% endif %}
 
-    {% include 'includes/tools/calculator.html' %}
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
 
-    {% block extra_js_body %}{% endblock %}
-  </body>
+  {% include 'includes/offcanvas.html' %}
+  {% include 'includes/toasts.html' %}
+</div>
+
+{% include 'includes/tools/calculator.html' %}
+
+{% block extra_js_body %}{% endblock %}
+</body>
 </html>

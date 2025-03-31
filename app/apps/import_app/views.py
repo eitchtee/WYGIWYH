@@ -13,9 +13,11 @@ from apps.import_app.forms import ImportRunFileUploadForm, ImportProfileForm
 from apps.import_app.models import ImportRun, ImportProfile
 from apps.import_app.services import PresetService
 from apps.import_app.tasks import process_import
+from apps.common.decorators.demo import disabled_on_demo
 
 
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET"])
 def import_presets_list(request):
     presets = PresetService.get_all_presets()
@@ -27,6 +29,7 @@ def import_presets_list(request):
 
 
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def import_profile_index(request):
     return render(
@@ -37,6 +40,7 @@ def import_profile_index(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def import_profile_list(request):
     profiles = ImportProfile.objects.all()
@@ -50,6 +54,7 @@ def import_profile_list(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def import_profile_add(request):
     message = request.POST.get("message", None)
@@ -85,6 +90,7 @@ def import_profile_add(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def import_profile_edit(request, profile_id):
     profile = get_object_or_404(ImportProfile, id=profile_id)
@@ -114,6 +120,7 @@ def import_profile_edit(request, profile_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["DELETE"])
 def import_profile_delete(request, profile_id):
     profile = ImportProfile.objects.get(id=profile_id)
@@ -132,6 +139,7 @@ def import_profile_delete(request, profile_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def import_runs_list(request, profile_id):
     profile = ImportProfile.objects.get(id=profile_id)
@@ -147,6 +155,7 @@ def import_runs_list(request, profile_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def import_run_log(request, profile_id, run_id):
     run = ImportRun.objects.get(profile__id=profile_id, id=run_id)
@@ -160,6 +169,7 @@ def import_run_log(request, profile_id, run_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def import_run_add(request, profile_id):
     profile = ImportProfile.objects.get(id=profile_id)
@@ -202,6 +212,7 @@ def import_run_add(request, profile_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["DELETE"])
 def import_run_delete(request, profile_id, run_id):
     run = ImportRun.objects.get(profile__id=profile_id, id=run_id)

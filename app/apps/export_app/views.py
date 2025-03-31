@@ -41,11 +41,13 @@ from apps.export_app.resources.transactions import (
     RecurringTransactionResource,
 )
 from apps.export_app.resources.users import UserResource
+from apps.common.decorators.demo import disabled_on_demo
 
 logger = logging.getLogger()
 
 
 @login_required
+@disabled_on_demo
 @user_passes_test(lambda u: u.is_superuser)
 @require_http_methods(["GET"])
 def export_index(request):
@@ -53,6 +55,7 @@ def export_index(request):
 
 
 @login_required
+@disabled_on_demo
 @user_passes_test(lambda u: u.is_superuser)
 @require_http_methods(["GET", "POST"])
 def export_form(request):
@@ -182,6 +185,7 @@ def export_form(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @user_passes_test(lambda u: u.is_superuser)
 @require_http_methods(["GET", "POST"])
 def import_form(request):
