@@ -13,4 +13,6 @@ python manage.py migrate
 # Create flag file to signal migrations are complete
 touch /tmp/migrations_complete
 
+python manage.py setup_users
+
 exec gunicorn WYGIWYH.wsgi:application --bind 0.0.0.0:8000 --timeout 600

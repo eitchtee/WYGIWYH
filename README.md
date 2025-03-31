@@ -76,7 +76,7 @@ $ nano .env # or any other editor you want to use
 # Run the app
 $ docker compose up -d
 
-# Create the first admin account
+# Create the first admin account. This isn't required if you set the enviroment variables: ADMIN_EMAIL and ADMIN_PASSWORD.
 $ docker compose exec -it web python manage.py createsuperuser
 ```
 
@@ -129,6 +129,8 @@ To create the first user, open the container's console using Unraid's UI, by cli
 | ENABLE_SOFT_DELETE            | true\|false | false                             | Whether to enable transactions soft delete, if enabled, deleted transactions will remain in the database. Useful for imports and avoiding duplicate entries.                                                                             |
 | KEEP_DELETED_TRANSACTIONS_FOR | int         | 365                               | Time in days to keep soft deleted transactions for. If 0, will keep all transactions indefinitely. Only works if ENABLE_SOFT_DELETE is true.                                                                                             |
 | TASK_WORKERS                  | int         | 1                                 | How many workers to have for async tasks. One should be enough for most use cases                                                                                                                                                        |
+| ADMIN_EMAIL                   | string         | None                              | Automatically creates an admin account with this email. Must have `ADMIN_PASSWORD` also set.                                                                                                                                             |
+| ADMIN_PASSWORD                | string         | None                              | Automatically creates an admin account with this password. Must have `ADMIN_EMAIL` also set.                                                                                                                                             |
 
 # How it works
 
