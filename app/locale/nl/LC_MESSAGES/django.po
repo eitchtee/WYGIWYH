@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-09 21:56+0000\n"
+"POT-Creation-Date: 2025-03-31 05:30+0000\n"
 "PO-Revision-Date: 2025-03-13 07:05+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -190,7 +190,7 @@ msgstr "Rekeninggroep succesvol toegevoegd"
 #: apps/accounts/views/account_groups.py:69
 #: apps/accounts/views/account_groups.py:152 apps/accounts/views/accounts.py:68
 #: apps/accounts/views/accounts.py:106 apps/dca/views.py:63
-#: apps/dca/views.py:146 apps/rules/views.py:99 apps/rules/views.py:195
+#: apps/dca/views.py:146 apps/rules/views.py:105 apps/rules/views.py:205
 #: apps/transactions/views/categories.py:91
 #: apps/transactions/views/categories.py:129
 #: apps/transactions/views/entities.py:91
@@ -205,7 +205,7 @@ msgstr "Rekeninggroep succesvol bijgewerkt"
 
 #: apps/accounts/views/account_groups.py:111
 #: apps/accounts/views/accounts.py:145 apps/dca/views.py:105
-#: apps/rules/views.py:154 apps/transactions/views/categories.py:168
+#: apps/rules/views.py:162 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
 msgstr "Item is niet langer met jouw gedeeld"
@@ -216,14 +216,14 @@ msgstr "Rekeninggroep succesvol verwijderd"
 
 #: apps/accounts/views/account_groups.py:135
 #: apps/accounts/views/accounts.py:169 apps/dca/views.py:129
-#: apps/rules/views.py:178 apps/transactions/views/categories.py:192
+#: apps/rules/views.py:187 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
 msgstr "Eigendom succesvol genomen"
 
 #: apps/accounts/views/account_groups.py:165
 #: apps/accounts/views/accounts.py:119 apps/dca/views.py:159
-#: apps/rules/views.py:208 apps/transactions/views/categories.py:142
+#: apps/rules/views.py:218 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
 msgid "Configuration saved successfully"
 msgstr "Configuratie succesvol opgeslagen"
@@ -644,19 +644,19 @@ msgstr "Wisselkoers succesvol bijgewerkt"
 msgid "Exchange rate deleted successfully"
 msgstr "Wisselkoers succesvol verwijderd"
 
-#: apps/currencies/views/exchange_rates_services.py:46
+#: apps/currencies/views/exchange_rates_services.py:50
 msgid "Service added successfully"
 msgstr "Dienst succesvol toegevoegd"
 
-#: apps/currencies/views/exchange_rates_services.py:74
+#: apps/currencies/views/exchange_rates_services.py:79
 msgid "Service updated successfully"
 msgstr "Dienst succesvol bijgewerkt"
 
-#: apps/currencies/views/exchange_rates_services.py:100
+#: apps/currencies/views/exchange_rates_services.py:106
 msgid "Service deleted successfully"
 msgstr "Dienst succesvol verwijderd"
 
-#: apps/currencies/views/exchange_rates_services.py:115
+#: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
 msgstr "Diensten succesvol in de wachtrij geplaatst"
 
@@ -872,15 +872,15 @@ msgstr "Herstel"
 msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr "Upload een ZIP-bestand of ten minste één CSV-bestand"
 
-#: apps/export_app/views.py:174
+#: apps/export_app/views.py:177
 msgid "You have to select at least one export"
 msgstr "U moet ten minste één export selecteren"
 
-#: apps/export_app/views.py:193
+#: apps/export_app/views.py:197
 msgid "Data restored successfully"
 msgstr "Gegevens succesvol hersteld"
 
-#: apps/export_app/views.py:205
+#: apps/export_app/views.py:209
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
@@ -941,23 +941,23 @@ msgstr "Status"
 msgid "File name"
 msgstr "Bestandsnaam"
 
-#: apps/import_app/views.py:62
+#: apps/import_app/views.py:67
 msgid "Import Profile added successfully"
 msgstr "Importprofiel succesvol toegevoegd"
 
-#: apps/import_app/views.py:97
+#: apps/import_app/views.py:103
 msgid "Import Profile update successfully"
 msgstr "Importprofiel succesvol bijgewerkt"
 
-#: apps/import_app/views.py:123
+#: apps/import_app/views.py:130
 msgid "Import Profile deleted successfully"
 msgstr "Importprofiel succesvol verwijderd"
 
-#: apps/import_app/views.py:185
+#: apps/import_app/views.py:195
 msgid "Import Run queued successfully"
 msgstr "Importrun met succes in de wachtrij geplaatst"
 
-#: apps/import_app/views.py:211
+#: apps/import_app/views.py:222
 msgid "Run deleted successfully"
 msgstr "Run met succes verwijderd"
 
@@ -1174,43 +1174,43 @@ msgstr ""
 msgid "Update or create transaction action"
 msgstr "Bewerk of maak verrichtingsregel actie"
 
-#: apps/rules/views.py:54
+#: apps/rules/views.py:58
 msgid "Rule deactivated successfully"
 msgstr "Regel succesvol uitgeschakeld"
 
-#: apps/rules/views.py:56
+#: apps/rules/views.py:60
 msgid "Rule activated successfully"
 msgstr "Regel succesvol ingeschakeld"
 
-#: apps/rules/views.py:74
+#: apps/rules/views.py:79
 msgid "Rule added successfully"
 msgstr "Regel succesvol toegevoegd"
 
-#: apps/rules/views.py:112
+#: apps/rules/views.py:118
 msgid "Rule updated successfully"
 msgstr "Regel succesvol bijgewerkt"
 
-#: apps/rules/views.py:157
+#: apps/rules/views.py:165
 msgid "Rule deleted successfully"
 msgstr "Regel succesvol verwijderd"
 
-#: apps/rules/views.py:270
+#: apps/rules/views.py:282
 msgid "Action updated successfully"
 msgstr "Actie succesvol bijgewerkt"
 
-#: apps/rules/views.py:300
+#: apps/rules/views.py:313
 msgid "Action deleted successfully"
 msgstr "Actie succesvol verwijderd"
 
-#: apps/rules/views.py:323
+#: apps/rules/views.py:337
 msgid "Update or Create Transaction action added successfully"
 msgstr "Verrichting Bijwerken Of Maken succesvol toegevoegd"
 
-#: apps/rules/views.py:355
+#: apps/rules/views.py:370
 msgid "Update or Create Transaction action updated successfully"
 msgstr "Verrichting Bijwerken Of Maken succesvol bijgewerkt"
 
-#: apps/rules/views.py:384
+#: apps/rules/views.py:400
 msgid "Update or Create Transaction action deleted successfully"
 msgstr "Verrichting Bijwerken Of Maken succesvol verwijderd"
 
@@ -1645,11 +1645,11 @@ msgstr "Rechten"
 msgid "Important dates"
 msgstr "Belangrijke datums"
 
-#: apps/users/forms.py:19 apps/users/models.py:13
+#: apps/users/forms.py:19 apps/users/models.py:13 templates/users/login.html:19
 msgid "E-mail"
 msgstr "E-mailadres"
 
-#: apps/users/forms.py:25
+#: apps/users/forms.py:25 templates/users/login.html:20
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -2516,23 +2516,32 @@ msgstr "Django Beheerder"
 msgid "Calculator"
 msgstr "Rekenmachine"
 
-#: templates/includes/navbar/user_menu.html:12
+#: templates/includes/navbar/user_menu.html:14
 msgid "Settings"
 msgstr "Instellingen"
 
-#: templates/includes/navbar/user_menu.html:39
+#: templates/includes/navbar/user_menu.html:41
 msgid "Clear cache"
 msgstr "Leegmaken"
 
-#: templates/includes/navbar/user_menu.html:43
+#: templates/includes/navbar/user_menu.html:45
 msgid "Logout"
 msgstr "Uitloggen"
 
-#: templates/includes/scripts/hyperscript/htmx_error_handler.html:5
+#: templates/includes/scripts/hyperscript/htmx_error_handler.html:8
+msgid "Access Denied"
+msgstr ""
+
+#: templates/includes/scripts/hyperscript/htmx_error_handler.html:9
+msgid ""
+"You do not have permission to perform this action or access this resource."
+msgstr ""
+
+#: templates/includes/scripts/hyperscript/htmx_error_handler.html:18
 msgid "Something went wrong loading your data"
 msgstr "Er is iets misgegaan bij het laden van uw gegevens"
 
-#: templates/includes/scripts/hyperscript/htmx_error_handler.html:6
+#: templates/includes/scripts/hyperscript/htmx_error_handler.html:19
 msgid "Try reloading the page or check the console for more information."
 msgstr ""
 "Probeer de pagina opnieuw te laden of controleer de console voor meer "
@@ -2702,6 +2711,14 @@ msgstr "Hiermee worden het plan en alle bijbehorende verrichtingen verwijderd"
 #: templates/installment_plans/fragments/table.html:78
 msgid "No installment plans"
 msgstr "Geen afbetalingsplannen"
+
+#: templates/layouts/base.html:40
+msgid "This is a demo!"
+msgstr ""
+
+#: templates/layouts/base.html:40
+msgid "Any data you add here will be wiped in 24hrs or less"
+msgstr ""
 
 #: templates/mini_tools/currency_converter/currency_converter.html:58
 msgid "Invert"
@@ -3018,6 +3035,14 @@ msgstr "Geluiden afspelen"
 #: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
 msgstr "Bedragen tonen"
+
+#: templates/users/login.html:17
+msgid "Welcome to WYGIWYH's demo!"
+msgstr ""
+
+#: templates/users/login.html:18
+msgid "Use the credentials below to login"
+msgstr ""
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
