@@ -51,6 +51,17 @@ Frustrated by the lack of comprehensive options, I set out to build **WYGIWYH** 
 * **Built-in Dollar-Cost Average (DCA) tracker**: Essential for tracking recurring investments, especially for crypto and stocks.
 * **API support for automation**: Seamlessly integrate with existing services to synchronize transactions.
 
+# Demo
+
+You can try WYGIWYH on [wygiwyh-demo.herculino.com](https://wygiwyh-demo.herculino.com/) with the credentials below:
+
+> [!NOTE]
+> E-mail: `demo@demo.com`
+> 
+> Password: `wygiwyhdemo`
+
+Keep in mind that **any data you add will be wiped in 24 hours or less**. And that **most automation features like the API, Rules, Automatic Exchange Rates and Import/Export are disabled**.
+
 # How To Use
 
 To run this application, you'll need [Docker](https://docs.docker.com/engine/install/) with [docker-compose](https://docs.docker.com/compose/install/).
