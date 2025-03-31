@@ -44,9 +44,9 @@ async def remove_expired_sessions(timestamp=None):
         )
 
 
-@app.periodic(cron="0 6 * * *")
+@app.periodic(cron="0 8 * * *")
 @app.task(name="reset_demo_data")
-def reset_demo_data():
+def reset_demo_data(timestamp=None):
     """
     Wipes the database and loads fresh demo data if DEMO mode is active.
     Runs daily at 6:00 AM.
