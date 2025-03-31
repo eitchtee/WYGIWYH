@@ -18,9 +18,11 @@ from apps.rules.models import (
 )
 from apps.common.models import SharedObject
 from apps.common.forms import SharedObjectForm
+from apps.common.decorators.demo import disabled_on_demo
 
 
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET"])
 def rules_index(request):
     return render(
@@ -31,6 +33,7 @@ def rules_index(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET"])
 def rules_list(request):
     transaction_rules = TransactionRule.objects.all().order_by("id")
@@ -43,6 +46,7 @@ def rules_list(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_toggle_activity(request, transaction_rule_id, **kwargs):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
@@ -65,6 +69,7 @@ def transaction_rule_toggle_activity(request, transaction_rule_id, **kwargs):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_add(request, **kwargs):
     if request.method == "POST":
@@ -91,6 +96,7 @@ def transaction_rule_add(request, **kwargs):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_edit(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
@@ -129,6 +135,7 @@ def transaction_rule_edit(request, transaction_rule_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_view(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
@@ -142,6 +149,7 @@ def transaction_rule_view(request, transaction_rule_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["DELETE"])
 def transaction_rule_delete(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
@@ -166,6 +174,7 @@ def transaction_rule_delete(request, transaction_rule_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET"])
 def transaction_rule_take_ownership(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
@@ -187,6 +196,7 @@ def transaction_rule_take_ownership(request, transaction_rule_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_share(request, pk):
     obj = get_object_or_404(TransactionRule, id=pk)
@@ -225,6 +235,7 @@ def transaction_rule_share(request, pk):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_action_add(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
@@ -252,6 +263,7 @@ def transaction_rule_action_add(request, transaction_rule_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_action_edit(request, transaction_rule_action_id):
     transaction_rule_action = get_object_or_404(
@@ -289,6 +301,7 @@ def transaction_rule_action_edit(request, transaction_rule_action_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["DELETE"])
 def transaction_rule_action_delete(request, transaction_rule_action_id):
     transaction_rule_action = get_object_or_404(
@@ -309,6 +322,7 @@ def transaction_rule_action_delete(request, transaction_rule_action_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def update_or_create_transaction_rule_action_add(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
@@ -340,6 +354,7 @@ def update_or_create_transaction_rule_action_add(request, transaction_rule_id):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def update_or_create_transaction_rule_action_edit(request, pk):
     linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)
@@ -374,6 +389,7 @@ def update_or_create_transaction_rule_action_edit(request, pk):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["DELETE"])
 def update_or_create_transaction_rule_action_delete(request, pk):
     linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)

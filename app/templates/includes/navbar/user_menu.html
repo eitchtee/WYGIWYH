@@ -5,6 +5,8 @@
     <i class="fa-solid fa-user"></i>
   </a>
   <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
+    <li class="dropdown-item-text">{{ user.email }}</li>
+    <li><hr class="dropdown-divider"></li>
     <li><a class="dropdown-item"
            hx-get="{% url 'user_settings' %}"
            hx-target="#generic-offcanvas"

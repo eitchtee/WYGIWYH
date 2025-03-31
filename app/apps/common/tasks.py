@@ -1,7 +1,9 @@
 import logging
 
 from asgiref.sync import sync_to_async
+from django.conf import settings
 from django.core import management
+from django.db import DEFAULT_DB_ALIAS
 
 from procrastinate import builtin_tasks
 from procrastinate.contrib.django import app
@@ -40,3 +42,39 @@ async def remove_expired_sessions(timestamp=None):
             "Error while executing 'remove_expired_sessions' task",
             exc_info=True,
         )
+
+
+@app.periodic(cron="0 6 * * *")
+@app.task(name="reset_demo_data")
+def reset_demo_data():
+    """
+    Wipes the database and loads fresh demo data if DEMO mode is active.
+    Runs daily at 6:00 AM.
+    """
+    if not settings.DEMO:
+        return  # Exit if not in demo mode
+
+    logger.info("Demo mode active. Starting daily data reset...")
+
+    try:
+        # 1. Flush the database (wipe all data)
+        logger.info("Flushing the database...")
+        # Using --noinput prevents prompts. Specify database if not default.
+        management.call_command(
+            "flush", "--noinput", database=DEFAULT_DB_ALIAS, verbosity=1
+        )
+        logger.info("Database flushed successfully.")
+
+        # 2. Load data from the fixture
+        fixture_name = "fixtures/demo_data.json"
+        logger.info(f"Loading data from fixture: {fixture_name}...")
+        management.call_command(
+            "loaddata", fixture_name, database=DEFAULT_DB_ALIAS, verbosity=1
+        )
+        logger.info(f"Data loaded successfully from {fixture_name}.")
+
+        logger.info("Daily demo data reset completed.")
+
+    except Exception as e:
+        logger.exception(f"Error during daily demo data reset: {e}")
+        raise

@@ -261,7 +261,10 @@ if DEBUG:
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.DjangoModelPermissions"],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "apps.api.permissions.NotInDemoMode",
+        "rest_framework.permissions.DjangoModelPermissions",
+    ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -394,3 +397,4 @@ PWA_SERVICE_WORKER_PATH = BASE_DIR / "templates" / "pwa" / "serviceworker.js"
 ENABLE_SOFT_DELETE = os.getenv("ENABLE_SOFT_DELETE", "false").lower() == "true"
 KEEP_DELETED_TRANSACTIONS_FOR = int(os.getenv("KEEP_DELETED_ENTRIES_FOR", "365"))
 APP_VERSION = os.getenv("APP_VERSION", "unknown")
+DEMO = os.getenv("DEMO_MODE", "false").lower() == "true"

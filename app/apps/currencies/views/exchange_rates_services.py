@@ -11,9 +11,11 @@ from apps.common.decorators.htmx import only_htmx
 from apps.currencies.forms import ExchangeRateForm, ExchangeRateServiceForm
 from apps.currencies.models import ExchangeRate, ExchangeRateService
 from apps.currencies.tasks import manual_fetch_exchange_rates
+from apps.common.decorators.demo import disabled_on_demo
 
 
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET"])
 def exchange_rates_services_index(request):
     return render(
@@ -24,6 +26,7 @@ def exchange_rates_services_index(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET"])
 def exchange_rates_services_list(request):
     services = ExchangeRateService.objects.all()
@@ -37,6 +40,7 @@ def exchange_rates_services_list(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def exchange_rate_service_add(request):
     if request.method == "POST":
@@ -63,6 +67,7 @@ def exchange_rate_service_add(request):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def exchange_rate_service_edit(request, pk):
     service = get_object_or_404(ExchangeRateService, id=pk)
@@ -91,6 +96,7 @@ def exchange_rate_service_edit(request, pk):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["DELETE"])
 def exchange_rate_service_delete(request, pk):
     service = get_object_or_404(ExchangeRateService, id=pk)
@@ -109,6 +115,7 @@ def exchange_rate_service_delete(request, pk):
 
 @only_htmx
 @login_required
+@disabled_on_demo
 @require_http_methods(["GET"])
 def exchange_rate_service_force_fetch(request):
     manual_fetch_exchange_rates.defer()
