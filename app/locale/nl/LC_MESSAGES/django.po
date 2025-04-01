@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-01 04:05+0000\n"
-"PO-Revision-Date: 2025-03-13 07:05+0000\n"
+"PO-Revision-Date: 2025-04-01 06:07+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -287,10 +287,8 @@ msgid "Ungrouped"
 msgstr "Niet gegroepeerd"
 
 #: apps/common/fields/month_year.py:30
-#, fuzzy
-#| msgid "Invalid date format. Use YYYY-MM."
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
-msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM."
+msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM of JJJJ-MM-DD."
 
 #: apps/common/fields/month_year.py:59
 msgid "Invalid date format. Use YYYY-MM."
@@ -2536,12 +2534,14 @@ msgstr "Uitloggen"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:8
 msgid "Access Denied"
-msgstr ""
+msgstr "Toegang geweigerd"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:9
 msgid ""
 "You do not have permission to perform this action or access this resource."
 msgstr ""
+"Je hebt geen toestemming om deze actie uit te voeren of toegang te krijgen "
+"tot deze bron."
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:18
 msgid "Something went wrong loading your data"
@@ -2720,11 +2720,12 @@ msgstr "Geen afbetalingsplannen"
 
 #: templates/layouts/base.html:40
 msgid "This is a demo!"
-msgstr ""
+msgstr "Dit is een demo!"
 
 #: templates/layouts/base.html:40
 msgid "Any data you add here will be wiped in 24hrs or less"
 msgstr ""
+"Alle gegevens die je hier toevoegt, worden binnen 24 uur of minder gewist"
 
 #: templates/mini_tools/currency_converter/currency_converter.html:58
 msgid "Invert"
@@ -3044,11 +3045,11 @@ msgstr "Bedragen tonen"
 
 #: templates/users/login.html:17
 msgid "Welcome to WYGIWYH's demo!"
-msgstr ""
+msgstr "Welkom bij de demo van WYGIWYH!"
 
 #: templates/users/login.html:18
 msgid "Use the credentials below to login"
-msgstr ""
+msgstr "Gebruik de onderstaande gegevens om in te loggen"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
