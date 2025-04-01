@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-31 05:30+0000\n"
+"POT-Creation-Date: 2025-04-01 04:05+0000\n"
 "PO-Revision-Date: 2025-03-13 07:05+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -286,7 +286,13 @@ msgstr "Fout bij het aanmaken van een nieuwe instantie"
 msgid "Ungrouped"
 msgstr "Niet gegroepeerd"
 
-#: apps/common/fields/month_year.py:23 apps/common/fields/month_year.py:51
+#: apps/common/fields/month_year.py:30
+#, fuzzy
+#| msgid "Invalid date format. Use YYYY-MM."
+msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
+msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM."
+
+#: apps/common/fields/month_year.py:59
 msgid "Invalid date format. Use YYYY-MM."
 msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM."
 

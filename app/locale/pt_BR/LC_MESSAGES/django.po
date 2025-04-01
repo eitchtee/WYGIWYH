@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-31 05:30+0000\n"
+"POT-Creation-Date: 2025-04-01 04:05+0000\n"
 "PO-Revision-Date: 2025-03-31 05:38+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -284,7 +284,13 @@ msgstr "Erro criando nova instância"
 msgid "Ungrouped"
 msgstr "Não agrupado"
 
-#: apps/common/fields/month_year.py:23 apps/common/fields/month_year.py:51
+#: apps/common/fields/month_year.py:30
+#, fuzzy
+#| msgid "Invalid date format. Use YYYY-MM."
+msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
+msgstr "Formato de data inválido. Use AAAA-MM."
+
+#: apps/common/fields/month_year.py:59
 msgid "Invalid date format. Use YYYY-MM."
 msgstr "Formato de data inválido. Use AAAA-MM."
 
@@ -2534,7 +2540,8 @@ msgstr "Acesso Negado"
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:9
 msgid ""
 "You do not have permission to perform this action or access this resource."
-msgstr "Você não tem permissão para executar essa ação ou acessar esse recurso."
+msgstr ""
+"Você não tem permissão para executar essa ação ou acessar esse recurso."
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:18
 msgid "Something went wrong loading your data"
