@@ -1,34 +1,1022 @@
 [
-{
+  {
     "model": "users.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$870000$kUmqeqdenjc2yFS8qbniwS$7qOMXzKG+yFmezdjhptkwuMJlqlZnQHXgAnonWurpBk=",
-        "last_login": "2025-03-31T03:22:25Z",
-        "is_superuser": false,
-        "first_name": "Demo",
-        "last_name": "User",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2025-03-31T03:21:04Z",
-        "email": "demo@demo.com",
-        "groups": [],
-        "user_permissions": []
+      "password": "pbkdf2_sha256$870000$kUmqeqdenjc2yFS8qbniwS$7qOMXzKG+yFmezdjhptkwuMJlqlZnQHXgAnonWurpBk=",
+      "last_login": "2025-03-31T03:22:25Z",
+      "is_superuser": false,
+      "first_name": "Demo",
+      "last_name": "User",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-03-31T03:21:04Z",
+      "email": "demo@demo.com",
+      "groups": [],
+      "user_permissions": []
     }
-},
-{
+  },
+  {
     "model": "users.usersettings",
     "pk": 1,
     "fields": {
-        "user": 1,
-        "hide_amounts": false,
-        "mute_sounds": false,
-        "date_format": "SHORT_DATE_FORMAT",
-        "datetime_format": "SHORT_DATETIME_FORMAT",
-        "number_format": "AA",
-        "language": "auto",
-        "timezone": "auto",
-        "start_page": "MONTHLY_OVERVIEW"
+      "user": 1,
+      "hide_amounts": false,
+      "mute_sounds": false,
+      "date_format": "SHORT_DATE_FORMAT",
+      "datetime_format": "SHORT_DATETIME_FORMAT",
+      "number_format": "AA",
+      "language": "auto",
+      "timezone": "auto",
+      "start_page": "MONTHLY_OVERVIEW"
     }
-}
+  },
+  {
+    "model": "transactions.transactioncategory",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Bitcoin",
+      "mute": false,
+      "active": true,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "transactions.transactioncategory",
+    "pk": 2,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Salary",
+      "mute": false,
+      "active": true,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "transactions.transactioncategory",
+    "pk": 3,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Debt",
+      "mute": false,
+      "active": true,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "transactions.transactioncategory",
+    "pk": 4,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Streaming",
+      "mute": false,
+      "active": true,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "transactions.transactiontag",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Company X",
+      "active": true,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "transactions.transactionentity",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Sister",
+      "active": true,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "account": 3,
+      "type": "EX",
+      "is_paid": true,
+      "date": "2025-03-31",
+      "reference_date": "2025-03-01",
+      "amount": "1000.000000000000000000000000000000",
+      "description": "Bought some bitcoin",
+      "notes": "This is a transfer to buy Bitcoin",
+      "category": 1,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:46:09.858Z",
+      "updated_at": "2025-03-31T15:24:39.515Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 2,
+    "fields": {
+      "owner": 1,
+      "account": 4,
+      "type": "IN",
+      "is_paid": true,
+      "date": "2025-03-31",
+      "reference_date": "2025-03-01",
+      "amount": "0.012000000000000000000000000000",
+      "description": "Bought some bitcoin",
+      "notes": "This is a transfer to buy Bitcoin",
+      "category": 1,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:46:09.881Z",
+      "updated_at": "2025-03-31T15:24:39.530Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 3,
+    "fields": {
+      "owner": 1,
+      "account": 3,
+      "type": "IN",
+      "is_paid": true,
+      "date": "2025-03-31",
+      "reference_date": "2025-03-01",
+      "amount": "20000.000000000000000000000000000000",
+      "description": "My totally real salary",
+      "notes": "",
+      "category": 2,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:47:39.200Z",
+      "updated_at": "2025-03-31T14:47:39.200Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 4,
+    "fields": {
+      "owner": 1,
+      "account": 2,
+      "type": "IN",
+      "is_paid": false,
+      "date": "2025-03-31",
+      "reference_date": "2025-03-01",
+      "amount": "1000.000000000000000000000000000000",
+      "description": "My sister owns me some money, but hasn't paid yet",
+      "notes": "If unpaid, this is a projected income",
+      "category": 3,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:48:43.660Z",
+      "updated_at": "2025-03-31T14:49:01.611Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 5,
+    "fields": {
+      "owner": 1,
+      "account": 2,
+      "type": "IN",
+      "is_paid": true,
+      "date": "2009-01-01",
+      "reference_date": "2009-01-01",
+      "amount": "1000.000000000000000000000000000000",
+      "description": "Very old transaction? No problem",
+      "notes": "",
+      "category": null,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:49:35.099Z",
+      "updated_at": "2025-03-31T14:50:23.535Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 6,
+    "fields": {
+      "owner": 1,
+      "account": 1,
+      "type": "EX",
+      "is_paid": true,
+      "date": "2025-03-01",
+      "reference_date": "2025-04-01",
+      "amount": "20.000000000000000000000000000000",
+      "description": "This transaction happened in one month, but should be counted for the next month",
+      "notes": "Good for credit cards",
+      "category": null,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:51:55.012Z",
+      "updated_at": "2025-03-31T14:51:55.012Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 7,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-03-31",
+      "reference_date": "2025-03-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 1,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.013Z",
+      "updated_at": "2025-03-31T14:53:36.013Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 8,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-04-30",
+      "reference_date": "2025-04-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 2,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.034Z",
+      "updated_at": "2025-03-31T14:53:36.034Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 9,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-05-31",
+      "reference_date": "2025-05-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 3,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.048Z",
+      "updated_at": "2025-03-31T14:53:36.048Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 10,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-06-30",
+      "reference_date": "2025-06-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 4,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.063Z",
+      "updated_at": "2025-03-31T14:53:36.063Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 11,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-07-31",
+      "reference_date": "2025-07-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 5,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.079Z",
+      "updated_at": "2025-03-31T14:53:36.079Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 12,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-08-31",
+      "reference_date": "2025-08-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 6,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.094Z",
+      "updated_at": "2025-03-31T14:53:36.094Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 13,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-09-30",
+      "reference_date": "2025-09-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 7,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.110Z",
+      "updated_at": "2025-03-31T14:53:36.110Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 14,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-10-31",
+      "reference_date": "2025-10-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 8,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.126Z",
+      "updated_at": "2025-03-31T14:53:36.126Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 15,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-11-30",
+      "reference_date": "2025-11-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 9,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.144Z",
+      "updated_at": "2025-03-31T14:53:36.144Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 16,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-12-31",
+      "reference_date": "2025-12-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 10,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.162Z",
+      "updated_at": "2025-03-31T14:53:36.162Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 17,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2026-01-31",
+      "reference_date": "2026-01-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 11,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.178Z",
+      "updated_at": "2025-03-31T14:53:36.178Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 18,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2026-02-05",
+      "reference_date": "2026-02-01",
+      "amount": "10.000000000000000000000000000000",
+      "description": "I've bought something in 12 installments",
+      "notes": "",
+      "category": null,
+      "installment_plan": 1,
+      "installment_id": 12,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:53:36.195Z",
+      "updated_at": "2025-03-31T14:53:36.195Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 19,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-03-31",
+      "reference_date": "2025-03-01",
+      "amount": "24.990000000000000000000000000000",
+      "description": "Netflix",
+      "notes": "",
+      "category": 4,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": 1,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:55:18.754Z",
+      "updated_at": "2025-03-31T14:55:18.754Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 20,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-04-30",
+      "reference_date": "2025-04-01",
+      "amount": "24.990000000000000000000000000000",
+      "description": "Netflix",
+      "notes": "",
+      "category": 4,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": 1,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:55:18.771Z",
+      "updated_at": "2025-03-31T14:55:18.771Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 21,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-05-31",
+      "reference_date": "2025-05-01",
+      "amount": "24.990000000000000000000000000000",
+      "description": "Netflix",
+      "notes": "",
+      "category": 4,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": 1,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:55:18.783Z",
+      "updated_at": "2025-03-31T14:55:18.783Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 22,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-06-30",
+      "reference_date": "2025-06-01",
+      "amount": "24.990000000000000000000000000000",
+      "description": "Netflix",
+      "notes": "",
+      "category": 4,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": 1,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:55:18.795Z",
+      "updated_at": "2025-03-31T14:55:18.795Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 23,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-07-31",
+      "reference_date": "2025-07-01",
+      "amount": "24.990000000000000000000000000000",
+      "description": "Netflix",
+      "notes": "",
+      "category": 4,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": 1,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:55:18.807Z",
+      "updated_at": "2025-03-31T14:55:18.807Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 24,
+    "fields": {
+      "owner": 1,
+      "account": 6,
+      "type": "EX",
+      "is_paid": false,
+      "date": "2025-08-31",
+      "reference_date": "2025-08-01",
+      "amount": "24.990000000000000000000000000000",
+      "description": "Netflix",
+      "notes": "",
+      "category": 4,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": 1,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:55:18.818Z",
+      "updated_at": "2025-03-31T14:55:18.818Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 25,
+    "fields": {
+      "owner": 1,
+      "account": 1,
+      "type": "IN",
+      "is_paid": true,
+      "date": "2025-03-31",
+      "reference_date": "2025-03-01",
+      "amount": "1020.000000000000000000000000000000",
+      "description": "Balance reconciliation",
+      "notes": "",
+      "category": null,
+      "installment_plan": null,
+      "installment_id": null,
+      "recurring_transaction": null,
+      "internal_note": "",
+      "internal_id": null,
+      "deleted": false,
+      "created_at": "2025-03-31T14:55:52.905Z",
+      "updated_at": "2025-03-31T14:56:11.264Z",
+      "deleted_at": null,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.installmentplan",
+    "pk": 1,
+    "fields": {
+      "account": 6,
+      "type": "EX",
+      "description": "I've bought something in 12 installments",
+      "number_of_installments": 12,
+      "installment_start": 1,
+      "installment_total_number": 12,
+      "start_date": "2025-03-31",
+      "reference_date": "2025-03-31",
+      "end_date": "2026-02-28",
+      "recurrence": "monthly",
+      "installment_amount": "10.000000000000000000000000000000",
+      "category": null,
+      "notes": "",
+      "add_description_to_transaction": true,
+      "add_notes_to_transaction": false,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "transactions.recurringtransaction",
+    "pk": 1,
+    "fields": {
+      "is_paused": false,
+      "account": 6,
+      "type": "EX",
+      "amount": "24.990000000000000000000000000000",
+      "description": "Netflix",
+      "category": 4,
+      "notes": "Netflix is a recurring transaction",
+      "reference_date": "2025-03-31",
+      "start_date": "2025-03-31",
+      "end_date": null,
+      "recurrence_type": "month",
+      "recurrence_interval": 1,
+      "last_generated_date": "2025-08-12",
+      "last_generated_reference_date": "2025-08-12",
+      "add_description_to_transaction": true,
+      "add_notes_to_transaction": false,
+      "tags": [],
+      "entities": []
+    }
+  },
+  {
+    "model": "currencies.currency",
+    "pk": 1,
+    "fields": {
+      "code": "USD",
+      "name": "Dollar",
+      "decimal_places": 2,
+      "prefix": "$ ",
+      "suffix": "",
+      "exchange_currency": null
+    }
+  },
+  {
+    "model": "currencies.currency",
+    "pk": 2,
+    "fields": {
+      "code": "BTC",
+      "name": "Bitcoin",
+      "decimal_places": 8,
+      "prefix": "₿ ",
+      "suffix": "",
+      "exchange_currency": 1
+    }
+  },
+  {
+    "model": "currencies.currency",
+    "pk": 3,
+    "fields": {
+      "code": "ETH",
+      "name": "Ethereum",
+      "decimal_places": 8,
+      "prefix": "⟠ ",
+      "suffix": "",
+      "exchange_currency": 1
+    }
+  },
+  {
+    "model": "currencies.exchangerate",
+    "pk": 1,
+    "fields": {
+      "from_currency": 3,
+      "to_currency": 1,
+      "rate": "1880.610000000000000000000000000000",
+      "date": "2025-03-31T14:42:00Z"
+    }
+  },
+  {
+    "model": "currencies.exchangerate",
+    "pk": 2,
+    "fields": {
+      "from_currency": 2,
+      "to_currency": 1,
+      "rate": "83825.100000000000000000000000000000",
+      "date": "2025-03-31T14:43:00Z"
+    }
+  },
+  {
+    "model": "dca.dcastrategy",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Bitcoin",
+      "target_currency": 2,
+      "payment_currency": 1,
+      "notes": "",
+      "created_at": "2025-03-31T15:24:09.226Z",
+      "updated_at": "2025-03-31T15:24:09.226Z",
+      "shared_with": []
+    }
+  },
+  {
+    "model": "dca.dcaentry",
+    "pk": 1,
+    "fields": {
+      "strategy": 1,
+      "date": "2025-03-31",
+      "amount_paid": "1000.000000000000000000000000000000",
+      "amount_received": "0.012000000000000000000000000000",
+      "expense_transaction": 1,
+      "income_transaction": 2,
+      "notes": "",
+      "created_at": "2025-03-31T15:24:39.537Z",
+      "updated_at": "2025-03-31T15:24:39.537Z"
+    }
+  },
+  {
+    "model": "accounts.accountgroup",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Coinbase",
+      "shared_with": []
+    }
+  },
+  {
+    "model": "accounts.accountgroup",
+    "pk": 2,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Bank of America",
+      "shared_with": []
+    }
+  },
+  {
+    "model": "accounts.account",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Savings",
+      "group": 2,
+      "currency": 1,
+      "exchange_currency": null,
+      "is_asset": true,
+      "is_archived": false,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "accounts.account",
+    "pk": 2,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Cash",
+      "group": null,
+      "currency": 1,
+      "exchange_currency": null,
+      "is_asset": false,
+      "is_archived": false,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "accounts.account",
+    "pk": 3,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Checking",
+      "group": 2,
+      "currency": 1,
+      "exchange_currency": null,
+      "is_asset": false,
+      "is_archived": false,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "accounts.account",
+    "pk": 4,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Bitcoin",
+      "group": 1,
+      "currency": 2,
+      "exchange_currency": null,
+      "is_asset": true,
+      "is_archived": false,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "accounts.account",
+    "pk": 5,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Ethereum",
+      "group": 1,
+      "currency": 3,
+      "exchange_currency": null,
+      "is_asset": true,
+      "is_archived": false,
+      "shared_with": []
+    }
+  },
+  {
+    "model": "accounts.account",
+    "pk": 6,
+    "fields": {
+      "owner": 1,
+      "visibility": "private",
+      "name": "Credit card",
+      "group": 2,
+      "currency": 1,
+      "exchange_currency": null,
+      "is_asset": false,
+      "is_archived": false,
+      "shared_with": []
+    }
+  }
 ]
