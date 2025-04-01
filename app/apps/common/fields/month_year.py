@@ -20,7 +20,15 @@ class MonthYearModelField(models.DateField):
             # Set the day to 1
             return date.replace(day=1).date()
         except ValueError:
-            raise ValidationError(_("Invalid date format. Use YYYY-MM."))
+            try:
+                # Also accept YYYY-MM-DD format (for loaddata)
+                return (
+                    datetime.datetime.strptime(value, "%Y-%m-%d").replace(day=1).date()
+                )
+            except ValueError:
+                raise ValidationError(
+                    _("Invalid date format. Use YYYY-MM or YYYY-MM-DD.")
+                )
 
     def formfield(self, **kwargs):
         kwargs["widget"] = MonthYearWidget
