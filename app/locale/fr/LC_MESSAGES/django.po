@@ -8,18 +8,20 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-01 04:05+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-04-02 15:07+0000\n"
+"Last-Translator: H4ndrew <arun.s.ezhilarasan@gmail.com>\n"
+"Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
+"app/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
-msgstr ""
+msgstr "Nom de groupe"
 
 #: apps/accounts/forms.py:40 apps/accounts/forms.py:98
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:91
@@ -30,7 +32,7 @@ msgstr ""
 #: apps/transactions/forms.py:672 apps/transactions/forms.py:704
 #: apps/transactions/forms.py:739 apps/transactions/forms.py:891
 msgid "Update"
-msgstr ""
+msgstr "Mise à jour"
 
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:106
 #: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:61
@@ -57,15 +59,15 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/rules/fragments/list.html:9 templates/tags/fragments/list.html:9
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: apps/accounts/forms.py:57 templates/accounts/fragments/list.html:26
 msgid "Group"
-msgstr ""
+msgstr "Groupe"
 
 #: apps/accounts/forms.py:115
 msgid "New balance"
-msgstr ""
+msgstr "Nouveau solde"
 
 #: apps/accounts/forms.py:121 apps/dca/forms.py:85 apps/dca/forms.py:92
 #: apps/insights/forms.py:118 apps/rules/forms.py:174 apps/rules/forms.py:189
@@ -76,7 +78,7 @@ msgstr ""
 #: apps/transactions/models.py:488 apps/transactions/models.py:686
 #: templates/insights/fragments/category_overview/index.html:9
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #: apps/accounts/forms.py:128 apps/dca/forms.py:101 apps/dca/forms.py:109
 #: apps/export_app/forms.py:44 apps/export_app/forms.py:135
@@ -89,7 +91,7 @@ msgstr ""
 #: templates/includes/navbar.html:108 templates/tags/fragments/list.html:5
 #: templates/tags/pages/index.html:4
 msgid "Tags"
-msgstr ""
+msgstr "Balises"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
@@ -107,51 +109,54 @@ msgstr ""
 #: templates/rules/fragments/list.html:26
 #: templates/tags/fragments/table.html:16
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: apps/accounts/models.py:18 apps/accounts/models.py:33
 msgid "Account Group"
-msgstr ""
+msgstr "Groupe de comptes"
 
 #: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:5
 #: templates/account_groups/pages/index.html:4
 #: templates/includes/navbar.html:118
 msgid "Account Groups"
-msgstr ""
+msgstr "Groupes de comptes"
 
 #: apps/accounts/models.py:39 apps/currencies/models.py:39
 #: templates/accounts/fragments/list.html:27
 msgid "Currency"
-msgstr ""
+msgstr "Devise"
 
 #: apps/accounts/models.py:45 apps/currencies/models.py:27
 #: templates/accounts/fragments/list.html:28
 msgid "Exchange Currency"
-msgstr ""
+msgstr "Devise d'échange"
 
 #: apps/accounts/models.py:50 apps/currencies/models.py:32
 msgid "Default currency for exchange calculations"
-msgstr ""
+msgstr "Devise par défaut pour le calcul de change"
 
 #: apps/accounts/models.py:55
 msgid "Asset account"
-msgstr ""
+msgstr "Compte d'actif"
 
 #: apps/accounts/models.py:57
 msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
 msgstr ""
+"Les comptes d'actifs contribue à votre Valeur Nette mais pas à votre mois."
 
 #: apps/accounts/models.py:62 templates/accounts/fragments/list.html:30
 #: templates/categories/fragments/list.html:24
 #: templates/entities/fragments/list.html:24
 #: templates/tags/fragments/list.html:24
 msgid "Archived"
-msgstr ""
+msgstr "Archivé"
 
 #: apps/accounts/models.py:63
 msgid "Archived accounts don't show up nor count towards your net worth"
 msgstr ""
+"Les comptes archivés ne sont ni affichés ni comptabilisés dans votre valeur "
+"nette"
 
 #: apps/accounts/models.py:70 apps/rules/forms.py:166 apps/rules/forms.py:179
 #: apps/rules/models.py:30 apps/rules/models.py:242
@@ -159,7 +164,7 @@ msgstr ""
 #: apps/transactions/forms.py:756 apps/transactions/models.py:278
 #: apps/transactions/models.py:448 apps/transactions/models.py:668
 msgid "Account"
-msgstr ""
+msgstr "Compte"
 
 #: apps/accounts/models.py:71 apps/export_app/forms.py:20
 #: apps/export_app/forms.py:132 apps/transactions/filters.py:53
@@ -170,15 +175,17 @@ msgstr ""
 #: templates/transactions/fragments/summary.html:12
 #: templates/transactions/pages/transactions.html:72
 msgid "Accounts"
-msgstr ""
+msgstr "Comptes"
 
 #: apps/accounts/models.py:84
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr ""
+"La devise de change ne peut pas être identique à la devise principal du "
+"compte."
 
 #: apps/accounts/views/account_groups.py:44
 msgid "Account Group added successfully"
-msgstr ""
+msgstr "Groupe de compte ajouté avec succès"
 
 #: apps/accounts/views/account_groups.py:69
 #: apps/accounts/views/account_groups.py:152 apps/accounts/views/accounts.py:68
@@ -190,257 +197,262 @@ msgstr ""
 #: apps/transactions/views/entities.py:171 apps/transactions/views/tags.py:91
 #: apps/transactions/views/tags.py:171
 msgid "Only the owner can edit this"
-msgstr ""
+msgstr "Seul le propriétaire peut modifier ceci"
 
 #: apps/accounts/views/account_groups.py:82
 msgid "Account Group updated successfully"
-msgstr ""
+msgstr "Groupe de compte mis à jour avec succès"
 
 #: apps/accounts/views/account_groups.py:111
 #: apps/accounts/views/accounts.py:145 apps/dca/views.py:105
 #: apps/rules/views.py:162 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
-msgstr ""
+msgstr "Cette objet n'est plus partagé avec vous"
 
 #: apps/accounts/views/account_groups.py:114
 msgid "Account Group deleted successfully"
-msgstr ""
+msgstr "Groupe de compte supprimé avec succès"
 
 #: apps/accounts/views/account_groups.py:135
 #: apps/accounts/views/accounts.py:169 apps/dca/views.py:129
 #: apps/rules/views.py:187 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
-msgstr ""
+msgstr "Propriété acquise avec succès"
 
 #: apps/accounts/views/account_groups.py:165
 #: apps/accounts/views/accounts.py:119 apps/dca/views.py:159
 #: apps/rules/views.py:218 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
 msgid "Configuration saved successfully"
-msgstr ""
+msgstr "Configuration sauvegardé avec succès"
 
 #: apps/accounts/views/accounts.py:44
 msgid "Account added successfully"
-msgstr ""
+msgstr "Compte ajouté avec succès"
 
 #: apps/accounts/views/accounts.py:81
 msgid "Account updated successfully"
-msgstr ""
+msgstr "Compte mis à jour avec succès"
 
 #: apps/accounts/views/accounts.py:148
 msgid "Account deleted successfully"
-msgstr ""
+msgstr "Compte supprimé avec succès"
 
 #: apps/accounts/views/balance.py:77
 msgid "Balance reconciliation"
-msgstr ""
+msgstr "Rapprochement des soldes"
 
 #: apps/accounts/views/balance.py:85
 msgid "Account balances have been reconciled successfully"
-msgstr ""
+msgstr "Les soldes de compte ont été réconciliés avec succès"
 
 #: apps/api/fields/transactions.py:27
 msgid "Category with this ID does not exist."
-msgstr ""
+msgstr "Aucune catégorie avec cet ID n'existe."
 
 #: apps/api/fields/transactions.py:37
 msgid "Invalid category data. Provide an ID or name."
-msgstr ""
+msgstr "Donnée de catégorie invalide. Veuillez fournir un ID ou un nom."
 
 #: apps/api/fields/transactions.py:67
 msgid "Tag with this ID does not exist."
-msgstr ""
+msgstr "Aucune balise avec cet ID n'existe."
 
 #: apps/api/fields/transactions.py:77
 msgid "Invalid tag data. Provide an ID or name."
-msgstr ""
+msgstr "Donnée de balise invalide. Veuillez fournir un ID ou un nom."
 
 #: apps/api/fields/transactions.py:102
 msgid "Entity with this ID does not exist."
-msgstr ""
+msgstr "Aucune entité avec cet ID n'existe."
 
 #: apps/api/fields/transactions.py:112
 msgid "Invalid entity data. Provide an ID or name."
-msgstr ""
+msgstr "Donnée d'entité invalide. Veuillez fournir un ID ou nom."
 
 #: apps/api/serializers/transactions.py:191
 msgid "Either 'date' or 'reference_date' must be provided."
-msgstr ""
+msgstr "Une 'date' ou 'reference_date' doit être fourni."
 
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:143
 msgid "Error creating new instance"
-msgstr ""
+msgstr "Erreur lors de la création d'une nouvelle instance"
 
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
 msgid "Ungrouped"
-msgstr ""
+msgstr "Dégroupé"
 
 #: apps/common/fields/month_year.py:30
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
-msgstr ""
+msgstr "Format de date invalide. Utilisez AAAA-MM ou AAAA-MM-JJ."
 
 #: apps/common/fields/month_year.py:59
 msgid "Invalid date format. Use YYYY-MM."
-msgstr ""
+msgstr "Format de date invalide. Utilisez AAAA-MM."
 
 #: apps/common/forms.py:24
 msgid "Owner"
-msgstr ""
+msgstr "Propriétaire"
 
 #: apps/common/forms.py:27
 msgid ""
 "The owner of this object, if empty all users can see, edit and take "
 "ownership."
 msgstr ""
+"Le propriétaire de cet objet, si vide tout les utilisateurs peuvent voir, "
+"modifier et en acquérir la propriété."
 
 #: apps/common/forms.py:34
 msgid "Shared with users"
-msgstr ""
+msgstr "Partagé avec les utilisateurs"
 
 #: apps/common/forms.py:35
 msgid "Select users to share this object with"
-msgstr ""
+msgstr "Sélectionnez les utilisateurs avec lesquels partager cet objet"
 
 #: apps/common/forms.py:40
 msgid "Visibility"
-msgstr ""
+msgstr "Visibilité"
 
 #: apps/common/forms.py:42
 msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
+"Privé : Visible uniquement pour le propriétaire et les utilisateurs "
+"partagés. Seulement modifiable par le propriétaire.<br/> Publique : Visible "
+"par tous. Seulement modifiable par le propriétaire."
 
 #: apps/common/forms.py:79 apps/users/forms.py:131
 msgid "Save"
-msgstr ""
+msgstr "Sauvegarder"
 
 #: apps/common/models.py:29
 msgid "Private"
-msgstr ""
+msgstr "Privé"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr ""
+msgstr "Publique"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:9
 msgid "today"
-msgstr ""
+msgstr "aujourd'hui"
 
 #: apps/common/templatetags/natural.py:22
 msgid "tomorrow"
-msgstr ""
+msgstr "demain"
 
 #: apps/common/templatetags/natural.py:24
 msgid "yesterday"
-msgstr ""
+msgstr "hier"
 
 #: apps/common/templatetags/natural.py:26
 msgid "last 7 days"
-msgstr ""
+msgstr "7 derniers jours"
 
 #: apps/common/templatetags/natural.py:28
 msgid "in the next 7 days"
-msgstr ""
+msgstr "Dans les 7 prochains jours"
 
 #: apps/common/templatetags/natural.py:31
 #, python-format
 msgid "%(years)s year ago"
 msgid_plural "%(years)s years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "il y a %(years)s an"
+msgstr[1] "il y a %(years)s ans"
 
 #: apps/common/templatetags/natural.py:37
 #, python-format
 msgid "%(months)s month ago"
 msgid_plural "%(months)s months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "il y a %(months)s mois"
+msgstr[1] "il y a %(months)s mois"
 
 #: apps/common/templatetags/natural.py:41
 #, python-format
 msgid "%(weeks)s week ago"
 msgid_plural "%(weeks)s weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "il y a %(weeks)s semaine"
+msgstr[1] "il y a %(weeks)s semaines"
 
 #: apps/common/templatetags/natural.py:46
 #, python-format
 msgid "in %(years)s year"
 msgid_plural "in %(years)s years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dans %(years)s an"
+msgstr[1] "dans %(years)s ans"
 
 #: apps/common/templatetags/natural.py:51
 #, python-format
 msgid "in %(months)s month"
 msgid_plural "in %(months)s months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dans %(months)s mois"
+msgstr[1] "dans %(months)s mois"
 
 #: apps/common/templatetags/natural.py:56
 #, python-format
 msgid "in %(weeks)s week"
 msgid_plural "in %(weeks)s weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "dans %(weeks)s semaine"
+msgstr[1] "dans %(weeks)s semaines"
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
-msgstr ""
+msgstr "Succès"
 
 #: apps/common/templatetags/toast_bg.py:36
 msgid "Warning"
-msgstr ""
+msgstr "Avertissement"
 
 #: apps/common/templatetags/toast_bg.py:38
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: apps/common/templatetags/toast_bg.py:40
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: apps/common/views.py:110
 msgid "Cache cleared successfully"
-msgstr ""
+msgstr "Cache vidé avec succès"
 
 #: apps/common/widgets/datepicker.py:53 apps/common/widgets/datepicker.py:206
 #: apps/common/widgets/datepicker.py:264
 msgid "Today"
-msgstr ""
+msgstr "Aujourd'hui"
 
 #: apps/common/widgets/datepicker.py:139
 msgid "Now"
-msgstr ""
+msgstr "Maintenant"
 
 #: apps/common/widgets/tom_select.py:11
 msgid "Remove"
-msgstr ""
+msgstr "Enlever"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:174
 #: templates/monthly_overview/pages/overview.html:172
 #: templates/transactions/pages/transactions.html:17
 msgid "Clear"
-msgstr ""
+msgstr "Vider"
 
 #: apps/common/widgets/tom_select.py:16
 msgid "No results..."
-msgstr ""
+msgstr "Pas de résultats..."
 
 #: apps/currencies/forms.py:17 apps/currencies/models.py:22
 msgid "Prefix"
-msgstr ""
+msgstr "Préfixe"
 
 #: apps/currencies/forms.py:18 apps/currencies/models.py:23
 msgid "Suffix"
-msgstr ""
+msgstr "Suffixe"
 
 #: apps/currencies/forms.py:69 apps/dca/models.py:158 apps/rules/forms.py:169
 #: apps/rules/forms.py:182 apps/rules/models.py:33 apps/rules/models.py:254
@@ -450,19 +462,19 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:10
 #: templates/exchange_rates_services/fragments/table.html:10
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: apps/currencies/models.py:14
 msgid "Currency Code"
-msgstr ""
+msgstr "Code de devise"
 
 #: apps/currencies/models.py:16
 msgid "Currency Name"
-msgstr ""
+msgstr "Nom de devise"
 
 #: apps/currencies/models.py:20
 msgid "Decimal Places"
-msgstr ""
+msgstr "Décimales"
 
 #: apps/currencies/models.py:40 apps/export_app/forms.py:26
 #: apps/export_app/forms.py:133 apps/transactions/filters.py:60
@@ -473,58 +485,58 @@ msgstr ""
 #: templates/transactions/fragments/summary.html:8
 #: templates/transactions/pages/transactions.html:59
 msgid "Currencies"
-msgstr ""
+msgstr "Devises"
 
 #: apps/currencies/models.py:49
 msgid "Currency cannot have itself as exchange currency."
-msgstr ""
+msgstr "La devise ne peut pas être identique à la devise d'échange."
 
 #: apps/currencies/models.py:60
 msgid "From Currency"
-msgstr ""
+msgstr "Devise de départ"
 
 #: apps/currencies/models.py:66
 msgid "To Currency"
-msgstr ""
+msgstr "Devise d'arrivée"
 
 #: apps/currencies/models.py:69 apps/currencies/models.py:74
 msgid "Exchange Rate"
-msgstr ""
+msgstr "Taux de change"
 
 #: apps/currencies/models.py:71
 msgid "Date and Time"
-msgstr ""
+msgstr "Date et Heure"
 
 #: apps/currencies/models.py:75 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:126
 msgid "Exchange Rates"
-msgstr ""
+msgstr "Taux de changes"
 
 #: apps/currencies/models.py:87
 msgid "From and To currencies cannot be the same."
-msgstr ""
+msgstr "Les devises de départ et d'arrivée ne peuvent pas être identiques."
 
 #: apps/currencies/models.py:102
 msgid "On"
-msgstr ""
+msgstr "Le"
 
 #: apps/currencies/models.py:103
 msgid "Every X hours"
-msgstr ""
+msgstr "Toutes les X heures"
 
 #: apps/currencies/models.py:104
 msgid "Not on"
-msgstr ""
+msgstr "Pas le"
 
 #: apps/currencies/models.py:106
 msgid "Service Name"
-msgstr ""
+msgstr "Nom du Service"
 
 #: apps/currencies/models.py:108
 msgid "Service Type"
-msgstr ""
+msgstr "Type de Service"
 
 #: apps/currencies/models.py:110 apps/transactions/models.py:202
 #: apps/transactions/models.py:226 apps/transactions/models.py:250
@@ -533,123 +545,131 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:21
 #: templates/tags/fragments/list.html:21
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 #: apps/currencies/models.py:115
 msgid "API Key"
-msgstr ""
+msgstr "Clé API"
 
 #: apps/currencies/models.py:116
 msgid "API key for the service (if required)"
-msgstr ""
+msgstr "Clé API pour le service (si nécessaire)"
 
 #: apps/currencies/models.py:121
 msgid "Interval Type"
-msgstr ""
+msgstr "Type d'intervalle"
 
 #: apps/currencies/models.py:125
 msgid "Interval"
-msgstr ""
+msgstr "Intervalle"
 
 #: apps/currencies/models.py:128
 msgid "Last Successful Fetch"
-msgstr ""
+msgstr "Dernière récupération avec succès"
 
 #: apps/currencies/models.py:133
 msgid "Target Currencies"
-msgstr ""
+msgstr "Devises cibles"
 
 #: apps/currencies/models.py:135
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 msgstr ""
+"Sélectionnez les devises pour récupérer leur taux de changes. Les taux "
+"seront récupérés pour chaque devises par rapport à leur devise d'échange."
 
 #: apps/currencies/models.py:143
 msgid "Target Accounts"
-msgstr ""
+msgstr "Comptes cibles"
 
 #: apps/currencies/models.py:145
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr ""
+"Sélectionnez les comptes pour récupérer leur taux de change. Les taux seront "
+"récupérés pour chaque compte par rapport à leur devise d'échange."
 
 #: apps/currencies/models.py:152
 msgid "Exchange Rate Service"
-msgstr ""
+msgstr "Service de taux de change"
 
 #: apps/currencies/models.py:153
 msgid "Exchange Rate Services"
-msgstr ""
+msgstr "Services de taux de change"
 
 #: apps/currencies/models.py:205
 msgid "'Every X hours' interval type requires a positive integer."
-msgstr ""
+msgstr "'Toutes les X heures' l'intervalle requiert un entier positif."
 
 #: apps/currencies/models.py:214
 msgid "'Every X hours' interval must be between 1 and 24."
-msgstr ""
+msgstr "'Toutes les X heures' l'intervalle doit être compris entre 1 et 24."
 
 #: apps/currencies/models.py:228
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
+"Format d'heure invalide. Utilisez les heures séparé par virgule (0-23) et/ou "
+"une plage (ex : '1-5,8,10-12')."
 
 #: apps/currencies/models.py:239
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
 msgstr ""
+"Format invalide. Veuillez vérifier les prérequis pour le type d'intervalle "
+"sélectionné."
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
-msgstr ""
+msgstr "Devise ajouté avec succès"
 
 #: apps/currencies/views/currencies.py:70
 msgid "Currency updated successfully"
-msgstr ""
+msgstr "Devise mise à jour avec succès"
 
 #: apps/currencies/views/currencies.py:96
 msgid "Currency deleted successfully"
-msgstr ""
+msgstr "Devise supprimé avec succès"
 
 #: apps/currencies/views/exchange_rates.py:89
 msgid "Exchange rate added successfully"
-msgstr ""
+msgstr "Taux de change ajouté avec succès"
 
 #: apps/currencies/views/exchange_rates.py:117
 msgid "Exchange rate updated successfully"
-msgstr ""
+msgstr "Taux de change mis à jour avec succès"
 
 #: apps/currencies/views/exchange_rates.py:143
 msgid "Exchange rate deleted successfully"
-msgstr ""
+msgstr "Taux de change supprimé avec succès"
 
 #: apps/currencies/views/exchange_rates_services.py:50
 msgid "Service added successfully"
-msgstr ""
+msgstr "Service ajouté avec succès"
 
 #: apps/currencies/views/exchange_rates_services.py:79
 msgid "Service updated successfully"
-msgstr ""
+msgstr "Service mis à jour avec succès"
 
 #: apps/currencies/views/exchange_rates_services.py:106
 msgid "Service deleted successfully"
-msgstr ""
+msgstr "Service supprimé avec succès"
 
 #: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
-msgstr ""
+msgstr "Services ajouté à la file avec succès"
 
 #: apps/dca/forms.py:65 apps/dca/forms.py:164
 msgid "Create transaction"
-msgstr ""
+msgstr "Créer une transaction"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:278
 msgid "From Account"
-msgstr ""
+msgstr "Compte originataire"
 
 #: apps/dca/forms.py:76 apps/transactions/forms.py:283
 msgid "To Account"
