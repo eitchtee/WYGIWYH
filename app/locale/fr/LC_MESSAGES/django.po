@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-01 04:05+0000\n"
-"PO-Revision-Date: 2025-04-02 15:07+0000\n"
+"PO-Revision-Date: 2025-04-02 17:07+0000\n"
 "Last-Translator: H4ndrew <arun.s.ezhilarasan@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
@@ -669,112 +669,112 @@ msgstr "Créer une transaction"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:278
 msgid "From Account"
-msgstr "Compte originataire"
+msgstr "Compte originateur"
 
 #: apps/dca/forms.py:76 apps/transactions/forms.py:283
 msgid "To Account"
-msgstr ""
+msgstr "Compte bénéficiaire"
 
 #: apps/dca/forms.py:116 apps/dca/models.py:171
 msgid "Expense Transaction"
-msgstr ""
+msgstr "Transaction de dépense"
 
 #: apps/dca/forms.py:120 apps/dca/forms.py:130
 msgid "Type to search for a transaction to link to this entry"
-msgstr ""
+msgstr "Ecrivez pour rechercher une transaction à lier avec cette entrée"
 
 #: apps/dca/forms.py:126 apps/dca/models.py:179
 msgid "Income Transaction"
-msgstr ""
+msgstr "Transaction entrante"
 
 #: apps/dca/forms.py:210
 msgid "Link transaction"
-msgstr ""
+msgstr "Lié transaction"
 
 #: apps/dca/forms.py:297 apps/dca/forms.py:298 apps/dca/forms.py:303
 #: apps/dca/forms.py:307
 msgid "You must provide an account."
-msgstr ""
+msgstr "Vous devez fournir un compte."
 
 #: apps/dca/forms.py:312 apps/transactions/forms.py:445
 msgid "From and To accounts must be different."
-msgstr ""
+msgstr "Le compte originateur et le compte bénéficiaire doivent être différent."
 
 #: apps/dca/forms.py:326
 #, python-format
 msgid "DCA for %(strategy_name)s"
-msgstr ""
+msgstr "DCA pour %(strategy_name)s"
 
 #: apps/dca/models.py:16
 msgid "Target Currency"
-msgstr ""
+msgstr "Devise cible"
 
 #: apps/dca/models.py:22
 msgid "Payment Currency"
-msgstr ""
+msgstr "Devise de paiement"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:173
 #: apps/rules/forms.py:188 apps/rules/models.py:37 apps/rules/models.py:270
 #: apps/transactions/forms.py:347 apps/transactions/models.py:301
 #: apps/transactions/models.py:497 apps/transactions/models.py:696
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #: apps/dca/models.py:34
 msgid "DCA Strategy"
-msgstr ""
+msgstr "Stratégie DCA"
 
 #: apps/dca/models.py:35 apps/export_app/forms.py:153
 msgid "DCA Strategies"
-msgstr ""
+msgstr "Stratégies DCA"
 
 #: apps/dca/models.py:156
 msgid "Strategy"
-msgstr ""
+msgstr "Stratégie"
 
 #: apps/dca/models.py:160 templates/dca/fragments/strategy/details.html:54
 msgid "Amount Paid"
-msgstr ""
+msgstr "Somme payée"
 
 #: apps/dca/models.py:163 templates/dca/fragments/strategy/details.html:53
 msgid "Amount Received"
-msgstr ""
+msgstr "Somme reçue"
 
 #: apps/dca/models.py:186
 msgid "DCA Entry"
-msgstr ""
+msgstr "Entrée DCA"
 
 #: apps/dca/models.py:187 apps/export_app/forms.py:154
 msgid "DCA Entries"
-msgstr ""
+msgstr "Entrées DCA"
 
 #: apps/dca/views.py:39
 msgid "DCA Strategy added successfully"
-msgstr ""
+msgstr "Stratégie DCA ajouté avec succès"
 
 #: apps/dca/views.py:76
 msgid "DCA Strategy updated successfully"
-msgstr ""
+msgstr "Stratégie DCA mise à jour avec succès"
 
 #: apps/dca/views.py:108
 msgid "DCA strategy deleted successfully"
-msgstr ""
+msgstr "Stratégie DCA supprimé avec succès"
 
 #: apps/dca/views.py:238
 msgid "Entry added successfully"
-msgstr ""
+msgstr "Entrée ajoutée avec succès"
 
 #: apps/dca/views.py:265
 msgid "Entry updated successfully"
-msgstr ""
+msgstr "Entrée mise à jour avec succès"
 
 #: apps/dca/views.py:291
 msgid "Entry deleted successfully"
-msgstr ""
+msgstr "Entrée supprimée avec succès"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
 #: apps/transactions/models.py:362 templates/includes/navbar.html:57
@@ -783,13 +783,13 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Transactions"
 
 #: apps/export_app/forms.py:38 apps/export_app/forms.py:134
 #: apps/transactions/filters.py:67 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:106
 msgid "Categories"
-msgstr ""
+msgstr "Catégories"
 
 #: apps/export_app/forms.py:50 apps/export_app/forms.py:136
 #: apps/rules/forms.py:178 apps/rules/forms.py:187 apps/rules/models.py:40
@@ -800,21 +800,21 @@ msgstr ""
 #: apps/transactions/models.py:693 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:110
 msgid "Entities"
-msgstr ""
+msgstr "Entités"
 
 #: apps/export_app/forms.py:56 apps/export_app/forms.py:140
 #: apps/transactions/models.py:730 templates/includes/navbar.html:74
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
-msgstr ""
+msgstr "Transactions récurrentes"
 
 #: apps/export_app/forms.py:62 apps/export_app/forms.py:138
 #: apps/transactions/models.py:511 templates/includes/navbar.html:72
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
-msgstr ""
+msgstr "Plans d'installation"
 
 #: apps/export_app/forms.py:74 apps/export_app/forms.py:143
 #: templates/exchange_rates_services/fragments/list.html:6
