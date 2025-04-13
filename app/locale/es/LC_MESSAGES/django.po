@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 06:46+0000\n"
+"POT-Creation-Date: 2025-04-13 15:49+0000\n"
 "PO-Revision-Date: 2025-04-13 02:40+0000\n"
 "Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -80,7 +80,7 @@ msgstr "New balance"
 #: apps/transactions/forms.py:40 apps/transactions/forms.py:303
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
-#: apps/transactions/models.py:488 apps/transactions/models.py:686
+#: apps/transactions/models.py:488 apps/transactions/models.py:688
 #: templates/insights/fragments/category_overview/index.html:10
 #: templates/insights/fragments/category_overview/index.html:215
 #, fuzzy
@@ -94,7 +94,7 @@ msgstr "Category"
 #: apps/transactions/forms.py:48 apps/transactions/forms.py:319
 #: apps/transactions/forms.py:327 apps/transactions/forms.py:503
 #: apps/transactions/forms.py:764 apps/transactions/models.py:311
-#: apps/transactions/models.py:490 apps/transactions/models.py:690
+#: apps/transactions/models.py:490 apps/transactions/models.py:692
 #: templates/includes/navbar.html:108 templates/tags/fragments/list.html:5
 #: templates/tags/pages/index.html:4
 #, fuzzy
@@ -178,7 +178,7 @@ msgstr "Archived accounts don't show up nor count towards your net worth"
 #: apps/rules/models.py:30 apps/rules/models.py:242
 #: apps/transactions/forms.py:60 apps/transactions/forms.py:495
 #: apps/transactions/forms.py:756 apps/transactions/models.py:278
-#: apps/transactions/models.py:448 apps/transactions/models.py:668
+#: apps/transactions/models.py:448 apps/transactions/models.py:670
 #, fuzzy
 msgid "Account"
 msgstr "Account"
@@ -835,7 +835,7 @@ msgstr "Payment Currency"
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:173
 #: apps/rules/forms.py:188 apps/rules/models.py:37 apps/rules/models.py:270
 #: apps/transactions/forms.py:347 apps/transactions/models.py:301
-#: apps/transactions/models.py:497 apps/transactions/models.py:696
+#: apps/transactions/models.py:497 apps/transactions/models.py:698
 #, fuzzy
 msgid "Notes"
 msgstr "Notes"
@@ -933,14 +933,14 @@ msgstr "Categories"
 #: apps/transactions/forms.py:56 apps/transactions/forms.py:518
 #: apps/transactions/forms.py:779 apps/transactions/models.py:261
 #: apps/transactions/models.py:316 apps/transactions/models.py:493
-#: apps/transactions/models.py:693 templates/entities/fragments/list.html:5
+#: apps/transactions/models.py:695 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:110
 #, fuzzy
 msgid "Entities"
 msgstr "Entities"
 
 #: apps/export_app/forms.py:56 apps/export_app/forms.py:140
-#: apps/transactions/models.py:730 templates/includes/navbar.html:74
+#: apps/transactions/models.py:732 templates/includes/navbar.html:74
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 #, fuzzy
@@ -1233,7 +1233,7 @@ msgstr "Operator"
 
 #: apps/rules/forms.py:167 apps/rules/forms.py:180 apps/rules/models.py:31
 #: apps/rules/models.py:246 apps/transactions/models.py:285
-#: apps/transactions/models.py:453 apps/transactions/models.py:674
+#: apps/transactions/models.py:453 apps/transactions/models.py:676
 #, fuzzy
 msgid "Type"
 msgstr "Type"
@@ -1252,14 +1252,14 @@ msgstr "Paid"
 #: apps/rules/models.py:258 apps/transactions/forms.py:68
 #: apps/transactions/forms.py:334 apps/transactions/forms.py:524
 #: apps/transactions/models.py:289 apps/transactions/models.py:471
-#: apps/transactions/models.py:698
+#: apps/transactions/models.py:700
 #, fuzzy
 msgid "Reference Date"
 msgstr "Reference Date"
 
 #: apps/rules/forms.py:171 apps/rules/forms.py:184 apps/rules/models.py:35
 #: apps/rules/models.py:262 apps/transactions/models.py:294
-#: apps/transactions/models.py:679 templates/insights/fragments/sankey.html:95
+#: apps/transactions/models.py:681 templates/insights/fragments/sankey.html:95
 #, fuzzy
 msgid "Amount"
 msgstr "Amount"
@@ -1267,7 +1267,7 @@ msgstr "Amount"
 #: apps/rules/forms.py:172 apps/rules/forms.py:185 apps/rules/models.py:14
 #: apps/rules/models.py:36 apps/rules/models.py:266
 #: apps/transactions/forms.py:338 apps/transactions/models.py:299
-#: apps/transactions/models.py:455 apps/transactions/models.py:682
+#: apps/transactions/models.py:455 apps/transactions/models.py:684
 #, fuzzy
 msgid "Description"
 msgstr "Description"
@@ -1605,7 +1605,7 @@ msgstr "Expense"
 msgid "Installment Plan"
 msgstr "Installment Plan"
 
-#: apps/transactions/models.py:336 apps/transactions/models.py:729
+#: apps/transactions/models.py:336 apps/transactions/models.py:731
 #, fuzzy
 msgid "Recurring Transaction"
 msgstr "Recurring Transaction"
@@ -1676,12 +1676,12 @@ msgstr "Installment Start"
 msgid "The installment number to start counting from"
 msgstr "The installment number to start counting from"
 
-#: apps/transactions/models.py:469 apps/transactions/models.py:702
+#: apps/transactions/models.py:469 apps/transactions/models.py:704
 #, fuzzy
 msgid "Start Date"
 msgstr "Start Date"
 
-#: apps/transactions/models.py:473 apps/transactions/models.py:703
+#: apps/transactions/models.py:473 apps/transactions/models.py:705
 #, fuzzy
 msgid "End Date"
 msgstr "End Date"
@@ -1696,58 +1696,58 @@ msgstr "Recurrence"
 msgid "Installment Amount"
 msgstr "Installment Amount"
 
-#: apps/transactions/models.py:500 apps/transactions/models.py:719
+#: apps/transactions/models.py:500 apps/transactions/models.py:721
 #, fuzzy
 msgid "Add description to transactions"
 msgstr "Add description to transactions"
 
-#: apps/transactions/models.py:503 apps/transactions/models.py:722
+#: apps/transactions/models.py:503 apps/transactions/models.py:724
 #, fuzzy
 msgid "Add notes to transactions"
 msgstr "Add notes to transactions"
 
-#: apps/transactions/models.py:661
+#: apps/transactions/models.py:663
 #, fuzzy
 msgid "day(s)"
 msgstr "day(s)"
 
-#: apps/transactions/models.py:662
+#: apps/transactions/models.py:664
 #, fuzzy
 msgid "week(s)"
 msgstr "week(s)"
 
-#: apps/transactions/models.py:663
+#: apps/transactions/models.py:665
 #, fuzzy
 msgid "month(s)"
 msgstr "month(s)"
 
-#: apps/transactions/models.py:664
+#: apps/transactions/models.py:666
 #, fuzzy
 msgid "year(s)"
 msgstr "year(s)"
 
-#: apps/transactions/models.py:666
+#: apps/transactions/models.py:668
 #: templates/recurring_transactions/fragments/list.html:24
 #, fuzzy
 msgid "Paused"
 msgstr "Paused"
 
-#: apps/transactions/models.py:705
+#: apps/transactions/models.py:707
 #, fuzzy
 msgid "Recurrence Type"
 msgstr "Recurrence Type"
 
-#: apps/transactions/models.py:708
+#: apps/transactions/models.py:710
 #, fuzzy
 msgid "Recurrence Interval"
 msgstr "Recurrence Interval"
 
-#: apps/transactions/models.py:712
+#: apps/transactions/models.py:714
 #, fuzzy
 msgid "Last Generated Date"
 msgstr "Last Generated Date"
 
-#: apps/transactions/models.py:715
+#: apps/transactions/models.py:717
 #, fuzzy
 msgid "Last Generated Reference Date"
 msgstr "Last Generated Reference Date"
