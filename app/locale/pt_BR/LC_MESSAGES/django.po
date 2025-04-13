@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 15:49+0000\n"
+"POT-Creation-Date: 2025-04-13 22:01+0000\n"
 "PO-Revision-Date: 2025-04-13 08:16+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -31,6 +31,7 @@ msgstr "Nome do grupo"
 #: apps/transactions/forms.py:269 apps/transactions/forms.py:629
 #: apps/transactions/forms.py:672 apps/transactions/forms.py:704
 #: apps/transactions/forms.py:739 apps/transactions/forms.py:891
+#: apps/users/forms.py:210 apps/users/forms.py:372
 msgid "Update"
 msgstr "Atualizar"
 
@@ -42,8 +43,8 @@ msgstr "Atualizar"
 #: apps/transactions/forms.py:187 apps/transactions/forms.py:211
 #: apps/transactions/forms.py:637 apps/transactions/forms.py:680
 #: apps/transactions/forms.py:712 apps/transactions/forms.py:747
-#: apps/transactions/forms.py:899
-#: templates/account_groups/fragments/list.html:9
+#: apps/transactions/forms.py:899 apps/users/forms.py:218
+#: apps/users/forms.py:380 templates/account_groups/fragments/list.html:9
 #: templates/accounts/fragments/list.html:9
 #: templates/categories/fragments/list.html:9
 #: templates/currencies/fragments/list.html:9
@@ -58,6 +59,7 @@ msgstr "Atualizar"
 #: templates/mini_tools/unit_price_calculator.html:162
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/rules/fragments/list.html:9 templates/tags/fragments/list.html:9
+#: templates/users/fragments/list.html:10
 msgid "Add"
 msgstr "Adicionar"
 
@@ -109,6 +111,7 @@ msgstr "Tags"
 #: templates/recurring_transactions/fragments/table.html:18
 #: templates/rules/fragments/list.html:26
 #: templates/tags/fragments/table.html:16
+#: templates/users/fragments/list.html:29
 msgid "Name"
 msgstr "Nome"
 
@@ -326,7 +329,7 @@ msgstr ""
 "Somente editável pelo proprietário.<br/>Público: Exibido para todos os "
 "usuários. Somente editável pelo proprietário."
 
-#: apps/common/forms.py:79 apps/users/forms.py:131
+#: apps/common/forms.py:79 apps/users/forms.py:135
 msgid "Save"
 msgstr "Salvar"
 
@@ -417,7 +420,7 @@ msgstr "Erro"
 msgid "Info"
 msgstr "Informação"
 
-#: apps/common/views.py:110
+#: apps/common/views.py:111
 msgid "Cache cleared successfully"
 msgstr "Cache limpo com sucesso"
 
@@ -542,7 +545,7 @@ msgstr "Tipo de Serviço"
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
 #: templates/recurring_transactions/fragments/list.html:21
-#: templates/tags/fragments/list.html:21
+#: templates/tags/fragments/list.html:21 templates/users/fragments/list.html:28
 msgid "Active"
 msgstr "Ativo"
 
@@ -774,6 +777,8 @@ msgid "Entry deleted successfully"
 msgstr "Entrada apagada com sucesso"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
+#: templates/includes/navbar.html:147 templates/users/fragments/list.html:6
+#: templates/users/pages/index.html:4
 msgid "Users"
 msgstr "Usuários"
 
@@ -1649,41 +1654,41 @@ msgstr "Permissões"
 msgid "Important dates"
 msgstr "Datas importantes"
 
-#: apps/users/forms.py:19 apps/users/models.py:13 templates/users/login.html:19
+#: apps/users/forms.py:23 apps/users/models.py:13 templates/users/login.html:19
 msgid "E-mail"
 msgstr "E-mail"
 
-#: apps/users/forms.py:25 templates/users/login.html:20
+#: apps/users/forms.py:29 templates/users/login.html:20
 msgid "Password"
 msgstr "Senha"
 
-#: apps/users/forms.py:33
+#: apps/users/forms.py:37
 msgid "Invalid e-mail or password"
 msgstr "E-mail ou senha inválidos"
 
-#: apps/users/forms.py:34
+#: apps/users/forms.py:38
 msgid "This account is deactivated"
 msgstr "Essa conta está desativada"
 
-#: apps/users/forms.py:50 apps/users/forms.py:63 apps/users/forms.py:85
+#: apps/users/forms.py:54 apps/users/forms.py:67 apps/users/forms.py:89
 #: templates/monthly_overview/pages/overview.html:153
 #: templates/transactions/pages/transactions.html:35
 msgid "Default"
 msgstr "Padrão"
 
-#: apps/users/forms.py:91 apps/users/models.py:41
+#: apps/users/forms.py:95 apps/users/models.py:41
 msgid "Date Format"
 msgstr "Formato de Data"
 
-#: apps/users/forms.py:96 apps/users/models.py:46
+#: apps/users/forms.py:100 apps/users/models.py:46
 msgid "Datetime Format"
 msgstr "Formato de Data e Hora"
 
-#: apps/users/forms.py:102 apps/users/models.py:49
+#: apps/users/forms.py:106 apps/users/models.py:49
 msgid "Number Format"
 msgstr "Formato de Número"
 
-#: apps/users/forms.py:137
+#: apps/users/forms.py:141
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1693,6 +1698,66 @@ msgstr ""
 "Isso altera o idioma (se disponível) e a forma como os números e as datas "
 "são exibidos\n"
 "Considere ajudar a traduzir WYGIWYH para seu idioma em %(translation_link)s"
+
+#: apps/users/forms.py:150
+#, fuzzy
+#| msgid "Password"
+msgid "New Password"
+msgstr "Senha"
+
+#: apps/users/forms.py:153
+msgid "Leave blank to keep the current password."
+msgstr ""
+
+#: apps/users/forms.py:156
+msgid "Confirm New Password"
+msgstr ""
+
+#: apps/users/forms.py:168 apps/users/forms.py:329
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: apps/users/forms.py:171 apps/users/forms.py:332
+msgid ""
+"Designates that this user has all permissions without explicitly assigning "
+"them."
+msgstr ""
+
+#: apps/users/forms.py:242
+msgid "This email address is already in use by another account."
+msgstr ""
+
+#: apps/users/forms.py:250
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: apps/users/forms.py:252
+msgid "Please confirm your new password."
+msgstr ""
+
+#: apps/users/forms.py:254
+msgid "Please enter the new password first."
+msgstr ""
+
+#: apps/users/forms.py:274
+msgid "You cannot deactivate your own account using this form."
+msgstr ""
+
+#: apps/users/forms.py:287
+msgid "Cannot remove status from the last superuser."
+msgstr ""
+
+#: apps/users/forms.py:293
+msgid "You cannot remove your own superuser status using this form."
+msgstr ""
+
+#: apps/users/forms.py:390
+#, fuzzy
+#| msgid "A value for this field already exists in the rule."
+msgid "A user with this email address already exists."
+msgstr "Já existe um valor para esse campo na regra."
 
 #: apps/users/models.py:27 templates/includes/navbar.html:28
 msgid "Yearly by currency"
@@ -1734,25 +1799,37 @@ msgstr "Fuso horário"
 msgid "Start page"
 msgstr "Página inicial"
 
-#: apps/users/views.py:62
+#: apps/users/views.py:67
 msgid "Transaction amounts are now hidden"
 msgstr "Os valores das transações agora estão ocultos"
 
-#: apps/users/views.py:65
+#: apps/users/views.py:70
 msgid "Transaction amounts are now displayed"
 msgstr "Os valores das transações agora estão sendo exibidos"
 
-#: apps/users/views.py:83
+#: apps/users/views.py:88
 msgid "Sounds are now muted"
 msgstr "Os sons agora estão silenciados"
 
-#: apps/users/views.py:86
+#: apps/users/views.py:91
 msgid "Sounds will now play"
 msgstr "Os sons agora serão reproduzidos"
 
-#: apps/users/views.py:102
+#: apps/users/views.py:107
 msgid "Your settings have been updated"
 msgstr "Suas configurações foram atualizadas"
+
+#: apps/users/views.py:151
+#, fuzzy
+#| msgid "Rule added successfully"
+msgid "Item added successfully"
+msgstr "Regra adicionada com sucesso"
+
+#: apps/users/views.py:182
+#, fuzzy
+#| msgid "Rule updated successfully"
+msgid "Item updated successfully"
+msgstr "Regra atualizada com sucesso"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
@@ -1776,6 +1853,7 @@ msgstr "Editar grupo de conta"
 #: templates/recurring_transactions/fragments/table.html:25
 #: templates/rules/fragments/list.html:33
 #: templates/tags/fragments/table.html:23
+#: templates/users/fragments/list.html:38
 msgid "Actions"
 msgstr "Ações"
 
@@ -1798,6 +1876,7 @@ msgstr "Ações"
 #: templates/rules/fragments/transaction_rule/view.html:47
 #: templates/rules/fragments/transaction_rule/view.html:80
 #: templates/tags/fragments/table.html:28
+#: templates/users/fragments/list.html:43
 msgid "Edit"
 msgstr "Editar"
 
@@ -2521,15 +2600,19 @@ msgstr "Gerenciar"
 msgid "Automation"
 msgstr "Automação"
 
-#: templates/includes/navbar.html:150
+#: templates/includes/navbar.html:145
+msgid "Admin"
+msgstr ""
+
+#: templates/includes/navbar.html:154
 msgid "Only use this if you know what you're doing"
 msgstr "Só use isso se você souber o que está fazendo"
 
-#: templates/includes/navbar.html:151
+#: templates/includes/navbar.html:155
 msgid "Django Admin"
 msgstr "Django Admin"
 
-#: templates/includes/navbar.html:160
+#: templates/includes/navbar.html:165
 msgid "Calculator"
 msgstr "Calculadora"
 
@@ -2537,11 +2620,17 @@ msgstr "Calculadora"
 msgid "Settings"
 msgstr "Configurações"
 
-#: templates/includes/navbar/user_menu.html:41
+#: templates/includes/navbar/user_menu.html:19
+#, fuzzy
+#| msgid "Edit import profile"
+msgid "Edit profile"
+msgstr "Editar perfil de importação"
+
+#: templates/includes/navbar/user_menu.html:46
 msgid "Clear cache"
 msgstr "Limpar cache"
 
-#: templates/includes/navbar/user_menu.html:45
+#: templates/includes/navbar/user_menu.html:50
 msgid "Logout"
 msgstr "Sair"
 
@@ -3038,6 +3127,38 @@ msgstr "Transações apagadas"
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
 msgid "Unchanged"
 msgstr "Inalterado"
+
+#: templates/users/fragments/add.html:5
+#, fuzzy
+#| msgid "Add new"
+msgid "Add user"
+msgstr "Adicionar novo"
+
+#: templates/users/fragments/edit.html:5
+#, fuzzy
+#| msgid "Edit category"
+msgid "Edit user"
+msgstr "Editar categoria"
+
+#: templates/users/fragments/list.html:30
+#, fuzzy
+#| msgid "E-mail"
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/users/fragments/list.html:31
+msgid "Superuser"
+msgstr ""
+
+#: templates/users/fragments/list.html:51
+msgid "Impersonate"
+msgstr ""
+
+#: templates/users/fragments/list.html:80
+#, fuzzy
+#| msgid "Users"
+msgid "No users"
+msgstr "Usuários"
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
