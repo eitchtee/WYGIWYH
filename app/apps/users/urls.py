@@ -22,4 +22,24 @@ urlpatterns = [
         views.update_settings,
         name="user_settings",
     ),
+    path(
+        "users/",
+        views.users_index,
+        name="users_index",
+    ),
+    path(
+        "users/list/",
+        views.users_list,
+        name="users_list",
+    ),
+    path(
+        "user/add/",
+        views.user_add,
+        name="user_add",
+    ),
+    path(
+        "user/<int:pk>/edit/",
+        views.user_edit,
+        name="user_edit",
+    ),
 ]

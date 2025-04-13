@@ -15,10 +15,11 @@ from cachalot.api import invalidate
 
 from apps.common.decorators.htmx import only_htmx
 from apps.transactions.models import Transaction
+from apps.common.decorators.user import htmx_login_required
 
 
 @only_htmx
-@login_required
+@htmx_login_required
 @require_http_methods(["GET"])
 def toasts(request):
     return render(request, "common/fragments/toasts.html")
