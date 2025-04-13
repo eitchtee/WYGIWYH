@@ -574,6 +574,7 @@ class InstallmentPlan(models.Model):
                 installment_plan=self,
                 installment_id=i,
                 notes=self.notes if self.add_notes_to_transaction else "",
+                owner=self.account.owner,
             )
             new_transaction.tags.set(self.tags.all())
             new_transaction.entities.set(self.entities.all())
@@ -640,6 +641,7 @@ class InstallmentPlan(models.Model):
                     installment_plan=self,
                     installment_id=i,
                     notes=self.notes if self.add_notes_to_transaction else "",
+                    owner=self.account.owner,
                 )
                 new_transaction.tags.set(self.tags.all())
                 new_transaction.entities.set(self.entities.all())
@@ -775,6 +777,7 @@ class RecurringTransaction(models.Model):
             is_paid=False,
             recurring_transaction=self,
             notes=self.notes if self.add_notes_to_transaction else "",
+            owner=self.account.owner,
         )
         if self.tags.exists():
             created_transaction.tags.set(self.tags.all())
