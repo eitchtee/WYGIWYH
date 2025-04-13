@@ -6,6 +6,7 @@ window.TomSelect = function createDynamicTomSelect(element) {
     // Basic configuration
     const config = {
         plugins: {},
+        maxOptions: null,
 
         // Extract 'create' option from data attribute
         create: element.dataset.create === 'true',
