@@ -1,68 +1,226 @@
 {% load i18n %}
 
-<div hx-get="{% url 'category_overview' %}" hx-trigger="updated from:window" class="show-loading" hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
+<div hx-get="{% url 'category_overview' %}" hx-trigger="updated from:window" class="show-loading" hx-swap="outerHTML"
+     hx-include="#picker-form, #picker-type">
   {% if total_table %}
-  <div class="table-responsive">
-    <table class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th scope="col">{% trans 'Category' %}</th>
-        <th scope="col">{% trans 'Income' %}</th>
-        <th scope="col">{% trans 'Expense' %}</th>
-        <th scope="col">{% trans 'Total' %}</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for category in total_table.values %}
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
         <tr>
-          <th>{% if category.name %}{{ category.name }}{% else %}{% trans 'Uncategorized' %}{% endif %}</th>
-          <td>
-            {% for currency in category.currencies.values %}
-              {% if currency.total_income != 0 %}
-              <c-amount.display
-                  :amount="currency.total_income"
-                  :prefix="currency.currency.prefix"
-                  :suffix="currency.currency.suffix"
-                  :decimal_places="currency.currency.decimal_places"
-                  color="green"></c-amount.display>
-              {% else %}
-                <div>-</div>
-              {% endif %}
-            {% endfor %}
-          </td>
-          <td>
-            {% for currency in category.currencies.values %}
-              {% if currency.total_expense != 0 %}
-              <c-amount.display
-                  :amount="currency.total_expense"
-                  :prefix="currency.currency.prefix"
-                  :suffix="currency.currency.suffix"
-                  :decimal_places="currency.currency.decimal_places"
-                  color="red"></c-amount.display>
-              {% else %}
-                <div>-</div>
-              {% endif %}
-            {% endfor %}
-          </td>
-          <td>
-            {% for currency in category.currencies.values %}
-              {% if currency.total_final != 0 %}
-              <c-amount.display
-                  :amount="currency.total_final"
-                  :prefix="currency.currency.prefix"
-                  :suffix="currency.currency.suffix"
-                  :decimal_places="currency.currency.decimal_places"
-                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
-              {% else %}
-                <div>-</div>
-              {% endif %}
-            {% endfor %}
-          </td>
+          <th scope="col">{% trans 'Category' %}</th>
+          <th scope="col">{% trans 'Income' %}</th>
+          <th scope="col">{% trans 'Expense' %}</th>
+          <th scope="col">{% trans 'Total' %}</th>
         </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+        {% for category in total_table.values %}
+          <tr>
+            <th>{% if category.name %}{{ category.name }}{% else %}{% trans 'Uncategorized' %}{% endif %}</th>
+            <td>
+              {% for currency in category.currencies.values %}
+                {% if currency.total_income != 0 %}
+                  <c-amount.display
+                      :amount="currency.total_income"
+                      :prefix="currency.currency.prefix"
+                      :suffix="currency.currency.suffix"
+                      :decimal_places="currency.currency.decimal_places"
+                      color="green"></c-amount.display>
+                {% else %}
+                  <div>-</div>
+                {% endif %}
+              {% endfor %}
+            </td>
+            <td>
+              {% for currency in category.currencies.values %}
+                {% if currency.total_expense != 0 %}
+                  <c-amount.display
+                      :amount="currency.total_expense"
+                      :prefix="currency.currency.prefix"
+                      :suffix="currency.currency.suffix"
+                      :decimal_places="currency.currency.decimal_places"
+                      color="red"></c-amount.display>
+                {% else %}
+                  <div>-</div>
+                {% endif %}
+              {% endfor %}
+            </td>
+            <td>
+              {% for currency in category.currencies.values %}
+                {% if currency.total_final != 0 %}
+                  <c-amount.display
+                      :amount="currency.total_final"
+                      :prefix="currency.currency.prefix"
+                      :suffix="currency.currency.suffix"
+                      :decimal_places="currency.currency.decimal_places"
+                      color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+                {% else %}
+                  <div>-</div>
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-4">
+      <div class="chart-container" _="init call setupChart() end" style="position: relative; height:90vh; width:100%">
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+
+    {{ total_table|json_script:"categoryOverviewData" }}
+
+    <script>
+        function setupChart() {
+            var rawData = JSON.parse(document.getElementById('categoryOverviewData').textContent);
+
+            // --- Dynamic Data Processing ---
+            var categories = [];
+            var currencyDetails = {}; // Stores details like { BRL: {code: 'BRL', name: 'Real', ...}, ... }
+            var currencyData = {};    // Stores data arrays like { BRL: [val1, null, val3,...], ... }
+
+            // Pass 1: Collect categories and currency details
+            Object.values(rawData).forEach(cat => {
+                var categoryName = cat.name === null ? "{% trans 'Uncategorized' %}" : cat.name;
+                if (!categories.includes(categoryName)) {
+                    categories.push(categoryName);
+                }
+                if (cat.currencies) {
+                    Object.values(cat.currencies).forEach(curr => {
+                        var details = curr.currency;
+                        if (details && details.code && !currencyDetails[details.code]) {
+                            var decimals = parseInt(details.decimal_places, 10);
+                            currencyDetails[details.code] = {
+                                code: details.code,
+                                name: details.name || details.code,
+                                prefix: details.prefix || '',
+                                suffix: details.suffix || '',
+                                // Ensure decimal_places is a non-negative integer
+                                decimal_places: !isNaN(decimals) && decimals >= 0 ? decimals : 2
+                            };
+                        }
+                    });
+                }
+            });
+
+            // Initialize data structure for each currency with nulls
+            Object.keys(currencyDetails).forEach(code => {
+                currencyData[code] = new Array(categories.length).fill(null);
+            });
+
+            // Pass 2: Populate data arrays (store all valid numbers now)
+            Object.values(rawData).forEach(cat => {
+                var categoryName = cat.name === null ? "{% trans 'Uncategorized' %}" : cat.name;
+                var catIndex = categories.indexOf(categoryName);
+                if (catIndex === -1) return;
+
+                if (cat.currencies) {
+                    Object.values(cat.currencies).forEach(curr => {
+                        var code = curr.currency?.code;
+                        if (code && currencyData[code]) {
+                            var value = parseFloat(curr.total_final);
+                            // Store the number if it's valid, otherwise keep null
+                            currencyData[code][catIndex] = !isNaN(value) ? value : null;
+                        }
+                    });
+                }
+            });
+
+            // --- Dynamic Chart Configuration ---
+            var datasets = Object.keys(currencyDetails).map((code, index) => {
+                return {
+                    label: currencyDetails[code].name, // Use currency name for the legend label
+                    data: currencyData[code],
+                    currencyCode: code, // Store code for easy lookup in tooltip
+                    borderWidth: 1
+                };
+            });
+
+            new Chart(document.getElementById('categoryChart'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: categories,
+                        datasets: datasets
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        interaction: {
+                            intersect: false,
+                            mode: 'nearest',
+                            axis: "y"
+                        },
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const dataset = context.dataset;
+                                        const currencyCode = dataset.currencyCode;
+                                        const details = currencyDetails[currencyCode];
+                                        const value = context.parsed.x; // Use 'x' because indexAxis is 'y'
+
+                                        if (value === null || value === undefined || !details) {
+                                            // Display the category name if the value is null/undefined
+                                            return null;
+                                        }
+
+                                        let formattedValue = '';
+                                        try {
+                                            // Use Intl.NumberFormat for ALL values, configured with locale and exact decimal places
+                                            formattedValue = new Intl.NumberFormat(undefined, {
+                                                minimumFractionDigits: details.decimal_places,
+                                                maximumFractionDigits: details.decimal_places,
+                                                // Do NOT use style: 'currency' here, as we add prefix/suffix manually
+                                            }).format(value);
+                                        } catch (e) {
+                                            formattedValue = value.toFixed(details.decimal_places);
+                                        }
+
+                                        // Return label with currency name and formatted value including prefix/suffix
+                                        return `${details.prefix}${formattedValue}${details.suffix}`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'top',
+                            }
+                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                                type: 'linear',
+                                title: {
+                                    display: true,
+                                    text: '{% trans 'Final Total' %}'
+                                },
+                                ticks: {
+                                    // Format ticks using the detected locale
+                                    callback: function (value, index, ticks) {
+                                        return value.toLocaleString();
+                                    }
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                title: {
+                                    display: false,
+                                    text: '{% trans 'Category' %}'
+                                }
+                            }
+                        }
+                    }
+                });
+        }
+    </script>
+
   {% else %}
     <c-msg.empty title="{% translate "No categories" %}"></c-msg.empty>
   {% endif %}

@@ -1,10 +1,8 @@
-import decimal
-import json
 from collections import defaultdict
 
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, Avg, F
+from django.db.models import Sum
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods
@@ -22,13 +20,13 @@ from apps.insights.utils.category_explorer import (
     get_category_sums_by_account,
     get_category_sums_by_currency,
 )
+from apps.insights.utils.category_overview import get_categories_totals
 from apps.insights.utils.sankey import (
     generate_sankey_data_by_account,
     generate_sankey_data_by_currency,
 )
 from apps.insights.utils.transactions import get_transactions
 from apps.transactions.models import TransactionCategory, Transaction
-from apps.insights.utils.category_overview import get_categories_totals
 from apps.transactions.utils.calculations import calculate_currency_totals
 
 
