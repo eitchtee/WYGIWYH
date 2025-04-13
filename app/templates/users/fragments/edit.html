@@ -1,0 +1,11 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Edit user' %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% url 'user_edit' pk=user.id %}" hx-target="#generic-offcanvas" novalidate>
+    {% crispy form %}
+</form>
+{% endblock %}

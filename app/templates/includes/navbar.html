@@ -138,9 +138,13 @@
             {% endif %}
             <li><a class="dropdown-item {% active_link views='automatic_exchange_rates_index' %}"
                    href="{% url 'automatic_exchange_rates_index' %}">{% translate 'Automatic Exchange Rates' %}</a></li>
+            {% if user.is_superuser %}
             <li>
               <hr class="dropdown-divider">
             </li>
+            <li><h6 class="dropdown-header">{% trans 'Admin' %}</h6></li>
+            <li><a class="dropdown-item {% active_link views='users_index' %}"
+                    href="{% url 'users_index' %}">{% translate 'Users' %}</a></li>
             <li>
               <a class="dropdown-item"
                  href="{% url 'admin:index' %}"
@@ -151,6 +155,7 @@
                 {% translate 'Django Admin' %}
               </a>
             </li>
+            {% endif %}
           </ul>
         </li>
       </ul>

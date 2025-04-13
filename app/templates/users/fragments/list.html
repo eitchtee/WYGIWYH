@@ -1,0 +1,85 @@
+{% load hijack %}
+{% load i18n %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
+    {% spaceless %}
+      <div>{% translate 'Users' %}<span>
+      <a class="text-decoration-none tw-text-2xl p-1 category-action"
+         role="button"
+         data-bs-toggle="tooltip"
+         data-bs-title="{% translate "Add" %}"
+         hx-get="{% url 'user_add' %}"
+         hx-target="#generic-offcanvas">
+            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
+    </span></div>
+    {% endspaceless %}
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div id="tags-table">
+        {% if users %}
+          <div class="table-responsive">
+            <c-config.search></c-config.search>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th scope="col" class="col-auto"></th>
+                <th scope="col" class="col">{% translate 'Active' %}</th>
+                <th scope="col" class="col">{% translate 'Name' %}</th>
+                <th scope="col" class="col">{% translate 'Email' %}</th>
+                <th scope="col" class="col">{% translate 'Superuser' %}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for user in users %}
+                <tr class="tag">
+                  <td class="col-auto">
+                    <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
+                      <a class="btn btn-secondary btn-sm"
+                         role="button"
+                         hx-swap="innerHTML"
+                         data-bs-toggle="tooltip"
+                         data-bs-title="{% translate "Edit" %}"
+                         hx-get="{% url 'user_edit' pk=user.id %}"
+                         hx-target="#generic-offcanvas">
+                        <i class="fa-solid fa-pencil fa-fw"></i></a>
+                      {% if request.user|can_hijack:user and request.user != user %}
+                        <a class="btn btn-info btn-sm"
+                           role="button"
+                           data-bs-toggle="tooltip"
+                           data-bs-title="{% translate "Impersonate" %}"
+                           hx-post="{% url 'hijack:acquire' %}"
+                           hx-vals='{"user_pk":"{{user.id}}"}'
+                           hx-swap="none"
+                           _="on htmx:afterRequest(event) from me
+                               if event.detail.successful
+                                 go to url '/'">
+                          <i class="fa-solid fa-mask fa-fw"></i></a>
+                      {% endif %}
+                    </div>
+                  </td>
+                  <td class="col">
+                    {% if user.is_active %}
+                      <i class="fa-solid fa-solid fa-check text-success"></i>
+                    {% endif %}
+                  </td>
+                  <td class="col">{{ user.first_name }} {{ user.last_name }}</td>
+                  <td class="col">{{ user.email }}</td>
+                  <td class="col">
+                    {% if user.is_superuser %}
+                      <i class="fa-solid fa-solid fa-check text-success"></i>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <c-msg.empty title="{% translate "No users" %}" remove-padding></c-msg.empty>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

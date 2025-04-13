@@ -12,6 +12,11 @@
            hx-target="#generic-offcanvas"
            role="button">
       <i class="fa-solid fa-gear me-2 fa-fw"></i>{% translate 'Settings' %}</a></li>
+    <li><a class="dropdown-item"
+           hx-get="{% url 'user_edit' pk=request.user.id %}"
+           hx-target="#generic-offcanvas"
+           role="button">
+      <i class="fa-solid fa-user me-2 fa-fw"></i>{% translate 'Edit profile' %}</a></li>
     <li><hr class="dropdown-divider"></li>
     {% spaceless %}
     <li>
