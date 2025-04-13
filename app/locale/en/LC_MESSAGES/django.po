@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 04:00+0000\n"
+"POT-Creation-Date: 2025-04-13 06:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,8 @@ msgstr ""
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:686
-#: templates/insights/fragments/category_overview/index.html:9
+#: templates/insights/fragments/category_overview/index.html:10
+#: templates/insights/fragments/category_overview/index.html:215
 msgid "Category"
 msgstr ""
 
@@ -944,7 +945,9 @@ msgstr ""
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:18
+#: templates/insights/fragments/category_overview/index.html:19
+#: templates/insights/fragments/category_overview/index.html:87
+#: templates/insights/fragments/category_overview/index.html:116
 msgid "Uncategorized"
 msgstr ""
 
@@ -1308,7 +1311,7 @@ msgstr ""
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:10
+#: templates/insights/fragments/category_overview/index.html:11
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr ""
@@ -1319,7 +1322,7 @@ msgstr ""
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:11
+#: templates/insights/fragments/category_overview/index.html:12
 msgid "Expense"
 msgstr ""
 
@@ -1986,7 +1989,7 @@ msgid "Muted"
 msgstr ""
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:67
+#: templates/insights/fragments/category_overview/index.html:225
 msgid "No categories"
 msgstr ""
 
@@ -2554,9 +2557,13 @@ msgstr ""
 msgid "Income/Expense by Currency"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:12
+#: templates/insights/fragments/category_overview/index.html:13
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:202
+msgid "Final Total"
 msgstr ""
 
 #: templates/insights/fragments/emergency_fund.html:15

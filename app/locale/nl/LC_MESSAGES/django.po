@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 04:00+0000\n"
+"POT-Creation-Date: 2025-04-13 06:46+0000\n"
 "PO-Revision-Date: 2025-04-01 06:07+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -76,7 +76,8 @@ msgstr "Nieuw saldo"
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:686
-#: templates/insights/fragments/category_overview/index.html:9
+#: templates/insights/fragments/category_overview/index.html:10
+#: templates/insights/fragments/category_overview/index.html:215
 msgid "Category"
 msgstr "Categorie"
 
@@ -967,7 +968,9 @@ msgstr "Run met succes verwijderd"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:18
+#: templates/insights/fragments/category_overview/index.html:19
+#: templates/insights/fragments/category_overview/index.html:87
+#: templates/insights/fragments/category_overview/index.html:116
 msgid "Uncategorized"
 msgstr "Ongecategoriseerd"
 
@@ -1339,7 +1342,7 @@ msgstr "Bedrijf"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:10
+#: templates/insights/fragments/category_overview/index.html:11
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Ontvangsten Transactie"
@@ -1350,7 +1353,7 @@ msgstr "Ontvangsten Transactie"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:11
+#: templates/insights/fragments/category_overview/index.html:12
 msgid "Expense"
 msgstr "Uitgave"
 
@@ -2017,7 +2020,7 @@ msgid "Muted"
 msgstr "Gedempt"
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:67
+#: templates/insights/fragments/category_overview/index.html:225
 msgid "No categories"
 msgstr "Geen categorieën"
 
@@ -2590,10 +2593,16 @@ msgstr "Inkomsten/uitgaven per rekening"
 msgid "Income/Expense by Currency"
 msgstr "Inkomsten/uitgaven per Munteenheid"
 
-#: templates/insights/fragments/category_overview/index.html:12
+#: templates/insights/fragments/category_overview/index.html:13
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr "Totaal"
+
+#: templates/insights/fragments/category_overview/index.html:202
+#, fuzzy
+#| msgid "final total"
+msgid "Final Total"
+msgstr "eindtotaal"
 
 #: templates/insights/fragments/emergency_fund.html:15
 msgid "You've spent an average of"

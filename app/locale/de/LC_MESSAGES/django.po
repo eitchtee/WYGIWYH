@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 04:00+0000\n"
+"POT-Creation-Date: 2025-04-13 06:46+0000\n"
 "PO-Revision-Date: 2025-04-13 02:40+0000\n"
 "Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -76,7 +76,8 @@ msgstr "Neuer Saldo"
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:686
-#: templates/insights/fragments/category_overview/index.html:9
+#: templates/insights/fragments/category_overview/index.html:10
+#: templates/insights/fragments/category_overview/index.html:215
 msgid "Category"
 msgstr "Kategorie"
 
@@ -968,7 +969,9 @@ msgstr "Vorgang erfolgreich gelöscht"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:18
+#: templates/insights/fragments/category_overview/index.html:19
+#: templates/insights/fragments/category_overview/index.html:87
+#: templates/insights/fragments/category_overview/index.html:116
 msgid "Uncategorized"
 msgstr "Unkategorisiert"
 
@@ -1345,7 +1348,7 @@ msgstr "Entität"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:10
+#: templates/insights/fragments/category_overview/index.html:11
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Einnahme"
@@ -1356,7 +1359,7 @@ msgstr "Einnahme"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:11
+#: templates/insights/fragments/category_overview/index.html:12
 msgid "Expense"
 msgstr "Ausgabe"
 
@@ -2024,7 +2027,7 @@ msgid "Muted"
 msgstr "Ausgeblendet"
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:67
+#: templates/insights/fragments/category_overview/index.html:225
 msgid "No categories"
 msgstr "Keine Kategorien"
 
@@ -2600,10 +2603,16 @@ msgstr "Einnahmen/Ausgaben nach Konto"
 msgid "Income/Expense by Currency"
 msgstr "Einnahmen/Ausgaben nach Währung"
 
-#: templates/insights/fragments/category_overview/index.html:12
+#: templates/insights/fragments/category_overview/index.html:13
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr "Gesamt"
+
+#: templates/insights/fragments/category_overview/index.html:202
+#, fuzzy
+#| msgid "final total"
+msgid "Final Total"
+msgstr "Gesamtbilanz"
 
 #: templates/insights/fragments/emergency_fund.html:15
 msgid "You've spent an average of"
