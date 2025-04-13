@@ -132,3 +132,10 @@ class UserSettingsForm(forms.ModelForm):
                 ),
             ),
         )
+
+        self.fields["language"].help_text = _(
+            "This changes the language (if available) and how numbers and dates are displayed\n"
+            "Consider helping translate WYGIWYH to your language at %(translation_link)s"
+        ) % {
+            "translation_link": '<a href="https://translations.herculino.com" target="_blank">translations.herculino.com</a>'
+        }
