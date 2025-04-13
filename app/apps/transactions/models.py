@@ -797,12 +797,16 @@ class RecurringTransaction(models.Model):
     @classmethod
     def generate_upcoming_transactions(cls):
         today = timezone.now().date()
-        recurring_transactions = cls.objects.filter(
+        recurring_transactions = cls.all_objects.filter(
             Q(models.Q(end_date__isnull=True) | Q(end_date__gte=today))
             & Q(is_paused=False)
         )
 
         for recurring_transaction in recurring_transactions:
+            logger.info(
+                f"Processing recurring transaction: {recurring_transaction.description}..."
+            )
+
             if recurring_transaction.last_generated_date:
                 start_date = recurring_transaction.get_next_date(
                     recurring_transaction.last_generated_date
@@ -821,7 +825,10 @@ class RecurringTransaction(models.Model):
                 today + (recurring_transaction.get_recurrence_delta() * 6),
             )
 
+            logger.info(f"End date: {end_date}")
+
             while current_date <= end_date:
+                logger.info(f"Creating transaction for date: {current_date}")
                 recurring_transaction.create_transaction(current_date, reference_date)
                 current_date = recurring_transaction.get_next_date(current_date)
                 reference_date = recurring_transaction.get_next_date(reference_date)
