@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-13 22:01+0000\n"
-"PO-Revision-Date: 2025-04-14 06:16+0000\n"
+"PO-Revision-Date: 2025-04-14 08:16+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -1708,57 +1708,59 @@ msgstr "Nieuw Wachtwoord"
 
 #: apps/users/forms.py:153
 msgid "Leave blank to keep the current password."
-msgstr ""
+msgstr "Laat leeg om het huidige wachtwoord te behouden."
 
 #: apps/users/forms.py:156
 msgid "Confirm New Password"
-msgstr ""
+msgstr "Bevestig Nieuw Wachtwoord"
 
 #: apps/users/forms.py:168 apps/users/forms.py:329
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
+"Geeft aan of deze gebruiker als actief moet worden behandeld. Deselecteer "
+"dit in plaats van accounts te verwijderen."
 
 #: apps/users/forms.py:171 apps/users/forms.py:332
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr ""
+"Geeft aan dat deze gebruiker alle rechten heeft zonder ze expliciet toe te "
+"kennen."
 
 #: apps/users/forms.py:242
 msgid "This email address is already in use by another account."
-msgstr ""
+msgstr "Dit e-mailadres wordt al gebruikt door een ander account."
 
 #: apps/users/forms.py:250
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "De twee wachtwoordvelden komen niet overeen."
 
 #: apps/users/forms.py:252
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Bevestig je nieuwe wachtwoord."
 
 #: apps/users/forms.py:254
 msgid "Please enter the new password first."
-msgstr ""
+msgstr "Geef eerst het nieuwe wachtwoord op."
 
 #: apps/users/forms.py:274
 msgid "You cannot deactivate your own account using this form."
-msgstr ""
+msgstr "Je kunt je eigen account niet deactiveren met dit formulier."
 
 #: apps/users/forms.py:287
 msgid "Cannot remove status from the last superuser."
-msgstr ""
+msgstr "Kan de status van de laatste Hoofdadmin niet verwijderen."
 
 #: apps/users/forms.py:293
 msgid "You cannot remove your own superuser status using this form."
-msgstr ""
+msgstr "Je kunt je eigen hoofdadminrechten niet verwijderen met dit formulier."
 
 #: apps/users/forms.py:390
-#, fuzzy
-#| msgid "A value for this field already exists in the rule."
 msgid "A user with this email address already exists."
-msgstr "Een waarde voor dit veld bestaat al in de regel."
+msgstr "Er bestaat al een gebruiker met dit e-mailadres."
 
 #: apps/users/models.py:27 templates/includes/navbar.html:28
 msgid "Yearly by currency"
@@ -1821,16 +1823,12 @@ msgid "Your settings have been updated"
 msgstr "Jouw instellingen zijn bijgewerkt"
 
 #: apps/users/views.py:151
-#, fuzzy
-#| msgid "Rule added successfully"
 msgid "Item added successfully"
-msgstr "Regel succesvol toegevoegd"
+msgstr "Item succesvol toegevoegd"
 
 #: apps/users/views.py:182
-#, fuzzy
-#| msgid "Rule updated successfully"
 msgid "Item updated successfully"
-msgstr "Regel succesvol bijgewerkt"
+msgstr "Item succesvol bijgewerkt"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
@@ -2601,7 +2599,7 @@ msgstr "Automatisatie"
 
 #: templates/includes/navbar.html:145
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: templates/includes/navbar.html:154
 msgid "Only use this if you know what you're doing"
@@ -2620,10 +2618,8 @@ msgid "Settings"
 msgstr "Instellingen"
 
 #: templates/includes/navbar/user_menu.html:19
-#, fuzzy
-#| msgid "Edit import profile"
 msgid "Edit profile"
-msgstr "Importprofiel bewerken"
+msgstr "Profiel bewerken"
 
 #: templates/includes/navbar/user_menu.html:46
 msgid "Clear cache"
@@ -3133,36 +3129,28 @@ msgid "Unchanged"
 msgstr "Ongewijzigd"
 
 #: templates/users/fragments/add.html:5
-#, fuzzy
-#| msgid "Add new"
 msgid "Add user"
-msgstr "Nieuwe toevoegen"
+msgstr "Gebruiker toevoegen"
 
 #: templates/users/fragments/edit.html:5
-#, fuzzy
-#| msgid "Edit category"
 msgid "Edit user"
-msgstr "Categorie bewerken"
+msgstr "Gebruiker bewerken"
 
 #: templates/users/fragments/list.html:30
-#, fuzzy
-#| msgid "E-mail"
 msgid "Email"
 msgstr "E-mailadres"
 
 #: templates/users/fragments/list.html:31
 msgid "Superuser"
-msgstr ""
+msgstr "Hoofdadmin"
 
 #: templates/users/fragments/list.html:51
 msgid "Impersonate"
-msgstr ""
+msgstr "Doe je voor als"
 
 #: templates/users/fragments/list.html:80
-#, fuzzy
-#| msgid "Users"
 msgid "No users"
-msgstr "Gebruikers"
+msgstr "Geen gebruikers"
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
