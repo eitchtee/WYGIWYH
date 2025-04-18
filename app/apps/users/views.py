@@ -20,6 +20,7 @@ from apps.users.forms import (
     UserAddForm,
 )
 from apps.users.models import UserSettings
+from apps.common.decorators.demo import disabled_on_demo
 
 
 def logout_view(request):
@@ -168,6 +169,7 @@ def user_add(request):
 
 @only_htmx
 @htmx_login_required
+@disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def user_edit(request, pk):
     user = get_object_or_404(get_user_model(), id=pk)
