@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-19 05:36+0000\n"
+"POT-Creation-Date: 2025-04-19 05:41+0000\n"
 "PO-Revision-Date: 2025-04-13 23:16+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -78,8 +78,8 @@ msgstr "Novo saldo"
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:688
-#: templates/insights/fragments/category_overview/index.html:35
-#: templates/insights/fragments/category_overview/index.html:241
+#: templates/insights/fragments/category_overview/index.html:50
+#: templates/insights/fragments/category_overview/index.html:313
 msgid "Category"
 msgstr "Categoria"
 
@@ -971,9 +971,9 @@ msgstr "Importação apagada com sucesso"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:44
-#: templates/insights/fragments/category_overview/index.html:113
-#: templates/insights/fragments/category_overview/index.html:142
+#: templates/insights/fragments/category_overview/index.html:60
+#: templates/insights/fragments/category_overview/index.html:185
+#: templates/insights/fragments/category_overview/index.html:214
 msgid "Uncategorized"
 msgstr "Sem categoria"
 
@@ -1344,7 +1344,7 @@ msgstr "Entidade"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:36
+#: templates/insights/fragments/category_overview/index.html:51
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Renda"
@@ -1355,7 +1355,7 @@ msgstr "Renda"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:37
+#: templates/insights/fragments/category_overview/index.html:52
 msgid "Expense"
 msgstr "Despesa"
 
@@ -2097,7 +2097,7 @@ msgid "Muted"
 msgstr "Silenciada"
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:251
+#: templates/insights/fragments/category_overview/index.html:323
 msgid "No categories"
 msgstr "Nenhum categoria"
 
@@ -2687,11 +2687,27 @@ msgid "Bars"
 msgstr ""
 
 #: templates/insights/fragments/category_overview/index.html:38
+#, fuzzy
+#| msgid "No tags"
+msgid "Show tags"
+msgstr "Nenhuma tag"
+
+#: templates/insights/fragments/category_overview/index.html:41
+msgid ""
+"Transaction amounts associated with multiple tags will be counted once for "
+"each tag"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:53
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr "Total"
 
-#: templates/insights/fragments/category_overview/index.html:228
+#: templates/insights/fragments/category_overview/index.html:111
+msgid "Untagged"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:300
 msgid "Final Total"
 msgstr "Total Final"
 
