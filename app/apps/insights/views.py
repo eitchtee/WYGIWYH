@@ -177,11 +177,14 @@ def category_overview(request):
     if "show_tags" in request.GET:
         show_tags = request.GET["show_tags"] == "on"
         request.session["insights_category_explorer_show_tags"] = show_tags
-        print(request.GET["show_tags"], show_tags)
     else:
         show_tags = request.session.get("insights_category_explorer_show_tags", True)
 
-    print(show_tags)
+    if "showing" in request.GET:
+        showing = request.GET["showing"]
+        request.session["insights_category_explorer_showing"] = showing
+    else:
+        showing = request.session.get("insights_category_explorer_showing", "final")
 
     # Get filtered transactions
     transactions = get_transactions(request, include_silent=True)
@@ -193,7 +196,12 @@ def category_overview(request):
     return render(
         request,
         "insights/fragments/category_overview/index.html",
-        {"total_table": total_table, "view_type": view_type, "show_tags": show_tags},
+        {
+            "total_table": total_table,
+            "view_type": view_type,
+            "show_tags": show_tags,
+            "showing": showing,
+        },
     )
 
 
