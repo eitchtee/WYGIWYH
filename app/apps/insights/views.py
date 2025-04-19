@@ -168,6 +168,12 @@ def category_sum_by_currency(request):
 @login_required
 @require_http_methods(["GET"])
 def category_overview(request):
+    view_type = request.session.get("insights_category_explorer_view_type", "table")
+
+    if "view_type" in request.GET:
+        view_type = request.GET["view_type"]
+        request.session["insights_category_explorer_view_type"] = view_type
+
     # Get filtered transactions
     transactions = get_transactions(request, include_silent=True)
 
@@ -178,7 +184,7 @@ def category_overview(request):
     return render(
         request,
         "insights/fragments/category_overview/index.html",
-        {"total_table": total_table},
+        {"total_table": total_table, "view_type": view_type},
     )
 
 
