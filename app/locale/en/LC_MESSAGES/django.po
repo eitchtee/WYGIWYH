@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-19 05:41+0000\n"
+"POT-Creation-Date: 2025-04-19 15:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,8 +77,8 @@ msgstr ""
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:688
-#: templates/insights/fragments/category_overview/index.html:50
-#: templates/insights/fragments/category_overview/index.html:313
+#: templates/insights/fragments/category_overview/index.html:63
+#: templates/insights/fragments/category_overview/index.html:420
 msgid "Category"
 msgstr ""
 
@@ -90,8 +90,9 @@ msgstr ""
 #: apps/transactions/forms.py:327 apps/transactions/forms.py:503
 #: apps/transactions/forms.py:764 apps/transactions/models.py:311
 #: apps/transactions/models.py:490 apps/transactions/models.py:692
-#: templates/includes/navbar.html:108 templates/tags/fragments/list.html:5
-#: templates/tags/pages/index.html:4
+#: templates/includes/navbar.html:108
+#: templates/insights/fragments/category_overview/index.html:35
+#: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr ""
 
@@ -950,9 +951,9 @@ msgstr ""
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:60
-#: templates/insights/fragments/category_overview/index.html:185
-#: templates/insights/fragments/category_overview/index.html:214
+#: templates/insights/fragments/category_overview/index.html:73
+#: templates/insights/fragments/category_overview/index.html:285
+#: templates/insights/fragments/category_overview/index.html:314
 msgid "Uncategorized"
 msgstr ""
 
@@ -1203,6 +1204,7 @@ msgstr ""
 
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:31 templates/includes/navbar.html:46
+#: templates/insights/fragments/category_overview/index.html:46
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 msgid "Projected"
@@ -1316,7 +1318,7 @@ msgstr ""
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:51
+#: templates/insights/fragments/category_overview/index.html:64
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr ""
@@ -1327,7 +1329,7 @@ msgstr ""
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:52
+#: templates/insights/fragments/category_overview/index.html:65
 msgid "Expense"
 msgstr ""
 
@@ -2060,7 +2062,7 @@ msgid "Muted"
 msgstr ""
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:323
+#: templates/insights/fragments/category_overview/index.html:430
 msgid "No categories"
 msgstr ""
 
@@ -2519,6 +2521,7 @@ msgid "Net Worth"
 msgstr ""
 
 #: templates/includes/navbar.html:44
+#: templates/insights/fragments/category_overview/index.html:50
 msgid "Current"
 msgstr ""
 
@@ -2636,34 +2639,34 @@ msgstr ""
 msgid "Income/Expense by Currency"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:15
+#: templates/insights/fragments/category_overview/index.html:14
 msgid "Table"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:26
+#: templates/insights/fragments/category_overview/index.html:24
 msgid "Bars"
 msgstr ""
 
 #: templates/insights/fragments/category_overview/index.html:38
-msgid "Show tags"
-msgstr ""
-
-#: templates/insights/fragments/category_overview/index.html:41
 msgid ""
 "Transaction amounts associated with multiple tags will be counted once for "
 "each tag"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:53
+#: templates/insights/fragments/category_overview/index.html:54
+msgid "Final total"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:66
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:111
+#: templates/insights/fragments/category_overview/index.html:166
 msgid "Untagged"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:300
+#: templates/insights/fragments/category_overview/index.html:407
 msgid "Final Total"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-19 05:41+0000\n"
+"POT-Creation-Date: 2025-04-19 15:30+0000\n"
 "PO-Revision-Date: 2025-04-13 02:40+0000\n"
 "Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -83,8 +83,8 @@ msgstr "New balance"
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:688
-#: templates/insights/fragments/category_overview/index.html:50
-#: templates/insights/fragments/category_overview/index.html:313
+#: templates/insights/fragments/category_overview/index.html:63
+#: templates/insights/fragments/category_overview/index.html:420
 #, fuzzy
 msgid "Category"
 msgstr "Category"
@@ -97,8 +97,9 @@ msgstr "Category"
 #: apps/transactions/forms.py:327 apps/transactions/forms.py:503
 #: apps/transactions/forms.py:764 apps/transactions/models.py:311
 #: apps/transactions/models.py:490 apps/transactions/models.py:692
-#: templates/includes/navbar.html:108 templates/tags/fragments/list.html:5
-#: templates/tags/pages/index.html:4
+#: templates/includes/navbar.html:108
+#: templates/insights/fragments/category_overview/index.html:35
+#: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 #, fuzzy
 msgid "Tags"
 msgstr "Tags"
@@ -1139,9 +1140,9 @@ msgstr "Run deleted successfully"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:60
-#: templates/insights/fragments/category_overview/index.html:185
-#: templates/insights/fragments/category_overview/index.html:214
+#: templates/insights/fragments/category_overview/index.html:73
+#: templates/insights/fragments/category_overview/index.html:285
+#: templates/insights/fragments/category_overview/index.html:314
 #, fuzzy
 msgid "Uncategorized"
 msgstr "Uncategorized"
@@ -1445,6 +1446,7 @@ msgstr "Update or Create Transaction action deleted successfully"
 
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:31 templates/includes/navbar.html:46
+#: templates/insights/fragments/category_overview/index.html:46
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 #, fuzzy
@@ -1588,7 +1590,7 @@ msgstr "Entity"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:51
+#: templates/insights/fragments/category_overview/index.html:64
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 #, fuzzy
 msgid "Income"
@@ -1600,7 +1602,7 @@ msgstr "Income"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:52
+#: templates/insights/fragments/category_overview/index.html:65
 #, fuzzy
 msgid "Expense"
 msgstr "Expense"
@@ -2454,7 +2456,7 @@ msgid "Muted"
 msgstr "Muted"
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:323
+#: templates/insights/fragments/category_overview/index.html:430
 #, fuzzy
 msgid "No categories"
 msgstr "No categories"
@@ -3014,6 +3016,7 @@ msgid "Net Worth"
 msgstr "Net Worth"
 
 #: templates/includes/navbar.html:44
+#: templates/insights/fragments/category_overview/index.html:50
 #, fuzzy
 msgid "Current"
 msgstr "Current"
@@ -3157,36 +3160,36 @@ msgstr "Income/Expense by Account"
 msgid "Income/Expense by Currency"
 msgstr "Income/Expense by Currency"
 
-#: templates/insights/fragments/category_overview/index.html:15
+#: templates/insights/fragments/category_overview/index.html:14
 msgid "Table"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:26
+#: templates/insights/fragments/category_overview/index.html:24
 msgid "Bars"
 msgstr ""
 
 #: templates/insights/fragments/category_overview/index.html:38
-#, fuzzy
-msgid "Show tags"
-msgstr "No tags"
-
-#: templates/insights/fragments/category_overview/index.html:41
 msgid ""
 "Transaction amounts associated with multiple tags will be counted once for "
 "each tag"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:53
+#: templates/insights/fragments/category_overview/index.html:54
+#, fuzzy
+msgid "Final total"
+msgstr "final total"
+
+#: templates/insights/fragments/category_overview/index.html:66
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 #, fuzzy
 msgid "Total"
 msgstr "Total"
 
-#: templates/insights/fragments/category_overview/index.html:111
+#: templates/insights/fragments/category_overview/index.html:166
 msgid "Untagged"
 msgstr ""
 
-#: templates/insights/fragments/category_overview/index.html:300
+#: templates/insights/fragments/category_overview/index.html:407
 #, fuzzy
 msgid "Final Total"
 msgstr "final total"
@@ -3790,3 +3793,7 @@ msgstr "Use the credentials below to login"
 #, fuzzy
 msgid "Yearly Overview"
 msgstr "Yearly Overview"
+
+#, fuzzy
+#~ msgid "Show tags"
+#~ msgstr "No tags"
