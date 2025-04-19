@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-18 18:05+0000\n"
+"POT-Creation-Date: 2025-04-19 05:36+0000\n"
 "PO-Revision-Date: 2025-04-14 08:16+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -78,8 +78,8 @@ msgstr "Nieuw saldo"
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:688
-#: templates/insights/fragments/category_overview/index.html:10
-#: templates/insights/fragments/category_overview/index.html:215
+#: templates/insights/fragments/category_overview/index.html:35
+#: templates/insights/fragments/category_overview/index.html:241
 msgid "Category"
 msgstr "Categorie"
 
@@ -973,9 +973,9 @@ msgstr "Run met succes verwijderd"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:19
-#: templates/insights/fragments/category_overview/index.html:87
-#: templates/insights/fragments/category_overview/index.html:116
+#: templates/insights/fragments/category_overview/index.html:44
+#: templates/insights/fragments/category_overview/index.html:113
+#: templates/insights/fragments/category_overview/index.html:142
 msgid "Uncategorized"
 msgstr "Ongecategoriseerd"
 
@@ -1347,7 +1347,7 @@ msgstr "Bedrijf"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:11
+#: templates/insights/fragments/category_overview/index.html:36
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Ontvangsten Transactie"
@@ -1358,7 +1358,7 @@ msgstr "Ontvangsten Transactie"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:12
+#: templates/insights/fragments/category_overview/index.html:37
 msgid "Expense"
 msgstr "Uitgave"
 
@@ -2098,7 +2098,7 @@ msgid "Muted"
 msgstr "Gedempt"
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:225
+#: templates/insights/fragments/category_overview/index.html:251
 msgid "No categories"
 msgstr "Geen categorieën"
 
@@ -2561,7 +2561,7 @@ msgstr "Netto Waarde"
 msgid "Current"
 msgstr "Huidige"
 
-#: templates/includes/navbar.html:50
+#: templates/includes/navbar.html:50 templates/insights/pages/index.html:5
 msgid "Insights"
 msgstr "Inzichten"
 
@@ -2679,12 +2679,20 @@ msgstr "Inkomsten/uitgaven per rekening"
 msgid "Income/Expense by Currency"
 msgstr "Inkomsten/uitgaven per Munteenheid"
 
-#: templates/insights/fragments/category_overview/index.html:13
+#: templates/insights/fragments/category_overview/index.html:15
+msgid "Table"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:26
+msgid "Bars"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:38
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr "Totaal"
 
-#: templates/insights/fragments/category_overview/index.html:202
+#: templates/insights/fragments/category_overview/index.html:228
 msgid "Final Total"
 msgstr "Eindtotaal"
 
@@ -2732,53 +2740,53 @@ msgstr "Van"
 msgid "Percentage"
 msgstr "Percentage"
 
-#: templates/insights/pages/index.html:35
+#: templates/insights/pages/index.html:37
 msgid "Month"
 msgstr "Maand"
 
-#: templates/insights/pages/index.html:38
+#: templates/insights/pages/index.html:40
 #: templates/yearly_overview/pages/overview_by_account.html:61
 #: templates/yearly_overview/pages/overview_by_currency.html:63
 msgid "Year"
 msgstr "Jaar"
 
-#: templates/insights/pages/index.html:43
+#: templates/insights/pages/index.html:45
 msgid "Month Range"
 msgstr "Maand Bereik"
 
-#: templates/insights/pages/index.html:48
+#: templates/insights/pages/index.html:50
 msgid "Year Range"
 msgstr "Jaar Bereik"
 
-#: templates/insights/pages/index.html:53
+#: templates/insights/pages/index.html:55
 msgid "Date Range"
 msgstr "Datum Bereik"
 
-#: templates/insights/pages/index.html:81
+#: templates/insights/pages/index.html:83
 msgid "Account Flow"
 msgstr "Rekeningstroom"
 
-#: templates/insights/pages/index.html:88
+#: templates/insights/pages/index.html:90
 msgid "Currency Flow"
 msgstr "Geldstroom"
 
-#: templates/insights/pages/index.html:95
+#: templates/insights/pages/index.html:97
 msgid "Category Explorer"
 msgstr "Categorie Verkenner"
 
-#: templates/insights/pages/index.html:102
+#: templates/insights/pages/index.html:104
 msgid "Categories Overview"
 msgstr "Categorieën Overzicht"
 
-#: templates/insights/pages/index.html:109
+#: templates/insights/pages/index.html:111
 msgid "Late Transactions"
 msgstr "Betalingsachterstanden"
 
-#: templates/insights/pages/index.html:115
+#: templates/insights/pages/index.html:117
 msgid "Latest Transactions"
 msgstr "Laatste Verrichtingen"
 
-#: templates/insights/pages/index.html:121
+#: templates/insights/pages/index.html:123
 msgid "Emergency Fund"
 msgstr "Noodfonds"
 

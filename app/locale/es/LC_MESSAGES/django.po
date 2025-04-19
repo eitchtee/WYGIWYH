@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-18 18:05+0000\n"
+"POT-Creation-Date: 2025-04-19 05:36+0000\n"
 "PO-Revision-Date: 2025-04-13 02:40+0000\n"
 "Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -83,8 +83,8 @@ msgstr "New balance"
 #: apps/transactions/forms.py:310 apps/transactions/forms.py:510
 #: apps/transactions/forms.py:771 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:688
-#: templates/insights/fragments/category_overview/index.html:10
-#: templates/insights/fragments/category_overview/index.html:215
+#: templates/insights/fragments/category_overview/index.html:35
+#: templates/insights/fragments/category_overview/index.html:241
 #, fuzzy
 msgid "Category"
 msgstr "Category"
@@ -1139,9 +1139,9 @@ msgstr "Run deleted successfully"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
-#: templates/insights/fragments/category_overview/index.html:19
-#: templates/insights/fragments/category_overview/index.html:87
-#: templates/insights/fragments/category_overview/index.html:116
+#: templates/insights/fragments/category_overview/index.html:44
+#: templates/insights/fragments/category_overview/index.html:113
+#: templates/insights/fragments/category_overview/index.html:142
 #, fuzzy
 msgid "Uncategorized"
 msgstr "Uncategorized"
@@ -1588,7 +1588,7 @@ msgstr "Entity"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
-#: templates/insights/fragments/category_overview/index.html:11
+#: templates/insights/fragments/category_overview/index.html:36
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 #, fuzzy
 msgid "Income"
@@ -1600,7 +1600,7 @@ msgstr "Income"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
-#: templates/insights/fragments/category_overview/index.html:12
+#: templates/insights/fragments/category_overview/index.html:37
 #, fuzzy
 msgid "Expense"
 msgstr "Expense"
@@ -2454,7 +2454,7 @@ msgid "Muted"
 msgstr "Muted"
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:225
+#: templates/insights/fragments/category_overview/index.html:251
 #, fuzzy
 msgid "No categories"
 msgstr "No categories"
@@ -3018,7 +3018,7 @@ msgstr "Net Worth"
 msgid "Current"
 msgstr "Current"
 
-#: templates/includes/navbar.html:50
+#: templates/includes/navbar.html:50 templates/insights/pages/index.html:5
 #, fuzzy
 msgid "Insights"
 msgstr "Insights"
@@ -3157,13 +3157,21 @@ msgstr "Income/Expense by Account"
 msgid "Income/Expense by Currency"
 msgstr "Income/Expense by Currency"
 
-#: templates/insights/fragments/category_overview/index.html:13
+#: templates/insights/fragments/category_overview/index.html:15
+msgid "Table"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:26
+msgid "Bars"
+msgstr ""
+
+#: templates/insights/fragments/category_overview/index.html:38
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 #, fuzzy
 msgid "Total"
 msgstr "Total"
 
-#: templates/insights/fragments/category_overview/index.html:202
+#: templates/insights/fragments/category_overview/index.html:228
 #, fuzzy
 msgid "Final Total"
 msgstr "final total"
@@ -3223,64 +3231,64 @@ msgstr "From"
 msgid "Percentage"
 msgstr "Percentage"
 
-#: templates/insights/pages/index.html:35
+#: templates/insights/pages/index.html:37
 #, fuzzy
 msgid "Month"
 msgstr "Month"
 
-#: templates/insights/pages/index.html:38
+#: templates/insights/pages/index.html:40
 #: templates/yearly_overview/pages/overview_by_account.html:61
 #: templates/yearly_overview/pages/overview_by_currency.html:63
 #, fuzzy
 msgid "Year"
 msgstr "Year"
 
-#: templates/insights/pages/index.html:43
+#: templates/insights/pages/index.html:45
 #, fuzzy
 msgid "Month Range"
 msgstr "Month Range"
 
-#: templates/insights/pages/index.html:48
+#: templates/insights/pages/index.html:50
 #, fuzzy
 msgid "Year Range"
 msgstr "Year Range"
 
-#: templates/insights/pages/index.html:53
+#: templates/insights/pages/index.html:55
 #, fuzzy
 msgid "Date Range"
 msgstr "Date Range"
 
-#: templates/insights/pages/index.html:81
+#: templates/insights/pages/index.html:83
 #, fuzzy
 msgid "Account Flow"
 msgstr "Account Flow"
 
-#: templates/insights/pages/index.html:88
+#: templates/insights/pages/index.html:90
 #, fuzzy
 msgid "Currency Flow"
 msgstr "Currency Flow"
 
-#: templates/insights/pages/index.html:95
+#: templates/insights/pages/index.html:97
 #, fuzzy
 msgid "Category Explorer"
 msgstr "Category Explorer"
 
-#: templates/insights/pages/index.html:102
+#: templates/insights/pages/index.html:104
 #, fuzzy
 msgid "Categories Overview"
 msgstr "Categories Overview"
 
-#: templates/insights/pages/index.html:109
+#: templates/insights/pages/index.html:111
 #, fuzzy
 msgid "Late Transactions"
 msgstr "Late Transactions"
 
-#: templates/insights/pages/index.html:115
+#: templates/insights/pages/index.html:117
 #, fuzzy
 msgid "Latest Transactions"
 msgstr "Latest Transactions"
 
-#: templates/insights/pages/index.html:121
+#: templates/insights/pages/index.html:123
 #, fuzzy
 msgid "Emergency Fund"
 msgstr "Emergency Fund"
