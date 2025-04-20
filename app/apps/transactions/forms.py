@@ -6,6 +6,7 @@ from crispy_forms.layout import (
     Row,
     Column,
     Field,
+    Div,
 )
 from django import forms
 from django.db.models import Q
@@ -206,10 +207,21 @@ class TransactionForm(forms.ModelForm):
         else:
             self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()
             self.helper.layout.append(
-                FormActions(
+                Div(
                     NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
+                        "submit", _("Add"), css_class="btn btn-outline-primary"
                     ),
+                    NoClassSubmit(
+                        "submit_and_similar",
+                        _("Save and add similar"),
+                        css_class="btn btn-outline-primary",
+                    ),
+                    NoClassSubmit(
+                        "submit_and_another",
+                        _("Save and add another"),
+                        css_class="btn btn-outline-primary",
+                    ),
+                    css_class="d-grid gap-2",
                 ),
             )
 
