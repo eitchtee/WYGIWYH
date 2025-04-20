@@ -43,16 +43,33 @@ def transaction_add(request):
         year=year,
     ).date()
 
+    update = False
+
     if request.method == "POST":
         form = TransactionForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, _("Transaction added successfully"))
 
-            return HttpResponse(
-                status=204,
-                headers={"HX-Trigger": "updated, hide_offcanvas"},
-            )
+            if "submit" in request.POST:
+                return HttpResponse(
+                    status=204,
+                    headers={"HX-Trigger": "updated, hide_offcanvas"},
+                )
+            elif "submit_and_another" in request.POST:
+                form = TransactionForm(
+                    initial={
+                        "date": expected_date,
+                        "type": transaction_type,
+                    },
+                )
+                update = True
+            elif "submit_and_similar" in request.POST:
+                form = TransactionForm(
+                    initial=request.POST.dict(),
+                )
+                update = True
+
     else:
         form = TransactionForm(
             initial={
@@ -61,11 +78,15 @@ def transaction_add(request):
             },
         )
 
-    return render(
+    response = render(
         request,
         "transactions/fragments/add.html",
         {"form": form},
     )
+    if update:
+        response["HX-Trigger"] = "updated"
+
+    return response
 
 
 @login_required
