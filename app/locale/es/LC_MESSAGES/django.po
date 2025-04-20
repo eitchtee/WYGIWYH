@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-19 15:30+0000\n"
+"POT-Creation-Date: 2025-04-20 18:57+0000\n"
 "PO-Revision-Date: 2025-04-13 02:40+0000\n"
 "Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -28,10 +28,10 @@ msgstr "Group name"
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:91
 #: apps/currencies/forms.py:142 apps/dca/forms.py:49 apps/dca/forms.py:224
 #: apps/import_app/forms.py:34 apps/rules/forms.py:51 apps/rules/forms.py:93
-#: apps/rules/forms.py:365 apps/transactions/forms.py:202
-#: apps/transactions/forms.py:269 apps/transactions/forms.py:629
-#: apps/transactions/forms.py:672 apps/transactions/forms.py:704
-#: apps/transactions/forms.py:739 apps/transactions/forms.py:891
+#: apps/rules/forms.py:365 apps/transactions/forms.py:203
+#: apps/transactions/forms.py:281 apps/transactions/forms.py:641
+#: apps/transactions/forms.py:684 apps/transactions/forms.py:716
+#: apps/transactions/forms.py:751 apps/transactions/forms.py:903
 #: apps/users/forms.py:210 apps/users/forms.py:372
 #, fuzzy
 msgid "Update"
@@ -42,10 +42,10 @@ msgstr "Update"
 #: apps/currencies/forms.py:99 apps/currencies/forms.py:150
 #: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
 #: apps/rules/forms.py:59 apps/rules/forms.py:101 apps/rules/forms.py:373
-#: apps/transactions/forms.py:187 apps/transactions/forms.py:211
-#: apps/transactions/forms.py:637 apps/transactions/forms.py:680
-#: apps/transactions/forms.py:712 apps/transactions/forms.py:747
-#: apps/transactions/forms.py:899 apps/users/forms.py:218
+#: apps/transactions/forms.py:188 apps/transactions/forms.py:212
+#: apps/transactions/forms.py:649 apps/transactions/forms.py:692
+#: apps/transactions/forms.py:724 apps/transactions/forms.py:759
+#: apps/transactions/forms.py:911 apps/users/forms.py:218
 #: apps/users/forms.py:380 templates/account_groups/fragments/list.html:9
 #: templates/accounts/fragments/list.html:9
 #: templates/categories/fragments/list.html:9
@@ -79,9 +79,9 @@ msgstr "New balance"
 #: apps/accounts/forms.py:121 apps/dca/forms.py:85 apps/dca/forms.py:92
 #: apps/insights/forms.py:118 apps/rules/forms.py:174 apps/rules/forms.py:189
 #: apps/rules/models.py:38 apps/rules/models.py:286
-#: apps/transactions/forms.py:40 apps/transactions/forms.py:303
-#: apps/transactions/forms.py:310 apps/transactions/forms.py:510
-#: apps/transactions/forms.py:771 apps/transactions/models.py:305
+#: apps/transactions/forms.py:41 apps/transactions/forms.py:315
+#: apps/transactions/forms.py:322 apps/transactions/forms.py:522
+#: apps/transactions/forms.py:783 apps/transactions/models.py:305
 #: apps/transactions/models.py:488 apps/transactions/models.py:688
 #: templates/insights/fragments/category_overview/index.html:63
 #: templates/insights/fragments/category_overview/index.html:420
@@ -93,9 +93,9 @@ msgstr "Category"
 #: apps/export_app/forms.py:44 apps/export_app/forms.py:135
 #: apps/rules/forms.py:177 apps/rules/forms.py:186 apps/rules/models.py:39
 #: apps/rules/models.py:290 apps/transactions/filters.py:74
-#: apps/transactions/forms.py:48 apps/transactions/forms.py:319
-#: apps/transactions/forms.py:327 apps/transactions/forms.py:503
-#: apps/transactions/forms.py:764 apps/transactions/models.py:311
+#: apps/transactions/forms.py:49 apps/transactions/forms.py:331
+#: apps/transactions/forms.py:339 apps/transactions/forms.py:515
+#: apps/transactions/forms.py:776 apps/transactions/models.py:311
 #: apps/transactions/models.py:490 apps/transactions/models.py:692
 #: templates/includes/navbar.html:108
 #: templates/insights/fragments/category_overview/index.html:35
@@ -180,8 +180,8 @@ msgstr "Archived accounts don't show up nor count towards your net worth"
 
 #: apps/accounts/models.py:70 apps/rules/forms.py:166 apps/rules/forms.py:179
 #: apps/rules/models.py:30 apps/rules/models.py:242
-#: apps/transactions/forms.py:60 apps/transactions/forms.py:495
-#: apps/transactions/forms.py:756 apps/transactions/models.py:278
+#: apps/transactions/forms.py:61 apps/transactions/forms.py:507
+#: apps/transactions/forms.py:768 apps/transactions/models.py:278
 #: apps/transactions/models.py:448 apps/transactions/models.py:670
 #, fuzzy
 msgid "Account"
@@ -525,7 +525,7 @@ msgstr "Suffix"
 
 #: apps/currencies/forms.py:69 apps/dca/models.py:158 apps/rules/forms.py:169
 #: apps/rules/forms.py:182 apps/rules/models.py:33 apps/rules/models.py:254
-#: apps/transactions/forms.py:64 apps/transactions/forms.py:331
+#: apps/transactions/forms.py:65 apps/transactions/forms.py:343
 #: apps/transactions/models.py:288
 #: templates/dca/fragments/strategy/details.html:52
 #: templates/exchange_rates/fragments/table.html:10
@@ -780,12 +780,12 @@ msgstr "Services queued successfully"
 msgid "Create transaction"
 msgstr "Create transaction"
 
-#: apps/dca/forms.py:70 apps/transactions/forms.py:278
+#: apps/dca/forms.py:70 apps/transactions/forms.py:290
 #, fuzzy
 msgid "From Account"
 msgstr "From Account"
 
-#: apps/dca/forms.py:76 apps/transactions/forms.py:283
+#: apps/dca/forms.py:76 apps/transactions/forms.py:295
 #, fuzzy
 msgid "To Account"
 msgstr "To Account"
@@ -816,7 +816,7 @@ msgstr "Link transaction"
 msgid "You must provide an account."
 msgstr "You must provide an account."
 
-#: apps/dca/forms.py:312 apps/transactions/forms.py:445
+#: apps/dca/forms.py:312 apps/transactions/forms.py:457
 #, fuzzy
 msgid "From and To accounts must be different."
 msgstr "From and To accounts must be different."
@@ -838,7 +838,7 @@ msgstr "Payment Currency"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:173
 #: apps/rules/forms.py:188 apps/rules/models.py:37 apps/rules/models.py:270
-#: apps/transactions/forms.py:347 apps/transactions/models.py:301
+#: apps/transactions/forms.py:359 apps/transactions/models.py:301
 #: apps/transactions/models.py:497 apps/transactions/models.py:698
 #, fuzzy
 msgid "Notes"
@@ -936,8 +936,8 @@ msgstr "Categories"
 #: apps/export_app/forms.py:50 apps/export_app/forms.py:136
 #: apps/rules/forms.py:178 apps/rules/forms.py:187 apps/rules/models.py:40
 #: apps/rules/models.py:282 apps/transactions/filters.py:81
-#: apps/transactions/forms.py:56 apps/transactions/forms.py:518
-#: apps/transactions/forms.py:779 apps/transactions/models.py:261
+#: apps/transactions/forms.py:57 apps/transactions/forms.py:530
+#: apps/transactions/forms.py:791 apps/transactions/models.py:261
 #: apps/transactions/models.py:316 apps/transactions/models.py:493
 #: apps/transactions/models.py:695 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:110
@@ -1255,8 +1255,8 @@ msgid "Paid"
 msgstr "Paid"
 
 #: apps/rules/forms.py:170 apps/rules/forms.py:183 apps/rules/models.py:34
-#: apps/rules/models.py:258 apps/transactions/forms.py:68
-#: apps/transactions/forms.py:334 apps/transactions/forms.py:524
+#: apps/rules/models.py:258 apps/transactions/forms.py:69
+#: apps/transactions/forms.py:346 apps/transactions/forms.py:536
 #: apps/transactions/models.py:289 apps/transactions/models.py:471
 #: apps/transactions/models.py:700
 #, fuzzy
@@ -1272,7 +1272,7 @@ msgstr "Amount"
 
 #: apps/rules/forms.py:172 apps/rules/forms.py:185 apps/rules/models.py:14
 #: apps/rules/models.py:36 apps/rules/models.py:266
-#: apps/transactions/forms.py:338 apps/transactions/models.py:299
+#: apps/transactions/forms.py:350 apps/transactions/models.py:299
 #: apps/transactions/models.py:455 apps/transactions/models.py:684
 #, fuzzy
 msgid "Description"
@@ -1488,48 +1488,56 @@ msgstr "Amount min"
 msgid "Amount max"
 msgstr "Amount max"
 
-#: apps/transactions/forms.py:171
+#: apps/transactions/forms.py:172
 #, fuzzy
 msgid "More"
 msgstr "More"
 
-#: apps/transactions/forms.py:290
+#: apps/transactions/forms.py:216
+msgid "Save and add similar"
+msgstr ""
+
+#: apps/transactions/forms.py:221
+msgid "Save and add another"
+msgstr ""
+
+#: apps/transactions/forms.py:302
 #, fuzzy
 msgid "From Amount"
 msgstr "From Amount"
 
-#: apps/transactions/forms.py:295
+#: apps/transactions/forms.py:307
 #, fuzzy
 msgid "To Amount"
 msgstr "To Amount"
 
-#: apps/transactions/forms.py:412
+#: apps/transactions/forms.py:424
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #, fuzzy
 msgid "Transfer"
 msgstr "Transfer"
 
-#: apps/transactions/forms.py:658
+#: apps/transactions/forms.py:670
 #, fuzzy
 msgid "Tag name"
 msgstr "Tag name"
 
-#: apps/transactions/forms.py:690
+#: apps/transactions/forms.py:702
 #, fuzzy
 msgid "Entity name"
 msgstr "Entity name"
 
-#: apps/transactions/forms.py:722
+#: apps/transactions/forms.py:734
 #, fuzzy
 msgid "Category name"
 msgstr "Category name"
 
-#: apps/transactions/forms.py:724
+#: apps/transactions/forms.py:736
 #, fuzzy
 msgid "Muted categories won't count towards your monthly total"
 msgstr "Muted categories won't count towards your monthly total"
 
-#: apps/transactions/forms.py:910
+#: apps/transactions/forms.py:922
 #, fuzzy
 msgid "End date should be after the start date"
 msgstr "End date should be after the start date"
@@ -1899,40 +1907,40 @@ msgstr "Tag updated successfully"
 msgid "Tag deleted successfully"
 msgstr "Tag deleted successfully"
 
-#: apps/transactions/views/transactions.py:50
-#: apps/transactions/views/transactions.py:89
+#: apps/transactions/views/transactions.py:52
+#: apps/transactions/views/transactions.py:110
 #, fuzzy
 msgid "Transaction added successfully"
 msgstr "Transaction added successfully"
 
-#: apps/transactions/views/transactions.py:123
+#: apps/transactions/views/transactions.py:144
 #, fuzzy
 msgid "Transaction updated successfully"
 msgstr "Transaction updated successfully"
 
-#: apps/transactions/views/transactions.py:173
+#: apps/transactions/views/transactions.py:194
 #, fuzzy, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s transaction updated successfully"
 msgstr[1] "%(count)s transactions updated successfully"
 
-#: apps/transactions/views/transactions.py:209
+#: apps/transactions/views/transactions.py:230
 #, fuzzy
 msgid "Transaction duplicated successfully"
 msgstr "Transaction duplicated successfully"
 
-#: apps/transactions/views/transactions.py:251
+#: apps/transactions/views/transactions.py:272
 #, fuzzy
 msgid "Transaction deleted successfully"
 msgstr "Transaction deleted successfully"
 
-#: apps/transactions/views/transactions.py:269
+#: apps/transactions/views/transactions.py:290
 #, fuzzy
 msgid "Transaction restored successfully"
 msgstr "Transaction restored successfully"
 
-#: apps/transactions/views/transactions.py:295
+#: apps/transactions/views/transactions.py:316
 #, fuzzy
 msgid "Transfer added successfully"
 msgstr "Transfer added successfully"
