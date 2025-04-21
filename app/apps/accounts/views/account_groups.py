@@ -145,7 +145,7 @@ def account_group_take_ownership(request, pk):
 @only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])
-def account_share(request, pk):
+def account_group_share(request, pk):
     obj = get_object_or_404(AccountGroup, id=pk)
 
     if obj.owner and obj.owner != request.user:

@@ -51,7 +51,7 @@ urlpatterns = [
     ),
     path(
         "account-groups/<int:pk>/share/",
-        views.account_share,
+        views.account_group_share,
         name="account_group_share_settings",
     ),
 ]
