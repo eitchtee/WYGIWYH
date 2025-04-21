@@ -48,7 +48,7 @@ def transaction_add(request):
     if request.method == "POST":
         form = TransactionForm(request.POST)
         if form.is_valid():
-            form.save()
+            saved_instance = form.save()
             messages.success(request, _("Transaction added successfully"))
 
             if "submit" in request.POST:
@@ -65,10 +65,48 @@ def transaction_add(request):
                 )
                 update = True
             elif "submit_and_similar" in request.POST:
-                form = TransactionForm(
-                    initial=request.POST.dict(),
-                )
-                update = True
+                initial_data = {}
+
+                # Define fields to copy from the SAVED instance
+                direct_fields_to_copy = [
+                    "account",  # ForeignKey -> will copy the ID
+                    "type",  # ChoiceField -> will copy the value
+                    "is_paid",  # BooleanField -> will copy True/False
+                    "date",  # DateField -> will copy the date object
+                    "reference_date",  # DateField -> will copy the date object
+                    "amount",  # DecimalField -> will copy the decimal
+                    "description",  # CharField -> will copy the string
+                    "notes",  # TextField -> will copy the string
+                    "category",  # ForeignKey -> will copy the ID
+                ]
+                m2m_fields_to_copy = [
+                    "tags",  # ManyToManyField -> will copy list of IDs
+                    "entities",  # ManyToManyField -> will copy list of IDs
+                ]
+
+                # Copy direct fields from the saved instance
+                for field_name in direct_fields_to_copy:
+                    value = getattr(saved_instance, field_name, None)
+                    if value is not None:
+                        # Handle ForeignKey: use the pk
+                        if hasattr(value, "pk"):
+                            initial_data[field_name] = value.pk
+                        # Handle Date/DateTime/Decimal/Boolean/etc.: use the Python object directly
+                        else:
+                            initial_data[field_name] = (
+                                value  # This correctly handles date objects!
+                            )
+
+                # Copy M2M fields: provide a list of related object pks
+                for field_name in m2m_fields_to_copy:
+                    m2m_manager = getattr(saved_instance, field_name)
+                    initial_data[field_name] = list(
+                        m2m_manager.values_list("name", flat=True)
+                    )
+
+                # Create a new form instance pre-filled with the correctly typed initial data
+                form = TransactionForm(initial=initial_data)
+                update = True  # Signal HTMX to update the form area
 
     else:
         form = TransactionForm(
