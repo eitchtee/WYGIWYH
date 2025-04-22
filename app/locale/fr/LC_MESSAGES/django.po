@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-21 18:45+0000\n"
-"PO-Revision-Date: 2025-04-13 02:40+0000\n"
-"Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
+"PO-Revision-Date: 2025-04-22 11:16+0000\n"
+"Last-Translator: H4ndrew <arun.s.ezhilarasan@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -908,9 +908,8 @@ msgid "Import"
 msgstr "Importer"
 
 #: apps/import_app/models.py:15
-#, fuzzy
 msgid "YAML Configuration"
-msgstr "YAML Configuration"
+msgstr "Configuration YAML"
 
 #: apps/import_app/models.py:19
 #: templates/import_app/fragments/profiles/list.html:37
@@ -923,36 +922,30 @@ msgid "Version {number}"
 msgstr "Version {number}"
 
 #: apps/import_app/models.py:39
-#, fuzzy
 msgid "Invalid YAML Configuration: "
-msgstr "Invalid YAML Configuration: "
+msgstr "Configuration YAML invalide: "
 
 #: apps/import_app/models.py:45
-#, fuzzy
 msgid "Queued"
-msgstr "Queued"
+msgstr "Mis en file d'attente"
 
 #: apps/import_app/models.py:46
-#, fuzzy
 msgid "Processing"
-msgstr "Processing"
+msgstr "Traitement en cours"
 
 #: apps/import_app/models.py:47
-#, fuzzy
 msgid "Failed"
-msgstr "Failed"
+msgstr "Echec"
 
 #: apps/import_app/models.py:48
 #: templates/installment_plans/fragments/list.html:24
 #: templates/recurring_transactions/fragments/list.html:27
-#, fuzzy
 msgid "Finished"
-msgstr "Finished"
+msgstr "Terminé"
 
 #: apps/import_app/models.py:54
-#, fuzzy
 msgid "Status"
-msgstr "Status"
+msgstr "Statut"
 
 #: apps/import_app/models.py:62
 msgid "File name"
@@ -963,33 +956,28 @@ msgid "Import Profile added successfully"
 msgstr "Profil d'import ajouté avec succès"
 
 #: apps/import_app/views.py:103
-#, fuzzy
 msgid "Import Profile update successfully"
-msgstr "Import Profile update successfully"
+msgstr "Profil d'import mis à jour avec succès"
 
 #: apps/import_app/views.py:130
-#, fuzzy
 msgid "Import Profile deleted successfully"
-msgstr "Import Profile deleted successfully"
+msgstr "Profil d'import supprimé avec succès"
 
 #: apps/import_app/views.py:195
-#, fuzzy
 msgid "Import Run queued successfully"
-msgstr "Import Run queued successfully"
+msgstr "Import d’exécution mis en file d'attente avec succès"
 
 #: apps/import_app/views.py:222
-#, fuzzy
 msgid "Run deleted successfully"
-msgstr "Run deleted successfully"
+msgstr "Exécution supprimé avec succès"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167
 #: templates/insights/fragments/category_overview/index.html:73
 #: templates/insights/fragments/category_overview/index.html:285
 #: templates/insights/fragments/category_overview/index.html:314
-#, fuzzy
 msgid "Uncategorized"
-msgstr "Uncategorized"
+msgstr "Sans catégorie"
 
 #: apps/insights/utils/category_explorer.py:66
 #: apps/insights/utils/category_explorer.py:145
@@ -997,9 +985,8 @@ msgstr "Uncategorized"
 #: templates/cotton/ui/percentage_distribution.html:14
 #: templates/insights/fragments/category_explorer/charts/account.html:72
 #: templates/insights/fragments/category_explorer/charts/currency.html:72
-#, fuzzy
 msgid "Current Income"
-msgstr "Current Income"
+msgstr "Revenu actuel"
 
 #: apps/insights/utils/category_explorer.py:70
 #: apps/insights/utils/category_explorer.py:149
@@ -1007,9 +994,8 @@ msgstr "Current Income"
 #: templates/cotton/ui/percentage_distribution.html:28
 #: templates/insights/fragments/category_explorer/charts/account.html:66
 #: templates/insights/fragments/category_explorer/charts/currency.html:66
-#, fuzzy
 msgid "Current Expenses"
-msgstr "Current Expenses"
+msgstr "Dépenses actuelles"
 
 #: apps/insights/utils/category_explorer.py:74
 #: apps/insights/utils/category_explorer.py:153
@@ -1017,9 +1003,8 @@ msgstr "Current Expenses"
 #: templates/cotton/ui/percentage_distribution.html:7
 #: templates/insights/fragments/category_explorer/charts/account.html:78
 #: templates/insights/fragments/category_explorer/charts/currency.html:78
-#, fuzzy
 msgid "Projected Income"
-msgstr "Projected Income"
+msgstr "Revenues prévisionnelles"
 
 #: apps/insights/utils/category_explorer.py:78
 #: apps/insights/utils/category_explorer.py:157
@@ -1027,64 +1012,53 @@ msgstr "Projected Income"
 #: templates/cotton/ui/percentage_distribution.html:21
 #: templates/insights/fragments/category_explorer/charts/account.html:60
 #: templates/insights/fragments/category_explorer/charts/currency.html:60
-#, fuzzy
 msgid "Projected Expenses"
-msgstr "Projected Expenses"
+msgstr "Dépenses prévisionnelles"
 
 #: apps/insights/utils/sankey.py:133 apps/insights/utils/sankey.py:134
 #: apps/insights/utils/sankey.py:263 apps/insights/utils/sankey.py:264
-#, fuzzy
 msgid "Saved"
-msgstr "Saved"
+msgstr "Sauvegardé"
 
 #: apps/rules/forms.py:21
-#, fuzzy
 msgid "Run on creation"
-msgstr "Run on creation"
+msgstr "Exécuter à la création"
 
 #: apps/rules/forms.py:22
-#, fuzzy
 msgid "Run on update"
-msgstr "Run on update"
+msgstr "Exécuter après mis à jour"
 
 #: apps/rules/forms.py:23
-#, fuzzy
 msgid "Run on delete"
-msgstr "Run on delete"
+msgstr "Exécuter après suppression"
 
 #: apps/rules/forms.py:24
-#, fuzzy
 msgid "If..."
-msgstr "If..."
+msgstr "Si..."
 
 #: apps/rules/forms.py:70
-#, fuzzy
 msgid "Set field"
-msgstr "Set field"
+msgstr "Configurer le champ"
 
 #: apps/rules/forms.py:71 templates/insights/fragments/sankey.html:94
-#, fuzzy
 msgid "To"
-msgstr "To"
+msgstr "A"
 
 #: apps/rules/forms.py:121
-#, fuzzy
 msgid "A value for this field already exists in the rule."
-msgstr "A value for this field already exists in the rule."
+msgstr "Une valeur pour ce champ existe déjà dans cette règle."
 
 #: apps/rules/forms.py:153 apps/rules/forms.py:154 apps/rules/forms.py:155
 #: apps/rules/forms.py:156 apps/rules/forms.py:157 apps/rules/forms.py:158
 #: apps/rules/forms.py:159 apps/rules/forms.py:160 apps/rules/forms.py:161
 #: apps/rules/forms.py:162 apps/rules/forms.py:163 apps/rules/forms.py:164
 #: apps/rules/forms.py:165
-#, fuzzy
 msgid "Operator"
-msgstr "Operator"
+msgstr "Opérateur"
 
 #: apps/rules/forms.py:167 apps/rules/forms.py:180 apps/rules/models.py:31
 #: apps/rules/models.py:246 apps/transactions/models.py:285
 #: apps/transactions/models.py:453 apps/transactions/models.py:676
-#, fuzzy
 msgid "Type"
 msgstr "Type"
 
@@ -1094,228 +1068,188 @@ msgstr "Type"
 #: templates/cotton/transaction/item.html:31
 #: templates/transactions/widgets/paid_toggle_button.html:12
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:16
-#, fuzzy
 msgid "Paid"
-msgstr "Paid"
+msgstr "Payé"
 
 #: apps/rules/forms.py:170 apps/rules/forms.py:183 apps/rules/models.py:34
 #: apps/rules/models.py:258 apps/transactions/forms.py:69
 #: apps/transactions/forms.py:346 apps/transactions/forms.py:536
 #: apps/transactions/models.py:289 apps/transactions/models.py:471
 #: apps/transactions/models.py:700
-#, fuzzy
 msgid "Reference Date"
-msgstr "Reference Date"
+msgstr "Date de référence"
 
 #: apps/rules/forms.py:171 apps/rules/forms.py:184 apps/rules/models.py:35
 #: apps/rules/models.py:262 apps/transactions/models.py:294
 #: apps/transactions/models.py:681 templates/insights/fragments/sankey.html:95
-#, fuzzy
 msgid "Amount"
-msgstr "Amount"
+msgstr "Montant"
 
 #: apps/rules/forms.py:172 apps/rules/forms.py:185 apps/rules/models.py:14
 #: apps/rules/models.py:36 apps/rules/models.py:266
 #: apps/transactions/forms.py:350 apps/transactions/models.py:299
 #: apps/transactions/models.py:455 apps/transactions/models.py:684
-#, fuzzy
 msgid "Description"
 msgstr "Description"
 
 #: apps/rules/forms.py:175 apps/rules/forms.py:190 apps/rules/models.py:274
 #: apps/transactions/models.py:338
-#, fuzzy
 msgid "Internal Note"
-msgstr "Internal Note"
+msgstr "Note interne"
 
 #: apps/rules/forms.py:176 apps/rules/forms.py:191 apps/rules/models.py:278
 #: apps/transactions/models.py:340
-#, fuzzy
 msgid "Internal ID"
-msgstr "Internal ID"
+msgstr "ID interne"
 
 #: apps/rules/forms.py:205
-#, fuzzy
 msgid "Search Criteria"
-msgstr "Search Criteria"
+msgstr "Critère de recherche"
 
 #: apps/rules/forms.py:340
-#, fuzzy
 msgid "Set Values"
-msgstr "Set Values"
+msgstr "Configurer les valeurs"
 
 #: apps/rules/models.py:15
-#, fuzzy
 msgid "Trigger"
-msgstr "Trigger"
+msgstr "Déclencheur"
 
 #: apps/rules/models.py:21
-#, fuzzy
 msgid "Transaction rule"
-msgstr "Transaction rule"
+msgstr "Règle(s) de transaction"
 
 #: apps/rules/models.py:46 apps/rules/models.py:84
-#, fuzzy
 msgid "Rule"
-msgstr "Rule"
+msgstr "Règle"
 
 #: apps/rules/models.py:51
-#, fuzzy
 msgid "Field"
-msgstr "Field"
+msgstr "Champ"
 
 #: apps/rules/models.py:53
-#, fuzzy
 msgid "Value"
-msgstr "Value"
+msgstr "Valeur"
 
 #: apps/rules/models.py:60
-#, fuzzy
 msgid "Edit transaction actions"
-msgstr "Edit transaction actions"
+msgstr "Modifier les actions de transaction"
 
 #: apps/rules/models.py:70
-#, fuzzy
 msgid "is exactly"
-msgstr "is exactly"
+msgstr "Est exactement"
 
 #: apps/rules/models.py:71
-#, fuzzy
 msgid "contains"
-msgstr "contains"
+msgstr "Contient"
 
 #: apps/rules/models.py:72
-#, fuzzy
 msgid "starts with"
-msgstr "starts with"
+msgstr "Commence par"
 
 #: apps/rules/models.py:73
-#, fuzzy
 msgid "ends with"
-msgstr "ends with"
+msgstr "Fini par"
 
 #: apps/rules/models.py:74
-#, fuzzy
 msgid "equals"
-msgstr "equals"
+msgstr "Égal"
 
 #: apps/rules/models.py:75
-#, fuzzy
 msgid "greater than"
-msgstr "greater than"
+msgstr "Supérieur à"
 
 #: apps/rules/models.py:76
-#, fuzzy
 msgid "less than"
-msgstr "less than"
+msgstr "Inférieur à"
 
 #: apps/rules/models.py:77
-#, fuzzy
 msgid "greater than or equal"
-msgstr "greater than or equal"
+msgstr "Supérieur ou égal à"
 
 #: apps/rules/models.py:78
-#, fuzzy
 msgid "less than or equal"
-msgstr "less than or equal"
+msgstr "Inférieur ou égal à"
 
 #: apps/rules/models.py:88 templates/transactions/pages/transactions.html:15
-#, fuzzy
 msgid "Filter"
-msgstr "Filter"
+msgstr "Filtre"
 
 #: apps/rules/models.py:91
-#, fuzzy
 msgid ""
 "Generic expression to enable or disable execution. Should evaluate to True "
 "or False"
 msgstr ""
-"Generic expression to enable or disable execution. Should evaluate to True "
-"or False"
+"Expression générique pour activer ou désactiver l’exécution. Doit être Vrai "
+"ou Faux"
 
 #: apps/rules/models.py:295
-#, fuzzy
 msgid "Update or create transaction action"
-msgstr "Update or create transaction action"
+msgstr "Mettre à jour ou créer une action de transaction"
 
 #: apps/rules/views.py:58
-#, fuzzy
 msgid "Rule deactivated successfully"
-msgstr "Rule deactivated successfully"
+msgstr "Règle désactivée avec succès"
 
 #: apps/rules/views.py:60
-#, fuzzy
 msgid "Rule activated successfully"
-msgstr "Rule activated successfully"
+msgstr "Règle activée avec succès"
 
 #: apps/rules/views.py:79
-#, fuzzy
 msgid "Rule added successfully"
-msgstr "Rule added successfully"
+msgstr "Règle ajoutée avec succès"
 
 #: apps/rules/views.py:118
-#, fuzzy
 msgid "Rule updated successfully"
-msgstr "Rule updated successfully"
+msgstr "Règle mis à jour avec succès"
 
 #: apps/rules/views.py:165
-#, fuzzy
 msgid "Rule deleted successfully"
-msgstr "Rule deleted successfully"
+msgstr "Règle supprimée avec succès"
 
 #: apps/rules/views.py:282
-#, fuzzy
 msgid "Action updated successfully"
-msgstr "Action updated successfully"
+msgstr "Action mis à jour avec succès"
 
 #: apps/rules/views.py:313
-#, fuzzy
 msgid "Action deleted successfully"
-msgstr "Action deleted successfully"
+msgstr "Action supprimée avec succès"
 
 #: apps/rules/views.py:337
-#, fuzzy
 msgid "Update or Create Transaction action added successfully"
-msgstr "Update or Create Transaction action added successfully"
+msgstr "Mis à jour ou Création de Transaction ajouté avec succès"
 
 #: apps/rules/views.py:370
-#, fuzzy
 msgid "Update or Create Transaction action updated successfully"
-msgstr "Update or Create Transaction action updated successfully"
+msgstr ""
+"Mis à jour ou Création de l'action de Transaction mis à jour avec succès"
 
 #: apps/rules/views.py:400
-#, fuzzy
 msgid "Update or Create Transaction action deleted successfully"
-msgstr "Update or Create Transaction action deleted successfully"
+msgstr "Mis à jour ou Création de l'action de Transaction supprimée avec succès"
 
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:31 templates/includes/navbar.html:46
 #: templates/insights/fragments/category_overview/index.html:46
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
-#, fuzzy
 msgid "Projected"
-msgstr "Projected"
+msgstr "Projeté"
 
 #: apps/transactions/filters.py:41
-#, fuzzy
 msgid "Content"
-msgstr "Content"
+msgstr "Contenu"
 
 #: apps/transactions/filters.py:47
-#, fuzzy
 msgid "Transaction Type"
-msgstr "Transaction Type"
+msgstr "Type de transaction"
 
 #: apps/transactions/filters.py:91
-#, fuzzy
 msgid "Date from"
-msgstr "Date from"
+msgstr "Date de départ"
 
 #: apps/transactions/filters.py:96 apps/transactions/filters.py:106
-#, fuzzy
 msgid "Until"
-msgstr "Until"
+msgstr "Jusqu'au"
 
 #: apps/transactions/filters.py:101
 #, fuzzy
