@@ -2,6 +2,7 @@ from crispy_forms.bootstrap import FormActions
 from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit, Div, HTML
 
@@ -80,6 +81,23 @@ class SharedObjectForm(forms.Form):
                 ),
             ),
         )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        owner = cleaned_data.get("owner")
+        shared_with_users = cleaned_data.get("shared_with_users", [])
+
+        # Raise validation error if owner is in shared_with_users
+        if owner and owner in shared_with_users:
+            self.add_error(
+                "shared_with_users",
+                ValidationError(
+                    _("You cannot share this item with its owner."),
+                    code="invalid_share",
+                ),
+            )
+
+        return cleaned_data
 
     def save(self):
         instance = self.instance
