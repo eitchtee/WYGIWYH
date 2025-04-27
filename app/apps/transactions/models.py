@@ -118,13 +118,20 @@ class SoftDeleteManager(models.Manager):
         qs = SoftDeleteQuerySet(self.model, using=self._db)
         user = get_current_user()
         if user and not user.is_anonymous:
-            return qs.filter(
-                Q(account__visibility="public")
-                | Q(account__owner=user)
-                | Q(account__shared_with=user)
-                | Q(account__visibility="private", account__owner=None),
-                deleted=False,
-            ).distinct()
+            account_ids = (
+                qs.filter(
+                    Q(account__visibility="public")
+                    | Q(account__owner=user)
+                    | Q(account__shared_with=user)
+                    | Q(account__visibility="private", account__owner=None),
+                    deleted=False,
+                )
+                .values_list("account__id", flat=True)
+                .distinct()
+            )
+
+            return qs.filter(account_id__in=account_ids, deleted=False)
+
         else:
             return qs.filter(
                 deleted=False,
