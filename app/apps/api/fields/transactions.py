@@ -41,7 +41,10 @@ class TransactionCategoryField(serializers.Field):
     def get_schema():
         return {
             "type": "array",
-            "items": {"type": "string", "description": "TransactionTag ID or name"},
+            "items": {
+                "type": "string",
+                "description": "TransactionCategory ID or name",
+            },
         }
 
 
