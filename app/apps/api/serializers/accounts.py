@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
@@ -22,6 +23,7 @@ class AccountSerializer(serializers.ModelSerializer):
         write_only=True,
         allow_null=True,
     )
+
     currency = CurrencySerializer(read_only=True)
     currency_id = serializers.PrimaryKeyRelatedField(
         queryset=Currency.objects.all(), source="currency", write_only=True
@@ -49,6 +51,13 @@ class AccountSerializer(serializers.ModelSerializer):
             "exchange_currency_id",
             "is_asset",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        request = self.context.get("request")
+        if request and request.user.is_authenticated:
+            # Reload the queryset to get an updated version with the requesting user
+            self.fields["group_id"].queryset = AccountGroup.objects.all()
 
     def create(self, validated_data):
         return Account.objects.create(**validated_data)
