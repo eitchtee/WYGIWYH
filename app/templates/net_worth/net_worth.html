@@ -46,7 +46,7 @@
                         color="grey"></c-amount.display>
                   </div>
                 {% endif %}
-                {% if currency.consolidated %}
+                {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
                   <div class="d-flex align-items-baseline w-100">
                         <div class="account-name text-start font-monospace tw-text-gray-300">
                           <span class="hierarchy-line-icon"></span>{% trans 'Consolidated' %}</div>
