@@ -32,7 +32,7 @@ def net_worth_current(request):
     )
 
     currency_net_worth = calculate_currency_totals(
-        transactions_queryset=transactions_currency_queryset
+        transactions_queryset=transactions_currency_queryset, deep_search=True
     )
     account_net_worth = calculate_account_totals(
         transactions_queryset=transactions_account_queryset
@@ -137,7 +137,7 @@ def net_worth_projected(request):
     )
 
     currency_net_worth = calculate_currency_totals(
-        transactions_queryset=transactions_currency_queryset
+        transactions_queryset=transactions_currency_queryset, deep_search=True
     )
     account_net_worth = calculate_account_totals(
         transactions_queryset=transactions_account_queryset
