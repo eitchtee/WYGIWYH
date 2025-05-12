@@ -57,7 +57,7 @@
                             :prefix="currency.consolidated.currency.prefix"
                             :suffix="currency.consolidated.currency.suffix"
                             :decimal_places="currency.consolidated.currency.decimal_places"
-                            color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
+                            color="{% if currency.consolidated.total_final > 0 %}green{% elif currency.consolidated.total_final < 0 %}red{% endif %}"
                             text-end></c-amount.display>
                         </div>
                       </div>
