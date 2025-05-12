@@ -9,9 +9,11 @@ from apps.currencies.utils.convert import convert
 from apps.currencies.models import Currency
 
 
-def calculate_currency_totals(transactions_queryset, ignore_empty=False):
+def calculate_currency_totals(
+    transactions_queryset, ignore_empty=False, deep_search=False
+):
     # Prepare the aggregation expressions
-    currency_totals = (
+    currency_totals_from_transactions = (
         transactions_queryset.values(
             "account__currency",
             "account__currency__code",
@@ -19,7 +21,14 @@ def calculate_currency_totals(transactions_queryset, ignore_empty=False):
             "account__currency__decimal_places",
             "account__currency__prefix",
             "account__currency__suffix",
-            "account__currency__exchange_currency",
+            "account__currency__exchange_currency",  # ID of the exchange currency for the account's currency
+            # Fields for the exchange currency itself (if account.currency.exchange_currency is set)
+            # These might be null if not set, so handle appropriately.
+            "account__currency__exchange_currency__code",
+            "account__currency__exchange_currency__name",
+            "account__currency__exchange_currency__decimal_places",
+            "account__currency__exchange_currency__prefix",
+            "account__currency__exchange_currency__suffix",
         )
         .annotate(
             expense_current=Coalesce(
@@ -72,36 +81,55 @@ def calculate_currency_totals(transactions_queryset, ignore_empty=False):
         .order_by()
     )
 
-    # First pass: Process basic totals and store all currency data
     result = {}
-    currencies_using_exchange = (
-        {}
-    )  # Track which currencies use which exchange currencies
+    # currencies_using_exchange maps:
+    # exchange_currency_id -> list of [
+    #   { "currency_id": original_currency_id, (the currency that was exchanged FROM)
+    #     "exchanged": { field: amount_in_exchange_currency, ... } (the values of original_currency_id converted TO exchange_currency_id)
+    #   }
+    # ]
+    currencies_using_exchange = {}
 
-    for total in currency_totals:
-        # Skip empty currencies if ignore_empty is True
-        if ignore_empty and all(
-            total[field] == Decimal("0")
-            for field in [
-                "expense_current",
-                "expense_projected",
-                "income_current",
-                "income_projected",
-            ]
+    # --- First Pass: Process transactions from the queryset ---
+    for total in currency_totals_from_transactions:
+        if (
+            ignore_empty
+            and not deep_search
+            and all(
+                total[field] == Decimal("0")
+                for field in [
+                    "expense_current",
+                    "expense_projected",
+                    "income_current",
+                    "income_projected",
+                ]
+            )
         ):
             continue
 
-        # Calculate derived totals
+        currency_id = total["account__currency"]
+        try:
+            from_currency_obj = Currency.objects.get(id=currency_id)
+        except Currency.DoesNotExist:
+            # This should ideally not happen if database is consistent
+            continue
+
+        exchange_currency_for_this_total_id = total[
+            "account__currency__exchange_currency"
+        ]
+        exchange_currency_obj_for_this_total = None
+        if exchange_currency_for_this_total_id:
+            try:
+                # Use pre-fetched values if available, otherwise query
+                exchange_currency_obj_for_this_total = Currency.objects.get(
+                    id=exchange_currency_for_this_total_id
+                )
+            except Currency.DoesNotExist:
+                pass  # Exchange currency might not exist or be set
+
         total_current = total["income_current"] - total["expense_current"]
         total_projected = total["income_projected"] - total["expense_projected"]
         total_final = total_current + total_projected
-        currency_id = total["account__currency"]
-        from_currency = Currency.objects.get(id=currency_id)
-        exchange_currency = (
-            Currency.objects.get(id=total["account__currency__exchange_currency"])
-            if total["account__currency__exchange_currency"]
-            else None
-        )
 
         currency_data = {
             "currency": {
@@ -120,9 +148,16 @@ def calculate_currency_totals(transactions_queryset, ignore_empty=False):
             "total_final": total_final,
         }
 
-        # Add exchanged values if exchange_currency exists
-        if exchange_currency:
-            exchanged = {}
+        if exchange_currency_obj_for_this_total:
+            exchanged_details = {
+                "currency": {
+                    "code": exchange_currency_obj_for_this_total.code,
+                    "name": exchange_currency_obj_for_this_total.name,
+                    "decimal_places": exchange_currency_obj_for_this_total.decimal_places,
+                    "prefix": exchange_currency_obj_for_this_total.prefix,
+                    "suffix": exchange_currency_obj_for_this_total.suffix,
+                }
+            }
             for field in [
                 "expense_current",
                 "expense_projected",
@@ -132,50 +167,142 @@ def calculate_currency_totals(transactions_queryset, ignore_empty=False):
                 "total_projected",
                 "total_final",
             ]:
-                amount, prefix, suffix, decimal_places = convert(
-                    amount=currency_data[field],
-                    from_currency=from_currency,
-                    to_currency=exchange_currency,
+                amount_to_convert = currency_data[field]
+                converted_val, _, _, _ = convert(
+                    amount=amount_to_convert,
+                    from_currency=from_currency_obj,
+                    to_currency=exchange_currency_obj_for_this_total,
                 )
-                if amount is not None:
-                    exchanged[field] = amount
-                    if "currency" not in exchanged:
-                        exchanged["currency"] = {
-                            "prefix": prefix,
-                            "suffix": suffix,
-                            "decimal_places": decimal_places,
-                            "code": exchange_currency.code,
-                            "name": exchange_currency.name,
-                        }
+                exchanged_details[field] = (
+                    converted_val if converted_val is not None else Decimal("0")
+                )
 
-            if exchanged:
-                currency_data["exchanged"] = exchanged
-                # Track which currencies are using which exchange currencies
-                if exchange_currency.id not in currencies_using_exchange:
-                    currencies_using_exchange[exchange_currency.id] = []
-                currencies_using_exchange[exchange_currency.id].append(
-                    {"currency_id": currency_id, "exchanged": exchanged}
-                )
+            currency_data["exchanged"] = exchanged_details
+
+            if exchange_currency_obj_for_this_total.id not in currencies_using_exchange:
+                currencies_using_exchange[exchange_currency_obj_for_this_total.id] = []
+            currencies_using_exchange[exchange_currency_obj_for_this_total.id].append(
+                {"currency_id": currency_id, "exchanged": exchanged_details}
+            )
 
         result[currency_id] = currency_data
 
-    # Second pass: Add consolidated totals for currencies that are used as exchange currencies
-    for currency_id, currency_data in result.items():
-        if currency_id in currencies_using_exchange:
-            consolidated = {
-                "currency": currency_data["currency"].copy(),
-                "expense_current": currency_data["expense_current"],
-                "expense_projected": currency_data["expense_projected"],
-                "income_current": currency_data["income_current"],
-                "income_projected": currency_data["income_projected"],
-                "total_current": currency_data["total_current"],
-                "total_projected": currency_data["total_projected"],
-                "total_final": currency_data["total_final"],
-            }
+    # --- Deep Search: Add transaction-less currencies that are exchange targets ---
+    if deep_search:
+        # Iteratively add exchange targets that might not have had direct transactions
+        # Start with known exchange targets from the first pass
+        queue = list(currencies_using_exchange.keys())
+        processed_for_deep_add = set(
+            result.keys()
+        )  # Track currencies already in result or added by this deep search step
 
-            # Add exchanged values from all currencies using this as exchange currency
-            for using_currency in currencies_using_exchange[currency_id]:
-                exchanged = using_currency["exchanged"]
+        while queue:
+            target_id = queue.pop(0)
+            if target_id in processed_for_deep_add:
+                continue
+            processed_for_deep_add.add(target_id)
+
+            if (
+                target_id not in result
+            ):  # If this exchange target had no direct transactions
+                try:
+                    db_currency = Currency.objects.get(id=target_id)
+                except Currency.DoesNotExist:
+                    continue
+
+                # Initialize data for this transaction-less exchange target currency
+                currency_data_for_db_currency = {
+                    "currency": {
+                        "code": db_currency.code,
+                        "name": db_currency.name,
+                        "decimal_places": db_currency.decimal_places,
+                        "prefix": db_currency.prefix,
+                        "suffix": db_currency.suffix,
+                    },
+                    "expense_current": Decimal("0"),
+                    "expense_projected": Decimal("0"),
+                    "income_current": Decimal("0"),
+                    "income_projected": Decimal("0"),
+                    "total_current": Decimal("0"),
+                    "total_projected": Decimal("0"),
+                    "total_final": Decimal("0"),
+                }
+
+                # If this newly added transaction-less currency ALSO has an exchange_currency set for itself
+                if db_currency.exchange_currency:
+                    exchanged_details_for_db_currency = {
+                        "currency": {
+                            "code": db_currency.exchange_currency.code,
+                            "name": db_currency.exchange_currency.name,
+                            "decimal_places": db_currency.exchange_currency.decimal_places,
+                            "prefix": db_currency.exchange_currency.prefix,
+                            "suffix": db_currency.exchange_currency.suffix,
+                        }
+                    }
+                    for field in [
+                        "expense_current",
+                        "expense_projected",
+                        "income_current",
+                        "income_projected",
+                        "total_current",
+                        "total_projected",
+                        "total_final",
+                    ]:
+                        converted_val, _, _, _ = convert(
+                            Decimal("0"), db_currency, db_currency.exchange_currency
+                        )
+                        exchanged_details_for_db_currency[field] = (
+                            converted_val if converted_val is not None else Decimal("0")
+                        )
+
+                    currency_data_for_db_currency["exchanged"] = (
+                        exchanged_details_for_db_currency
+                    )
+
+                    # Ensure its own exchange_currency is registered in currencies_using_exchange
+                    # and add it to the queue if it hasn't been processed yet for deep add.
+                    target_id_for_this_db_curr = db_currency.exchange_currency.id
+                    if target_id_for_this_db_curr not in currencies_using_exchange:
+                        currencies_using_exchange[target_id_for_this_db_curr] = []
+
+                    # Avoid adding duplicate entries
+                    already_present_in_cue = any(
+                        entry["currency_id"] == db_currency.id
+                        for entry in currencies_using_exchange[
+                            target_id_for_this_db_curr
+                        ]
+                    )
+                    if not already_present_in_cue:
+                        currencies_using_exchange[target_id_for_this_db_curr].append(
+                            {
+                                "currency_id": db_currency.id,
+                                "exchanged": exchanged_details_for_db_currency,
+                            }
+                        )
+
+                    if target_id_for_this_db_curr not in processed_for_deep_add:
+                        queue.append(target_id_for_this_db_curr)
+
+                result[db_currency.id] = currency_data_for_db_currency
+
+    # --- Second Pass: Calculate consolidated totals for all currencies in result ---
+    for currency_id_consolidated, data_consolidated_currency in result.items():
+        consolidated_data = {
+            "currency": data_consolidated_currency["currency"].copy(),
+            "expense_current": data_consolidated_currency["expense_current"],
+            "expense_projected": data_consolidated_currency["expense_projected"],
+            "income_current": data_consolidated_currency["income_current"],
+            "income_projected": data_consolidated_currency["income_projected"],
+            "total_current": data_consolidated_currency["total_current"],
+            "total_projected": data_consolidated_currency["total_projected"],
+            "total_final": data_consolidated_currency["total_final"],
+        }
+
+        if currency_id_consolidated in currencies_using_exchange:
+            for original_currency_info in currencies_using_exchange[
+                currency_id_consolidated
+            ]:
+                exchanged_values_from_original = original_currency_info["exchanged"]
                 for field in [
                     "expense_current",
                     "expense_projected",
@@ -185,10 +312,25 @@ def calculate_currency_totals(transactions_queryset, ignore_empty=False):
                     "total_projected",
                     "total_final",
                 ]:
-                    if field in exchanged:
-                        consolidated[field] += exchanged[field]
+                    if field in exchanged_values_from_original:
+                        consolidated_data[field] += exchanged_values_from_original[
+                            field
+                        ]
 
-            result[currency_id]["consolidated"] = consolidated
+        result[currency_id_consolidated]["consolidated"] = consolidated_data
+
+    # Sort currencies by their final_total or consolidated final_total, descending
+    result = {
+        k: v
+        for k, v in sorted(
+            result.items(),
+            reverse=True,
+            key=lambda item: max(
+                item[1].get("total_final", Decimal("0")),
+                item[1].get("consolidated", {}).get("total_final", Decimal("0")),
+            ),
+        )
+    }
 
     return result
 
