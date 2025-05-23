@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-11 15:47+0000\n"
-"PO-Revision-Date: 2025-04-13 02:40+0000\n"
-"Last-Translator: Prefill add-on <noreply-addon-prefill@weblate.org>\n"
+"PO-Revision-Date: 2025-05-23 17:16+0000\n"
+"Last-Translator: JHoh <jean-luc.hoh@gmx.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
 "app/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -292,10 +292,8 @@ msgid "Ungrouped"
 msgstr "Ohne Gruppierung"
 
 #: apps/common/fields/month_year.py:30
-#, fuzzy
-#| msgid "Invalid date format. Use YYYY-MM."
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
-msgstr "Ungültiges Datumsformat. Nutze JJJJ-MM."
+msgstr "Ungültiges Datumsformat. Benutze YYYY-MM oder YYYY-MM-DD."
 
 #: apps/common/fields/month_year.py:59
 msgid "Invalid date format. Use YYYY-MM."
@@ -1279,11 +1277,11 @@ msgstr "Mehr"
 
 #: apps/transactions/forms.py:216
 msgid "Save and add similar"
-msgstr ""
+msgstr "Speichern und ähnliches hinzufügen"
 
 #: apps/transactions/forms.py:221
 msgid "Save and add another"
-msgstr ""
+msgstr "Speichern und etwas neu hinzufügen"
 
 #: apps/transactions/forms.py:302
 msgid "From Amount"
@@ -1719,52 +1717,55 @@ msgid ""
 "displayed\n"
 "Consider helping translate WYGIWYH to your language at %(translation_link)s"
 msgstr ""
+"Dies ändert die Sprache (sofern verfügbar) und wie Zahlen und Daten "
+"angezeigt werden.\n"
+"Hilf mit WYGIWYH in deine Sprache zu übersetzten: %(translation_link)s"
 
 #: apps/users/forms.py:150
-#, fuzzy
-#| msgid "Password"
 msgid "New Password"
-msgstr "Passwort"
+msgstr "Neues Passwort"
 
 #: apps/users/forms.py:153
 msgid "Leave blank to keep the current password."
-msgstr ""
+msgstr "Leer lassen um Passwort zu belassen."
 
 #: apps/users/forms.py:156
 msgid "Confirm New Password"
-msgstr ""
+msgstr "Bestätige das neue Passwort"
 
 #: apps/users/forms.py:168 apps/users/forms.py:329
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
-msgstr ""
+msgstr "Abwählen um den Nutzer zu deaktivieren. Besser als gleich zu löschen."
 
 #: apps/users/forms.py:171 apps/users/forms.py:332
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr ""
+"Anwählen damit der Nutzer alle Berechtigungen hat, ohne diese explizit "
+"hinzuzufügen."
 
 #: apps/users/forms.py:242
 msgid "This email address is already in use by another account."
-msgstr ""
+msgstr "Diese E-Mail-Adresse wird bereits von jemand anders benutzt."
 
 #: apps/users/forms.py:250
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "Die eingegebenen Passwörter stimmen nicht überein."
 
 #: apps/users/forms.py:252
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Bitte bestätige dein neues Passwort."
 
 #: apps/users/forms.py:254
 msgid "Please enter the new password first."
-msgstr ""
+msgstr "Bitte gebe erst dein neues Passwort ein."
 
 #: apps/users/forms.py:274
 msgid "You cannot deactivate your own account using this form."
-msgstr ""
+msgstr "Du kannst deinen Nutzer nicht hier deaktivieren."
 
 #: apps/users/forms.py:287
 msgid "Cannot remove status from the last superuser."
@@ -1772,13 +1773,11 @@ msgstr ""
 
 #: apps/users/forms.py:293
 msgid "You cannot remove your own superuser status using this form."
-msgstr ""
+msgstr "Du kannst deinen eigenen Superuser-Status nicht hier entfernen."
 
 #: apps/users/forms.py:390
-#, fuzzy
-#| msgid "A value for this field already exists in the rule."
 msgid "A user with this email address already exists."
-msgstr "Ein Wert für dieses Feld existiert bereits in dieser Regel."
+msgstr "Ein Benutzer mit dieser E-Mail-Adresse existiert bereits."
 
 #: apps/users/models.py:27 templates/includes/navbar.html:28
 msgid "Yearly by currency"
@@ -2624,7 +2623,7 @@ msgstr "Automatisierung"
 
 #: templates/includes/navbar.html:145
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: templates/includes/navbar.html:154
 msgid "Only use this if you know what you're doing"
@@ -2657,16 +2656,13 @@ msgid "Logout"
 msgstr "Abmelden"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:8
-#, fuzzy
 msgid "Access Denied"
-msgstr "Access Denied"
+msgstr "Zugriff verweigert"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:9
-#, fuzzy
 msgid ""
 "You do not have permission to perform this action or access this resource."
-msgstr ""
-"You do not have permission to perform this action or access this resource."
+msgstr "Du hast nicht die Berechtigung dies zu tun oder hier drauf zuzugreifen."
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:18
 msgid "Something went wrong loading your data"
@@ -2875,14 +2871,12 @@ msgid "No installment plans"
 msgstr "Keine Ratenzahlungs-Pläne"
 
 #: templates/layouts/base.html:40
-#, fuzzy
 msgid "This is a demo!"
-msgstr "This is a demo!"
+msgstr "Dies ist eine Demo!"
 
 #: templates/layouts/base.html:40
-#, fuzzy
 msgid "Any data you add here will be wiped in 24hrs or less"
-msgstr "Any data you add here will be wiped in 24hrs or less"
+msgstr "Jegliche Eingaben hier werden innerhalb von 24 Stunden gelöscht"
 
 #: templates/mini_tools/currency_converter/currency_converter.html:58
 msgid "Invert"
@@ -3232,14 +3226,12 @@ msgid "Show amounts"
 msgstr "Werte einblenden"
 
 #: templates/users/login.html:17
-#, fuzzy
 msgid "Welcome to WYGIWYH's demo!"
-msgstr "Welcome to WYGIWYH's demo!"
+msgstr "Willkommen zur WYGIWYH Demo!"
 
 #: templates/users/login.html:18
-#, fuzzy
 msgid "Use the credentials below to login"
-msgstr "Use the credentials below to login"
+msgstr "Benutze die Logindaten unten um dich anzumelden"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
