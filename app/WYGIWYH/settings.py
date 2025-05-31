@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sites",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "webpack_boilerplate",
@@ -74,7 +75,13 @@ INSTALLED_APPS = [
     "apps.calendar_view.apps.CalendarViewConfig",
     "apps.dca.apps.DcaConfig",
     "pwa",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.openid_connect",
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django_browser_reload.middleware.BrowserReloadMiddleware",
@@ -91,6 +98,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "hijack.middleware.HijackUserMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "WYGIWYH.urls"
@@ -307,6 +315,37 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/login/"
+LOGOUT_REDIRECT_URL = "/login/"
+
+# Allauth settings
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend", # Keep default
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'oidc': {
+        'APPS': [
+            {
+                'provider_id': 'oidc',
+                'name': 'OpenID Connect',
+                'client_id': os.getenv('OIDC_CLIENT_ID'),
+                'secret': os.getenv('OIDC_CLIENT_SECRET'),
+                'settings': {
+                    'server_url': os.getenv('OIDC_SERVER_URL'),
+                }
+            }
+        ]
+    }
+}
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
 
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5", "crispy_forms/pure_text"]

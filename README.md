@@ -144,6 +144,26 @@ To create the first user, open the container's console using Unraid's UI, by cli
 | ADMIN_EMAIL                   | string         | None                              | Automatically creates an admin account with this email. Must have `ADMIN_PASSWORD` also set.                                                                                                                                             |
 | ADMIN_PASSWORD                | string         | None                              | Automatically creates an admin account with this password. Must have `ADMIN_EMAIL` also set.                                                                                                                                             |
 
+## OIDC Configuration
+
+WYGIWYH supports login via OpenID Connect (OIDC) through `django-allauth`. This allows users to authenticate using an external OIDC provider.
+
+To configure OIDC, you need to set the following environment variables:
+
+| Variable             | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| `OIDC_CLIENT_ID`     | The Client ID provided by your OIDC provider.                               |
+| `OIDC_CLIENT_SECRET` | The Client Secret provided by your OIDC provider.                           |
+| `OIDC_SERVER_URL`    | The base URL of your OIDC provider's discovery document or authorization server (e.g., `https://your-provider.com/auth/realms/your-realm`). `django-allauth` will use this to discover the necessary endpoints (authorization, token, userinfo, etc.). |
+
+**Callback URL (Redirect URI):**
+
+When configuring your OIDC provider, you will need to provide a callback URL (also known as a Redirect URI). For WYGIWYH, using `django-allauth` with the provider ID 'oidc' (as configured in `settings.py`), the default callback URL is:
+
+`https://your.wygiwyh.domain/accounts/oidc/login/callback/`
+
+Replace `https://your.wygiwyh.domain` with the actual URL where your WYGIWYH instance is accessible.
+
 # How it works
 
 Check out our [Wiki](https://github.com/eitchtee/WYGIWYH/wiki) for more information.

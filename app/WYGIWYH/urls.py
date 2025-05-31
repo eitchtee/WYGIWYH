@@ -36,6 +36,7 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    path('accounts/', include('allauth.urls')), # allauth urls
     path("", include("apps.transactions.urls")),
     path("", include("apps.common.urls")),
     path("", include("apps.users.urls")),
