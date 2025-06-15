@@ -13,45 +13,47 @@
 {% endblock %}
 
 {% block content %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="row mb-3 gx-xl-4 gy-3 mb-4">
-{#    Date picker#}
-    <div class="col-12 col-xl-4 flex-row align-items-center d-flex">
-      <div class="tw-text-base h-100 align-items-center d-flex">
-        <a role="button"
-           class="pe-4 py-2"
-           hx-boost="true"
-           hx-trigger="click, previous_month from:window"
-           href="{% url 'calendar' month=previous_month year=previous_year %}"><i
-            class="fa-solid fa-chevron-left"></i></a>
+  <div class="container px-md-3 py-3 column-gap-5">
+    <div class="row mb-3 gx-xl-4 gy-3 mb-4">
+      {#    Date picker#}
+      <div class="col-12 col-xl-4 flex-row align-items-center d-flex">
+        <div class="tw-text-base h-100 align-items-center d-flex">
+          <a role="button"
+             class="pe-4 py-2"
+             hx-boost="true"
+             hx-trigger="click, previous_month from:window"
+             href="{% url 'calendar' month=previous_month year=previous_year %}"><i
+              class="fa-solid fa-chevron-left"></i></a>
+        </div>
+        <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"
+             hx-get="{% url 'month_year_picker' %}"
+             hx-target="#generic-offcanvas-left"
+             hx-trigger="click, date_picker from:window"
+             hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "calendar", "field": "date"}' role="button">
+          {{ month|month_name }} {{ year }}
+        </div>
+        <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
+          <a role="button"
+             class="ps-3 py-2"
+             hx-boost="true"
+             hx-trigger="click, next_month from:window"
+             href="{% url 'calendar' month=next_month year=next_year %}">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </div>
       </div>
-      <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"
-           hx-get="{% url 'month_year_picker' %}"
-           hx-target="#generic-offcanvas-left"
-           hx-trigger="click, date_picker from:window"
-           hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "calendar", "field": "date"}' role="button">
-        {{ month|month_name }} {{ year }}
-      </div>
-      <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
-        <a role="button"
-           class="ps-3 py-2"
-           hx-boost="true"
-           hx-trigger="click, next_month from:window"
-           href="{% url 'calendar' month=next_month year=next_year %}">
-          <i class="fa-solid fa-chevron-right"></i>
-        </a>
+      {#    Action buttons#}
+      <div class="col-12 col-xl-8">
+        {#      <c-ui.quick-transactions-buttons#}
+        {#        :year="year"#}
+        {#        :month="month"#}
+        {#      ></c-ui.quick-transactions-buttons>#}
       </div>
     </div>
-{#    Action buttons#}
-    <div class="col-12 col-xl-8">
-      <c-ui.quick-transactions-buttons
-        :year="year"
-        :month="month"
-      ></c-ui.quick-transactions-buttons>
+    <div class="row">
+      <div class="show-loading" hx-get="{% url 'calendar_list' month=month year=year %}"
+           hx-trigger="load, updated from:window, selective_update from:window"></div>
     </div>
   </div>
-  <div class="row">
-    <div class="show-loading" hx-get="{% url 'calendar_list' month=month year=year %}" hx-trigger="load, updated from:window, selective_update from:window"></div>
-  </div>
-</div>
+  <c-ui.transactions_fab></c-ui.transactions_fab>
 {% endblock %}

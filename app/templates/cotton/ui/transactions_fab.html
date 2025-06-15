@@ -1,0 +1,53 @@
+{% load i18n %}
+<c-components.fab>
+  <c-components.fab_menu_button
+            color="success"
+            hx_target="#generic-offcanvas"
+            hx_trigger="click, add_income from:window"
+            hx_vals='{"year": {{ year }}, {% if month %}"month": {{ month }},{% endif %} "type": "IN"}'
+            url="{% url 'transaction_add' %}"
+            icon="fa-solid fa-arrow-right-to-bracket"
+            title="{% translate "Income" %}"></c-components.fab_menu_button>
+
+  <c-components.fab_menu_button
+            color="danger"
+            hx_target="#generic-offcanvas"
+            hx_trigger="click, add_income from:window"
+            hx_vals='{"year": {{ year }}, {% if month %}"month": {{ month }},{% endif %} "type": "EX"}'
+            url="{% url 'transaction_add' %}"
+            icon="fa-solid fa-arrow-right-from-bracket"
+            title="{% translate "Expense" %}"></c-components.fab_menu_button>
+
+  <c-components.fab_menu_button
+            color="warning"
+            hx_target="#generic-offcanvas"
+            hx_trigger="click, installment from:window"
+            url="{% url 'installment_plan_add' %}"
+            icon="fa-solid fa-divide"
+            title="{% translate "Installment" %}"></c-components.fab_menu_button>
+
+  <c-components.fab_menu_button
+            color="warning"
+            hx_target="#generic-offcanvas"
+            hx_trigger="click, recurring from:window"
+            url="{% url 'recurring_transaction_add' %}"
+            icon="fa-solid fa-repeat"
+            title="{% translate "Recurring" %}"></c-components.fab_menu_button>
+
+  <c-components.fab_menu_button
+            color="info"
+            hx_target="#generic-offcanvas"
+            hx_trigger="click, transfer from:window"
+            hx_vals='{"year": {{ year }} {% if month %}, "month": {{ month }}{% endif %}}'
+            url="{% url 'transactions_transfer' %}"
+            icon="fa-solid fa-money-bill-transfer"
+            title="{% translate "Transfer" %}"></c-components.fab_menu_button>
+
+  <c-components.fab_menu_button
+            color="info"
+            hx_target="#generic-offcanvas"
+            hx_trigger="click, balance from:window"
+            url="{% url 'account_reconciliation' %}"
+            icon="fa-solid fa-scale-balanced"
+            title="{% translate "Balance" %}"></c-components.fab_menu_button>
+</c-components.fab>
