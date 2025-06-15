@@ -44,12 +44,12 @@
         </div>
       </div>
       {#    Action buttons#}
-      <div class="col-12 col-xl-8">
-        <c-ui.quick-transactions-buttons
-            :year="year"
-            :month="month"
-        ></c-ui.quick-transactions-buttons>
-      </div>
+{#      <div class="col-12 col-xl-8">#}
+{#        <c-ui.quick-transactions-buttons#}
+{#            :year="year"#}
+{#            :month="month"#}
+{#        ></c-ui.quick-transactions-buttons>#}
+{#      </div>#}
     </div>
     {#  Monthly summary#}
     <div class="row gx-xl-4 gy-3">
@@ -174,8 +174,9 @@
         </div>
         <div id="search" class="my-3">
           <label class="w-100">
-          <input type="search" class="form-control" placeholder="{% translate 'Search' %}" hx-preserve id="quick-search"
-                 _="on input or search or htmx:afterSwap from window
+            <input type="search" class="form-control" placeholder="{% translate 'Search' %}" hx-preserve
+                   id="quick-search"
+                   _="on input or search or htmx:afterSwap from window
                       if my value is empty
                         trigger toggle on <.transactions-divider-collapse/>
                       else
@@ -195,4 +196,7 @@
       </div>
     </div>
   </div>
+
+  <c-ui.transactions_fab></c-ui.transactions_fab>
+
 {% endblock %}
