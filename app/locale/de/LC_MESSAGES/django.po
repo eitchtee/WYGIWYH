@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-11 15:47+0000\n"
+"POT-Creation-Date: 2025-06-15 18:46+0000\n"
 "PO-Revision-Date: 2025-05-23 17:16+0000\n"
 "Last-Translator: JHoh <jean-luc.hoh@gmx.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -1293,6 +1293,7 @@ msgstr "Zielbetrag"
 
 #: apps/transactions/forms.py:424
 #: templates/cotton/ui/quick_transactions_buttons.html:40
+#: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
 msgstr "Transfer"
 
@@ -1365,6 +1366,7 @@ msgstr "Entität"
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
+#: templates/cotton/ui/transactions_fab.html:10
 #: templates/insights/fragments/category_overview/index.html:64
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
@@ -1376,6 +1378,7 @@ msgstr "Einnahme"
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
+#: templates/cotton/ui/transactions_fab.html:19
 #: templates/insights/fragments/category_overview/index.html:65
 msgid "Expense"
 msgstr "Ausgabe"
@@ -2250,14 +2253,17 @@ msgid "Count"
 msgstr "Anzahl"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:25
+#: templates/cotton/ui/transactions_fab.html:27
 msgid "Installment"
 msgstr "Ratenzahlung"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:32
+#: templates/cotton/ui/transactions_fab.html:35
 msgid "Recurring"
 msgstr "Wiederkehrend"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:47
+#: templates/cotton/ui/transactions_fab.html:52
 msgid "Balance"
 msgstr "Saldo"
 
@@ -2424,8 +2430,8 @@ msgstr "Umrechnungskurs bearbeiten"
 #: templates/exchange_rates/fragments/list.html:25
 #: templates/includes/navbar.html:61
 #: templates/installment_plans/fragments/list.html:21
-#: templates/yearly_overview/pages/overview_by_account.html:92
-#: templates/yearly_overview/pages/overview_by_currency.html:94
+#: templates/yearly_overview/pages/overview_by_account.html:94
+#: templates/yearly_overview/pages/overview_by_currency.html:96
 msgid "All"
 msgstr "Alle"
 
@@ -2662,7 +2668,8 @@ msgstr "Zugriff verweigert"
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:9
 msgid ""
 "You do not have permission to perform this action or access this resource."
-msgstr "Du hast nicht die Berechtigung dies zu tun oder hier drauf zuzugreifen."
+msgstr ""
+"Du hast nicht die Berechtigung dies zu tun oder hier drauf zuzugreifen."
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:18
 msgid "Something went wrong loading your data"
@@ -2788,8 +2795,8 @@ msgid "Month"
 msgstr "Monat"
 
 #: templates/insights/pages/index.html:40
-#: templates/yearly_overview/pages/overview_by_account.html:61
-#: templates/yearly_overview/pages/overview_by_currency.html:63
+#: templates/yearly_overview/pages/overview_by_account.html:62
+#: templates/yearly_overview/pages/overview_by_currency.html:64
 msgid "Year"
 msgstr "Jahr"
 
