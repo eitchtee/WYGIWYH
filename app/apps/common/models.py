@@ -27,7 +27,7 @@ class SharedObject(models.Model):
     # Access control enum
     class Visibility(models.TextChoices):
         private = "private", _("Private")
-        is_paid = "public", _("Public")
+        public = "public", _("Public")
 
     # Core sharing fields
     owner = models.ForeignKey(
