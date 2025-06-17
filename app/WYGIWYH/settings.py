@@ -346,12 +346,12 @@ if (
 ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_VERIFICATION = "optional"
-SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_ONLY = True
 SOCIALACCOUNT_AUTO_SIGNUP = os.getenv("OIDC_ALLOW_SIGNUP", "true").lower() == "true"
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
-
+SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
 
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5", "crispy_forms/pure_text"]
