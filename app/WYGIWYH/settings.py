@@ -14,6 +14,7 @@ import os
 import sys
 from pathlib import Path
 
+from django.utils.text import slugify
 
 SITE_TITLE = "WYGIWYH"
 TITLE_SEPARATOR = "::"
@@ -62,7 +63,6 @@ INSTALLED_APPS = [
     "apps.transactions.apps.TransactionsConfig",
     "apps.currencies.apps.CurrenciesConfig",
     "apps.accounts.apps.AccountsConfig",
-    "apps.common.apps.CommonConfig",
     "apps.net_worth.apps.NetWorthConfig",
     "apps.import_app.apps.ImportConfig",
     "apps.export_app.apps.ExportConfig",
@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.openid_connect",
+    "apps.common.apps.CommonConfig",
 ]
 
 SITE_ID = 1
@@ -319,33 +320,38 @@ LOGOUT_REDIRECT_URL = "/login/"
 
 # Allauth settings
 AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend", # Keep default
+    "django.contrib.auth.backends.ModelBackend",  # Keep default
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'oidc': {
-        'APPS': [
-            {
-                'provider_id': 'oidc',
-                'name': 'OpenID Connect',
-                'client_id': os.getenv('OIDC_CLIENT_ID'),
-                'secret': os.getenv('OIDC_CLIENT_SECRET'),
-                'settings': {
-                    'server_url': os.getenv('OIDC_SERVER_URL'),
-                }
-            }
-        ]
-    }
-}
+SOCIALACCOUNT_PROVIDERS = {"openid_connect": {"APPS": []}}
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+if (
+    os.getenv("OIDC_CLIENT_ID")
+    and os.getenv("OIDC_CLIENT_SECRET")
+    and os.getenv("OIDC_SERVER_URL")
+):
+    SOCIALACCOUNT_PROVIDERS["openid_connect"]["APPS"].append(
+        {
+            "provider_id": slugify(os.getenv("OIDC_CLIENT_NAME", "OpenID Connect")),
+            "name": os.getenv("OIDC_CLIENT_NAME", "OpenID Connect"),
+            "client_id": os.getenv("OIDC_CLIENT_ID"),
+            "secret": os.getenv("OIDC_CLIENT_SECRET"),
+            "settings": {
+                "server_url": os.getenv("OIDC_SERVER_URL"),
+            },
+        }
+    )
+
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
-ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = os.getenv("OIDC_ALLOW_SIGNUP", "true").lower() == "true"
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
+
 
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5", "crispy_forms/pure_text"]
