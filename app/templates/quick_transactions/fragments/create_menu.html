@@ -1,0 +1,17 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Add quick transaction' %}{% endblock %}
+
+{% block body %}
+  <div class="list-group list-group-flush">
+    {% for qt in quick_transactions %}
+      <a hx-get="{% url 'quick_transaction_add_as_transaction' quick_transaction_id=qt.id %}"
+         class="list-group-item list-group-item-action tw-cursor-pointer {% if qt.type == 'EX' %}!tw-text-red-400{% else %}!tw-text-green-400{% endif %}">{{ qt.name }}</a>
+    {% empty %}
+      <c-msg.empty title="{% translate "Nothing to see here..." %}" remove-padding></c-msg.empty>
+    {% endfor %}
+  </div>
+
+{% endblock %}

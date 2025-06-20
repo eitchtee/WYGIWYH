@@ -1,0 +1,59 @@
+{% load i18n %}
+<div class="card">
+  <div class="card-body">
+    <div id="quick-transactions-table">
+      {% if quick_transactions %}
+        <c-config.search></c-config.search>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+            <tr>
+              <th scope="col" class="col-auto"></th>
+              <th scope="col" class="col">{% translate 'Name' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for qt in quick_transactions %}
+              <tr class="recurring_transaction">
+                <td class="col-auto text-center">
+                  <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
+                    <a class="btn btn-secondary btn-sm"
+                       role="button"
+                       data-bs-toggle="tooltip"
+                       data-bs-title="{% translate "Edit" %}"
+                       hx-get="{% url 'quick_transaction_edit' quick_transaction_id=qt.id %}"
+                       hx-swap="innerHTML"
+                       hx-target="#generic-offcanvas">
+                      <i class="fa-solid fa-pencil fa-fw"></i></a>
+                    <a class="btn btn-secondary btn-sm text-danger"
+                       role="button"
+                       data-bs-toggle="tooltip"
+                       data-bs-title="{% translate "Delete" %}"
+                       hx-delete="{% url 'quick_transaction_delete' quick_transaction_id=qt.id %}"
+                       hx-trigger='confirmed'
+                       hx-swap="innerHTML"
+                       data-bypass-on-ctrl="true"
+                       data-title="{% translate "Are you sure?" %}"
+                       data-text="{% translate "This will delete this item" %}"
+                       data-confirm-text="{% translate "Yes, delete it!" %}"
+                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+                  </div>
+                </td>
+                <td class="col">
+                  <div
+                      class="{% if qt.type == 'EX' %}tw-text-red-400{% else %}tw-text-green-400{% endif %}">
+                    {{ qt.name }}
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <c-msg.empty title="{% translate "Nothing to see here..." %}" remove-padding></c-msg.empty>
+      {% endif %}
+    </div>
+  </div>
+</div>

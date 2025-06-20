@@ -1,0 +1,13 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Edit quick transaction' %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% url 'quick_transaction_edit' quick_transaction_id=quick_transaction.id %}"
+      hx-target="#generic-offcanvas"
+      novalidate>
+    {% crispy form %}
+</form>
+{% endblock %}

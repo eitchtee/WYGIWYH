@@ -7,6 +7,7 @@ from crispy_forms.layout import (
     Column,
     Field,
     Div,
+    HTML,
 )
 from django import forms
 from django.db.models import Q
@@ -29,8 +30,8 @@ from apps.transactions.models import (
     InstallmentPlan,
     RecurringTransaction,
     TransactionEntity,
+    QuickTransaction,
 )
-from apps.common.middleware.thread_local import get_current_user
 
 
 class TransactionForm(forms.ModelForm):
@@ -245,6 +246,140 @@ class TransactionForm(forms.ModelForm):
             transaction_updated.send(sender=instance)
 
         return instance
+
+
+class QuickTransactionForm(forms.ModelForm):
+    category = DynamicModelChoiceField(
+        create_field="name",
+        model=TransactionCategory,
+        required=False,
+        label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
+    )
+    tags = DynamicModelMultipleChoiceField(
+        model=TransactionTag,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Tags"),
+        queryset=TransactionTag.objects.filter(active=True),
+    )
+    entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+    )
+    account = forms.ModelChoiceField(
+        queryset=Account.objects.filter(is_archived=False),
+        label=_("Account"),
+        widget=TomSelect(clear_button=False, group_by="group"),
+    )
+
+    class Meta:
+        model = QuickTransaction
+        fields = [
+            "name",
+            "account",
+            "type",
+            "is_paid",
+            "amount",
+            "description",
+            "notes",
+            "category",
+            "tags",
+            "entities",
+        ]
+        widgets = {
+            "notes": forms.Textarea(attrs={"rows": 3}),
+            "account": TomSelect(clear_button=False, group_by="group"),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # if editing a transaction display non-archived items and it's own item even if it's archived
+        if self.instance.id:
+            self.fields["account"].queryset = Account.objects.filter(
+                Q(is_archived=False) | Q(transactions=self.instance.id),
+            )
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                Q(active=True) | Q(transaction=self.instance.id)
+            )
+
+            self.fields["tags"].queryset = TransactionTag.objects.filter(
+                Q(active=True) | Q(transaction=self.instance.id)
+            )
+
+            self.fields["entities"].queryset = TransactionEntity.objects.filter(
+                Q(active=True) | Q(transactions=self.instance.id)
+            )
+        else:
+            self.fields["account"].queryset = Account.objects.filter(
+                is_archived=False,
+            )
+
+            self.fields["category"].queryset = TransactionCategory.objects.filter(
+                active=True
+            )
+            self.fields["tags"].queryset = TransactionTag.objects.filter(active=True)
+            self.fields["entities"].queryset = TransactionEntity.objects.all()
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            Field(
+                "type",
+                template="transactions/widgets/income_expense_toggle_buttons.html",
+            ),
+            Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
+            "name",
+            HTML("<hr />"),
+            Row(
+                Column("account", css_class="form-group col-md-6 mb-0"),
+                Column("entities", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            "description",
+            Field("amount", inputmode="decimal"),
+            Row(
+                Column("category", css_class="form-group col-md-6 mb-0"),
+                Column("tags", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            "notes",
+        )
+
+        if self.instance and self.instance.pk:
+            decimal_places = self.instance.account.currency.decimal_places
+            self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput(
+                decimal_places=decimal_places
+            )
+            self.helper.layout.append(
+                FormActions(
+                    NoClassSubmit(
+                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
+                    ),
+                ),
+            )
+        else:
+            self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()
+            self.helper.layout.append(
+                Div(
+                    NoClassSubmit(
+                        "submit", _("Add"), css_class="btn btn-outline-primary"
+                    ),
+                    css_class="d-grid gap-2",
+                ),
+            )
 
 
 class BulkEditTransactionForm(TransactionForm):

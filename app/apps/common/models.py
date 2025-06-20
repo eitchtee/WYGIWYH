@@ -65,6 +65,18 @@ class SharedObject(models.Model):
         super().save(*args, **kwargs)
 
 
+class OwnedObjectManager(models.Manager):
+    def get_queryset(self):
+        """Return only objects the user can access"""
+        user = get_current_user()
+        base_qs = super().get_queryset()
+
+        if user and user.is_authenticated:
+            return base_qs.filter(Q(owner=user) | Q(owner=None)).distinct()
+
+        return base_qs
+
+
 class OwnedObject(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
