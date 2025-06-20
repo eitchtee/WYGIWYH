@@ -165,7 +165,7 @@ To configure OIDC, you need to set the following environment variables:
 
 When configuring your OIDC provider, you will need to provide a callback URL (also known as a Redirect URI). For WYGIWYH, the default callback URL is:
 
-`https://your.wygiwyh.domain/daa/accounts/oidc/<OIDC_CLIENT_NAME>/login/callback/`
+`https://your.wygiwyh.domain/auth/oidc/<OIDC_CLIENT_NAME>/login/callback/`
 
 Replace `https://your.wygiwyh.domain` with the actual URL where your WYGIWYH instance is accessible. And `<OIDC_CLIENT_NAME>` with the slugfied value set in OIDC_CLIENT_NAME or the default `openid-connect` if you haven't set this variable.
 
