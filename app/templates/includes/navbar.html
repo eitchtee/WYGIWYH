@@ -50,7 +50,7 @@
           <a class="nav-link {% active_link views='insights_index' %}" href="{% url 'insights_index' %}">{% trans 'Insights' %}</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||recurring_trasanctions_index||transactions_all_index||transactions_trash_index' %}"
+          <a class="nav-link dropdown-toggle {% active_link views='installment_plans_index||quick_transactions_index||recurring_trasanctions_index||transactions_all_index||transactions_trash_index' %}"
              href="#" role="button"
              data-bs-toggle="dropdown"
              aria-expanded="false">
@@ -68,6 +68,8 @@
             {% endif %}
             <hr class="dropdown-divider">
             </li>
+            <li><a class="dropdown-item {% active_link views='quick_transactions_index' %}"
+                   href="{% url 'quick_transactions_index' %}">{% translate 'Quick Transactions' %}</a></li>
             <li><a class="dropdown-item {% active_link views='installment_plans_index' %}"
                    href="{% url 'installment_plans_index' %}">{% translate 'Installment Plans' %}</a></li>
             <li><a class="dropdown-item {% active_link views='recurring_trasanctions_index' %}"

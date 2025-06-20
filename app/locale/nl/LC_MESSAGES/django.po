@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-11 15:47+0000\n"
+"POT-Creation-Date: 2025-06-20 05:02+0000\n"
 "PO-Revision-Date: 2025-05-01 09:16+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -27,11 +27,12 @@ msgstr "Groepsnaam"
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:91
 #: apps/currencies/forms.py:142 apps/dca/forms.py:49 apps/dca/forms.py:224
 #: apps/import_app/forms.py:34 apps/rules/forms.py:51 apps/rules/forms.py:93
-#: apps/rules/forms.py:365 apps/transactions/forms.py:203
-#: apps/transactions/forms.py:281 apps/transactions/forms.py:641
-#: apps/transactions/forms.py:684 apps/transactions/forms.py:716
-#: apps/transactions/forms.py:751 apps/transactions/forms.py:903
-#: apps/users/forms.py:210 apps/users/forms.py:372
+#: apps/rules/forms.py:365 apps/transactions/forms.py:204
+#: apps/transactions/forms.py:369 apps/transactions/forms.py:416
+#: apps/transactions/forms.py:776 apps/transactions/forms.py:819
+#: apps/transactions/forms.py:851 apps/transactions/forms.py:886
+#: apps/transactions/forms.py:1038 apps/users/forms.py:210
+#: apps/users/forms.py:372
 msgid "Update"
 msgstr "Bijwerken"
 
@@ -40,11 +41,12 @@ msgstr "Bijwerken"
 #: apps/currencies/forms.py:99 apps/currencies/forms.py:150
 #: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
 #: apps/rules/forms.py:59 apps/rules/forms.py:101 apps/rules/forms.py:373
-#: apps/transactions/forms.py:188 apps/transactions/forms.py:212
-#: apps/transactions/forms.py:649 apps/transactions/forms.py:692
-#: apps/transactions/forms.py:724 apps/transactions/forms.py:759
-#: apps/transactions/forms.py:911 apps/users/forms.py:218
-#: apps/users/forms.py:380 templates/account_groups/fragments/list.html:9
+#: apps/transactions/forms.py:189 apps/transactions/forms.py:213
+#: apps/transactions/forms.py:378 apps/transactions/forms.py:784
+#: apps/transactions/forms.py:827 apps/transactions/forms.py:859
+#: apps/transactions/forms.py:894 apps/transactions/forms.py:1046
+#: apps/users/forms.py:218 apps/users/forms.py:380
+#: templates/account_groups/fragments/list.html:9
 #: templates/accounts/fragments/list.html:9
 #: templates/categories/fragments/list.html:9
 #: templates/currencies/fragments/list.html:9
@@ -57,6 +59,7 @@ msgstr "Bijwerken"
 #: templates/import_app/fragments/profiles/list.html:10
 #: templates/installment_plans/fragments/list.html:9
 #: templates/mini_tools/unit_price_calculator.html:162
+#: templates/quick_transactions/pages/index.html:15
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/rules/fragments/list.html:9 templates/tags/fragments/list.html:9
 #: templates/users/fragments/list.html:10
@@ -74,10 +77,11 @@ msgstr "Nieuw saldo"
 #: apps/accounts/forms.py:121 apps/dca/forms.py:85 apps/dca/forms.py:92
 #: apps/insights/forms.py:118 apps/rules/forms.py:174 apps/rules/forms.py:189
 #: apps/rules/models.py:38 apps/rules/models.py:286
-#: apps/transactions/forms.py:41 apps/transactions/forms.py:315
-#: apps/transactions/forms.py:322 apps/transactions/forms.py:522
-#: apps/transactions/forms.py:783 apps/transactions/models.py:312
-#: apps/transactions/models.py:495 apps/transactions/models.py:695
+#: apps/transactions/forms.py:42 apps/transactions/forms.py:256
+#: apps/transactions/forms.py:450 apps/transactions/forms.py:457
+#: apps/transactions/forms.py:657 apps/transactions/forms.py:918
+#: apps/transactions/models.py:317 apps/transactions/models.py:500
+#: apps/transactions/models.py:700 apps/transactions/models.py:936
 #: templates/insights/fragments/category_overview/index.html:63
 #: templates/insights/fragments/category_overview/index.html:420
 msgid "Category"
@@ -87,11 +91,12 @@ msgstr "Categorie"
 #: apps/export_app/forms.py:44 apps/export_app/forms.py:135
 #: apps/rules/forms.py:177 apps/rules/forms.py:186 apps/rules/models.py:39
 #: apps/rules/models.py:290 apps/transactions/filters.py:74
-#: apps/transactions/forms.py:49 apps/transactions/forms.py:331
-#: apps/transactions/forms.py:339 apps/transactions/forms.py:515
-#: apps/transactions/forms.py:776 apps/transactions/models.py:318
-#: apps/transactions/models.py:497 apps/transactions/models.py:699
-#: templates/includes/navbar.html:108
+#: apps/transactions/forms.py:50 apps/transactions/forms.py:264
+#: apps/transactions/forms.py:466 apps/transactions/forms.py:474
+#: apps/transactions/forms.py:650 apps/transactions/forms.py:911
+#: apps/transactions/models.py:323 apps/transactions/models.py:502
+#: apps/transactions/models.py:704 apps/transactions/models.py:942
+#: templates/includes/navbar.html:110
 #: templates/insights/fragments/category_overview/index.html:35
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
@@ -99,8 +104,8 @@ msgstr "Labels"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
-#: apps/transactions/models.py:205 apps/transactions/models.py:230
-#: apps/transactions/models.py:254
+#: apps/transactions/models.py:210 apps/transactions/models.py:235
+#: apps/transactions/models.py:259 apps/transactions/models.py:905
 #: templates/account_groups/fragments/list.html:25
 #: templates/accounts/fragments/list.html:25
 #: templates/categories/fragments/table.html:16
@@ -109,6 +114,7 @@ msgstr "Labels"
 #: templates/exchange_rates_services/fragments/list.html:32
 #: templates/import_app/fragments/profiles/list.html:36
 #: templates/installment_plans/fragments/table.html:16
+#: templates/quick_transactions/fragments/list.html:13
 #: templates/recurring_transactions/fragments/table.html:18
 #: templates/rules/fragments/list.html:26
 #: templates/tags/fragments/table.html:16
@@ -122,7 +128,7 @@ msgstr "Accountgroep"
 
 #: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:5
 #: templates/account_groups/pages/index.html:4
-#: templates/includes/navbar.html:118
+#: templates/includes/navbar.html:120
 msgid "Account Groups"
 msgstr "Accountgroepen"
 
@@ -166,17 +172,18 @@ msgstr ""
 
 #: apps/accounts/models.py:70 apps/rules/forms.py:166 apps/rules/forms.py:179
 #: apps/rules/models.py:30 apps/rules/models.py:242
-#: apps/transactions/forms.py:61 apps/transactions/forms.py:507
-#: apps/transactions/forms.py:768 apps/transactions/models.py:285
-#: apps/transactions/models.py:455 apps/transactions/models.py:677
+#: apps/transactions/forms.py:62 apps/transactions/forms.py:276
+#: apps/transactions/forms.py:642 apps/transactions/forms.py:903
+#: apps/transactions/models.py:290 apps/transactions/models.py:460
+#: apps/transactions/models.py:682 apps/transactions/models.py:911
 msgid "Account"
 msgstr "Rekening"
 
 #: apps/accounts/models.py:71 apps/export_app/forms.py:20
 #: apps/export_app/forms.py:132 apps/transactions/filters.py:53
 #: templates/accounts/fragments/list.html:5
-#: templates/accounts/pages/index.html:4 templates/includes/navbar.html:114
-#: templates/includes/navbar.html:116
+#: templates/accounts/pages/index.html:4 templates/includes/navbar.html:116
+#: templates/includes/navbar.html:118
 #: templates/monthly_overview/pages/overview.html:94
 #: templates/transactions/fragments/summary.html:12
 #: templates/transactions/pages/transactions.html:72
@@ -465,8 +472,8 @@ msgstr "Achtervoegsel"
 
 #: apps/currencies/forms.py:69 apps/dca/models.py:158 apps/rules/forms.py:169
 #: apps/rules/forms.py:182 apps/rules/models.py:33 apps/rules/models.py:254
-#: apps/transactions/forms.py:65 apps/transactions/forms.py:343
-#: apps/transactions/models.py:295
+#: apps/transactions/forms.py:66 apps/transactions/forms.py:478
+#: apps/transactions/models.py:300
 #: templates/dca/fragments/strategy/details.html:52
 #: templates/exchange_rates/fragments/table.html:10
 #: templates/exchange_rates_services/fragments/table.html:10
@@ -488,8 +495,8 @@ msgstr "Cijfers na de komma"
 #: apps/currencies/models.py:40 apps/export_app/forms.py:26
 #: apps/export_app/forms.py:133 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
-#: templates/currencies/pages/index.html:4 templates/includes/navbar.html:122
-#: templates/includes/navbar.html:124
+#: templates/currencies/pages/index.html:4 templates/includes/navbar.html:124
+#: templates/includes/navbar.html:126
 #: templates/monthly_overview/pages/overview.html:81
 #: templates/transactions/fragments/summary.html:8
 #: templates/transactions/pages/transactions.html:59
@@ -519,7 +526,7 @@ msgstr "Datum en Tijd"
 #: apps/currencies/models.py:75 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
-#: templates/includes/navbar.html:126
+#: templates/includes/navbar.html:128
 msgid "Exchange Rates"
 msgstr "Wisselkoersen"
 
@@ -547,8 +554,8 @@ msgstr "Dienstnaam"
 msgid "Service Type"
 msgstr "Soort Dienst"
 
-#: apps/currencies/models.py:110 apps/transactions/models.py:209
-#: apps/transactions/models.py:233 apps/transactions/models.py:257
+#: apps/currencies/models.py:110 apps/transactions/models.py:214
+#: apps/transactions/models.py:238 apps/transactions/models.py:262
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
 #: templates/recurring_transactions/fragments/list.html:21
@@ -677,11 +684,11 @@ msgstr "Diensten succesvol in de wachtrij geplaatst"
 msgid "Create transaction"
 msgstr "Maak verrichtingen"
 
-#: apps/dca/forms.py:70 apps/transactions/forms.py:290
+#: apps/dca/forms.py:70 apps/transactions/forms.py:425
 msgid "From Account"
 msgstr "Van rekening"
 
-#: apps/dca/forms.py:76 apps/transactions/forms.py:295
+#: apps/dca/forms.py:76 apps/transactions/forms.py:430
 msgid "To Account"
 msgstr "Naar rekening"
 
@@ -707,7 +714,7 @@ msgstr "Koppel verrichting"
 msgid "You must provide an account."
 msgstr "Je moet een account opgeven."
 
-#: apps/dca/forms.py:312 apps/transactions/forms.py:457
+#: apps/dca/forms.py:312 apps/transactions/forms.py:592
 msgid "From and To accounts must be different."
 msgstr "Van en Naar rekening moeten verschillend zijn."
 
@@ -726,8 +733,9 @@ msgstr "Betaal Munteenheid"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:173
 #: apps/rules/forms.py:188 apps/rules/models.py:37 apps/rules/models.py:270
-#: apps/transactions/forms.py:359 apps/transactions/models.py:308
-#: apps/transactions/models.py:504 apps/transactions/models.py:705
+#: apps/transactions/forms.py:494 apps/transactions/models.py:313
+#: apps/transactions/models.py:509 apps/transactions/models.py:710
+#: apps/transactions/models.py:932
 msgid "Notes"
 msgstr "Opmerkingen"
 
@@ -784,14 +792,14 @@ msgid "Entry deleted successfully"
 msgstr "Item succesvol verwijderd"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
-#: templates/includes/navbar.html:147 templates/users/fragments/list.html:6
+#: templates/includes/navbar.html:149 templates/users/fragments/list.html:6
 #: templates/users/pages/index.html:4
 msgid "Users"
 msgstr "Gebruikers"
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
-#: apps/transactions/models.py:369 templates/includes/navbar.html:57
-#: templates/includes/navbar.html:104
+#: apps/transactions/models.py:374 templates/includes/navbar.html:57
+#: templates/includes/navbar.html:106
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
@@ -800,30 +808,31 @@ msgstr "Verrichtingen"
 
 #: apps/export_app/forms.py:38 apps/export_app/forms.py:134
 #: apps/transactions/filters.py:67 templates/categories/fragments/list.html:5
-#: templates/categories/pages/index.html:4 templates/includes/navbar.html:106
+#: templates/categories/pages/index.html:4 templates/includes/navbar.html:108
 msgid "Categories"
 msgstr "Categorieën"
 
 #: apps/export_app/forms.py:50 apps/export_app/forms.py:136
 #: apps/rules/forms.py:178 apps/rules/forms.py:187 apps/rules/models.py:40
 #: apps/rules/models.py:282 apps/transactions/filters.py:81
-#: apps/transactions/forms.py:57 apps/transactions/forms.py:530
-#: apps/transactions/forms.py:791 apps/transactions/models.py:268
-#: apps/transactions/models.py:323 apps/transactions/models.py:500
-#: apps/transactions/models.py:702 templates/entities/fragments/list.html:5
-#: templates/entities/pages/index.html:4 templates/includes/navbar.html:110
+#: apps/transactions/forms.py:58 apps/transactions/forms.py:272
+#: apps/transactions/forms.py:665 apps/transactions/forms.py:926
+#: apps/transactions/models.py:273 apps/transactions/models.py:328
+#: apps/transactions/models.py:505 apps/transactions/models.py:707
+#: apps/transactions/models.py:947 templates/entities/fragments/list.html:5
+#: templates/entities/pages/index.html:4 templates/includes/navbar.html:112
 msgid "Entities"
 msgstr "Bedrijven"
 
 #: apps/export_app/forms.py:56 apps/export_app/forms.py:140
-#: apps/transactions/models.py:739 templates/includes/navbar.html:74
+#: apps/transactions/models.py:744 templates/includes/navbar.html:76
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
 msgstr "Terugkerende Verrichtingen"
 
 #: apps/export_app/forms.py:62 apps/export_app/forms.py:138
-#: apps/transactions/models.py:518 templates/includes/navbar.html:72
+#: apps/transactions/models.py:523 templates/includes/navbar.html:74
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
@@ -832,16 +841,16 @@ msgstr "Afbetalingsplannen"
 #: apps/export_app/forms.py:74 apps/export_app/forms.py:143
 #: templates/exchange_rates_services/fragments/list.html:6
 #: templates/exchange_rates_services/pages/index.html:4
-#: templates/includes/navbar.html:140
+#: templates/includes/navbar.html:142
 msgid "Automatic Exchange Rates"
 msgstr "Automatische Wisselkoersen"
 
-#: apps/export_app/forms.py:80 templates/includes/navbar.html:132
+#: apps/export_app/forms.py:80 templates/includes/navbar.html:134
 #: templates/rules/fragments/list.html:5 templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Regels"
 
-#: apps/export_app/forms.py:86 templates/cotton/transaction/item.html:56
+#: apps/export_app/forms.py:86 templates/cotton/transaction/item.html:57
 msgid "DCA"
 msgstr "DCA"
 
@@ -876,7 +885,7 @@ msgstr "Bewerk verrichtingsactie"
 msgid "Update or create transaction actions"
 msgstr "Bewerk of maak verrichtingsregel acties"
 
-#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:158
+#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:159
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:24
@@ -908,7 +917,7 @@ msgstr "Selecteer een bestand"
 
 #: apps/import_app/forms.py:61
 #: templates/import_app/fragments/profiles/list.html:62
-#: templates/includes/navbar.html:134
+#: templates/includes/navbar.html:136
 msgid "Import"
 msgstr "Importeer"
 
@@ -1062,48 +1071,52 @@ msgid "Operator"
 msgstr "Operator"
 
 #: apps/rules/forms.py:167 apps/rules/forms.py:180 apps/rules/models.py:31
-#: apps/rules/models.py:246 apps/transactions/models.py:292
-#: apps/transactions/models.py:460 apps/transactions/models.py:683
+#: apps/rules/models.py:246 apps/transactions/models.py:297
+#: apps/transactions/models.py:465 apps/transactions/models.py:688
+#: apps/transactions/models.py:918
 msgid "Type"
 msgstr "Soort"
 
 #: apps/rules/forms.py:168 apps/rules/forms.py:181 apps/rules/models.py:32
 #: apps/rules/models.py:250 apps/transactions/filters.py:23
-#: apps/transactions/models.py:294 templates/cotton/transaction/item.html:21
-#: templates/cotton/transaction/item.html:31
+#: apps/transactions/models.py:299 apps/transactions/models.py:920
+#: templates/cotton/transaction/item.html:22
+#: templates/cotton/transaction/item.html:32
 #: templates/transactions/widgets/paid_toggle_button.html:12
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:16
 msgid "Paid"
 msgstr "Betaald"
 
 #: apps/rules/forms.py:170 apps/rules/forms.py:183 apps/rules/models.py:34
-#: apps/rules/models.py:258 apps/transactions/forms.py:69
-#: apps/transactions/forms.py:346 apps/transactions/forms.py:536
-#: apps/transactions/models.py:296 apps/transactions/models.py:478
-#: apps/transactions/models.py:707
+#: apps/rules/models.py:258 apps/transactions/forms.py:70
+#: apps/transactions/forms.py:481 apps/transactions/forms.py:671
+#: apps/transactions/models.py:301 apps/transactions/models.py:483
+#: apps/transactions/models.py:712
 msgid "Reference Date"
 msgstr "Referentiedatum"
 
 #: apps/rules/forms.py:171 apps/rules/forms.py:184 apps/rules/models.py:35
-#: apps/rules/models.py:262 apps/transactions/models.py:301
-#: apps/transactions/models.py:688 templates/insights/fragments/sankey.html:95
+#: apps/rules/models.py:262 apps/transactions/models.py:306
+#: apps/transactions/models.py:693 apps/transactions/models.py:925
+#: templates/insights/fragments/sankey.html:95
 msgid "Amount"
 msgstr "Bedrag"
 
 #: apps/rules/forms.py:172 apps/rules/forms.py:185 apps/rules/models.py:14
 #: apps/rules/models.py:36 apps/rules/models.py:266
-#: apps/transactions/forms.py:350 apps/transactions/models.py:306
-#: apps/transactions/models.py:462 apps/transactions/models.py:691
+#: apps/transactions/forms.py:485 apps/transactions/models.py:311
+#: apps/transactions/models.py:467 apps/transactions/models.py:696
+#: apps/transactions/models.py:930
 msgid "Description"
 msgstr "Beschrijving"
 
 #: apps/rules/forms.py:175 apps/rules/forms.py:190 apps/rules/models.py:274
-#: apps/transactions/models.py:345
+#: apps/transactions/models.py:350 apps/transactions/models.py:952
 msgid "Internal Note"
 msgstr "Interne opmerking"
 
 #: apps/rules/forms.py:176 apps/rules/forms.py:191 apps/rules/models.py:278
-#: apps/transactions/models.py:347
+#: apps/transactions/models.py:352 apps/transactions/models.py:954
 msgid "Internal ID"
 msgstr "Interne ID"
 
@@ -1231,8 +1244,8 @@ msgstr "Verrichting Bijwerken Of Maken succesvol bijgewerkt"
 msgid "Update or Create Transaction action deleted successfully"
 msgstr "Verrichting Bijwerken Of Maken succesvol verwijderd"
 
-#: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
-#: templates/cotton/transaction/item.html:31 templates/includes/navbar.html:46
+#: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:22
+#: templates/cotton/transaction/item.html:32 templates/includes/navbar.html:46
 #: templates/insights/fragments/category_overview/index.html:46
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
@@ -1267,56 +1280,57 @@ msgstr "Minimum bedrag"
 msgid "Amount max"
 msgstr "Maximaal bedrag"
 
-#: apps/transactions/forms.py:172
+#: apps/transactions/forms.py:173
 msgid "More"
 msgstr "Meer"
 
-#: apps/transactions/forms.py:216
+#: apps/transactions/forms.py:217
 msgid "Save and add similar"
 msgstr "Opslaan en vergelijkbaar toevoegen"
 
-#: apps/transactions/forms.py:221
+#: apps/transactions/forms.py:222
 msgid "Save and add another"
 msgstr "Opslaan en een andere toevoegen"
 
-#: apps/transactions/forms.py:302
+#: apps/transactions/forms.py:437
 msgid "From Amount"
 msgstr "Van Bedrag"
 
-#: apps/transactions/forms.py:307
+#: apps/transactions/forms.py:442
 msgid "To Amount"
 msgstr "Naar Bedrag"
 
-#: apps/transactions/forms.py:424
+#: apps/transactions/forms.py:559
 #: templates/cotton/ui/quick_transactions_buttons.html:40
+#: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
 msgstr "Overschrijving"
 
-#: apps/transactions/forms.py:670
+#: apps/transactions/forms.py:805
 msgid "Tag name"
 msgstr "Labelnaam"
 
-#: apps/transactions/forms.py:702
+#: apps/transactions/forms.py:837
 msgid "Entity name"
 msgstr "Naam van bedrijf"
 
-#: apps/transactions/forms.py:734
+#: apps/transactions/forms.py:869
 msgid "Category name"
 msgstr "Naam van categorie"
 
-#: apps/transactions/forms.py:736
+#: apps/transactions/forms.py:871
 msgid "Muted categories won't count towards your monthly total"
 msgstr "Gedempte categorieën tellen niet mee voor je maandtotaal"
 
-#: apps/transactions/forms.py:922
+#: apps/transactions/forms.py:1057
 msgid "End date should be after the start date"
 msgstr "De einddatum moet na de begindatum vallen"
 
-#: apps/transactions/models.py:206
+#: apps/transactions/models.py:211
 msgid "Mute"
 msgstr "Dempen"
 
-#: apps/transactions/models.py:211
+#: apps/transactions/models.py:216
 msgid ""
 "Deactivated categories won't be able to be selected when creating new "
 "transactions"
@@ -1324,26 +1338,26 @@ msgstr ""
 "Gedeactiveerde categorieën kunnen niet worden geselecteerd bij het maken van "
 "nieuwe transacties"
 
-#: apps/transactions/models.py:219
+#: apps/transactions/models.py:224
 msgid "Transaction Category"
 msgstr "Transactie categorie"
 
-#: apps/transactions/models.py:220
+#: apps/transactions/models.py:225
 msgid "Transaction Categories"
 msgstr "Transactie categorieën"
 
-#: apps/transactions/models.py:235
+#: apps/transactions/models.py:240
 msgid ""
 "Deactivated tags won't be able to be selected when creating new transactions"
 msgstr ""
 "Gedeactiveerde labels kunnen niet worden geselecteerd bij het maken van "
 "nieuwe verrichtingen"
 
-#: apps/transactions/models.py:243 apps/transactions/models.py:244
+#: apps/transactions/models.py:248 apps/transactions/models.py:249
 msgid "Transaction Tags"
 msgstr "Verrichting Labels"
 
-#: apps/transactions/models.py:259
+#: apps/transactions/models.py:264
 msgid ""
 "Deactivated entities won't be able to be selected when creating new "
 "transactions"
@@ -1351,152 +1365,168 @@ msgstr ""
 "Gedeactiveerde bedrijven kunnen niet worden geselecteerd bij het maken van "
 "nieuwe verrichtingen"
 
-#: apps/transactions/models.py:267
+#: apps/transactions/models.py:272
 msgid "Entity"
 msgstr "Bedrijf"
 
-#: apps/transactions/models.py:279
+#: apps/transactions/models.py:284 apps/transactions/models.py:898
 #: templates/calendar_view/fragments/list.html:42
 #: templates/calendar_view/fragments/list.html:44
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
+#: templates/cotton/ui/transactions_fab.html:10
 #: templates/insights/fragments/category_overview/index.html:64
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Ontvangsten Transactie"
 
-#: apps/transactions/models.py:280
+#: apps/transactions/models.py:285 apps/transactions/models.py:899
 #: templates/calendar_view/fragments/list.html:46
 #: templates/calendar_view/fragments/list.html:48
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
+#: templates/cotton/ui/transactions_fab.html:19
 #: templates/insights/fragments/category_overview/index.html:65
 msgid "Expense"
 msgstr "Uitgave"
 
-#: apps/transactions/models.py:334 apps/transactions/models.py:517
+#: apps/transactions/models.py:339 apps/transactions/models.py:522
 msgid "Installment Plan"
 msgstr "Afbetalingsplan"
 
-#: apps/transactions/models.py:343 apps/transactions/models.py:738
+#: apps/transactions/models.py:348 apps/transactions/models.py:743
 msgid "Recurring Transaction"
 msgstr "Terugkerende verrichting"
 
-#: apps/transactions/models.py:351
+#: apps/transactions/models.py:356
 msgid "Deleted"
 msgstr "Verwijderd"
 
-#: apps/transactions/models.py:356
+#: apps/transactions/models.py:361
 msgid "Deleted At"
 msgstr "Verwijderd Op"
 
-#: apps/transactions/models.py:368
+#: apps/transactions/models.py:373
 msgid "Transaction"
 msgstr "Verrichting"
 
-#: apps/transactions/models.py:440 templates/tags/fragments/table.html:71
+#: apps/transactions/models.py:445 templates/tags/fragments/table.html:71
 msgid "No tags"
 msgstr "Geen labels"
 
-#: apps/transactions/models.py:441
+#: apps/transactions/models.py:446
 msgid "No category"
 msgstr "Geen categorie"
 
-#: apps/transactions/models.py:443
+#: apps/transactions/models.py:448
 msgid "No description"
 msgstr "Geen Beschrijving"
 
-#: apps/transactions/models.py:449
+#: apps/transactions/models.py:454
 msgid "Yearly"
 msgstr "Jaarlijks"
 
-#: apps/transactions/models.py:450 apps/users/models.py:26
+#: apps/transactions/models.py:455 apps/users/models.py:26
 #: templates/includes/navbar.html:26
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: apps/transactions/models.py:451
+#: apps/transactions/models.py:456
 msgid "Weekly"
 msgstr "Wekelijks"
 
-#: apps/transactions/models.py:452
+#: apps/transactions/models.py:457
 msgid "Daily"
 msgstr "Dagelijks"
 
-#: apps/transactions/models.py:465
+#: apps/transactions/models.py:470
 msgid "Number of Installments"
 msgstr "Aantal aflossingen"
 
-#: apps/transactions/models.py:470
+#: apps/transactions/models.py:475
 msgid "Installment Start"
 msgstr "Begin afbetaling"
 
-#: apps/transactions/models.py:471
+#: apps/transactions/models.py:476
 msgid "The installment number to start counting from"
 msgstr "Het nummer van de aflevering om mee te beginnen"
 
-#: apps/transactions/models.py:476 apps/transactions/models.py:711
+#: apps/transactions/models.py:481 apps/transactions/models.py:716
 msgid "Start Date"
 msgstr "Startdatum"
 
-#: apps/transactions/models.py:480 apps/transactions/models.py:712
+#: apps/transactions/models.py:485 apps/transactions/models.py:717
 msgid "End Date"
 msgstr "Einddatum"
 
-#: apps/transactions/models.py:485
+#: apps/transactions/models.py:490
 msgid "Recurrence"
 msgstr "Terugkeerpatroon"
 
-#: apps/transactions/models.py:488
+#: apps/transactions/models.py:493
 msgid "Installment Amount"
 msgstr "Termijnbedrag"
 
-#: apps/transactions/models.py:507 apps/transactions/models.py:728
+#: apps/transactions/models.py:512 apps/transactions/models.py:733
 msgid "Add description to transactions"
 msgstr "Beschrijving toevoegen aan verrichting"
 
-#: apps/transactions/models.py:510 apps/transactions/models.py:731
+#: apps/transactions/models.py:515 apps/transactions/models.py:736
 msgid "Add notes to transactions"
 msgstr "Notities toevoegen aan verrichting"
 
-#: apps/transactions/models.py:670
+#: apps/transactions/models.py:675
 msgid "day(s)"
 msgstr "dag(en)"
 
-#: apps/transactions/models.py:671
+#: apps/transactions/models.py:676
 msgid "week(s)"
 msgstr "we(e)k(en)"
 
-#: apps/transactions/models.py:672
+#: apps/transactions/models.py:677
 msgid "month(s)"
 msgstr "maand(en)"
 
-#: apps/transactions/models.py:673
+#: apps/transactions/models.py:678
 msgid "year(s)"
 msgstr "ja(a)r(en)"
 
-#: apps/transactions/models.py:675
+#: apps/transactions/models.py:680
 #: templates/recurring_transactions/fragments/list.html:24
 msgid "Paused"
 msgstr "Gepauzeerd"
 
-#: apps/transactions/models.py:714
+#: apps/transactions/models.py:719
 msgid "Recurrence Type"
 msgstr "Type Terugkeerpatroon"
 
-#: apps/transactions/models.py:717
+#: apps/transactions/models.py:722
 msgid "Recurrence Interval"
 msgstr "Terugkeer Interval"
 
-#: apps/transactions/models.py:721
+#: apps/transactions/models.py:726
 msgid "Last Generated Date"
 msgstr "Laatste Gegenereerde Datum"
 
-#: apps/transactions/models.py:724
+#: apps/transactions/models.py:729
 msgid "Last Generated Reference Date"
 msgstr "Laatste Gegenereerde Referentiedatum"
+
+#: apps/transactions/models.py:964 templates/cotton/ui/transactions_fab.html:59
+#, fuzzy
+#| msgid "Edit Transaction"
+msgid "Quick Transaction"
+msgstr "Bewerk verrichting"
+
+#: apps/transactions/models.py:965 templates/includes/navbar.html:72
+#: templates/quick_transactions/pages/index.html:5
+#: templates/quick_transactions/pages/index.html:11
+#, fuzzy
+#| msgid "Transactions"
+msgid "Quick Transactions"
+msgstr "Verrichtingen"
 
 #: apps/transactions/validators.py:8
 #, python-format
@@ -1583,6 +1613,26 @@ msgstr "Afbetalingsplan succesvol vernieuwd"
 msgid "Installment Plan deleted successfully"
 msgstr "Afbetalingsplan succesvol verwijderd"
 
+#: apps/transactions/views/quick_transactions.py:45 apps/users/views.py:152
+msgid "Item added successfully"
+msgstr "Item succesvol toegevoegd"
+
+#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:184
+msgid "Item updated successfully"
+msgstr "Item succesvol bijgewerkt"
+
+#: apps/transactions/views/quick_transactions.py:99
+#, fuzzy
+#| msgid "Rule deleted successfully"
+msgid "Item deleted successfully"
+msgstr "Regel succesvol verwijderd"
+
+#: apps/transactions/views/quick_transactions.py:145
+#: apps/transactions/views/transactions.py:52
+#: apps/transactions/views/transactions.py:148
+msgid "Transaction added successfully"
+msgstr "Verrichting succesvol toegevoegd"
+
 #: apps/transactions/views/recurring_transactions.py:112
 msgid "Recurring Transaction added successfully"
 msgstr "Terugkerende Verrichting succesvol toegevoegd"
@@ -1618,11 +1668,6 @@ msgstr "Label succesvol bijgewerkt"
 #: apps/transactions/views/tags.py:133
 msgid "Tag deleted successfully"
 msgstr "Label succesvol verwijderd"
-
-#: apps/transactions/views/transactions.py:52
-#: apps/transactions/views/transactions.py:148
-msgid "Transaction added successfully"
-msgstr "Verrichting succesvol toegevoegd"
 
 #: apps/transactions/views/transactions.py:182
 msgid "Transaction updated successfully"
@@ -1836,14 +1881,6 @@ msgstr "De geluiden worden nu afgespeeld"
 msgid "Your settings have been updated"
 msgstr "Jouw instellingen zijn bijgewerkt"
 
-#: apps/users/views.py:152
-msgid "Item added successfully"
-msgstr "Item succesvol toegevoegd"
-
-#: apps/users/views.py:184
-msgid "Item updated successfully"
-msgstr "Item succesvol bijgewerkt"
-
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
 msgstr "Rekeningsgroep toevoegen"
@@ -1863,6 +1900,7 @@ msgstr "Rekeningsgroep bewerken"
 #: templates/exchange_rates_services/fragments/table.html:19
 #: templates/import_app/fragments/profiles/list.html:44
 #: templates/installment_plans/fragments/table.html:23
+#: templates/quick_transactions/fragments/list.html:20
 #: templates/recurring_transactions/fragments/table.html:25
 #: templates/rules/fragments/list.html:33
 #: templates/tags/fragments/table.html:23
@@ -1873,7 +1911,7 @@ msgstr "Acties"
 #: templates/account_groups/fragments/list.html:36
 #: templates/accounts/fragments/list.html:41
 #: templates/categories/fragments/table.html:29
-#: templates/cotton/transaction/item.html:130
+#: templates/cotton/transaction/item.html:131
 #: templates/cotton/ui/transactions_action_bar.html:49
 #: templates/currencies/fragments/list.html:37
 #: templates/dca/fragments/strategy/details.html:67
@@ -1884,6 +1922,7 @@ msgstr "Acties"
 #: templates/exchange_rates_services/fragments/table.html:23
 #: templates/import_app/fragments/profiles/list.html:48
 #: templates/installment_plans/fragments/table.html:27
+#: templates/quick_transactions/fragments/list.html:24
 #: templates/recurring_transactions/fragments/table.html:29
 #: templates/rules/fragments/transaction_rule/view.html:23
 #: templates/rules/fragments/transaction_rule/view.html:47
@@ -1896,8 +1935,8 @@ msgstr "Bewerken"
 #: templates/account_groups/fragments/list.html:43
 #: templates/accounts/fragments/list.html:48
 #: templates/categories/fragments/table.html:36
-#: templates/cotton/transaction/item.html:145
-#: templates/cotton/transaction/item.html:164
+#: templates/cotton/transaction/item.html:146
+#: templates/cotton/transaction/item.html:165
 #: templates/cotton/ui/deleted_transactions_action_bar.html:55
 #: templates/cotton/ui/transactions_action_bar.html:86
 #: templates/currencies/fragments/list.html:44
@@ -1911,6 +1950,7 @@ msgstr "Bewerken"
 #: templates/import_app/fragments/runs/list.html:102
 #: templates/installment_plans/fragments/table.html:56
 #: templates/mini_tools/unit_price_calculator.html:18
+#: templates/quick_transactions/fragments/list.html:32
 #: templates/recurring_transactions/fragments/table.html:91
 #: templates/rules/fragments/list.html:44
 #: templates/rules/fragments/transaction_rule/view.html:55
@@ -1922,8 +1962,8 @@ msgstr "Verwijderen"
 #: templates/account_groups/fragments/list.html:47
 #: templates/accounts/fragments/list.html:52
 #: templates/categories/fragments/table.html:41
-#: templates/cotton/transaction/item.html:149
-#: templates/cotton/transaction/item.html:168
+#: templates/cotton/transaction/item.html:150
+#: templates/cotton/transaction/item.html:169
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:88
 #: templates/currencies/fragments/list.html:48
@@ -1937,6 +1977,7 @@ msgstr "Verwijderen"
 #: templates/import_app/fragments/runs/list.html:106
 #: templates/installment_plans/fragments/table.html:48
 #: templates/installment_plans/fragments/table.html:60
+#: templates/quick_transactions/fragments/list.html:37
 #: templates/recurring_transactions/fragments/table.html:53
 #: templates/recurring_transactions/fragments/table.html:67
 #: templates/recurring_transactions/fragments/table.html:82
@@ -1951,8 +1992,8 @@ msgstr "Weet je het zeker?"
 #: templates/account_groups/fragments/list.html:48
 #: templates/accounts/fragments/list.html:53
 #: templates/categories/fragments/table.html:42
-#: templates/cotton/transaction/item.html:150
-#: templates/cotton/transaction/item.html:169
+#: templates/cotton/transaction/item.html:151
+#: templates/cotton/transaction/item.html:170
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:89
 #: templates/currencies/fragments/list.html:49
@@ -1973,8 +2014,8 @@ msgstr "Je kunt dit niet meer terugdraaien!"
 #: templates/account_groups/fragments/list.html:49
 #: templates/accounts/fragments/list.html:54
 #: templates/categories/fragments/table.html:43
-#: templates/cotton/transaction/item.html:151
-#: templates/cotton/transaction/item.html:170
+#: templates/cotton/transaction/item.html:152
+#: templates/cotton/transaction/item.html:171
 #: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:50
@@ -1985,6 +2026,7 @@ msgstr "Je kunt dit niet meer terugdraaien!"
 #: templates/import_app/fragments/profiles/list.html:75
 #: templates/import_app/fragments/runs/list.html:108
 #: templates/installment_plans/fragments/table.html:62
+#: templates/quick_transactions/fragments/list.html:39
 #: templates/recurring_transactions/fragments/table.html:98
 #: templates/rules/fragments/list.html:50
 #: templates/rules/fragments/transaction_rule/view.html:61
@@ -2134,7 +2176,7 @@ msgstr "Zoeken"
 msgid "Select"
 msgstr "Selecteer"
 
-#: templates/cotton/transaction/item.html:137
+#: templates/cotton/transaction/item.html:138
 #: templates/cotton/ui/transactions_action_bar.html:78
 msgid "Duplicate"
 msgstr "Dupliceren"
@@ -2243,14 +2285,17 @@ msgid "Count"
 msgstr "Rekenen"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:25
+#: templates/cotton/ui/transactions_fab.html:27
 msgid "Installment"
 msgstr "Afbetaling"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:32
+#: templates/cotton/ui/transactions_fab.html:35
 msgid "Recurring"
 msgstr "Terugkerende"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:47
+#: templates/cotton/ui/transactions_fab.html:52
 msgid "Balance"
 msgstr "Saldo"
 
@@ -2416,8 +2461,8 @@ msgstr "Wisselkoers bewerken"
 #: templates/exchange_rates/fragments/list.html:25
 #: templates/includes/navbar.html:61
 #: templates/installment_plans/fragments/list.html:21
-#: templates/yearly_overview/pages/overview_by_account.html:92
-#: templates/yearly_overview/pages/overview_by_currency.html:94
+#: templates/yearly_overview/pages/overview_by_account.html:94
+#: templates/yearly_overview/pages/overview_by_currency.html:96
 msgid "All"
 msgstr "Allemaal"
 
@@ -2470,7 +2515,7 @@ msgstr "rekeningen"
 msgid "No services configured"
 msgstr "Geen diensten ingesteld"
 
-#: templates/export_app/pages/index.html:4 templates/includes/navbar.html:137
+#: templates/export_app/pages/index.html:4 templates/includes/navbar.html:139
 msgid "Export and Restore"
 msgstr "Exporteren en Herstellen"
 
@@ -2584,47 +2629,47 @@ msgstr "Inzichten"
 msgid "Trash Can"
 msgstr "Prullenbak"
 
-#: templates/includes/navbar.html:82
+#: templates/includes/navbar.html:84
 msgid "Tools"
 msgstr "Hulpmiddelen"
 
-#: templates/includes/navbar.html:86
+#: templates/includes/navbar.html:88
 msgid "Dollar Cost Average Tracker"
 msgstr "Dollar Kostgemiddelde Tracker"
 
-#: templates/includes/navbar.html:89
+#: templates/includes/navbar.html:91
 #: templates/mini_tools/unit_price_calculator.html:5
 #: templates/mini_tools/unit_price_calculator.html:10
 msgid "Unit Price Calculator"
 msgstr "Eenheidsprijs berekenen"
 
-#: templates/includes/navbar.html:92
+#: templates/includes/navbar.html:94
 #: templates/mini_tools/currency_converter/currency_converter.html:8
 #: templates/mini_tools/currency_converter/currency_converter.html:15
 msgid "Currency Converter"
 msgstr "Valuta omrekenen"
 
-#: templates/includes/navbar.html:101
+#: templates/includes/navbar.html:103
 msgid "Management"
 msgstr "Beheer"
 
-#: templates/includes/navbar.html:130
+#: templates/includes/navbar.html:132
 msgid "Automation"
 msgstr "Automatisatie"
 
-#: templates/includes/navbar.html:145
+#: templates/includes/navbar.html:147
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/includes/navbar.html:154
+#: templates/includes/navbar.html:156
 msgid "Only use this if you know what you're doing"
 msgstr "Gebruik dit alleen als je weet wat je doet"
 
-#: templates/includes/navbar.html:155
+#: templates/includes/navbar.html:157
 msgid "Django Admin"
 msgstr "Django Beheerder"
 
-#: templates/includes/navbar.html:165
+#: templates/includes/navbar.html:167
 msgid "Calculator"
 msgstr "Rekenmachine"
 
@@ -2776,8 +2821,8 @@ msgid "Month"
 msgstr "Maand"
 
 #: templates/insights/pages/index.html:40
-#: templates/yearly_overview/pages/overview_by_account.html:61
-#: templates/yearly_overview/pages/overview_by_currency.html:63
+#: templates/yearly_overview/pages/overview_by_account.html:62
+#: templates/yearly_overview/pages/overview_by_currency.html:64
 msgid "Year"
 msgstr "Jaar"
 
@@ -2971,6 +3016,30 @@ msgstr "Evolutie per munteenheid"
 #: templates/net_worth/net_worth.html:252
 msgid "Evolution by account"
 msgstr "Evolutie per rekening"
+
+#: templates/quick_transactions/fragments/add.html:5
+#: templates/quick_transactions/fragments/create_menu.html:5
+#, fuzzy
+#| msgid "Add recurring transaction"
+msgid "Add quick transaction"
+msgstr "Voeg terugkerende verrichtingen toe"
+
+#: templates/quick_transactions/fragments/create_menu.html:13
+#: templates/quick_transactions/fragments/list.html:55
+msgid "Nothing to see here..."
+msgstr ""
+
+#: templates/quick_transactions/fragments/edit.html:5
+#, fuzzy
+#| msgid "Edit transaction"
+msgid "Edit quick transaction"
+msgstr "Bewerk verrichting"
+
+#: templates/quick_transactions/fragments/list.html:38
+#, fuzzy
+#| msgid "Yes, delete them!"
+msgid "This will delete this item"
+msgstr "Ja, verwijder ze!"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
