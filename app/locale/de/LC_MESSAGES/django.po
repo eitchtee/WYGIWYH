@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-20 05:02+0000\n"
+"POT-Creation-Date: 2025-06-20 05:07+0000\n"
 "PO-Revision-Date: 2025-05-23 17:16+0000\n"
 "Last-Translator: JHoh <jean-luc.hoh@gmx.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -1725,11 +1725,11 @@ msgstr "Berechtigungen"
 msgid "Important dates"
 msgstr "Wichtige Daten"
 
-#: apps/users/forms.py:23 apps/users/models.py:13 templates/users/login.html:19
+#: apps/users/forms.py:23 apps/users/models.py:13 templates/users/login.html:20
 msgid "E-mail"
 msgstr "E-Mail"
 
-#: apps/users/forms.py:29 templates/users/login.html:20
+#: apps/users/forms.py:29 templates/users/login.html:21
 msgid "Password"
 msgstr "Passwort"
 
@@ -3295,13 +3295,19 @@ msgstr "Sounds abspielen"
 msgid "Show amounts"
 msgstr "Werte einblenden"
 
-#: templates/users/login.html:17
+#: templates/users/login.html:18
 msgid "Welcome to WYGIWYH's demo!"
 msgstr "Willkommen zur WYGIWYH Demo!"
 
-#: templates/users/login.html:18
+#: templates/users/login.html:19
 msgid "Use the credentials below to login"
 msgstr "Benutze die Logindaten unten um dich anzumelden"
+
+#: templates/users/login.html:40
+#, fuzzy
+#| msgid "ends with"
+msgid "Login with"
+msgstr "endet mit"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
