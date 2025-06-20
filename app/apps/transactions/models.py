@@ -16,7 +16,12 @@ from apps.common.templatetags.decimal import localize_number, drop_trailing_zero
 from apps.currencies.utils.convert import convert
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
 from apps.common.middleware.thread_local import get_current_user
-from apps.common.models import SharedObject, SharedObjectManager, OwnedObject
+from apps.common.models import (
+    SharedObject,
+    SharedObjectManager,
+    OwnedObject,
+    OwnedObjectManager,
+)
 
 logger = logging.getLogger()
 
@@ -886,3 +891,86 @@ class RecurringTransaction(models.Model):
         """
         today = timezone.localdate(timezone.now())
         self.transactions.filter(is_paid=False, date__gt=today).delete()
+
+
+class QuickTransaction(OwnedObject):
+    class Type(models.TextChoices):
+        INCOME = "IN", _("Income")
+        EXPENSE = "EX", _("Expense")
+
+    name = models.CharField(
+        max_length=100,
+        null=False,
+        blank=False,
+        verbose_name=_("Name"),
+    )
+
+    account = models.ForeignKey(
+        "accounts.Account",
+        on_delete=models.CASCADE,
+        verbose_name=_("Account"),
+        related_name="quick_transactions",
+    )
+    type = models.CharField(
+        max_length=2,
+        choices=Type,
+        default=Type.EXPENSE,
+        verbose_name=_("Type"),
+    )
+    is_paid = models.BooleanField(default=True, verbose_name=_("Paid"))
+
+    amount = models.DecimalField(
+        max_digits=42,
+        decimal_places=30,
+        verbose_name=_("Amount"),
+        validators=[validate_non_negative, validate_decimal_places],
+    )
+
+    description = models.CharField(
+        max_length=500, verbose_name=_("Description"), blank=True
+    )
+    notes = models.TextField(blank=True, verbose_name=_("Notes"))
+    category = models.ForeignKey(
+        TransactionCategory,
+        on_delete=models.SET_NULL,
+        verbose_name=_("Category"),
+        blank=True,
+        null=True,
+    )
+    tags = models.ManyToManyField(
+        TransactionTag,
+        verbose_name=_("Tags"),
+        blank=True,
+    )
+    entities = models.ManyToManyField(
+        TransactionEntity,
+        verbose_name=_("Entities"),
+        blank=True,
+        related_name="quick_transactions",
+    )
+
+    internal_note = models.TextField(blank=True, verbose_name=_("Internal Note"))
+    internal_id = models.TextField(
+        blank=True, null=True, unique=True, verbose_name=_("Internal ID")
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = OwnedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
+
+    class Meta:
+        verbose_name = _("Quick Transaction")
+        verbose_name_plural = _("Quick Transactions")
+        unique_together = ("name", "owner")
+        db_table = "quick_transactions"
+        default_manager_name = "objects"
+
+    def save(self, *args, **kwargs):
+        self.amount = truncate_decimal(
+            value=self.amount, decimal_places=self.account.currency.decimal_places
+        )
+
+        self.full_clean()
+        super().save(*args, **kwargs)

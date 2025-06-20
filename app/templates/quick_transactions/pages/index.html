@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% translate 'Quick Transactions' %}{% endblock %}
+
+{% block content %}
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="tw-text-3xl fw-bold font-monospace tw-w-full mb-3">
+    {% spaceless %}
+    <div>{% translate 'Quick Transactions' %}<span>
+      <a class="text-decoration-none tw-text-2xl p-1 category-action"
+                role="button"
+                data-bs-toggle="tooltip"
+                data-bs-title="{% translate "Add" %}"
+                hx-get="{% url 'quick_transaction_add' %}"
+                hx-target="#generic-offcanvas">
+            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
+    </span></div>
+    {% endspaceless %}
+  </div>
+
+  <div id="quick-transactions-table" class="show-loading" hx-get="{% url 'quick_transactions_list' %}" hx-trigger="load, updated from:window"></div>
+</div>
+{% endblock %}

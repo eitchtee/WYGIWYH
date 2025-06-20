@@ -307,4 +307,39 @@ urlpatterns = [
         views.recurring_transaction_finish,
         name="recurring_transaction_finish",
     ),
+    path(
+        "quick-transactions/",
+        views.quick_transactions_index,
+        name="quick_transactions_index",
+    ),
+    path(
+        "quick-transactions/list/",
+        views.quick_transactions_list,
+        name="quick_transactions_list",
+    ),
+    path(
+        "quick-transactions/add/",
+        views.quick_transaction_add,
+        name="quick_transaction_add",
+    ),
+    path(
+        "quick-transactions/<int:quick_transaction_id>/edit/",
+        views.quick_transaction_edit,
+        name="quick_transaction_edit",
+    ),
+    path(
+        "quick-transactions/<int:quick_transaction_id>/delete/",
+        views.quick_transaction_delete,
+        name="quick_transaction_delete",
+    ),
+    path(
+        "quick-transactions/create-menu/",
+        views.quick_transactions_create_menu,
+        name="quick_transactions_create_menu",
+    ),
+    path(
+        "quick-transactions/<int:quick_transaction_id>/create/",
+        views.quick_transaction_add_as_transaction,
+        name="quick_transaction_add_as_transaction",
+    ),
 ]
