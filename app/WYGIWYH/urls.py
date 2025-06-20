@@ -21,6 +21,8 @@ from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
 )
+from allauth.socialaccount.providers.openid_connect.views import login, callback
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -36,6 +38,13 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    path("auth/", include("allauth.urls")),  # allauth urls
+    # path("auth/oidc/<str:provider_id>/login/", login, name="openid_connect_login"),
+    # path(
+    #     "auth/oidc/<str:provider_id>/login/callback/",
+    #     callback,
+    #     name="openid_connect_callback",
+    # ),
     path("", include("apps.transactions.urls")),
     path("", include("apps.common.urls")),
     path("", include("apps.users.urls")),

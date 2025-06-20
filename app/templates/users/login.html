@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load settings %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 
 {% block title %}Login{% endblock %}
 
@@ -25,6 +26,24 @@
             <div class="card-body">
               <h1 class="h2 card-title text-center mb-4">Login</h1>
               {% crispy form %}
+
+              {% get_providers as socialaccount_providers %}
+              {% if socialaccount_providers %}
+                <div class="mt-3">
+                  <hr>
+                  <ul class="socialaccount_providers list-unstyled">
+                    {% for provider in socialaccount_providers %}
+                      <li class="mt-2">
+                        <a title="{{ provider.name }}"
+                           class="btn btn-outline-primary w-100 socialaccount_provider {{ provider.id }}"
+                           href="{% provider_login_url provider %}">
+                          {% translate 'Login with' %} {{ provider.name }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
             </div>
           </div>
         </div>
