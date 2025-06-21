@@ -16,7 +16,7 @@
     <div class="row mb-3 gx-xl-4 gy-3 mb-4">
       {#    Date picker#}
       <div class="col-12 col-xl-2 flex-row align-items-center d-flex">
-        <div class="tw-text-base h-100 align-items-center d-flex">
+        <div class="tw:text-base h-100 align-items-center d-flex">
           <a role="button"
              class="pe-4 py-2"
              hx-boost="true"
@@ -24,10 +24,10 @@
              href="{% url 'yearly_overview_account' year=previous_year %}">
             <i class="fa-solid fa-chevron-left"></i></a>
         </div>
-        <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center">
+        <div class="tw:text-3xl fw-bold font-monospace tw:w-full text-center">
           {{ year }}
         </div>
-        <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
+        <div class="tw:text-base mx-2 h-100 align-items-center d-flex">
           <a role="button"
              class="ps-3 py-2"
              hx-boost="true"

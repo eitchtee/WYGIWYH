@@ -15,20 +15,20 @@
     {% for run in runs %}
       <div class="col">
         <div class="card">
-          <div class="card-header tw-text-sm {% if run.status == run.Status.QUEUED %}tw-text-white{% elif run.status == run.Status.PROCESSING %}text-warning{% elif run.status == run.Status.FINISHED %}text-success{% else %}text-danger{% endif %}">
+          <div class="card-header tw:text-sm {% if run.status == run.Status.QUEUED %}text-body{% elif run.status == run.Status.PROCESSING %}text-warning{% elif run.status == run.Status.FINISHED %}text-success{% else %}text-danger{% endif %}">
             <span><i class="fa-solid {% if run.status == run.Status.QUEUED %}fa-hourglass-half{% elif run.status == run.Status.PROCESSING %}fa-spinner{% elif run.status == run.Status.FINISHED %}fa-check{% else %}fa-xmark{% endif %} fa-fw me-2"></i>{{ run.get_status_display }}</span>
           </div>
           <div class="card-body">
-            <h5 class="card-title"><i class="fa-solid fa-hashtag me-1 tw-text-xs tw-text-gray-400"></i>{{ run.id }}<span class="tw-text-xs tw-text-gray-400 ms-1">({{ run.file_name }})</span></h5>
+            <h5 class="card-title"><i class="fa-solid fa-hashtag me-1 tw:text-xs tw:text-gray-400"></i>{{ run.id }}<span class="tw:text-xs tw:text-gray-400 ms-1">({{ run.file_name }})</span></h5>
             <hr>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 w-100 g-4">
               <div class="col">
                 <div class="d-flex flex-row">
                   <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw-text-xs tw-font-medium">
+                    <div class="text-body-secondary tw:text-xs tw:font-medium">
                       {% trans 'Total Items' %}
                     </div>
-                    <div class="tw-text-sm">
+                    <div class="tw:text-sm">
                       {{ run.total_rows }}
                     </div>
                   </div>
@@ -38,10 +38,10 @@
               <div class="col">
                 <div class="d-flex flex-row">
                   <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw-text-xs tw-font-medium">
+                    <div class="text-body-secondary tw:text-xs tw:font-medium">
                       {% trans 'Processed Items' %}
                     </div>
-                    <div class="tw-text-sm">
+                    <div class="tw:text-sm">
                       {{ run.processed_rows }}
                     </div>
                   </div>
@@ -51,10 +51,10 @@
               <div class="col">
                 <div class="d-flex flex-row">
                   <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw-text-xs tw-font-medium">
+                    <div class="text-body-secondary tw:text-xs tw:font-medium">
                       {% trans 'Skipped Items' %}
                     </div>
-                    <div class="tw-text-sm">
+                    <div class="tw:text-sm">
                       {{ run.skipped_rows }}
                     </div>
                   </div>
@@ -64,10 +64,10 @@
               <div class="col">
                 <div class="d-flex flex-row">
                   <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw-text-xs tw-font-medium">
+                    <div class="text-body-secondary tw:text-xs tw:font-medium">
                       {% trans 'Failed Items' %}
                     </div>
-                    <div class="tw-text-sm">
+                    <div class="tw:text-sm">
                       {{ run.failed_rows }}
                     </div>
                   </div>
@@ -77,10 +77,10 @@
               <div class="col">
                 <div class="d-flex flex-row">
                   <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw-text-xs tw-font-medium">
+                    <div class="text-body-secondary tw:text-xs tw:font-medium">
                       {% trans 'Successful Items' %}
                     </div>
-                    <div class="tw-text-sm">
+                    <div class="tw:text-sm">
                       {{ run.successful_rows }}
                     </div>
                   </div>

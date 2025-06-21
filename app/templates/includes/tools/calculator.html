@@ -1,5 +1,5 @@
 {% load formats %}
-<div class="tw-hidden tw-w-[60vw] lg:tw-w-[30vw] xl:tw-w-[20vw] position-fixed shadow rounded-3 bg-body tw-border-gray-700 tw-border tw-border-solid tw-text-center tw-align-middle tw-z-[2000] tw-touch-none user-select-none"
+<div class="tw:hidden tw:w-[60vw] tw:lg:w-[30vw] tw:xl:w-[20vw] position-fixed shadow rounded-3 bg-body tw:border-gray-700 tw:border tw:border-solid tw:text-center tw:align-middle tw:z-[2000] tw:touch-none user-select-none"
      id="calculator"
      hx-preserve
      _="
@@ -13,8 +13,8 @@
           on focusin halt the event end -- this prevents bootstrap's static offcanvas from hijacking the focus from the input when open end
 
           on show or keyup[code is 'KeyC' and altKey is true] from body
-            if my.classList.contains('tw-hidden')
-              remove .tw-hidden from me
+            if my.classList.contains('tw:hidden')
+              remove .{'tw:hidden'} from me
               measure my width, height
               set xoff to (window.innerWidth/2) - (width/2)
               set yoff to (window.innerHeight/2) - (height)
@@ -23,7 +23,7 @@
               then call #calculator-input.focus()
             else
               add .scale-out-center to me then wait for animationend then remove .scale-out-center from me
-              add .tw-hidden to me
+              add .{'tw:hidden'} to me
             end
           end
 
@@ -48,7 +48,7 @@
           end">
 
       <div id="calculator-handle"
-           class="position-absolute bg-secondary rounded-top-2 tw-cursor-move d-flex align-items-center justify-content-center tw-top-[-20px] tw-left-[3px] tw-w-[2em] tw-h-[20px]">
+           class="position-absolute bg-secondary rounded-top-2 tw:cursor-move d-flex align-items-center justify-content-center tw:top-[-20px] tw:left-[3px] tw:w-[2em] tw:h-[20px]">
         <i class="fa-solid fa-grip"></i>
       </div>
 
@@ -73,31 +73,31 @@
                   end
                   then set localizedResult to it
                   set #calculator-result.innerText to localizedResult
-                  then remove .tw-hidden from #calculator-result-container
+                  then remove .{'tw:hidden'} from #calculator-result-container
                   then add .swing-in-top-fwd to #calculator-result-container
                   then settle
                   then remove .swing-in-top-fwd from #calculator-result-container
                 else
                   add .swing-out-top-bck to #calculator-result-container
                   then settle
-                  then add .tw-hidden to #calculator-result-container
+                  then add .{'tw:hidden'} to #calculator-result-container
                   then remove .swing-out-top-bck from #calculator-result-container
                 end
               catch e
                 add .swing-out-top-bck to #calculator-result-container
                 then settle
-                then add .tw-hidden to #calculator-result-container
+                then add .{'tw:hidden'} to #calculator-result-container
                 then remove .swing-out-top-bck from #calculator-result-container
               end"
              placeholder="2 + 2">
-      <div class="tw-hidden" id="calculator-result-container">
+      <div class="tw:hidden" id="calculator-result-container">
         <div class="d-flex flex-row p-2 justify-content-between">
-          <div class="tw-text-gray-400">=</div>
+          <div class="tw:text-gray-400">=</div>
           <div id="calculator-result" class="user-select-all"></div>
         </div>
       </div>
-      <div class="position-absolute tw-cursor-pointer top-0 start-100 translate-middle tw-p-0 text-bg-primary border border-light rounded-circle tw-flex tw-items-center tw-justify-center tw-w-5 tw-h-5"
+      <div class="position-absolute tw:cursor-pointer top-0 start-100 translate-middle tw:p-0 text-bg-primary border border-light rounded-circle tw:flex tw:items-center tw:justify-center tw:w-5 tw:h-5"
             _="on click trigger show on #calculator">
-        <i class="fa-solid fa-xmark tw-flex tw-items-center tw-justify-center tw-w-full tw-h-full"></i>
+        <i class="fa-solid fa-xmark tw:flex tw:items-center tw:justify-center tw:w-full tw:h-full"></i>
       </div>
     </div>

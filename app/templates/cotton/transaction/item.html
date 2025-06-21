@@ -8,17 +8,17 @@
                id="check-{{ transaction.id }}" aria-label="{% translate 'Select' %}" hx-preserve>
       </label>
     {% endif %}
-    <div class="tw-border-s-6 tw-border-e-0 tw-border-t-0 tw-border-b-0 border-bottom
-  hover:tw-bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw-border-dashed{% else %}tw-border-solid{% endif %}
-  {% if transaction.type == "EX" %}tw-border-red-500{% else %}tw-border-green-500{% endif %} tw-relative
+    <div class="tw:border-s-4 tw:border-e-0 tw:border-t-0 tw:border-b-0 border-bottom
+  tw:hover:bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw:border-dashed{% else %}tw:border-solid{% endif %}
+  {% if transaction.type == "EX" %}tw:border-red-500{% else %}tw:border-green-500{% endif %} tw:relative
   w-100 transaction-item"
-         _="on mouseover remove .tw-invisible from the first .transaction-actions in me end
-        on mouseout add .tw-invisible to the first .transaction-actions in me end">
-      <div class="row font-monospace tw-text-sm align-items-center">
+         _="on mouseover remove .{'tw:invisible'} from the first .transaction-actions in me end
+        on mouseout add .{'tw:invisible'} to the first .transaction-actions in me end">
+      <div class="row font-monospace tw:text-sm align-items-center">
         <div
-            class="col-lg-auto col-12 d-flex align-items-center tw-text-2xl lg:tw-text-xl text-lg-center text-center p-0 ps-1">
+            class="col-lg-auto col-12 d-flex align-items-center tw:text-2xl tw:lg:text-xl text-lg-center text-center p-0 ps-1">
           {% if not transaction.deleted %}
-            <a class="text-decoration-none p-3 tw-text-gray-500"
+            <a class="text-decoration-none p-3 tw:text-gray-500!"
                title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}"
                role="button"
                hx-get="{% url 'transaction_pay' transaction_id=transaction.id %}"
@@ -28,7 +28,7 @@
                   class="fa-regular fa-circle"></i>{% endif %}
             </a>
           {% else %}
-            <div class="text-decoration-none p-3 tw-text-gray-500"
+            <div class="text-decoration-none p-3 tw:text-gray-500!"
                  title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}">
               {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
                   class="fa-regular fa-circle"></i>{% endif %}
@@ -37,13 +37,13 @@
         </div>
         <div class="col-lg col-12">
           {#      Date#}
-          <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+          <div class="row mb-2 mb-lg-1 tw:text-gray-400">
             <div class="col-auto pe-1"><i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i></div>
             <div
                 class="col ps-0">{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
           </div>
           {#      Description#}
-          <div class="mb-2 mb-lg-1 text-white tw-text-base">
+          <div class="mb-2 mb-lg-1 text-body tw:text-base">
             {% spaceless %}
               <span class="{% if transaction.description %}me-2{% endif %}">{{ transaction.description }}</span>
               {% if transaction.installment_plan and transaction.installment_id %}
@@ -51,18 +51,18 @@
                     class="badge text-bg-secondary">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
               {% endif %}
               {% if transaction.recurring_transaction %}
-                <span class="text-primary tw-text-xs"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
+                <span class="text-primary tw:text-xs"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
               {% endif %}
               {% if transaction.dca_expense_entries.all or transaction.dca_income_entries.all %}
                 <span class="badge text-bg-secondary">{% trans 'DCA' %}</span>
               {% endif %}
             {% endspaceless %}
           </div>
-          <div class="tw-text-gray-400 tw-text-sm">
+          <div class="tw:text-gray-400 tw:text-sm">
             {#        Entities #}
             {% with transaction.entities.all as entities %}
               {% if entities %}
-                <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+                <div class="row mb-2 mb-lg-1 tw:text-gray-400">
                   <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
                   <div class="col ps-0">{{ entities|join:", " }}</div>
                 </div>
@@ -70,14 +70,14 @@
             {% endwith %}
             {#        Notes#}
             {% if transaction.notes %}
-              <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
                 <div class="col-auto pe-1"><i class="fa-solid fa-align-left fa-fw me-1 fa-xs"></i></div>
                 <div class="col ps-0">{{ transaction.notes | limited_markdown | linebreaksbr }}</div>
               </div>
             {% endif %}
             {#        Category#}
             {% if transaction.category %}
-              <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
                 <div class="col-auto pe-1"><i class="fa-solid fa-icons fa-fw me-1 fa-xs"></i></div>
                 <div class="col ps-0">{{ transaction.category.name }}</div>
               </div>
@@ -85,7 +85,7 @@
             {#        Tags#}
             {% with transaction.tags.all as tags %}
               {% if tags %}
-                <div class="row mb-2 mb-lg-1 tw-text-gray-400">
+                <div class="row mb-2 mb-lg-1 tw:text-gray-400">
                   <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
                   <div class="col ps-0">{{ tags|join:", " }}</div>
                 </div>
@@ -122,7 +122,7 @@
         <div>
           {#      Item actions#}
           <div
-              class="transaction-actions !tw-absolute tw-left-1/2 tw-top-0 tw--translate-x-1/2 tw--translate-y-1/2 tw-invisible d-flex flex-row card">
+              class="transaction-actions tw:absolute! tw:left-1/2 tw:top-0 tw:-translate-x-1/2 tw:-translate-y-1/2 tw:invisible d-flex flex-row card">
             <div class="card-body p-1 shadow-lg">
               {% if not transaction.deleted %}
                 <a class="btn btn-secondary btn-sm transaction-action"

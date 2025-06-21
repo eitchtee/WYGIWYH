@@ -7,11 +7,11 @@
     </h5>
     <div class="d-flex justify-content-between align-items-baseline mt-2">
       <div class="text-end font-monospace">
-        <div class="tw-text-gray-400">{% translate 'projected income' %}</div>
+        <div class="tw:text-gray-400">{% translate 'projected income' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
       {% if currency.income_projected != 0 %}
-      <div class="text-end font-monospace tw-text-green-400">
+      <div class="text-end font-monospace tw:text-green-400">
         <c-amount.display
             :amount="currency.income_projected"
             :prefix="currency.currency.prefix"
@@ -23,7 +23,7 @@
       {% endif %}
     </div>
     {% if currency.exchanged and currency.exchanged.income_projected %}
-      <div class="text-end font-monospace tw-text-gray-500">
+      <div class="text-end font-monospace tw:text-gray-500">
         <c-amount.display
             :amount="currency.exchanged.income_projected"
             :prefix="currency.exchanged.currency.prefix"
@@ -33,12 +33,12 @@
     {% endif %}
     <div class="d-flex justify-content-between align-items-baseline mt-2">
       <div class="text-end font-monospace">
-        <div class="tw-text-gray-400">{% translate 'projected expenses' %}</div>
+        <div class="tw:text-gray-400">{% translate 'projected expenses' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
       <div>
         {% if currency.expense_projected != 0 %}
-        <div class="text-end font-monospace tw-text-red-400">
+        <div class="text-end font-monospace tw:text-red-400">
           <c-amount.display
               :amount="currency.expense_projected"
               :prefix="currency.currency.prefix"
@@ -51,7 +51,7 @@
       </div>
     </div>
     {% if currency.exchanged and currency.exchanged.expense_projected %}
-      <div class="text-end font-monospace tw-text-gray-500">
+      <div class="text-end font-monospace tw:text-gray-500">
         <c-amount.display
             :amount="currency.exchanged.expense_projected"
             :prefix="currency.exchanged.currency.prefix"
@@ -61,7 +61,7 @@
     {% endif %}
     <div class="d-flex justify-content-between align-items-baseline mt-2">
       <div class="text-end font-monospace">
-        <div class="tw-text-gray-400">{% translate 'projected total' %}</div>
+        <div class="tw:text-gray-400">{% translate 'projected total' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
       <div class="text-end font-monospace">
@@ -74,7 +74,7 @@
       </div>
     </div>
     {% if currency.exchanged.total_projected and currency.exchanged.total_projected %}
-      <div class="text-end font-monospace tw-text-gray-500">
+      <div class="text-end font-monospace tw:text-gray-500">
         <c-amount.display
             :amount="currency.exchanged.total_projected"
             :prefix="currency.exchanged.currency.prefix"
@@ -85,11 +85,11 @@
     <hr class="my-3">
     <div class="d-flex justify-content-between align-items-baseline mt-2">
       <div class="text-end font-monospace">
-        <div class="tw-text-gray-400">{% translate 'current income' %}</div>
+        <div class="tw:text-gray-400">{% translate 'current income' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
       {% if currency.income_current != 0 %}
-      <div class="text-end font-monospace tw-text-green-400">
+      <div class="text-end font-monospace tw:text-green-400">
         <c-amount.display
             :amount="currency.income_current"
             :prefix="currency.currency.prefix"
@@ -101,7 +101,7 @@
       {% endif %}
     </div>
     {% if currency.exchanged and currency.exchanged.income_current %}
-      <div class="text-end font-monospace tw-text-gray-500">
+      <div class="text-end font-monospace tw:text-gray-500">
         <c-amount.display
             :amount="currency.exchanged.income_current"
             :prefix="currency.exchanged.currency.prefix"
@@ -111,11 +111,11 @@
     {% endif %}
     <div class="d-flex justify-content-between align-items-baseline mt-2">
       <div class="text-end font-monospace">
-        <div class="tw-text-gray-400">{% translate 'current expenses' %}</div>
+        <div class="tw:text-gray-400">{% translate 'current expenses' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
       {% if currency.expense_current != 0 %}
-      <div class="text-end font-monospace tw-text-red-400">
+      <div class="text-end font-monospace tw:text-red-400">
         <c-amount.display
             :amount="currency.expense_current"
             :prefix="currency.currency.prefix"
@@ -127,7 +127,7 @@
       {% endif %}
     </div>
     {% if currency.exchanged and currency.exchanged.expense_current %}
-      <div class="text-end font-monospace tw-text-gray-500">
+      <div class="text-end font-monospace tw:text-gray-500">
         <c-amount.display
             :amount="currency.exchanged.expense_current"
             :prefix="currency.exchanged.currency.prefix"
@@ -137,7 +137,7 @@
     {% endif %}
     <div class="d-flex justify-content-between align-items-baseline mt-2">
       <div class="text-end font-monospace">
-        <div class="tw-text-gray-400">{% translate 'current total' %}</div>
+        <div class="tw:text-gray-400">{% translate 'current total' %}</div>
       </div>
       <div class="dotted-line flex-grow-1"></div>
       <div class="text-end font-monospace">
@@ -150,7 +150,7 @@
       </div>
     </div>
     {% if currency.exchanged and currency.exchanged.total_current %}
-      <div class="text-end font-monospace tw-text-gray-500">
+      <div class="text-end font-monospace tw:text-gray-500">
         <c-amount.display
             :amount="currency.exchanged.total_current"
             :prefix="currency.exchanged.currency.prefix"
@@ -162,7 +162,7 @@
       <hr class="my-3">
       <div class="d-flex justify-content-between align-items-baseline mt-2">
         <div class="text-end font-monospace">
-          <div class="tw-text-gray-400">{% translate 'final total' %}</div>
+          <div class="tw:text-gray-400">{% translate 'final total' %}</div>
         </div>
         <div class="dotted-line flex-grow-1"></div>
         <div class="text-end font-monospace">
@@ -175,7 +175,7 @@
         </div>
       </div>
       {% if currency.exchanged and currency.exchanged.total_final %}
-        <div class="text-end font-monospace tw-text-gray-500">
+        <div class="text-end font-monospace tw:text-gray-500">
           <c-amount.display
               :amount="currency.exchanged.total_final"
               :prefix="currency.exchanged.currency.prefix"

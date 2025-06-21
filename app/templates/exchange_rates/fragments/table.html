@@ -58,7 +58,7 @@
     <nav aria-label="{% translate 'Page navigation' %}">
     <ul class="pagination justify-content-center mt-5">
       <li class="page-item">
-        <a class="page-link tw-cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
+        <a class="page-link tw:cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
            hx-get="{% if page_obj.has_previous %}{% url 'exchange_rates_list_pair' %}{% endif %}"
            hx-vals='{"page": 1, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
            hx-include="#filter, #order"
@@ -79,13 +79,13 @@
               {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
                   {% if page_obj.number == page_number %}
                       <li class="page-item active">
-                          <a class="page-link tw-cursor-pointer">
+                          <a class="page-link tw:cursor-pointer">
                               {{ page_number }}
                           </a>
                       </li>
                   {% else %}
                       <li class="page-item">
-                          <a class="page-link tw-cursor-pointer"
+                          <a class="page-link tw:cursor-pointer"
                              hx-get="{% url 'exchange_rates_list_pair' %}"
                              hx-vals='{"page": {{ page_number }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
                              hx-target="#exchange-rates-table"
@@ -104,7 +104,7 @@
           </a>
         </li>
         <li class="page-item">
-          <a class="page-link tw-cursor-pointer"
+          <a class="page-link tw:cursor-pointer"
              hx-get="{% url 'exchange_rates_list_pair' %}" hx-target="#exchange-rates-table"
              hx-vals='{"page": {{ page_obj.paginator.num_pages }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
              hx-include="#filter, #order"
@@ -115,7 +115,7 @@
         </li>
       {% endif %}
       <li class="page-item">
-        <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw-cursor-pointer"
+        <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw:cursor-pointer"
            hx-get="{% if page_obj.has_next %}{% url 'exchange_rates_list_pair' %}{% endif %}"
            hx-vals='{"page": {{ page_obj.paginator.num_pages }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
            hx-include="#filter, #order"

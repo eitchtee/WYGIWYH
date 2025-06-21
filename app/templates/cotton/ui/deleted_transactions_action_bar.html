@@ -1,16 +1,16 @@
 {% load i18n %}
-<div class="tw-sticky tw-bottom-4 tw-left-0 tw-right-0 tw-z-50 tw-hidden mx-auto tw-w-fit" id="actions-bar"
+<div class="tw:sticky tw:bottom-4 tw:left-0 tw:right-0 tw:z-50 tw:hidden mx-auto tw:w-fit" id="actions-bar"
      _="on change from #transactions-list or htmx:afterSettle from window
         if #actions-bar then
             if no <input[type='checkbox']:checked/> in #transactions-list
               if #actions-bar
                 add .slide-in-bottom-reverse then settle
-                then add .tw-hidden to #actions-bar
+                then add .tw:hidden to #actions-bar
                 then remove .slide-in-bottom-reverse
               end
             else
               if #actions-bar
-                remove .tw-hidden from #actions-bar
+                remove .tw:hidden from #actions-bar
                 then trigger selected_transactions_updated
               end
             end
@@ -26,20 +26,20 @@
           </button>
           <ul class="dropdown-menu">
             <li>
-              <div class="dropdown-item px-3 tw-cursor-pointer"
+              <div class="dropdown-item px-3 tw:cursor-pointer"
                    _="on click set <#transactions-list input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
-                <i class="fa-regular fa-square-check tw-text-green-400 me-3"></i>{% translate 'Select All' %}
+                <i class="fa-regular fa-square-check tw:text-green-400 me-3"></i>{% translate 'Select All' %}
               </div>
             </li>
             <li>
-              <div class="dropdown-item px-3 tw-cursor-pointer"
+              <div class="dropdown-item px-3 tw:cursor-pointer"
                    _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur() then trigger change">
-                <i class="fa-regular fa-square tw-text-red-400 me-3"></i>{% translate 'Unselect All' %}
+                <i class="fa-regular fa-square tw:text-red-400 me-3"></i>{% translate 'Unselect All' %}
               </div>
             </li>
           </ul>
         </div>
-        <div class="vr tw-align-middle"></div>
+        <div class="vr tw:align-middle"></div>
         <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_undelete' %}"
                 hx-include=".transaction"
@@ -60,7 +60,7 @@
                 _="install prompt_swal">
           <i class="fa-solid fa-trash text-danger"></i>
         </button>
-        <div class="vr tw-align-middle"></div>
+        <div class="vr tw:align-middle"></div>
         <div class="btn-group"
              _="on selected_transactions_updated from #actions-bar
                   set realTotal to math.bignumber(0)
@@ -118,10 +118,10 @@
             <li>
               <div class="dropdown-item-text p-0">
                 <div>
-                  <div class="text-body-secondary tw-text-xs tw-font-medium px-3">
+                  <div class="text-body-secondary tw:text-xs tw:font-medium px-3">
                     {% trans "Flat Total" %}
                   </div>
-                  <div class="dropdown-item px-3 tw-cursor-pointer"
+                  <div class="dropdown-item px-3 tw:cursor-pointer"
                        id="calc-menu-flat-total"
                        _="on click
                             set original_value to my innerText
@@ -138,10 +138,10 @@
             <li>
               <div class="dropdown-item-text p-0">
                 <div>
-                  <div class="text-body-secondary tw-text-xs tw-font-medium px-3">
+                  <div class="text-body-secondary tw:text-xs tw:font-medium px-3">
                     {% trans "Real Total" %}
                   </div>
-                  <div class="dropdown-item px-3 tw-cursor-pointer"
+                  <div class="dropdown-item px-3 tw:cursor-pointer"
                        id="calc-menu-real-total"
                        _="on click
                             set original_value to my innerText
@@ -158,10 +158,10 @@
             <li>
               <div class="dropdown-item-text p-0">
                 <div>
-                  <div class="text-body-secondary tw-text-xs tw-font-medium px-3">
+                  <div class="text-body-secondary tw:text-xs tw:font-medium px-3">
                     {% trans "Mean" %}
                   </div>
-                  <div class="dropdown-item px-3 tw-cursor-pointer"
+                  <div class="dropdown-item px-3 tw:cursor-pointer"
                        id="calc-menu-mean"
                        _="on click
                             set original_value to my innerText
@@ -178,10 +178,10 @@
             <li>
               <div class="dropdown-item-text p-0">
                 <div>
-                  <div class="text-body-secondary tw-text-xs tw-font-medium px-3">
+                  <div class="text-body-secondary tw:text-xs tw:font-medium px-3">
                     {% trans "Max" %}
                   </div>
-                  <div class="dropdown-item px-3 tw-cursor-pointer"
+                  <div class="dropdown-item px-3 tw:cursor-pointer"
                        id="calc-menu-max"
                        _="on click
                             set original_value to my innerText
@@ -198,10 +198,10 @@
             <li>
               <div class="dropdown-item-text p-0">
                 <div>
-                  <div class="text-body-secondary tw-text-xs tw-font-medium px-3">
+                  <div class="text-body-secondary tw:text-xs tw:font-medium px-3">
                     {% trans "Min" %}
                   </div>
-                  <div class="dropdown-item px-3 tw-cursor-pointer"
+                  <div class="dropdown-item px-3 tw:cursor-pointer"
                        id="calc-menu-min"
                        _="on click
                             set original_value to my innerText
@@ -218,10 +218,10 @@
             <li>
               <div class="dropdown-item-text p-0">
                 <div>
-                  <div class="text-body-secondary tw-text-xs tw-font-medium px-3">
+                  <div class="text-body-secondary tw:text-xs tw:font-medium px-3">
                     {% trans "Count" %}
                   </div>
-                  <div class="dropdown-item px-3 tw-cursor-pointer"
+                  <div class="dropdown-item px-3 tw:cursor-pointer"
                        id="calc-menu-count"
                        _="on click
                             set original_value to my innerText

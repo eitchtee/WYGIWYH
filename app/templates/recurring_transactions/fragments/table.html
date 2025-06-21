@@ -100,10 +100,10 @@
           </div>
         </td>
         <td class="col">
-          <div class="{% if recurring_transaction.type == 'EX' %}tw-text-red-400{% else %}tw-text-green-400{% endif %}">
+          <div class="{% if recurring_transaction.type == 'EX' %}tw:text-red-400{% else %}tw:text-green-400{% endif %}">
             {{ recurring_transaction.description }}
           </div>
-          <div class="tw-text-sm tw-text-gray-400">{{ recurring_transaction.notes|linebreaksbr }}</div>
+          <div class="tw:text-sm tw:text-gray-400">{{ recurring_transaction.notes|linebreaksbr }}</div>
         </td>
       </tr>
       {% endfor %}

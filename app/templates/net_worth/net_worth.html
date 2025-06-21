@@ -19,7 +19,7 @@
               {% for currency in currency_net_worth.values %}
                 <div class="d-flex justify-content-between mt-2">
                   <div class="d-flex align-items-baseline w-100">
-                    <div class="currency-name text-start font-monospace tw-text-gray-300"
+                    <div class="currency-name text-start font-monospace tw:text-gray-300"
                          _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
                       {{ currency.currency.name }}
                     </div>
@@ -48,7 +48,7 @@
                 {% endif %}
                 {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
                   <div class="d-flex align-items-baseline w-100">
-                        <div class="account-name text-start font-monospace tw-text-gray-300">
+                        <div class="account-name text-start font-monospace tw:text-gray-300">
                           <span class="hierarchy-line-icon"></span>{% trans 'Consolidated' %}</div>
                         <div class="dotted-line flex-grow-1"></div>
                         <div class="">
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="col-12 col-xl-7">
-        <div class="chart-container position-relative tw-min-h-[40vh] tw-h-full">
+        <div class="chart-container position-relative tw:min-h-[40vh] tw:h-full">
           <canvas id="currencyBalanceChart"></canvas>
         </div>
       </div>
@@ -85,14 +85,14 @@
                 {% if data.grouper %}
                   <div class="d-flex justify-content-between mt-2">
                     <div class="d-flex align-items-baseline w-100">
-                      <div class="text-start font-monospace tw-text-gray-300"><span class="badge text-bg-primary">
+                      <div class="text-start font-monospace tw:text-gray-300"><span class="badge text-bg-primary">
                         {{ data.grouper }}</span></div>
                     </div>
                   </div>
                   {% for account in data.list %}
                     <div class="d-flex justify-content-between mt-2">
                       <div class="d-flex align-items-baseline w-100">
-                        <div class="account-name text-start font-monospace tw-text-gray-300"
+                        <div class="account-name text-start font-monospace tw:text-gray-300"
                              _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                           <span class="hierarchy-line-icon"></span>{{ account.account.name }}</div>
                         <div class="dotted-line flex-grow-1"></div>
@@ -120,7 +120,7 @@
                   {% for account in data.list %}
                     <div class="d-flex justify-content-between mt-2">
                       <div class="d-flex align-items-baseline w-100">
-                        <div class="account-name text-start font-monospace tw-text-gray-300"
+                        <div class="account-name text-start font-monospace tw:text-gray-300"
                              _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                           {{ account.account.name }}
                         </div>
@@ -152,7 +152,7 @@
         </div>
       </div>
       <div class="col-12 col-xl-7">
-        <div class="chart-container position-relative tw-min-h-[40vh] tw-h-full">
+        <div class="chart-container position-relative tw:min-h-[40vh] tw:h-full">
           <canvas id="accountBalanceChart"></canvas>
         </div>
       </div>

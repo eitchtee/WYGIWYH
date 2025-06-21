@@ -7,17 +7,17 @@
 {% block body %}
   <div hx-get="{% url 'transaction_rule_view' transaction_rule_id=transaction_rule.id %}"
        hx-trigger="updated from:window" hx-target="closest .offcanvas" class="show-loading">
-    <div class="tw-text-2xl">{{ transaction_rule.name }}</div>
-    <div class="tw-text-base tw-text-gray-400">{{ transaction_rule.description }}</div>
+    <div class="tw:text-2xl">{{ transaction_rule.name }}</div>
+    <div class="tw:text-base tw:text-gray-400">{{ transaction_rule.description }}</div>
     <hr>
     <div class="my-3">
-      <div class="tw-text-xl mb-2">{% translate 'If transaction...' %}</div>
+      <div class="tw:text-xl mb-2">{% translate 'If transaction...' %}</div>
       <div class="card">
         <div class="card-body">
           {{ transaction_rule.trigger }}
         </div>
         <div class="card-footer text-end">
-          <a class="text-decoration-none tw-text-gray-400 p-1"
+          <a class="text-decoration-none tw:text-gray-400 p-1"
              role="button"
              data-bs-toggle="tooltip"
              data-bs-title="{% translate "Edit" %}"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="my-3">
-      <div class="tw-text-xl mb-2">{% translate 'Then...' %}</div>
+      <div class="tw:text-xl mb-2">{% translate 'Then...' %}</div>
       {% for action in transaction_rule.transaction_actions.all %}
         <div class="card mb-3">
           <div class="card-header">
@@ -41,7 +41,7 @@
             <div class="text-bg-secondary rounded-3 mt-3 p-2">{{ action.value }}</div>
           </div>
           <div class="card-footer text-end">
-            <a class="text-decoration-none tw-text-gray-400 p-1"
+            <a class="text-decoration-none tw:text-gray-400 p-1"
                role="button"
                data-bs-toggle="tooltip"
                data-bs-title="{% translate "Edit" %}"
@@ -74,7 +74,7 @@
             <div>{% trans 'Edit to view' %}</div>
           </div>
           <div class="card-footer text-end">
-            <a class="text-decoration-none tw-text-gray-400 p-1"
+            <a class="text-decoration-none tw:text-gray-400 p-1"
                role="button"
                data-bs-toggle="tooltip"
                data-bs-title="{% translate "Edit" %}"

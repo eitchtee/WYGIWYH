@@ -17,7 +17,7 @@
     <div class="row mb-3 gx-xl-4 gy-3 mb-4">
       {#    Date picker#}
       <div class="col-12 col-xl-4 flex-row align-items-center d-flex">
-        <div class="tw-text-base h-100 align-items-center d-flex">
+        <div class="tw:text-base h-100 align-items-center d-flex">
           <a role="button"
              class="pe-4 py-2"
              hx-boost="true"
@@ -25,7 +25,7 @@
              href="{% url 'monthly_overview' month=previous_month year=previous_year %}"><i
               class="fa-solid fa-chevron-left"></i></a>
         </div>
-        <div class="tw-text-3xl fw-bold font-monospace tw-w-full text-center"
+        <div class="tw:text-3xl fw-bold font-monospace tw:w-full text-center"
              hx-get="{% url 'month_year_picker' %}"
              hx-target="#generic-offcanvas-left"
              hx-trigger="click, date_picker from:window"
@@ -33,7 +33,7 @@
              role="button">
           {{ month|month_name }} {{ year }}
         </div>
-        <div class="tw-text-base mx-2 h-100 align-items-center d-flex">
+        <div class="tw:text-base mx-2 h-100 align-items-center d-flex">
           <a role="button"
              class="ps-3 py-2"
              hx-boost="true"
@@ -143,11 +143,11 @@
             </button>
           </div>
           {#        Ordering button#}
-          <div class="col-sm-6 col-12 tw-content-center my-3 my-sm-0">
+          <div class="col-sm-6 col-12 tw:content-center my-3 my-sm-0">
             <div class="text-sm-end" _="on change trigger updated on window">
               <label for="order">{% translate "Order by" %}</label>
               <select
-                  class="tw-border-0 focus-visible:tw-outline-0 w-full pe-2 tw-leading-normal text-bg-tertiary tw-font-medium rounded"
+                  class="tw:border-0 tw:focus-visible:outline-0 w-full pe-2 tw:leading-normal text-bg-tertiary tw:font-medium rounded bg-body text-body"
                   name="order" id="order">
                 <option value="default"
                         {% if order == 'default' %}selected{% endif %}>{% translate 'Default' %}</option>

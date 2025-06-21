@@ -8,27 +8,27 @@
   <div class="container-fluid">
     <div class="row my-3 h-100">
       <div class="col-lg-2 col-md-3 mb-3 mb-md-0">
-        <div class="position-sticky tw-top-3">
+        <div class="position-sticky tw:top-3">
           <div class="">
             <div class="mb-2 w-100 d-lg-inline-flex d-grid gap-2 flex-wrap justify-content-lg-center" role="group"
                  _="on change
                     set type to event.target.value
-                    add .tw-hidden to <#picker-form > div:not(.tw-hidden)/>
+                    add .tw:hidden to <#picker-form > div:not(.tw:hidden)/>
 
                     if type == 'month'
-                      remove .tw-hidden from #month-form
+                      remove .tw:hidden from #month-form
                     end
                     if type == 'year'
-                      remove .tw-hidden from #year-form
+                      remove .tw:hidden from #year-form
                     end
                     if type == 'month-range'
-                      remove .tw-hidden from #month-range-form
+                      remove .tw:hidden from #month-range-form
                     end
                     if type == 'year-range'
-                      remove .tw-hidden from #year-range-form
+                      remove .tw:hidden from #year-range-form
                     end
                     if type == 'date-range'
-                      remove .tw-hidden from #date-range-form
+                      remove .tw:hidden from #date-range-form
                     end
                     then trigger updated"
                  id="picker-type">
@@ -60,16 +60,16 @@
               <div id="month-form" class="">
                 {% crispy month_form %}
               </div>
-              <div id="year-form" class="tw-hidden">
+              <div id="year-form" class="tw:hidden">
                 {% crispy year_form %}
               </div>
-              <div id="month-range-form" class="tw-hidden">
+              <div id="month-range-form" class="tw:hidden">
                 {% crispy month_range_form %}
               </div>
-              <div id="year-range-form" class="tw-hidden">
+              <div id="year-range-form" class="tw:hidden">
                 {% crispy year_range_form %}
               </div>
-              <div id="date-range-form" class="tw-hidden">
+              <div id="date-range-form" class="tw:hidden">
                 {% crispy date_range_form %}
               </div>
             </form>
