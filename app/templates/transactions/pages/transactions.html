@@ -28,10 +28,10 @@
         </div>
     </div>
     <div class="col-12 col-xl-6 order-2 order-xl-1">
-      <div class="text-end tw-justify-end tw-flex tw-text-sm mb-3">
-        <div class="tw-content-center" _="on change trigger updated on window">
+      <div class="text-end tw:justify-end tw:flex tw:text-sm mb-3">
+        <div class="tw:content-center" _="on change trigger updated on window">
           <label for="order">{% translate "Order by" %}</label>
-          <select class="tw-border-0 focus-visible:tw-outline-0 w-full pe-2 tw-leading-normal text-bg-tertiary tw-font-medium rounded" name="order" id="order">
+          <select class="tw:border-0 tw:focus-visible:outline-0 w-full pe-2 tw:leading-normal text-bg-tertiary tw:font-medium rounded bg-body text-body" name="order" id="order">
             <option value="default" {% if order == 'default' %}selected{% endif %}>{% translate 'Default' %}</option>
             <option value="older" {% if order == 'older' %}selected{% endif %}>{% translate 'Oldest first' %}</option>
             <option value="newer" {% if order == 'newer' %}selected{% endif %}>{% translate 'Newest first' %}</option>

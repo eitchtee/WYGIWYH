@@ -2,10 +2,10 @@
 {% load i18n %}
 <div class="container-fluid px-md-3 py-3 column-gap-5">
   <div class="d-lg-flex justify-content-between mb-3 w-100">
-    <div class="tw-text-3xl fw-bold font-monospace d-flex align-items-center">
+    <div class="tw:text-3xl fw-bold font-monospace d-flex align-items-center">
       {{ strategy.name }}
     </div>
-    <div class="tw-text-sm text-lg-end mt-2 mt-lg-0">
+    <div class="tw:text-sm text-lg-end mt-2 mt-lg-0">
       <div class="mb-2">
         <span class="badge rounded-pill text-bg-secondary">{{ strategy.payment_currency.name }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ strategy.target_currency.name }}</span>
       </div>
@@ -19,7 +19,7 @@
            • {{ strategy.current_price.1|date:"SHORT_DATETIME_FORMAT" }}
           </c-amount.display>
           {% else %}
-          <div class="tw-text-red-400">{% trans "No exchange rate available" %}</div>
+          <div class="tw:text-red-400">{% trans "No exchange rate available" %}</div>
           {% endif %}
       </div>
     </div>
@@ -30,7 +30,7 @@
       <div class="card">
         <div class="card-body">
           {% spaceless %}
-            <div class="card-title tw-text-xl">{% trans "Entries" %}<span>
+            <div class="card-title tw:text-xl">{% trans "Entries" %}<span>
                 <a class="text-decoration-none p-1 category-action"
                    role="button"
                    data-bs-toggle="tooltip"
@@ -190,7 +190,7 @@
             <div class="card-body">
               <h5 class="card-title">{% trans "Total P/L" %}</h5>
               <div
-                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw-text-green-400{% else %}tw-text-red-400{% endif %}">
+                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
                 <c-amount.display
                     :amount="strategy.total_profit_loss"
                     :prefix="strategy.payment_currency.prefix"
@@ -206,7 +206,7 @@
             <div class="card-body">
               <h5 class="card-title">{% trans "Total % P/L" %}</h5>
               <div
-                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw-text-green-400{% else %}tw-text-red-400{% endif %}">
+                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
                 {{ strategy.total_profit_loss_percentage|floatformat:2 }}%
               </div>
             </div>
@@ -451,7 +451,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{% trans "Investment Frequency" %}</h5>
-              <p class="card-text tw-text-gray-400">
+              <p class="card-text tw:text-gray-400">
                 {% trans "The straighter the blue line, the more consistent your DCA strategy is." %}
               </p>
               <canvas id="frequencyChart"></canvas>

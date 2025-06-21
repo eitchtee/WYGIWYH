@@ -32,7 +32,7 @@
        tabindex="0">
     <ul class="list-group list-group-flush" id="month-year-list">
       {% for month_data in x.list %}
-      <li class="list-group-item hover:tw-bg-zinc-900
+      <li class="list-group-item tw:hover:bg-zinc-900
             {% if month_data.month == current_month and month_data.year == current_year %} disabled bg-primary{% endif %}"
           {% if month_data.month == current_month and month_data.year == current_year %}aria-disabled="true"{% endif %}>
         <div class="d-flex justify-content-between">

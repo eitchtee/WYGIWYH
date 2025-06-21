@@ -5,7 +5,7 @@
 {% block title %}{% translate 'Logs for' %} #{{ run.id }}{% endblock %}
 
 {% block body %}
-<div class="card tw-max-h-full tw-overflow-auto">
+<div class="card tw:max-h-full tw:overflow-auto">
   <div class="card-body">
     {{ run.logs|linebreaks }}
   </div>

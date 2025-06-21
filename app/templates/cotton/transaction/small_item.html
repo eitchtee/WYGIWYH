@@ -1,9 +1,9 @@
 <div class="card mb-2 transaction-item">
-    <div class="card-body p-2 tw-flex tw-items-center tw-gap-3" data-bs-toggle="collapse" data-bs-target="#{{ transaction.id }}" role="button" aria-expanded="false" aria-controls="{{ transaction.id }}">
+    <div class="card-body p-2 tw:flex tw:items-center tw:gap-3" data-bs-toggle="collapse" data-bs-target="#{{ transaction.id }}" role="button" aria-expanded="false" aria-controls="{{ transaction.id }}">
         <!-- Main visible content -->
-        <div class="tw-flex flex-lg-row flex-column lg:tw-items-center tw-w-full tw-gap-3">
+        <div class="tw:flex flex-lg-row flex-column tw:lg:items-center tw:w-full tw:gap-3">
             <!-- Type indicator -->
-            <div class="tw-w-8">
+            <div class="tw:w-8">
                 {% if transaction.type == 'IN' %}
                     <span class="badge bg-success">↑</span>
                 {% else %}
@@ -12,7 +12,7 @@
             </div>
 
             <!-- Payment status -->
-            <div class="tw-w-8">
+            <div class="tw:w-8">
                 {% if transaction.is_paid %}
                     <span class="badge bg-success">✓</span>
                 {% else %}
@@ -21,13 +21,13 @@
             </div>
 
             <!-- Description -->
-            <div class="tw-flex-grow">
-                <span class="tw-font-medium">{{ transaction.description }}</span>
+            <div class="tw:flex-grow">
+                <span class="tw:font-medium">{{ transaction.description }}</span>
             </div>
 
             <!-- Amount -->
-            <div class="tw-text-right tw-whitespace-nowrap">
-                <span class="{% if transaction.type == 'IN' %}tw-text-green-400{% else %}tw-text-red-400{% endif %}">
+            <div class="tw:text-right tw:whitespace-nowrap">
+                <span class="{% if transaction.type == 'IN' %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
                     {{ transaction.amount }}
                 </span>
                 {% if transaction.exchanged_amount %}
