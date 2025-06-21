@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-20 05:07+0000\n"
-"PO-Revision-Date: 2025-05-01 09:16+0000\n"
+"PO-Revision-Date: 2025-06-21 16:16+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -785,11 +785,11 @@ msgstr "Item succesvol toegevoegd"
 
 #: apps/dca/views.py:265
 msgid "Entry updated successfully"
-msgstr "Item succesvol bijgewerkt"
+msgstr "Invoer succesvol bijgewerkt"
 
 #: apps/dca/views.py:291
 msgid "Entry deleted successfully"
-msgstr "Item succesvol verwijderd"
+msgstr "Invoer succesvol verwijderd"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
 #: templates/includes/navbar.html:149 templates/users/fragments/list.html:6
@@ -1515,18 +1515,14 @@ msgid "Last Generated Reference Date"
 msgstr "Laatste Gegenereerde Referentiedatum"
 
 #: apps/transactions/models.py:964 templates/cotton/ui/transactions_fab.html:59
-#, fuzzy
-#| msgid "Edit Transaction"
 msgid "Quick Transaction"
-msgstr "Bewerk verrichting"
+msgstr "Snelle verrichting"
 
 #: apps/transactions/models.py:965 templates/includes/navbar.html:72
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:11
-#, fuzzy
-#| msgid "Transactions"
 msgid "Quick Transactions"
-msgstr "Verrichtingen"
+msgstr "Snelle Verrichtingen"
 
 #: apps/transactions/validators.py:8
 #, python-format
@@ -1622,10 +1618,8 @@ msgid "Item updated successfully"
 msgstr "Item succesvol bijgewerkt"
 
 #: apps/transactions/views/quick_transactions.py:99
-#, fuzzy
-#| msgid "Rule deleted successfully"
 msgid "Item deleted successfully"
-msgstr "Regel succesvol verwijderd"
+msgstr "Item succesvol verwijderd"
 
 #: apps/transactions/views/quick_transactions.py:145
 #: apps/transactions/views/transactions.py:52
@@ -2683,7 +2677,7 @@ msgstr "Profiel bewerken"
 
 #: templates/includes/navbar/user_menu.html:46
 msgid "Clear cache"
-msgstr "Leegmaken"
+msgstr "Cache leegmaken"
 
 #: templates/includes/navbar/user_menu.html:50
 msgid "Logout"
@@ -3019,27 +3013,21 @@ msgstr "Evolutie per rekening"
 
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
-#, fuzzy
-#| msgid "Add recurring transaction"
 msgid "Add quick transaction"
-msgstr "Voeg terugkerende verrichtingen toe"
+msgstr "Voeg snelle verrichtingen toe"
 
 #: templates/quick_transactions/fragments/create_menu.html:13
 #: templates/quick_transactions/fragments/list.html:55
 msgid "Nothing to see here..."
-msgstr ""
+msgstr "Hier is niets te zien..."
 
 #: templates/quick_transactions/fragments/edit.html:5
-#, fuzzy
-#| msgid "Edit transaction"
 msgid "Edit quick transaction"
-msgstr "Bewerk verrichting"
+msgstr "Bewerk snelle verrichting"
 
 #: templates/quick_transactions/fragments/list.html:38
-#, fuzzy
-#| msgid "Yes, delete them!"
 msgid "This will delete this item"
-msgstr "Ja, verwijder ze!"
+msgstr "Hiermee wordt dit item verwijderd"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
@@ -3285,10 +3273,8 @@ msgid "Use the credentials below to login"
 msgstr "Gebruik de onderstaande gegevens om in te loggen"
 
 #: templates/users/login.html:40
-#, fuzzy
-#| msgid "ends with"
 msgid "Login with"
-msgstr "eindigd op"
+msgstr "Aanmelden met"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
