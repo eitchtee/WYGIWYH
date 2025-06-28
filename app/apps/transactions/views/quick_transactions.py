@@ -9,7 +9,7 @@ from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
 from apps.transactions.forms import QuickTransactionForm
-from apps.transactions.models import QuickTransaction
+from apps.transactions.models import QuickTransaction, transaction_created
 from apps.transactions.models import Transaction
 
 
@@ -141,6 +141,8 @@ def quick_transaction_add_as_transaction(request, quick_transaction_id):
     new_transaction.save()
     new_transaction.tags.set(quick_transaction.tags.all())
     new_transaction.entities.set(quick_transaction.entities.all())
+
+    transaction_created.send(sender=new_transaction)
 
     messages.success(request, _("Transaction added successfully"))
 
