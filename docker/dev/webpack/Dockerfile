@@ -1,4 +1,4 @@
-FROM docker.io/node:18-bookworm-slim
+FROM node:lts-alpine
 
 WORKDIR /usr/src/frontend
 
