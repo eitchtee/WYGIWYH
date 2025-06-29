@@ -10,7 +10,7 @@ In the project directory, you can run:
 
 `npm run start` will launch a server process, which makes `live reloading` possible.
 
-If you change JS or SCSS files, the web page would auto refresh after the change. Now the server is working on port 9091 by default, but you can change it in `webpack/webpack.config.dev.js`
+If you change JS or SCSS files, the web page would auto refresh after the change. Now the server is working on port 9091 by default, but you can change it in `webpack/webpack.config.dev.cjs`
 
 ### `npm run watch`
 

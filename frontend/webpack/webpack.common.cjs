@@ -1,8 +1,8 @@
 const glob = require("glob");
 const Path = require("path");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const WebpackAssetsManifest = require("webpack-assets-manifest");
+const WebpackAssetsManifest = require("webpack-assets-manifest").WebpackAssetsManifest;
 // eslint-disable-next-line no-unused-vars
 const webpack = require("webpack");
 

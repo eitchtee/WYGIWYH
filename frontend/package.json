@@ -3,9 +3,9 @@
   "version": "1.0.1",
   "description": "Webpack boilerplate for Django & Flask",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
-    "start": "webpack serve --config webpack/webpack.config.dev.js",
-    "watch": "webpack --watch --config webpack/webpack.config.watch.js"
+    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.cjs",
+    "start": "webpack serve --config webpack/webpack.config.dev.cjs",
+    "watch": "webpack --watch --config webpack/webpack.config.watch.cjs"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "css-loader": "^7.1.2",
     "eslint": "^9.30.0",
     "eslint-webpack-plugin": "^5.0.2",
+    "globals": "^16.2.0",
     "htmx.org": "^2.0.6",
     "hyperscript.org": "^0.9.14",
     "jquery": "^3.7.1",
@@ -61,7 +62,7 @@
     "stylelint": "^16.21.0",
     "stylelint-config-standard-scss": "^15.0.1",
     "stylelint-webpack-plugin": "^5.0.1",
-    "sweetalert2": "^11.22.1",
+    "sweetalert2": "^11.22.2",
     "tailwindcss": "^4.1.11",
     "terser-webpack-plugin": "^5.3.14",
     "tom-select": "^2.4.3",
