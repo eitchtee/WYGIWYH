@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 03:05+0000\n"
+"POT-Creation-Date: 2025-06-29 03:23+0000\n"
 "PO-Revision-Date: 2025-04-13 08:16+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.herculino.com/projects/"
@@ -31,8 +31,8 @@ msgstr "Nome do grupo"
 #: apps/transactions/forms.py:369 apps/transactions/forms.py:416
 #: apps/transactions/forms.py:776 apps/transactions/forms.py:819
 #: apps/transactions/forms.py:851 apps/transactions/forms.py:886
-#: apps/transactions/forms.py:1038 apps/users/forms.py:210
-#: apps/users/forms.py:372
+#: apps/transactions/forms.py:1038 apps/users/forms.py:215
+#: apps/users/forms.py:377
 msgid "Update"
 msgstr "Atualizar"
 
@@ -45,7 +45,7 @@ msgstr "Atualizar"
 #: apps/transactions/forms.py:378 apps/transactions/forms.py:784
 #: apps/transactions/forms.py:827 apps/transactions/forms.py:859
 #: apps/transactions/forms.py:894 apps/transactions/forms.py:1046
-#: apps/users/forms.py:218 apps/users/forms.py:380
+#: apps/users/forms.py:223 apps/users/forms.py:385
 #: templates/account_groups/fragments/list.html:9
 #: templates/accounts/fragments/list.html:9
 #: templates/categories/fragments/list.html:9
@@ -337,7 +337,7 @@ msgstr ""
 "Somente editável pelo proprietário.<br/>Público: Exibido para todos os "
 "usuários. Somente editável pelo proprietário."
 
-#: apps/common/forms.py:80 apps/users/forms.py:135
+#: apps/common/forms.py:80 apps/users/forms.py:140
 msgid "Save"
 msgstr "Salvar"
 
@@ -1425,7 +1425,7 @@ msgstr "Sem descrição"
 msgid "Yearly"
 msgstr "Anual"
 
-#: apps/transactions/models.py:455 apps/users/models.py:26
+#: apps/transactions/models.py:455 apps/users/models.py:464
 #: templates/includes/navbar.html:26
 msgid "Monthly"
 msgstr "Mensal"
@@ -1717,7 +1717,8 @@ msgstr "Permissões"
 msgid "Important dates"
 msgstr "Datas importantes"
 
-#: apps/users/forms.py:23 apps/users/models.py:13 templates/users/login.html:20
+#: apps/users/forms.py:23 apps/users/models.py:451
+#: templates/users/login.html:20
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -1739,19 +1740,19 @@ msgstr "Essa conta está desativada"
 msgid "Default"
 msgstr "Padrão"
 
-#: apps/users/forms.py:95 apps/users/models.py:41
+#: apps/users/forms.py:95 apps/users/models.py:484
 msgid "Date Format"
 msgstr "Formato de Data"
 
-#: apps/users/forms.py:100 apps/users/models.py:46
+#: apps/users/forms.py:100 apps/users/models.py:489
 msgid "Datetime Format"
 msgstr "Formato de Data e Hora"
 
-#: apps/users/forms.py:106 apps/users/models.py:49
+#: apps/users/forms.py:106 apps/users/models.py:492
 msgid "Number Format"
 msgstr "Formato de Número"
 
-#: apps/users/forms.py:141
+#: apps/users/forms.py:146
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1762,103 +1763,107 @@ msgstr ""
 "são exibidos\n"
 "Considere ajudar a traduzir WYGIWYH para seu idioma em %(translation_link)s"
 
-#: apps/users/forms.py:150
+#: apps/users/forms.py:155
 #, fuzzy
 #| msgid "Password"
 msgid "New Password"
 msgstr "Senha"
 
-#: apps/users/forms.py:153
+#: apps/users/forms.py:158
 msgid "Leave blank to keep the current password."
 msgstr ""
 
-#: apps/users/forms.py:156
+#: apps/users/forms.py:161
 msgid "Confirm New Password"
 msgstr ""
 
-#: apps/users/forms.py:168 apps/users/forms.py:329
+#: apps/users/forms.py:173 apps/users/forms.py:334
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
 
-#: apps/users/forms.py:171 apps/users/forms.py:332
+#: apps/users/forms.py:176 apps/users/forms.py:337
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr ""
 
-#: apps/users/forms.py:242
+#: apps/users/forms.py:247
 msgid "This email address is already in use by another account."
 msgstr ""
 
-#: apps/users/forms.py:250
+#: apps/users/forms.py:255
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: apps/users/forms.py:252
+#: apps/users/forms.py:257
 msgid "Please confirm your new password."
 msgstr ""
 
-#: apps/users/forms.py:254
+#: apps/users/forms.py:259
 msgid "Please enter the new password first."
 msgstr ""
 
-#: apps/users/forms.py:274
+#: apps/users/forms.py:279
 msgid "You cannot deactivate your own account using this form."
 msgstr ""
 
-#: apps/users/forms.py:287
+#: apps/users/forms.py:292
 msgid "Cannot remove status from the last superuser."
 msgstr ""
 
-#: apps/users/forms.py:293
+#: apps/users/forms.py:298
 msgid "You cannot remove your own superuser status using this form."
 msgstr ""
 
-#: apps/users/forms.py:390
+#: apps/users/forms.py:395
 #, fuzzy
 #| msgid "A value for this field already exists in the rule."
 msgid "A user with this email address already exists."
 msgstr "Já existe um valor para esse campo na regra."
 
-#: apps/users/models.py:27 templates/includes/navbar.html:28
-msgid "Yearly by currency"
-msgstr "Anual por moeda"
-
-#: apps/users/models.py:28 templates/includes/navbar.html:30
-msgid "Yearly by account"
-msgstr "Anual por conta"
-
-#: apps/users/models.py:29 templates/net_worth/net_worth.html:9
-msgid "Current Net Worth"
-msgstr "Patrimônio Atual"
-
-#: apps/users/models.py:30 templates/net_worth/net_worth.html:9
-msgid "Projected Net Worth"
-msgstr "Patrimônio Previsto"
-
-#: apps/users/models.py:31
-msgid "All Transactions"
-msgstr "Todas as transações"
-
-#: apps/users/models.py:32 templates/includes/navbar.html:32
-msgid "Calendar"
-msgstr "Calendário"
-
-#: apps/users/models.py:54 apps/users/models.py:60
+#: apps/users/models.py:12 apps/users/models.py:497
 msgid "Auto"
 msgstr "Automático"
 
-#: apps/users/models.py:56
+#: apps/users/models.py:465 templates/includes/navbar.html:28
+msgid "Yearly by currency"
+msgstr "Anual por moeda"
+
+#: apps/users/models.py:466 templates/includes/navbar.html:30
+msgid "Yearly by account"
+msgstr "Anual por conta"
+
+#: apps/users/models.py:467 templates/net_worth/net_worth.html:9
+msgid "Current Net Worth"
+msgstr "Patrimônio Atual"
+
+#: apps/users/models.py:468 templates/net_worth/net_worth.html:9
+msgid "Projected Net Worth"
+msgstr "Patrimônio Previsto"
+
+#: apps/users/models.py:469
+msgid "All Transactions"
+msgstr "Todas as transações"
+
+#: apps/users/models.py:470 templates/includes/navbar.html:32
+msgid "Calendar"
+msgstr "Calendário"
+
+#: apps/users/models.py:480
+msgid "Volume"
+msgstr ""
+
+#: apps/users/models.py:499
 msgid "Language"
 msgstr "Linguagem"
 
-#: apps/users/models.py:62
+#: apps/users/models.py:505
 msgid "Time Zone"
 msgstr "Fuso horário"
 
-#: apps/users/models.py:68
+#: apps/users/models.py:511
 msgid "Start page"
 msgstr "Página inicial"
 
