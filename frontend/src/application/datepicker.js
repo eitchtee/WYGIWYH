@@ -33,7 +33,7 @@ window.DatePicker = function createDynamicDatePicker(element) {
             dp.selectDate(date, {updateTime: true});
             dp.setViewDate(date);
         }
-    }
+    };
 
     let isOnMobile = isMobile();
 
@@ -107,7 +107,7 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
             dp.selectDate(date, {updateTime: true});
             dp.setViewDate(date);
         }
-    }
+    };
 
     let isOnMobile = isMobile();
 
@@ -180,7 +180,7 @@ window.YearPicker = function createDynamicDatePicker(element) {
             dp.selectDate(date, {updateTime: true});
             dp.setViewDate(date);
         }
-    }
+    };
 
     let isOnMobile = isMobile();
 

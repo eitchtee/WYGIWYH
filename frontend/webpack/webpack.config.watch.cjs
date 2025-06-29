@@ -5,7 +5,7 @@ const StylelintPlugin = require("stylelint-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 
-const common = require("./webpack.common.js");
+const common = require("./webpack.common.cjs");
 
 module.exports = merge(common, {
   target: "web",
