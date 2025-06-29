@@ -37,7 +37,9 @@ class AirDatePickerInput(widgets.DateInput):
     def _get_current_language():
         """Get current language code in format compatible with AirDatepicker"""
         lang_code = translation.get_language()
-        # AirDatepicker uses simple language codes
+        # AirDatepicker uses simple language codes, except for pt-br
+        if lang_code.lower() == "pt-br":
+            return "pt-BR"
         return lang_code.split("-")[0]
 
     def _get_format(self):
