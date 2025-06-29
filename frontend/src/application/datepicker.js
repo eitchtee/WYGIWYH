@@ -1,15 +1,21 @@
 import AirDatepicker from 'air-datepicker';
-import en from 'air-datepicker/locale/en';
-import ptBr from 'air-datepicker/locale/pt-BR';
-import nl from 'air-datepicker/locale/nl';
-import de from 'air-datepicker/locale/de';
 import {createPopper} from '@popperjs/core';
 
-const locales = {
-    'pt': ptBr,
-    'en': en,
-    'nl': nl,
-    'de': de
+/**
+ * Dynamically imports a language file from the locale folder.
+ *
+ * @param {string} langCode - The two-letter language code (e.g., 'en', 'es').
+ * @returns {Promise<object>} A promise that resolves with the default export of the language file.
+ */
+export const getLocale = async (langCode) => {
+  try {
+    const localeModule = await import(`air-datepicker/locale/${langCode}.js`);
+    return localeModule.default;
+  } catch (error) {
+    console.warn(`Could not find locale for '${langCode}'. Defaulting to English.`);
+    const englishModule = await import('air-datepicker/locale/en.js');
+    return englishModule.default;
+  }
 };
 
 function isMobileDevice() {
@@ -25,7 +31,7 @@ function isMobile() {
     return isMobileDevice() || isTouchDevice();
 }
 
-window.DatePicker = function createDynamicDatePicker(element) {
+window.DatePicker = async function createDynamicDatePicker(element) {
     let todayButton = {
         content: element.dataset.nowButtonTxt,
         onClick: (dp) => {
@@ -45,7 +51,7 @@ window.DatePicker = function createDynamicDatePicker(element) {
         toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
-        locale: locales[element.dataset.language] || locales['en'],
+        locale: await getLocale(element.dataset.language),
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
@@ -99,7 +105,7 @@ window.DatePicker = function createDynamicDatePicker(element) {
     return new AirDatepicker(element, opts);
 };
 
-window.MonthYearPicker = function createDynamicDatePicker(element) {
+window.MonthYearPicker = async function createDynamicDatePicker(element) {
     let todayButton = {
         content: element.dataset.nowButtonTxt,
         onClick: (dp) => {
@@ -119,7 +125,7 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
         toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
-        locale: locales[element.dataset.language] || locales['en'],
+        locale: await getLocale(element.dataset.language),
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
@@ -172,7 +178,7 @@ window.MonthYearPicker = function createDynamicDatePicker(element) {
     return new AirDatepicker(element, opts);
 };
 
-window.YearPicker = function createDynamicDatePicker(element) {
+window.YearPicker = async function createDynamicDatePicker(element) {
     let todayButton = {
         content: element.dataset.nowButtonTxt,
         onClick: (dp) => {
@@ -192,7 +198,7 @@ window.YearPicker = function createDynamicDatePicker(element) {
         toggleSelected: element.dataset.toggleSelected === 'true',
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
-        locale: locales[element.dataset.language] || locales['en'],
+        locale: await getLocale(element.dataset.language),
         onSelect: ({date, formattedDate, datepicker}) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
