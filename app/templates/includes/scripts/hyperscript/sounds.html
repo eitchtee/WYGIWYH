@@ -1,15 +1,19 @@
 <script type="text/hyperscript">
 on paid if body do not include #settings-mute-sound
   js
+    volume = JSON.parse(document.getElementById('volume').textContent) / 10
     paidSound.pause()
     paidSound.currentTime = 0
+    paidSound.volume = volume
     paidSound.play()
   end
 end
 on unpaid if body do not include #settings-mute-sound
   js
+    volume = JSON.parse(document.getElementById('volume').textContent) / 10
     unpaidSound.pause()
     unpaidSound.currentTime = 0
+    unpaidSound.volume = volume
     unpaidSound.play()
   end
 end

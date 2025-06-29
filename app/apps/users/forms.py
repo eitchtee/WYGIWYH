@@ -2,7 +2,7 @@ from crispy_forms.bootstrap import (
     FormActions,
 )
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, Field, Div
+from crispy_forms.layout import Layout, Submit, Row, Column, Field, Div, HTML
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
@@ -115,6 +115,7 @@ class UserSettingsForm(forms.ModelForm):
             "date_format",
             "datetime_format",
             "number_format",
+            "volume",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -126,10 +127,14 @@ class UserSettingsForm(forms.ModelForm):
         self.helper.layout = Layout(
             "language",
             "timezone",
+            HTML("<hr />"),
             "date_format",
             "datetime_format",
             "number_format",
+            HTML("<hr />"),
             "start_page",
+            HTML("<hr />"),
+            "volume",
             FormActions(
                 NoClassSubmit(
                     "submit", _("Save"), css_class="btn btn-outline-primary w-100"
