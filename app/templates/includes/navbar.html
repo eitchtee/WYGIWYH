@@ -12,7 +12,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline" hx-push-url="true">
+      <ul class="navbar-nav me-auto mb-3 mb-lg-0 nav-underline" hx-push-url="true">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle {% active_link views='monthly_overview||yearly_overview_currency||yearly_overview_account||calendar' %}"
              href="#"
@@ -161,16 +161,16 @@
           </ul>
         </li>
       </ul>
-      <ul class="navbar-nav mt-3 mb-2 mb-lg-0 mt-lg-0">
-        <li class="nav-item text-center w-100">
-          <a class="nav-item tw:text-2xl tw:cursor-pointer me-lg-4"
+      <ul class="navbar-nav mb-2 mb-lg-0 gap-3">
+        <li class="nav-item">
+          <div class="nav-link tw:lg:text-2xl! tw:cursor-pointer"
              data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{% trans "Calculator" %}"
              _="on click trigger show on #calculator">
             <i class="fa-solid fa-calculator"></i>
-          </a>
+            <span class="d-lg-none d-inline">{% trans "Calculator" %}</span>
+          </div>
         </li>
-        <li class="text-center w-100">{% include 'includes/navbar/user_menu.html' %}</li>
-
+        <li class="w-100">{% include 'includes/navbar/user_menu.html' %}</li>
       </ul>
     </div>
   </div>

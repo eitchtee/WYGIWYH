@@ -1,9 +1,10 @@
 {% load settings %}
 {% load i18n %}
 <div class="dropdown">
-  <a class="tw:text-2xl" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <div class="nav-link tw:lg:text-2xl! tw:cursor-pointer" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="fa-solid fa-user"></i>
-  </a>
+    <span class="d-lg-none d-inline">{% trans "Profile" %}</span>
+  </div>
   <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
     <li class="dropdown-item-text">{{ user.email }}</li>
     <li><hr class="dropdown-divider"></li>
