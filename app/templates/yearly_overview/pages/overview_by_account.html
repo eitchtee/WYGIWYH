@@ -113,7 +113,7 @@
         <div id="data-content"
              class="show-loading"
              hx-get="{% url 'yearly_overview_account_data' year=year %}"
-             hx-trigger="load"
+             hx-trigger="load, every 10m"
              hx-include="[name='account'], [name='month']"
              hx-swap="innerHTML">
         </div>

@@ -9,6 +9,7 @@
 {% block title %}{% if type == "current" %}{% translate 'Current Net Worth' %}{% else %}{% translate 'Projected Net Worth' %}{% endif %}{% endblock %}
 
 {% block content %}
+  <div hx-trigger="every 60m" class="show-loading" hx-get="" hx-target="body">
   <div class="container px-md-3 py-3" _="init call initializeAccountChart() then initializeCurrencyChart() end">
     <div class="row gx-xl-4 gy-3 mb-4">
       <div class="col-12 col-xl-5">
@@ -318,5 +319,5 @@
       call currencyChart.update()
     end
   </script>
-
+</div>
 {% endblock %}

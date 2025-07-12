@@ -52,7 +52,7 @@
     </div>
     <div class="row">
       <div class="show-loading" hx-get="{% url 'calendar_list' month=month year=year %}"
-           hx-trigger="load, updated from:window, selective_update from:window"></div>
+           hx-trigger="load, updated from:window, selective_update from:window, every 10m"></div>
     </div>
   </div>
   <c-ui.transactions_fab></c-ui.transactions_fab>
