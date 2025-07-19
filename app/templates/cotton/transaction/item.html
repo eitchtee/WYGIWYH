@@ -1,6 +1,6 @@
 {% load markdown %}
 {% load i18n %}
-<div class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %}">
+<div class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} tw:group/transaction tw:relative tw:hover:z-10">
   <div class="d-flex my-1">
     {% if not disable_selection %}
       <label class="px-3 d-flex align-items-center justify-content-center">
@@ -9,11 +9,9 @@
       </label>
     {% endif %}
     <div class="tw:border-s-4 tw:border-e-0 tw:border-t-0 tw:border-b-0 border-bottom
-  tw:hover:bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw:border-dashed{% else %}tw:border-solid{% endif %}
-  {% if transaction.type == "EX" %}tw:border-red-500{% else %}tw:border-green-500{% endif %} tw:relative
-  w-100 transaction-item"
-         _="on mouseover remove .{'tw:invisible'} from the first .transaction-actions in me end
-        on mouseout add .{'tw:invisible'} to the first .transaction-actions in me end">
+                tw:hover:bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw:border-dashed{% else %}tw:border-solid{% endif %}
+                {% if transaction.type == "EX" %}tw:border-red-500{% else %}tw:border-green-500{% endif %} tw:relative
+                w-100 transaction-item">
       <div class="row font-monospace tw:text-sm align-items-center">
         <div
             class="col-lg-auto col-12 d-flex align-items-center tw:text-2xl tw:lg:text-xl text-lg-center text-center p-0 ps-1">
@@ -122,7 +120,7 @@
         <div>
           {#      Item actions#}
           <div
-              class="transaction-actions tw:absolute! tw:left-1/2 tw:top-0 tw:-translate-x-1/2 tw:-translate-y-1/2 tw:invisible d-flex flex-row card">
+              class="transaction-actions tw:absolute! tw:left-1/2 tw:top-0 tw:-translate-x-1/2 tw:-translate-y-1/2 tw:invisible tw:group-hover/transaction:visible d-flex flex-row card">
             <div class="card-body p-1 shadow-lg">
               {% if not transaction.deleted %}
                 <a class="btn btn-secondary btn-sm transaction-action"
