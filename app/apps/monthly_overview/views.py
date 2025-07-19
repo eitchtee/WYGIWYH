@@ -109,7 +109,7 @@ def monthly_summary(request, month: int, year: int):
     # Base queryset with all required filters
     base_queryset = Transaction.objects.filter(
         reference_date__year=year, reference_date__month=month, account__is_asset=False
-    ).exclude(Q(category__mute=True) & ~Q(category=None))
+    ).exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
 
     data = calculate_currency_totals(base_queryset, ignore_empty=True)
     percentages = calculate_percentage_distribution(data)
@@ -143,7 +143,7 @@ def monthly_account_summary(request, month: int, year: int):
     base_queryset = Transaction.objects.filter(
         reference_date__year=year,
         reference_date__month=month,
-    ).exclude(Q(category__mute=True) & ~Q(category=None))
+    ).exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
 
     account_data = calculate_account_totals(transactions_queryset=base_queryset.all())
     account_percentages = calculate_percentage_distribution(account_data)
@@ -168,7 +168,7 @@ def monthly_currency_summary(request, month: int, year: int):
     base_queryset = Transaction.objects.filter(
         reference_date__year=year,
         reference_date__month=month,
-    ).exclude(Q(category__mute=True) & ~Q(category=None))
+    ).exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
 
     currency_data = calculate_currency_totals(base_queryset.all(), ignore_empty=True)
     currency_percentages = calculate_percentage_distribution(currency_data)

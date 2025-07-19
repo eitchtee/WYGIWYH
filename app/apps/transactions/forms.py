@@ -290,10 +290,14 @@ class QuickTransactionForm(forms.ModelForm):
             "category",
             "tags",
             "entities",
+            "mute",
         ]
         widgets = {
             "notes": forms.Textarea(attrs={"rows": 3}),
             "account": TomSelect(clear_button=False, group_by="group"),
+        }
+        help_texts = {
+            "mute": _("Muted transactions won't be displayed on monthly summaries")
         }
 
     def __init__(self, *args, **kwargs):
@@ -356,6 +360,7 @@ class QuickTransactionForm(forms.ModelForm):
                 css_class="form-row",
             ),
             "notes",
+            Switch("mute"),
         )
 
         if self.instance and self.instance.pk:
@@ -616,6 +621,7 @@ class TransferForm(forms.Form):
             description=description,
             category=from_category,
             notes=notes,
+            mute=True,
         )
         from_transaction.tags.set(self.cleaned_data.get("from_tags", []))
 
@@ -630,6 +636,7 @@ class TransferForm(forms.Form):
             description=description,
             category=to_category,
             notes=notes,
+            mute=True,
         )
         to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
 
@@ -868,7 +875,7 @@ class TransactionCategoryForm(forms.ModelForm):
         fields = ["name", "mute", "active"]
         labels = {"name": _("Category name")}
         help_texts = {
-            "mute": _("Muted categories won't count towards your monthly total")
+            "mute": _("Muted categories won't be displayed on monthly summaries")
         }
 
     def __init__(self, *args, **kwargs):

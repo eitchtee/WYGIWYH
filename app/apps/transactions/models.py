@@ -299,6 +299,7 @@ class Transaction(OwnedObject):
     is_paid = models.BooleanField(default=True, verbose_name=_("Paid"))
     date = models.DateField(verbose_name=_("Date"))
     reference_date = MonthYearModelField(verbose_name=_("Reference Date"))
+    mute = models.BooleanField(default=False, verbose_name=_("Mute"))
 
     amount = models.DecimalField(
         max_digits=42,
@@ -918,6 +919,7 @@ class QuickTransaction(OwnedObject):
         verbose_name=_("Type"),
     )
     is_paid = models.BooleanField(default=True, verbose_name=_("Paid"))
+    mute = models.BooleanField(default=False, verbose_name=_("Mute"))
 
     amount = models.DecimalField(
         max_digits=42,

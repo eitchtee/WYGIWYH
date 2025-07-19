@@ -260,6 +260,7 @@ def emergency_fund(request):
             reference_date__gte=start_date,
             reference_date__lte=end_date,
             category__mute=False,
+            mute=False,
         )
         .values("reference_date", "account__currency")
         .annotate(monthly_total=Sum("amount"))
