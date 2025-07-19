@@ -10,7 +10,8 @@
               end
             else
               if #actions-bar
-                remove .tw:hidden from #actions-bar
+                set #selected-count's innerHTML to length of <input[type='checkbox']:checked/> in #transactions-list
+                then remove .tw:hidden from #actions-bar
                 then trigger selected_transactions_updated
               end
             end
@@ -19,6 +20,8 @@
   <div class="card slide-in-bottom">
     <div class="card-body p-2 d-flex justify-content-between align-items-center gap-3">
       {% spaceless %}
+        <div class="tw:font-bold tw:text-md ms-2" id="selected-count">0</div>
+        <div class="vr tw:align-middle"></div>
         <div class="dropdown">
           <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
