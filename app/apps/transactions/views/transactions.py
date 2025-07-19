@@ -388,6 +388,26 @@ def transaction_pay(request, transaction_id):
     return response
 
 
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_mute(request, transaction_id):
+    transaction = get_object_or_404(Transaction, pk=transaction_id)
+
+    new_mute = False if transaction.mute else True
+    transaction.mute = new_mute
+    transaction.save()
+    transaction_updated.send(sender=transaction)
+
+    response = render(
+        request,
+        "transactions/fragments/item.html",
+        context={"transaction": transaction, **request.GET},
+    )
+    response.headers["HX-Trigger"] = "selective_update"
+    return response
+
+
 @login_required
 @require_http_methods(["GET"])
 def transaction_all_index(request):

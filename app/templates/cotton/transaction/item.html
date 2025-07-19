@@ -146,6 +146,21 @@
                   <i class="fa-solid fa-ellipsis fa-fw"></i>
                 </button>
                 <ul class="dropdown-menu">
+                  {% if transaction.category.mute %}
+                  <li>
+                    <a class="dropdown-item disabled d-flex align-items-center" aria-disabled="true">
+                      <i class="fa-solid fa-eye fa-fw me-2"></i>
+                      <div>
+                        {% translate 'Show on summaries' %}
+                        <div class="d-block text-body-secondary tw:text-xs tw:font-medium">{% translate 'Controlled by category' %}</div>
+                      </div>
+                    </a>
+                  </li>
+                  {% elif transaction.mute %}
+                    <li><a class="dropdown-item" href="#" hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}" hx-target="closest .transaction" hx-swap="outerHTML"><i class="fa-solid fa-eye fa-fw me-2"></i>{% translate 'Show on summaries' %}</a></li>
+                  {% else %}
+                    <li><a class="dropdown-item" href="#" hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}" hx-target="closest .transaction" hx-swap="outerHTML"><i class="fa-solid fa-eye-slash fa-fw me-2"></i>{% translate 'Hide from summaries' %}</a></li>
+                  {% endif %}
                   <li><a class="dropdown-item" href="#" hx-get="{% url 'transaction_clone' transaction_id=transaction.id %}"><i class="fa-solid fa-clone fa-fw me-2"></i>{% translate 'Duplicate' %}</a></li>
                 </ul>
               {% else %}

@@ -67,6 +67,11 @@ urlpatterns = [
         name="transaction_pay",
     ),
     path(
+        "transaction/<int:transaction_id>/mute/",
+        views.transaction_mute,
+        name="transaction_mute",
+    ),
+    path(
         "transaction/<int:transaction_id>/delete/",
         views.transaction_delete,
         name="transaction_delete",

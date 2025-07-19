@@ -91,6 +91,8 @@ def get_transactions(request, include_unpaid=True, include_silent=False):
         transactions = transactions.filter(is_paid=True)
 
     if not include_silent:
-        transactions = transactions.exclude(Q(category__mute=True) & ~Q(category=None))
+        transactions = transactions.exclude(
+            Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True)
+        )
 
     return transactions
