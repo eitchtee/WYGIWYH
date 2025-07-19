@@ -33,7 +33,7 @@
             </div>
           {% endif %}
         </div>
-        <div class="col-lg col-12 {% if transaction.category.mute %}tw:brightness-80{% endif %}">
+        <div class="col-lg col-12 {% if transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
           {#      Date#}
           <div class="row mb-2 mb-lg-1 tw:text-gray-400">
             <div class="col-auto pe-1"><i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i></div>
@@ -91,7 +91,7 @@
             {% endwith %}
           </div>
         </div>
-        <div class="col-lg-auto col-12 text-lg-end align-self-end {% if transaction.category.mute %}tw:brightness-80{% endif %}">
+        <div class="col-lg-auto col-12 text-lg-end align-self-end {% if transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
           <div class="main-amount mb-2 mb-lg-0">
             <c-amount.display
                 :amount="transaction.amount"
@@ -161,6 +161,8 @@
                   {% else %}
                     <li><a class="dropdown-item" href="#" hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}" hx-target="closest .transaction" hx-swap="outerHTML"><i class="fa-solid fa-eye-slash fa-fw me-2"></i>{% translate 'Hide from summaries' %}</a></li>
                   {% endif %}
+                  <li><a class="dropdown-item" href="#" hx-get="{% url 'quick_transaction_add_as_quick_transaction' transaction_id=transaction.id %}"><i class="fa-solid fa-person-running fa-fw me-2"></i>{% translate 'Add as quick transaction' %}</a></li>
+                  <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#" hx-get="{% url 'transaction_clone' transaction_id=transaction.id %}"><i class="fa-solid fa-clone fa-fw me-2"></i>{% translate 'Duplicate' %}</a></li>
                 </ul>
               {% else %}
