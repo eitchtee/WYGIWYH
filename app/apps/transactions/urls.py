@@ -347,4 +347,9 @@ urlpatterns = [
         views.quick_transaction_add_as_transaction,
         name="quick_transaction_add_as_transaction",
     ),
+    path(
+        "transactions/<int:transaction_id>/add-as-quick-transaction/",
+        views.quick_transaction_add_as_quick_transaction,
+        name="quick_transaction_add_as_quick_transaction",
+    ),
 ]
