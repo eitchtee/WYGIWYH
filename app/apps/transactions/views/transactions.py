@@ -4,7 +4,7 @@ from copy import deepcopy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, When, Case, Value, IntegerField
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
@@ -606,11 +606,26 @@ def get_recent_transactions(request, filter_type=None):
     # Get search term from query params
     search_term = request.GET.get("q", "").strip()
 
+    today = timezone.localdate(timezone.now())
+    yesterday = today - timezone.timedelta(days=1)
+    tomorrow = today + timezone.timedelta(days=1)
+
     # Base queryset with selected fields
     queryset = (
         Transaction.objects.filter(deleted=False)
+        .annotate(
+            date_order=Case(
+                When(date=today, then=Value(0)),
+                When(date=tomorrow, then=Value(1)),
+                When(date=yesterday, then=Value(2)),
+                When(date__gt=tomorrow, then=Value(3)),
+                When(date__lt=yesterday, then=Value(4)),
+                default=Value(5),
+                output_field=IntegerField(),
+            )
+        )
         .select_related("account", "category")
-        .order_by("-created_at")
+        .order_by("date_order", "date", "id")
     )
 
     if filter_type:
