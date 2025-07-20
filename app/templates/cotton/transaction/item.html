@@ -46,13 +46,13 @@
               <span class="{% if transaction.description %}me-2{% endif %}">{{ transaction.description }}</span>
               {% if transaction.installment_plan and transaction.installment_id %}
                 <span
-                    class="badge text-bg-secondary">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
+                    class="badge text-bg-secondary mx-1">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
               {% endif %}
               {% if transaction.recurring_transaction %}
-                <span class="text-primary tw:text-xs"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
+                <span class="text-primary tw:text-xs mx-1"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
               {% endif %}
               {% if transaction.dca_expense_entries.all or transaction.dca_income_entries.all %}
-                <span class="badge text-bg-secondary">{% trans 'DCA' %}</span>
+                <span class="badge text-bg-secondary mx-1">{% trans 'DCA' %}</span>
               {% endif %}
             {% endspaceless %}
           </div>
