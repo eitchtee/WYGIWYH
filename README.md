@@ -29,15 +29,15 @@ Managing money can feel unnecessarily complex, but it doesn’t have to be. WYGI
 
 By sticking to this straightforward approach, you avoid dipping into your savings while still keeping tabs on where your money goes.
 
-While this philosophy is simple, finding tools to make it work wasn’t. I initially used a spreadsheet, which served me well for years—until it became unwieldy as I started managing multiple currencies, accounts, and investments. I tried various financial management apps, but none met my key requirements:
+While this philosophy is simple, finding tools to make it work wasn’t. I initially used a spreadsheet, which served me well for years, until it became unwieldy as I started managing multiple currencies, accounts, and investments. I tried various financial management apps, but none met my key requirements:
 
 1. **Multi-currency support** to track income and expenses in different currencies.
-2. **Not a budgeting app** — as I dislike budgeting constraints.
+2. **Not a budgeting app** as I dislike budgeting constraints.
 3. **Web app usability** (ideally with mobile support, though optional).
 4. **Automation-ready API** to integrate with other tools and services.
 5. **Custom transaction rules** for credit card billing cycles or similar quirks.
 
-Frustrated by the lack of comprehensive options, I set out to build **WYGIWYH** — an opinionated yet powerful tool that I believe will resonate with like-minded users.
+Frustrated by the lack of comprehensive options, I set out to build **WYGIWYH**, an opinionated yet powerful tool that I believe will resonate with like-minded users.
 
 # Key Features
 
