@@ -499,6 +499,13 @@ class TransferForm(forms.Form):
         label=_("Notes"),
     )
 
+    mute = forms.BooleanField(
+        label=_("Mute"),
+        initial=True,
+        required=False,
+        help_text=_("Muted transactions won't be displayed on monthly summaries"),
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -517,6 +524,7 @@ class TransferForm(forms.Form):
             ),
             Field("description"),
             Field("notes"),
+            Switch("mute"),
             Row(
                 Column(
                     Row(
@@ -599,6 +607,8 @@ class TransferForm(forms.Form):
         return cleaned_data
 
     def save(self):
+        mute = self.cleaned_data["mute"]
+
         from_account = self.cleaned_data["from_account"]
         to_account = self.cleaned_data["to_account"]
         from_amount = self.cleaned_data["from_amount"]
@@ -621,7 +631,7 @@ class TransferForm(forms.Form):
             description=description,
             category=from_category,
             notes=notes,
-            mute=True,
+            mute=mute,
         )
         from_transaction.tags.set(self.cleaned_data.get("from_tags", []))
 
@@ -636,7 +646,7 @@ class TransferForm(forms.Form):
             description=description,
             category=to_category,
             notes=notes,
-            mute=True,
+            mute=mute,
         )
         to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
 
