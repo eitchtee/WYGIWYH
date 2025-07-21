@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-21 13:16+0000\n"
-"PO-Revision-Date: 2025-06-27 23:16+0000\n"
-"Last-Translator: ichi135 <ichi135@hotmail.com>\n"
+"PO-Revision-Date: 2025-07-21 16:41+0000\n"
+"Last-Translator: afermar <adrian.fm@protonmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
 "app/es/>\n"
 "Language: es\n"
@@ -154,7 +154,7 @@ msgstr "Cuenta de activos"
 msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
 msgstr ""
-"Las cuentas de activos cuentan para su patrimonio neto, pero no para su mes."
+"Las cuentas de activos computan para su patrimonio neto, pero no para su mes."
 
 #: apps/accounts/models.py:62 templates/accounts/fragments/list.html:30
 #: templates/categories/fragments/list.html:24
@@ -352,7 +352,7 @@ msgstr "Guardar"
 
 #: apps/common/forms.py:95
 msgid "You cannot share this item with its owner."
-msgstr ""
+msgstr "No puede compartir este item con su propietario."
 
 #: apps/common/models.py:29
 msgid "Private"
@@ -1439,15 +1439,16 @@ msgstr "More"
 
 #: apps/transactions/forms.py:217
 msgid "Save and add similar"
-msgstr ""
+msgstr "Guardar y añadir similar"
 
 #: apps/transactions/forms.py:222
 msgid "Save and add another"
-msgstr ""
+msgstr "Guardar y añadir otro"
 
 #: apps/transactions/forms.py:300 apps/transactions/forms.py:506
 msgid "Muted transactions won't be displayed on monthly summaries"
 msgstr ""
+"Las transacciones silenciadas no se mostrarán en los resúmenes mensuales"
 
 #: apps/transactions/forms.py:442
 #, fuzzy
@@ -2006,6 +2007,9 @@ msgid ""
 "displayed\n"
 "Consider helping translate WYGIWYH to your language at %(translation_link)s"
 msgstr ""
+"Esto cambia el idioma (si está disponible) y la forma de mostrar los números "
+"y las fechas\n"
+"Ayude a traducir WYGIWYH a su idioma en %(translation_link)s"
 
 #: apps/users/forms.py:155
 #, fuzzy
@@ -2014,43 +2018,47 @@ msgstr "Password"
 
 #: apps/users/forms.py:158
 msgid "Leave blank to keep the current password."
-msgstr ""
+msgstr "Deje en blanco para mantener la contraseña actual."
 
 #: apps/users/forms.py:161
 msgid "Confirm New Password"
-msgstr ""
+msgstr "Confirmar nueva contraseña"
 
 #: apps/users/forms.py:173 apps/users/forms.py:334
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
+"Establece si este usuario debe ser tratado como activo. Desmarque esta "
+"opción en lugar de borrar cuentas."
 
 #: apps/users/forms.py:176 apps/users/forms.py:337
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr ""
+"Establece que este usuario tiene todos los permisos sin asignárselos "
+"expresamente."
 
 #: apps/users/forms.py:247
 msgid "This email address is already in use by another account."
-msgstr ""
+msgstr "Esta dirección de correo es usada por otra cuenta."
 
 #: apps/users/forms.py:255
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "Los dos campos de contraseñas no coinciden."
 
 #: apps/users/forms.py:257
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Por favor, confirme su nueva contraseña."
 
 #: apps/users/forms.py:259
 msgid "Please enter the new password first."
-msgstr ""
+msgstr "Por favor, introduzca su nueva contraseña."
 
 #: apps/users/forms.py:279
 msgid "You cannot deactivate your own account using this form."
-msgstr ""
+msgstr "No puede desactivar su propia cuenta usando este formulario."
 
 #: apps/users/forms.py:292
 msgid "Cannot remove status from the last superuser."
