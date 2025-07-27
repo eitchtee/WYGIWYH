@@ -8,6 +8,7 @@ behavior htmx_error_handler
         title: '{% trans "Access Denied" %}',
         text: '{% trans "You do not have permission to perform this action or access this resource." %}',
         icon: 'warning',
+        timer: 60000,
         customClass: {
           confirmButton: 'btn btn-warning' -- Optional: different button style
         },
@@ -18,6 +19,7 @@ behavior htmx_error_handler
         title: '{% trans "Something went wrong loading your data" %}',
         text: '{% trans "Try reloading the page or check the console for more information." %}',
         icon: 'error',
+        timer: 60000,
         customClass: {
           confirmButton: 'btn btn-primary'
         },
