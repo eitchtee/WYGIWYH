@@ -487,6 +487,8 @@ else:
 
 CACHALOT_UNCACHABLE_TABLES = ("django_migrations", "procrastinate_jobs")
 
+# Procrastinate
+PROCRASTINATE_ON_APP_READY = "apps.common.procrastinate.on_app_ready"
 
 # PWA
 PWA_APP_NAME = SITE_TITLE

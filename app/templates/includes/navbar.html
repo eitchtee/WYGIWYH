@@ -1,3 +1,4 @@
+{% load cache_access %}
 {% load settings %}
 {% load static %}
 {% load i18n %}
@@ -162,9 +163,12 @@
         </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0 gap-3">
+        {% get_update_check as update_check %}
+        {% if update_check.update_available %}
         <li class="nav-item my-auto">
-          <div class="badge text-bg-secondary"><i class="fa-solid fa-circle-info fa-fw me-2"></i>Update available</div>
+          <a class="badge text-bg-secondary text-decoration-none tw:cursor-pointer" href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i class="fa-solid fa-circle-info fa-fw me-2"></i>v.{{ update_check.latest_version }} {% translate 'is available' %}!</a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <div class="nav-link tw:lg:text-2xl! tw:cursor-pointer"
              data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{% trans "Calculator" %}"

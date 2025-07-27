@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.core.cache import cache
 
 
 class CommonConfig(AppConfig):
@@ -18,3 +19,7 @@ class CommonConfig(AppConfig):
         admin.site.unregister(SocialAccount)
         admin.site.unregister(SocialApp)
         admin.site.unregister(SocialToken)
+
+        # Delete the cache for update checks to prevent false-positives when the app is restarted
+        # this will be recreated by the check_for_updates task
+        cache.delete("update_check")

@@ -1,12 +1,16 @@
 import logging
+from packaging.version import parse as parse_version, InvalidVersion
 
 from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.core import management
 from django.db import DEFAULT_DB_ALIAS
+from django.core.cache import cache
 
 from procrastinate import builtin_tasks
 from procrastinate.contrib.django import app
+
+import requests
 
 
 logger = logging.getLogger(__name__)
@@ -79,3 +83,46 @@ def reset_demo_data(timestamp=None):
     except Exception as e:
         logger.exception(f"Error during daily demo data reset: {e}")
         raise
+
+
+@app.periodic(cron="0 */12 * * *")  # Every 12 hours
+@app.task(
+    name="check_for_updates",
+)
+def check_for_updates(timestamp=None):
+    url = "https://api.github.com/repos/eitchtee/WYGIWYH/releases/latest"
+
+    try:
+        response = requests.get(url, timeout=60)
+        response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
+
+        data = response.json()
+        latest_version = data.get("tag_name")
+
+        if latest_version:
+            try:
+                current_v = parse_version(settings.APP_VERSION)
+            except InvalidVersion:
+                current_v = parse_version("0.0.0")
+            try:
+                latest_v = parse_version(latest_version)
+            except InvalidVersion:
+                latest_v = parse_version("0.0.0")
+
+            update_info = {
+                "update_available": False,
+                "current_version": str(current_v),
+                "latest_version": str(latest_v),
+            }
+
+            if latest_v > current_v:
+                update_info["update_available"] = True
+
+            # Cache the entire dictionary
+            cache.set("update_check", update_info, 60 * 60 * 25)
+            logger.info(f"Update check complete. Result: {update_info}")
+        else:
+            logger.warning("Could not find 'tag_name' in GitHub API response.")
+
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Failed to fetch updates from GitHub: {e}")
