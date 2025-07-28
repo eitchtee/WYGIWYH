@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-27 04:41+0000\n"
+"POT-Creation-Date: 2025-07-28 01:58+0000\n"
 "PO-Revision-Date: 2025-07-20 09:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -176,6 +176,9 @@ msgstr ""
 #: apps/transactions/forms.py:659 apps/transactions/forms.py:920
 #: apps/transactions/models.py:290 apps/transactions/models.py:461
 #: apps/transactions/models.py:683 apps/transactions/models.py:912
+#: templates/installment_plans/fragments/table.html:17
+#: templates/quick_transactions/fragments/list.html:14
+#: templates/recurring_transactions/fragments/table.html:19
 msgid "Account"
 msgstr "Rekening"
 
@@ -801,7 +804,7 @@ msgstr "Gebruikers"
 #: apps/transactions/models.py:375 templates/includes/navbar.html:58
 #: templates/includes/navbar.html:107
 #: templates/recurring_transactions/fragments/list_transactions.html:5
-#: templates/recurring_transactions/fragments/table.html:37
+#: templates/recurring_transactions/fragments/table.html:39
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
 msgstr "Verrichtingen"
@@ -1099,6 +1102,9 @@ msgstr "Referentiedatum"
 #: apps/rules/models.py:262 apps/transactions/models.py:307
 #: apps/transactions/models.py:694 apps/transactions/models.py:927
 #: templates/insights/fragments/sankey.html:95
+#: templates/installment_plans/fragments/table.html:18
+#: templates/quick_transactions/fragments/list.html:15
+#: templates/recurring_transactions/fragments/table.html:20
 msgid "Amount"
 msgstr "Bedrag"
 
@@ -1909,9 +1915,9 @@ msgstr "Rekeningsgroep bewerken"
 #: templates/exchange_rates_services/fragments/list.html:42
 #: templates/exchange_rates_services/fragments/table.html:19
 #: templates/import_app/fragments/profiles/list.html:44
-#: templates/installment_plans/fragments/table.html:23
-#: templates/quick_transactions/fragments/list.html:20
-#: templates/recurring_transactions/fragments/table.html:25
+#: templates/installment_plans/fragments/table.html:25
+#: templates/quick_transactions/fragments/list.html:22
+#: templates/recurring_transactions/fragments/table.html:27
 #: templates/rules/fragments/list.html:33
 #: templates/tags/fragments/table.html:23
 #: templates/users/fragments/list.html:38
@@ -1931,9 +1937,9 @@ msgstr "Acties"
 #: templates/exchange_rates_services/fragments/list.html:46
 #: templates/exchange_rates_services/fragments/table.html:23
 #: templates/import_app/fragments/profiles/list.html:48
-#: templates/installment_plans/fragments/table.html:27
-#: templates/quick_transactions/fragments/list.html:24
-#: templates/recurring_transactions/fragments/table.html:29
+#: templates/installment_plans/fragments/table.html:29
+#: templates/quick_transactions/fragments/list.html:26
+#: templates/recurring_transactions/fragments/table.html:31
 #: templates/rules/fragments/transaction_rule/view.html:23
 #: templates/rules/fragments/transaction_rule/view.html:47
 #: templates/rules/fragments/transaction_rule/view.html:80
@@ -1958,10 +1964,10 @@ msgstr "Bewerken"
 #: templates/exchange_rates_services/fragments/table.html:31
 #: templates/import_app/fragments/profiles/list.html:69
 #: templates/import_app/fragments/runs/list.html:102
-#: templates/installment_plans/fragments/table.html:56
+#: templates/installment_plans/fragments/table.html:58
 #: templates/mini_tools/unit_price_calculator.html:18
-#: templates/quick_transactions/fragments/list.html:32
-#: templates/recurring_transactions/fragments/table.html:91
+#: templates/quick_transactions/fragments/list.html:34
+#: templates/recurring_transactions/fragments/table.html:93
 #: templates/rules/fragments/list.html:44
 #: templates/rules/fragments/transaction_rule/view.html:55
 #: templates/rules/fragments/transaction_rule/view.html:88
@@ -1985,13 +1991,13 @@ msgstr "Verwijderen"
 #: templates/exchange_rates_services/fragments/table.html:36
 #: templates/import_app/fragments/profiles/list.html:73
 #: templates/import_app/fragments/runs/list.html:106
-#: templates/installment_plans/fragments/table.html:48
-#: templates/installment_plans/fragments/table.html:60
-#: templates/quick_transactions/fragments/list.html:37
-#: templates/recurring_transactions/fragments/table.html:53
-#: templates/recurring_transactions/fragments/table.html:67
-#: templates/recurring_transactions/fragments/table.html:82
-#: templates/recurring_transactions/fragments/table.html:96
+#: templates/installment_plans/fragments/table.html:50
+#: templates/installment_plans/fragments/table.html:62
+#: templates/quick_transactions/fragments/list.html:39
+#: templates/recurring_transactions/fragments/table.html:55
+#: templates/recurring_transactions/fragments/table.html:69
+#: templates/recurring_transactions/fragments/table.html:84
+#: templates/recurring_transactions/fragments/table.html:98
 #: templates/rules/fragments/list.html:48
 #: templates/rules/fragments/transaction_rule/view.html:59
 #: templates/rules/fragments/transaction_rule/view.html:92
@@ -2035,9 +2041,9 @@ msgstr "Je kunt dit niet meer terugdraaien!"
 #: templates/exchange_rates_services/fragments/table.html:38
 #: templates/import_app/fragments/profiles/list.html:75
 #: templates/import_app/fragments/runs/list.html:108
-#: templates/installment_plans/fragments/table.html:62
-#: templates/quick_transactions/fragments/list.html:39
-#: templates/recurring_transactions/fragments/table.html:98
+#: templates/installment_plans/fragments/table.html:64
+#: templates/quick_transactions/fragments/list.html:41
+#: templates/recurring_transactions/fragments/table.html:100
 #: templates/rules/fragments/list.html:50
 #: templates/rules/fragments/transaction_rule/view.html:61
 #: templates/rules/fragments/transaction_rule/view.html:94
@@ -2910,15 +2916,15 @@ msgid "Edit installment plan"
 msgstr "Afbetalingsplan bewerken"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
-#: templates/installment_plans/fragments/table.html:35
+#: templates/installment_plans/fragments/table.html:37
 msgid "Installments"
 msgstr "Aflossingen"
 
-#: templates/installment_plans/fragments/table.html:43
+#: templates/installment_plans/fragments/table.html:45
 msgid "Refresh"
 msgstr "Vernieuw"
 
-#: templates/installment_plans/fragments/table.html:49
+#: templates/installment_plans/fragments/table.html:51
 msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
@@ -2926,15 +2932,15 @@ msgstr ""
 "Hiermee worden alle verrichtingen bijgewerkt die aan dit plan zijn gekoppeld "
 "en worden ontbrekende verrichtingen opnieuw aangemaakt"
 
-#: templates/installment_plans/fragments/table.html:50
+#: templates/installment_plans/fragments/table.html:52
 msgid "Yes, refresh it!"
 msgstr "Ja, vernieuw het!"
 
-#: templates/installment_plans/fragments/table.html:61
+#: templates/installment_plans/fragments/table.html:63
 msgid "This will delete the plan and all transactions associated with it"
 msgstr "Hiermee worden het plan en alle bijbehorende verrichtingen verwijderd"
 
-#: templates/installment_plans/fragments/table.html:78
+#: templates/installment_plans/fragments/table.html:91
 msgid "No installment plans"
 msgstr "Geen afbetalingsplannen"
 
@@ -3058,7 +3064,7 @@ msgid "Add quick transaction"
 msgstr "Voeg snelle verrichtingen toe"
 
 #: templates/quick_transactions/fragments/create_menu.html:13
-#: templates/quick_transactions/fragments/list.html:55
+#: templates/quick_transactions/fragments/list.html:68
 msgid "Nothing to see here..."
 msgstr "Hier is niets te zien..."
 
@@ -3066,7 +3072,7 @@ msgstr "Hier is niets te zien..."
 msgid "Edit quick transaction"
 msgstr "Bewerk snelle verrichting"
 
-#: templates/quick_transactions/fragments/list.html:38
+#: templates/quick_transactions/fragments/list.html:40
 msgid "This will delete this item"
 msgstr "Hiermee wordt dit item verwijderd"
 
@@ -3078,38 +3084,38 @@ msgstr "Voeg terugkerende verrichtingen toe"
 msgid "Edit recurring transaction"
 msgstr "Bewerk terugkerende verrichtingen"
 
-#: templates/recurring_transactions/fragments/table.html:47
+#: templates/recurring_transactions/fragments/table.html:49
 msgid "Unpause"
 msgstr "Hervatten"
 
-#: templates/recurring_transactions/fragments/table.html:54
+#: templates/recurring_transactions/fragments/table.html:56
 msgid "This will start creating new transactions until you pause it"
 msgstr ""
 "Dit zal beginnen met het maken van nieuwe verrichtingen totdat je de taak "
 "onderbreekt"
 
-#: templates/recurring_transactions/fragments/table.html:55
+#: templates/recurring_transactions/fragments/table.html:57
 msgid "Yes, unpause it!"
 msgstr "Ja, hervat het!"
 
-#: templates/recurring_transactions/fragments/table.html:61
+#: templates/recurring_transactions/fragments/table.html:63
 msgid "Pause"
 msgstr "Onderbreken"
 
-#: templates/recurring_transactions/fragments/table.html:68
+#: templates/recurring_transactions/fragments/table.html:70
 msgid "This will stop the creation of new transactions until you unpause it"
 msgstr ""
 "Dit stopt het aanmaken van nieuwe verrichtingen totdat je de taak hervat"
 
-#: templates/recurring_transactions/fragments/table.html:69
+#: templates/recurring_transactions/fragments/table.html:71
 msgid "Yes, pause it!"
 msgstr "Ja, onderbreek het!"
 
-#: templates/recurring_transactions/fragments/table.html:76
+#: templates/recurring_transactions/fragments/table.html:78
 msgid "Finish"
 msgstr "Voltooi"
 
-#: templates/recurring_transactions/fragments/table.html:83
+#: templates/recurring_transactions/fragments/table.html:85
 msgid ""
 "This will stop the creation of new transactions and delete any unpaid "
 "transactions after today"
@@ -3117,16 +3123,16 @@ msgstr ""
 "Hierdoor wordt het aanmaken van nieuwe verrichtingen gestopt en worden alle "
 "onbetaalde verrichtingen na vandaag verwijderd"
 
-#: templates/recurring_transactions/fragments/table.html:84
+#: templates/recurring_transactions/fragments/table.html:86
 msgid "Yes, finish it!"
 msgstr "Ja, Voltooi het!"
 
-#: templates/recurring_transactions/fragments/table.html:97
+#: templates/recurring_transactions/fragments/table.html:99
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
 "Dit verwijdert de herhaling en alle verrichtingen die ermee verbonden zijn"
 
-#: templates/recurring_transactions/fragments/table.html:114
+#: templates/recurring_transactions/fragments/table.html:127
 msgid "No recurring transactions"
 msgstr "Geen terugkerende verrichtingen"
 
