@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-28 02:21+0000\n"
-"PO-Revision-Date: 2025-04-27 19:12+0000\n"
-"Last-Translator: ThomasE <thomas-evano@hotmail.fr>\n"
+"PO-Revision-Date: 2025-07-28 22:17+0000\n"
+"Last-Translator: Erwan Colin <zephone@protonmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -296,10 +296,8 @@ msgid "Make public"
 msgstr ""
 
 #: apps/common/admin.py:10
-#, fuzzy
-#| msgid "Private"
 msgid "Make private"
-msgstr "Privé"
+msgstr "Rendre privé"
 
 #: apps/common/admin.py:20 apps/common/forms.py:35 apps/common/models.py:51
 msgid "Shared with users"
@@ -358,7 +356,7 @@ msgstr "Sauvegarder"
 
 #: apps/common/forms.py:95
 msgid "You cannot share this item with its owner."
-msgstr ""
+msgstr "Vous ne pouvez pas partager cet item avec son propriétaire."
 
 #: apps/common/models.py:29
 msgid "Private"
@@ -1312,6 +1310,7 @@ msgstr "Enregistrer et ajouter un autre"
 #: apps/transactions/forms.py:300 apps/transactions/forms.py:506
 msgid "Muted transactions won't be displayed on monthly summaries"
 msgstr ""
+"Les transactions silencieuses ne sont pas affichées dans les résumés mensuels"
 
 #: apps/transactions/forms.py:442
 msgid "From Amount"
@@ -1345,10 +1344,8 @@ msgid "Category name"
 msgstr "Nom de catégorie"
 
 #: apps/transactions/forms.py:888
-#, fuzzy
-#| msgid "Muted categories won't count towards your monthly total"
 msgid "Muted categories won't be displayed on monthly summaries"
-msgstr "Catégories ignorées ne compteront pas dans votre total mensuel"
+msgstr "Les catégories silencieuses ne compteront pas dans votre résumé mensuel"
 
 #: apps/transactions/forms.py:1074
 msgid "End date should be after the start date"
@@ -1545,17 +1542,14 @@ msgstr "Dernière date de référence générée"
 #: apps/transactions/views/quick_transactions.py:188
 #: apps/transactions/views/quick_transactions.py:190
 #: templates/cotton/ui/transactions_fab.html:59
-#, fuzzy
 msgid "Quick Transaction"
-msgstr "Edit Transaction"
+msgstr "Transaction rapide"
 
 #: apps/transactions/models.py:967 templates/includes/navbar.html:73
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:11
-#, fuzzy
-#| msgid "Transactions"
 msgid "Quick Transactions"
-msgstr "Transactions"
+msgstr "Transactions rapides"
 
 #: apps/transactions/validators.py:8
 #, python-format
@@ -1623,9 +1617,8 @@ msgid "Entity updated successfully"
 msgstr "Entité mise à jour avec succès"
 
 #: apps/transactions/views/entities.py:133
-#, fuzzy
 msgid "Entity deleted successfully"
-msgstr "Entity deleted successfully"
+msgstr "Entité supprimée avec succès"
 
 #: apps/transactions/views/installment_plans.py:87
 #, fuzzy
@@ -1649,119 +1642,97 @@ msgstr "Installment Plan deleted successfully"
 
 #: apps/transactions/views/quick_transactions.py:45
 #: apps/transactions/views/quick_transactions.py:222 apps/users/views.py:152
-#, fuzzy
 msgid "Item added successfully"
-msgstr "Rule added successfully"
+msgstr "Item ajouté avec succès"
 
 #: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:184
-#, fuzzy
 msgid "Item updated successfully"
-msgstr "Rule updated successfully"
+msgstr "Item mis à jour avec succès"
 
 #: apps/transactions/views/quick_transactions.py:99
-#, fuzzy
-#| msgid "Rule deleted successfully"
 msgid "Item deleted successfully"
-msgstr "Règle supprimée avec succès"
+msgstr "Item supprimée avec succès"
 
 #: apps/transactions/views/quick_transactions.py:155
 #: apps/transactions/views/transactions.py:52
 #: apps/transactions/views/transactions.py:148
-#, fuzzy
 msgid "Transaction added successfully"
-msgstr "Transaction added successfully"
+msgstr "Transaction ajoutée avec succès"
 
 #: apps/transactions/views/recurring_transactions.py:112
-#, fuzzy
 msgid "Recurring Transaction added successfully"
-msgstr "Recurring Transaction added successfully"
+msgstr "Transaction récurrente ajoutée avec succès"
 
 #: apps/transactions/views/recurring_transactions.py:142
-#, fuzzy
 msgid "Recurring Transaction updated successfully"
-msgstr "Recurring Transaction updated successfully"
+msgstr "Transaction récurrente mise à jour avec succès"
 
 #: apps/transactions/views/recurring_transactions.py:186
-#, fuzzy
 msgid "Recurring transaction unpaused successfully"
-msgstr "Recurring transaction unpaused successfully"
+msgstr "Transaction récurrente réactivée avec succès"
 
 #: apps/transactions/views/recurring_transactions.py:189
-#, fuzzy
 msgid "Recurring transaction paused successfully"
-msgstr "Recurring transaction paused successfully"
+msgstr "Transaction récurrente désactivée avec succès"
 
 #: apps/transactions/views/recurring_transactions.py:215
-#, fuzzy
 msgid "Recurring transaction finished successfully"
-msgstr "Recurring transaction finished successfully"
+msgstr "Transaction récurrente terminée avec succès"
 
 #: apps/transactions/views/recurring_transactions.py:235
-#, fuzzy
 msgid "Recurring Transaction deleted successfully"
-msgstr "Recurring Transaction deleted successfully"
+msgstr "Transaction récurrente supprimée avec succès"
 
 #: apps/transactions/views/tags.py:66
-#, fuzzy
 msgid "Tag added successfully"
-msgstr "Tag added successfully"
+msgstr "Balise ajoutée avec succès"
 
 #: apps/transactions/views/tags.py:104
-#, fuzzy
 msgid "Tag updated successfully"
-msgstr "Tag updated successfully"
+msgstr "Balise mise à jour avec succès"
 
 #: apps/transactions/views/tags.py:133
-#, fuzzy
 msgid "Tag deleted successfully"
-msgstr "Tag deleted successfully"
+msgstr "Balise supprimée avec succès"
 
 #: apps/transactions/views/transactions.py:182
-#, fuzzy
 msgid "Transaction updated successfully"
-msgstr "Transaction updated successfully"
+msgstr "Transaction mise à jour avec succès"
 
 #: apps/transactions/views/transactions.py:232
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
-msgstr[0] "%(count)s transaction updated successfully"
-msgstr[1] "%(count)s transactions updated successfully"
+msgstr[0] "%(count)s transaction mise à jour avec succès"
+msgstr[1] "%(count)s transactions mises à jour avec succès"
 
 #: apps/transactions/views/transactions.py:268
-#, fuzzy
 msgid "Transaction duplicated successfully"
-msgstr "Transaction duplicated successfully"
+msgstr "Transaction dupliquée avec succès"
 
 #: apps/transactions/views/transactions.py:310
-#, fuzzy
 msgid "Transaction deleted successfully"
-msgstr "Transaction deleted successfully"
+msgstr "Transaction supprimée avec succès"
 
 #: apps/transactions/views/transactions.py:328
-#, fuzzy
 msgid "Transaction restored successfully"
-msgstr "Transaction restored successfully"
+msgstr "Transaction restaurée avec succès"
 
 #: apps/transactions/views/transactions.py:354
-#, fuzzy
 msgid "Transfer added successfully"
-msgstr "Transfer added successfully"
+msgstr "Transfert ajouté avec succès"
 
 #: apps/users/admin.py:22 templates/users/fragments/user_settings.html:5
-#, fuzzy
 msgid "User Settings"
-msgstr "User Settings"
+msgstr "Paramètres utilisateur"
 
 #: apps/users/admin.py:23
-#, fuzzy
 msgid "User Setting"
-msgstr "User Setting"
+msgstr "Paramètre utilisateur"
 
 #: apps/users/admin.py:48
-#, fuzzy
 msgid "Personal info"
-msgstr "Personal info"
+msgstr "Informations personnelles"
 
 #: apps/users/admin.py:50
 #, fuzzy
@@ -1769,9 +1740,8 @@ msgid "Permissions"
 msgstr "Permissions"
 
 #: apps/users/admin.py:61
-#, fuzzy
 msgid "Important dates"
-msgstr "Important dates"
+msgstr "Dates importantes"
 
 #: apps/users/forms.py:23 apps/users/models.py:451
 #: templates/users/login.html:20
@@ -1780,19 +1750,16 @@ msgid "E-mail"
 msgstr "E-mail"
 
 #: apps/users/forms.py:29 templates/users/login.html:21
-#, fuzzy
 msgid "Password"
-msgstr "Password"
+msgstr "Mot de passe"
 
 #: apps/users/forms.py:37
-#, fuzzy
 msgid "Invalid e-mail or password"
-msgstr "Invalid e-mail or password"
+msgstr "E-mail ou mot de passe invalide"
 
 #: apps/users/forms.py:38
-#, fuzzy
 msgid "This account is deactivated"
-msgstr "This account is deactivated"
+msgstr "Ce compte est désactivé"
 
 #: apps/users/forms.py:54 apps/users/forms.py:67 apps/users/forms.py:89
 #: templates/monthly_overview/pages/overview.html:153
@@ -1807,14 +1774,12 @@ msgid "Date Format"
 msgstr "Date Format"
 
 #: apps/users/forms.py:100 apps/users/models.py:489
-#, fuzzy
 msgid "Datetime Format"
-msgstr "Datetime Format"
+msgstr "Format de l'heure"
 
 #: apps/users/forms.py:106 apps/users/models.py:492
-#, fuzzy
 msgid "Number Format"
-msgstr "Number Format"
+msgstr "Format numérique"
 
 #: apps/users/forms.py:146
 #, python-format
@@ -1823,25 +1788,30 @@ msgid ""
 "displayed\n"
 "Consider helping translate WYGIWYH to your language at %(translation_link)s"
 msgstr ""
+"Change la langue (si disponible) et comment les nombres et les dates sont "
+"affichés.\n"
+"Considérez d'aider à la traduction de WYGIWYH dans votre langue sur "
+"%(translation_link)s"
 
 #: apps/users/forms.py:155
-#, fuzzy
 msgid "New Password"
-msgstr "Password"
+msgstr "Nouveau mot de passe"
 
 #: apps/users/forms.py:158
 msgid "Leave blank to keep the current password."
-msgstr ""
+msgstr "Laisser vide pour garder le mot de passe actuel."
 
 #: apps/users/forms.py:161
 msgid "Confirm New Password"
-msgstr ""
+msgstr "Confirmer le nouveau mot de passe"
 
 #: apps/users/forms.py:173 apps/users/forms.py:334
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
+"Indique si cet utilisateur doit être traité comme actif. Désélectionnez ceci "
+"plutôt que supprimer des comptes."
 
 #: apps/users/forms.py:176 apps/users/forms.py:337
 msgid ""
