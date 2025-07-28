@@ -16,6 +16,8 @@
       <tr>
         <th scope="col" class="col-auto"></th>
         <th scope="col" class="col">{% translate 'Name' %}</th>
+        <th scope="col" class="col">{% translate 'Account' %}</th>
+        <th scope="col" class="col">{% translate 'Amount' %}</th>
       </tr>
     </thead>
     <tbody>
@@ -104,6 +106,17 @@
             {{ recurring_transaction.description }}
           </div>
           <div class="tw:text-sm tw:text-gray-400">{{ recurring_transaction.notes|linebreaksbr }}</div>
+        </td>
+        <td class="col-auto">
+          {% if recurring_transaction.account.group %}{{ recurring_transaction.account.group }} • {% endif %}{{ recurring_transaction.account }}
+        </td>
+        <td class="col-auto">
+          <c-amount.display
+            :amount="recurring_transaction.amount"
+            :prefix="recurring_transaction.account.currency.prefix"
+            :suffix="recurring_transaction.account.currency.suffix"
+            :decimal_places="recurring_transaction.account.currency.decimal_places"
+            color="{% if recurring_transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
         </td>
       </tr>
       {% endfor %}

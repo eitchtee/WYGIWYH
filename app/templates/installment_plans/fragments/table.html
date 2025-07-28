@@ -14,6 +14,8 @@
         <tr>
           <th scope="col" class="col-auto"></th>
           <th scope="col" class="col">{% translate 'Name' %}</th>
+          <th scope="col" class="col">{% translate 'Account' %}</th>
+          <th scope="col" class="col">{% translate 'Amount' %}</th>
         </tr>
       </thead>
       <tbody>
@@ -68,6 +70,17 @@
               {{ installment_plan.description }}
             </div>
             <div class="tw:text-sm tw:text-gray-400">{{ installment_plan.notes|linebreaksbr }}</div>
+          </td>
+          <td class="col-auto">
+            {% if installment_plan.account.group %}{{ installment_plan.account.group }} • {% endif %}{{ installment_plan.account }}
+          </td>
+          <td class="col-auto">
+            <c-amount.display
+              :amount="installment_plan.installment_amount"
+              :prefix="installment_plan.account.currency.prefix"
+              :suffix="installment_plan.account.currency.suffix"
+              :decimal_places="installment_plan.account.currency.decimal_places"
+              color="{% if installment_plan.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
           </td>
         </tr>
         {% endfor %}
