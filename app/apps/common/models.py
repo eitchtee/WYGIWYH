@@ -36,12 +36,19 @@ class SharedObject(models.Model):
         related_name="%(class)s_owned",
         null=True,
         blank=True,
+        verbose_name=_("Owner"),
     )
     visibility = models.CharField(
-        max_length=10, choices=Visibility.choices, default=Visibility.private
+        max_length=10,
+        choices=Visibility.choices,
+        default=Visibility.private,
+        verbose_name=_("Visibility"),
     )
     shared_with = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="%(class)s_shared", blank=True
+        settings.AUTH_USER_MODEL,
+        related_name="%(class)s_shared",
+        blank=True,
+        verbose_name=_("Shared with users"),
     )
 
     # Use as abstract base class
