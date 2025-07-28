@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 01:58+0000\n"
+"POT-Creation-Date: 2025-07-28 02:21+0000\n"
 "PO-Revision-Date: 2025-05-12 14:16+0000\n"
 "Last-Translator: Felix <xnovaua@gmail.com>\n"
 "Language-Team: Ukrainian <https://translations.herculino.com/projects/"
@@ -290,6 +290,20 @@ msgstr "Невірні дані про об'єкт. Вкажіть іденти�
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "Необхідно вказати або 'date', або 'reference_date'."
 
+#: apps/common/admin.py:5
+msgid "Make public"
+msgstr ""
+
+#: apps/common/admin.py:10
+#, fuzzy
+#| msgid "Private"
+msgid "Make private"
+msgstr "Private"
+
+#: apps/common/admin.py:20 apps/common/forms.py:35 apps/common/models.py:51
+msgid "Shared with users"
+msgstr "Поділитися з користувачами"
+
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:143
 msgid "Error creating new instance"
@@ -308,7 +322,7 @@ msgstr "Неправильний формат дати. Використовуй
 msgid "Invalid date format. Use YYYY-MM."
 msgstr "Неправильний формат дати. Використовуйте YYYY-MM."
 
-#: apps/common/forms.py:25
+#: apps/common/forms.py:25 apps/common/models.py:39
 msgid "Owner"
 msgstr "Власник"
 
@@ -320,15 +334,11 @@ msgstr ""
 "Власник цього об'єкта, якщо він порожній, всі користувачі можуть бачити, "
 "редагувати і набувати права власності."
 
-#: apps/common/forms.py:35
-msgid "Shared with users"
-msgstr "Поділитися з користувачами"
-
 #: apps/common/forms.py:36
 msgid "Select users to share this object with"
 msgstr "Виберіть користувачів, яким буде надано доступ до цього об'єкта"
 
-#: apps/common/forms.py:41
+#: apps/common/forms.py:41 apps/common/models.py:45
 msgid "Visibility"
 msgstr "Видимість"
 

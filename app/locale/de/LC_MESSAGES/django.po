@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 01:58+0000\n"
+"POT-Creation-Date: 2025-07-28 02:21+0000\n"
 "PO-Revision-Date: 2025-07-22 06:17+0000\n"
 "Last-Translator: seraphblade2010 <marc.butenhoff@web.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -291,6 +291,20 @@ msgstr "Ungültige Entitäts-Daten. Gib eine ID oder einen Namen an."
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "Entweder \"Datum\" oder \"Referenzdatum\" müssen angegeben werden."
 
+#: apps/common/admin.py:5
+msgid "Make public"
+msgstr ""
+
+#: apps/common/admin.py:10
+#, fuzzy
+#| msgid "Private"
+msgid "Make private"
+msgstr "Privat"
+
+#: apps/common/admin.py:20 apps/common/forms.py:35 apps/common/models.py:51
+msgid "Shared with users"
+msgstr "Mit Nutzern geteilt"
+
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:143
 msgid "Error creating new instance"
@@ -309,7 +323,7 @@ msgstr "Ungültiges Datumsformat. Benutze YYYY-MM oder YYYY-MM-DD."
 msgid "Invalid date format. Use YYYY-MM."
 msgstr "Ungültiges Datumsformat. Nutze JJJJ-MM."
 
-#: apps/common/forms.py:25
+#: apps/common/forms.py:25 apps/common/models.py:39
 msgid "Owner"
 msgstr "Besitzer"
 
@@ -321,15 +335,11 @@ msgstr ""
 "Der Besitzer dieses Objekts, falls leer können alle Nutzer es sehen, "
 "bearbeiten und die Besitzeigenschaft übernehmen."
 
-#: apps/common/forms.py:35
-msgid "Shared with users"
-msgstr "Mit Nutzern geteilt"
-
 #: apps/common/forms.py:36
 msgid "Select users to share this object with"
 msgstr "Nutzer auswählen, mit dem das Objekt geteilt werden soll"
 
-#: apps/common/forms.py:41
+#: apps/common/forms.py:41 apps/common/models.py:45
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 

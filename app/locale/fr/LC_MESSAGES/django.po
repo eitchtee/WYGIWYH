@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 01:58+0000\n"
+"POT-Creation-Date: 2025-07-28 02:21+0000\n"
 "PO-Revision-Date: 2025-04-27 19:12+0000\n"
 "Last-Translator: ThomasE <thomas-evano@hotmail.fr>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
@@ -291,6 +291,20 @@ msgstr "Donnée d'entité invalide. Veuillez fournir un ID ou nom."
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "Une 'date' ou 'reference_date' doit être fourni."
 
+#: apps/common/admin.py:5
+msgid "Make public"
+msgstr ""
+
+#: apps/common/admin.py:10
+#, fuzzy
+#| msgid "Private"
+msgid "Make private"
+msgstr "Privé"
+
+#: apps/common/admin.py:20 apps/common/forms.py:35 apps/common/models.py:51
+msgid "Shared with users"
+msgstr "Partagé avec les utilisateurs"
+
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:143
 msgid "Error creating new instance"
@@ -309,7 +323,7 @@ msgstr "Format de date invalide. Utilisez AAAA-MM ou AAAA-MM-JJ."
 msgid "Invalid date format. Use YYYY-MM."
 msgstr "Format de date invalide. Utilisez AAAA-MM."
 
-#: apps/common/forms.py:25
+#: apps/common/forms.py:25 apps/common/models.py:39
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -321,15 +335,11 @@ msgstr ""
 "Le propriétaire de cet objet, si vide tout les utilisateurs peuvent voir, "
 "modifier et en acquérir la propriété."
 
-#: apps/common/forms.py:35
-msgid "Shared with users"
-msgstr "Partagé avec les utilisateurs"
-
 #: apps/common/forms.py:36
 msgid "Select users to share this object with"
 msgstr "Sélectionnez les utilisateurs avec lesquels partager cet objet"
 
-#: apps/common/forms.py:41
+#: apps/common/forms.py:41 apps/common/models.py:45
 msgid "Visibility"
 msgstr "Visibilité"
 

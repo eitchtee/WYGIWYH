@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 01:58+0000\n"
+"POT-Creation-Date: 2025-07-28 02:21+0000\n"
 "PO-Revision-Date: 2025-07-20 09:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -291,6 +291,20 @@ msgstr "Ongeldige bedrijfsgegevens. Geef een ID of naam op."
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "'datum' of 'referentiedatum' moet worden opgegeven."
 
+#: apps/common/admin.py:5
+msgid "Make public"
+msgstr ""
+
+#: apps/common/admin.py:10
+#, fuzzy
+#| msgid "Private"
+msgid "Make private"
+msgstr "Privé"
+
+#: apps/common/admin.py:20 apps/common/forms.py:35 apps/common/models.py:51
+msgid "Shared with users"
+msgstr "Gedeeld met gebruikers"
+
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:143
 msgid "Error creating new instance"
@@ -309,7 +323,7 @@ msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM of JJJJ-MM-DD."
 msgid "Invalid date format. Use YYYY-MM."
 msgstr "Ongeldige datumnotatie. Gebruik JJJJ-MM."
 
-#: apps/common/forms.py:25
+#: apps/common/forms.py:25 apps/common/models.py:39
 msgid "Owner"
 msgstr "Eigenaar"
 
@@ -321,15 +335,11 @@ msgstr ""
 "De eigenaar van dit object, indien leeg kunnen alle gebruikers dit object "
 "zien, bewerken en er eigenaar van worden."
 
-#: apps/common/forms.py:35
-msgid "Shared with users"
-msgstr "Gedeeld met gebruikers"
-
 #: apps/common/forms.py:36
 msgid "Select users to share this object with"
 msgstr "Selecteer gebruikers om dit object mee te delen"
 
-#: apps/common/forms.py:41
+#: apps/common/forms.py:41 apps/common/models.py:45
 msgid "Visibility"
 msgstr "Zichtbaarheid"
 
