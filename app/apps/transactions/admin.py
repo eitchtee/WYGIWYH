@@ -7,6 +7,7 @@ from apps.transactions.models import (
     InstallmentPlan,
     RecurringTransaction,
     TransactionEntity,
+    QuickTransaction,
 )
 from apps.common.admin import SharedObjectModelAdmin
 
@@ -49,17 +50,20 @@ class TransactionInline(admin.TabularInline):
 
 
 @admin.register(InstallmentPlan)
-class InstallmentPlanAdmin(SharedObjectModelAdmin):
+class InstallmentPlanAdmin(admin.ModelAdmin):
     inlines = [
         TransactionInline,
     ]
 
 
 @admin.register(RecurringTransaction)
-class RecurringTransactionAdmin(SharedObjectModelAdmin):
+class RecurringTransactionAdmin(admin.ModelAdmin):
     inlines = [
         TransactionInline,
     ]
+
+
+admin.site.register(QuickTransaction)
 
 
 @admin.register(TransactionCategory)
