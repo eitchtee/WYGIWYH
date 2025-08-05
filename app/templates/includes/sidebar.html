@@ -1,0 +1,149 @@
+{% load active_link %}
+{% load cache_access %}
+{% load settings %}
+{% load i18n %}
+{% load static %}
+<nav
+    id="sidebar"
+    hx-boost="true"
+    data-bs-scroll="true"
+    class="offcanvas-lg offcanvas-start d-lg-flex flex-column position-fixed top-0 start-0 h-100 bg-body-tertiary shadow-sm tw:group tw:z-2000 tw:lg:w-16 tw:lg:focus:w-104 tw:lg:hover:w-104 tw:transition-all tw:duration-100 tw:overflow-hidden">
+
+  <a href="{% url 'index' %}" class="d-none d-lg-flex tw:justify-start p-3 text-decoration-none">
+    <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
+    <span class="fs-4 fw-bold ms-3 tw:lg:invisible tw:lg:group-hover:visible">WYGIWYH</span>
+  </a>
+
+  <div class="offcanvas-header">
+    <a href="{% url 'index' %}" class="offcanvas-title d-flex tw:justify-start text-decoration-none">
+      <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
+      <span class="fs-4 fw-bold ms-3 tw:lg:invisible tw:lg:group-hover:visible">WYGIWYH</span>
+    </a>
+    <button type="button" class="btn-close" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
+            aria-label={% translate 'Close' %}></button>
+  </div>
+  <hr class="m-0">
+
+  <ul class="list-unstyled p-3 d-flex flex-column gap-1 tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
+      style="animation-duration: 100ms">
+
+    <c-components.sidebar-menu-item
+        title="{% translate 'Monthly' %}"
+        url='monthly_index'
+        active="monthly_overview"
+        icon="fa-solid fa-list">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Yearly' %}"
+        url='yearly_index'
+        active="yearly_overview_currency||yearly_overview_account"
+        icon="fa-solid fa-calendar-plus">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Calendar' %}"
+        url='calendar_index'
+        active="calendar"
+        icon="fa-solid fa-calendar-days">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Insights' %}"
+        url='insights_index'
+        active="insights_index"
+        icon="fa-solid fa-chart-simple">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Net Worth' %}"
+        url='net_worth'
+        active="net_worth"
+        icon="fa-solid fa-money-bill">
+    </c-components.sidebar-menu-item>
+
+    <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
+    <c-components.sidebar-menu-item
+        title="{% translate 'All' %}"
+        url='transactions_all_index'
+        active="transactions_all_index"
+        icon="fa-solid fa-right-left">
+    </c-components.sidebar-menu-item>
+    {% settings "ENABLE_SOFT_DELETE" as enable_soft_delete %}
+    {% if enable_soft_delete %}
+      <c-components.sidebar-menu-item
+          title="{% translate 'Trash Can' %}"
+          url='transactions_trash_index'
+          active="transactions_trash_index"
+          icon="fa-solid fa-trash">
+      </c-components.sidebar-menu-item>
+    {% endif %}
+    <c-components.sidebar-menu-item
+        title="{% translate 'Quick Transactions' %}"
+        url='quick_transactions_index'
+        active="quick_transactions_index"
+        icon="fa-solid fa-person-running">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Installment Plans' %}"
+        url='installment_plans_index'
+        active="installment_plans_index"
+        icon="fa-solid fa-divide">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Recurring Transactions' %}"
+        url='recurring_trasanctions_index'
+        active="recurring_trasanctions_index"
+        icon="fa-solid fa-repeat">
+    </c-components.sidebar-menu-item>
+
+    <c-components.sidebar-menu-header title="{% translate 'Tools' %}"></c-components.sidebar-menu-header>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Dollar Cost Average Tracker' %}"
+        url='dca_strategy_index'
+        active="dca_strategy_index||dca_strategy_detail_index"
+        icon="fa-solid fa-magnifying-glass-chart">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Unit Price Calculator' %}"
+        url='unit_price_calculator'
+        active="unit_price_calculator"
+        icon="fa-solid fa-tags">
+    </c-components.sidebar-menu-item>
+    <c-components.sidebar-menu-item
+        title="{% translate 'Currency Converter' %}"
+        url='currency_converter'
+        active="currency_converter"
+        icon="fa-solid fa-money-bill-transfer">
+    </c-components.sidebar-menu-item>
+  </ul>
+
+  <div class="mt-auto p-2 w-100">
+
+    {% get_update_check as update_check %}
+    {% if update_check.update_available %}
+      <div class="my-3">
+        <a class="px-3 badge text-bg-primary text-decoration-none tw:cursor-pointer w-100 tw:text-xs!"
+           href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i
+            class="fa-solid fa-circle-exclamation fa-fw me-2"></i><span class="tw:lg:invisible tw:lg:group-hover:visible">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
+      </div>
+    {% endif %}
+
+    <div class="btn-group w-100" role="group">
+      <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-title="{% trans "Calculator" %}"
+              _="on click trigger show on #calculator">
+        <i class="fa-solid fa-calculator fa-fw"></i>
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <hr class="my-1">
+    <div
+        class="ps-4 pe-2 py-2 d-flex align-items-center text-body-secondary text-decoration-none justify-content-between tw:text-wrap tw:lg:text-nowrap">
+      <div>
+        <i class="fa-solid fa-circle-user"></i>
+        <strong class="ms-2 tw:lg:invisible tw:lg:group-hover:visible">{{ user.email }}</strong>
+      </div>
+      <div class="tw:lg:invisible tw:lg:group-hover:visible">
+        {% include 'includes/navbar/user_menu.html' %}
+      </div>
+    </div>
+  </div>
+</nav>
