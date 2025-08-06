@@ -14,7 +14,18 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 column-gap-5">
+  <div class="h-100 text-center mb-4 pt-2">
+    <div class="btn-group gap-3" role="group">
+      <a href="{% url 'yearly_overview_currency' year=year %}" class="btn {% if type != 'currency' %}btn-outline-primary{% else %}btn-primary{% endif %} rounded-5" hx-boost>
+        <i class="fa-solid fa-solid fa-coins fa-fw me-2"></i>{% trans 'Currency' %}
+      </a>
+
+      <a href="{% url 'yearly_overview_account' year=year %}" class="btn {% if type != 'account' %}btn-outline-primary{% else %}btn-primary{% endif %} rounded-5" hx-boost>
+        <i class="fa-solid fa-wallet fa-fw me-2"></i>{% trans 'Account' %}
+      </a>
+    </div>
+  </div>
+  <div class="container px-md-3 py-3 column-gap-5" id="yearly-content">
     <div class="row mb-3 gx-xl-4 gy-3 mb-4">
       {#    Date picker#}
       <div class="col-12 col-xl-2 flex-row align-items-center d-flex">
@@ -115,7 +126,7 @@
         <div id="data-content"
              class="show-loading"
              hx-get="{% url 'yearly_overview_currency_data' year=year %}"
-             hx-trigger="load, every 10m"
+             hx-trigger="load, every 10m, updated from:window"
              hx-include="[name='currency'], [name='month']"
              hx-swap="innerHTML">
         </div>
