@@ -1,0 +1,16 @@
+{% load active_link %}
+<li>
+  <a href="{{ url }}"
+     hx-boost="false"
+     class="tw:text-wrap tw:lg:text-nowrap tw:lg:text-sm d-flex align-items-center text-decoration-none p-2 rounded-3 sidebar-item {% active_link views=active css_class="sidebar-active" %}"
+      {% if tooltip %}
+     data-bs-placement="right"
+     data-bs-toggle="tooltip"
+     data-bs-title="{{ tooltip }}"
+      {% endif %}>
+
+    <i class="{{ icon }} fa-fw"></i>
+    <span
+        class="ms-3 fw-medium tw:lg:invisible tw:lg:group-hover:visible tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">{{ title }}</span>
+  </a>
+</li>

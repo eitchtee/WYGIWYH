@@ -28,27 +28,31 @@
 </head>
 <body class="font-monospace">
 <div _="install hide_amounts
-            install htmx_error_handler
-           {% block body_hyperscript %}{% endblock %}"
+        install htmx_error_handler
+        {% block body_hyperscript %}{% endblock %}"
      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-  {% include 'includes/navbar.html' %}
 
-  {% settings "DEMO" as demo_mode %}
-  {% if demo_mode %}
-  <div class="px-3 m-0" id="demo-mode-alert" hx-preserve>
-    <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
-      <strong>{% trans 'This is a demo!' %}</strong> {% trans 'Any data you add here will be wiped in 24hrs or less' %}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  {% include 'includes/mobile_navbar.html' %}
+  {% include 'includes/sidebar.html' %}
+
+  <main class="tw:p-4 tw:lg:ml-16">
+    {% settings "DEMO" as demo_mode %}
+    {% if demo_mode %}
+    <div class="px-3 m-0" id="demo-mode-alert" hx-preserve>
+      <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+        <strong>{% trans 'This is a demo!' %}</strong> {% trans 'Any data you add here will be wiped in 24hrs or less' %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
     </div>
-  </div>
-  {% endif %}
+    {% endif %}
 
-  <div id="content">
-    {% block content %}{% endblock %}
-  </div>
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
 
-  {% include 'includes/offcanvas.html' %}
-  {% include 'includes/toasts.html' %}
+    {% include 'includes/offcanvas.html' %}
+    {% include 'includes/toasts.html' %}
+  </main>
 </div>
 
 {% include 'includes/tools/calculator.html' %}
