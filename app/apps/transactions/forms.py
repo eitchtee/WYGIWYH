@@ -1,5 +1,5 @@
 from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
-from crispy_forms.bootstrap import FormActions, AccordionGroup
+from crispy_forms.bootstrap import FormActions, AccordionGroup, AppendedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     Layout,
@@ -963,6 +963,7 @@ class RecurringTransactionForm(forms.ModelForm):
             "notes",
             "add_notes_to_transaction",
             "entities",
+            "keep_at_most",
         ]
         widgets = {
             "reference_date": AirMonthYearPickerInput(),
@@ -1042,6 +1043,7 @@ class RecurringTransactionForm(forms.ModelForm):
                 Column("end_date", css_class="form-group col-md-4 mb-0"),
                 css_class="form-row",
             ),
+            AppendedText("keep_at_most", _("future transactions")),
         )
 
         self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()

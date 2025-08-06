@@ -722,6 +722,9 @@ class RecurringTransaction(models.Model):
     recurrence_interval = models.PositiveIntegerField(
         verbose_name=_("Recurrence Interval"),
     )
+    keep_at_most = models.PositiveIntegerField(
+        verbose_name=_("Keep at most"), default=6, validators=[MinValueValidator(1)]
+    )
 
     last_generated_date = models.DateField(
         verbose_name=_("Last Generated Date"), null=True, blank=True
@@ -759,8 +762,10 @@ class RecurringTransaction(models.Model):
         current_date = self.start_date
         reference_date = self.reference_date
         end_date = min(
-            self.end_date or timezone.now().date() + (self.get_recurrence_delta() * 5),
-            timezone.now().date() + (self.get_recurrence_delta() * 5),
+            self.end_date
+            or timezone.now().date()
+            + (self.get_recurrence_delta() * self.keep_at_most),
+            timezone.now().date() + (self.get_recurrence_delta() * self.keep_at_most),
         )
 
         while current_date <= end_date:
@@ -837,8 +842,16 @@ class RecurringTransaction(models.Model):
             current_date = start_date
             end_date = min(
                 recurring_transaction.end_date
-                or today + (recurring_transaction.get_recurrence_delta() * 6),
-                today + (recurring_transaction.get_recurrence_delta() * 6),
+                or today
+                + (
+                    recurring_transaction.get_recurrence_delta()
+                    * recurring_transaction.keep_at_most
+                ),
+                today
+                + (
+                    recurring_transaction.get_recurrence_delta()
+                    * recurring_transaction.keep_at_most
+                ),
             )
 
             logger.info(f"End date: {end_date}")
