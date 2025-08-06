@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-06 14:45+0000\n"
+"POT-Creation-Date: 2025-08-06 14:48+0000\n"
 "PO-Revision-Date: 2025-07-28 22:17+0000\n"
 "Last-Translator: Erwan Colin <zephone@protonmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
@@ -134,6 +134,8 @@ msgstr "Groupes de comptes"
 
 #: apps/accounts/models.py:39 apps/currencies/models.py:39
 #: templates/accounts/fragments/list.html:27
+#: templates/yearly_overview/pages/overview_by_account.html:18
+#: templates/yearly_overview/pages/overview_by_currency.html:20
 msgid "Currency"
 msgstr "Devise"
 
@@ -178,6 +180,8 @@ msgstr ""
 #: templates/installment_plans/fragments/table.html:17
 #: templates/quick_transactions/fragments/list.html:14
 #: templates/recurring_transactions/fragments/table.html:19
+#: templates/yearly_overview/pages/overview_by_account.html:22
+#: templates/yearly_overview/pages/overview_by_currency.html:24
 msgid "Account"
 msgstr "Compte"
 
@@ -189,7 +193,7 @@ msgstr "Compte"
 #: templates/includes/sidebar.html:182
 #: templates/monthly_overview/pages/overview.html:94
 #: templates/transactions/fragments/summary.html:12
-#: templates/transactions/pages/transactions.html:72
+#: templates/transactions/pages/transactions.html:81
 msgid "Accounts"
 msgstr "Comptes"
 
@@ -466,7 +470,7 @@ msgstr "Enlever"
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:174
 #: templates/monthly_overview/pages/overview.html:172
-#: templates/transactions/pages/transactions.html:17
+#: templates/transactions/pages/transactions.html:47
 msgid "Clear"
 msgstr "Vider"
 
@@ -512,7 +516,7 @@ msgstr "Décimales"
 #: templates/includes/sidebar.html:196
 #: templates/monthly_overview/pages/overview.html:81
 #: templates/transactions/fragments/summary.html:8
-#: templates/transactions/pages/transactions.html:59
+#: templates/transactions/pages/transactions.html:68
 msgid "Currencies"
 msgstr "Devises"
 
@@ -1209,7 +1213,7 @@ msgstr "Supérieur ou égal à"
 msgid "less than or equal"
 msgstr "Inférieur ou égal à"
 
-#: apps/rules/models.py:88 templates/transactions/pages/transactions.html:15
+#: apps/rules/models.py:88
 msgid "Filter"
 msgstr "Filtre"
 
@@ -1774,7 +1778,7 @@ msgstr "Ce compte est désactivé"
 
 #: apps/users/forms.py:54 apps/users/forms.py:67 apps/users/forms.py:89
 #: templates/monthly_overview/pages/overview.html:153
-#: templates/transactions/pages/transactions.html:35
+#: templates/transactions/pages/transactions.html:28
 #, fuzzy
 msgid "Default"
 msgstr "Default"
@@ -2641,8 +2645,8 @@ msgstr "Edit exchange rate"
 #: templates/exchange_rates/fragments/list.html:25
 #: templates/includes/navbar.html:62 templates/includes/sidebar.html:68
 #: templates/installment_plans/fragments/list.html:21
-#: templates/yearly_overview/pages/overview_by_account.html:94
-#: templates/yearly_overview/pages/overview_by_currency.html:96
+#: templates/yearly_overview/pages/overview_by_account.html:105
+#: templates/yearly_overview/pages/overview_by_currency.html:107
 #, fuzzy
 msgid "All"
 msgstr "All"
@@ -3081,8 +3085,8 @@ msgid "Month"
 msgstr "Month"
 
 #: templates/insights/pages/index.html:40
-#: templates/yearly_overview/pages/overview_by_account.html:62
-#: templates/yearly_overview/pages/overview_by_currency.html:64
+#: templates/yearly_overview/pages/overview_by_account.html:73
+#: templates/yearly_overview/pages/overview_by_currency.html:75
 #, fuzzy
 msgid "Year"
 msgstr "Year"
@@ -3270,24 +3274,25 @@ msgid "Summary"
 msgstr "Summary"
 
 #: templates/monthly_overview/pages/overview.html:142
+#: templates/transactions/pages/transactions.html:17
 #, fuzzy
 msgid "Filter transactions"
 msgstr "Filter transactions"
 
 #: templates/monthly_overview/pages/overview.html:148
-#: templates/transactions/pages/transactions.html:33
+#: templates/transactions/pages/transactions.html:23
 #, fuzzy
 msgid "Order by"
 msgstr "Order by"
 
 #: templates/monthly_overview/pages/overview.html:155
-#: templates/transactions/pages/transactions.html:36
+#: templates/transactions/pages/transactions.html:30
 #, fuzzy
 msgid "Oldest first"
 msgstr "Oldest first"
 
 #: templates/monthly_overview/pages/overview.html:157
-#: templates/transactions/pages/transactions.html:37
+#: templates/transactions/pages/transactions.html:32
 #, fuzzy
 msgid "Newest first"
 msgstr "Newest first"
