@@ -9,7 +9,29 @@
 {% block title %}{% if type == "current" %}{% translate 'Current Net Worth' %}{% else %}{% translate 'Projected Net Worth' %}{% endif %}{% endblock %}
 
 {% block content %}
-  <div hx-trigger="every 60m" class="show-loading" hx-get="" hx-target="body">
+  <div hx-trigger="every 60m, updated from:window" hx-include="#view-type" class="show-loading" hx-get="" hx-target="body">
+  <div class="h-100 text-center mb-4 pt-2">
+    <div class="btn-group gap-3" role="group" id="view-type" _="on change trigger updated">
+      <input type="radio" class="btn-check"
+             name="view_type"
+             id="current-view"
+             autocomplete="off"
+             value="current"
+             {% if type == "current" %}checked{% endif %}>
+      <label class="btn btn-outline-primary rounded-5" for="current-view"><i
+          class="fa-solid fa-sack-dollar fa-fw me-2"></i>{% trans 'Current' %}</label>
+
+      <input type="radio"
+             class="btn-check"
+             name="view_type"
+             id="projected-view"
+             autocomplete="off"
+             value="projected"
+             {% if type == "projected" %}checked{% endif %}>
+      <label class="btn btn-outline-primary rounded-5" for="projected-view"><i
+          class="fa-solid fa-rocket fa-fw me-2"></i>{% trans 'Projected' %}</label>
+    </div>
+  </div>
   <div class="container px-md-3 py-3" _="init call initializeAccountChart() then initializeCurrencyChart() end">
     <div class="row gx-xl-4 gy-3 mb-4">
       <div class="col-12 col-xl-5">
