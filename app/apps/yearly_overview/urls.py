@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path("yearly/", views.index, name="yearly_index"),
     path("yearly/currency/", views.index_by_currency, name="yearly_index_currency"),
     path("yearly/account/", views.index_by_account, name="yearly_index_account"),
     path(

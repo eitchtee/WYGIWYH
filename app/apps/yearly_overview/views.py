@@ -17,6 +17,22 @@ from apps.transactions.utils.calculations import (
 
 
 @login_required
+def index(request):
+    if "view_type" in request.GET:
+        view_type = request.GET["view_type"]
+        request.session["yearly_view_type"] = view_type
+    else:
+        view_type = request.session.get("yearly_view_type", "currency")
+
+    now = timezone.localdate(timezone.now())
+
+    if view_type == "currency":
+        return redirect(to="yearly_overview_currency", year=now.year)
+    else:
+        return redirect(to="yearly_overview_account", year=now.year)
+
+
+@login_required
 def index_by_currency(request):
     now = timezone.localdate(timezone.now())
 
@@ -32,6 +48,8 @@ def index_by_account(request):
 
 @login_required
 def index_yearly_overview_by_currency(request, year: int):
+    request.session["yearly_view_type"] = "currency"
+
     next_year = year + 1
     previous_year = year - 1
 
@@ -49,6 +67,7 @@ def index_yearly_overview_by_currency(request, year: int):
             "previous_year": previous_year,
             "months": month_options,
             "currencies": currency_options,
+            "type": "currency",
         },
     )
 
@@ -95,6 +114,7 @@ def yearly_overview_by_currency(request, year: int):
 
 @login_required
 def index_yearly_overview_by_account(request, year: int):
+    request.session["yearly_view_type"] = "account"
     next_year = year + 1
     previous_year = year - 1
 
@@ -115,6 +135,7 @@ def index_yearly_overview_by_account(request, year: int):
             "previous_year": previous_year,
             "months": month_options,
             "accounts": account_options,
+            "type": "account",
         },
     )
 
