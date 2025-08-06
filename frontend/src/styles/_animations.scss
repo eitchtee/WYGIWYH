@@ -209,11 +209,11 @@
 
 
 .slide-in-bottom {
-	animation: slide-in-bottom 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-bottom 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .slide-in-bottom-reverse {
-	animation: slide-in-bottom 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
+  animation: slide-in-bottom 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
 }
 
 /* ----------------------------------------------
@@ -236,5 +236,14 @@
   100% {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes disable-pointer-events {
+  0%, 99% {
+    pointer-events: none;
+  }
+  100% {
+    pointer-events: auto;
   }
 }

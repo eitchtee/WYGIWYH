@@ -1,0 +1,16 @@
+{% load cache_access %}
+{% load settings %}
+{% load static %}
+{% load i18n %}
+{% load active_link %}
+<nav class="navbar border-bottom bg-body-tertiary d-flex d-lg-none" hx-boost="true">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-primary font-base" href="{% url 'index' %}">
+      <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="40" width="40" title="WYGIWYH"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+            aria-controls="sidebar" aria-label={% translate "Toggle navigation" %}>
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>

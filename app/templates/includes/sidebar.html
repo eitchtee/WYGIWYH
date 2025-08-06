@@ -3,147 +3,287 @@
 {% load settings %}
 {% load i18n %}
 {% load static %}
-<nav
-    id="sidebar"
-    hx-boost="true"
-    data-bs-scroll="true"
-    class="offcanvas-lg offcanvas-start d-lg-flex flex-column position-fixed top-0 start-0 h-100 bg-body-tertiary shadow-sm tw:group tw:z-2000 tw:lg:w-16 tw:lg:focus:w-104 tw:lg:hover:w-104 tw:transition-all tw:duration-100 tw:overflow-hidden">
 
-  <a href="{% url 'index' %}" class="d-none d-lg-flex tw:justify-start p-3 text-decoration-none">
-    <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
-    <span class="fs-4 fw-bold ms-3 tw:lg:invisible tw:lg:group-hover:visible">WYGIWYH</span>
-  </a>
+<div
+    class="tw:group tw:lg:w-16 tw:lg:hover:w-112 tw:transition-all tw:duration-100 tw:fixed tw:top-0 tw:start-0 tw:h-full tw:z-1020">
+  <nav
+      id="sidebar"
+      hx-boost="true"
+      data-bs-scroll="true"
+      class="offcanvas-lg offcanvas-start d-lg-flex flex-column position-fixed top-0 start-0 h-100 bg-body-tertiary shadow-sm tw:z-1020 tw:lg:w-16 tw:lg:group-hover:w-104 tw:transition-all tw:duration-100 tw:overflow-hidden">
+    <div
+        class="tw:hidden tw:lg:group-hover:block tw:absolute tw:top-0 tw:left-104 tw:w-8 tw:h-full tw:bg-transparent tw:pointer-events-auto tw:z-10"></div>
 
-  <div class="offcanvas-header">
-    <a href="{% url 'index' %}" class="offcanvas-title d-flex tw:justify-start text-decoration-none">
+    <a href="{% url 'index' %}" class="d-none d-lg-flex tw:justify-start p-3 text-decoration-none">
       <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
       <span class="fs-4 fw-bold ms-3 tw:lg:invisible tw:lg:group-hover:visible">WYGIWYH</span>
     </a>
-    <button type="button" class="btn-close" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
-            aria-label={% translate 'Close' %}></button>
-  </div>
-  <hr class="m-0">
 
-  <ul class="list-unstyled p-3 d-flex flex-column gap-1 tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
-      style="animation-duration: 100ms">
+    <div class="offcanvas-header">
+      <a href="{% url 'index' %}" class="offcanvas-title d-flex tw:justify-start text-decoration-none">
+        <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
+        <span class="fs-4 fw-bold ms-3 tw:lg:invisible tw:lg:group-hover:visible">WYGIWYH</span>
+      </a>
+      <button type="button" class="btn-close" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
+              aria-label={% translate 'Close' %}></button>
+    </div>
+    <hr class="m-0">
 
-    <c-components.sidebar-menu-item
-        title="{% translate 'Monthly' %}"
-        url='monthly_index'
-        active="monthly_overview"
-        icon="fa-solid fa-list">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Yearly' %}"
-        url='yearly_index'
-        active="yearly_overview_currency||yearly_overview_account"
-        icon="fa-solid fa-calendar-plus">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Calendar' %}"
-        url='calendar_index'
-        active="calendar"
-        icon="fa-solid fa-calendar-days">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Insights' %}"
-        url='insights_index'
-        active="insights_index"
-        icon="fa-solid fa-chart-simple">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Net Worth' %}"
-        url='net_worth'
-        active="net_worth"
-        icon="fa-solid fa-money-bill">
-    </c-components.sidebar-menu-item>
+    <ul class="list-unstyled p-3 d-flex flex-column gap-0 tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
+        style="animation-duration: 100ms">
 
-    <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
-    <c-components.sidebar-menu-item
-        title="{% translate 'All' %}"
-        url='transactions_all_index'
-        active="transactions_all_index"
-        icon="fa-solid fa-right-left">
-    </c-components.sidebar-menu-item>
-    {% settings "ENABLE_SOFT_DELETE" as enable_soft_delete %}
-    {% if enable_soft_delete %}
       <c-components.sidebar-menu-item
-          title="{% translate 'Trash Can' %}"
-          url='transactions_trash_index'
-          active="transactions_trash_index"
-          icon="fa-solid fa-trash">
+          title="{% translate 'Monthly' %}"
+          url='monthly_index'
+          active="monthly_overview"
+          icon="fa-solid fa-list">
       </c-components.sidebar-menu-item>
-    {% endif %}
-    <c-components.sidebar-menu-item
-        title="{% translate 'Quick Transactions' %}"
-        url='quick_transactions_index'
-        active="quick_transactions_index"
-        icon="fa-solid fa-person-running">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Installment Plans' %}"
-        url='installment_plans_index'
-        active="installment_plans_index"
-        icon="fa-solid fa-divide">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Recurring Transactions' %}"
-        url='recurring_trasanctions_index'
-        active="recurring_trasanctions_index"
-        icon="fa-solid fa-repeat">
-    </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Yearly' %}"
+          url='yearly_index'
+          active="yearly_overview_currency||yearly_overview_account"
+          icon="fa-solid fa-calendar-plus">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Calendar' %}"
+          url='calendar_index'
+          active="calendar"
+          icon="fa-solid fa-calendar-days">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Insights' %}"
+          url='insights_index'
+          active="insights_index"
+          icon="fa-solid fa-chart-simple">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Net Worth' %}"
+          url='net_worth'
+          active="net_worth"
+          icon="fa-solid fa-money-bill">
+      </c-components.sidebar-menu-item>
 
-    <c-components.sidebar-menu-header title="{% translate 'Tools' %}"></c-components.sidebar-menu-header>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Dollar Cost Average Tracker' %}"
-        url='dca_strategy_index'
-        active="dca_strategy_index||dca_strategy_detail_index"
-        icon="fa-solid fa-magnifying-glass-chart">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Unit Price Calculator' %}"
-        url='unit_price_calculator'
-        active="unit_price_calculator"
-        icon="fa-solid fa-tags">
-    </c-components.sidebar-menu-item>
-    <c-components.sidebar-menu-item
-        title="{% translate 'Currency Converter' %}"
-        url='currency_converter'
-        active="currency_converter"
-        icon="fa-solid fa-money-bill-transfer">
-    </c-components.sidebar-menu-item>
-  </ul>
+      <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
+      <c-components.sidebar-menu-item
+          title="{% translate 'All' %}"
+          url='transactions_all_index'
+          active="transactions_all_index"
+          icon="fa-solid fa-right-left">
+      </c-components.sidebar-menu-item>
+      {% settings "ENABLE_SOFT_DELETE" as enable_soft_delete %}
+      {% if enable_soft_delete %}
+        <c-components.sidebar-menu-item
+            title="{% translate 'Trash Can' %}"
+            url='transactions_trash_index'
+            active="transactions_trash_index"
+            icon="fa-solid fa-trash">
+        </c-components.sidebar-menu-item>
+      {% endif %}
+      <c-components.sidebar-menu-item
+          title="{% translate 'Quick Transactions' %}"
+          url='quick_transactions_index'
+          active="quick_transactions_index"
+          icon="fa-solid fa-person-running">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Installment Plans' %}"
+          url='installment_plans_index'
+          active="installment_plans_index"
+          icon="fa-solid fa-divide">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Recurring Transactions' %}"
+          url='recurring_trasanctions_index'
+          active="recurring_trasanctions_index"
+          icon="fa-solid fa-repeat">
+      </c-components.sidebar-menu-item>
 
-  <div class="mt-auto p-2 w-100">
+      <c-components.sidebar-menu-header title="{% translate 'Tools' %}"></c-components.sidebar-menu-header>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Dollar Cost Average Tracker' %}"
+          url='dca_strategy_index'
+          active="dca_strategy_index||dca_strategy_detail_index"
+          icon="fa-solid fa-magnifying-glass-chart">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Unit Price Calculator' %}"
+          url='unit_price_calculator'
+          active="unit_price_calculator"
+          icon="fa-solid fa-tags">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
+          title="{% translate 'Currency Converter' %}"
+          url='currency_converter'
+          active="currency_converter"
+          icon="fa-solid fa-money-bill-transfer">
+      </c-components.sidebar-menu-item>
 
-    {% get_update_check as update_check %}
-    {% if update_check.update_available %}
-      <div class="my-3">
-        <a class="px-3 badge text-bg-primary text-decoration-none tw:cursor-pointer w-100 tw:text-xs!"
-           href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i
-            class="fa-solid fa-circle-exclamation fa-fw me-2"></i><span class="tw:lg:invisible tw:lg:group-hover:visible">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
-      </div>
-    {% endif %}
-
-    <div class="btn-group w-100" role="group">
-      <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-title="{% trans "Calculator" %}"
-              _="on click trigger show on #calculator">
-        <i class="fa-solid fa-calculator fa-fw"></i>
-      </button>
-    </div>
-  </div>
-
-  <div>
-    <hr class="my-1">
-    <div
-        class="ps-4 pe-2 py-2 d-flex align-items-center text-body-secondary text-decoration-none justify-content-between tw:text-wrap tw:lg:text-nowrap">
       <div>
-        <i class="fa-solid fa-circle-user"></i>
-        <strong class="ms-2 tw:lg:invisible tw:lg:group-hover:visible">{{ user.email }}</strong>
+        <hr>
       </div>
-      <div class="tw:lg:invisible tw:lg:group-hover:visible">
-        {% include 'includes/navbar/user_menu.html' %}
+
+      <div type="button"
+           data-bs-toggle="collapse"
+           data-bs-target="#collapsible-panel"
+           aria-expanded="false"
+           aria-controls="collapsible-panel"
+           class="tw:text-wrap tw:lg:text-nowrap tw:lg:text-sm d-flex align-items-center text-decoration-none p-2 rounded-3 sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
+        <i class="fa-solid fa-toolbox fa-fw"></i>
+        <span
+            class="ms-3 fw-medium tw:lg:invisible tw:lg:group-hover:visible tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">
+        {% translate 'Management' %}
+      </span>
+      </div>
+    </ul>
+
+    <div class="mt-auto p-2 w-100">
+      <div id="collapsible-panel"
+           class="p-0 collapse tw:absolute tw:bottom-0 tw:left-0 tw:w-full tw:z-30 tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:max-h-screen">
+        <div class="tw:h-screen tw:backdrop-blur-3xl">
+          <!-- Header -->
+          <div
+              class="tw:flex tw:justify-between tw:items-center tw:p-4 tw:border-b tw:border-gray-600 tw:lg:hidden tw:lg:group-hover:flex">
+            <h5 class="tw:text-lg tw:font-semibold tw:text-gray-800 tw:lg:invisible tw:lg:group-hover:visible">
+              {% trans 'Management' %}
+            </h5>
+
+            <button type="button" class="btn-close tw:lg:hidden tw:lg:group-hover:inline" aria-label="Close"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapsible-panel"
+                    aria-expanded="true"
+                    aria-controls="collapsible-panel">
+            </button>
+          </div>
+
+          <ul class="list-unstyled p-3 d-flex flex-column gap-1 tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
+              style="animation-duration: 100ms">
+            <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Categories' %}"
+                url='categories_index'
+                active="categories_index"
+                icon="fa-solid fa-icons">
+            </c-components.sidebar-menu-item>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Tags' %}"
+                url='tags_index'
+                active="tags_index"
+                icon="fa-solid fa-hashtag">
+            </c-components.sidebar-menu-item>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Entities' %}"
+                url='entities_index'
+                active="entities_index"
+                icon="fa-solid fa-user-group">
+            </c-components.sidebar-menu-item>
+
+            <c-components.sidebar-menu-header title="{% translate 'Accounts' %}"></c-components.sidebar-menu-header>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Accounts' %}"
+                url='accounts_index'
+                active="accounts_index"
+                icon="fa-solid fa-wallet">
+            </c-components.sidebar-menu-item>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Account Groups' %}"
+                url='account_groups_index'
+                active="account_groups_index"
+                icon="fa-solid fa-wallet">
+            </c-components.sidebar-menu-item>
+
+            <c-components.sidebar-menu-header title="{% translate 'Currencies' %}"></c-components.sidebar-menu-header>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Currencies' %}"
+                url='currencies_index'
+                active="currencies_index"
+                icon="fa-solid fa-coins">
+            </c-components.sidebar-menu-item>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Exchange Rates' %}"
+                url='exchange_rates_index'
+                active="exchange_rates_index"
+                icon="fa-solid fa-right-left">
+            </c-components.sidebar-menu-item>
+
+            <c-components.sidebar-menu-header title="{% translate 'Automation' %}"></c-components.sidebar-menu-header>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Rules' %}"
+                url='rules_index'
+                active="rules_index"
+                icon="fa-solid fa-pen-ruler">
+            </c-components.sidebar-menu-item>
+            <c-components.sidebar-menu-item
+                title="{% translate 'Import' %}"
+                url='import_profiles_index'
+                active="import_profiles_index"
+                icon="fa-solid fa-file-import">
+            </c-components.sidebar-menu-item>
+            {% if user.is_superuser %}
+              <c-components.sidebar-menu-item
+                  title="{% translate 'Export and Restore' %}"
+                  url='export_index'
+                  active="export_index"
+                  icon="fa-solid fa-file-export">
+              </c-components.sidebar-menu-item>
+            {% endif %}
+            <c-components.sidebar-menu-item
+                title="{% translate 'Automatic Exchange Rates' %}"
+                url='automatic_exchange_rates_index'
+                active="automatic_exchange_rates_index"
+                icon="fa-solid fa-right-left">
+            </c-components.sidebar-menu-item>
+
+            {% if user.is_superuser %}
+              <c-components.sidebar-menu-header title="{% translate 'Admin' %}"></c-components.sidebar-menu-header>
+              <c-components.sidebar-menu-item
+                  title="{% translate 'Users' %}"
+                  url='users_index'
+                  active="users_index"
+                  icon="fa-solid fa-users">
+              </c-components.sidebar-menu-item>
+              <c-components.sidebar-menu-url-item
+                  title="{% translate 'Django Admin' %}"
+                  tooltip="{% translate "Only use this if you know what you're doing" %}"
+                  url='/admin/'
+                  icon="fa-solid fa-screwdriver-wrench">
+              </c-components.sidebar-menu-url-item>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      {% get_update_check as update_check %}
+      {% if update_check.update_available %}
+        <div class="my-3">
+          <a class="px-3 badge text-bg-primary text-decoration-none tw:cursor-pointer w-100 tw:text-xs!"
+             href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i
+              class="fa-solid fa-circle-exclamation fa-fw me-2"></i><span
+              class="tw:lg:invisible tw:lg:group-hover:visible">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
+        </div>
+      {% endif %}
+
+      <div class="btn-group w-100" role="group">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip"
+                data-bs-title="{% trans "Calculator" %}"
+                _="on click trigger show on #calculator">
+          <i class="fa-solid fa-calculator fa-fw"></i>
+        </button>
       </div>
     </div>
-  </div>
-</nav>
+
+    <div>
+      <hr class="my-1">
+      <div
+          class="ps-4 pe-2 py-2 d-flex align-items-center text-body-secondary text-decoration-none justify-content-between tw:text-wrap tw:lg:text-nowrap">
+        <div>
+          <i class="fa-solid fa-circle-user"></i>
+          <strong class="ms-2 tw:lg:invisible tw:lg:group-hover:visible">{{ user.email }}</strong>
+        </div>
+        <div class="tw:lg:invisible tw:lg:group-hover:visible">
+          {% include 'includes/navbar/user_menu.html' %}
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div
+      class="tw:hidden tw:lg:group-hover:block tw:absolute tw:top-0 tw:left-104 tw:w-16 tw:h-full tw:bg-transparent"></div>
+</div>

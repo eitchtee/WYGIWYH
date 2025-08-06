@@ -1,3 +1,11 @@
 @import "tailwindcss" prefix(tw) source("../../../app/templates/");
 @custom-variant dark (&:where([data-bs-theme=dark], [data-bs-theme=dark] *));
 @custom-variant hover (&:hover);
+
+.sidebar-active {
+  @apply tw:bg-gray-700 tw:text-white;
+}
+
+.sidebar-item:not(.sidebar-active) {
+    @apply tw:text-gray-300 tw:hover:text-white;
+}

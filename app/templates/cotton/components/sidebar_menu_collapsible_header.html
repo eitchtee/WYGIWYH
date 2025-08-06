@@ -1,0 +1,12 @@
+<li class="tw:lg:hidden tw:lg:group-hover:block">
+  <div class="d-flex align-items-center" data-bs-toggle="collapse" href="#{{ title|slugify }}" role="button"
+       aria-expanded="false" aria-controls="{{ title|slugify }}">
+    <span
+        class="text-muted small fw-bold text-uppercase tw:lg:hidden tw:lg:group-hover:inline me-2">{{ title }}</span>
+    <hr class="flex-grow-1"/>
+    <i class="fas fa-chevron-down text-muted tw:lg:before:hidden tw:lg:group-hover:before:inline tw:ml-2 tw:lg:ml-0 tw:lg:group-hover:ml-2"></i>
+  </div>
+</li>
+<div class="collapse tw:lg:hidden tw:lg:group-hover:block" id="{{ title|slugify }}">
+  {{ slot }}
+</div>
