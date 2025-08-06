@@ -28,23 +28,18 @@ def generate_recurring_transactions(timestamp=None):
 @app.periodic(cron="10 1 * * *")
 @app.task(name="cleanup_deleted_transactions")
 def cleanup_deleted_transactions(timestamp=None):
-    with cachalot_disabled():
-        if settings.ENABLE_SOFT_DELETE and settings.KEEP_DELETED_TRANSACTIONS_FOR == 0:
-            return "KEEP_DELETED_TRANSACTIONS_FOR is 0, no cleanup performed."
+    if settings.ENABLE_SOFT_DELETE and settings.KEEP_DELETED_TRANSACTIONS_FOR == 0:
+        return "KEEP_DELETED_TRANSACTIONS_FOR is 0, no cleanup performed."
 
-        if not settings.ENABLE_SOFT_DELETE:
-            # Hard delete all soft-deleted transactions
-            deleted_count, _ = Transaction.userless_deleted_objects.all().hard_delete()
-            return (
-                f"Hard deleted {deleted_count} transactions (soft deletion disabled)."
-            )
+    if not settings.ENABLE_SOFT_DELETE:
+        # Hard delete all soft-deleted transactions
+        deleted_count, _ = Transaction.userless_deleted_objects.all().hard_delete()
+        return f"Hard deleted {deleted_count} transactions (soft deletion disabled)."
 
-        # Calculate the cutoff date
-        cutoff_date = timezone.now() - timedelta(
-            days=settings.KEEP_DELETED_TRANSACTIONS_FOR
-        )
-
-    invalidate()
+    # Calculate the cutoff date
+    cutoff_date = timezone.now() - timedelta(
+        days=settings.KEEP_DELETED_TRANSACTIONS_FOR
+    )
 
     # Hard delete soft-deleted transactions older than the cutoff date
     old_transactions = Transaction.userless_deleted_objects.filter(
