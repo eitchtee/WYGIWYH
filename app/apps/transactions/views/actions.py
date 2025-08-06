@@ -62,7 +62,7 @@ def bulk_unpay_transactions(request):
 @login_required
 def bulk_delete_transactions(request):
     selected_transactions = request.GET.getlist("transactions", [])
-    transactions = Transaction.all_objects.filter(id__in=selected_transactions)
+    transactions = Transaction.objects.filter(id__in=selected_transactions)
     count = transactions.count()
     transactions.delete()
 
