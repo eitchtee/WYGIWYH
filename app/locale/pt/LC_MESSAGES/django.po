@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-06 16:21+0000\n"
+"POT-Creation-Date: 2025-08-07 20:04+0000\n"
 "PO-Revision-Date: 2025-04-13 08:16+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.herculino.com/projects/"
@@ -908,7 +908,7 @@ msgstr "Ação de editar de transação"
 msgid "Update or create transaction actions"
 msgstr "Ações de atualizar ou criar transação"
 
-#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:172
+#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:176
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:24
@@ -1682,8 +1682,8 @@ msgid "Item deleted successfully"
 msgstr "Regra apagada com sucesso"
 
 #: apps/transactions/views/quick_transactions.py:155
-#: apps/transactions/views/transactions.py:52
-#: apps/transactions/views/transactions.py:148
+#: apps/transactions/views/transactions.py:53
+#: apps/transactions/views/transactions.py:149
 msgid "Transaction added successfully"
 msgstr "Transação adicionada com sucesso"
 
@@ -1723,30 +1723,30 @@ msgstr "Tag atualizada com sucesso"
 msgid "Tag deleted successfully"
 msgstr "Tag apagada com sucesso"
 
-#: apps/transactions/views/transactions.py:182
+#: apps/transactions/views/transactions.py:183
 msgid "Transaction updated successfully"
 msgstr "Transação atualizada com sucesso"
 
-#: apps/transactions/views/transactions.py:232
+#: apps/transactions/views/transactions.py:233
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s transação atualizada com sucesso"
 msgstr[1] "%(count)s transações atualizadas com sucesso"
 
-#: apps/transactions/views/transactions.py:268
+#: apps/transactions/views/transactions.py:269
 msgid "Transaction duplicated successfully"
 msgstr "Transação duplicada com sucesso"
 
-#: apps/transactions/views/transactions.py:310
+#: apps/transactions/views/transactions.py:311
 msgid "Transaction deleted successfully"
 msgstr "Transação apagada com sucesso"
 
-#: apps/transactions/views/transactions.py:328
+#: apps/transactions/views/transactions.py:329
 msgid "Transaction restored successfully"
 msgstr "Transação restaurada com sucesso"
 
-#: apps/transactions/views/transactions.py:354
+#: apps/transactions/views/transactions.py:355
 msgid "Transfer added successfully"
 msgstr "Transferência adicionada com sucesso"
 
@@ -1996,7 +1996,7 @@ msgstr "Editar"
 #: templates/accounts/fragments/list.html:48
 #: templates/categories/fragments/table.html:36
 #: templates/cotton/transaction/item.html:136
-#: templates/cotton/transaction/item.html:178
+#: templates/cotton/transaction/item.html:182
 #: templates/cotton/ui/deleted_transactions_action_bar.html:55
 #: templates/cotton/ui/transactions_action_bar.html:90
 #: templates/currencies/fragments/list.html:44
@@ -2023,7 +2023,7 @@ msgstr "Apagar"
 #: templates/accounts/fragments/list.html:52
 #: templates/categories/fragments/table.html:41
 #: templates/cotton/transaction/item.html:140
-#: templates/cotton/transaction/item.html:182
+#: templates/cotton/transaction/item.html:186
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:92
 #: templates/currencies/fragments/list.html:48
@@ -2053,7 +2053,7 @@ msgstr "Tem certeza?"
 #: templates/accounts/fragments/list.html:53
 #: templates/categories/fragments/table.html:42
 #: templates/cotton/transaction/item.html:141
-#: templates/cotton/transaction/item.html:183
+#: templates/cotton/transaction/item.html:187
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:93
 #: templates/currencies/fragments/list.html:49
@@ -2075,7 +2075,7 @@ msgstr "Você não será capaz de reverter isso!"
 #: templates/accounts/fragments/list.html:54
 #: templates/categories/fragments/table.html:43
 #: templates/cotton/transaction/item.html:142
-#: templates/cotton/transaction/item.html:184
+#: templates/cotton/transaction/item.html:188
 #: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:50
@@ -2259,6 +2259,18 @@ msgid "Add as quick transaction"
 msgstr "Adicionar transação recorrente"
 
 #: templates/cotton/transaction/item.html:166
+msgid "Move to previous month"
+msgstr ""
+
+#: templates/cotton/transaction/item.html:167
+msgid "Move to next month"
+msgstr ""
+
+#: templates/cotton/transaction/item.html:168
+msgid "Move to today"
+msgstr ""
+
+#: templates/cotton/transaction/item.html:170
 #: templates/cotton/ui/transactions_action_bar.html:82
 msgid "Duplicate"
 msgstr "Duplicar"
