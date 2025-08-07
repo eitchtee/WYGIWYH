@@ -72,6 +72,16 @@ urlpatterns = [
         name="transaction_mute",
     ),
     path(
+        "transaction/<int:transaction_id>/change-month/<str:change_type>/",
+        views.transaction_change_month,
+        name="transaction_change_month",
+    ),
+    path(
+        "transaction/<int:transaction_id>/move-to-today/",
+        views.transaction_move_to_today,
+        name="transaction_move_to_today",
+    ),
+    path(
         "transaction/<int:transaction_id>/delete/",
         views.transaction_delete,
         name="transaction_delete",
