@@ -1,6 +1,7 @@
 import datetime
 from copy import deepcopy
 
+from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -406,6 +407,47 @@ def transaction_mute(request, transaction_id):
     )
     response.headers["HX-Trigger"] = "selective_update"
     return response
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_change_month(request, transaction_id, change_type):
+    transaction: Transaction = get_object_or_404(Transaction, pk=transaction_id)
+
+    if change_type == "next":
+        transaction.reference_date = transaction.reference_date + relativedelta(
+            months=1
+        )
+        transaction.save()
+        transaction_updated.send(sender=transaction)
+    elif change_type == "previous":
+        transaction.reference_date = transaction.reference_date - relativedelta(
+            months=1
+        )
+        transaction.save()
+        transaction_updated.send(sender=transaction)
+
+    return HttpResponse(
+        status=204,
+        headers={"HX-Trigger": "updated"},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_move_to_today(request, transaction_id):
+    transaction: Transaction = get_object_or_404(Transaction, pk=transaction_id)
+
+    transaction.date = timezone.localdate(timezone.now())
+    transaction.save()
+    transaction_updated.send(sender=transaction)
+
+    return HttpResponse(
+        status=204,
+        headers={"HX-Trigger": "updated"},
+    )
 
 
 @login_required
