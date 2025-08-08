@@ -114,6 +114,7 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "fetch_interval",
             "target_currencies",
             "target_accounts",
+            "singleton",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -126,6 +127,7 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "name",
             "service_type",
             Switch("is_active"),
+            Switch("singleton"),
             "api_key",
             Row(
                 Column("interval_type", css_class="form-group col-md-6"),
