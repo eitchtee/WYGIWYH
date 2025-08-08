@@ -138,6 +138,7 @@ class RecurringTransactionSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance = super().update(instance, validated_data)
         instance.update_unpaid_transactions()
+        instance.generate_upcoming_transactions()
         return instance
 
 
