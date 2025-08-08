@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-08 02:37+0000\n"
+"POT-Creation-Date: 2025-08-08 02:41+0000\n"
 "PO-Revision-Date: 2025-04-13 08:16+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.herculino.com/projects/"
@@ -540,11 +540,10 @@ msgstr "Taxa de Câmbio"
 msgid "Date and Time"
 msgstr "Data e Tempo"
 
-#: apps/currencies/models.py:73
-#, fuzzy
-#| msgid "Automation"
-msgid "Automatic"
-msgstr "Automação"
+#: apps/currencies/models.py:73 apps/users/models.py:12
+#: apps/users/models.py:497
+msgid "Auto"
+msgstr "Automático"
 
 #: apps/currencies/models.py:77 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
@@ -1891,10 +1890,6 @@ msgstr ""
 #| msgid "A value for this field already exists in the rule."
 msgid "A user with this email address already exists."
 msgstr "Já existe um valor para esse campo na regra."
-
-#: apps/users/models.py:12 apps/users/models.py:497
-msgid "Auto"
-msgstr "Automático"
 
 #: apps/users/models.py:465 templates/includes/navbar.html:29
 msgid "Yearly by currency"
@@ -3421,6 +3416,11 @@ msgstr "termina em"
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
 msgstr "Visão Anual"
+
+#, fuzzy
+#~| msgid "Automation"
+#~ msgid "Automatic"
+#~ msgstr "Automação"
 
 #, fuzzy
 #~| msgid "Import Profiles"

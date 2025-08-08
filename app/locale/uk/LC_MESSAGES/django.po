@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-08 02:37+0000\n"
+"POT-Creation-Date: 2025-08-08 02:41+0000\n"
 "PO-Revision-Date: 2025-05-12 14:16+0000\n"
 "Last-Translator: Felix <xnovaua@gmail.com>\n"
 "Language-Team: Ukrainian <https://translations.herculino.com/projects/"
@@ -545,8 +545,9 @@ msgstr "Обмінний курс"
 msgid "Date and Time"
 msgstr "Дата і час"
 
-#: apps/currencies/models.py:73
-msgid "Automatic"
+#: apps/currencies/models.py:73 apps/users/models.py:12
+#: apps/users/models.py:497
+msgid "Auto"
 msgstr ""
 
 #: apps/currencies/models.py:77 apps/export_app/forms.py:68
@@ -1855,10 +1856,6 @@ msgstr ""
 
 #: apps/users/forms.py:395
 msgid "A user with this email address already exists."
-msgstr ""
-
-#: apps/users/models.py:12 apps/users/models.py:497
-msgid "Auto"
 msgstr ""
 
 #: apps/users/models.py:465 templates/includes/navbar.html:29

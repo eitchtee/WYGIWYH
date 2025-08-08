@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-08 02:37+0000\n"
+"POT-Creation-Date: 2025-08-08 02:41+0000\n"
 "PO-Revision-Date: 2025-07-28 22:17+0000\n"
 "Last-Translator: Erwan Colin <zephone@protonmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
@@ -540,10 +540,11 @@ msgstr "Taux de change"
 msgid "Date and Time"
 msgstr "Date et Heure"
 
-#: apps/currencies/models.py:73
+#: apps/currencies/models.py:73 apps/users/models.py:12
+#: apps/users/models.py:497
 #, fuzzy
-msgid "Automatic"
-msgstr "Automation"
+msgid "Auto"
+msgstr "Auto"
 
 #: apps/currencies/models.py:77 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
@@ -1889,11 +1890,6 @@ msgstr ""
 #, fuzzy
 msgid "A user with this email address already exists."
 msgstr "A value for this field already exists in the rule."
-
-#: apps/users/models.py:12 apps/users/models.py:497
-#, fuzzy
-msgid "Auto"
-msgstr "Auto"
 
 #: apps/users/models.py:465 templates/includes/navbar.html:29
 #, fuzzy
@@ -3687,6 +3683,10 @@ msgstr "Fini par"
 #, fuzzy
 msgid "Yearly Overview"
 msgstr "Yearly Overview"
+
+#, fuzzy
+#~ msgid "Automatic"
+#~ msgstr "Automation"
 
 #, fuzzy
 #~| msgid "Import Profiles"

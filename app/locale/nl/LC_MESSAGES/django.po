@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-08 02:37+0000\n"
+"POT-Creation-Date: 2025-08-08 02:41+0000\n"
 "PO-Revision-Date: 2025-08-07 06:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -540,11 +540,10 @@ msgstr "Wisselkoers"
 msgid "Date and Time"
 msgstr "Datum en Tijd"
 
-#: apps/currencies/models.py:73
-#, fuzzy
-#| msgid "Automation"
-msgid "Automatic"
-msgstr "Automatisatie"
+#: apps/currencies/models.py:73 apps/users/models.py:12
+#: apps/users/models.py:497
+msgid "Auto"
+msgstr "Automatisch"
 
 #: apps/currencies/models.py:77 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
@@ -1878,10 +1877,6 @@ msgstr "Je kunt je eigen hoofdadminrechten niet verwijderen met dit formulier."
 #: apps/users/forms.py:395
 msgid "A user with this email address already exists."
 msgstr "Er bestaat al een gebruiker met dit e-mailadres."
-
-#: apps/users/models.py:12 apps/users/models.py:497
-msgid "Auto"
-msgstr "Automatisch"
 
 #: apps/users/models.py:465 templates/includes/navbar.html:29
 msgid "Yearly by currency"
@@ -3389,6 +3384,11 @@ msgstr "Aanmelden met"
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
 msgstr "Jaaroverzicht"
+
+#, fuzzy
+#~| msgid "Automation"
+#~ msgid "Automatic"
+#~ msgstr "Automatisatie"
 
 #~ msgid "Profile"
 #~ msgstr "Profiel"
