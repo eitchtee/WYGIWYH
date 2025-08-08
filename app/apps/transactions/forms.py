@@ -1085,5 +1085,6 @@ class RecurringTransactionForm(forms.ModelForm):
             instance.create_upcoming_transactions()
         else:
             instance.update_unpaid_transactions()
+            instance.generate_upcoming_transactions()
 
         return instance
