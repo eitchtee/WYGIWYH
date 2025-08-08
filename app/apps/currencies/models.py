@@ -70,6 +70,8 @@ class ExchangeRate(models.Model):
     )
     date = models.DateTimeField(verbose_name=_("Date and Time"))
 
+    automatic = models.BooleanField(verbose_name=_("Automatic"), default=False)
+
     class Meta:
         verbose_name = _("Exchange Rate")
         verbose_name_plural = _("Exchange Rates")
@@ -146,6 +148,14 @@ class ExchangeRateService(models.Model):
         ),
         related_name="exchange_services",
         blank=True,
+    )
+
+    singleton = models.BooleanField(
+        verbose_name=_("Single exchange rate"),
+        default=False,
+        help_text=_(
+            "Create one exchange rate and keep updating it. Avoids database clutter."
+        ),
     )
 
     class Meta:
