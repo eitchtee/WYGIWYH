@@ -85,3 +85,7 @@ select[multiple] {
 [data-bs-toggle="collapse"][aria-expanded="true"] .fa-chevron-down {
   transform: rotate(-180deg);
 }
+
+div:where(.swal2-container) {
+  z-index: 1100 !important;
+}
