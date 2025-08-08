@@ -21,6 +21,8 @@ from apps.users.forms import (
 )
 from apps.users.models import UserSettings
 from apps.common.decorators.demo import disabled_on_demo
+from apps.currencies.models import Currency
+from apps.accounts.models import Account
 
 
 def logout_view(request):
@@ -46,6 +48,28 @@ def index(request):
         return redirect(reverse("calendar_index"))
     else:
         return redirect(reverse("monthly_index"))
+
+
+@login_required
+def setup(request):
+    has_currency = Currency.objects.exists()
+    has_account = Account.objects.exists()
+    # return render(
+    #     request,
+    #     "users/setup/setup.html",
+    #     {"has_currency": has_currency, "has_account": has_account},
+    # )
+    if not has_currency or not has_account:
+        return render(
+            request,
+            "users/setup/setup.html",
+            {"has_currency": has_currency, "has_account": has_account},
+        )
+    else:
+        return HttpResponse(
+            status=200,
+            headers={"HX-Reswap": "delete"},
+        )
 
 
 class UserLoginView(LoginView):

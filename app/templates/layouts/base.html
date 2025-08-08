@@ -46,6 +46,8 @@
     </div>
     {% endif %}
 
+    <div class="container" hx-get="{% url 'setup' %}" hx-trigger="load, updated from:window"></div>
+
     <div id="content">
       {% block content %}{% endblock %}
     </div>

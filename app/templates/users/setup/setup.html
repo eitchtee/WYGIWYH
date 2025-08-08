@@ -1,0 +1,68 @@
+{% load i18n %}
+<div class="card shadow-sm rounded-3">
+        <div class="card-header border-bottom-0 pt-4 px-4">
+            <h5 class="card-title fw-bold"><i class="fas fa-rocket me-2"></i>Let's Get You Set Up</h5>
+        </div>
+        <div class="card-body p-4">
+            <!-- Explanation Text -->
+            <div class="alert alert-info border-0" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-info-circle fa-lg me-3"></i>
+                    <div>
+                        Welcome to <strong>WYGIWYH</strong>! To get started, you need to configure a currency and create your first account. This will establish the foundation for managing your finances.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Lists -->
+            <div class="mt-4 border rounded-3 overflow-hidden">
+                <!-- Required Section -->
+                <div class="p-3 text-bg-secondary text-muted text-uppercase fw-bold small">Required Steps</div>
+                <ul class="list-group list-group-flush">
+                    <!-- Task 1: Create Currency -->
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-regular fa-circle{% if has_currency %}-check{% endif %} fa-fw text-primary me-3"></i>
+                            <span class="fw-medium {% if has_currency %}tw:line-through{% endif %}">{% trans 'Add' %} {% trans 'Currency' %}</span>
+                        </div>
+                        <a href="#" class="btn btn-primary btn-sm"
+                           role="button"
+                           hx-get="{% url 'currency_add' %}"
+                           hx-target="#generic-offcanvas">{% trans 'Add' %} <i class="fas fa-arrow-right ms-1"></i></a>
+                    </li>
+                    <!-- Task 2: Create Account -->
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-regular fa-circle{% if has_account %}-check{% endif %} fa-fw text-primary me-3"></i>
+                            <span class="fw-medium {% if has_account %}tw:line-through{% endif %}">{% trans 'Add' %} {% trans 'Account' %}</span>
+                        </div>
+                        <a class="btn btn-primary btn-sm"
+                           role="button"
+                           hx-get="{% url 'account_add' %}"
+                           hx-target="#generic-offcanvas">{% trans 'Add' %} <i class="fas fa-arrow-right ms-1"></i></a>
+                    </li>
+                </ul>
+
+                <!-- Optional Section -->
+                <div class="p-3 text-bg-secondary text-muted text-uppercase fw-bold small border-top">Optional Steps</div>
+                <ul class="list-group list-group-flush">
+                    <!-- Task 3: Import Data -->
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-upload fa-fw text-secondary me-3"></i>
+                            <span class="fw-medium">Import data from another app</span>
+                        </div>
+                        <a href="#" class="btn btn-outline-secondary btn-sm">Import</a>
+                    </li>
+                    <!-- Task 4: Invite Team -->
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-plus fa-fw text-secondary me-3"></i>
+                            <span class="fw-medium">Invite team members</span>
+                        </div>
+                        <a href="#" class="btn btn-outline-secondary btn-sm">Invite</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
