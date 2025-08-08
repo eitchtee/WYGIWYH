@@ -70,7 +70,7 @@ class ExchangeRate(models.Model):
     )
     date = models.DateTimeField(verbose_name=_("Date and Time"))
 
-    automatic = models.BooleanField(verbose_name=_("Automatic"), default=False)
+    automatic = models.BooleanField(verbose_name=_("Auto"), default=False)
 
     class Meta:
         verbose_name = _("Exchange Rate")
