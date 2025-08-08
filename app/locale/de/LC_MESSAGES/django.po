@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-07 20:04+0000\n"
+"POT-Creation-Date: 2025-08-08 02:27+0000\n"
 "PO-Revision-Date: 2025-07-22 06:17+0000\n"
 "Last-Translator: seraphblade2010 <marc.butenhoff@web.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -25,7 +25,7 @@ msgstr "Gruppe Name"
 
 #: apps/accounts/forms.py:40 apps/accounts/forms.py:98
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:91
-#: apps/currencies/forms.py:142 apps/dca/forms.py:49 apps/dca/forms.py:224
+#: apps/currencies/forms.py:144 apps/dca/forms.py:49 apps/dca/forms.py:224
 #: apps/import_app/forms.py:34 apps/rules/forms.py:51 apps/rules/forms.py:93
 #: apps/rules/forms.py:365 apps/transactions/forms.py:204
 #: apps/transactions/forms.py:374 apps/transactions/forms.py:421
@@ -38,7 +38,7 @@ msgstr "Aktualisierung"
 
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:106
 #: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:61
-#: apps/currencies/forms.py:99 apps/currencies/forms.py:150
+#: apps/currencies/forms.py:99 apps/currencies/forms.py:152
 #: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
 #: apps/rules/forms.py:59 apps/rules/forms.py:101 apps/rules/forms.py:373
 #: apps/transactions/forms.py:189 apps/transactions/forms.py:213
@@ -533,7 +533,7 @@ msgstr "Startwährung"
 msgid "To Currency"
 msgstr "Zielwährung"
 
-#: apps/currencies/models.py:69 apps/currencies/models.py:74
+#: apps/currencies/models.py:69 apps/currencies/models.py:76
 msgid "Exchange Rate"
 msgstr "Umrechnungskurs"
 
@@ -541,38 +541,44 @@ msgstr "Umrechnungskurs"
 msgid "Date and Time"
 msgstr "Datum und Uhrzeit"
 
-#: apps/currencies/models.py:75 apps/export_app/forms.py:68
+#: apps/currencies/models.py:73
+#, fuzzy
+#| msgid "Automation"
+msgid "Automatic"
+msgstr "Automatisierung"
+
+#: apps/currencies/models.py:77 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:129 templates/includes/sidebar.html:202
 msgid "Exchange Rates"
 msgstr "Umrechnungskurse"
 
-#: apps/currencies/models.py:87
+#: apps/currencies/models.py:89
 msgid "From and To currencies cannot be the same."
 msgstr "Start- und Zielwährung dürfen nicht identisch sein."
 
-#: apps/currencies/models.py:102
+#: apps/currencies/models.py:104
 msgid "On"
 msgstr "An"
 
-#: apps/currencies/models.py:103
+#: apps/currencies/models.py:105
 msgid "Every X hours"
 msgstr "Alle X Stunden"
 
-#: apps/currencies/models.py:104
+#: apps/currencies/models.py:106
 msgid "Not on"
 msgstr "Nicht an"
 
-#: apps/currencies/models.py:106
+#: apps/currencies/models.py:108
 msgid "Service Name"
 msgstr "Dienstname"
 
-#: apps/currencies/models.py:108
+#: apps/currencies/models.py:110
 msgid "Service Type"
 msgstr "Diensttyp"
 
-#: apps/currencies/models.py:110 apps/transactions/models.py:214
+#: apps/currencies/models.py:112 apps/transactions/models.py:214
 #: apps/transactions/models.py:238 apps/transactions/models.py:262
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
@@ -581,31 +587,31 @@ msgstr "Diensttyp"
 msgid "Active"
 msgstr "Aktiv"
 
-#: apps/currencies/models.py:115
+#: apps/currencies/models.py:117
 msgid "API Key"
 msgstr "API-Schlüssel"
 
-#: apps/currencies/models.py:116
+#: apps/currencies/models.py:118
 msgid "API key for the service (if required)"
 msgstr "API-Schlüssel für den Dienst (falls benötigt)"
 
-#: apps/currencies/models.py:121
+#: apps/currencies/models.py:123
 msgid "Interval Type"
 msgstr "Intervalltyp"
 
-#: apps/currencies/models.py:125
+#: apps/currencies/models.py:127
 msgid "Interval"
 msgstr "Intervall"
 
-#: apps/currencies/models.py:128
+#: apps/currencies/models.py:130
 msgid "Last Successful Fetch"
 msgstr "Letzter erfolgreicher Abruf"
 
-#: apps/currencies/models.py:133
+#: apps/currencies/models.py:135
 msgid "Target Currencies"
 msgstr "Zielwährungen"
 
-#: apps/currencies/models.py:135
+#: apps/currencies/models.py:137
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -613,11 +619,11 @@ msgstr ""
 "Währung auswählen, dessen Umrechnungskurs abgerufen werden sollen. Für jede "
 "Währung wird der Kurs der entsprechenden Umrechnungs-Währung abgerufen."
 
-#: apps/currencies/models.py:143
+#: apps/currencies/models.py:145
 msgid "Target Accounts"
 msgstr "Zielkonten"
 
-#: apps/currencies/models.py:145
+#: apps/currencies/models.py:147
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -625,23 +631,33 @@ msgstr ""
 "Konten auswählen, für die Umrechungskurse abgerufen werden solen. Für jedes "
 "Konto wird der Kurs der entsprechenden Umrechnungs-Währung abgerufen."
 
-#: apps/currencies/models.py:152
+#: apps/currencies/models.py:154
+#, fuzzy
+#| msgid "Edit exchange rate"
+msgid "Single exchange rate"
+msgstr "Umrechnungskurs bearbeiten"
+
+#: apps/currencies/models.py:157
+msgid "Create one exchange rate and keep updating it. Avoids database clutter."
+msgstr ""
+
+#: apps/currencies/models.py:162
 msgid "Exchange Rate Service"
 msgstr "Umrechnungskurs-Dienst"
 
-#: apps/currencies/models.py:153
+#: apps/currencies/models.py:163
 msgid "Exchange Rate Services"
 msgstr "Umrechnungskurs-Dienste"
 
-#: apps/currencies/models.py:205
+#: apps/currencies/models.py:215
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "\"Jede X Stunden\"-Intervalltyp benötigt eine positive Ganzzahl."
 
-#: apps/currencies/models.py:214
+#: apps/currencies/models.py:224
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "\"Jede X Stunden\"-Intervall muss zwischen 1 und 24 liegen."
 
-#: apps/currencies/models.py:228
+#: apps/currencies/models.py:238
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -649,7 +665,7 @@ msgstr ""
 "Ungültiges Stundenformat. Nutze kommagetrennte Stunden (0-23) und/oder "
 "Zeiträume (z.B. \"1-5,8,10-12\")."
 
-#: apps/currencies/models.py:239
+#: apps/currencies/models.py:249
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."

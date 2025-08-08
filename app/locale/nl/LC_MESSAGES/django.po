@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-07 20:04+0000\n"
+"POT-Creation-Date: 2025-08-08 02:27+0000\n"
 "PO-Revision-Date: 2025-08-07 06:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -25,7 +25,7 @@ msgstr "Groepsnaam"
 
 #: apps/accounts/forms.py:40 apps/accounts/forms.py:98
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:91
-#: apps/currencies/forms.py:142 apps/dca/forms.py:49 apps/dca/forms.py:224
+#: apps/currencies/forms.py:144 apps/dca/forms.py:49 apps/dca/forms.py:224
 #: apps/import_app/forms.py:34 apps/rules/forms.py:51 apps/rules/forms.py:93
 #: apps/rules/forms.py:365 apps/transactions/forms.py:204
 #: apps/transactions/forms.py:374 apps/transactions/forms.py:421
@@ -38,7 +38,7 @@ msgstr "Bijwerken"
 
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:106
 #: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:61
-#: apps/currencies/forms.py:99 apps/currencies/forms.py:150
+#: apps/currencies/forms.py:99 apps/currencies/forms.py:152
 #: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
 #: apps/rules/forms.py:59 apps/rules/forms.py:101 apps/rules/forms.py:373
 #: apps/transactions/forms.py:189 apps/transactions/forms.py:213
@@ -532,7 +532,7 @@ msgstr "Van Munteenheid"
 msgid "To Currency"
 msgstr "Naar Munteenheid"
 
-#: apps/currencies/models.py:69 apps/currencies/models.py:74
+#: apps/currencies/models.py:69 apps/currencies/models.py:76
 msgid "Exchange Rate"
 msgstr "Wisselkoers"
 
@@ -540,38 +540,44 @@ msgstr "Wisselkoers"
 msgid "Date and Time"
 msgstr "Datum en Tijd"
 
-#: apps/currencies/models.py:75 apps/export_app/forms.py:68
+#: apps/currencies/models.py:73
+#, fuzzy
+#| msgid "Automation"
+msgid "Automatic"
+msgstr "Automatisatie"
+
+#: apps/currencies/models.py:77 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:129 templates/includes/sidebar.html:202
 msgid "Exchange Rates"
 msgstr "Wisselkoersen"
 
-#: apps/currencies/models.py:87
+#: apps/currencies/models.py:89
 msgid "From and To currencies cannot be the same."
 msgstr "Van en Naar munteenheid kunnen niet dezelfde zijn."
 
-#: apps/currencies/models.py:102
+#: apps/currencies/models.py:104
 msgid "On"
 msgstr "Op"
 
-#: apps/currencies/models.py:103
+#: apps/currencies/models.py:105
 msgid "Every X hours"
 msgstr "Elke X Uren"
 
-#: apps/currencies/models.py:104
+#: apps/currencies/models.py:106
 msgid "Not on"
 msgstr "Niet op"
 
-#: apps/currencies/models.py:106
+#: apps/currencies/models.py:108
 msgid "Service Name"
 msgstr "Dienstnaam"
 
-#: apps/currencies/models.py:108
+#: apps/currencies/models.py:110
 msgid "Service Type"
 msgstr "Soort Dienst"
 
-#: apps/currencies/models.py:110 apps/transactions/models.py:214
+#: apps/currencies/models.py:112 apps/transactions/models.py:214
 #: apps/transactions/models.py:238 apps/transactions/models.py:262
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
@@ -580,31 +586,31 @@ msgstr "Soort Dienst"
 msgid "Active"
 msgstr "Actief"
 
-#: apps/currencies/models.py:115
+#: apps/currencies/models.py:117
 msgid "API Key"
 msgstr "API Sleutel"
 
-#: apps/currencies/models.py:116
+#: apps/currencies/models.py:118
 msgid "API key for the service (if required)"
 msgstr "API sleutel voor de dienst (indien verplicht)"
 
-#: apps/currencies/models.py:121
+#: apps/currencies/models.py:123
 msgid "Interval Type"
 msgstr "Soort Interval"
 
-#: apps/currencies/models.py:125
+#: apps/currencies/models.py:127
 msgid "Interval"
 msgstr "Interval"
 
-#: apps/currencies/models.py:128
+#: apps/currencies/models.py:130
 msgid "Last Successful Fetch"
 msgstr "Laatste Succesvolle Ophaling"
 
-#: apps/currencies/models.py:133
+#: apps/currencies/models.py:135
 msgid "Target Currencies"
 msgstr "Doel Munteenheden"
 
-#: apps/currencies/models.py:135
+#: apps/currencies/models.py:137
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -612,11 +618,11 @@ msgstr ""
 "Selecteer munteenheden om wisselkoersen voor op te halen. De koersen worden "
 "voor elke munteenheid opgehaald ten opzichte van de ingestelde wisselkoers."
 
-#: apps/currencies/models.py:143
+#: apps/currencies/models.py:145
 msgid "Target Accounts"
 msgstr "Naar rekeningen"
 
-#: apps/currencies/models.py:145
+#: apps/currencies/models.py:147
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -625,23 +631,33 @@ msgstr ""
 "opgehaald voor de munteenheid van elke rekening ten opzichte van de "
 "ingestelde wisselkoers."
 
-#: apps/currencies/models.py:152
+#: apps/currencies/models.py:154
+#, fuzzy
+#| msgid "Edit exchange rate"
+msgid "Single exchange rate"
+msgstr "Wisselkoers bewerken"
+
+#: apps/currencies/models.py:157
+msgid "Create one exchange rate and keep updating it. Avoids database clutter."
+msgstr ""
+
+#: apps/currencies/models.py:162
 msgid "Exchange Rate Service"
 msgstr "Wisselkoersdienst"
 
-#: apps/currencies/models.py:153
+#: apps/currencies/models.py:163
 msgid "Exchange Rate Services"
 msgstr "Wisselkoersdiensten"
 
-#: apps/currencies/models.py:205
+#: apps/currencies/models.py:215
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "Voor het intervaltype ‘Elke X uur’ is een positief geheel getal nodig."
 
-#: apps/currencies/models.py:214
+#: apps/currencies/models.py:224
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "Het interval ‘Elke X uur’ moet tussen 1 en 24 liggen."
 
-#: apps/currencies/models.py:228
+#: apps/currencies/models.py:238
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -649,7 +665,7 @@ msgstr ""
 "Ongeldige urennotatie. Gebruik door komma's gescheiden uren (0-23) en/of "
 "reeksen (bijv. ‘1-5,8,10-12’)."
 
-#: apps/currencies/models.py:239
+#: apps/currencies/models.py:249
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
