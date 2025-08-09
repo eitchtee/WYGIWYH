@@ -71,6 +71,17 @@
                  hx-get="{% url 'account_share_settings' pk=account.id %}">
                 <i class="fa-solid fa-share fa-fw"></i></a>
                 {% endif %}
+                <a class="btn btn-secondary btn-sm"
+                   role="button"
+                   hx-get="{% url 'account_toggle_untracked' pk=account.id %}"
+                   data-bs-toggle="tooltip"
+                   data-bs-title="{% if account.is_untracked_by %}{% translate "Track" %}{% else %}{% translate "Untrack" %}{% endif %}">
+                  {% if account.is_untracked_by %}
+                    <i class="fa-solid fa-eye fa-fw"></i>
+                  {% else %}
+                    <i class="fa-solid fa-eye-slash fa-fw"></i>
+                  {% endif %}
+                </a>
               </div>
             </td>
             <td class="col">{{ account.name }}</td>

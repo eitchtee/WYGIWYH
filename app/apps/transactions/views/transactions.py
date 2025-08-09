@@ -589,7 +589,10 @@ def transaction_all_currency_summary(request):
 
     f = TransactionsFilter(request.GET, queryset=transactions)
 
-    currency_data = calculate_currency_totals(f.qs.all(), ignore_empty=True)
+    currency_data = calculate_currency_totals(
+        f.qs.exclude(account__in=request.user.untracked_accounts.all()),
+        ignore_empty=True,
+    )
     currency_percentages = calculate_percentage_distribution(currency_data)
 
     context = {

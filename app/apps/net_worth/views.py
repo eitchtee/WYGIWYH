@@ -27,10 +27,12 @@ def net_worth(request):
         view_type = request.session.get("networth_view_type", "current")
 
     if view_type == "current":
-        transactions_currency_queryset = Transaction.objects.filter(
-            is_paid=True, account__is_archived=False
-        ).order_by(
-            "account__currency__name",
+        transactions_currency_queryset = (
+            Transaction.objects.filter(is_paid=True, account__is_archived=False)
+            .order_by(
+                "account__currency__name",
+            )
+            .exclude(account__in=request.user.untracked_accounts.all())
         )
         transactions_account_queryset = Transaction.objects.filter(
             is_paid=True, account__is_archived=False
@@ -39,10 +41,12 @@ def net_worth(request):
             "account__name",
         )
     else:
-        transactions_currency_queryset = Transaction.objects.filter(
-            account__is_archived=False
-        ).order_by(
-            "account__currency__name",
+        transactions_currency_queryset = (
+            Transaction.objects.filter(account__is_archived=False)
+            .order_by(
+                "account__currency__name",
+            )
+            .exclude(account__in=request.user.untracked_accounts.all())
         )
         transactions_account_queryset = Transaction.objects.filter(
             account__is_archived=False

@@ -33,7 +33,7 @@
             </div>
           {% endif %}
         </div>
-        <div class="col-lg col-12 {% if transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
+        <div class="col-lg col-12 {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
           {#      Date#}
           <div class="row mb-2 mb-lg-1 tw:text-gray-400">
             <div class="col-auto pe-1"><i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i></div>
@@ -91,7 +91,7 @@
             {% endwith %}
           </div>
         </div>
-        <div class="col-lg-auto col-12 text-lg-end align-self-end {% if transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
+        <div class="col-lg-auto col-12 text-lg-end align-self-end {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
           <div class="main-amount mb-2 mb-lg-0">
             <c-amount.display
                 :amount="transaction.amount"
@@ -146,16 +146,26 @@
                   <i class="fa-solid fa-ellipsis fa-fw"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
-                  {% if transaction.category.mute %}
-                  <li>
-                    <a class="dropdown-item disabled d-flex align-items-center" aria-disabled="true">
-                      <i class="fa-solid fa-eye fa-fw me-2"></i>
-                      <div>
-                        {% translate 'Show on summaries' %}
-                        <div class="d-block text-body-secondary tw:text-xs tw:font-medium">{% translate 'Controlled by category' %}</div>
-                      </div>
-                    </a>
-                  </li>
+                  {% if transaction.account.is_untracked_by %}
+                    <li>
+                      <a class="dropdown-item disabled d-flex align-items-center" aria-disabled="true">
+                        <i class="fa-solid fa-eye fa-fw me-2"></i>
+                        <div>
+                          {% translate 'Show on summaries' %}
+                          <div class="d-block text-body-secondary tw:text-xs tw:font-medium">{% translate 'Controlled by account' %}</div>
+                        </div>
+                      </a>
+                    </li>
+                  {% elif transaction.category.mute %}
+                    <li>
+                      <a class="dropdown-item disabled d-flex align-items-center" aria-disabled="true">
+                        <i class="fa-solid fa-eye fa-fw me-2"></i>
+                        <div>
+                          {% translate 'Show on summaries' %}
+                          <div class="d-block text-body-secondary tw:text-xs tw:font-medium">{% translate 'Controlled by category' %}</div>
+                        </div>
+                      </a>
+                    </li>
                   {% elif transaction.mute %}
                     <li><a class="dropdown-item" href="#" hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}" hx-target="closest .transaction" hx-swap="outerHTML"><i class="fa-solid fa-eye fa-fw me-2"></i>{% translate 'Show on summaries' %}</a></li>
                   {% else %}
