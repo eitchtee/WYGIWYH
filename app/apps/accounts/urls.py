@@ -31,6 +31,11 @@ urlpatterns = [
         views.account_take_ownership,
         name="account_take_ownership",
     ),
+    path(
+        "account/<int:pk>/toggle-untracked/",
+        views.account_toggle_untracked,
+        name="account_toggle_untracked",
+    ),
     path("account-groups/", views.account_groups_index, name="account_groups_index"),
     path("account-groups/list/", views.account_groups_list, name="account_groups_list"),
     path("account-groups/add/", views.account_group_add, name="account_group_add"),

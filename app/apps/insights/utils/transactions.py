@@ -95,4 +95,6 @@ def get_transactions(request, include_unpaid=True, include_silent=False):
             Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True)
         )
 
+    transactions = transactions.exclude(account__in=request.user.untracked_accounts.all())
+
     return transactions

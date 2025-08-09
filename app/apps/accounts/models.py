@@ -62,6 +62,11 @@ class Account(SharedObject):
         verbose_name=_("Archived"),
         help_text=_("Archived accounts don't show up nor count towards your net worth"),
     )
+    untracked_by = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name="untracked_accounts",
+    )
 
     objects = SharedObjectManager()
     all_objects = models.Manager()  # Unfiltered manager
@@ -74,6 +79,9 @@ class Account(SharedObject):
 
     def __str__(self):
         return self.name
+
+    def is_untracked_by(self, user):
+        return self.untracked_by.filter(pk=user.pk).exists()
 
     def clean(self):
         super().clean()

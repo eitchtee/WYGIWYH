@@ -107,9 +107,15 @@ def transactions_list(request, month: int, year: int):
 @require_http_methods(["GET"])
 def monthly_summary(request, month: int, year: int):
     # Base queryset with all required filters
-    base_queryset = Transaction.objects.filter(
-        reference_date__year=year, reference_date__month=month, account__is_asset=False
-    ).exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
+    base_queryset = (
+        Transaction.objects.filter(
+            reference_date__year=year,
+            reference_date__month=month,
+            account__is_asset=False,
+        )
+        .exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
+        .exclude(account__in=request.user.untracked_accounts.all())
+    )
 
     data = calculate_currency_totals(base_queryset, ignore_empty=True)
     percentages = calculate_percentage_distribution(data)

@@ -157,6 +157,26 @@ def account_delete(request, pk):
 
 @only_htmx
 @login_required
+@require_http_methods(["POST"])
+def account_toggle_untracked(request, pk):
+    account = get_object_or_404(Account, id=pk)
+    if account.is_untracked_by(request.user):
+        account.untracked_by.remove(request.user)
+        messages.success(request, _("Account is now tracked."))
+    else:
+        account.untracked_by.add(request.user)
+        messages.success(request, _("Account is now untracked."))
+
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": "updated",
+        },
+    )
+
+
+@only_htmx
+@login_required
 @require_http_methods(["GET"])
 def account_take_ownership(request, pk):
     account = get_object_or_404(Account, id=pk)

@@ -95,6 +95,7 @@ def yearly_overview_by_currency(request, year: int):
     transactions = (
         Transaction.objects.filter(**filter_params)
         .exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
+        .exclude(account__in=request.user.untracked_accounts.all())
         .order_by("account__currency__name")
     )
 
