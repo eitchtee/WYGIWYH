@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-08 02:41+0000\n"
+"POT-Creation-Date: 2025-08-09 06:57+0000\n"
 "PO-Revision-Date: 2025-08-08 06:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -172,7 +172,7 @@ msgstr ""
 "Gearchiveerde rekeningen worden niet weergegeven en tellen niet mee voor je "
 "\"Netto Waarde\""
 
-#: apps/accounts/models.py:70 apps/rules/forms.py:166 apps/rules/forms.py:179
+#: apps/accounts/models.py:75 apps/rules/forms.py:166 apps/rules/forms.py:179
 #: apps/rules/models.py:30 apps/rules/models.py:242
 #: apps/transactions/forms.py:62 apps/transactions/forms.py:276
 #: apps/transactions/forms.py:659 apps/transactions/forms.py:920
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Account"
 msgstr "Rekening"
 
-#: apps/accounts/models.py:71 apps/export_app/forms.py:20
+#: apps/accounts/models.py:76 apps/export_app/forms.py:20
 #: apps/export_app/forms.py:132 apps/transactions/filters.py:53
 #: templates/accounts/fragments/list.html:5
 #: templates/accounts/pages/index.html:4 templates/includes/navbar.html:117
@@ -198,7 +198,7 @@ msgstr "Rekening"
 msgid "Accounts"
 msgstr "Rekeningen"
 
-#: apps/accounts/models.py:84
+#: apps/accounts/models.py:93
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr ""
 "Eenheid wisselgeld kan niet dezelfde zijn als de munteenheid van de rekening."
@@ -235,7 +235,7 @@ msgid "Account Group deleted successfully"
 msgstr "Rekeninggroep succesvol verwijderd"
 
 #: apps/accounts/views/account_groups.py:135
-#: apps/accounts/views/accounts.py:169 apps/dca/views.py:129
+#: apps/accounts/views/accounts.py:189 apps/dca/views.py:129
 #: apps/rules/views.py:187 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
@@ -259,6 +259,14 @@ msgstr "Rekening succesvol bijgewerkt"
 #: apps/accounts/views/accounts.py:148
 msgid "Account deleted successfully"
 msgstr "Rekening succesvol verwijderd"
+
+#: apps/accounts/views/accounts.py:165
+msgid "Account is now tracked"
+msgstr ""
+
+#: apps/accounts/views/accounts.py:168
+msgid "Account is now untracked"
+msgstr ""
 
 #: apps/accounts/views/balance.py:77
 msgid "Balance reconciliation"
@@ -923,7 +931,7 @@ msgstr "Bewerk verrichtingsactie"
 msgid "Update or create transaction actions"
 msgstr "Bewerk of maak verrichtingsregel acties"
 
-#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:176
+#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:186
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:24
@@ -1994,7 +2002,7 @@ msgstr "Bewerken"
 #: templates/accounts/fragments/list.html:48
 #: templates/categories/fragments/table.html:36
 #: templates/cotton/transaction/item.html:136
-#: templates/cotton/transaction/item.html:182
+#: templates/cotton/transaction/item.html:192
 #: templates/cotton/ui/deleted_transactions_action_bar.html:55
 #: templates/cotton/ui/transactions_action_bar.html:90
 #: templates/currencies/fragments/list.html:44
@@ -2021,7 +2029,7 @@ msgstr "Verwijderen"
 #: templates/accounts/fragments/list.html:52
 #: templates/categories/fragments/table.html:41
 #: templates/cotton/transaction/item.html:140
-#: templates/cotton/transaction/item.html:186
+#: templates/cotton/transaction/item.html:196
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:92
 #: templates/currencies/fragments/list.html:48
@@ -2051,7 +2059,7 @@ msgstr "Weet je het zeker?"
 #: templates/accounts/fragments/list.html:53
 #: templates/categories/fragments/table.html:42
 #: templates/cotton/transaction/item.html:141
-#: templates/cotton/transaction/item.html:187
+#: templates/cotton/transaction/item.html:197
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:93
 #: templates/currencies/fragments/list.html:49
@@ -2073,7 +2081,7 @@ msgstr "Je kunt dit niet meer terugdraaien!"
 #: templates/accounts/fragments/list.html:54
 #: templates/categories/fragments/table.html:43
 #: templates/cotton/transaction/item.html:142
-#: templates/cotton/transaction/item.html:188
+#: templates/cotton/transaction/item.html:198
 #: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:50
@@ -2154,7 +2162,15 @@ msgstr "Rekening bewerken"
 msgid "Is Asset"
 msgstr "Is Vermogen"
 
-#: templates/accounts/fragments/list.html:87
+#: templates/accounts/fragments/list.html:78
+msgid "Track"
+msgstr ""
+
+#: templates/accounts/fragments/list.html:78
+msgid "Untrack"
+msgstr ""
+
+#: templates/accounts/fragments/list.html:98
 msgid "No accounts"
 msgstr "Geen rekeningen"
 
@@ -2236,35 +2252,42 @@ msgid "Select"
 msgstr "Selecteer"
 
 #: templates/cotton/transaction/item.html:154
-#: templates/cotton/transaction/item.html:160
+#: templates/cotton/transaction/item.html:164
+#: templates/cotton/transaction/item.html:170
 msgid "Show on summaries"
 msgstr "Toon op samenvattingen"
 
 #: templates/cotton/transaction/item.html:155
+#, fuzzy
+#| msgid "Controlled by category"
+msgid "Controlled by account"
+msgstr "Gecontroleerd door categorie"
+
+#: templates/cotton/transaction/item.html:165
 msgid "Controlled by category"
 msgstr "Gecontroleerd door categorie"
 
-#: templates/cotton/transaction/item.html:162
+#: templates/cotton/transaction/item.html:172
 msgid "Hide from summaries"
 msgstr "Verbergen in samenvattingen"
 
-#: templates/cotton/transaction/item.html:164
+#: templates/cotton/transaction/item.html:174
 msgid "Add as quick transaction"
 msgstr "Toevoegen als snelle transactie"
 
-#: templates/cotton/transaction/item.html:166
+#: templates/cotton/transaction/item.html:176
 msgid "Move to previous month"
 msgstr "Ga naar vorige maand"
 
-#: templates/cotton/transaction/item.html:167
+#: templates/cotton/transaction/item.html:177
 msgid "Move to next month"
 msgstr "Ga naar volgende maand"
 
-#: templates/cotton/transaction/item.html:168
+#: templates/cotton/transaction/item.html:178
 msgid "Move to today"
 msgstr "Ga naar vandaag"
 
-#: templates/cotton/transaction/item.html:170
+#: templates/cotton/transaction/item.html:180
 #: templates/cotton/ui/transactions_action_bar.html:82
 msgid "Duplicate"
 msgstr "Dupliceren"

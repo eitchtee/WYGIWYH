@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-08 02:41+0000\n"
+"POT-Creation-Date: 2025-08-09 06:57+0000\n"
 "PO-Revision-Date: 2025-04-14 06:16+0000\n"
 "Last-Translator: Emil <emil.bjorkroth@gmail.com>\n"
 "Language-Team: Swedish <https://translations.herculino.com/projects/wygiwyh/"
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Archived accounts don't show up nor count towards your net worth"
 msgstr ""
 
-#: apps/accounts/models.py:70 apps/rules/forms.py:166 apps/rules/forms.py:179
+#: apps/accounts/models.py:75 apps/rules/forms.py:166 apps/rules/forms.py:179
 #: apps/rules/models.py:30 apps/rules/models.py:242
 #: apps/transactions/forms.py:62 apps/transactions/forms.py:276
 #: apps/transactions/forms.py:659 apps/transactions/forms.py:920
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: apps/accounts/models.py:71 apps/export_app/forms.py:20
+#: apps/accounts/models.py:76 apps/export_app/forms.py:20
 #: apps/export_app/forms.py:132 apps/transactions/filters.py:53
 #: templates/accounts/fragments/list.html:5
 #: templates/accounts/pages/index.html:4 templates/includes/navbar.html:117
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Accounts"
 msgstr ""
 
-#: apps/accounts/models.py:84
+#: apps/accounts/models.py:93
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr ""
 
@@ -230,7 +230,7 @@ msgid "Account Group deleted successfully"
 msgstr ""
 
 #: apps/accounts/views/account_groups.py:135
-#: apps/accounts/views/accounts.py:169 apps/dca/views.py:129
+#: apps/accounts/views/accounts.py:189 apps/dca/views.py:129
 #: apps/rules/views.py:187 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
@@ -253,6 +253,14 @@ msgstr ""
 
 #: apps/accounts/views/accounts.py:148
 msgid "Account deleted successfully"
+msgstr ""
+
+#: apps/accounts/views/accounts.py:165
+msgid "Account is now tracked"
+msgstr ""
+
+#: apps/accounts/views/accounts.py:168
+msgid "Account is now untracked"
 msgstr ""
 
 #: apps/accounts/views/balance.py:77
@@ -901,7 +909,7 @@ msgstr ""
 msgid "Update or create transaction actions"
 msgstr ""
 
-#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:176
+#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:186
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:24
@@ -1955,7 +1963,7 @@ msgstr ""
 #: templates/accounts/fragments/list.html:48
 #: templates/categories/fragments/table.html:36
 #: templates/cotton/transaction/item.html:136
-#: templates/cotton/transaction/item.html:182
+#: templates/cotton/transaction/item.html:192
 #: templates/cotton/ui/deleted_transactions_action_bar.html:55
 #: templates/cotton/ui/transactions_action_bar.html:90
 #: templates/currencies/fragments/list.html:44
@@ -1982,7 +1990,7 @@ msgstr ""
 #: templates/accounts/fragments/list.html:52
 #: templates/categories/fragments/table.html:41
 #: templates/cotton/transaction/item.html:140
-#: templates/cotton/transaction/item.html:186
+#: templates/cotton/transaction/item.html:196
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:92
 #: templates/currencies/fragments/list.html:48
@@ -2012,7 +2020,7 @@ msgstr ""
 #: templates/accounts/fragments/list.html:53
 #: templates/categories/fragments/table.html:42
 #: templates/cotton/transaction/item.html:141
-#: templates/cotton/transaction/item.html:187
+#: templates/cotton/transaction/item.html:197
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:93
 #: templates/currencies/fragments/list.html:49
@@ -2034,7 +2042,7 @@ msgstr ""
 #: templates/accounts/fragments/list.html:54
 #: templates/categories/fragments/table.html:43
 #: templates/cotton/transaction/item.html:142
-#: templates/cotton/transaction/item.html:188
+#: templates/cotton/transaction/item.html:198
 #: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:50
@@ -2115,7 +2123,15 @@ msgstr ""
 msgid "Is Asset"
 msgstr ""
 
-#: templates/accounts/fragments/list.html:87
+#: templates/accounts/fragments/list.html:78
+msgid "Track"
+msgstr ""
+
+#: templates/accounts/fragments/list.html:78
+msgid "Untrack"
+msgstr ""
+
+#: templates/accounts/fragments/list.html:98
 msgid "No accounts"
 msgstr ""
 
@@ -2197,35 +2213,40 @@ msgid "Select"
 msgstr ""
 
 #: templates/cotton/transaction/item.html:154
-#: templates/cotton/transaction/item.html:160
+#: templates/cotton/transaction/item.html:164
+#: templates/cotton/transaction/item.html:170
 msgid "Show on summaries"
 msgstr ""
 
 #: templates/cotton/transaction/item.html:155
+msgid "Controlled by account"
+msgstr ""
+
+#: templates/cotton/transaction/item.html:165
 msgid "Controlled by category"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:162
+#: templates/cotton/transaction/item.html:172
 msgid "Hide from summaries"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:164
+#: templates/cotton/transaction/item.html:174
 msgid "Add as quick transaction"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:166
+#: templates/cotton/transaction/item.html:176
 msgid "Move to previous month"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:167
+#: templates/cotton/transaction/item.html:177
 msgid "Move to next month"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:168
+#: templates/cotton/transaction/item.html:178
 msgid "Move to today"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:170
+#: templates/cotton/transaction/item.html:180
 #: templates/cotton/ui/transactions_action_bar.html:82
 msgid "Duplicate"
 msgstr ""
