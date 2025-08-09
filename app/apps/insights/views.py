@@ -74,7 +74,7 @@ def index(request):
 def sankey_by_account(request):
     # Get filtered transactions
 
-    transactions = get_transactions(request)
+    transactions = get_transactions(request, include_untracked_accounts=True)
 
     # Generate Sankey data
     sankey_data = generate_sankey_data_by_account(transactions)
