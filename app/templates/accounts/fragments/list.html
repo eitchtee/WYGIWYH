@@ -73,15 +73,13 @@
                 {% endif %}
                 <a class="btn btn-secondary btn-sm"
                    role="button"
-                   hx-post="{% url 'account_toggle_untracked' pk=account.id %}"
-                   hx-trigger='updated from:body'
-                   hx-swap="none"
+                   hx-get="{% url 'account_toggle_untracked' pk=account.id %}"
                    data-bs-toggle="tooltip"
-                   data-bs-title="{% if account.is_untracked_by user %}{% translate "Track" %}{% else %}{% translate "Untrack" %}{% endif %}">
-                  {% if account.is_untracked_by user %}
-                    <i class="fa-solid fa-eye-slash fa-fw"></i>
-                  {% else %}
+                   data-bs-title="{% if account.is_untracked_by %}{% translate "Track" %}{% else %}{% translate "Untrack" %}{% endif %}">
+                  {% if account.is_untracked_by %}
                     <i class="fa-solid fa-eye fa-fw"></i>
+                  {% else %}
+                    <i class="fa-solid fa-eye-slash fa-fw"></i>
                   {% endif %}
                 </a>
               </div>

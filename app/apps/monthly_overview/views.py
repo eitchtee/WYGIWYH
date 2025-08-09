@@ -171,10 +171,14 @@ def monthly_account_summary(request, month: int, year: int):
 @require_http_methods(["GET"])
 def monthly_currency_summary(request, month: int, year: int):
     # Base queryset with all required filters
-    base_queryset = Transaction.objects.filter(
-        reference_date__year=year,
-        reference_date__month=month,
-    ).exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
+    base_queryset = (
+        Transaction.objects.filter(
+            reference_date__year=year,
+            reference_date__month=month,
+        )
+        .exclude(Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True))
+        .exclude(account__in=request.user.untracked_accounts.all())
+    )
 
     currency_data = calculate_currency_totals(base_queryset.all(), ignore_empty=True)
     currency_percentages = calculate_percentage_distribution(currency_data)
