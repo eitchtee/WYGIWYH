@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-09 06:57+0000\n"
-"PO-Revision-Date: 2025-08-08 06:17+0000\n"
+"PO-Revision-Date: 2025-08-09 10:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -262,11 +262,11 @@ msgstr "Rekening succesvol verwijderd"
 
 #: apps/accounts/views/accounts.py:165
 msgid "Account is now tracked"
-msgstr ""
+msgstr "Account wordt nu bijgehouden"
 
 #: apps/accounts/views/accounts.py:168
 msgid "Account is now untracked"
-msgstr ""
+msgstr "Account wordt nu niet meer bijgehouden"
 
 #: apps/accounts/views/balance.py:77
 msgid "Balance reconciliation"
@@ -639,14 +639,14 @@ msgstr ""
 "ingestelde wisselkoers."
 
 #: apps/currencies/models.py:154
-#, fuzzy
-#| msgid "Edit exchange rate"
 msgid "Single exchange rate"
-msgstr "Wisselkoers bewerken"
+msgstr "Enkele Wisselkoers"
 
 #: apps/currencies/models.py:157
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
+"Maak één wisselkoers aan en houd deze bijgewerkt. Voorkomt een overvolle "
+"database."
 
 #: apps/currencies/models.py:162
 msgid "Exchange Rate Service"
@@ -2164,11 +2164,11 @@ msgstr "Is Vermogen"
 
 #: templates/accounts/fragments/list.html:78
 msgid "Track"
-msgstr ""
+msgstr "Gevolgd"
 
 #: templates/accounts/fragments/list.html:78
 msgid "Untrack"
-msgstr ""
+msgstr "Niet gevolgd"
 
 #: templates/accounts/fragments/list.html:98
 msgid "No accounts"
@@ -2258,10 +2258,8 @@ msgid "Show on summaries"
 msgstr "Toon op samenvattingen"
 
 #: templates/cotton/transaction/item.html:155
-#, fuzzy
-#| msgid "Controlled by category"
 msgid "Controlled by account"
-msgstr "Gecontroleerd door categorie"
+msgstr "Gecontroleerd door account"
 
 #: templates/cotton/transaction/item.html:165
 msgid "Controlled by category"
