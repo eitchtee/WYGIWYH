@@ -18,11 +18,13 @@ def get_format(format_type=None, lang=None, use_l10n=None):
                 return "."
             elif number_format == "CD":
                 return ","
+            elif number_format == "SD" or number_format == "SC":
+                return " "
         elif format_type == "DECIMAL_SEPARATOR":
             number_format = getattr(user_settings, "number_format", None)
-            if number_format == "DC":
+            if number_format == "DC" or number_format == "SC":
                 return ","
-            elif number_format == "CD":
+            elif number_format == "CD" or number_format == "SD":
                 return "."
         elif format_type == "SHORT_DATE_FORMAT":
             date_format = getattr(user_settings, "date_format", None)

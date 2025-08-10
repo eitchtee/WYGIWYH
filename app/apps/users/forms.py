@@ -89,6 +89,8 @@ class UserSettingsForm(forms.ModelForm):
         ("AA", _("Default")),
         ("DC", "1.234,50"),
         ("CD", "1,234.50"),
+        ("SD", "1 234.50"),
+        ("SC", "1 234,50"),
     ]
 
     date_format = forms.ChoiceField(
