@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-10 15:35+0000\n"
-"PO-Revision-Date: 2025-08-12 09:47+0000\n"
+"PO-Revision-Date: 2025-08-12 11:17+0000\n"
 "Last-Translator: sorcierwax <freakywax@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
@@ -100,7 +100,7 @@ msgstr "Catégorie"
 #: templates/insights/fragments/category_overview/index.html:35
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
-msgstr "Balises"
+msgstr "Etiquettes"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
@@ -286,11 +286,11 @@ msgstr "Donnée de catégorie invalide. Veuillez fournir un ID ou un nom."
 
 #: apps/api/fields/transactions.py:70
 msgid "Tag with this ID does not exist."
-msgstr "Aucune balise avec cet ID n'existe."
+msgstr "Aucune étiquette avec cet ID n'existe."
 
 #: apps/api/fields/transactions.py:80
 msgid "Invalid tag data. Provide an ID or name."
-msgstr "Donnée de balise invalide. Veuillez fournir un ID ou un nom."
+msgstr "Donnée d'étiquette invalide. Veuillez fournir un ID ou un nom."
 
 #: apps/api/fields/transactions.py:105
 msgid "Entity with this ID does not exist."
@@ -734,7 +734,7 @@ msgstr "Compte bénéficiaire"
 
 #: apps/dca/forms.py:116 apps/dca/models.py:171
 msgid "Expense Transaction"
-msgstr "Transaction de dépense"
+msgstr "Transaction de dépenses"
 
 #: apps/dca/forms.py:120 apps/dca/forms.py:130
 msgid "Type to search for a transaction to link to this entry"
@@ -1046,7 +1046,7 @@ msgstr "Sans catégorie"
 #: templates/insights/fragments/category_explorer/charts/account.html:72
 #: templates/insights/fragments/category_explorer/charts/currency.html:72
 msgid "Current Income"
-msgstr "Revenu actuel"
+msgstr "Revenus à date"
 
 #: apps/insights/utils/category_explorer.py:70
 #: apps/insights/utils/category_explorer.py:149
@@ -1055,7 +1055,7 @@ msgstr "Revenu actuel"
 #: templates/insights/fragments/category_explorer/charts/account.html:66
 #: templates/insights/fragments/category_explorer/charts/currency.html:66
 msgid "Current Expenses"
-msgstr "Dépenses actuelles"
+msgstr "Dépenses à date"
 
 #: apps/insights/utils/category_explorer.py:74
 #: apps/insights/utils/category_explorer.py:153
@@ -1064,7 +1064,7 @@ msgstr "Dépenses actuelles"
 #: templates/insights/fragments/category_explorer/charts/account.html:78
 #: templates/insights/fragments/category_explorer/charts/currency.html:78
 msgid "Projected Income"
-msgstr "Revenues prévisionnelles"
+msgstr "Revenus prévisionnels"
 
 #: apps/insights/utils/category_explorer.py:78
 #: apps/insights/utils/category_explorer.py:157
@@ -1366,11 +1366,11 @@ msgstr "Silencieux"
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
-msgstr "Transfère"
+msgstr "Virement"
 
 #: apps/transactions/forms.py:822
 msgid "Tag name"
-msgstr "Nom de balise"
+msgstr "Libellé de l'étiquette"
 
 #: apps/transactions/forms.py:854
 msgid "Entity name"
@@ -1413,12 +1413,12 @@ msgstr "Catégories de transaction"
 msgid ""
 "Deactivated tags won't be able to be selected when creating new transactions"
 msgstr ""
-"Les balises désactivées ne pourront pas être sélectionnées lors de la "
-"créations de nouvelles transactions"
+"Les étiquettes désactivées ne pourront pas être sélectionnées lors de la "
+"création de nouvelles transactions"
 
 #: apps/transactions/models.py:248 apps/transactions/models.py:249
 msgid "Transaction Tags"
-msgstr "Balises de transaction"
+msgstr "Etiquettes de transaction"
 
 #: apps/transactions/models.py:264
 msgid ""
@@ -1442,7 +1442,7 @@ msgstr "Entité"
 #: templates/insights/fragments/category_overview/index.html:64
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
-msgstr "Revenue"
+msgstr "Revenu"
 
 #: apps/transactions/models.py:285 apps/transactions/models.py:913
 #: templates/calendar_view/fragments/list.html:46
@@ -1477,7 +1477,7 @@ msgstr "Transaction"
 
 #: apps/transactions/models.py:446 templates/tags/fragments/table.html:71
 msgid "No tags"
-msgstr "Pas de balises"
+msgstr "Aucunes étiquettes"
 
 #: apps/transactions/models.py:447
 msgid "No category"
@@ -1727,15 +1727,15 @@ msgstr "Transaction récurrente supprimée avec succès"
 
 #: apps/transactions/views/tags.py:66
 msgid "Tag added successfully"
-msgstr "Balise ajoutée avec succès"
+msgstr "Etiquette ajoutée avec succès"
 
 #: apps/transactions/views/tags.py:104
 msgid "Tag updated successfully"
-msgstr "Balise mise à jour avec succès"
+msgstr "Etiquette mise à jour avec succès"
 
 #: apps/transactions/views/tags.py:133
 msgid "Tag deleted successfully"
-msgstr "Balise supprimée avec succès"
+msgstr "Etiquette supprimée avec succès"
 
 #: apps/transactions/views/transactions.py:183
 msgid "Transaction updated successfully"
@@ -1762,7 +1762,7 @@ msgstr "Transaction restaurée avec succès"
 
 #: apps/transactions/views/transactions.py:355
 msgid "Transfer added successfully"
-msgstr "Transfert ajouté avec succès"
+msgstr "Virement ajouté avec succès"
 
 #: apps/users/admin.py:22 templates/users/fragments/user_settings.html:5
 msgid "User Settings"
@@ -1980,7 +1980,6 @@ msgstr "Editer un groupe de comptes"
 #: templates/rules/fragments/list.html:33
 #: templates/tags/fragments/table.html:23
 #: templates/users/fragments/list.html:38
-#, fuzzy
 msgid "Actions"
 msgstr "Actions"
 
@@ -2304,7 +2303,7 @@ msgstr "Dupliquer"
 #: templates/cotton/ui/account_card.html:15
 #: templates/cotton/ui/currency_card.html:10
 msgid "projected income"
-msgstr "Revenus previsionnels"
+msgstr "Revenus prévisionnels"
 
 #: templates/cotton/ui/account_card.html:41
 #: templates/cotton/ui/currency_card.html:36
@@ -2471,7 +2470,6 @@ msgid "Current Value"
 msgstr "Valeur à date"
 
 #: templates/dca/fragments/strategy/details.html:56
-#, fuzzy
 msgid "P/L"
 msgstr "P/L"
 
@@ -2502,17 +2500,16 @@ msgid "Average Entry Price"
 msgstr "Prix d'entrée moyen"
 
 #: templates/dca/fragments/strategy/details.html:191
-#, fuzzy
 msgid "Total P/L"
 msgstr "Total P/L"
 
 #: templates/dca/fragments/strategy/details.html:207
-#, fuzzy, python-format
+#, python-format
 msgid "Total %% P/L"
 msgstr "Total %% P/L"
 
 #: templates/dca/fragments/strategy/details.html:226
-#, fuzzy, python-format
+#, python-format
 msgid "P/L %%"
 msgstr "P/L %%"
 
@@ -2714,7 +2711,6 @@ msgid "Successful Items"
 msgstr "Eléments réussis"
 
 #: templates/import_app/fragments/runs/list.html:96
-#, fuzzy
 msgid "Logs"
 msgstr "Logs"
 
@@ -2797,7 +2793,6 @@ msgid "Only use this if you know what you're doing"
 msgstr "A n'utiliser que si vous savez ce que vous faites !"
 
 #: templates/includes/navbar.html:158 templates/includes/sidebar.html:245
-#, fuzzy
 msgid "Django Admin"
 msgstr "Django Admin"
 
@@ -2890,8 +2885,8 @@ msgid ""
 "Transaction amounts associated with multiple tags will be counted once for "
 "each tag"
 msgstr ""
-"Les montants des transactions avec plusieurs balises seront comptabilisée "
-"une fois par balise"
+"Les montants de transaction qui comprennent plusieurs étiquettes ne seront "
+"comptabilisée qu'une fois par étiquette"
 
 #: templates/insights/fragments/category_overview/index.html:54
 msgid "Final total"
@@ -2899,13 +2894,12 @@ msgstr "Total final"
 
 #: templates/insights/fragments/category_overview/index.html:66
 #: templates/monthly_overview/fragments/monthly_summary.html:167
-#, fuzzy
 msgid "Total"
 msgstr "Total"
 
 #: templates/insights/fragments/category_overview/index.html:166
 msgid "Untagged"
-msgstr "Sans balises"
+msgstr "Sans étiquettes"
 
 #: templates/insights/fragments/category_overview/index.html:406
 msgid "Final Total"
@@ -2978,228 +2972,191 @@ msgid "Date Range"
 msgstr "Plage de dates"
 
 #: templates/insights/pages/index.html:83
-#, fuzzy
 msgid "Account Flow"
-msgstr "Account Flow"
+msgstr "Mouvements de compte"
 
 #: templates/insights/pages/index.html:90
-#, fuzzy
 msgid "Currency Flow"
-msgstr "Currency Flow"
+msgstr "Mouvements de devises"
 
 #: templates/insights/pages/index.html:97
-#, fuzzy
 msgid "Category Explorer"
-msgstr "Category Explorer"
+msgstr "Balance par catégorie"
 
 #: templates/insights/pages/index.html:104
-#, fuzzy
 msgid "Categories Overview"
-msgstr "Categories Overview"
+msgstr "Aperçu par catégories"
 
 #: templates/insights/pages/index.html:111
-#, fuzzy
 msgid "Late Transactions"
-msgstr "Late Transactions"
+msgstr "Transactions en retard"
 
 #: templates/insights/pages/index.html:117
-#, fuzzy
 msgid "Latest Transactions"
-msgstr "Latest Transactions"
+msgstr "Transactions récentes"
 
 #: templates/insights/pages/index.html:123
-#, fuzzy
 msgid "Emergency Fund"
-msgstr "Emergency Fund"
+msgstr "Fonds de secours"
 
 #: templates/installment_plans/fragments/add.html:5
-#, fuzzy
 msgid "Add installment plan"
-msgstr "Add installment plan"
+msgstr "Ajouter un paiement en plusieurs fois"
 
 #: templates/installment_plans/fragments/edit.html:5
-#, fuzzy
 msgid "Edit installment plan"
-msgstr "Edit installment plan"
+msgstr "Modifier le paiement en plusieurs fois"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
 #: templates/installment_plans/fragments/table.html:37
-#, fuzzy
 msgid "Installments"
-msgstr "Installments"
+msgstr "Paiements en plusieurs fois"
 
 #: templates/installment_plans/fragments/table.html:45
-#, fuzzy
 msgid "Refresh"
-msgstr "Refresh"
+msgstr "Rafraichir"
 
 #: templates/installment_plans/fragments/table.html:51
-#, fuzzy
 msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
 msgstr ""
-"This will update all transactions associated with this plan and recreate "
-"missing ones"
+"Cela va mettre à jour toutes les transactions associées à ce paiement en "
+"plusieurs fois et créer celles qui manque."
 
 #: templates/installment_plans/fragments/table.html:52
-#, fuzzy
 msgid "Yes, refresh it!"
-msgstr "Yes, refresh it!"
+msgstr "Oui, mets à jour !"
 
 #: templates/installment_plans/fragments/table.html:63
-#, fuzzy
 msgid "This will delete the plan and all transactions associated with it"
-msgstr "This will delete the plan and all transactions associated with it"
+msgstr ""
+"Cela va supprimer le paiement en plusieurs fois ainsi que toutes les "
+"transactions associées."
 
 #: templates/installment_plans/fragments/table.html:91
-#, fuzzy
 msgid "No installment plans"
-msgstr "No installment plans"
+msgstr "Aucuns paiements en plusieurs fois"
 
 #: templates/layouts/base.html:43
-#, fuzzy
 msgid "This is a demo!"
-msgstr "This is a demo!"
+msgstr "C'est une démo !"
 
 #: templates/layouts/base.html:43
-#, fuzzy
 msgid "Any data you add here will be wiped in 24hrs or less"
-msgstr "Any data you add here will be wiped in 24hrs or less"
+msgstr "Toutes les données ajoutées ici seront purgées dans les 24 heures"
 
 #: templates/mini_tools/currency_converter/currency_converter.html:58
-#, fuzzy
 msgid "Invert"
-msgstr "Invert"
+msgstr "Inverser"
 
 #: templates/mini_tools/unit_price_calculator.html:27
 #: templates/mini_tools/unit_price_calculator.html:100
 #: templates/mini_tools/unit_price_calculator.html:125
-#, fuzzy
 msgid "Item price"
-msgstr "Item price"
+msgstr "Prix de l'élément"
 
 #: templates/mini_tools/unit_price_calculator.html:33
 #: templates/mini_tools/unit_price_calculator.html:106
 #: templates/mini_tools/unit_price_calculator.html:131
 #, fuzzy
 msgid "Item amount"
-msgstr "Item amount"
+msgstr "Montant de l'élément"
 
 #: templates/mini_tools/unit_price_calculator.html:38
 #: templates/mini_tools/unit_price_calculator.html:111
 #: templates/mini_tools/unit_price_calculator.html:136
-#, fuzzy
 msgid "Unit price"
-msgstr "Unit price"
+msgstr "Prix unitaire"
 
 #: templates/mini_tools/unit_price_calculator.html:94
 #: templates/mini_tools/unit_price_calculator.html:119
 #: templates/mini_tools/unit_price_calculator.html:158
-#, fuzzy
 msgid "Item"
-msgstr "Item"
+msgstr "Eléments"
 
 #: templates/monthly_overview/fragments/list.html:46
-#, fuzzy
 msgid "No transactions this month"
-msgstr "No transactions this month"
+msgstr "Aucunes transactions ce mois-ci"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
-#, fuzzy
 msgid "Daily Spending Allowance"
-msgstr "Daily Spending Allowance"
+msgstr "Montant disponible pour les dépenses quotidiennes"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
-#, fuzzy
 msgid "This is the final total divided by the remaining days in the month"
-msgstr "This is the final total divided by the remaining days in the month"
+msgstr "Total final divisé par le nombre de jour restant dans le mois"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 #: templates/monthly_overview/fragments/monthly_summary.html:106
 #: templates/monthly_overview/fragments/monthly_summary.html:170
-#, fuzzy
 msgid "current"
-msgstr "current"
+msgstr "A date"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:72
 #: templates/monthly_overview/fragments/monthly_summary.html:136
 #: templates/monthly_overview/fragments/monthly_summary.html:199
-#, fuzzy
 msgid "projected"
-msgstr "projected"
+msgstr "Prévisionnel"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:103
-#, fuzzy
 msgid "Expenses"
-msgstr "Expenses"
+msgstr "Dépenses"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:257
-#, fuzzy
 msgid "Distribution"
-msgstr "Distribution"
+msgstr "Répartition"
 
 #: templates/monthly_overview/pages/overview.html:68
-#, fuzzy
 msgid "Summary"
-msgstr "Summary"
+msgstr "Résumé"
 
 #: templates/monthly_overview/pages/overview.html:142
 #: templates/transactions/pages/transactions.html:17
-#, fuzzy
 msgid "Filter transactions"
-msgstr "Filter transactions"
+msgstr "Filtrer les transactions"
 
 #: templates/monthly_overview/pages/overview.html:148
 #: templates/transactions/pages/transactions.html:23
-#, fuzzy
 msgid "Order by"
-msgstr "Order by"
+msgstr "Trier par"
 
 #: templates/monthly_overview/pages/overview.html:155
 #: templates/transactions/pages/transactions.html:30
-#, fuzzy
 msgid "Oldest first"
-msgstr "Oldest first"
+msgstr "Plus ancien en premier"
 
 #: templates/monthly_overview/pages/overview.html:157
 #: templates/transactions/pages/transactions.html:32
-#, fuzzy
 msgid "Newest first"
-msgstr "Newest first"
+msgstr "Plus récent en premier"
 
 #: templates/net_worth/net_worth.html:40
 #: templates/yearly_overview/pages/overview_by_currency.html:9
-#, fuzzy
 msgid "By currency"
-msgstr "By currency"
+msgstr "Par devises"
 
 #: templates/net_worth/net_worth.html:75
-#, fuzzy
 msgid "Consolidated"
-msgstr "Consolidated"
+msgstr "Consolidé"
 
 #: templates/net_worth/net_worth.html:104
 #: templates/yearly_overview/pages/overview_by_account.html:7
-#, fuzzy
 msgid "By account"
-msgstr "By account"
+msgstr "Par comptes"
 
 #: templates/net_worth/net_worth.html:211
-#, fuzzy
 msgid "Evolution by currency"
-msgstr "Evolution by currency"
+msgstr "Evolution par devises"
 
 #: templates/net_worth/net_worth.html:275
-#, fuzzy
 msgid "Evolution by account"
-msgstr "Evolution by account"
+msgstr "Evolution par comptes"
 
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
-#, fuzzy
 msgid "Add quick transaction"
-msgstr "Add recurring transaction"
+msgstr "Ajouter une transaction rapide"
 
 #: templates/quick_transactions/fragments/create_menu.html:13
 #: templates/quick_transactions/fragments/list.html:68
@@ -3207,322 +3164,265 @@ msgid "Nothing to see here..."
 msgstr "Rien à voir ici..."
 
 #: templates/quick_transactions/fragments/edit.html:5
-#, fuzzy
 msgid "Edit quick transaction"
-msgstr "Edit transaction"
+msgstr "Modifier la transaction rapide"
 
 #: templates/quick_transactions/fragments/list.html:40
-#, fuzzy
 msgid "This will delete this item"
-msgstr "Yes, delete them!"
+msgstr "Cela va supprimer cet élément"
 
 #: templates/recurring_transactions/fragments/add.html:5
-#, fuzzy
 msgid "Add recurring transaction"
-msgstr "Add recurring transaction"
+msgstr "Ajouter une transaction  récurrente"
 
 #: templates/recurring_transactions/fragments/edit.html:5
-#, fuzzy
 msgid "Edit recurring transaction"
-msgstr "Edit recurring transaction"
+msgstr "Modifier la transaction récurrente"
 
 #: templates/recurring_transactions/fragments/table.html:49
-#, fuzzy
 msgid "Unpause"
-msgstr "Unpause"
+msgstr "Reprendre"
 
 #: templates/recurring_transactions/fragments/table.html:56
-#, fuzzy
 msgid "This will start creating new transactions until you pause it"
-msgstr "This will start creating new transactions until you pause it"
+msgstr ""
+"Cela va créer des nouvelles transactions jusqu'à ce que vous mettiez en pause"
 
 #: templates/recurring_transactions/fragments/table.html:57
-#, fuzzy
 msgid "Yes, unpause it!"
-msgstr "Yes, unpause it!"
+msgstr "Oui, reprendre !"
 
 #: templates/recurring_transactions/fragments/table.html:63
-#, fuzzy
 msgid "Pause"
-msgstr "Pause"
+msgstr "Mettre en pause"
 
 #: templates/recurring_transactions/fragments/table.html:70
-#, fuzzy
 msgid "This will stop the creation of new transactions until you unpause it"
-msgstr "This will stop the creation of new transactions until you unpause it"
+msgstr ""
+"Cela va interrompre la création de nouvelles transactions tant que c'est en "
+"pause."
 
 #: templates/recurring_transactions/fragments/table.html:71
-#, fuzzy
 msgid "Yes, pause it!"
-msgstr "Yes, pause it!"
+msgstr "Oui, mettre en pause !"
 
 #: templates/recurring_transactions/fragments/table.html:78
-#, fuzzy
 msgid "Finish"
-msgstr "Finish"
+msgstr "Clôturé"
 
 #: templates/recurring_transactions/fragments/table.html:85
-#, fuzzy
 msgid ""
 "This will stop the creation of new transactions and delete any unpaid "
 "transactions after today"
 msgstr ""
-"This will stop the creation of new transactions and delete any unpaid "
-"transactions after today"
+"Cela va interrompre la création de nouvelles transactions et supprimer "
+"toutes les transactions dues à partir d'aujourd'hui"
 
 #: templates/recurring_transactions/fragments/table.html:86
-#, fuzzy
 msgid "Yes, finish it!"
-msgstr "Yes, finish it!"
+msgstr "Oui, clôturé !"
 
 #: templates/recurring_transactions/fragments/table.html:99
-#, fuzzy
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
-"This will delete the recurrence and all transactions associated with it"
+"Cela va supprimer la transaction récurrente et toutes les transactions "
+"associées."
 
 #: templates/recurring_transactions/fragments/table.html:127
-#, fuzzy
 msgid "No recurring transactions"
-msgstr "No recurring transactions"
+msgstr "Aucunes transactions récurrentes"
 
 #: templates/rules/fragments/list.html:37
-#, fuzzy
 msgid "View"
-msgstr "View"
+msgstr "Vue"
 
 #: templates/rules/fragments/list.html:77
-#, fuzzy
 msgid "Deactivate"
-msgstr "Deactivate"
+msgstr "Désactiver"
 
 #: templates/rules/fragments/list.html:77
-#, fuzzy
 msgid "Activate"
-msgstr "Activate"
+msgstr "Activer"
 
 #: templates/rules/fragments/list.html:92
-#, fuzzy
 msgid "No rules"
-msgstr "No rules"
+msgstr "Aucunes règles"
 
 #: templates/rules/fragments/transaction_rule/add.html:5
-#, fuzzy
 msgid "Add transaction rule"
-msgstr "Add transaction rule"
+msgstr "Ajouter une règle de transaction"
 
 #: templates/rules/fragments/transaction_rule/edit.html:5
-#, fuzzy
 msgid "Edit transaction rule"
-msgstr "Edit transaction rule"
+msgstr "Modifier une règle de transaction"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/add.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/add.html:5
-#, fuzzy
 msgid "Add action to transaction rule"
-msgstr "Add action to transaction rule"
+msgstr "Ajouter une action à la règle de transaction"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/edit.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/edit.html:5
-#, fuzzy
 msgid "Edit transaction rule action"
-msgstr "Edit transaction rule action"
+msgstr "Modifier l'action de la règle de transaction"
 
 #: templates/rules/fragments/transaction_rule/view.html:5
-#, fuzzy
 msgid "Transaction Rule"
-msgstr "Transaction Rule"
+msgstr "Règle de transaction"
 
 #: templates/rules/fragments/transaction_rule/view.html:14
-#, fuzzy
 msgid "If transaction..."
-msgstr "If transaction..."
+msgstr "Si la transaction..."
 
 #: templates/rules/fragments/transaction_rule/view.html:32
-#, fuzzy
 msgid "Then..."
-msgstr "Then..."
+msgstr "Alors..."
 
 #: templates/rules/fragments/transaction_rule/view.html:36
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
-#, fuzzy
 msgid "Edit transaction"
-msgstr "Edit transaction"
+msgstr "Modifier la transaction"
 
 #: templates/rules/fragments/transaction_rule/view.html:39
-#, fuzzy
 msgid "Set"
-msgstr "Set"
+msgstr "Définir"
 
 #: templates/rules/fragments/transaction_rule/view.html:40
-#, fuzzy
 msgid "to"
-msgstr "to"
+msgstr "pour"
 
 #: templates/rules/fragments/transaction_rule/view.html:71
-#, fuzzy
 msgid "Update or create transaction"
-msgstr "Update or create transaction"
+msgstr "Mettre à jour ou créer une transaction"
 
 #: templates/rules/fragments/transaction_rule/view.html:74
-#, fuzzy
 msgid "Edit to view"
-msgstr "Edit to view"
+msgstr "Modifier pour visualiser"
 
 #: templates/rules/fragments/transaction_rule/view.html:104
-#, fuzzy
 msgid "This rule has no actions"
-msgstr "This rule has no actions"
+msgstr "Cette règle n'a pas d'actions"
 
 #: templates/rules/fragments/transaction_rule/view.html:112
-#, fuzzy
 msgid "Add new"
-msgstr "Add new"
+msgstr "Ajouter nouveau"
 
 #: templates/rules/fragments/transaction_rule/view.html:117
-#, fuzzy
 msgid "Edit Transaction"
-msgstr "Edit Transaction"
+msgstr "Modifier la transaction"
 
 #: templates/rules/fragments/transaction_rule/view.html:120
-#, fuzzy
 msgid "Update or Create Transaction"
-msgstr "Update or Create Transaction"
+msgstr "Mettre à jour ou créer une transaction"
 
 #: templates/tags/fragments/add.html:5
-#, fuzzy
 msgid "Add tag"
-msgstr "Add tag"
+msgstr "Ajouter une étiquette"
 
 #: templates/tags/fragments/edit.html:5
-#, fuzzy
 msgid "Edit tag"
-msgstr "Edit tag"
+msgstr "Modifier l'étiquette"
 
 #: templates/transactions/fragments/add.html:5
 #: templates/transactions/pages/add.html:5
-#, fuzzy
 msgid "New transaction"
-msgstr "New transaction"
+msgstr "Nouvelle transaction"
 
 #: templates/transactions/fragments/add_installment_plan.html:5
-#, fuzzy
 msgid "Add Installment Plan"
-msgstr "Add Installment Plan"
+msgstr "Ajouter un paiement en plusieurs fois"
 
 #: templates/transactions/fragments/bulk_edit.html:5
-#, fuzzy
 msgid "Bulk Editing"
-msgstr "Bulk Editing"
+msgstr "Modification en lot"
 
 #: templates/transactions/fragments/bulk_edit.html:8
-#, fuzzy
 msgid "Editing"
-msgstr "Editing"
+msgstr "Modification en cours"
 
 #: templates/transactions/fragments/bulk_edit.html:8
-#, fuzzy
 msgid "transactions"
 msgstr "transactions"
 
 #: templates/transactions/fragments/list_all.html:39
-#, fuzzy
 msgid "No transactions found"
-msgstr "No transactions found"
+msgstr "Aucunes transactions trouvées"
 
 #: templates/transactions/fragments/transfer.html:5
-#, fuzzy
 msgid "New transfer"
-msgstr "New transfer"
+msgstr "Nouveau virement"
 
 #: templates/transactions/fragments/trash_list.html:7
-#, fuzzy
 msgid "No deleted transactions to show"
-msgstr "No deleted transactions to show"
+msgstr "Aucunes transactions supprimées à afficher"
 
 #: templates/transactions/pages/trash.html:4
 #: templates/transactions/pages/trash.html:9
-#, fuzzy
 msgid "Deleted transactions"
-msgstr "Deleted transactions"
+msgstr "Transactions supprimées"
 
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:14
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
-#, fuzzy
 msgid "Unchanged"
-msgstr "Unchanged"
+msgstr "Identique"
 
 #: templates/users/fragments/add.html:5
-#, fuzzy
 msgid "Add user"
-msgstr "Add new"
+msgstr "Ajouter un nouvel utilisateur"
 
 #: templates/users/fragments/edit.html:5
-#, fuzzy
 msgid "Edit user"
-msgstr "Edit category"
+msgstr "Modifier l'utilisateur"
 
 #: templates/users/fragments/list.html:30
-#, fuzzy
 msgid "Email"
 msgstr "E-mail"
 
 #: templates/users/fragments/list.html:31
 msgid "Superuser"
-msgstr ""
+msgstr "Super Utilisateur"
 
 #: templates/users/fragments/list.html:51
 msgid "Impersonate"
 msgstr "Masquarade"
 
 #: templates/users/fragments/list.html:80
-#, fuzzy
-#| msgid "Users"
 msgid "No users"
-msgstr "Utilisateurs"
+msgstr "Aucuns utilisateurs"
 
 #: templates/users/generic/hide_amounts.html:2
-#, fuzzy
 msgid "Hide amounts"
-msgstr "Hide amounts"
+msgstr "Masques les montants"
 
 #: templates/users/generic/mute_sounds.html:2
-#, fuzzy
 msgid "Mute sounds"
-msgstr "Mute sounds"
+msgstr "Désactiver les sons"
 
 #: templates/users/generic/play_sounds.html:2
-#, fuzzy
 msgid "Play sounds"
-msgstr "Play sounds"
+msgstr "Activer les sons"
 
 #: templates/users/generic/show_amounts.html:2
-#, fuzzy
 msgid "Show amounts"
-msgstr "Show amounts"
+msgstr "Afficher les montants"
 
 #: templates/users/login.html:18
-#, fuzzy
 msgid "Welcome to WYGIWYH's demo!"
-msgstr "Welcome to WYGIWYH's demo!"
+msgstr "Bienvenue dans la démo de WYGIWYH !"
 
 #: templates/users/login.html:19
-#, fuzzy
 msgid "Use the credentials below to login"
-msgstr "Use the credentials below to login"
+msgstr "Utiliser les identifiants ci-dessous pour vous connecter"
 
 #: templates/users/login.html:40
-#, fuzzy
-#| msgid "ends with"
 msgid "Login with"
-msgstr "Fini par"
+msgstr "Se connecter avec"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
-#, fuzzy
 msgid "Yearly Overview"
-msgstr "Yearly Overview"
+msgstr "Aperçu annuel"
 
 #, fuzzy
 #~ msgid "Automatic"
