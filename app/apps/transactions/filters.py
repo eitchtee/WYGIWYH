@@ -60,26 +60,20 @@ class TransactionsFilter(django_filters.FilterSet):
         label=_("Currencies"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
     )
-    category = django_filters.ModelMultipleChoiceFilter(
-        field_name="category__name",
-        queryset=TransactionCategory.objects.all(),
-        to_field_name="name",
+    category = django_filters.MultipleChoiceFilter(
         label=_("Categories"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+        method="filter_category",
     )
-    tags = django_filters.ModelMultipleChoiceFilter(
-        field_name="tags__name",
-        queryset=TransactionTag.objects.all(),
-        to_field_name="name",
+    tags = django_filters.MultipleChoiceFilter(
         label=_("Tags"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+        method="filter_tags",
     )
-    entities = django_filters.ModelMultipleChoiceFilter(
-        field_name="entities__name",
-        queryset=TransactionEntity.objects.all(),
-        to_field_name="name",
+    entities = django_filters.MultipleChoiceFilter(
         label=_("Entities"),
         widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+        method="filter_entities",
     )
     is_paid = django_filters.MultipleChoiceFilter(
         choices=SITUACAO_CHOICES,
@@ -125,6 +119,7 @@ class TransactionsFilter(django_filters.FilterSet):
             "is_paid",
             "category",
             "tags",
+            "entities",
             "date_start",
             "date_end",
             "reference_date_start",
@@ -186,6 +181,93 @@ class TransactionsFilter(django_filters.FilterSet):
         self.form.fields["date_end"].widget = AirDatePickerInput()
 
         self.form.fields["account"].queryset = Account.objects.all()
-        self.form.fields["category"].queryset = TransactionCategory.objects.all()
-        self.form.fields["tags"].queryset = TransactionTag.objects.all()
-        self.form.fields["entities"].queryset = TransactionEntity.objects.all()
+        category_choices = list(
+            TransactionCategory.objects.values_list("name", "name").order_by("name")
+        )
+        custom_choices = [
+            ("any", _("Categorized")),
+            ("uncategorized", _("Uncategorized")),
+        ]
+        self.form.fields["category"].choices = custom_choices + category_choices
+        tag_choices = list(
+            TransactionTag.objects.values_list("name", "name").order_by("name")
+        )
+        custom_tag_choices = [("any", _("Tagged")), ("untagged", _("Untagged"))]
+        self.form.fields["tags"].choices = custom_tag_choices + tag_choices
+        entity_choices = list(
+            TransactionEntity.objects.values_list("name", "name").order_by("name")
+        )
+        custom_entity_choices = [
+            ("any", _("Any entity")),
+            ("no_entity", _("No entity")),
+        ]
+        self.form.fields["entities"].choices = custom_entity_choices + entity_choices
+
+    @staticmethod
+    def filter_category(queryset, name, value):
+        if not value:
+            return queryset
+
+        value = list(value)
+
+        if "any" in value:
+            return queryset.filter(category__isnull=False)
+
+        q = Q()
+        if "uncategorized" in value:
+            q |= Q(category__isnull=True)
+            value.remove("uncategorized")
+
+        if value:
+            q |= Q(category__name__in=value)
+
+        if q.children:
+            return queryset.filter(q)
+
+        return queryset
+
+    @staticmethod
+    def filter_tags(queryset, name, value):
+        if not value:
+            return queryset
+
+        value = list(value)
+
+        if "any" in value:
+            return queryset.filter(tags__isnull=False).distinct()
+
+        q = Q()
+        if "untagged" in value:
+            q |= Q(tags__isnull=True)
+            value.remove("untagged")
+
+        if value:
+            q |= Q(tags__name__in=value)
+
+        if q.children:
+            return queryset.filter(q).distinct()
+
+        return queryset
+
+    @staticmethod
+    def filter_entities(queryset, name, value):
+        if not value:
+            return queryset
+
+        value = list(value)
+
+        if "any" in value:
+            return queryset.filter(entities__isnull=False).distinct()
+
+        q = Q()
+        if "no_entity" in value:
+            q |= Q(entities__isnull=True)
+            value.remove("no_entity")
+
+        if value:
+            q |= Q(entities__name__in=value)
+
+        if q.children:
+            return queryset.filter(q).distinct()
+
+        return queryset
