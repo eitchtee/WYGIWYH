@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-10 15:35+0000\n"
+"POT-Creation-Date: 2025-08-15 15:31+0000\n"
 "PO-Revision-Date: 2025-04-14 06:16+0000\n"
 "Last-Translator: Emil <emil.bjorkroth@gmail.com>\n"
 "Language-Team: Swedish <https://translations.herculino.com/projects/wygiwyh/"
@@ -90,7 +90,7 @@ msgstr ""
 #: apps/accounts/forms.py:128 apps/dca/forms.py:101 apps/dca/forms.py:109
 #: apps/export_app/forms.py:44 apps/export_app/forms.py:135
 #: apps/rules/forms.py:177 apps/rules/forms.py:186 apps/rules/models.py:39
-#: apps/rules/models.py:290 apps/transactions/filters.py:74
+#: apps/rules/models.py:290 apps/transactions/filters.py:69
 #: apps/transactions/forms.py:50 apps/transactions/forms.py:264
 #: apps/transactions/forms.py:471 apps/transactions/forms.py:479
 #: apps/transactions/forms.py:667 apps/transactions/forms.py:928
@@ -826,7 +826,7 @@ msgid "Transactions"
 msgstr ""
 
 #: apps/export_app/forms.py:38 apps/export_app/forms.py:134
-#: apps/transactions/filters.py:67 templates/categories/fragments/list.html:5
+#: apps/transactions/filters.py:64 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:109
 #: templates/includes/sidebar.html:162
 msgid "Categories"
@@ -834,7 +834,7 @@ msgstr ""
 
 #: apps/export_app/forms.py:50 apps/export_app/forms.py:136
 #: apps/rules/forms.py:178 apps/rules/forms.py:187 apps/rules/models.py:40
-#: apps/rules/models.py:282 apps/transactions/filters.py:81
+#: apps/rules/models.py:282 apps/transactions/filters.py:74
 #: apps/transactions/forms.py:58 apps/transactions/forms.py:272
 #: apps/transactions/forms.py:682 apps/transactions/forms.py:943
 #: apps/transactions/models.py:273 apps/transactions/models.py:329
@@ -1008,7 +1008,7 @@ msgid "Run deleted successfully"
 msgstr ""
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
-#: apps/insights/utils/sankey.py:167
+#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:189
 #: templates/insights/fragments/category_overview/index.html:73
 #: templates/insights/fragments/category_overview/index.html:284
 #: templates/insights/fragments/category_overview/index.html:313
@@ -1284,24 +1284,45 @@ msgstr ""
 msgid "Transaction Type"
 msgstr ""
 
-#: apps/transactions/filters.py:91
+#: apps/transactions/filters.py:85
 msgid "Date from"
 msgstr ""
 
-#: apps/transactions/filters.py:96 apps/transactions/filters.py:106
+#: apps/transactions/filters.py:90 apps/transactions/filters.py:100
 msgid "Until"
 msgstr ""
 
-#: apps/transactions/filters.py:101
+#: apps/transactions/filters.py:95
 msgid "Reference date from"
 msgstr ""
 
-#: apps/transactions/filters.py:111
+#: apps/transactions/filters.py:105
 msgid "Amount min"
 msgstr ""
 
-#: apps/transactions/filters.py:116
+#: apps/transactions/filters.py:110
 msgid "Amount max"
+msgstr ""
+
+#: apps/transactions/filters.py:188
+msgid "Categorized"
+msgstr ""
+
+#: apps/transactions/filters.py:195
+msgid "Tagged"
+msgstr ""
+
+#: apps/transactions/filters.py:195
+#: templates/insights/fragments/category_overview/index.html:166
+msgid "Untagged"
+msgstr ""
+
+#: apps/transactions/filters.py:201
+msgid "Any entity"
+msgstr ""
+
+#: apps/transactions/filters.py:202
+msgid "No entity"
 msgstr ""
 
 #: apps/transactions/forms.py:173
@@ -2834,10 +2855,6 @@ msgstr ""
 #: templates/insights/fragments/category_overview/index.html:66
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
-msgstr ""
-
-#: templates/insights/fragments/category_overview/index.html:166
-msgid "Untagged"
 msgstr ""
 
 #: templates/insights/fragments/category_overview/index.html:406
