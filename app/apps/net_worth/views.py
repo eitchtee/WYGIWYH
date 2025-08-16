@@ -20,7 +20,6 @@ from apps.transactions.utils.calculations import (
 @require_http_methods(["GET"])
 def net_worth(request):
     if "view_type" in request.GET:
-        print(request.GET["view_type"])
         view_type = request.GET["view_type"]
         request.session["networth_view_type"] = view_type
     else:
