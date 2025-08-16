@@ -6,7 +6,7 @@
 
 {% block body %}
   <div class="container p-3">
-    <form method="post" action="{% url 'export_form' %}" id="export-form" class="show-loading px-1" _="on submit trigger hide_offcanvas" target="_blank">
+    <form hx-post="{% url 'export_form' %}" hx-ext="htmx-download" hx-swap="none" id="export-form" class="show-loading px-1" target="_blank">
       {% crispy form %}
     </form>
   </div>
