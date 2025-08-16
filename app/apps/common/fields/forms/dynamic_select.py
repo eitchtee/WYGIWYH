@@ -139,7 +139,6 @@ class DynamicModelMultipleChoiceField(forms.ModelMultipleChoiceField):
                     instance.save()
                     return instance
         except Exception as e:
-            print(e)
             raise ValidationError(_("Error creating new instance"))
 
     def clean(self, value):
