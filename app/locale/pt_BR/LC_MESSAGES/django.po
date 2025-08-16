@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-16 01:55+0000\n"
+"POT-Creation-Date: 2025-08-16 20:41+0000\n"
 "PO-Revision-Date: 2025-08-16 04:17+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -82,8 +82,8 @@ msgstr "Novo saldo"
 #: apps/transactions/forms.py:674 apps/transactions/forms.py:935
 #: apps/transactions/models.py:318 apps/transactions/models.py:501
 #: apps/transactions/models.py:701 apps/transactions/models.py:951
-#: templates/insights/fragments/category_overview/index.html:63
-#: templates/insights/fragments/category_overview/index.html:419
+#: templates/insights/fragments/category_overview/index.html:78
+#: templates/insights/fragments/category_overview/index.html:528
 msgid "Category"
 msgstr "Categoria"
 
@@ -97,7 +97,7 @@ msgstr "Categoria"
 #: apps/transactions/models.py:324 apps/transactions/models.py:503
 #: apps/transactions/models.py:705 apps/transactions/models.py:957
 #: templates/includes/navbar.html:111 templates/includes/sidebar.html:168
-#: templates/insights/fragments/category_overview/index.html:35
+#: templates/insights/fragments/category_overview/index.html:36
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Tags"
@@ -315,7 +315,7 @@ msgid "Shared with users"
 msgstr "Compartilhado com os usuários"
 
 #: apps/common/fields/forms/dynamic_select.py:71
-#: apps/common/fields/forms/dynamic_select.py:143
+#: apps/common/fields/forms/dynamic_select.py:142
 msgid "Error creating new instance"
 msgstr "Erro criando nova instância"
 
@@ -863,6 +863,7 @@ msgstr "Categorias"
 #: apps/transactions/models.py:962 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:113
 #: templates/includes/sidebar.html:174
+#: templates/insights/fragments/category_overview/index.html:49
 msgid "Entities"
 msgstr "Entidades"
 
@@ -1032,9 +1033,9 @@ msgstr "Importação apagada com sucesso"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:189
-#: templates/insights/fragments/category_overview/index.html:73
-#: templates/insights/fragments/category_overview/index.html:284
-#: templates/insights/fragments/category_overview/index.html:313
+#: templates/insights/fragments/category_overview/index.html:88
+#: templates/insights/fragments/category_overview/index.html:393
+#: templates/insights/fragments/category_overview/index.html:422
 msgid "Uncategorized"
 msgstr "Sem categoria"
 
@@ -1294,7 +1295,7 @@ msgstr "Ação Atualizar ou Criar Transação apagada com sucesso"
 
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:20
 #: templates/cotton/transaction/item.html:30 templates/includes/navbar.html:47
-#: templates/insights/fragments/category_overview/index.html:46
+#: templates/insights/fragments/category_overview/index.html:61
 #: templates/net_worth/net_worth.html:32
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
@@ -1338,7 +1339,7 @@ msgid "Tagged"
 msgstr "Com tag"
 
 #: apps/transactions/filters.py:195
-#: templates/insights/fragments/category_overview/index.html:166
+#: templates/insights/fragments/category_overview/index.html:181
 msgid "Untagged"
 msgstr "Sem tag"
 
@@ -1454,7 +1455,7 @@ msgstr "Entidade"
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
 #: templates/cotton/ui/transactions_fab.html:10
-#: templates/insights/fragments/category_overview/index.html:64
+#: templates/insights/fragments/category_overview/index.html:79
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Renda"
@@ -1466,7 +1467,7 @@ msgstr "Renda"
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
 #: templates/cotton/ui/transactions_fab.html:19
-#: templates/insights/fragments/category_overview/index.html:65
+#: templates/insights/fragments/category_overview/index.html:80
 msgid "Expense"
 msgstr "Despesa"
 
@@ -2249,7 +2250,7 @@ msgid "Muted"
 msgstr "Silenciada"
 
 #: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:429
+#: templates/insights/fragments/category_overview/index.html:538
 msgid "No categories"
 msgstr "Nenhum categoria"
 
@@ -2750,7 +2751,7 @@ msgid "Net Worth"
 msgstr "Patrimônio"
 
 #: templates/includes/navbar.html:45
-#: templates/insights/fragments/category_overview/index.html:50
+#: templates/insights/fragments/category_overview/index.html:65
 #: templates/net_worth/net_worth.html:22
 msgid "Current"
 msgstr "Atual"
@@ -2886,7 +2887,7 @@ msgstr "Tabela"
 msgid "Bars"
 msgstr "Barras"
 
-#: templates/insights/fragments/category_overview/index.html:38
+#: templates/insights/fragments/category_overview/index.html:39
 msgid ""
 "Transaction amounts associated with multiple tags will be counted once for "
 "each tag"
@@ -2894,16 +2895,28 @@ msgstr ""
 "Os valores das transações associadas a várias tags serão contados uma vez "
 "para cada tag"
 
-#: templates/insights/fragments/category_overview/index.html:54
+#: templates/insights/fragments/category_overview/index.html:52
+#, fuzzy
+#| msgid ""
+#| "Transaction amounts associated with multiple tags will be counted once "
+#| "for each tag"
+msgid ""
+"Transaction amounts associated with multiple tags and entities will be "
+"counted once for each tag"
+msgstr ""
+"Os valores das transações associadas a várias tags serão contados uma vez "
+"para cada tag"
+
+#: templates/insights/fragments/category_overview/index.html:69
 msgid "Final total"
 msgstr "Total final"
 
-#: templates/insights/fragments/category_overview/index.html:66
+#: templates/insights/fragments/category_overview/index.html:81
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr "Total"
 
-#: templates/insights/fragments/category_overview/index.html:406
+#: templates/insights/fragments/category_overview/index.html:515
 msgid "Final Total"
 msgstr "Total Final"
 
