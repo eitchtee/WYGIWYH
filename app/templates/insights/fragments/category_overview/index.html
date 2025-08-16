@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div hx-get="{% url 'category_overview' %}" hx-trigger="updated from:window" class="show-loading" hx-swap="outerHTML"
-     hx-include="#picker-form, #picker-type, #view-type, #show-tags, #showing">
+     hx-include="#picker-form, #picker-type, #view-type, #show-tags, #showing, #show-entities">
   <div class="h-100 text-center mb-4">
     <div class="btn-group gap-3" role="group" id="view-type" _="on change trigger updated">
       <input type="radio" class="btn-check"
@@ -25,19 +25,34 @@
     </div>
   </div>
   <div class="mt-3 mb-1 d-flex flex-column flex-md-row justify-content-between">
-    <div class="form-check form-switch" id="show-tags">
+    <div class="d-flex gap-4">
       {% if view_type == 'table' %}
-        <input type="hidden" name="show_tags" value="off">
-        <input class="form-check-input" type="checkbox" role="switch" id="show-tags-switch" name="show_tags"
-               _="on change trigger updated" {% if show_tags %}checked{% endif %}>
-        {% spaceless %}
-          <label class="form-check-label" for="show-tags-switch">
-            {% trans 'Tags' %}
-          </label>
-          <c-ui.help-icon
-              content="{% trans 'Transaction amounts associated with multiple tags will be counted once for each tag' %}"
-              icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
-        {% endspaceless %}
+        <div class="form-check form-switch" id="show-tags">
+          <input type="hidden" name="show_tags" value="off">
+          <input class="form-check-input" type="checkbox" role="switch" id="show-tags-switch" name="show_tags"
+                 _="on change trigger updated" {% if show_tags %}checked{% endif %}>
+          {% spaceless %}
+            <label class="form-check-label" for="show-tags-switch">
+              {% trans 'Tags' %}
+            </label>
+            <c-ui.help-icon
+                content="{% trans 'Transaction amounts associated with multiple tags will be counted once for each tag' %}"
+                icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
+          {% endspaceless %}
+        </div>
+        <div class="form-check form-switch" id="show-entities" {% if not show_tags %}style="display: none;"{% endif %}>
+          <input type="hidden" name="show_entities" value="off">
+          <input class="form-check-input" type="checkbox" role="switch" id="show-entities-switch" name="show_entities"
+                 _="on change trigger updated" {% if show_entities %}checked{% endif %}>
+          {% spaceless %}
+            <label class="form-check-label" for="show-entities-switch">
+              {% trans 'Entities' %}
+            </label>
+            <c-ui.help-icon
+                content="{% trans 'Transaction amounts associated with multiple tags and entities will be counted once for each tag' %}"
+                icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
+          {% endspaceless %}
+        </div>
       {% endif %}
     </div>
     <div class="btn-group btn-group-sm" role="group" id="showing" _="on change trigger updated">
@@ -250,6 +265,100 @@
                       {% endfor %}
                     </td>
                   </tr>
+                  <!-- Entity rows -->
+                  {% if show_entities %}
+                    {% for entity_id, entity in tag.entities.items %}
+                      <tr class="table-row-nested-2">
+                        <td class="ps-5">
+                          <i class="fa-solid fa-user-group fa-fw me-2 text-muted"></i>{{ entity.name }}
+                        </td>
+                        <td>
+                          {% for currency in entity.currencies.values %}
+                            {% if showing == 'current' and currency.income_current != 0 %}
+                              <c-amount.display
+                                  :amount="currency.income_current"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="green"></c-amount.display>
+                            {% elif showing == 'projected' and currency.income_projected != 0 %}
+                              <c-amount.display
+                                  :amount="currency.income_projected"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="green"></c-amount.display>
+                            {% elif showing == 'final' and currency.total_income != 0 %}
+                              <c-amount.display
+                                  :amount="currency.total_income"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="green"></c-amount.display>
+                            {% else %}
+                              <div>-</div>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
+                        <td>
+                          {% for currency in entity.currencies.values %}
+                            {% if showing == 'current' and currency.expense_current != 0 %}
+                              <c-amount.display
+                                  :amount="currency.expense_current"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="red"></c-amount.display>
+                            {% elif showing == 'projected' and currency.expense_projected != 0 %}
+                              <c-amount.display
+                                  :amount="currency.expense_projected"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="red"></c-amount.display>
+                            {% elif showing == 'final' and currency.total_expense != 0 %}
+                              <c-amount.display
+                                  :amount="currency.total_expense"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="red"></c-amount.display>
+                            {% else %}
+                              <div>-</div>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
+                        <td>
+                          {% for currency in entity.currencies.values %}
+                            {% if showing == 'current' and currency.total_current != 0 %}
+                              <c-amount.display
+                                  :amount="currency.total_current"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+                            {% elif showing == 'projected' and currency.total_projected != 0 %}
+                              <c-amount.display
+                                  :amount="currency.total_projected"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+                            {% elif showing == 'final' and currency.total_final != 0 %}
+                              <c-amount.display
+                                  :amount="currency.total_final"
+                                  :prefix="currency.currency.prefix"
+                                  :suffix="currency.currency.suffix"
+                                  :decimal_places="currency.currency.decimal_places"
+                                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+                            {% else %}
+                              <div>-</div>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
                 {% endif %}
               {% endfor %}
             {% endif %}
