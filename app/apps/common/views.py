@@ -91,6 +91,12 @@ def month_year_picker(request):
         for date in all_months
     ]
 
+    today_url = (
+        reverse(url, kwargs={"month": current_date.month, "year": current_date.year})
+        if url
+        else ""
+    )
+
     return render(
         request,
         "common/fragments/month_year_picker.html",
@@ -98,6 +104,7 @@ def month_year_picker(request):
             "month_year_data": result,
             "current_month": current_month,
             "current_year": current_year,
+            "today_url": today_url,
         },
     )
 
