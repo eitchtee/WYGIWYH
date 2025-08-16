@@ -9,7 +9,9 @@ from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
 
 
-def get_categories_totals(transactions_queryset, ignore_empty=False):
+def get_categories_totals(
+    transactions_queryset, ignore_empty=False, show_entities=False
+):
     # First get the category totals as before
     category_currency_metrics = (
         transactions_queryset.values(
@@ -240,6 +242,7 @@ def get_categories_totals(transactions_queryset, ignore_empty=False):
                 result[category_id]["tags"][tag_key] = {
                     "name": tag_name,
                     "currencies": {},
+                    "entities": {},
                 }
 
             currency_id = tag_metric["account__currency"]
@@ -318,5 +321,174 @@ def get_categories_totals(transactions_queryset, ignore_empty=False):
             result[category_id]["tags"][tag_key]["currencies"][
                 currency_id
             ] = tag_currency_data
+
+    if show_entities:
+        entity_metrics = transactions_queryset.values(
+            "category",
+            "tags",
+            "entities",
+            "entities__name",
+            "account__currency",
+            "account__currency__code",
+            "account__currency__name",
+            "account__currency__decimal_places",
+            "account__currency__prefix",
+            "account__currency__suffix",
+            "account__currency__exchange_currency",
+        ).annotate(
+            expense_current=Coalesce(
+                Sum(
+                    Case(
+                        When(
+                            type=Transaction.Type.EXPENSE, is_paid=True, then="amount"
+                        ),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
+            ),
+            expense_projected=Coalesce(
+                Sum(
+                    Case(
+                        When(
+                            type=Transaction.Type.EXPENSE, is_paid=False, then="amount"
+                        ),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
+            ),
+            income_current=Coalesce(
+                Sum(
+                    Case(
+                        When(type=Transaction.Type.INCOME, is_paid=True, then="amount"),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
+            ),
+            income_projected=Coalesce(
+                Sum(
+                    Case(
+                        When(
+                            type=Transaction.Type.INCOME, is_paid=False, then="amount"
+                        ),
+                        default=Value(0),
+                        output_field=models.DecimalField(),
+                    )
+                ),
+                Decimal("0"),
+            ),
+        )
+
+        for entity_metric in entity_metrics:
+            category_id = entity_metric["category"]
+            tag_id = entity_metric["tags"]
+            entity_id = entity_metric["entities"]
+
+            if not entity_id:
+                continue
+
+            if category_id in result:
+                tag_key = tag_id if tag_id is not None else "untagged"
+                if tag_key in result[category_id]["tags"]:
+                    entity_key = entity_id
+                    entity_name = entity_metric["entities__name"]
+
+                    if "entities" not in result[category_id]["tags"][tag_key]:
+                        result[category_id]["tags"][tag_key]["entities"] = {}
+
+                    if (
+                        entity_key
+                        not in result[category_id]["tags"][tag_key]["entities"]
+                    ):
+                        result[category_id]["tags"][tag_key]["entities"][entity_key] = {
+                            "name": entity_name,
+                            "currencies": {},
+                        }
+
+                    currency_id = entity_metric["account__currency"]
+
+                    entity_total_current = (
+                        entity_metric["income_current"]
+                        - entity_metric["expense_current"]
+                    )
+                    entity_total_projected = (
+                        entity_metric["income_projected"]
+                        - entity_metric["expense_projected"]
+                    )
+                    entity_total_income = (
+                        entity_metric["income_current"]
+                        + entity_metric["income_projected"]
+                    )
+                    entity_total_expense = (
+                        entity_metric["expense_current"]
+                        + entity_metric["expense_projected"]
+                    )
+                    entity_total_final = entity_total_current + entity_total_projected
+
+                    entity_currency_data = {
+                        "currency": {
+                            "code": entity_metric["account__currency__code"],
+                            "name": entity_metric["account__currency__name"],
+                            "decimal_places": entity_metric[
+                                "account__currency__decimal_places"
+                            ],
+                            "prefix": entity_metric["account__currency__prefix"],
+                            "suffix": entity_metric["account__currency__suffix"],
+                        },
+                        "expense_current": entity_metric["expense_current"],
+                        "expense_projected": entity_metric["expense_projected"],
+                        "total_expense": entity_total_expense,
+                        "income_current": entity_metric["income_current"],
+                        "income_projected": entity_metric["income_projected"],
+                        "total_income": entity_total_income,
+                        "total_current": entity_total_current,
+                        "total_projected": entity_total_projected,
+                        "total_final": entity_total_final,
+                    }
+
+                    if entity_metric["account__currency__exchange_currency"]:
+                        from_currency = Currency.objects.get(id=currency_id)
+                        exchange_currency = Currency.objects.get(
+                            id=entity_metric["account__currency__exchange_currency"]
+                        )
+
+                        exchanged = {}
+                        for field in [
+                            "expense_current",
+                            "expense_projected",
+                            "income_current",
+                            "income_projected",
+                            "total_income",
+                            "total_expense",
+                            "total_current",
+                            "total_projected",
+                            "total_final",
+                        ]:
+                            amount, prefix, suffix, decimal_places = convert(
+                                amount=entity_currency_data[field],
+                                from_currency=from_currency,
+                                to_currency=exchange_currency,
+                            )
+                            if amount is not None:
+                                exchanged[field] = amount
+                                if "currency" not in exchanged:
+                                    exchanged["currency"] = {
+                                        "prefix": prefix,
+                                        "suffix": suffix,
+                                        "decimal_places": decimal_places,
+                                        "code": exchange_currency.code,
+                                        "name": exchange_currency.name,
+                                    }
+                        if exchanged:
+                            entity_currency_data["exchanged"] = exchanged
+
+                    result[category_id]["tags"][tag_key]["entities"][entity_key][
+                        "currencies"
+                    ][currency_id] = entity_currency_data
 
     return result

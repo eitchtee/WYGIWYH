@@ -180,6 +180,14 @@ def category_overview(request):
     else:
         show_tags = request.session.get("insights_category_explorer_show_tags", True)
 
+    if "show_entities" in request.GET:
+        show_entities = request.GET["show_entities"] == "on"
+        request.session["insights_category_explorer_show_entities"] = show_entities
+    else:
+        show_entities = request.session.get(
+            "insights_category_explorer_show_entities", False
+        )
+
     if "showing" in request.GET:
         showing = request.GET["showing"]
         request.session["insights_category_explorer_showing"] = showing
@@ -190,7 +198,9 @@ def category_overview(request):
     transactions = get_transactions(request, include_silent=True)
 
     total_table = get_categories_totals(
-        transactions_queryset=transactions, ignore_empty=False
+        transactions_queryset=transactions,
+        ignore_empty=False,
+        show_entities=show_entities,
     )
 
     return render(
@@ -200,6 +210,7 @@ def category_overview(request):
             "total_table": total_table,
             "view_type": view_type,
             "show_tags": show_tags,
+            "show_entities": show_entities,
             "showing": showing,
         },
     )
