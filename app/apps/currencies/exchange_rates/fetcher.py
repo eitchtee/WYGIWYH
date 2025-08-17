@@ -18,6 +18,8 @@ PROVIDER_MAPPING = {
     "coingecko_pro": providers.CoinGeckoProProvider,
     "transitive": providers.TransitiveRateProvider,
     "frankfurter": providers.FrankfurterProvider,
+    "twelvedata": providers.TwelveDataProvider,
+    "twelvedatamarkets": providers.TwelveDataMarketsProvider,
 }
 
 
