@@ -100,6 +100,8 @@ class ExchangeRateService(models.Model):
         COINGECKO_PRO = "coingecko_pro", "CoinGecko (Pro)"
         TRANSITIVE = "transitive", "Transitive (Calculated from Existing Rates)"
         FRANKFURTER = "frankfurter", "Frankfurter"
+        TWELVEDATA = "twelvedata", "TwelveData"
+        TWELVEDATA_MARKETS = "twelvedatamarkets", "TwelveData Markets"
 
     class IntervalType(models.TextChoices):
         ON = "on", _("On")
