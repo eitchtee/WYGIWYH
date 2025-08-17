@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-17 06:23+0000\n"
+"POT-Creation-Date: 2025-08-17 06:55+0000\n"
 "PO-Revision-Date: 2025-07-21 18:17+0000\n"
 "Last-Translator: afermar <adrian.fm@protonmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -576,27 +576,27 @@ msgstr "Tipos de cambio"
 msgid "From and To currencies cannot be the same."
 msgstr "Las monedas de origen y destino no pueden ser la misma."
 
-#: apps/currencies/models.py:107
+#: apps/currencies/models.py:105
 msgid "On"
 msgstr "Encendido"
 
-#: apps/currencies/models.py:108
+#: apps/currencies/models.py:106
 msgid "Every X hours"
 msgstr "Cada X horas"
 
-#: apps/currencies/models.py:109
+#: apps/currencies/models.py:107
 msgid "Not on"
 msgstr "No Encendido"
 
-#: apps/currencies/models.py:111
+#: apps/currencies/models.py:109
 msgid "Service Name"
 msgstr "Nombre del Servicio"
 
-#: apps/currencies/models.py:113
+#: apps/currencies/models.py:111
 msgid "Service Type"
 msgstr "Tipo de Servicio"
 
-#: apps/currencies/models.py:115 apps/transactions/models.py:214
+#: apps/currencies/models.py:113 apps/transactions/models.py:214
 #: apps/transactions/models.py:238 apps/transactions/models.py:262
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
@@ -605,37 +605,37 @@ msgstr "Tipo de Servicio"
 msgid "Active"
 msgstr "Activo"
 
-#: apps/currencies/models.py:120
+#: apps/currencies/models.py:118
 #, fuzzy
 msgid "API Key"
 msgstr "API Key"
 
-#: apps/currencies/models.py:121
+#: apps/currencies/models.py:119
 #, fuzzy
 msgid "API key for the service (if required)"
 msgstr "API key for the service (if required)"
 
-#: apps/currencies/models.py:126
+#: apps/currencies/models.py:124
 #, fuzzy
 msgid "Interval Type"
 msgstr "Interval Type"
 
-#: apps/currencies/models.py:130
+#: apps/currencies/models.py:128
 #, fuzzy
 msgid "Interval"
 msgstr "Interval"
 
-#: apps/currencies/models.py:133
+#: apps/currencies/models.py:131
 #, fuzzy
 msgid "Last Successful Fetch"
 msgstr "Last Successful Fetch"
 
-#: apps/currencies/models.py:138
+#: apps/currencies/models.py:136
 #, fuzzy
 msgid "Target Currencies"
 msgstr "Target Currencies"
 
-#: apps/currencies/models.py:140
+#: apps/currencies/models.py:138
 #, fuzzy
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
@@ -644,12 +644,12 @@ msgstr ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 
-#: apps/currencies/models.py:148
+#: apps/currencies/models.py:146
 #, fuzzy
 msgid "Target Accounts"
 msgstr "Target Accounts"
 
-#: apps/currencies/models.py:150
+#: apps/currencies/models.py:148
 #, fuzzy
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
@@ -658,36 +658,36 @@ msgstr ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 
-#: apps/currencies/models.py:157
+#: apps/currencies/models.py:155
 #, fuzzy
 msgid "Single exchange rate"
 msgstr "Edit exchange rate"
 
-#: apps/currencies/models.py:160
+#: apps/currencies/models.py:158
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 
-#: apps/currencies/models.py:165
+#: apps/currencies/models.py:163
 #, fuzzy
 msgid "Exchange Rate Service"
 msgstr "Exchange Rate Service"
 
-#: apps/currencies/models.py:166
+#: apps/currencies/models.py:164
 #, fuzzy
 msgid "Exchange Rate Services"
 msgstr "Exchange Rate Services"
 
-#: apps/currencies/models.py:218
+#: apps/currencies/models.py:216
 #, fuzzy
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "'Every X hours' interval type requires a positive integer."
 
-#: apps/currencies/models.py:227
+#: apps/currencies/models.py:225
 #, fuzzy
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "'Every X hours' interval must be between 1 and 24."
 
-#: apps/currencies/models.py:241
+#: apps/currencies/models.py:239
 #, fuzzy
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
@@ -696,7 +696,7 @@ msgstr ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 
-#: apps/currencies/models.py:252
+#: apps/currencies/models.py:250
 #, fuzzy
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
