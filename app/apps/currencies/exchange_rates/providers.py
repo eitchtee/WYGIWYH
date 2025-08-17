@@ -13,70 +13,6 @@ from apps.currencies.exchange_rates.base import ExchangeRateProvider
 logger = logging.getLogger(__name__)
 
 
-class SynthFinanceProvider(ExchangeRateProvider):
-    """Implementation for Synth Finance API (synthfinance.com)"""
-
-    BASE_URL = "https://api.synthfinance.com/rates/live"
-    rates_inverted = False  # SynthFinance returns non-inverted rates
-
-    def __init__(self, api_key: str = None):
-        super().__init__(api_key)
-        self.session = requests.Session()
-        self.session.headers.update({"Authorization": f"Bearer {self.api_key}"})
-
-    def get_rates(
-        self, target_currencies: QuerySet, exchange_currencies: set
-    ) -> List[Tuple[Currency, Currency, Decimal]]:
-        results = []
-        currency_groups = {}
-        for currency in target_currencies:
-            if currency.exchange_currency in exchange_currencies:
-                group = currency_groups.setdefault(currency.exchange_currency.code, [])
-                group.append(currency)
-
-        for base_currency, currencies in currency_groups.items():
-            try:
-                to_currencies = ",".join(
-                    currency.code
-                    for currency in currencies
-                    if currency.code != base_currency
-                )
-                response = self.session.get(
-                    f"{self.BASE_URL}",
-                    params={"from": base_currency, "to": to_currencies},
-                )
-                response.raise_for_status()
-                data = response.json()
-                rates = data["data"]["rates"]
-
-                for currency in currencies:
-                    if currency.code == base_currency:
-                        rate = Decimal("1")
-                    else:
-                        rate = Decimal(str(rates[currency.code]))
-                    # Return the rate as is, without inversion
-                    results.append((currency.exchange_currency, currency, rate))
-
-                credits_used = data["meta"]["credits_used"]
-                credits_remaining = data["meta"]["credits_remaining"]
-                logger.info(
-                    f"Synth Finance API call: {credits_used} credits used, {credits_remaining} remaining"
-                )
-            except requests.RequestException as e:
-                logger.error(
-                    f"Error fetching rates from Synth Finance API for base {base_currency}: {e}"
-                )
-            except KeyError as e:
-                logger.error(
-                    f"Unexpected response structure from Synth Finance API for base {base_currency}: {e}"
-                )
-            except Exception as e:
-                logger.error(
-                    f"Unexpected error processing Synth Finance data for base {base_currency}: {e}"
-                )
-        return results
-
-
 class CoinGeckoFreeProvider(ExchangeRateProvider):
     """Implementation for CoinGecko Free API"""
 
@@ -150,71 +86,6 @@ class CoinGeckoProProvider(CoinGeckoFreeProvider):
         super().__init__(api_key)
         self.session = requests.Session()
         self.session.headers.update({"x-cg-pro-api-key": api_key})
-
-
-class SynthFinanceStockProvider(ExchangeRateProvider):
-    """Implementation for Synth Finance API Real-Time Prices endpoint (synthfinance.com)"""
-
-    BASE_URL = "https://api.synthfinance.com/tickers"
-    rates_inverted = True
-
-    def __init__(self, api_key: str = None):
-        super().__init__(api_key)
-        self.session = requests.Session()
-        self.session.headers.update(
-            {"Authorization": f"Bearer {self.api_key}", "accept": "application/json"}
-        )
-
-    def get_rates(
-        self, target_currencies: QuerySet, exchange_currencies: set
-    ) -> List[Tuple[Currency, Currency, Decimal]]:
-        results = []
-
-        for currency in target_currencies:
-            if currency.exchange_currency not in exchange_currencies:
-                continue
-
-            try:
-                # Same currency has rate of 1
-                if currency.code == currency.exchange_currency.code:
-                    rate = Decimal("1")
-                    results.append((currency.exchange_currency, currency, rate))
-                    continue
-
-                # Fetch real-time price for this ticker
-                response = self.session.get(
-                    f"{self.BASE_URL}/{currency.code}/real-time"
-                )
-                response.raise_for_status()
-                data = response.json()
-
-                # Use fair market value as the rate
-                rate = Decimal(data["data"]["fair_market_value"])
-                results.append((currency.exchange_currency, currency, rate))
-
-                # Log API usage
-                credits_used = data["meta"]["credits_used"]
-                credits_remaining = data["meta"]["credits_remaining"]
-                logger.info(
-                    f"Synth Finance API call for {currency.code}: {credits_used} credits used, {credits_remaining} remaining"
-                )
-            except requests.RequestException as e:
-                logger.error(
-                    f"Error fetching rate from Synth Finance API for ticker {currency.code}: {e}",
-                    exc_info=True,
-                )
-            except KeyError as e:
-                logger.error(
-                    f"Unexpected response structure from Synth Finance API for ticker {currency.code}: {e}",
-                    exc_info=True,
-                )
-            except Exception as e:
-                logger.error(
-                    f"Unexpected error processing Synth Finance data for ticker {currency.code}: {e}",
-                    exc_info=True,
-                )
-
-        return results
 
 
 class TransitiveRateProvider(ExchangeRateProvider):
@@ -463,6 +334,10 @@ class TwelveDataProvider(ExchangeRateProvider):
 
                 logger.info(f"Successfully fetched rate for {symbol} from Twelve Data.")
 
+                time.sleep(
+                    60
+                )  # We sleep every pair as to not step over TwelveData's minute limit
+
             except requests.RequestException as e:
                 logger.error(
                     f"Error fetching rate from Twelve Data API for symbol {symbol}: {e}"
@@ -609,6 +484,10 @@ class TwelveDataMarketsProvider(ExchangeRateProvider):
                 logger.info(
                     f"Successfully processed price for {asset.code} as {final_price} {target_exchange_currency.code}"
                 )
+
+                time.sleep(
+                    60
+                )  # We sleep every pair as to not step over TwelveData's minute limit
 
             except requests.RequestException as e:
                 logger.error(

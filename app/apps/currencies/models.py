@@ -94,8 +94,6 @@ class ExchangeRateService(models.Model):
     """Configuration for exchange rate services"""
 
     class ServiceType(models.TextChoices):
-        SYNTH_FINANCE = "synth_finance", "Synth Finance"
-        SYNTH_FINANCE_STOCK = "synth_finance_stock", "Synth Finance Stock"
         COINGECKO_FREE = "coingecko_free", "CoinGecko (Demo/Free)"
         COINGECKO_PRO = "coingecko_pro", "CoinGecko (Pro)"
         TRANSITIVE = "transitive", "Transitive (Calculated from Existing Rates)"
