@@ -4,13 +4,7 @@ from datetime import timedelta
 from django.db.models import QuerySet
 from django.utils import timezone
 
-from apps.currencies.exchange_rates.providers import (
-    SynthFinanceProvider,
-    SynthFinanceStockProvider,
-    CoinGeckoFreeProvider,
-    CoinGeckoProProvider,
-    TransitiveRateProvider,
-)
+import apps.currencies.exchange_rates.providers as providers
 from apps.currencies.models import ExchangeRateService, ExchangeRate, Currency
 
 logger = logging.getLogger(__name__)
@@ -18,11 +12,12 @@ logger = logging.getLogger(__name__)
 
 # Map service types to provider classes
 PROVIDER_MAPPING = {
-    "synth_finance": SynthFinanceProvider,
-    "synth_finance_stock": SynthFinanceStockProvider,
-    "coingecko_free": CoinGeckoFreeProvider,
-    "coingecko_pro": CoinGeckoProProvider,
-    "transitive": TransitiveRateProvider,
+    "synth_finance": providers.SynthFinanceProvider,
+    "synth_finance_stock": providers.SynthFinanceStockProvider,
+    "coingecko_free": providers.CoinGeckoFreeProvider,
+    "coingecko_pro": providers.CoinGeckoProProvider,
+    "transitive": providers.TransitiveRateProvider,
+    "frankfurter": providers.FrankfurterProvider,
 }
 
 
