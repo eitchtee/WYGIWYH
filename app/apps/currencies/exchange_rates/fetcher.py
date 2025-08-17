@@ -12,8 +12,6 @@ logger = logging.getLogger(__name__)
 
 # Map service types to provider classes
 PROVIDER_MAPPING = {
-    "synth_finance": providers.SynthFinanceProvider,
-    "synth_finance_stock": providers.SynthFinanceStockProvider,
     "coingecko_free": providers.CoinGeckoFreeProvider,
     "coingecko_pro": providers.CoinGeckoProProvider,
     "transitive": providers.TransitiveRateProvider,
