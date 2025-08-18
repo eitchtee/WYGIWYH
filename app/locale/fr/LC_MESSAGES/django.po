@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-17 06:55+0000\n"
-"PO-Revision-Date: 2025-08-12 13:07+0000\n"
+"PO-Revision-Date: 2025-08-18 08:17+0000\n"
 "Last-Translator: sorcierwax <freakywax@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
@@ -306,7 +306,7 @@ msgstr "Une 'date' ou une 'date de référence' doit être renseignée."
 
 #: apps/common/admin.py:5
 msgid "Make public"
-msgstr "Publier"
+msgstr "Rendre public"
 
 #: apps/common/admin.py:10
 msgid "Make private"
@@ -324,7 +324,7 @@ msgstr "Erreur lors de la création d'une nouvelle instance"
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
 msgid "Ungrouped"
-msgstr "Dégroupé"
+msgstr "Non-groupé"
 
 #: apps/common/fields/month_year.py:30
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
@@ -639,7 +639,6 @@ msgstr ""
 "récupérés pour chaque compte par rapport à leur devise d'échange."
 
 #: apps/currencies/models.py:155
-#, fuzzy
 msgid "Single exchange rate"
 msgstr "Taux de change unique"
 
@@ -883,7 +882,7 @@ msgstr "Transactions récurrentes"
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
-msgstr "Plans d'installation"
+msgstr "Paiements en plusieurs fois"
 
 #: apps/export_app/forms.py:74 apps/export_app/forms.py:143
 #: templates/exchange_rates_services/fragments/list.html:6
@@ -1335,16 +1334,12 @@ msgid "Amount max"
 msgstr "Montant max"
 
 #: apps/transactions/filters.py:188
-#, fuzzy
-#| msgid "Categories"
 msgid "Categorized"
-msgstr "Catégories"
+msgstr "Catégorisé"
 
 #: apps/transactions/filters.py:195
-#, fuzzy
-#| msgid "Untagged"
 msgid "Tagged"
-msgstr "Sans étiquettes"
+msgstr "Avec étiquettes"
 
 #: apps/transactions/filters.py:195
 #: templates/insights/fragments/category_overview/index.html:181
@@ -1352,16 +1347,12 @@ msgid "Untagged"
 msgstr "Sans étiquettes"
 
 #: apps/transactions/filters.py:201
-#, fuzzy
-#| msgid "Add entity"
 msgid "Any entity"
-msgstr "Ajouter une entité"
+msgstr "N'importe quelle entité"
 
 #: apps/transactions/filters.py:202
-#, fuzzy
-#| msgid "No entities"
 msgid "No entity"
-msgstr "Pas d'entités"
+msgstr "Pas d'entité"
 
 #: apps/transactions/forms.py:173
 msgid "More"
@@ -1473,7 +1464,7 @@ msgstr "Entité"
 #: templates/insights/fragments/category_overview/index.html:79
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
-msgstr "Revenu"
+msgstr "Revenus"
 
 #: apps/transactions/models.py:285 apps/transactions/models.py:913
 #: templates/calendar_view/fragments/list.html:46
@@ -1537,15 +1528,15 @@ msgstr "Quotidien"
 
 #: apps/transactions/models.py:471
 msgid "Number of Installments"
-msgstr "Nombre d'aménagements"
+msgstr "Nombre d'écheances"
 
 #: apps/transactions/models.py:476
 msgid "Installment Start"
-msgstr "Début de l'aménagement"
+msgstr "Commencer à l'échéance"
 
 #: apps/transactions/models.py:477
 msgid "The installment number to start counting from"
-msgstr "Le numéro d'aménagement à partir duquel compter"
+msgstr "L'échéance à partir de laquelle compter"
 
 #: apps/transactions/models.py:482 apps/transactions/models.py:717
 msgid "Start Date"
@@ -1561,7 +1552,7 @@ msgstr "Récurrence"
 
 #: apps/transactions/models.py:494
 msgid "Installment Amount"
-msgstr "Montant d'aménagement"
+msgstr "Montant des échéances"
 
 #: apps/transactions/models.py:513 apps/transactions/models.py:737
 msgid "Add description to transactions"
@@ -2200,9 +2191,8 @@ msgid "Edit account"
 msgstr "Editer le compte"
 
 #: templates/accounts/fragments/list.html:29
-#, fuzzy
 msgid "Is Asset"
-msgstr "Is Asset"
+msgstr "est un actif"
 
 #: templates/accounts/fragments/list.html:78
 msgid "Track"
@@ -2335,12 +2325,12 @@ msgstr "Dupliquer"
 #: templates/cotton/ui/account_card.html:15
 #: templates/cotton/ui/currency_card.html:10
 msgid "projected income"
-msgstr "Revenus prévisionnels"
+msgstr "revenus prévisionnels"
 
 #: templates/cotton/ui/account_card.html:41
 #: templates/cotton/ui/currency_card.html:36
 msgid "projected expenses"
-msgstr "Dépenses prévisionnelles"
+msgstr "dépenses prévisionnelles"
 
 #: templates/cotton/ui/account_card.html:69
 #: templates/cotton/ui/currency_card.html:64
@@ -2365,7 +2355,7 @@ msgstr "Total à date"
 #: templates/cotton/ui/account_card.html:171
 #: templates/cotton/ui/currency_card.html:165
 msgid "final total"
-msgstr "Total final"
+msgstr "total final"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:31
 #: templates/cotton/ui/transactions_action_bar.html:34
@@ -2407,19 +2397,16 @@ msgstr "Activer la liste déroulante"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:122
 #: templates/cotton/ui/transactions_action_bar.html:158
-#, fuzzy
 msgid "Flat Total"
-msgstr "Total forfaitaire"
+msgstr "Total brut"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:142
 #: templates/cotton/ui/transactions_action_bar.html:178
-#, fuzzy
 msgid "Real Total"
-msgstr "Total réel"
+msgstr "Total net"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:162
 #: templates/cotton/ui/transactions_action_bar.html:198
-#, fuzzy
 msgid "Mean"
 msgstr "Moyenne"
 
@@ -2660,7 +2647,7 @@ msgstr "Dernière récupération"
 
 #: templates/exchange_rates_services/fragments/list.html:67
 msgid "currencies"
-msgstr "Devises"
+msgstr "devises"
 
 #: templates/exchange_rates_services/fragments/list.html:67
 msgid "accounts"
@@ -2745,7 +2732,7 @@ msgstr "Eléments réussis"
 
 #: templates/import_app/fragments/runs/list.html:96
 msgid "Logs"
-msgstr "Logs"
+msgstr "Journaux"
 
 #: templates/import_app/fragments/runs/list.html:107
 msgid "You won't be able to revert this! All imported items will be kept."
@@ -2823,11 +2810,11 @@ msgstr "Admin"
 
 #: templates/includes/navbar.html:157 templates/includes/sidebar.html:246
 msgid "Only use this if you know what you're doing"
-msgstr "A n'utiliser que si vous savez ce que vous faites !"
+msgstr "A n'utiliser que si vous savez ce que vous faites"
 
 #: templates/includes/navbar.html:158 templates/includes/sidebar.html:245
 msgid "Django Admin"
-msgstr "Django Admin"
+msgstr "Administration Django"
 
 #: templates/includes/navbar.html:169 templates/includes/sidebar.html:260
 msgid "is available"
@@ -2868,7 +2855,7 @@ msgstr ""
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:19
 msgid "Something went wrong loading your data"
 msgstr ""
-"Quelque chose ne s'est pas passé correctement au chargement de vos données."
+"Quelque chose ne s'est pas passé correctement au chargement de vos données"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:20
 msgid "Try reloading the page or check the console for more information."
@@ -2922,16 +2909,12 @@ msgstr ""
 "comptabilisée qu'une fois par étiquette"
 
 #: templates/insights/fragments/category_overview/index.html:52
-#, fuzzy
-#| msgid ""
-#| "Transaction amounts associated with multiple tags will be counted once "
-#| "for each tag"
 msgid ""
 "Transaction amounts associated with multiple tags and entities will be "
 "counted once for each tag"
 msgstr ""
-"Les montants de transaction qui comprennent plusieurs étiquettes ne seront "
-"comptabilisée qu'une fois par étiquette"
+"Les montants de transaction qui comprennent plusieurs étiquettes et entités "
+"ne seront comptabilisées qu'une fois par étiquette"
 
 #: templates/insights/fragments/category_overview/index.html:69
 msgid "Final total"
@@ -3063,7 +3046,7 @@ msgid ""
 "missing ones"
 msgstr ""
 "Cela va mettre à jour toutes les transactions associées à ce paiement en "
-"plusieurs fois et créer celles qui manque."
+"plusieurs fois et créer celles qui manque"
 
 #: templates/installment_plans/fragments/table.html:52
 msgid "Yes, refresh it!"
@@ -3073,7 +3056,7 @@ msgstr "Oui, mets à jour !"
 msgid "This will delete the plan and all transactions associated with it"
 msgstr ""
 "Cela va supprimer le paiement en plusieurs fois ainsi que toutes les "
-"transactions associées."
+"transactions associées"
 
 #: templates/installment_plans/fragments/table.html:91
 msgid "No installment plans"
@@ -3100,9 +3083,8 @@ msgstr "Prix de l'élément"
 #: templates/mini_tools/unit_price_calculator.html:33
 #: templates/mini_tools/unit_price_calculator.html:106
 #: templates/mini_tools/unit_price_calculator.html:131
-#, fuzzy
 msgid "Item amount"
-msgstr "Montant de l'élément"
+msgstr "Quantité"
 
 #: templates/mini_tools/unit_price_calculator.html:38
 #: templates/mini_tools/unit_price_calculator.html:111
@@ -3214,7 +3196,7 @@ msgstr "Cela va supprimer cet élément"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
-msgstr "Ajouter une transaction  récurrente"
+msgstr "Ajouter une transaction récurrente"
 
 #: templates/recurring_transactions/fragments/edit.html:5
 msgid "Edit recurring transaction"
@@ -3240,8 +3222,8 @@ msgstr "Mettre en pause"
 #: templates/recurring_transactions/fragments/table.html:70
 msgid "This will stop the creation of new transactions until you unpause it"
 msgstr ""
-"Cela va interrompre la création de nouvelles transactions tant que c'est en "
-"pause."
+"La création de nouvelles transactions va être interrompu tant que c'est en "
+"pause"
 
 #: templates/recurring_transactions/fragments/table.html:71
 msgid "Yes, pause it!"
@@ -3267,7 +3249,7 @@ msgstr "Oui, clôturé !"
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
 "Cela va supprimer la transaction récurrente et toutes les transactions "
-"associées."
+"associées"
 
 #: templates/recurring_transactions/fragments/table.html:127
 msgid "No recurring transactions"
