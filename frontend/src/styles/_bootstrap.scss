@@ -49,3 +49,7 @@ $theme-colors: map.merge(
 .offcanvas-size-sm {
   --#{$prefix}offcanvas-width: min(95vw, 250px) !important;
 }
+
+.dropdown-toggle.dropdown-toggle-no-icon::after {
+  display:none;
+}
