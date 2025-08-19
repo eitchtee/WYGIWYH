@@ -5,121 +5,128 @@
 
 <div id="transactions-list">
   {% for x in transactions_by_date %}
-    <div id="{{ x.grouper|slugify }}"
-         _="on htmx:afterSettle from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
-      <div class="mt-3 mb-1 w-100 tw:text-base border-bottom bg-body">
+    <div id="{{ x.grouper|slugify }}" class="transactions-divider"
+         _="on htmx:afterSwap from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
+      <div class="mt-3 mb-1 w-100 tw:text-base border-bottom bg-body transactions-divider-title">
         <a class="text-decoration-none d-inline-block w-100"
            role="button"
            data-bs-toggle="collapse"
            data-bs-target="#c-{{ x.grouper|slugify }}-collapse"
            id="c-{{ x.grouper|slugify }}-collapsible"
-           aria-expanded="true"
+           aria-expanded="false"
            aria-controls="c-{{ x.grouper|slugify }}-collapse">
         {{ x.grouper }}
         </a>
       </div>
-      <div class="collapse" id="c-{{ x.grouper|slugify }}-collapse"
+      <div class="collapse transactions-divider-collapse" id="c-{{ x.grouper|slugify }}-collapse"
            _="on shown.bs.collapse sessionStorage.setItem(the closest parent @id, 'true')
               on hidden.bs.collapse sessionStorage.setItem(the closest parent @id, 'false')
-              on htmx:afterSettle from #transactions
+              on htmx:afterSettle from #transactions or toggle
                 set state to sessionStorage.getItem(the closest parent @id)
                 if state is 'true' or state is null
                   add .show to me
                   set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to true
-                end">
+                else
+                  remove .show from me
+                  set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to false
+                end
+              on show
+                add .show to me
+                set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to true">
         <div class="d-flex flex-column">
         {% for transaction in x.list %}
-          <c-transaction.item :transaction="transaction"></c-transaction.item>
+          <c-transaction.item
+            :transaction="transaction"></c-transaction.item>
         {% endfor %}
         </div>
       </div>
     </div>
   {% empty %}
     <c-msg.empty
-      title="{% translate "No transactions found" %}"
-      subtitle="{% translate "Try adding one" %}"></c-msg.empty>
-{% endfor %}
+        title="{% translate "No transactions found" %}"
+        subtitle="{% translate "Try adding one" %}"></c-msg.empty>
+  {% endfor %}
 
   {% if page_obj.has_other_pages %}
-  <div class="mt-auto">
-    <input value="{{ page_obj.number }}" name="page" type="hidden" id="page">
+    <div class="mt-auto">
+      <input value="{{ page_obj.number }}" name="page" type="hidden" id="page">
 
-    <nav aria-label="{% translate 'Page navigation' %}">
-    <ul class="pagination justify-content-center mt-5">
-      <li class="page-item">
-        <a class="page-link tw:cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
-           hx-get="{% if page_obj.has_previous %}{% url 'transactions_all_list' %}{% endif %}"
-           hx-vals='{"page": 1}'
-           hx-include="#filter, #order"
-           hx-target="#transactions-list"
-           aria-label="Primeira página"
-           hx-swap="show:top">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      {% for page_number in page_obj.paginator.page_range %}
-              {% comment %}
+      <nav aria-label="{% translate 'Page navigation' %}">
+        <ul class="pagination justify-content-center mt-5">
+          <li class="page-item">
+            <a class="page-link tw:cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
+               hx-get="{% if page_obj.has_previous %}{% url 'transactions_all_list' %}{% endif %}"
+               hx-vals='{"page": 1}'
+               hx-include="#filter, #order"
+               hx-target="#transactions-list"
+               aria-label="Primeira página"
+               hx-swap="show:top">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% for page_number in page_obj.paginator.page_range %}
+            {% comment %}
                   This conditional allows us to display up to 3 pages before and after the current page
                   If you decide to remove this conditional, all the pages will be displayed
 
                   You can change the 3 to any number you want e.g
                   To display only 5 pagination items, change the 3 to 2 (2 before and 2 after the current page)
               {% endcomment %}
-              {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
-                  {% if page_obj.number == page_number %}
-                      <li class="page-item active">
-                          <a class="page-link tw:cursor-pointer">
-                              {{ page_number }}
-                          </a>
-                      </li>
-                  {% else %}
-                      <li class="page-item">
-                          <a class="page-link tw:cursor-pointer"
-                             hx-get="{% url 'transactions_all_list' %}"
-                             hx-vals='{"page": {{ page_number }}}'
-                             hx-include="#filter, #order"
-                             hx-target="#transactions-list"
-                             hx-swap="show:top">
-                              {{ page_number }}
-                          </a>
-                      </li>
-                  {% endif %}
+            {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
+              {% if page_obj.number == page_number %}
+                <li class="page-item active">
+                  <a class="page-link tw:cursor-pointer">
+                    {{ page_number }}
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link tw:cursor-pointer"
+                     hx-get="{% url 'transactions_all_list' %}"
+                     hx-vals='{"page": {{ page_number }}}'
+                     hx-include="#filter, #order"
+                     hx-target="#transactions-list"
+                     hx-swap="show:top">
+                    {{ page_number }}
+                  </a>
+                </li>
               {% endif %}
-      {% endfor %}
-      {% if page_obj.number|add:3 < page_obj.paginator.num_pages %}
-        <li class="page-item">
-          <a class="page-link disabled"
-             aria-label="...">
-            <span aria-hidden="true">...</span>
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link tw:cursor-pointer"
-             hx-get="{% url 'transactions_all_list' %}" hx-target="#transactions-list"
-             hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
-             hx-include="#filter, #order"
-             hx-swap="show:top"
-             aria-label="Última página">
-            <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
-          </a>
-        </li>
-      {% endif %}
-      <li class="page-item">
-        <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw:cursor-pointer"
-           hx-get="{% if page_obj.has_next %}{% url 'transactions_all_list' %}{% endif %}"
-           hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
-           hx-include="#filter, #order"
-           hx-swap="show:top"
-           hx-target="#transactions-list"
-           aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  </div>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.number|add:3 < page_obj.paginator.num_pages %}
+            <li class="page-item">
+              <a class="page-link disabled"
+                 aria-label="...">
+                <span aria-hidden="true">...</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link tw:cursor-pointer"
+                 hx-get="{% url 'transactions_all_list' %}" hx-target="#transactions-list"
+                 hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
+                 hx-include="#filter, #order"
+                 hx-swap="show:top"
+                 aria-label="Última página">
+                <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
+              </a>
+            </li>
+          {% endif %}
+          <li class="page-item">
+            <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw:cursor-pointer"
+               hx-get="{% if page_obj.has_next %}{% url 'transactions_all_list' %}{% endif %}"
+               hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
+               hx-include="#filter, #order"
+               hx-swap="show:top"
+               hx-target="#transactions-list"
+               aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   {% endif %}
-{#  Floating bar#}
+  {#  Floating bar#}
   <c-ui.transactions-action-bar></c-ui.transactions-action-bar>
 
 </div>
