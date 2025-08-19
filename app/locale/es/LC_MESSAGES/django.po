@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-17 06:55+0000\n"
+"POT-Creation-Date: 2025-08-19 17:03+0000\n"
 "PO-Revision-Date: 2025-07-21 18:17+0000\n"
 "Last-Translator: afermar <adrian.fm@protonmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -191,7 +191,7 @@ msgstr "Cuenta"
 #: templates/includes/sidebar.html:182
 #: templates/monthly_overview/pages/overview.html:94
 #: templates/transactions/fragments/summary.html:12
-#: templates/transactions/pages/transactions.html:81
+#: templates/transactions/pages/transactions.html:137
 msgid "Accounts"
 msgstr "Cuentas"
 
@@ -488,8 +488,10 @@ msgstr "Remover"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:174
-#: templates/monthly_overview/pages/overview.html:172
-#: templates/transactions/pages/transactions.html:47
+#: templates/monthly_overview/pages/overview.html:215
+#: templates/monthly_overview/pages/overview.html:227
+#: templates/transactions/pages/transactions.html:89
+#: templates/transactions/pages/transactions.html:101
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -535,7 +537,7 @@ msgstr "Cantidad de decimales"
 #: templates/includes/sidebar.html:196
 #: templates/monthly_overview/pages/overview.html:81
 #: templates/transactions/fragments/summary.html:8
-#: templates/transactions/pages/transactions.html:68
+#: templates/transactions/pages/transactions.html:124
 msgid "Currencies"
 msgstr "Monedas"
 
@@ -2067,8 +2069,10 @@ msgid "This account is deactivated"
 msgstr "This account is deactivated"
 
 #: apps/users/forms.py:54 apps/users/forms.py:67 apps/users/forms.py:89
-#: templates/monthly_overview/pages/overview.html:153
-#: templates/transactions/pages/transactions.html:28
+#: templates/monthly_overview/pages/overview.html:140
+#: templates/monthly_overview/pages/overview.html:186
+#: templates/transactions/pages/transactions.html:14
+#: templates/transactions/pages/transactions.html:60
 #, fuzzy
 msgid "Default"
 msgstr "Default"
@@ -2568,7 +2572,8 @@ msgstr "Close"
 
 #: templates/cotton/config/search.html:6
 #: templates/import_app/fragments/profiles/list_presets.html:13
-#: templates/monthly_overview/pages/overview.html:177
+#: templates/monthly_overview/pages/overview.html:160
+#: templates/transactions/pages/transactions.html:34
 #, fuzzy
 msgid "Search"
 msgstr "Search"
@@ -2833,7 +2838,7 @@ msgstr "No entries for this DCA"
 
 #: templates/dca/fragments/strategy/details.html:125
 #: templates/monthly_overview/fragments/list.html:47
-#: templates/transactions/fragments/list_all.html:40
+#: templates/transactions/fragments/list_all.html:47
 #, fuzzy
 msgid "Try adding one"
 msgstr "Try adding one"
@@ -2986,7 +2991,7 @@ msgstr "No exchange rates"
 
 #: templates/exchange_rates/fragments/table.html:58
 #: templates/exchange_rates_services/fragments/table.html:58
-#: templates/transactions/fragments/list_all.html:47
+#: templates/transactions/fragments/list_all.html:54
 #, fuzzy
 msgid "Page navigation"
 msgstr "Page navigation"
@@ -3584,25 +3589,29 @@ msgstr "Distribución"
 msgid "Summary"
 msgstr "Resumen"
 
-#: templates/monthly_overview/pages/overview.html:142
-#: templates/transactions/pages/transactions.html:17
-msgid "Filter transactions"
-msgstr "Filtrar transacciones"
-
-#: templates/monthly_overview/pages/overview.html:148
-#: templates/transactions/pages/transactions.html:23
-msgid "Order by"
-msgstr "Ordenar por"
-
-#: templates/monthly_overview/pages/overview.html:155
-#: templates/transactions/pages/transactions.html:30
+#: templates/monthly_overview/pages/overview.html:141
+#: templates/monthly_overview/pages/overview.html:195
+#: templates/transactions/pages/transactions.html:15
+#: templates/transactions/pages/transactions.html:69
 msgid "Oldest first"
 msgstr "Lo más antiguo primero"
 
-#: templates/monthly_overview/pages/overview.html:157
-#: templates/transactions/pages/transactions.html:32
+#: templates/monthly_overview/pages/overview.html:142
+#: templates/monthly_overview/pages/overview.html:204
+#: templates/transactions/pages/transactions.html:16
+#: templates/transactions/pages/transactions.html:78
 msgid "Newest first"
 msgstr "Lo más nuevo primero"
+
+#: templates/monthly_overview/pages/overview.html:151
+#: templates/transactions/pages/transactions.html:25
+msgid "Filter transactions"
+msgstr "Filtrar transacciones"
+
+#: templates/monthly_overview/pages/overview.html:176
+#: templates/transactions/pages/transactions.html:50
+msgid "Order by"
+msgstr "Ordenar por"
 
 #: templates/net_worth/net_worth.html:40
 #: templates/yearly_overview/pages/overview_by_currency.html:9
@@ -3833,7 +3842,7 @@ msgstr "Editing"
 msgid "transactions"
 msgstr "transactions"
 
-#: templates/transactions/fragments/list_all.html:39
+#: templates/transactions/fragments/list_all.html:46
 #, fuzzy
 msgid "No transactions found"
 msgstr "No transactions found"

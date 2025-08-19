@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-17 06:55+0000\n"
+"POT-Creation-Date: 2025-08-19 17:03+0000\n"
 "PO-Revision-Date: 2025-08-18 08:17+0000\n"
 "Last-Translator: sorcierwax <freakywax@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
@@ -193,7 +193,7 @@ msgstr "Compte"
 #: templates/includes/sidebar.html:182
 #: templates/monthly_overview/pages/overview.html:94
 #: templates/transactions/fragments/summary.html:12
-#: templates/transactions/pages/transactions.html:81
+#: templates/transactions/pages/transactions.html:137
 msgid "Accounts"
 msgstr "Comptes"
 
@@ -478,8 +478,10 @@ msgstr "Enlever"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:174
-#: templates/monthly_overview/pages/overview.html:172
-#: templates/transactions/pages/transactions.html:47
+#: templates/monthly_overview/pages/overview.html:215
+#: templates/monthly_overview/pages/overview.html:227
+#: templates/transactions/pages/transactions.html:89
+#: templates/transactions/pages/transactions.html:101
 msgid "Clear"
 msgstr "Vider"
 
@@ -525,7 +527,7 @@ msgstr "Décimales"
 #: templates/includes/sidebar.html:196
 #: templates/monthly_overview/pages/overview.html:81
 #: templates/transactions/fragments/summary.html:8
-#: templates/transactions/pages/transactions.html:68
+#: templates/transactions/pages/transactions.html:124
 msgid "Currencies"
 msgstr "Devises"
 
@@ -1824,8 +1826,10 @@ msgid "This account is deactivated"
 msgstr "Ce compte est désactivé"
 
 #: apps/users/forms.py:54 apps/users/forms.py:67 apps/users/forms.py:89
-#: templates/monthly_overview/pages/overview.html:153
-#: templates/transactions/pages/transactions.html:28
+#: templates/monthly_overview/pages/overview.html:140
+#: templates/monthly_overview/pages/overview.html:186
+#: templates/transactions/pages/transactions.html:14
+#: templates/transactions/pages/transactions.html:60
 msgid "Default"
 msgstr "Par défaut"
 
@@ -2275,7 +2279,8 @@ msgstr "Fermer"
 
 #: templates/cotton/config/search.html:6
 #: templates/import_app/fragments/profiles/list_presets.html:13
-#: templates/monthly_overview/pages/overview.html:177
+#: templates/monthly_overview/pages/overview.html:160
+#: templates/transactions/pages/transactions.html:34
 msgid "Search"
 msgstr "Rechercher"
 
@@ -2498,7 +2503,7 @@ msgstr "Pas d'entrées pour ce DCA"
 
 #: templates/dca/fragments/strategy/details.html:125
 #: templates/monthly_overview/fragments/list.html:47
-#: templates/transactions/fragments/list_all.html:40
+#: templates/transactions/fragments/list_all.html:47
 msgid "Try adding one"
 msgstr "Essayer d'en ajouter une"
 
@@ -2625,7 +2630,7 @@ msgstr "Pas de taux de change"
 
 #: templates/exchange_rates/fragments/table.html:58
 #: templates/exchange_rates_services/fragments/table.html:58
-#: templates/transactions/fragments/list_all.html:47
+#: templates/transactions/fragments/list_all.html:54
 msgid "Page navigation"
 msgstr "Navigation dans les pages"
 
@@ -3134,25 +3139,29 @@ msgstr "Répartition"
 msgid "Summary"
 msgstr "Résumé"
 
-#: templates/monthly_overview/pages/overview.html:142
-#: templates/transactions/pages/transactions.html:17
-msgid "Filter transactions"
-msgstr "Filtrer les transactions"
-
-#: templates/monthly_overview/pages/overview.html:148
-#: templates/transactions/pages/transactions.html:23
-msgid "Order by"
-msgstr "Trier par"
-
-#: templates/monthly_overview/pages/overview.html:155
-#: templates/transactions/pages/transactions.html:30
+#: templates/monthly_overview/pages/overview.html:141
+#: templates/monthly_overview/pages/overview.html:195
+#: templates/transactions/pages/transactions.html:15
+#: templates/transactions/pages/transactions.html:69
 msgid "Oldest first"
 msgstr "Plus ancien en premier"
 
-#: templates/monthly_overview/pages/overview.html:157
-#: templates/transactions/pages/transactions.html:32
+#: templates/monthly_overview/pages/overview.html:142
+#: templates/monthly_overview/pages/overview.html:204
+#: templates/transactions/pages/transactions.html:16
+#: templates/transactions/pages/transactions.html:78
 msgid "Newest first"
 msgstr "Plus récent en premier"
+
+#: templates/monthly_overview/pages/overview.html:151
+#: templates/transactions/pages/transactions.html:25
+msgid "Filter transactions"
+msgstr "Filtrer les transactions"
+
+#: templates/monthly_overview/pages/overview.html:176
+#: templates/transactions/pages/transactions.html:50
+msgid "Order by"
+msgstr "Trier par"
 
 #: templates/net_worth/net_worth.html:40
 #: templates/yearly_overview/pages/overview_by_currency.html:9
@@ -3368,7 +3377,7 @@ msgstr "Modification en cours"
 msgid "transactions"
 msgstr "transactions"
 
-#: templates/transactions/fragments/list_all.html:39
+#: templates/transactions/fragments/list_all.html:46
 msgid "No transactions found"
 msgstr "Aucunes transactions trouvées"
 
