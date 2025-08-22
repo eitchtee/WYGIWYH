@@ -119,6 +119,9 @@ def update_settings(request):
 @only_htmx
 @htmx_login_required
 def toggle_sidebar_status(request):
+    if not request.session.get("sidebar_status"):
+        request.session["sidebar_status"] = "floating"
+
     if request.session["sidebar_status"] == "floating":
         request.session["sidebar_status"] = "fixed"
     elif request.session["sidebar_status"] == "fixed":
