@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-19 17:03+0000\n"
+"POT-Creation-Date: 2025-08-22 20:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr ""
 #: apps/transactions/forms.py:667 apps/transactions/forms.py:928
 #: apps/transactions/models.py:324 apps/transactions/models.py:503
 #: apps/transactions/models.py:705 apps/transactions/models.py:957
-#: templates/includes/navbar.html:111 templates/includes/sidebar.html:168
+#: templates/includes/navbar.html:111 templates/includes/sidebar.html:192
 #: templates/insights/fragments/category_overview/index.html:36
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
@@ -127,7 +127,7 @@ msgstr ""
 
 #: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:5
 #: templates/account_groups/pages/index.html:4
-#: templates/includes/navbar.html:121 templates/includes/sidebar.html:188
+#: templates/includes/navbar.html:121 templates/includes/sidebar.html:212
 msgid "Account Groups"
 msgstr ""
 
@@ -185,8 +185,8 @@ msgstr ""
 #: apps/export_app/forms.py:132 apps/transactions/filters.py:53
 #: templates/accounts/fragments/list.html:5
 #: templates/accounts/pages/index.html:4 templates/includes/navbar.html:117
-#: templates/includes/navbar.html:119 templates/includes/sidebar.html:180
-#: templates/includes/sidebar.html:182
+#: templates/includes/navbar.html:119 templates/includes/sidebar.html:204
+#: templates/includes/sidebar.html:206
 #: templates/monthly_overview/pages/overview.html:94
 #: templates/transactions/fragments/summary.html:12
 #: templates/transactions/pages/transactions.html:137
@@ -512,8 +512,8 @@ msgstr ""
 #: apps/export_app/forms.py:133 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
 #: templates/currencies/pages/index.html:4 templates/includes/navbar.html:125
-#: templates/includes/navbar.html:127 templates/includes/sidebar.html:194
-#: templates/includes/sidebar.html:196
+#: templates/includes/navbar.html:127 templates/includes/sidebar.html:218
+#: templates/includes/sidebar.html:220
 #: templates/monthly_overview/pages/overview.html:81
 #: templates/transactions/fragments/summary.html:8
 #: templates/transactions/pages/transactions.html:124
@@ -548,7 +548,7 @@ msgstr ""
 #: apps/currencies/models.py:77 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
-#: templates/includes/navbar.html:129 templates/includes/sidebar.html:202
+#: templates/includes/navbar.html:129 templates/includes/sidebar.html:226
 msgid "Exchange Rates"
 msgstr ""
 
@@ -812,15 +812,15 @@ msgid "Entry deleted successfully"
 msgstr ""
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
-#: templates/includes/navbar.html:150 templates/includes/sidebar.html:239
+#: templates/includes/navbar.html:150 templates/includes/sidebar.html:263
 #: templates/users/fragments/list.html:6 templates/users/pages/index.html:4
 msgid "Users"
 msgstr ""
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
 #: apps/transactions/models.py:375 templates/includes/navbar.html:58
-#: templates/includes/navbar.html:107 templates/includes/sidebar.html:66
-#: templates/includes/sidebar.html:160
+#: templates/includes/navbar.html:107 templates/includes/sidebar.html:91
+#: templates/includes/sidebar.html:184
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:39
 #: templates/transactions/pages/transactions.html:5
@@ -830,7 +830,7 @@ msgstr ""
 #: apps/export_app/forms.py:38 apps/export_app/forms.py:134
 #: apps/transactions/filters.py:64 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:109
-#: templates/includes/sidebar.html:162
+#: templates/includes/sidebar.html:186
 msgid "Categories"
 msgstr ""
 
@@ -843,14 +843,14 @@ msgstr ""
 #: apps/transactions/models.py:506 apps/transactions/models.py:708
 #: apps/transactions/models.py:962 templates/entities/fragments/list.html:5
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:113
-#: templates/includes/sidebar.html:174
+#: templates/includes/sidebar.html:198
 #: templates/insights/fragments/category_overview/index.html:49
 msgid "Entities"
 msgstr ""
 
 #: apps/export_app/forms.py:56 apps/export_app/forms.py:140
 #: apps/transactions/models.py:748 templates/includes/navbar.html:77
-#: templates/includes/sidebar.html:95
+#: templates/includes/sidebar.html:120
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
@@ -858,7 +858,7 @@ msgstr ""
 
 #: apps/export_app/forms.py:62 apps/export_app/forms.py:138
 #: apps/transactions/models.py:524 templates/includes/navbar.html:75
-#: templates/includes/sidebar.html:89
+#: templates/includes/sidebar.html:114
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
@@ -867,12 +867,12 @@ msgstr ""
 #: apps/export_app/forms.py:74 apps/export_app/forms.py:143
 #: templates/exchange_rates_services/fragments/list.html:6
 #: templates/exchange_rates_services/pages/index.html:4
-#: templates/includes/navbar.html:143 templates/includes/sidebar.html:230
+#: templates/includes/navbar.html:143 templates/includes/sidebar.html:254
 msgid "Automatic Exchange Rates"
 msgstr ""
 
 #: apps/export_app/forms.py:80 templates/includes/navbar.html:135
-#: templates/includes/sidebar.html:210 templates/rules/fragments/list.html:5
+#: templates/includes/sidebar.html:234 templates/rules/fragments/list.html:5
 #: templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr ""
@@ -942,7 +942,7 @@ msgstr ""
 
 #: apps/import_app/forms.py:61
 #: templates/import_app/fragments/profiles/list.html:62
-#: templates/includes/navbar.html:137 templates/includes/sidebar.html:216
+#: templates/includes/navbar.html:137 templates/includes/sidebar.html:240
 msgid "Import"
 msgstr ""
 
@@ -1475,12 +1475,12 @@ msgstr ""
 msgid "No description"
 msgstr ""
 
-#: apps/transactions/models.py:455 templates/includes/sidebar.html:42
+#: apps/transactions/models.py:455 templates/includes/sidebar.html:67
 msgid "Yearly"
 msgstr ""
 
 #: apps/transactions/models.py:456 apps/users/models.py:464
-#: templates/includes/navbar.html:27 templates/includes/sidebar.html:36
+#: templates/includes/navbar.html:27 templates/includes/sidebar.html:61
 msgid "Monthly"
 msgstr ""
 
@@ -1579,7 +1579,7 @@ msgid "Quick Transaction"
 msgstr ""
 
 #: apps/transactions/models.py:980 templates/includes/navbar.html:73
-#: templates/includes/sidebar.html:83
+#: templates/includes/sidebar.html:108
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:11
 msgid "Quick Transactions"
@@ -1671,11 +1671,11 @@ msgid "Installment Plan deleted successfully"
 msgstr ""
 
 #: apps/transactions/views/quick_transactions.py:45
-#: apps/transactions/views/quick_transactions.py:222 apps/users/views.py:152
+#: apps/transactions/views/quick_transactions.py:222 apps/users/views.py:167
 msgid "Item added successfully"
 msgstr ""
 
-#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:184
+#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:199
 msgid "Item updated successfully"
 msgstr ""
 
@@ -1894,7 +1894,7 @@ msgid "All Transactions"
 msgstr ""
 
 #: apps/users/models.py:470 templates/includes/navbar.html:33
-#: templates/includes/sidebar.html:48
+#: templates/includes/sidebar.html:73
 msgid "Calendar"
 msgstr ""
 
@@ -2224,7 +2224,7 @@ msgid "Pick a month"
 msgstr ""
 
 #: templates/common/fragments/toasts.html:15 templates/extends/offcanvas.html:5
-#: templates/includes/sidebar.html:28
+#: templates/includes/sidebar.html:53
 msgid "Close"
 msgstr ""
 
@@ -2556,7 +2556,7 @@ msgid "Edit exchange rate"
 msgstr ""
 
 #: templates/exchange_rates/fragments/list.html:25
-#: templates/includes/navbar.html:62 templates/includes/sidebar.html:68
+#: templates/includes/navbar.html:62 templates/includes/sidebar.html:93
 #: templates/installment_plans/fragments/list.html:21
 #: templates/yearly_overview/pages/overview_by_account.html:105
 #: templates/yearly_overview/pages/overview_by_currency.html:107
@@ -2613,7 +2613,7 @@ msgid "No services configured"
 msgstr ""
 
 #: templates/export_app/pages/index.html:4 templates/includes/navbar.html:140
-#: templates/includes/sidebar.html:223
+#: templates/includes/sidebar.html:247
 msgid "Export and Restore"
 msgstr ""
 
@@ -2709,7 +2709,7 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
-#: templates/includes/navbar.html:41 templates/includes/sidebar.html:60
+#: templates/includes/navbar.html:41 templates/includes/sidebar.html:85
 msgid "Net Worth"
 msgstr ""
 
@@ -2719,62 +2719,62 @@ msgstr ""
 msgid "Current"
 msgstr ""
 
-#: templates/includes/navbar.html:51 templates/includes/sidebar.html:54
+#: templates/includes/navbar.html:51 templates/includes/sidebar.html:79
 #: templates/insights/pages/index.html:5
 msgid "Insights"
 msgstr ""
 
-#: templates/includes/navbar.html:67 templates/includes/sidebar.html:76
+#: templates/includes/navbar.html:67 templates/includes/sidebar.html:101
 msgid "Trash Can"
 msgstr ""
 
-#: templates/includes/navbar.html:85 templates/includes/sidebar.html:101
+#: templates/includes/navbar.html:85 templates/includes/sidebar.html:126
 msgid "Tools"
 msgstr ""
 
-#: templates/includes/navbar.html:89 templates/includes/sidebar.html:103
+#: templates/includes/navbar.html:89 templates/includes/sidebar.html:128
 msgid "Dollar Cost Average Tracker"
 msgstr ""
 
-#: templates/includes/navbar.html:92 templates/includes/sidebar.html:109
+#: templates/includes/navbar.html:92 templates/includes/sidebar.html:134
 #: templates/mini_tools/unit_price_calculator.html:5
 #: templates/mini_tools/unit_price_calculator.html:10
 msgid "Unit Price Calculator"
 msgstr ""
 
-#: templates/includes/navbar.html:95 templates/includes/sidebar.html:115
+#: templates/includes/navbar.html:95 templates/includes/sidebar.html:140
 #: templates/mini_tools/currency_converter/currency_converter.html:8
 #: templates/mini_tools/currency_converter/currency_converter.html:15
 msgid "Currency Converter"
 msgstr ""
 
-#: templates/includes/navbar.html:104 templates/includes/sidebar.html:134
-#: templates/includes/sidebar.html:147
+#: templates/includes/navbar.html:104 templates/includes/sidebar.html:159
+#: templates/includes/sidebar.html:171
 msgid "Management"
 msgstr ""
 
-#: templates/includes/navbar.html:133 templates/includes/sidebar.html:208
+#: templates/includes/navbar.html:133 templates/includes/sidebar.html:232
 msgid "Automation"
 msgstr ""
 
-#: templates/includes/navbar.html:148 templates/includes/sidebar.html:237
+#: templates/includes/navbar.html:148 templates/includes/sidebar.html:261
 msgid "Admin"
 msgstr ""
 
-#: templates/includes/navbar.html:157 templates/includes/sidebar.html:246
+#: templates/includes/navbar.html:157 templates/includes/sidebar.html:270
 msgid "Only use this if you know what you're doing"
 msgstr ""
 
-#: templates/includes/navbar.html:158 templates/includes/sidebar.html:245
+#: templates/includes/navbar.html:158 templates/includes/sidebar.html:269
 msgid "Django Admin"
 msgstr ""
 
-#: templates/includes/navbar.html:169 templates/includes/sidebar.html:260
+#: templates/includes/navbar.html:169 templates/includes/sidebar.html:284
 msgid "is available"
 msgstr ""
 
 #: templates/includes/navbar.html:174 templates/includes/navbar.html:177
-#: templates/includes/sidebar.html:266
+#: templates/includes/sidebar.html:290
 msgid "Calculator"
 msgstr ""
 
