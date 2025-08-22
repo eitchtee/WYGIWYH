@@ -273,14 +273,20 @@
     <div>
       <hr class="my-1">
       <div
-          class="ps-4 pe-2 py-2 d-flex align-items-center text-body-secondary text-decoration-none justify-content-between tw:text-wrap tw:lg:text-nowrap">
-        <div>
-          <i class="fa-solid fa-circle-user"></i>
-          <strong class="ms-2 tw:lg:invisible tw:lg:group-hover:visible">{{ user.email }}</strong>
+          class="ps-4 pe-2 py-2 d-flex align-items-center text-decoration-none justify-content-between">
+
+        <div class="d-flex align-items-center" style="min-width: 0;">
+          <i class="fa-solid fa-circle-user text-body-secondary"></i>
+
+          <strong class="ms-2 text-body-secondary text-truncate tw:lg:invisible tw:lg:group-hover:visible">
+            {{ user.email }}
+          </strong>
         </div>
+
         <div class="tw:lg:invisible tw:lg:group-hover:visible">
           {% include 'includes/navbar/user_menu.html' %}
         </div>
+
       </div>
     </div>
   </nav>
