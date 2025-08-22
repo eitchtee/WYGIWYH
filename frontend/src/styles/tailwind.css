@@ -3,9 +3,139 @@
 @custom-variant hover (&:hover);
 
 .sidebar-active {
-  @apply tw:bg-gray-700 tw:text-white;
+    @apply tw:bg-gray-700 tw:text-white;
 }
 
 .sidebar-item:not(.sidebar-active) {
     @apply tw:text-gray-300 tw:hover:text-white;
+}
+
+@layer components {
+    .sidebar {
+        @apply tw:z-1020 tw:fixed tw:top-0 tw:start-0 tw:h-full tw:transition-all tw:duration-100;
+    }
+
+    .sidebar-floating {
+        /* Establishes the hover group and sets the collapsed/hover widths for the container */
+        @apply tw:lg:w-16 tw:lg:hover:w-112;
+    }
+
+    .sidebar-floating #sidebar {
+        /* Sets the collapsed/hover widths for the inner navigation element */
+        @apply tw:lg:w-16 tw:lg:group-hover:w-104 tw:transition-all tw:duration-100 tw:overflow-hidden;
+    }
+
+    .sidebar-floating + main {
+        /* Adjusts the main content margin to account for the collapsed sidebar */
+        @apply tw:lg:ml-16 tw:transition-all tw:duration-100;
+    }
+
+    .sidebar-floating .sidebar-item span {
+        /* Hides the text labels and reveals them only on hover */
+        @apply tw:lg:invisible tw:lg:group-hover:visible;
+    }
+
+    .sidebar-floating .sidebar-invisible {
+        /* Hides the text labels and reveals them only on hover */
+        @apply tw:lg:invisible tw:lg:group-hover:visible;
+    }
+
+    .sidebar-floating .sidebar-menu-header {
+        /* Hides the menu headers and reveals them only on hover */
+        @apply tw:lg:hidden tw:lg:group-hover:inline;
+    }
+
+    .sidebar-floating #sidebar-toggle-btn .fa-thumbtack-slash {
+        /* Hides the 'pin' icon in the floating state */
+        @apply tw:hidden!;
+    }
+
+    .sidebar-floating #sidebar-toggle-btn .fa-thumbtack {
+        /* Shows the 'expand' icon in the floating state */
+        @apply tw:inline-block!;
+    }
+
+    .sidebar-floating .sidebar-title span {
+        @apply tw:lg:invisible tw:lg:group-hover:visible
+    }
+
+    .sidebar-submenu-header {
+        @apply tw:flex;
+    }
+
+    .sidebar-floating .sidebar-submenu-header {
+        @apply tw:lg:hidden tw:lg:group-hover:flex;
+    }
+
+    .sidebar-floating .sidebar-submenu-header h5 {
+        @apply tw:lg:invisible tw:lg:group-hover:visible;
+    }
+
+    .sidebar-floating .sidebar-submenu-header button {
+        @apply tw:lg:hidden tw:lg:group-hover:inline;
+    }
+
+    .sidebar-floating .list-unstyled {
+        @apply tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden;
+    }
+
+    .sidebar-floating .sidebar-item {
+        @apply tw:text-wrap tw:lg:text-nowrap ;
+    }
+
+
+    /* --- STATE 2: Fixed (Permanently Expanded) --- */
+    .sidebar-fixed {
+        /* Sets the fixed, expanded width for the container */
+        @apply tw:lg:w-[17%] tw:transition-all tw:duration-100;
+    }
+
+    .sidebar-fixed #sidebar {
+        /* Sets the fixed, expanded width for the inner navigation */
+        @apply tw:lg:w-[17%] tw:transition-all tw:duration-100;
+    }
+
+    .sidebar-fixed + main {
+        /* Adjusts the main content margin to account for the expanded sidebar */
+        @apply tw:lg:ml-[17%] tw:transition-all tw:duration-100;
+
+        /* Using 16vw to account for padding/margins */
+    }
+
+    .sidebar-fixed .sidebar-item {
+        @apply tw:text-wrap;
+    }
+
+    .sidebar-fixed .sidebar-item span {
+        /* Ensures text labels are always visible */
+        @apply tw:lg:visible;
+    }
+
+    .sidebar-fixed .sidebar-menu-header {
+        /* Ensures menu headers are always visible */
+        @apply tw:lg:inline;
+    }
+
+    .sidebar-fixed #sidebar-toggle-btn .fa-thumbtack-slash {
+        /* Shows the 'pin' icon in the fixed state */
+        @apply tw:inline-block!;
+    }
+
+    .sidebar-fixed #sidebar-toggle-btn .fa-thumbtack {
+        /* Hides the 'expand' icon in the fixed state */
+        @apply tw:hidden!;
+    }
+
+    .sidebar-fixed .sidebar-title span {
+        @apply tw:lg:visible;
+    }
+
+    .sidebar-fixed .sidebar-submenu-header {
+        /* Ensures menu headers are always visible */
+        @apply tw:lg:flex;
+    }
+
+    .sidebar-fixed .list-unstyled  {
+        @apply tw:overflow-y-auto tw:overflow-x-hidden;
+    }
 }

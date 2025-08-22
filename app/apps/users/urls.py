@@ -18,6 +18,11 @@ urlpatterns = [
         name="toggle_sound_playing",
     ),
     path(
+        "user/toggle-sidebar/",
+        views.toggle_sidebar_status,
+        name="toggle_sidebar_status",
+    ),
+    path(
         "user/settings/",
         views.update_settings,
         name="user_settings",
