@@ -5,31 +5,56 @@
 {% load static %}
 
 <div
-    class="tw:group tw:lg:w-16 tw:lg:hover:w-112 tw:transition-all tw:duration-100 tw:fixed tw:top-0 tw:start-0 tw:h-full tw:z-1020">
+    class="sidebar {% if request.session.sidebar_status == 'floating' %}tw:group sidebar-floating{% elif request.session.sidebar_status == 'fixed' %}sidebar-fixed{% else %}tw:group sidebar-floating{% endif %}"
+    id="sidebar-container">
   <nav
       id="sidebar"
       hx-boost="true"
       data-bs-scroll="true"
-      class="offcanvas-lg offcanvas-start d-lg-flex flex-column position-fixed top-0 start-0 h-100 bg-body-tertiary shadow-sm tw:z-1020 tw:lg:w-16 tw:lg:group-hover:w-104 tw:transition-all tw:duration-100 tw:overflow-hidden">
-    <div
-        class="tw:hidden tw:lg:group-hover:block tw:absolute tw:top-0 tw:left-104 tw:w-8 tw:h-full tw:bg-transparent tw:pointer-events-auto tw:z-10"></div>
+      class="offcanvas-lg offcanvas-start d-lg-flex flex-column position-fixed top-0 start-0 h-100 bg-body-tertiary shadow-sm tw:z-1020">
 
-    <a href="{% url 'index' %}" class="d-none d-lg-flex tw:justify-start p-3 text-decoration-none">
-      <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
-      <span class="fs-4 fw-bold ms-3 tw:lg:invisible tw:lg:group-hover:visible">WYGIWYH</span>
-    </a>
+{#    <div>#}
+{#      <a href="{% url 'index' %}" class="d-none d-lg-flex tw:justify-start p-3 text-decoration-none sidebar-title">#}
+{#        <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>#}
+{#        <span class="fs-4 fw-bold ms-3">WYGIWYH</span>#}
+{#      </a>#}
+{##}
+{##}
+{#    </div>#}
+
+    <div class="d-none d-lg-flex tw:justify-between tw:items-center tw:border-b tw:border-gray-600 tw:lg:flex">
+      <a href="{% url 'index' %}" class="m-0 d-none d-lg-flex tw:justify-start p-3 text-decoration-none sidebar-title">
+        <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
+        <span class="fs-4 fw-bold ms-3">WYGIWYH</span>
+      </a>
+
+      <button
+          id="sidebar-toggle-btn"
+          class="text-secondary-emphasis tw:rounded-full tw:w-12 tw:h-12 tw:flex tw:items-center tw:justify-center tw:transition-all tw:duration-300"
+          hx-get="{% url 'toggle_sidebar_status' %}"
+          _="on click
+           toggle .sidebar-floating on #sidebar-container
+           toggle .tw\:group on #sidebar-container
+           toggle .sidebar-fixed on #sidebar-container
+        end
+      "
+      >
+        <i class="fa-solid fa-thumbtack fa-sm"></i>
+        <i class="fa-solid fa-thumbtack-slash fa-sm"></i>
+      </button>
+    </div>
 
     <div class="offcanvas-header">
       <a href="{% url 'index' %}" class="offcanvas-title d-flex tw:justify-start text-decoration-none">
         <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
-        <span class="fs-4 fw-bold ms-3 tw:lg:invisible tw:lg:group-hover:visible">WYGIWYH</span>
+        <span class="fs-4 fw-bold ms-3">WYGIWYH</span>
       </a>
       <button type="button" class="btn-close" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
               aria-label={% translate 'Close' %}></button>
     </div>
     <hr class="m-0">
 
-    <ul class="list-unstyled p-3 d-flex flex-column gap-0 tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
+    <ul class="list-unstyled p-3 d-flex flex-column gap-0 tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
         style="animation-duration: 100ms">
 
       <c-components.sidebar-menu-item
@@ -127,10 +152,10 @@
            data-bs-target="#collapsible-panel"
            aria-expanded="false"
            aria-controls="collapsible-panel"
-           class="tw:text-wrap tw:lg:text-nowrap tw:lg:text-sm d-flex align-items-center text-decoration-none p-2 rounded-3 sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
+           class="sidebar-menu-item tw:text-wrap tw:lg:text-nowrap tw:lg:text-sm d-flex align-items-center text-decoration-none p-2 rounded-3 sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
         <i class="fa-solid fa-toolbox fa-fw"></i>
         <span
-            class="ms-3 fw-medium tw:lg:invisible tw:lg:group-hover:visible tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">
+            class="ms-3 fw-medium tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">
         {% translate 'Management' %}
       </span>
       </div>
@@ -140,14 +165,13 @@
       <div id="collapsible-panel"
            class="p-0 collapse tw:absolute tw:bottom-0 tw:left-0 tw:w-full tw:z-30 tw:max-h-dvh">
         <div class="tw:h-dvh tw:backdrop-blur-3xl tw:flex tw:flex-col">
-          <!-- Header -->
           <div
-              class="tw:flex tw:justify-between tw:items-center tw:p-4 tw:border-b tw:border-gray-600 tw:lg:hidden tw:lg:group-hover:flex">
-            <h5 class="tw:text-lg tw:font-semibold tw:text-gray-800 tw:lg:invisible tw:lg:group-hover:visible">
+              class="tw:justify-between tw:items-center tw:p-4 tw:border-b tw:border-gray-600 sidebar-submenu-header">
+            <h5 class="tw:text-lg tw:font-semibold tw:text-gray-800 m-0">
               {% trans 'Management' %}
             </h5>
 
-            <button type="button" class="btn-close tw:lg:hidden tw:lg:group-hover:inline" aria-label="Close"
+            <button type="button" class="btn-close" aria-label="Close"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapsible-panel"
                     aria-expanded="true"
@@ -155,7 +179,7 @@
             </button>
           </div>
 
-          <ul class="list-unstyled p-3 d-flex flex-column gap-1 tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events] tw:flex-1"
+          <ul class="list-unstyled p-3 d-flex flex-column gap-1 tw:lg:group-hover:animate-[disable-pointer-events] tw:flex-1"
               style="animation-duration: 100ms">
             <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
             <c-components.sidebar-menu-item
@@ -273,17 +297,24 @@
     <div>
       <hr class="my-1">
       <div
-          class="ps-4 pe-2 py-2 d-flex align-items-center text-body-secondary text-decoration-none justify-content-between tw:text-wrap tw:lg:text-nowrap">
-        <div>
-          <i class="fa-solid fa-circle-user"></i>
-          <strong class="ms-2 tw:lg:invisible tw:lg:group-hover:visible">{{ user.email }}</strong>
+          class="ps-4 pe-2 py-2 d-flex align-items-center text-decoration-none justify-content-between">
+
+        <div class="d-flex align-items-center" style="min-width: 0;">
+          <i class="fa-solid fa-circle-user text-body-secondary"></i>
+
+          <strong class="mx-2 text-body-secondary text-truncate sidebar-invisible">
+            {{ user.email }}
+          </strong>
         </div>
-        <div class="tw:lg:invisible tw:lg:group-hover:visible">
+
+        <div class="sidebar-invisible">
           {% include 'includes/navbar/user_menu.html' %}
         </div>
+
       </div>
     </div>
   </nav>
+
   <div
       class="tw:hidden tw:lg:group-hover:block tw:absolute tw:top-0 tw:left-104 tw:w-16 tw:h-full tw:bg-transparent"></div>
 </div>

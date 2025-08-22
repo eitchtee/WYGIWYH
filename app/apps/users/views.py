@@ -116,6 +116,21 @@ def update_settings(request):
     return render(request, "users/fragments/user_settings.html", {"form": form})
 
 
+@only_htmx
+@htmx_login_required
+def toggle_sidebar_status(request):
+    if request.session["sidebar_status"] == "floating":
+        request.session["sidebar_status"] = "fixed"
+    elif request.session["sidebar_status"] == "fixed":
+        request.session["sidebar_status"] = "floating"
+    else:
+        request.session["sidebar_status"] = "fixed"
+
+    return HttpResponse(
+        status=204,
+    )
+
+
 @htmx_login_required
 @is_superuser
 @require_http_methods(["GET"])
