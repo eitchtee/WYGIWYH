@@ -347,11 +347,6 @@ class QuickTransactionForm(forms.ModelForm):
                 Column("entities", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
-            Row(
-                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
-                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
-                css_class="form-row",
-            ),
             "description",
             Field("amount", inputmode="decimal"),
             Row(
