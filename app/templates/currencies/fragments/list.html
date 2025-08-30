@@ -24,6 +24,7 @@
             <th scope="col" class="col-auto"></th>
             <th scope="col" class="col-auto">{% translate 'Code' %}</th>
             <th scope="col" class="col">{% translate 'Name' %}</th>
+            <th scope="col" class="col">{% translate 'Archived' %}</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +54,7 @@
             </td>
             <td class="col-auto">{{ currency.code }}</td>
             <td class="col">{{ currency.name }}</td>
+            <td class="col">{% if currency.is_archived %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
           </tr>
           {% endfor %}
         </tbody>

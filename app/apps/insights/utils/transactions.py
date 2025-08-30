@@ -102,4 +102,6 @@ def get_transactions(
             account__in=request.user.untracked_accounts.all()
         )
 
+    transactions = transactions.exclude(account__currency__is_archived=True)
+
     return transactions

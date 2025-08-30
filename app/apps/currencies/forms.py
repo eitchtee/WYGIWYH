@@ -26,6 +26,7 @@ class CurrencyForm(forms.ModelForm):
             "suffix",
             "code",
             "exchange_currency",
+            "is_archived",
         ]
         widgets = {
             "exchange_currency": TomSelect(),
@@ -40,6 +41,7 @@ class CurrencyForm(forms.ModelForm):
         self.helper.layout = Layout(
             "code",
             "name",
+            Switch("is_archived"),
             "decimal_places",
             "prefix",
             "suffix",

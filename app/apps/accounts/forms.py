@@ -3,6 +3,7 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Column, Row
 from django import forms
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import Account
@@ -15,6 +16,7 @@ from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.tom_select import TomSelect
 from apps.transactions.models import TransactionCategory, TransactionTag
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
+from apps.currencies.models import Currency
 
 
 class AccountGroupForm(forms.ModelForm):
@@ -78,6 +80,24 @@ class AccountForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["group"].queryset = AccountGroup.objects.all()
+
+        if self.instance.id:
+            self.fields["currency"].queryset = Currency.objects.filter(
+                Q(is_archived=False) | Q(accounts=self.instance.id),
+            )
+
+            self.fields["exchange_currency"].queryset = Currency.objects.filter(
+                Q(is_archived=False) | Q(accounts=self.instance.id)
+            )
+
+        else:
+            self.fields["currency"].queryset = Currency.objects.filter(
+                Q(is_archived=False),
+            )
+
+            self.fields["exchange_currency"].queryset = Currency.objects.filter(
+                Q(is_archived=False)
+            )
 
         self.helper = FormHelper()
         self.helper.form_tag = False
