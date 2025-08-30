@@ -32,6 +32,11 @@ class Currency(models.Model):
         help_text=_("Default currency for exchange calculations"),
     )
 
+    is_archived = models.BooleanField(
+        default=False,
+        verbose_name=_("Archived"),
+    )
+
     def __str__(self):
         return self.name
 

@@ -30,6 +30,7 @@ def calculate_historical_currency_net_worth(queryset):
             | Q(accounts__visibility="private", accounts__owner=None),
             accounts__is_archived=False,
             accounts__isnull=False,
+            is_archived=False,
         )
         .values_list("name", flat=True)
         .distinct()
