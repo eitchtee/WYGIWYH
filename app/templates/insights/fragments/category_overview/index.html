@@ -268,95 +268,97 @@
                   <!-- Entity rows -->
                   {% if show_entities %}
                     {% for entity_id, entity in tag.entities.items %}
-                      <tr class="table-row-nested-2">
-                        <td class="ps-5">
-                          <i class="fa-solid fa-user-group fa-fw me-2 text-muted"></i>{{ entity.name }}
-                        </td>
-                        <td>
-                          {% for currency in entity.currencies.values %}
-                            {% if showing == 'current' and currency.income_current != 0 %}
-                              <c-amount.display
-                                  :amount="currency.income_current"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="green"></c-amount.display>
-                            {% elif showing == 'projected' and currency.income_projected != 0 %}
-                              <c-amount.display
-                                  :amount="currency.income_projected"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="green"></c-amount.display>
-                            {% elif showing == 'final' and currency.total_income != 0 %}
-                              <c-amount.display
-                                  :amount="currency.total_income"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="green"></c-amount.display>
-                            {% else %}
-                              <div>-</div>
-                            {% endif %}
-                          {% endfor %}
-                        </td>
-                        <td>
-                          {% for currency in entity.currencies.values %}
-                            {% if showing == 'current' and currency.expense_current != 0 %}
-                              <c-amount.display
-                                  :amount="currency.expense_current"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="red"></c-amount.display>
-                            {% elif showing == 'projected' and currency.expense_projected != 0 %}
-                              <c-amount.display
-                                  :amount="currency.expense_projected"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="red"></c-amount.display>
-                            {% elif showing == 'final' and currency.total_expense != 0 %}
-                              <c-amount.display
-                                  :amount="currency.total_expense"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="red"></c-amount.display>
-                            {% else %}
-                              <div>-</div>
-                            {% endif %}
-                          {% endfor %}
-                        </td>
-                        <td>
-                          {% for currency in entity.currencies.values %}
-                            {% if showing == 'current' and currency.total_current != 0 %}
-                              <c-amount.display
-                                  :amount="currency.total_current"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
-                            {% elif showing == 'projected' and currency.total_projected != 0 %}
-                              <c-amount.display
-                                  :amount="currency.total_projected"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
-                            {% elif showing == 'final' and currency.total_final != 0 %}
-                              <c-amount.display
-                                  :amount="currency.total_final"
-                                  :prefix="currency.currency.prefix"
-                                  :suffix="currency.currency.suffix"
-                                  :decimal_places="currency.currency.decimal_places"
-                                  color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
-                            {% else %}
-                              <div>-</div>
-                            {% endif %}
-                          {% endfor %}
-                        </td>
-                      </tr>
+                      {% if entity.name or not entity.name and tag.entities.values|length > 1 %}
+                        <tr class="table-row-nested-2">
+                          <td class="ps-5">
+                            <i class="fa-solid fa-user-group fa-fw me-2 text-muted"></i>{% if entity.name %}{{ entity.name }}{% else %}{% trans 'No entity' %}{% endif %}
+                          </td>
+                          <td>
+                            {% for currency in entity.currencies.values %}
+                              {% if showing == 'current' and currency.income_current != 0 %}
+                                <c-amount.display
+                                    :amount="currency.income_current"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="green"></c-amount.display>
+                              {% elif showing == 'projected' and currency.income_projected != 0 %}
+                                <c-amount.display
+                                    :amount="currency.income_projected"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="green"></c-amount.display>
+                              {% elif showing == 'final' and currency.total_income != 0 %}
+                                <c-amount.display
+                                    :amount="currency.total_income"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="green"></c-amount.display>
+                              {% else %}
+                                <div>-</div>
+                              {% endif %}
+                            {% endfor %}
+                          </td>
+                          <td>
+                            {% for currency in entity.currencies.values %}
+                              {% if showing == 'current' and currency.expense_current != 0 %}
+                                <c-amount.display
+                                    :amount="currency.expense_current"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="red"></c-amount.display>
+                              {% elif showing == 'projected' and currency.expense_projected != 0 %}
+                                <c-amount.display
+                                    :amount="currency.expense_projected"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="red"></c-amount.display>
+                              {% elif showing == 'final' and currency.total_expense != 0 %}
+                                <c-amount.display
+                                    :amount="currency.total_expense"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="red"></c-amount.display>
+                              {% else %}
+                                <div>-</div>
+                              {% endif %}
+                            {% endfor %}
+                          </td>
+                          <td>
+                            {% for currency in entity.currencies.values %}
+                              {% if showing == 'current' and currency.total_current != 0 %}
+                                <c-amount.display
+                                    :amount="currency.total_current"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+                              {% elif showing == 'projected' and currency.total_projected != 0 %}
+                                <c-amount.display
+                                    :amount="currency.total_projected"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+                              {% elif showing == 'final' and currency.total_final != 0 %}
+                                <c-amount.display
+                                    :amount="currency.total_final"
+                                    :prefix="currency.currency.prefix"
+                                    :suffix="currency.currency.suffix"
+                                    :decimal_places="currency.currency.decimal_places"
+                                    color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+                              {% else %}
+                                <div>-</div>
+                              {% endif %}
+                            {% endfor %}
+                          </td>
+                        </tr>
+                      {% endif %}
                     {% endfor %}
                   {% endif %}
                 {% endif %}

@@ -12,7 +12,10 @@ from apps.currencies.utils.convert import convert
 def get_categories_totals(
     transactions_queryset, ignore_empty=False, show_entities=False
 ):
-    # First get the category totals as before
+    # Step 1: Aggregate transaction data by category and currency.
+    # This query calculates the total current and projected income/expense for each
+    # category by grouping transactions and summing up their amounts based on their
+    # type (income/expense) and payment status (paid/unpaid).
     category_currency_metrics = (
         transactions_queryset.values(
             "category",
@@ -76,7 +79,10 @@ def get_categories_totals(
         .order_by("category__name")
     )
 
-    # Get tag totals within each category with currency details
+    # Step 2: Aggregate transaction data by tag, category, and currency.
+    # This is similar to the category metrics but adds tags to the grouping,
+    # allowing for a breakdown of totals by tag within each category. It also
+    # handles untagged transactions, where the 'tags' field is None.
     tag_metrics = transactions_queryset.values(
         "category",
         "tags",
@@ -131,10 +137,12 @@ def get_categories_totals(
         ),
     )
 
-    # Process the results to structure by category
+    # Step 3: Initialize the main dictionary to structure the final results.
+    # The data will be organized hierarchically: category -> currency -> tags -> entities.
     result = {}
 
-    # Process category totals first
+    # Step 4: Process the aggregated category metrics to build the initial result structure.
+    # This loop iterates through each category's metrics and populates the `result` dict.
     for metric in category_currency_metrics:
         # Skip empty categories if ignore_empty is True
         if ignore_empty and all(
@@ -185,7 +193,7 @@ def get_categories_totals(
             "total_final": total_final,
         }
 
-        # Add exchanged values if exchange_currency exists
+        # Step 4a: Handle currency conversion for category totals if an exchange currency is defined.
         if metric["account__currency__exchange_currency"]:
             from_currency = Currency.objects.get(id=currency_id)
             exchange_currency = Currency.objects.get(
@@ -224,7 +232,7 @@ def get_categories_totals(
 
         result[category_id]["currencies"][currency_id] = currency_data
 
-    # Process tag totals and add them to the result, including untagged
+    # Step 5: Process the aggregated tag metrics and integrate them into the result structure.
     for tag_metric in tag_metrics:
         category_id = tag_metric["category"]
         tag_id = tag_metric["tags"]  # Will be None for untagged transactions
@@ -281,7 +289,7 @@ def get_categories_totals(
                 "total_final": tag_total_final,
             }
 
-            # Add exchange currency support for tags
+            # Step 5a: Handle currency conversion for tag totals.
             if tag_metric["account__currency__exchange_currency"]:
                 from_currency = Currency.objects.get(id=currency_id)
                 exchange_currency = Currency.objects.get(
@@ -322,6 +330,7 @@ def get_categories_totals(
                 currency_id
             ] = tag_currency_data
 
+    # Step 6: If requested, aggregate and process entity-level data.
     if show_entities:
         entity_metrics = transactions_queryset.values(
             "category",
@@ -389,14 +398,15 @@ def get_categories_totals(
             tag_id = entity_metric["tags"]
             entity_id = entity_metric["entities"]
 
-            if not entity_id:
-                continue
-
             if category_id in result:
                 tag_key = tag_id if tag_id is not None else "untagged"
                 if tag_key in result[category_id]["tags"]:
-                    entity_key = entity_id
-                    entity_name = entity_metric["entities__name"]
+                    entity_key = entity_id if entity_id is not None else "no_entity"
+                    entity_name = (
+                        entity_metric["entities__name"]
+                        if entity_id is not None
+                        else None
+                    )
 
                     if "entities" not in result[category_id]["tags"][tag_key]:
                         result[category_id]["tags"][tag_key]["entities"] = {}
