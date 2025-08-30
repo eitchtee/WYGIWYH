@@ -79,7 +79,7 @@ def yearly_overview_by_currency(request, year: int):
     currency = request.GET.get("currency")
 
     # Base query filter
-    filter_params = {"reference_date__year": year, "account__is_archived": False}
+    filter_params = {"reference_date__year": year}
 
     # Add month filter if provided
     if month:
