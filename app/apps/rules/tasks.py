@@ -2,7 +2,6 @@ import decimal
 import logging
 from datetime import datetime, date
 from decimal import Decimal
-from typing import Any
 
 from cachalot.api import cachalot_disabled
 from dateutil.relativedelta import relativedelta
@@ -11,6 +10,7 @@ from procrastinate.contrib.django import app
 from simpleeval import EvalWithCompoundTypes
 
 from apps.accounts.models import Account
+from apps.common.middleware.thread_local import write_current_user, delete_current_user
 from apps.rules.models import (
     TransactionRule,
     TransactionRuleAction,
@@ -21,7 +21,7 @@ from apps.transactions.models import (
     TransactionTag,
     TransactionEntity,
 )
-from apps.common.middleware.thread_local import write_current_user, delete_current_user
+from apps.rules.utils import transactions
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +58,7 @@ def check_for_transaction_rules(
                 "decimal": decimal.Decimal,
                 "datetime": datetime,
                 "date": date,
+                "transactions": transactions.TransactionsGetter,
             }
 
             names = _get_names(instance)
