@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-28 02:18+0000\n"
+"POT-Creation-Date: 2025-08-30 01:48+0000\n"
 "PO-Revision-Date: 2025-07-22 06:17+0000\n"
 "Last-Translator: seraphblade2010 <marc.butenhoff@web.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -19,13 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.12.2\n"
 
-#: apps/accounts/forms.py:24
+#: apps/accounts/forms.py:26
 msgid "Group name"
 msgstr "Gruppe Name"
 
-#: apps/accounts/forms.py:40 apps/accounts/forms.py:98
-#: apps/currencies/forms.py:53 apps/currencies/forms.py:91
-#: apps/currencies/forms.py:144 apps/dca/forms.py:49 apps/dca/forms.py:224
+#: apps/accounts/forms.py:42 apps/accounts/forms.py:118
+#: apps/currencies/forms.py:55 apps/currencies/forms.py:93
+#: apps/currencies/forms.py:146 apps/dca/forms.py:49 apps/dca/forms.py:224
 #: apps/import_app/forms.py:34 apps/rules/forms.py:51 apps/rules/forms.py:93
 #: apps/rules/forms.py:365 apps/transactions/forms.py:204
 #: apps/transactions/forms.py:369 apps/transactions/forms.py:416
@@ -36,9 +36,9 @@ msgstr "Gruppe Name"
 msgid "Update"
 msgstr "Aktualisierung"
 
-#: apps/accounts/forms.py:48 apps/accounts/forms.py:106
-#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:61
-#: apps/currencies/forms.py:99 apps/currencies/forms.py:152
+#: apps/accounts/forms.py:50 apps/accounts/forms.py:126
+#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:63
+#: apps/currencies/forms.py:101 apps/currencies/forms.py:154
 #: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
 #: apps/rules/forms.py:59 apps/rules/forms.py:101 apps/rules/forms.py:373
 #: apps/transactions/forms.py:189 apps/transactions/forms.py:213
@@ -66,15 +66,15 @@ msgstr "Aktualisierung"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: apps/accounts/forms.py:57 templates/accounts/fragments/list.html:26
+#: apps/accounts/forms.py:59 templates/accounts/fragments/list.html:26
 msgid "Group"
 msgstr "Gruppe"
 
-#: apps/accounts/forms.py:115
+#: apps/accounts/forms.py:135
 msgid "New balance"
 msgstr "Neuer Saldo"
 
-#: apps/accounts/forms.py:121 apps/dca/forms.py:85 apps/dca/forms.py:92
+#: apps/accounts/forms.py:141 apps/dca/forms.py:85 apps/dca/forms.py:92
 #: apps/insights/forms.py:118 apps/rules/forms.py:174 apps/rules/forms.py:189
 #: apps/rules/models.py:38 apps/rules/models.py:286
 #: apps/transactions/forms.py:42 apps/transactions/forms.py:256
@@ -87,7 +87,7 @@ msgstr "Neuer Saldo"
 msgid "Category"
 msgstr "Kategorie"
 
-#: apps/accounts/forms.py:128 apps/dca/forms.py:101 apps/dca/forms.py:109
+#: apps/accounts/forms.py:148 apps/dca/forms.py:101 apps/dca/forms.py:109
 #: apps/export_app/forms.py:44 apps/export_app/forms.py:135
 #: apps/rules/forms.py:177 apps/rules/forms.py:186 apps/rules/models.py:39
 #: apps/rules/models.py:290 apps/transactions/filters.py:69
@@ -132,7 +132,7 @@ msgstr "Kontengruppe"
 msgid "Account Groups"
 msgstr "Kontengruppen"
 
-#: apps/accounts/models.py:39 apps/currencies/models.py:39
+#: apps/accounts/models.py:39 apps/currencies/models.py:44
 #: templates/accounts/fragments/list.html:27
 #: templates/yearly_overview/pages/overview_by_account.html:18
 #: templates/yearly_overview/pages/overview_by_currency.html:20
@@ -159,8 +159,10 @@ msgstr ""
 "Vermögenskonten werden in deinem Nettovermögen berücksichtigt, aber nicht in "
 "deiner Monatsübersicht."
 
-#: apps/accounts/models.py:62 templates/accounts/fragments/list.html:30
+#: apps/accounts/models.py:62 apps/currencies/models.py:37
+#: templates/accounts/fragments/list.html:30
 #: templates/categories/fragments/list.html:24
+#: templates/currencies/fragments/list.html:27
 #: templates/entities/fragments/list.html:24
 #: templates/tags/fragments/list.html:24
 msgid "Archived"
@@ -498,7 +500,7 @@ msgstr "Präfix"
 msgid "Suffix"
 msgstr "Suffix"
 
-#: apps/currencies/forms.py:69 apps/dca/models.py:158 apps/rules/forms.py:169
+#: apps/currencies/forms.py:71 apps/dca/models.py:158 apps/rules/forms.py:169
 #: apps/rules/forms.py:182 apps/rules/models.py:33 apps/rules/models.py:254
 #: apps/transactions/forms.py:66 apps/transactions/forms.py:478
 #: apps/transactions/models.py:300
@@ -520,7 +522,7 @@ msgstr "Währungsname"
 msgid "Decimal Places"
 msgstr "Dezimalstellen"
 
-#: apps/currencies/models.py:40 apps/export_app/forms.py:26
+#: apps/currencies/models.py:45 apps/export_app/forms.py:26
 #: apps/export_app/forms.py:133 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
 #: templates/currencies/pages/index.html:4 templates/includes/navbar.html:125
@@ -532,63 +534,63 @@ msgstr "Dezimalstellen"
 msgid "Currencies"
 msgstr "Währungen"
 
-#: apps/currencies/models.py:49
+#: apps/currencies/models.py:54
 msgid "Currency cannot have itself as exchange currency."
 msgstr "Die Währung kann nicht ihre eigene Umrechnungswährung sein."
 
-#: apps/currencies/models.py:60
+#: apps/currencies/models.py:65
 msgid "From Currency"
 msgstr "Startwährung"
 
-#: apps/currencies/models.py:66
+#: apps/currencies/models.py:71
 msgid "To Currency"
 msgstr "Zielwährung"
 
-#: apps/currencies/models.py:69 apps/currencies/models.py:76
+#: apps/currencies/models.py:74 apps/currencies/models.py:81
 msgid "Exchange Rate"
 msgstr "Umrechnungskurs"
 
-#: apps/currencies/models.py:71
+#: apps/currencies/models.py:76
 msgid "Date and Time"
 msgstr "Datum und Uhrzeit"
 
-#: apps/currencies/models.py:73 apps/users/models.py:12
+#: apps/currencies/models.py:78 apps/users/models.py:12
 #: apps/users/models.py:497
 msgid "Auto"
 msgstr "Automatisch"
 
-#: apps/currencies/models.py:77 apps/export_app/forms.py:68
+#: apps/currencies/models.py:82 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:129 templates/includes/sidebar.html:226
 msgid "Exchange Rates"
 msgstr "Umrechnungskurse"
 
-#: apps/currencies/models.py:89
+#: apps/currencies/models.py:94
 msgid "From and To currencies cannot be the same."
 msgstr "Start- und Zielwährung dürfen nicht identisch sein."
 
-#: apps/currencies/models.py:105
+#: apps/currencies/models.py:110
 msgid "On"
 msgstr "An"
 
-#: apps/currencies/models.py:106
+#: apps/currencies/models.py:111
 msgid "Every X hours"
 msgstr "Alle X Stunden"
 
-#: apps/currencies/models.py:107
+#: apps/currencies/models.py:112
 msgid "Not on"
 msgstr "Nicht an"
 
-#: apps/currencies/models.py:109
+#: apps/currencies/models.py:114
 msgid "Service Name"
 msgstr "Dienstname"
 
-#: apps/currencies/models.py:111
+#: apps/currencies/models.py:116
 msgid "Service Type"
 msgstr "Diensttyp"
 
-#: apps/currencies/models.py:113 apps/transactions/models.py:214
+#: apps/currencies/models.py:118 apps/transactions/models.py:214
 #: apps/transactions/models.py:238 apps/transactions/models.py:262
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
@@ -597,31 +599,31 @@ msgstr "Diensttyp"
 msgid "Active"
 msgstr "Aktiv"
 
-#: apps/currencies/models.py:118
+#: apps/currencies/models.py:123
 msgid "API Key"
 msgstr "API-Schlüssel"
 
-#: apps/currencies/models.py:119
+#: apps/currencies/models.py:124
 msgid "API key for the service (if required)"
 msgstr "API-Schlüssel für den Dienst (falls benötigt)"
 
-#: apps/currencies/models.py:124
+#: apps/currencies/models.py:129
 msgid "Interval Type"
 msgstr "Intervalltyp"
 
-#: apps/currencies/models.py:128
+#: apps/currencies/models.py:133
 msgid "Interval"
 msgstr "Intervall"
 
-#: apps/currencies/models.py:131
+#: apps/currencies/models.py:136
 msgid "Last Successful Fetch"
 msgstr "Letzter erfolgreicher Abruf"
 
-#: apps/currencies/models.py:136
+#: apps/currencies/models.py:141
 msgid "Target Currencies"
 msgstr "Zielwährungen"
 
-#: apps/currencies/models.py:138
+#: apps/currencies/models.py:143
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -629,11 +631,11 @@ msgstr ""
 "Währung auswählen, dessen Umrechnungskurs abgerufen werden sollen. Für jede "
 "Währung wird der Kurs der entsprechenden Umrechnungs-Währung abgerufen."
 
-#: apps/currencies/models.py:146
+#: apps/currencies/models.py:151
 msgid "Target Accounts"
 msgstr "Zielkonten"
 
-#: apps/currencies/models.py:148
+#: apps/currencies/models.py:153
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -641,33 +643,33 @@ msgstr ""
 "Konten auswählen, für die Umrechungskurse abgerufen werden solen. Für jedes "
 "Konto wird der Kurs der entsprechenden Umrechnungs-Währung abgerufen."
 
-#: apps/currencies/models.py:155
+#: apps/currencies/models.py:160
 #, fuzzy
 #| msgid "Edit exchange rate"
 msgid "Single exchange rate"
 msgstr "Umrechnungskurs bearbeiten"
 
-#: apps/currencies/models.py:158
+#: apps/currencies/models.py:163
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 
-#: apps/currencies/models.py:163
+#: apps/currencies/models.py:168
 msgid "Exchange Rate Service"
 msgstr "Umrechnungskurs-Dienst"
 
-#: apps/currencies/models.py:164
+#: apps/currencies/models.py:169
 msgid "Exchange Rate Services"
 msgstr "Umrechnungskurs-Dienste"
 
-#: apps/currencies/models.py:216
+#: apps/currencies/models.py:221
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "\"Jede X Stunden\"-Intervalltyp benötigt eine positive Ganzzahl."
 
-#: apps/currencies/models.py:225
+#: apps/currencies/models.py:230
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "\"Jede X Stunden\"-Intervall muss zwischen 1 und 24 liegen."
 
-#: apps/currencies/models.py:239
+#: apps/currencies/models.py:244
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -675,7 +677,7 @@ msgstr ""
 "Ungültiges Stundenformat. Nutze kommagetrennte Stunden (0-23) und/oder "
 "Zeiträume (z.B. \"1-5,8,10-12\")."
 
-#: apps/currencies/models.py:250
+#: apps/currencies/models.py:255
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
@@ -2004,7 +2006,7 @@ msgstr "Kontogruppe bearbeiten"
 #: templates/account_groups/fragments/list.html:32
 #: templates/accounts/fragments/list.html:37
 #: templates/categories/fragments/table.html:24
-#: templates/currencies/fragments/list.html:33
+#: templates/currencies/fragments/list.html:34
 #: templates/dca/fragments/strategy/details.html:63
 #: templates/entities/fragments/table.html:23
 #: templates/exchange_rates/fragments/table.html:19
@@ -2025,7 +2027,7 @@ msgstr "Aktionen"
 #: templates/categories/fragments/table.html:29
 #: templates/cotton/transaction/item.html:129
 #: templates/cotton/ui/transactions_action_bar.html:52
-#: templates/currencies/fragments/list.html:37
+#: templates/currencies/fragments/list.html:38
 #: templates/dca/fragments/strategy/details.html:67
 #: templates/dca/fragments/strategy/list.html:36
 #: templates/entities/fragments/table.html:28
@@ -2051,7 +2053,7 @@ msgstr "Bearbeiten"
 #: templates/cotton/transaction/item.html:192
 #: templates/cotton/ui/deleted_transactions_action_bar.html:55
 #: templates/cotton/ui/transactions_action_bar.html:90
-#: templates/currencies/fragments/list.html:44
+#: templates/currencies/fragments/list.html:45
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:44
 #: templates/entities/fragments/table.html:36
@@ -2078,7 +2080,7 @@ msgstr "Löschen"
 #: templates/cotton/transaction/item.html:196
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:92
-#: templates/currencies/fragments/list.html:48
+#: templates/currencies/fragments/list.html:49
 #: templates/dca/fragments/strategy/details.html:80
 #: templates/dca/fragments/strategy/list.html:48
 #: templates/entities/fragments/table.html:40
@@ -2108,7 +2110,7 @@ msgstr "Bist du sicher?"
 #: templates/cotton/transaction/item.html:197
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:93
-#: templates/currencies/fragments/list.html:49
+#: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:81
 #: templates/dca/fragments/strategy/list.html:49
 #: templates/entities/fragments/table.html:41
@@ -2128,7 +2130,7 @@ msgstr "Dies kann nicht rückgängig gemacht werden!"
 #: templates/categories/fragments/table.html:43
 #: templates/cotton/transaction/item.html:142
 #: templates/cotton/transaction/item.html:198
-#: templates/currencies/fragments/list.html:50
+#: templates/currencies/fragments/list.html:51
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:50
 #: templates/entities/fragments/table.html:42
@@ -2477,7 +2479,7 @@ msgstr "Währung bearbeiten"
 msgid "Code"
 msgstr "Code"
 
-#: templates/currencies/fragments/list.html:61
+#: templates/currencies/fragments/list.html:63
 msgid "No currencies"
 msgstr "Keine Währungen"
 

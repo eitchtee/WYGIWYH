@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-28 02:18+0000\n"
+"POT-Creation-Date: 2025-08-30 01:48+0000\n"
 "PO-Revision-Date: 2025-04-14 06:16+0000\n"
 "Last-Translator: Emil <emil.bjorkroth@gmail.com>\n"
 "Language-Team: Swedish <https://translations.herculino.com/projects/wygiwyh/"
@@ -19,13 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.10.4\n"
 
-#: apps/accounts/forms.py:24
+#: apps/accounts/forms.py:26
 msgid "Group name"
 msgstr ""
 
-#: apps/accounts/forms.py:40 apps/accounts/forms.py:98
-#: apps/currencies/forms.py:53 apps/currencies/forms.py:91
-#: apps/currencies/forms.py:144 apps/dca/forms.py:49 apps/dca/forms.py:224
+#: apps/accounts/forms.py:42 apps/accounts/forms.py:118
+#: apps/currencies/forms.py:55 apps/currencies/forms.py:93
+#: apps/currencies/forms.py:146 apps/dca/forms.py:49 apps/dca/forms.py:224
 #: apps/import_app/forms.py:34 apps/rules/forms.py:51 apps/rules/forms.py:93
 #: apps/rules/forms.py:365 apps/transactions/forms.py:204
 #: apps/transactions/forms.py:369 apps/transactions/forms.py:416
@@ -36,9 +36,9 @@ msgstr ""
 msgid "Update"
 msgstr "Uppdatera"
 
-#: apps/accounts/forms.py:48 apps/accounts/forms.py:106
-#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:61
-#: apps/currencies/forms.py:99 apps/currencies/forms.py:152
+#: apps/accounts/forms.py:50 apps/accounts/forms.py:126
+#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:63
+#: apps/currencies/forms.py:101 apps/currencies/forms.py:154
 #: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
 #: apps/rules/forms.py:59 apps/rules/forms.py:101 apps/rules/forms.py:373
 #: apps/transactions/forms.py:189 apps/transactions/forms.py:213
@@ -66,15 +66,15 @@ msgstr "Uppdatera"
 msgid "Add"
 msgstr ""
 
-#: apps/accounts/forms.py:57 templates/accounts/fragments/list.html:26
+#: apps/accounts/forms.py:59 templates/accounts/fragments/list.html:26
 msgid "Group"
 msgstr ""
 
-#: apps/accounts/forms.py:115
+#: apps/accounts/forms.py:135
 msgid "New balance"
 msgstr ""
 
-#: apps/accounts/forms.py:121 apps/dca/forms.py:85 apps/dca/forms.py:92
+#: apps/accounts/forms.py:141 apps/dca/forms.py:85 apps/dca/forms.py:92
 #: apps/insights/forms.py:118 apps/rules/forms.py:174 apps/rules/forms.py:189
 #: apps/rules/models.py:38 apps/rules/models.py:286
 #: apps/transactions/forms.py:42 apps/transactions/forms.py:256
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: apps/accounts/forms.py:128 apps/dca/forms.py:101 apps/dca/forms.py:109
+#: apps/accounts/forms.py:148 apps/dca/forms.py:101 apps/dca/forms.py:109
 #: apps/export_app/forms.py:44 apps/export_app/forms.py:135
 #: apps/rules/forms.py:177 apps/rules/forms.py:186 apps/rules/models.py:39
 #: apps/rules/models.py:290 apps/transactions/filters.py:69
@@ -132,7 +132,7 @@ msgstr ""
 msgid "Account Groups"
 msgstr ""
 
-#: apps/accounts/models.py:39 apps/currencies/models.py:39
+#: apps/accounts/models.py:39 apps/currencies/models.py:44
 #: templates/accounts/fragments/list.html:27
 #: templates/yearly_overview/pages/overview_by_account.html:18
 #: templates/yearly_overview/pages/overview_by_currency.html:20
@@ -157,8 +157,10 @@ msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
 msgstr ""
 
-#: apps/accounts/models.py:62 templates/accounts/fragments/list.html:30
+#: apps/accounts/models.py:62 apps/currencies/models.py:37
+#: templates/accounts/fragments/list.html:30
 #: templates/categories/fragments/list.html:24
+#: templates/currencies/fragments/list.html:27
 #: templates/entities/fragments/list.html:24
 #: templates/tags/fragments/list.html:24
 msgid "Archived"
@@ -487,7 +489,7 @@ msgstr ""
 msgid "Suffix"
 msgstr ""
 
-#: apps/currencies/forms.py:69 apps/dca/models.py:158 apps/rules/forms.py:169
+#: apps/currencies/forms.py:71 apps/dca/models.py:158 apps/rules/forms.py:169
 #: apps/rules/forms.py:182 apps/rules/models.py:33 apps/rules/models.py:254
 #: apps/transactions/forms.py:66 apps/transactions/forms.py:478
 #: apps/transactions/models.py:300
@@ -509,7 +511,7 @@ msgstr ""
 msgid "Decimal Places"
 msgstr ""
 
-#: apps/currencies/models.py:40 apps/export_app/forms.py:26
+#: apps/currencies/models.py:45 apps/export_app/forms.py:26
 #: apps/export_app/forms.py:133 apps/transactions/filters.py:60
 #: templates/currencies/fragments/list.html:5
 #: templates/currencies/pages/index.html:4 templates/includes/navbar.html:125
@@ -521,63 +523,63 @@ msgstr ""
 msgid "Currencies"
 msgstr ""
 
-#: apps/currencies/models.py:49
+#: apps/currencies/models.py:54
 msgid "Currency cannot have itself as exchange currency."
 msgstr ""
 
-#: apps/currencies/models.py:60
+#: apps/currencies/models.py:65
 msgid "From Currency"
 msgstr ""
 
-#: apps/currencies/models.py:66
+#: apps/currencies/models.py:71
 msgid "To Currency"
 msgstr ""
 
-#: apps/currencies/models.py:69 apps/currencies/models.py:76
+#: apps/currencies/models.py:74 apps/currencies/models.py:81
 msgid "Exchange Rate"
 msgstr ""
 
-#: apps/currencies/models.py:71
+#: apps/currencies/models.py:76
 msgid "Date and Time"
 msgstr ""
 
-#: apps/currencies/models.py:73 apps/users/models.py:12
+#: apps/currencies/models.py:78 apps/users/models.py:12
 #: apps/users/models.py:497
 msgid "Auto"
 msgstr ""
 
-#: apps/currencies/models.py:77 apps/export_app/forms.py:68
+#: apps/currencies/models.py:82 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:129 templates/includes/sidebar.html:226
 msgid "Exchange Rates"
 msgstr ""
 
-#: apps/currencies/models.py:89
+#: apps/currencies/models.py:94
 msgid "From and To currencies cannot be the same."
 msgstr ""
 
-#: apps/currencies/models.py:105
+#: apps/currencies/models.py:110
 msgid "On"
 msgstr ""
 
-#: apps/currencies/models.py:106
+#: apps/currencies/models.py:111
 msgid "Every X hours"
 msgstr ""
 
-#: apps/currencies/models.py:107
+#: apps/currencies/models.py:112
 msgid "Not on"
 msgstr ""
 
-#: apps/currencies/models.py:109
+#: apps/currencies/models.py:114
 msgid "Service Name"
 msgstr ""
 
-#: apps/currencies/models.py:111
+#: apps/currencies/models.py:116
 msgid "Service Type"
 msgstr ""
 
-#: apps/currencies/models.py:113 apps/transactions/models.py:214
+#: apps/currencies/models.py:118 apps/transactions/models.py:214
 #: apps/transactions/models.py:238 apps/transactions/models.py:262
 #: templates/categories/fragments/list.html:21
 #: templates/entities/fragments/list.html:21
@@ -586,77 +588,77 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: apps/currencies/models.py:118
+#: apps/currencies/models.py:123
 msgid "API Key"
 msgstr ""
 
-#: apps/currencies/models.py:119
+#: apps/currencies/models.py:124
 msgid "API key for the service (if required)"
 msgstr ""
 
-#: apps/currencies/models.py:124
+#: apps/currencies/models.py:129
 msgid "Interval Type"
 msgstr ""
 
-#: apps/currencies/models.py:128
+#: apps/currencies/models.py:133
 msgid "Interval"
 msgstr ""
 
-#: apps/currencies/models.py:131
+#: apps/currencies/models.py:136
 msgid "Last Successful Fetch"
 msgstr ""
 
-#: apps/currencies/models.py:136
+#: apps/currencies/models.py:141
 msgid "Target Currencies"
 msgstr ""
 
-#: apps/currencies/models.py:138
+#: apps/currencies/models.py:143
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 msgstr ""
 
-#: apps/currencies/models.py:146
+#: apps/currencies/models.py:151
 msgid "Target Accounts"
 msgstr ""
 
-#: apps/currencies/models.py:148
+#: apps/currencies/models.py:153
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr ""
 
-#: apps/currencies/models.py:155
+#: apps/currencies/models.py:160
 msgid "Single exchange rate"
 msgstr ""
 
-#: apps/currencies/models.py:158
+#: apps/currencies/models.py:163
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 
-#: apps/currencies/models.py:163
+#: apps/currencies/models.py:168
 msgid "Exchange Rate Service"
 msgstr ""
 
-#: apps/currencies/models.py:164
+#: apps/currencies/models.py:169
 msgid "Exchange Rate Services"
 msgstr ""
 
-#: apps/currencies/models.py:216
+#: apps/currencies/models.py:221
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr ""
 
-#: apps/currencies/models.py:225
+#: apps/currencies/models.py:230
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr ""
 
-#: apps/currencies/models.py:239
+#: apps/currencies/models.py:244
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
 
-#: apps/currencies/models.py:250
+#: apps/currencies/models.py:255
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
@@ -1946,7 +1948,7 @@ msgstr ""
 #: templates/account_groups/fragments/list.html:32
 #: templates/accounts/fragments/list.html:37
 #: templates/categories/fragments/table.html:24
-#: templates/currencies/fragments/list.html:33
+#: templates/currencies/fragments/list.html:34
 #: templates/dca/fragments/strategy/details.html:63
 #: templates/entities/fragments/table.html:23
 #: templates/exchange_rates/fragments/table.html:19
@@ -1967,7 +1969,7 @@ msgstr ""
 #: templates/categories/fragments/table.html:29
 #: templates/cotton/transaction/item.html:129
 #: templates/cotton/ui/transactions_action_bar.html:52
-#: templates/currencies/fragments/list.html:37
+#: templates/currencies/fragments/list.html:38
 #: templates/dca/fragments/strategy/details.html:67
 #: templates/dca/fragments/strategy/list.html:36
 #: templates/entities/fragments/table.html:28
@@ -1993,7 +1995,7 @@ msgstr ""
 #: templates/cotton/transaction/item.html:192
 #: templates/cotton/ui/deleted_transactions_action_bar.html:55
 #: templates/cotton/ui/transactions_action_bar.html:90
-#: templates/currencies/fragments/list.html:44
+#: templates/currencies/fragments/list.html:45
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:44
 #: templates/entities/fragments/table.html:36
@@ -2020,7 +2022,7 @@ msgstr ""
 #: templates/cotton/transaction/item.html:196
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:92
-#: templates/currencies/fragments/list.html:48
+#: templates/currencies/fragments/list.html:49
 #: templates/dca/fragments/strategy/details.html:80
 #: templates/dca/fragments/strategy/list.html:48
 #: templates/entities/fragments/table.html:40
@@ -2050,7 +2052,7 @@ msgstr ""
 #: templates/cotton/transaction/item.html:197
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:93
-#: templates/currencies/fragments/list.html:49
+#: templates/currencies/fragments/list.html:50
 #: templates/dca/fragments/strategy/details.html:81
 #: templates/dca/fragments/strategy/list.html:49
 #: templates/entities/fragments/table.html:41
@@ -2070,7 +2072,7 @@ msgstr ""
 #: templates/categories/fragments/table.html:43
 #: templates/cotton/transaction/item.html:142
 #: templates/cotton/transaction/item.html:198
-#: templates/currencies/fragments/list.html:50
+#: templates/currencies/fragments/list.html:51
 #: templates/dca/fragments/strategy/details.html:82
 #: templates/dca/fragments/strategy/list.html:50
 #: templates/entities/fragments/table.html:42
@@ -2417,7 +2419,7 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
-#: templates/currencies/fragments/list.html:61
+#: templates/currencies/fragments/list.html:63
 msgid "No currencies"
 msgstr ""
 
