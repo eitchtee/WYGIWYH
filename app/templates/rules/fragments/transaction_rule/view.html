@@ -30,75 +30,84 @@
 
     <div class="my-3">
       <div class="tw:text-xl mb-2">{% translate 'Then...' %}</div>
-      {% for action in transaction_rule.transaction_actions.all %}
-        <div class="card mb-3">
-          <div class="card-header">
-            <div><span class="badge text-bg-primary">{% trans 'Edit transaction' %}</span></div>
-          </div>
-          <div class="card-body">
-            <div>{% translate 'Set' %} <span
-                class="badge text-bg-secondary">{{ action.get_field_display }}</span> {% translate 'to' %}</div>
-            <div class="text-bg-secondary rounded-3 mt-3 p-2">{{ action.value }}</div>
-          </div>
-          <div class="card-footer text-end">
-            <a class="text-decoration-none tw:text-gray-400 p-1"
-               role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Edit" %}"
-               hx-get="{% url 'transaction_rule_action_edit' transaction_rule_action_id=action.id %}"
-               hx-target="#generic-offcanvas">
-              <i class="fa-solid fa-pencil fa-fw"></i>
-            </a>
-            <a class="text-danger text-decoration-none p-1"
-               role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Delete" %}"
-               hx-delete="{% url 'transaction_rule_action_delete' transaction_rule_action_id=action.id %}"
-               hx-trigger='confirmed'
-               data-bypass-on-ctrl="true"
-               data-title="{% translate "Are you sure?" %}"
-               data-text="{% translate "You won't be able to revert this!" %}"
-               data-confirm-text="{% translate "Yes, delete it!" %}"
-               _="install prompt_swal">
+      {% for action in all_actions %}
+        {% if action.action_type == "edit_transaction" %}
+          <div class="card mb-3">
+            <div class="card-header">
+              <div>
+                {% if action.order != 0 %}<span class="badge text-bg-secondary">{{ action.order }}</span>{% endif %}
+                <span class="badge text-bg-primary">{% trans 'Edit transaction' %}</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                {% translate 'Set' %} <span
+                  class="badge text-bg-secondary">{{ action.get_field_display }}</span> {% translate 'to' %}
+              </div>
+              <div class="text-bg-secondary rounded-3 mt-3 p-2">{{ action.value }}</div>
+            </div>
+            <div class="card-footer text-end">
+              <a class="text-decoration-none tw:text-gray-400 p-1"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate 'Edit' %}"
+                 hx-get="{% url 'transaction_rule_action_edit' transaction_rule_action_id=action.id %}"
+                 hx-target="#generic-offcanvas">
+                <i class="fa-solid fa-pencil fa-fw"></i>
+              </a>
+              <a class="text-danger text-decoration-none p-1"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate 'Delete' %}"
+                 hx-delete="{% url 'transaction_rule_action_delete' transaction_rule_action_id=action.id %}"
+                 hx-trigger='confirmed'
+                 data-bypass-on-ctrl="true"
+                 data-title="{% translate 'Are you sure?' %}"
+                 data-text="{% translate "You won't be able to revert this!" %}"
+                 data-confirm-text="{% translate 'Yes, delete it!' %}"
+                 _="install prompt_swal">
               <i class="fa-solid fa-trash fa-fw"></i>
-            </a>
+              </a>
+            </div>
           </div>
-        </div>
-      {% endfor %}
-      {% for action in transaction_rule.update_or_create_transaction_actions.all %}
-        <div class="card mb-3">
-          <div class="card-header">
-            <div><span class="badge text-bg-primary">{% trans 'Update or create transaction' %}</span></div>
-          </div>
-          <div class="card-body">
-            <div>{% trans 'Edit to view' %}</div>
-          </div>
-          <div class="card-footer text-end">
-            <a class="text-decoration-none tw:text-gray-400 p-1"
-               role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Edit" %}"
-               hx-get="{% url 'update_or_create_transaction_rule_action_edit' pk=action.id %}"
-               hx-target="#generic-offcanvas">
-              <i class="fa-solid fa-pencil fa-fw"></i>
-            </a>
-            <a class="text-danger text-decoration-none p-1"
-               role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Delete" %}"
-               hx-delete="{% url 'update_or_create_transaction_rule_action_delete' pk=action.id %}"
-               hx-trigger='confirmed'
-               data-bypass-on-ctrl="true"
-               data-title="{% translate "Are you sure?" %}"
-               data-text="{% translate "You won't be able to revert this!" %}"
-               data-confirm-text="{% translate "Yes, delete it!" %}"
-               _="install prompt_swal">
+        {% elif action.action_type == "update_or_create_transaction" %}
+          <div class="card mb-3">
+            <div class="card-header">
+              <div>
+                {% if action.order != 0 %}<span class="badge text-bg-secondary">{{ action.order }}</span>{% endif %}
+                <span class="badge text-bg-primary">{% trans 'Update or create transaction' %}</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>{% trans 'Edit to view' %}</div>
+            </div>
+            <div class="card-footer text-end">
+              <a class="text-decoration-none tw:text-gray-400 p-1"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate 'Edit' %}"
+                 hx-get="{% url 'update_or_create_transaction_rule_action_edit' pk=action.id %}"
+                 hx-target="#generic-offcanvas">
+                <i class="fa-solid fa-pencil fa-fw"></i>
+              </a>
+              <a class="text-danger text-decoration-none p-1"
+                 role="button"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="{% translate 'Delete' %}"
+                 hx-delete="{% url 'update_or_create_transaction_rule_action_delete' pk=action.id %}"
+                 hx-trigger='confirmed'
+                 data-bypass-on-ctrl="true"
+                 data-title="{% translate 'Are you sure?' %}"
+                 data-text="{% translate "You won't be able to revert this!" %}"
+                 data-confirm-text="{% translate 'Yes, delete it!' %}"
+                 _="install prompt_swal">
               <i class="fa-solid fa-trash fa-fw"></i>
-            </a>
+              </a>
+            </div>
           </div>
-        </div>
+        {% endif %}
       {% endfor %}
-      {% if not transaction_rule.update_or_create_transaction_actions.all and not transaction_rule.transaction_actions.all %}
+      {% if not all_actions %}
         <div class="card">
           <div class="card-body">
             {% translate 'This rule has no actions' %}

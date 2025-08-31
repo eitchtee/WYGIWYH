@@ -65,10 +65,11 @@ class TransactionRuleForm(forms.ModelForm):
 class TransactionRuleActionForm(forms.ModelForm):
     class Meta:
         model = TransactionRuleAction
-        fields = ("value", "field")
+        fields = ("value", "field", "order")
         labels = {
             "field": _("Set field"),
             "value": _("To"),
+            "order": _("Order"),
         }
         widgets = {"field": TomSelect(clear_button=False)}
 
@@ -82,6 +83,7 @@ class TransactionRuleActionForm(forms.ModelForm):
         self.helper.form_method = "post"
         # TO-DO: Add helper with available commands
         self.helper.layout = Layout(
+            "order",
             "field",
             "value",
         )
@@ -150,6 +152,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
         }
 
         labels = {
+            "order": _("Order"),
             "search_account_operator": _("Operator"),
             "search_type_operator": _("Operator"),
             "search_is_paid_operator": _("Operator"),
@@ -200,6 +203,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
         self.helper.form_method = "post"
 
         self.helper.layout = Layout(
+            "order",
             BS5Accordion(
                 AccordionGroup(
                     _("Search Criteria"),

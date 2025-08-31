@@ -175,6 +175,6 @@ class RecurringTransactionTests(TestCase):
             recurrence_type=RecurringTransaction.RecurrenceType.MONTH,
             recurrence_interval=1,
         )
-        self.assertFalse(recurring.paused)
+        self.assertFalse(recurring.is_paused)
         self.assertEqual(recurring.recurrence_interval, 1)
         self.assertEqual(recurring.account.currency.code, "USD")
