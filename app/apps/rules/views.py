@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -140,10 +142,18 @@ def transaction_rule_edit(request, transaction_rule_id):
 def transaction_rule_view(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
 
+    edit_actions = transaction_rule.transaction_actions.all()
+    update_or_create_actions = transaction_rule.update_or_create_transaction_actions.all()
+
+    all_actions = sorted(
+        chain(edit_actions, update_or_create_actions),
+        key=lambda a: a.order,
+    )
+
     return render(
         request,
         "rules/fragments/transaction_rule/view.html",
-        {"transaction_rule": transaction_rule},
+        {"transaction_rule": transaction_rule, "all_actions": all_actions},
     )
 
 

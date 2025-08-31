@@ -2,6 +2,7 @@ import decimal
 import logging
 from datetime import datetime, date
 from decimal import Decimal
+from itertools import chain
 
 from cachalot.api import cachalot_disabled
 from dateutil.relativedelta import relativedelta
@@ -87,7 +88,9 @@ def check_for_transaction_rules(
                     # For deleted transactions, we might want to limit what actions can be performed
                     if signal == "transaction_deleted":
                         # Process only create/update actions, not edit actions
-                        for action in rule.update_or_create_transaction_actions.all():
+                        for (
+                            action
+                        ) in rule.update_or_create_transaction_actions.all():
                             try:
                                 _process_update_or_create_transaction_action(
                                     action=action, simple_eval=simple
@@ -99,31 +102,74 @@ def check_for_transaction_rules(
                                 )
                     else:
                         # Normal processing for non-deleted transactions
-                        for action in rule.transaction_actions.all():
-                            try:
-                                instance = _process_edit_transaction_action(
-                                    instance=instance, action=action, simple_eval=simple
-                                )
-                            except Exception as e:
-                                logger.error(
-                                    f"Error processing edit transaction action {action.id}",
-                                    exc_info=True,
-                                )
+                        edit_actions = list(rule.transaction_actions.all())
+                        update_or_create_actions = list(
+                            rule.update_or_create_transaction_actions.all()
+                        )
 
-                        simple.names.update(_get_names(instance))
-                        if signal != "transaction_deleted":
-                            instance.save()
+                        # Check if any action has a non-zero order
+                        has_custom_order = any(
+                            a.order > 0 for a in edit_actions
+                        ) or any(a.order > 0 for a in update_or_create_actions)
 
-                        for action in rule.update_or_create_transaction_actions.all():
-                            try:
-                                _process_update_or_create_transaction_action(
-                                    action=action, simple_eval=simple
-                                )
-                            except Exception as e:
-                                logger.error(
-                                    f"Error processing update or create transaction action {action.id}",
-                                    exc_info=True,
-                                )
+                        if has_custom_order:
+                            # Combine and sort actions by order
+                            all_actions = sorted(
+                                chain(edit_actions, update_or_create_actions),
+                                key=lambda a: a.order,
+                            )
+
+                            for action in all_actions:
+                                try:
+                                    if isinstance(action, TransactionRuleAction):
+                                        instance = _process_edit_transaction_action(
+                                            instance=instance,
+                                            action=action,
+                                            simple_eval=simple,
+                                        )
+                                        # Update names for next actions
+                                        simple.names.update(_get_names(instance))
+                                    else:
+                                        _process_update_or_create_transaction_action(
+                                            action=action, simple_eval=simple
+                                        )
+                                except Exception as e:
+                                    logger.error(
+                                        f"Error processing action {action.id}",
+                                        exc_info=True,
+                                    )
+                            # Save at the end
+                            if signal != "transaction_deleted":
+                                instance.save()
+                        else:
+                            # Original behavior
+                            for action in edit_actions:
+                                try:
+                                    instance = _process_edit_transaction_action(
+                                        instance=instance,
+                                        action=action,
+                                        simple_eval=simple,
+                                    )
+                                except Exception as e:
+                                    logger.error(
+                                        f"Error processing edit transaction action {action.id}",
+                                        exc_info=True,
+                                    )
+
+                            simple.names.update(_get_names(instance))
+                            if signal != "transaction_deleted":
+                                instance.save()
+
+                            for action in update_or_create_actions:
+                                try:
+                                    _process_update_or_create_transaction_action(
+                                        action=action, simple_eval=simple
+                                    )
+                                except Exception as e:
+                                    logger.error(
+                                        f"Error processing update or create transaction action {action.id}",
+                                        exc_info=True,
+                                    )
     except Exception as e:
         logger.error(
             "Error while executing 'check_for_transaction_rules' task",

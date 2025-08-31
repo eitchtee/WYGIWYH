@@ -51,6 +51,7 @@ class TransactionRuleAction(models.Model):
         verbose_name=_("Field"),
     )
     value = models.TextField(verbose_name=_("Value"))
+    order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
 
     def __str__(self):
         return f"{self.rule} - {self.field} - {self.value}"
@@ -59,6 +60,11 @@ class TransactionRuleAction(models.Model):
         verbose_name = _("Edit transaction action")
         verbose_name_plural = _("Edit transaction actions")
         unique_together = (("rule", "field"),)
+        ordering = ["order"]
+
+    @property
+    def action_type(self):
+        return "edit_transaction"
 
 
 class UpdateOrCreateTransactionRuleAction(models.Model):
@@ -290,10 +296,16 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
         verbose_name=_("Tags"),
         blank=True,
     )
+    order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
 
     class Meta:
         verbose_name = _("Update or create transaction action")
         verbose_name_plural = _("Update or create transaction actions")
+        ordering = ["order"]
+
+    @property
+    def action_type(self):
+        return "update_or_create_transaction"
 
     def __str__(self):
         return f"Update or create transaction action for {self.rule}"
