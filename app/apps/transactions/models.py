@@ -1,4 +1,5 @@
 import logging
+from copy import deepcopy
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
@@ -33,13 +34,13 @@ transaction_deleted = Signal()
 
 class SoftDeleteQuerySet(models.QuerySet):
     @staticmethod
-    def _emit_signals(instances, created=False):
+    def _emit_signals(instances, created=False, old_data=None):
         """Helper to emit signals for multiple instances"""
-        for instance in instances:
+        for i, instance in enumerate(instances):
             if created:
                 transaction_created.send(sender=instance)
             else:
-                transaction_updated.send(sender=instance)
+                transaction_updated.send(sender=instance, old_data=old_data[i])
 
     def bulk_create(self, objs, emit_signal=True, **kwargs):
         instances = super().bulk_create(objs, **kwargs)
@@ -50,22 +51,25 @@ class SoftDeleteQuerySet(models.QuerySet):
         return instances
 
     def bulk_update(self, objs, fields, emit_signal=True, **kwargs):
+        old_data = deepcopy(objs)
         result = super().bulk_update(objs, fields, **kwargs)
 
         if emit_signal:
-            self._emit_signals(objs, created=False)
+            self._emit_signals(objs, created=False, old_data=old_data)
 
         return result
 
     def update(self, emit_signal=True, **kwargs):
         # Get instances before update
         instances = list(self)
+        old_data = deepcopy(instances)
+
         result = super().update(**kwargs)
 
         if emit_signal:
             # Refresh instances to get new values
             refreshed = self.model.objects.filter(pk__in=[obj.pk for obj in instances])
-            self._emit_signals(refreshed, created=False)
+            self._emit_signals(refreshed, created=False, old_data=old_data)
 
         return result
 

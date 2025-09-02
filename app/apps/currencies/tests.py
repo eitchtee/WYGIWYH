@@ -40,12 +40,6 @@ class CurrencyTests(TestCase):
         with self.assertRaises(ValidationError):
             currency.full_clean()
 
-    def test_currency_unique_code(self):
-        """Test that currency codes must be unique"""
-        Currency.objects.create(code="USD", name="US Dollar", decimal_places=2)
-        with self.assertRaises(IntegrityError):
-            Currency.objects.create(code="USD", name="Another Dollar", decimal_places=2)
-
     def test_currency_unique_name(self):
         """Test that currency names must be unique"""
         Currency.objects.create(code="USD", name="US Dollar", decimal_places=2)

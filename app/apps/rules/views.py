@@ -12,6 +12,8 @@ from apps.rules.forms import (
     TransactionRuleForm,
     TransactionRuleActionForm,
     UpdateOrCreateTransactionRuleActionForm,
+    DryRunCreatedTransacion,
+    DryRunDeletedTransacion,
 )
 from apps.rules.models import (
     TransactionRule,
@@ -21,6 +23,8 @@ from apps.rules.models import (
 from apps.common.models import SharedObject
 from apps.common.forms import SharedObjectForm
 from apps.common.decorators.demo import disabled_on_demo
+from apps.rules.tasks import check_for_transaction_rules
+from apps.common.middleware.thread_local import get_current_user
 
 
 @login_required
@@ -143,7 +147,9 @@ def transaction_rule_view(request, transaction_rule_id):
     transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
 
     edit_actions = transaction_rule.transaction_actions.all()
-    update_or_create_actions = transaction_rule.update_or_create_transaction_actions.all()
+    update_or_create_actions = (
+        transaction_rule.update_or_create_transaction_actions.all()
+    )
 
     all_actions = sorted(
         chain(edit_actions, update_or_create_actions),
@@ -415,4 +421,66 @@ def update_or_create_transaction_rule_action_delete(request, pk):
         headers={
             "HX-Trigger": "updated, hide_offcanvas",
         },
+    )
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET", "POST"])
+def dry_run_rule_created(request, pk):
+    rule = get_object_or_404(TransactionRule, id=pk)
+    logs = None
+    results = None
+
+    if request.method == "POST":
+        form = DryRunCreatedTransacion(request.POST)
+        if form.is_valid():
+            logs, results = check_for_transaction_rules(
+                instance_id=form.cleaned_data["transaction"].id,
+                signal="transaction_created",
+                dry_run=True,
+                rule_id=rule.id,
+                user_id=get_current_user().id,
+            )
+            logs = "\n".join(logs)
+
+    else:
+        form = DryRunCreatedTransacion()
+
+    return render(
+        request,
+        "rules/fragments/transaction_rule/dry_run/created.html",
+        {"form": form, "rule": rule, "logs": logs, "results": results},
+    )
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET", "POST"])
+def dry_run_rule_deleted(request, pk):
+    rule = get_object_or_404(TransactionRule, id=pk)
+    logs = None
+    results = None
+
+    if request.method == "POST":
+        form = DryRunDeletedTransacion(request.POST)
+        if form.is_valid():
+            logs, results = check_for_transaction_rules(
+                instance_id=form.cleaned_data["transaction"].id,
+                signal="transaction_deleted",
+                dry_run=True,
+                rule_id=rule.id,
+                user_id=get_current_user().id,
+            )
+            logs = "\n".join(logs)
+
+    else:
+        form = DryRunDeletedTransacion()
+
+    return render(
+        request,
+        "rules/fragments/transaction_rule/dry_run/deleted.html",
+        {"form": form, "rule": rule, "logs": logs, "results": results},
     )

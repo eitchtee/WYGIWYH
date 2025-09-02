@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
 from crispy_forms.bootstrap import FormActions, AccordionGroup, AppendedText
 from crispy_forms.helper import FormHelper
@@ -239,11 +241,16 @@ class TransactionForm(forms.ModelForm):
     def save(self, **kwargs):
         is_new = not self.instance.id
 
+        if not is_new:
+            old_data = deepcopy(Transaction.objects.get(pk=self.instance.id))
+        else:
+            old_data = None
+
         instance = super().save(**kwargs)
         if is_new:
             transaction_created.send(sender=instance)
         else:
-            transaction_updated.send(sender=instance)
+            transaction_updated.send(sender=instance, old_data=old_data)
 
         return instance
 

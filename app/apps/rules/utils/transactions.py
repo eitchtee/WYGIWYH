@@ -56,3 +56,33 @@ class TransactionsGetter:
                 output_field=DecimalField(),
             )
         )["balance"]
+
+
+def serialize_transaction(sender: Transaction, deleted: bool):
+    return {
+        "id": sender.id,
+        "account": (sender.account.id, sender.account.name),
+        "account_group": (
+            sender.account.group.id if sender.account.group else None,
+            sender.account.group.name if sender.account.group else None,
+        ),
+        "type": str(sender.type),
+        "is_paid": sender.is_paid,
+        "is_asset": sender.account.is_asset,
+        "is_archived": sender.account.is_archived,
+        "category": (
+            sender.category.id if sender.category else None,
+            sender.category.name if sender.category else None,
+        ),
+        "date": sender.date.isoformat(),
+        "reference_date": sender.reference_date.isoformat(),
+        "amount": str(sender.amount),
+        "description": sender.description,
+        "notes": sender.notes,
+        "tags": list(sender.tags.values_list("id", "name")),
+        "entities": list(sender.entities.values_list("id", "name")),
+        "deleted": deleted,
+        "internal_note": sender.internal_note,
+        "internal_id": sender.internal_id,
+        "mute": sender.mute,
+    }
