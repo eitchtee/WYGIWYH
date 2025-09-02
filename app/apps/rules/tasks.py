@@ -7,7 +7,6 @@ from decimal import Decimal
 from itertools import chain
 from pprint import pformat
 from random import randint, random
-from textwrap import indent
 from typing import Literal
 
 from cachalot.api import cachalot_disabled
@@ -37,6 +36,10 @@ logger = logging.getLogger(__name__)
 class DryRunResults:
     def __init__(self):
         self.results = []
+
+    def header(self, header: str, action):
+        result = {"type": "header", "header_type": header, "action": action}
+        self.results.append(result)
 
     def triggering_transaction(self, instance):
         result = {
@@ -82,18 +85,12 @@ class DryRunResults:
         }
         self.results.append(result)
 
-    def error(
-        self,
-        action: Literal["update_or_create_transaction", "edit_transaction"],
-        error,
-        action_obj,
-    ):
+    def error(self, error, level: Literal["error", "warning", "info"] = "error"):
         result = {
             "type": "error",
-            "action": action,
-            "action_obj": action_obj,
             "error": error,
             "traceback": traceback.format_exc(),
+            "level": level,
         }
         self.results.append(result)
 
@@ -126,129 +123,145 @@ def check_for_transaction_rules(
             if k.startswith(prefix):
                 del simple.names[k]
 
-    def _get_names(instance: Transaction | dict, prefix: str = ""):
-        if isinstance(instance, Transaction):
+    def _get_names(transaction: Transaction | dict, prefix: str = ""):
+        if isinstance(transaction, Transaction):
             return {
-                f"{prefix}id": instance.id,
-                f"{prefix}account_name": instance.account.name if instance.id else None,
-                f"{prefix}account_id": instance.account.id if instance.id else None,
+                "is_on_create": True if signal == "transaction_created" else False,
+                "is_on_delete": True if signal == "transaction_deleted" else False,
+                "is_on_update": True if signal == "transaction_updated" else False,
+                f"{prefix}id": transaction.id,
+                f"{prefix}account_name": (
+                    transaction.account.name if transaction.id else None
+                ),
+                f"{prefix}account_id": (
+                    transaction.account.id if transaction.id else None
+                ),
                 f"{prefix}account_group_name": (
-                    instance.account.group.name
-                    if instance.id and instance.account.group
+                    transaction.account.group.name
+                    if transaction.id and transaction.account.group
                     else None
                 ),
                 f"{prefix}account_group_id": (
-                    instance.account.group.id
-                    if instance.id and instance.account.group
+                    transaction.account.group.id
+                    if transaction.id and transaction.account.group
                     else None
                 ),
                 f"{prefix}is_asset_account": (
-                    instance.account.is_asset if instance.id else None
+                    transaction.account.is_asset if transaction.id else None
                 ),
                 f"{prefix}is_archived_account": (
-                    instance.account.is_archived if instance.id else None
+                    transaction.account.is_archived if transaction.id else None
                 ),
                 f"{prefix}category_name": (
-                    instance.category.name if instance.category else None
+                    transaction.category.name if transaction.category else None
                 ),
                 f"{prefix}category_id": (
-                    instance.category.id if instance.category else None
+                    transaction.category.id if transaction.category else None
                 ),
                 f"{prefix}tag_names": (
-                    [x.name for x in instance.tags.all()] if instance.id else []
+                    [x.name for x in transaction.tags.all()] if transaction.id else []
                 ),
                 f"{prefix}tag_ids": (
-                    [x.id for x in instance.tags.all()] if instance.id else []
+                    [x.id for x in transaction.tags.all()] if transaction.id else []
                 ),
                 f"{prefix}entities_names": (
-                    [x.name for x in instance.entities.all()] if instance.id else []
+                    [x.name for x in transaction.entities.all()]
+                    if transaction.id
+                    else []
                 ),
                 f"{prefix}entities_ids": (
-                    [x.id for x in instance.entities.all()] if instance.id else []
+                    [x.id for x in transaction.entities.all()] if transaction.id else []
                 ),
-                f"{prefix}is_expense": instance.type == Transaction.Type.EXPENSE,
-                f"{prefix}is_income": instance.type == Transaction.Type.INCOME,
-                f"{prefix}is_paid": instance.is_paid,
-                f"{prefix}description": instance.description,
-                f"{prefix}amount": instance.amount or 0,
-                f"{prefix}notes": instance.notes,
-                f"{prefix}date": instance.date,
-                f"{prefix}reference_date": instance.reference_date,
-                f"{prefix}internal_note": instance.internal_note,
-                f"{prefix}internal_id": instance.internal_id,
-                f"{prefix}is_deleted": instance.deleted,
-                f"{prefix}is_muted": instance.mute,
+                f"{prefix}is_expense": transaction.type == Transaction.Type.EXPENSE,
+                f"{prefix}is_income": transaction.type == Transaction.Type.INCOME,
+                f"{prefix}is_paid": transaction.is_paid,
+                f"{prefix}description": transaction.description,
+                f"{prefix}amount": transaction.amount or 0,
+                f"{prefix}notes": transaction.notes,
+                f"{prefix}date": transaction.date,
+                f"{prefix}reference_date": transaction.reference_date,
+                f"{prefix}internal_note": transaction.internal_note,
+                f"{prefix}internal_id": transaction.internal_id,
+                f"{prefix}is_deleted": transaction.deleted,
+                f"{prefix}is_muted": transaction.mute,
             }
         else:
             return {
-                f"{prefix}id": instance.get("id"),
-                f"{prefix}account_name": instance.get("account", (None, None))[1],
-                f"{prefix}account_id": instance.get("account", (None, None))[0],
-                f"{prefix}account_group_name": instance.get(
+                "is_on_create": True if signal == "transaction_created" else False,
+                "is_on_delete": True if signal == "transaction_deleted" else False,
+                "is_on_update": True if signal == "transaction_updated" else False,
+                f"{prefix}id": transaction.get("id"),
+                f"{prefix}account_name": transaction.get("account", (None, None))[1],
+                f"{prefix}account_id": transaction.get("account", (None, None))[0],
+                f"{prefix}account_group_name": transaction.get(
                     "account_group", (None, None)
                 )[1],
-                f"{prefix}account_group_id": instance.get(
+                f"{prefix}account_group_id": transaction.get(
                     "account_group", (None, None)
                 )[0],
-                f"{prefix}is_asset_account": instance.get("is_asset"),
-                f"{prefix}is_archived_account": instance.get("is_archived"),
-                f"{prefix}category_name": instance.get("category", (None, None))[1],
-                f"{prefix}category_id": instance.get("category", (None, None))[0],
-                f"{prefix}tag_names": [x[1] for x in instance.get("tags", [])],
-                f"{prefix}tag_ids": [x[0] for x in instance.get("tags", [])],
-                f"{prefix}entities_names": [x[1] for x in instance.get("entities", [])],
-                f"{prefix}entities_ids": [x[0] for x in instance.get("entities", [])],
-                f"{prefix}is_expense": instance.get("type") == Transaction.Type.EXPENSE,
-                f"{prefix}is_income": instance.get("type") == Transaction.Type.INCOME,
-                f"{prefix}is_paid": instance.get("is_paid"),
-                f"{prefix}description": instance.get("description", ""),
-                f"{prefix}amount": Decimal(instance.get("amount")),
-                f"{prefix}notes": instance.get("notes", ""),
-                f"{prefix}date": datetime.fromisoformat(instance.get("date")),
+                f"{prefix}is_asset_account": transaction.get("is_asset"),
+                f"{prefix}is_archived_account": transaction.get("is_archived"),
+                f"{prefix}category_name": transaction.get("category", (None, None))[1],
+                f"{prefix}category_id": transaction.get("category", (None, None))[0],
+                f"{prefix}tag_names": [x[1] for x in transaction.get("tags", [])],
+                f"{prefix}tag_ids": [x[0] for x in transaction.get("tags", [])],
+                f"{prefix}entities_names": [
+                    x[1] for x in transaction.get("entities", [])
+                ],
+                f"{prefix}entities_ids": [
+                    x[0] for x in transaction.get("entities", [])
+                ],
+                f"{prefix}is_expense": transaction.get("type")
+                == Transaction.Type.EXPENSE,
+                f"{prefix}is_income": transaction.get("type")
+                == Transaction.Type.INCOME,
+                f"{prefix}is_paid": transaction.get("is_paid"),
+                f"{prefix}description": transaction.get("description", ""),
+                f"{prefix}amount": Decimal(transaction.get("amount")),
+                f"{prefix}notes": transaction.get("notes", ""),
+                f"{prefix}date": datetime.fromisoformat(transaction.get("date")),
                 f"{prefix}reference_date": datetime.fromisoformat(
-                    instance.get("reference_date")
+                    transaction.get("reference_date")
                 ),
-                f"{prefix}internal_note": instance.get("internal_note", ""),
-                f"{prefix}internal_id": instance.get("internal_id", ""),
-                f"{prefix}is_deleted": instance.get("deleted", True),
-                f"{prefix}is_muted": instance.get("mute", False),
+                f"{prefix}internal_note": transaction.get("internal_note", ""),
+                f"{prefix}internal_id": transaction.get("internal_id", ""),
+                f"{prefix}is_deleted": transaction.get("deleted", True),
+                f"{prefix}is_muted": transaction.get("mute", False),
             }
 
     def _process_update_or_create_transaction_action(processed_action):
         """Helper to process a single linked transaction action"""
 
+        dry_run_results.header("update_or_create_transaction", action=processed_action)
+
         # Build search query using the helper method
         search_query = processed_action.build_search_query(simple)
-        _log(f"   ├─ Searching transactions using: {search_query}")
+        _log(f"Searching transactions using: {search_query}")
 
         starting_instance = None
 
         # Find latest matching transaction or create new
         if search_query:
-            transactions = Transaction.objects.filter(search_query).order_by(
+            searched_transactions = Transaction.objects.filter(search_query).order_by(
                 "-date", "-id"
             )
-            if transactions.exists():
-                transaction = transactions.first()
+            if searched_transactions.exists():
+                transaction = searched_transactions.first()
                 existing = True
                 starting_instance = deepcopy(transaction)
-                _log("   ├─ Found at least one matching transaction, using latest:")
-                _log(
-                    "     ├─ {}".format(
-                        indent(pformat(model_to_dict(transaction)), "     ")
-                    )
-                )
+                _log("Found at least one matching transaction, using latest:")
+                _log("{}".format(pformat(model_to_dict(transaction))))
             else:
                 transaction = Transaction()
                 existing = False
                 _log(
-                    "   ├─ No matching transaction found, creating a new transaction",
+                    "No matching transaction found, creating a new transaction",
                 )
         else:
             transaction = Transaction()
             existing = False
             _log(
-                "   ├─ No matching transaction found, creating a new transaction",
+                "No matching transaction found, creating a new transaction",
             )
 
         simple.names.update(_get_names(transaction, prefix="my_"))
@@ -256,9 +269,10 @@ def check_for_transaction_rules(
         if processed_action.filter:
             value = simple.eval(processed_action.filter)
             if not value:
-                _log(
-                    "   ├─ Filter did not match. Execution of this action has been stopped."
+                dry_run_results.error(
+                    error="Filter did not match. Execution of this action has stopped.",
                 )
+                _log("Filter did not match. Execution of this action has stopped.")
                 return  # Short-circuit execution if filter evaluates to false
 
         # Set fields if provided
@@ -310,34 +324,24 @@ def check_for_transaction_rules(
 
         if dry_run:
             if not transaction.id:
-                _log("   ├─ Transaction would be created as:")
+                _log("Transaction would be created as:")
             else:
-                _log("   ├─ Trasanction would be updated as:")
+                _log("Trasanction would be updated as:")
 
             _log(
-                "     ├─ {}".format(
-                    indent(
-                        pformat(
-                            model_to_dict(transaction, exclude=["tags", "entities"])
-                        ),
-                        "     ",
-                    )
+                "{}".format(
+                    pformat(model_to_dict(transaction, exclude=["tags", "entities"])),
                 )
             )
         else:
             if not transaction.id:
-                _log("   ├─ Transaction will be created as:")
+                _log("Transaction will be created as:")
             else:
-                _log("   ├─ Trasanction will be updated as:")
+                _log("Trasanction will be updated as:")
 
             _log(
-                "     ├─ {}".format(
-                    indent(
-                        pformat(
-                            model_to_dict(transaction, exclude=["tags", "entities"])
-                        ),
-                        "     ",
-                    )
+                "{}".format(
+                    pformat(model_to_dict(transaction, exclude=["tags", "entities"])),
                 )
             )
             transaction.save()
@@ -347,9 +351,9 @@ def check_for_transaction_rules(
         if processed_action.set_tags:
             tags = simple.eval(processed_action.set_tags)
             if dry_run:
-                _log(f"     ├─ And tags would be set as: {tags}")
+                _log(f" And tags would be set as: {tags}")
             else:
-                _log(f"     ├─ And tags will be set as: {tags}")
+                _log(f" And tags will be set as: {tags}")
                 transaction.tags.clear()
                 if isinstance(tags, (list, tuple)):
                     for tag in tags:
@@ -367,9 +371,9 @@ def check_for_transaction_rules(
         if processed_action.set_entities:
             entities = simple.eval(processed_action.set_entities)
             if dry_run:
-                _log(f"     ├─ And entities would be set as: {entities}")
+                _log(f" And entities would be set as: {entities}")
             else:
-                _log(f"     ├─ And entities will be set as: {entities}")
+                _log(f" And entities will be set as: {entities}")
                 transaction.entities.clear()
                 if isinstance(entities, (list, tuple)):
                     for entity in entities:
@@ -391,8 +395,6 @@ def check_for_transaction_rules(
                             TransactionEntity.objects.get(name=entities)
                         )
 
-        transaction.full_clean()
-
         dry_run_results.update_or_create_transaction(
             start_instance=starting_instance,
             end_instance=deepcopy(transaction),
@@ -403,68 +405,52 @@ def check_for_transaction_rules(
             tags=tags,
         )
 
-    def _process_edit_transaction_action(instance, processed_action) -> Transaction:
+        # transaction.full_clean()
+
+    def _process_edit_transaction_action(transaction, processed_action) -> Transaction:
+        dry_run_results.header("edit_transaction", action=processed_action)
+
         field = processed_action.field
-        original_value = getattr(instance, field)
+        original_value = getattr(transaction, field)
         new_value = simple.eval(processed_action.value)
 
         tags = []
         entities = []
 
         _log(
-            f"   ├─ Changing field '{field}' from '{original_value}' to '{new_value}'",
+            f"Changing field '{field}' from '{original_value}' to '{new_value}'",
         )
 
-        form_data = {}
-
-        if field in [
-            TransactionRuleAction.Field.type,
-            TransactionRuleAction.Field.is_paid,
-            TransactionRuleAction.Field.date,
-            TransactionRuleAction.Field.reference_date,
-            TransactionRuleAction.Field.amount,
-            TransactionRuleAction.Field.description,
-            TransactionRuleAction.Field.notes,
-            TransactionRuleAction.Field.mute,
-            TransactionRuleAction.Field.internal_note,
-            TransactionRuleAction.Field.internal_id,
-        ]:
-            setattr(
-                instance,
-                field,
-                new_value,
-            )
-
-        elif field == TransactionRuleAction.Field.account:
+        if field == TransactionRuleAction.Field.account:
             if isinstance(new_value, int):
                 account = Account.objects.get(id=new_value)
-                instance.account = account
+                transaction.account = account
             elif isinstance(new_value, str):
                 account = Account.objects.filter(name=new_value).first()
-                instance.account = account
+                transaction.account = account
 
         elif field == TransactionRuleAction.Field.category:
             if isinstance(new_value, int):
                 category = TransactionCategory.objects.get(id=new_value)
-                instance.category = category
+                transaction.category = category
             elif isinstance(new_value, str):
                 category = TransactionCategory.objects.get(name=new_value)
-                instance.category = category
+                transaction.category = category
 
         elif field == TransactionRuleAction.Field.tags:
             if not dry_run:
-                instance.tags.clear()
+                transaction.tags.clear()
             if isinstance(new_value, list):
                 for tag_value in new_value:
                     if isinstance(tag_value, int):
                         tag = TransactionTag.objects.get(id=tag_value)
                         if not dry_run:
-                            instance.tags.add(tag)
+                            transaction.tags.add(tag)
                         tags.append(tag)
                     elif isinstance(tag_value, str):
                         tag = TransactionTag.objects.get(name=tag_value)
                         if not dry_run:
-                            instance.tags.add(tag)
+                            transaction.tags.add(tag)
                         tags.append(tag)
 
             elif isinstance(new_value, (int, str)):
@@ -474,23 +460,23 @@ def check_for_transaction_rules(
                     tag = TransactionTag.objects.get(name=new_value)
 
                 if not dry_run:
-                    instance.tags.add(tag)
+                    transaction.tags.add(tag)
                 tags.append(tag)
 
         elif field == TransactionRuleAction.Field.entities:
             if not dry_run:
-                instance.entities.clear()
+                transaction.entities.clear()
             if isinstance(new_value, list):
                 for entity_value in new_value:
                     if isinstance(entity_value, int):
                         entity = TransactionEntity.objects.get(id=entity_value)
                         if not dry_run:
-                            instance.entities.add(entity)
+                            transaction.entities.add(entity)
                         entities.append(entity)
                     elif isinstance(entity_value, str):
                         entity = TransactionEntity.objects.get(name=entity_value)
                         if not dry_run:
-                            instance.entities.add(entity)
+                            transaction.entities.add(entity)
                         entities.append(entity)
 
             elif isinstance(new_value, (int, str)):
@@ -499,13 +485,18 @@ def check_for_transaction_rules(
                 else:
                     entity = TransactionEntity.objects.get(name=new_value)
                 if not dry_run:
-                    instance.entities.add(entity)
+                    transaction.entities.add(entity)
                 entities.append(entity)
 
-        instance.full_clean()
+        else:
+            setattr(
+                transaction,
+                field,
+                new_value,
+            )
 
         dry_run_results.edit_transaction(
-            instance=deepcopy(instance),
+            instance=deepcopy(transaction),
             action=processed_action,
             old_value=original_value,
             new_value=new_value,
@@ -514,7 +505,9 @@ def check_for_transaction_rules(
             entities=entities,
         )
 
-        return instance
+        transaction.full_clean()
+
+        return transaction
 
     user = get_user_model().objects.get(id=user_id)
     write_current_user(user)
@@ -522,7 +515,7 @@ def check_for_transaction_rules(
     dry_run_results = DryRunResults()
 
     if dry_run and not rule_id:
-        raise Exception("-> Cannot dry run without a rule id")
+        raise Exception("Cannot dry run without a rule id")
 
     try:
         with cachalot_disabled():
@@ -553,8 +546,8 @@ def check_for_transaction_rules(
                 "transactions": transactions.TransactionsGetter,
             }
 
-            _log("-> Starting rule execution...")
-            _log("-> Available functions: {}".format(functions.keys()))
+            _log("Starting rule execution...")
+            _log("Available functions: {}".format(functions.keys()))
 
             names = _get_names(instance)
 
@@ -564,45 +557,55 @@ def check_for_transaction_rules(
                 simple.names.update(_get_names(old_data, "old_"))
 
             # Select rules based on the signal type
-            if signal == "transaction_created":
+            if dry_run and rule_id:
+                rules = TransactionRule.objects.filter(id=rule_id)
+            elif signal == "transaction_created":
                 rules = TransactionRule.objects.filter(
                     active=True, on_create=True
-                ).order_by("id")
+                ).order_by("order", "id")
             elif signal == "transaction_updated":
                 rules = TransactionRule.objects.filter(
                     active=True, on_update=True
-                ).order_by("id")
+                ).order_by("order", "id")
             elif signal == "transaction_deleted":
                 rules = TransactionRule.objects.filter(
                     active=True, on_delete=True
-                ).order_by("id")
+                ).order_by("order", "id")
             else:
-                rules = TransactionRule.objects.filter(active=True).order_by("id")
+                rules = TransactionRule.objects.filter(active=True).order_by(
+                    "order", "id"
+                )
 
-            if dry_run and rule_id:
-                rules = rules.filter(id=rule_id)
-
-            _log("-> Testing {} rule(s)...".format(len(rules)))
+            _log("Testing {} rule(s)...".format(len(rules)))
 
             # Process the rules as before
             for rule in rules:
                 _log("Testing rule: {}".format(rule.name))
                 if simple.eval(rule.trigger):
-                    _log("├─ Initial trigger matched!")
+                    _log("Initial trigger matched!")
                     # For deleted transactions, we want to limit what actions can be performed
                     if signal == "transaction_deleted":
                         _log(
-                            "├─ Event is of type 'delete'. Only processing Update or Create actions..."
+                            "Event is of type 'delete'. Only processing Update or Create actions..."
                         )
                         # Process only create/update actions, not edit actions
                         for action in rule.update_or_create_transaction_actions.all():
                             try:
+                                _log(
+                                    "Processing action with id {} and order {}...".format(
+                                        action.id, action.order
+                                    )
+                                )
                                 _process_update_or_create_transaction_action(
                                     processed_action=action,
                                 )
                             except Exception as e:
+                                dry_run_results.error(
+                                    "Error raised: '{}'. Check the logs tab for more "
+                                    "information".format(e)
+                                )
                                 _log(
-                                    f"├─ Error processing update or create transaction action {action.id} on deletion",
+                                    f"Error processing update or create transaction action {action.id} on deletion",
                                     level="error",
                                 )
                     else:
@@ -619,7 +622,7 @@ def check_for_transaction_rules(
 
                         if has_custom_order:
                             _log(
-                                "├─ One or more actions have a custom order, actions will be processed ordered by "
+                                "One or more actions have a custom order, actions will be processed ordered by "
                                 "order and creation date..."
                             )
                             # Combine and sort actions by order
@@ -631,8 +634,13 @@ def check_for_transaction_rules(
                             for action in all_actions:
                                 try:
                                     if isinstance(action, TransactionRuleAction):
+                                        _log(
+                                            "Processing 'edit_transaction' action with id {} and order {}...".format(
+                                                action.id, action.order
+                                            )
+                                        )
                                         instance = _process_edit_transaction_action(
-                                            instance=instance,
+                                            transaction=instance,
                                             processed_action=action,
                                         )
 
@@ -640,13 +648,22 @@ def check_for_transaction_rules(
                                             # Update names for next actions
                                             simple.names.update(_get_names(instance))
                                     else:
+                                        _log(
+                                            "Processing 'update_or_create_transaction' action with id {} and order {}...".format(
+                                                action.id, action.order
+                                            )
+                                        )
                                         _process_update_or_create_transaction_action(
                                             processed_action=action,
                                         )
                                         _clear_names("my_")
                                 except Exception as e:
+                                    dry_run_results.error(
+                                        "Error raised: '{}'. Check the logs tab for more "
+                                        "information".format(e)
+                                    )
                                     _log(
-                                        f"├─ Error processing action {action.id}",
+                                        f"Error processing action {action.id}",
                                         level="error",
                                     )
                             # Save at the end
@@ -654,22 +671,31 @@ def check_for_transaction_rules(
                                 instance.save()
                         else:
                             _log(
-                                "├─ No actions have a custom order, actions will be processed ordered by creation "
+                                "No actions have a custom order, actions will be processed ordered by creation "
                                 "date, with Edit actions running first, then Update or Create actions..."
                             )
                             # Original behavior
                             for action in edit_actions:
+                                _log(
+                                    "Processing 'edit_transaction' action with id {}...".format(
+                                        action.id
+                                    )
+                                )
                                 try:
                                     instance = _process_edit_transaction_action(
-                                        instance=instance,
+                                        transaction=instance,
                                         processed_action=action,
                                     )
                                     if rule.sequenced:
                                         # Update names for next actions
                                         simple.names.update(_get_names(instance))
                                 except Exception as e:
+                                    dry_run_results.error(
+                                        "Error raised: '{}'. Check the logs tab for more "
+                                        "information".format(e)
+                                    )
                                     _log(
-                                        f"├─ Error processing edit transaction action {action.id}",
+                                        f"Error processing edit transaction action {action.id}",
                                         level="error",
                                     )
 
@@ -680,18 +706,30 @@ def check_for_transaction_rules(
                                 instance.save()
 
                             for action in update_or_create_actions:
+                                _log(
+                                    "Processing 'update_or_create_transaction' action with id {}...".format(
+                                        action.id
+                                    )
+                                )
                                 try:
                                     _process_update_or_create_transaction_action(
                                         processed_action=action,
                                     )
                                     _clear_names("my_")
                                 except Exception as e:
+                                    dry_run_results.error(
+                                        "Error raised: '{}'. Check the logs tab for more "
+                                        "information".format(e)
+                                    )
                                     _log(
-                                        f"├─ Error processing update or create transaction action {action.id}",
+                                        f"Error processing update or create transaction action {action.id}",
                                         level="error",
                                     )
                 else:
-                    _log("├─ Initial trigger didn't match, this rule will be skipped")
+                    dry_run_results.error(
+                        error="Initial trigger didn't match, this rule will be skipped",
+                    )
+                    _log("Initial trigger didn't match, this rule will be skipped")
     except Exception as e:
         _log(
             "** Error while executing 'check_for_transaction_rules' task",

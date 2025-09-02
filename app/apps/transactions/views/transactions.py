@@ -177,7 +177,6 @@ def transaction_edit(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction, id=transaction_id)
 
     if request.method == "POST":
-        print(request.POST, request.POST.items())
         form = TransactionForm(request.POST, instance=transaction)
         if form.is_valid():
             form.save()

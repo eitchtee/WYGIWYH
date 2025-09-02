@@ -42,7 +42,7 @@ def rules_index(request):
 @disabled_on_demo
 @require_http_methods(["GET"])
 def rules_list(request):
-    transaction_rules = TransactionRule.objects.all().order_by("id")
+    transaction_rules = TransactionRule.objects.all().order_by("order", "id")
     return render(
         request,
         "rules/fragments/list.html",

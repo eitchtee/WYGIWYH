@@ -22,6 +22,21 @@
         {% else %}
           {% for result in results %}
 
+            {% if result.type == 'header' %}
+              <div class="my-3">
+                <h6 class="text-center mb-3">
+                  <span class="badge text-bg-secondary">
+                  {% if result.header_type == "edit_transaction" %}
+                    {% translate 'Edit transaction' %}
+                  {% elif result.header_type == "update_or_create_transaction" %}
+                    {% translate 'Update or create transaction' %}
+                  {% endif %}
+                  </span>
+                </h6>
+              </div>
+            {% endif %}
+
+
             {% if result.type == 'triggering_transaction' %}
               <div class="mt-4">
                 <h6 class="text-center mb-3"><span class="badge text-bg-secondary">{% translate 'Start' %}</span></h6>
@@ -31,37 +46,43 @@
             {% endif %}
 
             {% if result.type == 'edit_transaction' %}
-              <div class="mt-4">
-                <h6 class="text-center mb-3"><span class="badge text-bg-secondary">{% translate 'Edit transaction' %}</span>
-                </h6>
+              <div>
                 <div>
                   {% translate 'Set' %} <span
                     class="badge text-bg-secondary">{{ result.field }}</span> {% translate 'to' %}
                   <span class="badge text-bg-secondary">{{ result.new_value }}</span>
                 </div>
                 <c-transaction.item :transaction="result.transaction" :dummy="True"
-                                    :disable-selection="True" :overriden_tags="result.tags" :overriden_entities="result.entities"></c-transaction.item>
+                                    :disable-selection="True" :overriden_tags="result.tags"
+                                    :overriden_entities="result.entities"></c-transaction.item>
               </div>
             {% endif %}
 
             {% if result.type == 'update_or_create_transaction' %}
-              <div class="mt-4">
-                <h6 class="text-center mb-3"><span class="badge text-bg-secondary">{% translate 'Update or create transaction' %}</span>
-                </h6>
+              <div>
                 <div class="alert alert-info" role="alert">
                   {% translate 'Search' %}: {{ result.query }}
                 </div>
                 {% if result.start_transaction %}
-                <c-transaction.item :transaction="result.start_transaction" :dummy="True"
-                                    :disable-selection="True"></c-transaction.item>
+                  <c-transaction.item :transaction="result.start_transaction" :dummy="True"
+                                      :disable-selection="True"></c-transaction.item>
                 {% else %}
                   <div class="alert alert-danger" role="alert">
                     {% translate 'No transaction found, a new one will be created' %}
                   </div>
                 {% endif %}
-                <div class="text-center h3"><i class="fa-solid fa-arrow-down"></i></div>
-                <c-transaction.item :transaction="result.start_transaction" :dummy="True"
-                                    :disable-selection="True" :overriden_tags="result.tags" :overriden_entities="result.entities"></c-transaction.item>
+                <div class="text-center h3 my-2"><i class="fa-solid fa-arrow-down"></i></div>
+                <c-transaction.item :transaction="result.end_transaction" :dummy="True"
+                                    :disable-selection="True" :overriden_tags="result.tags"
+                                    :overriden_entities="result.entities"></c-transaction.item>
+              </div>
+            {% endif %}
+
+            {% if result.type == 'error' %}
+              <div>
+                <div class="alert alert-{% if result.level == 'error' %}danger{% elif result.level == 'warning' %}warning{% else %}info{% endif %}" role="alert">
+                  {{ result.error }}
+                </div>
               </div>
             {% endif %}
 

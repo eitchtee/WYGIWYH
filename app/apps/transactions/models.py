@@ -380,7 +380,7 @@ class Transaction(OwnedObject):
         db_table = "transactions"
         default_manager_name = "objects"
 
-    def save(self, *args, **kwargs):
+    def clean_fields(self, *args, **kwargs):
         self.amount = truncate_decimal(
             value=self.amount, decimal_places=self.account.currency.decimal_places
         )
@@ -390,6 +390,11 @@ class Transaction(OwnedObject):
         elif not self.reference_date and self.date:
             self.reference_date = self.date.replace(day=1)
 
+        super().clean_fields(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # This is not recommended as it will run twice on some cases like form and API saves.
+        # We only do this here because we forgot to independently call it on multiple places.
         self.full_clean()
         super().save(*args, **kwargs)
 
@@ -447,7 +452,11 @@ class Transaction(OwnedObject):
         type_display = self.get_type_display()
         frmt_date = date(self.date, "SHORT_DATE_FORMAT")
         account = self.account
-        tags = ", ".join([x.name for x in self.tags.all()]) or _("No tags")
+        tags = (
+            ", ".join([x.name for x in self.tags.all()])
+            if self.id
+            else None or _("No tags")
+        )
         category = self.category or _("No category")
         amount = localize_number(drop_trailing_zeros(self.amount))
         description = self.description or _("No description")

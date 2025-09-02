@@ -17,6 +17,7 @@ class TransactionRule(SharedObject):
         verbose_name=_("Sequenced"),
         default=False,
     )
+    order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
 
     objects = SharedObjectManager()
     all_objects = models.Manager()  # Unfiltered manager

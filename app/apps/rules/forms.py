@@ -42,6 +42,7 @@ class TransactionRuleForm(forms.ModelForm):
                 Column(Switch("on_create")),
                 Column(Switch("on_delete")),
             ),
+            "order",
             Switch("sequenced"),
             "description",
             "trigger",

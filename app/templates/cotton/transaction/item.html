@@ -61,19 +61,20 @@
           </div>
           <div class="tw:text-gray-400 tw:text-sm">
             {#        Entities #}
-              {% with transaction.entities.all as entities %}
-                {% if entities and not overriden_entities %}
-                  <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                    <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
-                    <div class="col ps-0">{{ entities|join:", " }}</div>
-                  </div>
-                {% elif overriden_entities %}
-                  <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                    <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
-                    <div class="col ps-0">{{ overriden_entities|join:", " }}</div>
-                  </div>
-                {% endif %}
-              {% endwith %}
+            {% comment %} First, check for the highest priority: a valid 'overriden_entities' list. {% endcomment %}
+            {% if overriden_entities %}
+              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
+                <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
+                <div class="col ps-0">{{ overriden_entities|join:", " }}</div>
+              </div>
+
+              {% comment %} If no override, fall back to transaction entities, but ONLY if the transaction has an ID. {% endcomment %}
+            {% elif transaction.id and transaction.entities.all %}
+              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
+                <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
+                <div class="col ps-0">{{ transaction.entities.all|join:", " }}</div>
+              </div>
+            {% endif %}
             {#        Notes#}
             {% if transaction.notes %}
               <div class="row mb-2 mb-lg-1 tw:text-gray-400">
@@ -89,19 +90,20 @@
               </div>
             {% endif %}
             {#        Tags#}
-            {% with transaction.tags.all as tags %}
-              {% if tags and not overriden_tags %}
-                <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                  <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
-                  <div class="col ps-0">{{ tags|join:", " }}</div>
-                </div>
-              {% elif overriden_tags %}
-                <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                  <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
-                  <div class="col ps-0">{{ overriden_tags|join:", " }}</div>
-                </div>
-              {% endif %}
-            {% endwith %}
+            {% comment %} First, check for the highest priority: a valid 'overriden_tags' list. {% endcomment %}
+            {% if overriden_tags %}
+              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
+                <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
+                <div class="col ps-0">{{ overriden_tags|join:", " }}</div>
+              </div>
+
+              {% comment %} If no override, fall back to transaction tags, but ONLY if the transaction has an ID. {% endcomment %}
+            {% elif transaction.id and transaction.tags.all %}
+              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
+                <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
+                <div class="col ps-0">{{ transaction.tags.all|join:", " }}</div>
+              </div>
+            {% endif %}
           </div>
         </div>
         <div
