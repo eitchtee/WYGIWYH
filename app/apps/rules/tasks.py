@@ -1,7 +1,6 @@
 import decimal
 import logging
 import traceback
-from copy import deepcopy
 from datetime import datetime, date
 from decimal import Decimal
 from itertools import chain
@@ -53,7 +52,7 @@ class DryRunResults:
     ):
         result = {
             "type": "edit_transaction",
-            "transaction": deepcopy(instance),
+            "transaction": instance.deepcopy(),
             "action": action,
             "old_value": old_value,
             "new_value": new_value,
@@ -248,7 +247,7 @@ def check_for_transaction_rules(
             if searched_transactions.exists():
                 transaction = searched_transactions.first()
                 existing = True
-                starting_instance = deepcopy(transaction)
+                starting_instance = transaction.deepcopy()
                 _log("Found at least one matching transaction, using latest:")
                 _log("{}".format(pformat(model_to_dict(transaction))))
             else:
@@ -322,82 +321,62 @@ def check_for_transaction_rules(
             else:
                 transaction.category = TransactionCategory.objects.get(name=value)
 
-        if dry_run:
-            if not transaction.id:
-                _log("Transaction would be created as:")
-            else:
-                _log("Trasanction would be updated as:")
-
-            _log(
-                "{}".format(
-                    pformat(model_to_dict(transaction, exclude=["tags", "entities"])),
-                )
-            )
+        if not transaction.id:
+            _log("Transaction will be created as:")
         else:
-            if not transaction.id:
-                _log("Transaction will be created as:")
-            else:
-                _log("Trasanction will be updated as:")
+            _log("Trasanction will be updated as:")
 
-            _log(
-                "{}".format(
-                    pformat(model_to_dict(transaction, exclude=["tags", "entities"])),
-                )
+        _log(
+            "{}".format(
+                pformat(model_to_dict(transaction, exclude=["tags", "entities"])),
             )
-            transaction.save()
+        )
+        transaction.save()
 
         # Handle M2M fields after save
         tags = []
         if processed_action.set_tags:
             tags = simple.eval(processed_action.set_tags)
-            if dry_run:
-                _log(f" And tags would be set as: {tags}")
-            else:
-                _log(f" And tags will be set as: {tags}")
-                transaction.tags.clear()
-                if isinstance(tags, (list, tuple)):
-                    for tag in tags:
-                        if isinstance(tag, int):
-                            transaction.tags.add(TransactionTag.objects.get(id=tag))
-                        else:
-                            transaction.tags.add(TransactionTag.objects.get(name=tag))
-                elif isinstance(tags, (int, str)):
-                    if isinstance(tags, int):
-                        transaction.tags.add(TransactionTag.objects.get(id=tags))
+            _log(f" And tags will be set as: {tags}")
+            transaction.tags.clear()
+            if isinstance(tags, (list, tuple)):
+                for tag in tags:
+                    if isinstance(tag, int):
+                        transaction.tags.add(TransactionTag.objects.get(id=tag))
                     else:
-                        transaction.tags.add(TransactionTag.objects.get(name=tags))
+                        transaction.tags.add(TransactionTag.objects.get(name=tag))
+            elif isinstance(tags, (int, str)):
+                if isinstance(tags, int):
+                    transaction.tags.add(TransactionTag.objects.get(id=tags))
+                else:
+                    transaction.tags.add(TransactionTag.objects.get(name=tags))
 
         entities = []
         if processed_action.set_entities:
             entities = simple.eval(processed_action.set_entities)
-            if dry_run:
-                _log(f" And entities would be set as: {entities}")
-            else:
-                _log(f" And entities will be set as: {entities}")
-                transaction.entities.clear()
-                if isinstance(entities, (list, tuple)):
-                    for entity in entities:
-                        if isinstance(entity, int):
-                            transaction.entities.add(
-                                TransactionEntity.objects.get(id=entity)
-                            )
-                        else:
-                            transaction.entities.add(
-                                TransactionEntity.objects.get(name=entity)
-                            )
-                elif isinstance(entities, (int, str)):
-                    if isinstance(entities, int):
+            _log(f" And entities will be set as: {entities}")
+            transaction.entities.clear()
+            if isinstance(entities, (list, tuple)):
+                for entity in entities:
+                    if isinstance(entity, int):
                         transaction.entities.add(
-                            TransactionEntity.objects.get(id=entities)
+                            TransactionEntity.objects.get(id=entity)
                         )
                     else:
                         transaction.entities.add(
-                            TransactionEntity.objects.get(name=entities)
+                            TransactionEntity.objects.get(name=entity)
                         )
+            elif isinstance(entities, (int, str)):
+                if isinstance(entities, int):
+                    transaction.entities.add(TransactionEntity.objects.get(id=entities))
+                else:
+                    transaction.entities.add(
+                        TransactionEntity.objects.get(name=entities)
+                    )
 
         dry_run_results.update_or_create_transaction(
             start_instance=starting_instance,
-            end_instance=deepcopy(transaction),
+            end_instance=transaction.deepcopy(),
             updated=existing,
             action=processed_action,
             query=search_query,
@@ -438,19 +417,19 @@ def check_for_transaction_rules(
                 transaction.category = category
 
         elif field == TransactionRuleAction.Field.tags:
-            if not dry_run:
-                transaction.tags.clear()
+            transaction.tags.clear()
+
             if isinstance(new_value, list):
                 for tag_value in new_value:
                     if isinstance(tag_value, int):
                         tag = TransactionTag.objects.get(id=tag_value)
-                        if not dry_run:
-                            transaction.tags.add(tag)
+
+                        transaction.tags.add(tag)
                         tags.append(tag)
                     elif isinstance(tag_value, str):
                         tag = TransactionTag.objects.get(name=tag_value)
-                        if not dry_run:
-                            transaction.tags.add(tag)
+
+                        transaction.tags.add(tag)
                         tags.append(tag)
 
             elif isinstance(new_value, (int, str)):
@@ -459,24 +438,22 @@ def check_for_transaction_rules(
                 else:
                     tag = TransactionTag.objects.get(name=new_value)
 
-                if not dry_run:
-                    transaction.tags.add(tag)
+                transaction.tags.add(tag)
                 tags.append(tag)
 
         elif field == TransactionRuleAction.Field.entities:
-            if not dry_run:
-                transaction.entities.clear()
+            transaction.entities.clear()
             if isinstance(new_value, list):
                 for entity_value in new_value:
                     if isinstance(entity_value, int):
                         entity = TransactionEntity.objects.get(id=entity_value)
-                        if not dry_run:
-                            transaction.entities.add(entity)
+
+                        transaction.entities.add(entity)
                         entities.append(entity)
                     elif isinstance(entity_value, str):
                         entity = TransactionEntity.objects.get(name=entity_value)
-                        if not dry_run:
-                            transaction.entities.add(entity)
+
+                        transaction.entities.add(entity)
                         entities.append(entity)
 
             elif isinstance(new_value, (int, str)):
@@ -484,8 +461,8 @@ def check_for_transaction_rules(
                     entity = TransactionEntity.objects.get(id=new_value)
                 else:
                     entity = TransactionEntity.objects.get(name=new_value)
-                if not dry_run:
-                    transaction.entities.add(entity)
+
+                transaction.entities.add(entity)
                 entities.append(entity)
 
         else:
@@ -496,7 +473,7 @@ def check_for_transaction_rules(
             )
 
         dry_run_results.edit_transaction(
-            instance=deepcopy(transaction),
+            instance=transaction.deepcopy(),
             action=processed_action,
             old_value=original_value,
             new_value=new_value,
@@ -530,7 +507,7 @@ def check_for_transaction_rules(
                 # Regular transaction processing for creates and updates
                 instance = Transaction.objects.get(id=instance_id)
 
-            dry_run_results.triggering_transaction(deepcopy(instance))
+            dry_run_results.triggering_transaction(instance.deepcopy())
 
             functions = {
                 "relativedelta": relativedelta,
@@ -667,7 +644,7 @@ def check_for_transaction_rules(
                                         level="error",
                                     )
                             # Save at the end
-                            if not dry_run and signal != "transaction_deleted":
+                            if signal != "transaction_deleted":
                                 instance.save()
                         else:
                             _log(
@@ -702,7 +679,7 @@ def check_for_transaction_rules(
                             if rule.sequenced:
                                 # Update names for next actions
                                 simple.names.update(_get_names(instance))
-                            if not dry_run and signal != "transaction_deleted":
+                            if signal != "transaction_deleted":
                                 instance.save()
 
                             for action in update_or_create_actions:
@@ -741,7 +718,6 @@ def check_for_transaction_rules(
 
     delete_current_user()
 
-    if dry_run:
-        return logs, dry_run_results.results
+    return logs, dry_run_results.results
 
     return None

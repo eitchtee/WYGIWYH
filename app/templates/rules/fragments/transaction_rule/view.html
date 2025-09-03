@@ -124,17 +124,17 @@
             {% if transaction_rule.on_create %}
               <li><a class="dropdown-item" role="link" href="#"
                      hx-get="{% url 'transaction_rule_dry_run_created' pk=transaction_rule.id %}"
-                     hx-target="#generic-offcanvas">{% trans 'On creation' %}</a></li>
+                     hx-target="#generic-offcanvas">{% trans 'Create' %}</a></li>
             {% endif %}
             {% if transaction_rule.on_update %}
               <li><a class="dropdown-item" role="link" href="#"
-                     hx-get="{% url 'transaction_rule_dry_run_deleted' pk=transaction_rule.id %}"
-                     hx-target="#generic-offcanvas">{% trans 'On update' %}</a></li>
+                     hx-get="{% url 'transaction_rule_dry_run_updated' pk=transaction_rule.id %}"
+                     hx-target="#generic-offcanvas">{% trans 'Update' %}</a></li>
             {% endif %}
             {% if transaction_rule.on_delete %}
               <li><a class="dropdown-item" role="link" href="#"
                      hx-get="{% url 'transaction_rule_dry_run_deleted' pk=transaction_rule.id %}"
-                     hx-target="#generic-offcanvas">{% trans 'On delete' %}</a></li>
+                     hx-target="#generic-offcanvas">{% trans 'Delete' %}</a></li>
             {% endif %}
           </ul>
         </div>

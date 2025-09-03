@@ -462,6 +462,48 @@ class Transaction(OwnedObject):
         description = self.description or _("No description")
         return f"[{frmt_date}][{type_display}][{account}] {description} • {category} • {tags} • {amount}"
 
+    def deepcopy(self, memo=None):
+        """
+        Creates a deep copy of the transaction instance.
+
+        This method returns a new, unsaved Transaction instance with the same
+        values as the original, including its many-to-many relationships.
+        The primary key and any other unique fields are reset to avoid
+        database integrity errors upon saving.
+        """
+        if memo is None:
+            memo = {}
+
+        # Create a new instance of the class
+        new_obj = self.__class__()
+        memo[id(self)] = new_obj
+
+        # Copy all concrete fields from the original to the new object
+        for field in self._meta.concrete_fields:
+            # Skip the primary key to allow the database to generate a new one
+            if field.primary_key:
+                continue
+
+            # Reset any unique fields to None to avoid constraint violations
+            if field.unique and field.name == "internal_id":
+                setattr(new_obj, field.name, None)
+                continue
+
+            # Copy the value of the field
+            setattr(new_obj, field.name, getattr(self, field.name))
+
+        # Save the new object to the database to get a primary key
+        new_obj.save()
+
+        # Copy the many-to-many relationships
+        for field in self._meta.many_to_many:
+            source_manager = getattr(self, field.name)
+            destination_manager = getattr(new_obj, field.name)
+            # Set the M2M relationships for the new object
+            destination_manager.set(source_manager.all())
+
+        return new_obj
+
 
 class InstallmentPlan(models.Model):
     class Recurrence(models.TextChoices):

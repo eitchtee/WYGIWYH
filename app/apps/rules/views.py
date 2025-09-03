@@ -1,7 +1,10 @@
 from itertools import chain
 
+from copy import deepcopy
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
@@ -14,6 +17,7 @@ from apps.rules.forms import (
     UpdateOrCreateTransactionRuleActionForm,
     DryRunCreatedTransacion,
     DryRunDeletedTransacion,
+    DryRunUpdatedTransactionForm,
 )
 from apps.rules.models import (
     TransactionRule,
@@ -25,6 +29,9 @@ from apps.common.forms import SharedObjectForm
 from apps.common.decorators.demo import disabled_on_demo
 from apps.rules.tasks import check_for_transaction_rules
 from apps.common.middleware.thread_local import get_current_user
+from apps.rules.signals import transaction_created, transaction_updated
+from apps.rules.utils.transactions import serialize_transaction
+from apps.transactions.models import Transaction
 
 
 @login_required
@@ -436,14 +443,28 @@ def dry_run_rule_created(request, pk):
     if request.method == "POST":
         form = DryRunCreatedTransacion(request.POST)
         if form.is_valid():
-            logs, results = check_for_transaction_rules(
-                instance_id=form.cleaned_data["transaction"].id,
-                signal="transaction_created",
-                dry_run=True,
-                rule_id=rule.id,
-                user_id=get_current_user().id,
-            )
-            logs = "\n".join(logs)
+            try:
+                with transaction.atomic():
+                    logs, results = check_for_transaction_rules(
+                        instance_id=form.cleaned_data["transaction"].id,
+                        signal="transaction_created",
+                        dry_run=True,
+                        rule_id=rule.id,
+                        user_id=get_current_user().id,
+                    )
+                    logs = "\n".join(logs)
+
+                    response = render(
+                        request,
+                        "rules/fragments/transaction_rule/dry_run/created.html",
+                        {"form": form, "rule": rule, "logs": logs, "results": results},
+                    )
+
+                    raise Exception("ROLLBACK")
+            except Exception:
+                pass
+
+            return response
 
     else:
         form = DryRunCreatedTransacion()
@@ -467,14 +488,28 @@ def dry_run_rule_deleted(request, pk):
     if request.method == "POST":
         form = DryRunDeletedTransacion(request.POST)
         if form.is_valid():
-            logs, results = check_for_transaction_rules(
-                instance_id=form.cleaned_data["transaction"].id,
-                signal="transaction_deleted",
-                dry_run=True,
-                rule_id=rule.id,
-                user_id=get_current_user().id,
-            )
-            logs = "\n".join(logs)
+            try:
+                with transaction.atomic():
+                    logs, results = check_for_transaction_rules(
+                        instance_id=form.cleaned_data["transaction"].id,
+                        signal="transaction_deleted",
+                        dry_run=True,
+                        rule_id=rule.id,
+                        user_id=get_current_user().id,
+                    )
+                    logs = "\n".join(logs)
+
+                    response = render(
+                        request,
+                        "rules/fragments/transaction_rule/dry_run/created.html",
+                        {"form": form, "rule": rule, "logs": logs, "results": results},
+                    )
+
+                    raise Exception("ROLLBACK")
+            except Exception:
+                pass
+
+        return response
 
     else:
         form = DryRunDeletedTransacion()
@@ -482,5 +517,68 @@ def dry_run_rule_deleted(request, pk):
     return render(
         request,
         "rules/fragments/transaction_rule/dry_run/deleted.html",
+        {"form": form, "rule": rule, "logs": logs, "results": results},
+    )
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET", "POST"])
+def dry_run_rule_updated(request, pk):
+    rule = get_object_or_404(TransactionRule, id=pk)
+    logs = None
+    results = None
+
+    if request.method == "POST":
+        form = DryRunUpdatedTransactionForm(request.POST)
+        if form.is_valid():
+            base_transaction = Transaction.objects.get(
+                id=request.POST.get("transaction")
+            )
+            old_data = deepcopy(base_transaction)
+            try:
+                with transaction.atomic():
+                    for field_name, value in form.cleaned_data.items():
+                        if value or isinstance(
+                            value, bool
+                        ):  # Only update fields that have been filled in the form
+                            if field_name == "tags":
+                                base_transaction.tags.set(value)
+                            elif field_name == "entities":
+                                base_transaction.entities.set(value)
+                            else:
+                                setattr(base_transaction, field_name, value)
+
+                    base_transaction.save()
+
+                    logs, results = check_for_transaction_rules(
+                        instance_id=base_transaction.id,
+                        signal="transaction_updated",
+                        dry_run=True,
+                        rule_id=rule.id,
+                        user_id=get_current_user().id,
+                        old_data=old_data,
+                    )
+                    logs = "\n".join(logs) if logs else ""
+
+                    response = render(
+                        request,
+                        "rules/fragments/transaction_rule/dry_run/created.html",
+                        {"form": form, "rule": rule, "logs": logs, "results": results},
+                    )
+
+                    # This will rollback the transaction
+                    raise Exception("ROLLBACK")
+            except Exception:
+                pass
+
+            return response
+    else:
+        form = DryRunUpdatedTransactionForm(initial={"is_paid": None, "type": None})
+
+    return render(
+        request,
+        "rules/fragments/transaction_rule/dry_run/updated.html",
         {"form": form, "rule": rule, "logs": logs, "results": results},
     )

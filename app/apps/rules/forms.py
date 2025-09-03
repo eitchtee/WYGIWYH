@@ -1,16 +1,18 @@
 from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
 from crispy_forms.bootstrap import FormActions, AccordionGroup
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Row, Column
+from crispy_forms.layout import Layout, Field, Row, Column, HTML
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.tom_select import TomSelect, TransactionSelect
 from apps.rules.models import TransactionRule, UpdateOrCreateTransactionRuleAction
 from apps.rules.models import TransactionRuleAction
 from apps.common.fields.forms.dynamic_select import DynamicModelChoiceField
+from apps.transactions.forms import BulkEditTransactionForm
 from apps.transactions.models import Transaction
 
 
@@ -431,6 +433,17 @@ class DryRunCreatedTransacion(forms.Form):
             ),
         )
 
+        if self.data.get("transaction"):
+            try:
+                transaction = Transaction.objects.get(id=self.data.get("transaction"))
+            except Transaction.DoesNotExist:
+                transaction = None
+
+            if transaction:
+                self.fields["transaction"].queryset = Transaction.objects.filter(
+                    id=transaction.id
+                )
+
 
 class DryRunDeletedTransacion(forms.Form):
     transaction = DynamicModelChoiceField(
@@ -456,3 +469,49 @@ class DryRunDeletedTransacion(forms.Form):
                 ),
             ),
         )
+
+        if self.data.get("transaction"):
+            try:
+                transaction = Transaction.objects.get(id=self.data.get("transaction"))
+            except Transaction.DoesNotExist:
+                transaction = None
+
+            if transaction:
+                self.fields["transaction"].queryset = Transaction.objects.filter(
+                    id=transaction.id
+                )
+
+
+class DryRunUpdatedTransactionForm(BulkEditTransactionForm):
+    transaction = DynamicModelChoiceField(
+        model=Transaction,
+        to_field_name="id",
+        label=_("Transaction"),
+        required=True,
+        queryset=Transaction.objects.none(),
+        widget=TransactionSelect(clear_button=False, income=True, expense=True),
+        help_text=_("Type to search for a transaction"),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper.layout.insert(0, "transaction")
+        self.helper.layout.insert(1, HTML("<hr/>"))
+
+        # Change submit button
+        self.helper.layout[-1] = FormActions(
+            NoClassSubmit(
+                "submit", _("Test"), css_class="btn btn-outline-primary w-100"
+            )
+        )
+
+        if self.data.get("transaction"):
+            try:
+                transaction = Transaction.objects.get(id=self.data.get("transaction"))
+            except Transaction.DoesNotExist:
+                transaction = None
+
+            if transaction:
+                self.fields["transaction"].queryset = Transaction.objects.filter(
+                    id=transaction.id
+                )

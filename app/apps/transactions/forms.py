@@ -389,41 +389,124 @@ class QuickTransactionForm(forms.ModelForm):
             )
 
 
-class BulkEditTransactionForm(TransactionForm):
-    is_paid = forms.NullBooleanField(required=False)
+class BulkEditTransactionForm(forms.Form):
+    type = forms.ChoiceField(
+        choices=(Transaction.Type.choices),
+        required=False,
+        label=_("Type"),
+    )
+    is_paid = forms.NullBooleanField(
+        required=False,
+        label=_("Paid"),
+    )
+    account = DynamicModelChoiceField(
+        model=Account,
+        required=False,
+        label=_("Account"),
+        queryset=Account.objects.filter(is_archived=False),
+        widget=TomSelect(clear_button=False, group_by="group"),
+    )
+    date = forms.DateField(
+        label=_("Date"),
+        required=False,
+        widget=AirDatePickerInput(clear_button=False),
+    )
+    reference_date = forms.DateField(
+        widget=AirMonthYearPickerInput(),
+        label=_("Reference Date"),
+        required=False,
+    )
+    amount = forms.DecimalField(
+        max_digits=42,
+        decimal_places=30,
+        required=False,
+        label=_("Amount"),
+        widget=ArbitraryDecimalDisplayNumberInput(),
+    )
+    description = forms.CharField(
+        max_length=500, required=False, label=_("Description")
+    )
+    notes = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={"rows": 3}),
+        label=_("Notes"),
+    )
+    category = DynamicModelChoiceField(
+        create_field="name",
+        model=TransactionCategory,
+        required=False,
+        label=_("Category"),
+        queryset=TransactionCategory.objects.filter(active=True),
+    )
+    tags = DynamicModelMultipleChoiceField(
+        model=TransactionTag,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Tags"),
+        queryset=TransactionTag.objects.filter(active=True),
+    )
+    entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+        queryset=TransactionEntity.objects.all(),
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Make all fields optional
-        for field_name, field in self.fields.items():
-            field.required = False
 
-        del self.helper.layout[-1]  # Remove button
-        del self.helper.layout[0:2]  # Remove type, is_paid field
+        self.fields["account"].queryset = Account.objects.filter(
+            is_archived=False,
+        )
 
-        self.helper.layout.insert(
-            0,
+        self.fields["category"].queryset = TransactionCategory.objects.filter(
+            active=True
+        )
+        self.fields["tags"].queryset = TransactionTag.objects.filter(active=True)
+        self.fields["entities"].queryset = TransactionEntity.objects.all()
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
             Field(
                 "type",
                 template="transactions/widgets/unselectable_income_expense_toggle_buttons.html",
             ),
-        )
-
-        self.helper.layout.insert(
-            1,
             Field(
                 "is_paid",
                 template="transactions/widgets/unselectable_paid_toggle_button.html",
             ),
-        )
-
-        self.helper.layout.append(
+            Row(
+                Column("account", css_class="form-group col-md-6 mb-0"),
+                Column("entities", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            Row(
+                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            "description",
+            Field("amount", inputmode="decimal"),
+            Row(
+                Column("category", css_class="form-group col-md-6 mb-0"),
+                Column("tags", css_class="form-group col-md-6 mb-0"),
+                css_class="form-row",
+            ),
+            "notes",
             FormActions(
                 NoClassSubmit(
                     "submit", _("Update"), css_class="btn btn-outline-primary w-100"
                 ),
             ),
         )
+
+        self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()
+        self.fields["date"].widget = AirDatePickerInput(clear_button=False)
 
 
 class TransferForm(forms.Form):
