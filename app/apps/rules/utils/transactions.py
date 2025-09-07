@@ -15,6 +15,9 @@ class TransactionsGetter:
     def __init__(self, **filters):
         self.__queryset = Transaction.objects.filter(**filters)
 
+    def exclude(self, **exclude_filters):
+        self.__queryset = Transaction.objects.exclude(**exclude_filters)
+
     @property
     def sum(self):
         return self.__queryset.aggregate(
