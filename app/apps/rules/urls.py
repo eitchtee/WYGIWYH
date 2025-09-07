@@ -43,6 +43,21 @@ urlpatterns = [
         name="transaction_rule_take_ownership",
     ),
     path(
+        "rules/transaction/<int:pk>/dry-run/created/",
+        views.dry_run_rule_created,
+        name="transaction_rule_dry_run_created",
+    ),
+    path(
+        "rules/transaction/<int:pk>/dry-run/deleted/",
+        views.dry_run_rule_deleted,
+        name="transaction_rule_dry_run_deleted",
+    ),
+    path(
+        "rules/transaction/<int:pk>/dry-run/updated/",
+        views.dry_run_rule_updated,
+        name="transaction_rule_dry_run_updated",
+    ),
+    path(
         "rules/transaction/<int:pk>/share/",
         views.transaction_rule_share,
         name="transaction_rule_share_settings",

@@ -13,6 +13,11 @@ class TransactionRule(SharedObject):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     description = models.TextField(blank=True, null=True, verbose_name=_("Description"))
     trigger = models.TextField(verbose_name=_("Trigger"))
+    sequenced = models.BooleanField(
+        verbose_name=_("Sequenced"),
+        default=False,
+    )
+    order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
 
     objects = SharedObjectManager()
     all_objects = models.Manager()  # Unfiltered manager
@@ -32,12 +37,15 @@ class TransactionRuleAction(models.Model):
         is_paid = "is_paid", _("Paid")
         date = "date", _("Date")
         reference_date = "reference_date", _("Reference Date")
+        mute = "mute", _("Mute")
         amount = "amount", _("Amount")
         description = "description", _("Description")
         notes = "notes", _("Notes")
         category = "category", _("Category")
         tags = "tags", _("Tags")
         entities = "entities", _("Entities")
+        internal_note = "internal_nome", _("Internal Note")
+        internal_id = "internal_id", _("Internal ID")
 
     rule = models.ForeignKey(
         TransactionRule,
@@ -243,6 +251,17 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
         verbose_name="Internal ID Operator",
     )
 
+    search_mute = models.TextField(
+        verbose_name="Search Mute",
+        blank=True,
+    )
+    search_mute_operator = models.CharField(
+        max_length=10,
+        choices=SearchOperator.choices,
+        default=SearchOperator.EXACT,
+        verbose_name="Mute Operator",
+    )
+
     # Set fields
     set_account = models.TextField(
         verbose_name=_("Account"),
@@ -296,6 +315,11 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
         verbose_name=_("Tags"),
         blank=True,
     )
+    set_mute = models.TextField(
+        verbose_name=_("Mute"),
+        blank=True,
+    )
+
     order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
 
     class Meta:
@@ -336,6 +360,10 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
         if self.search_is_paid:
             value = simple.eval(self.search_is_paid)
             search_query &= add_to_query("is_paid", value, self.search_is_paid_operator)
+
+        if self.search_mute:
+            value = simple.eval(self.search_mute)
+            search_query &= add_to_query("mute", value, self.search_mute_operator)
 
         if self.search_date:
             value = simple.eval(self.search_date)

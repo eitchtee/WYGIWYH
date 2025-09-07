@@ -66,7 +66,7 @@
                  data-text="{% translate "You won't be able to revert this!" %}"
                  data-confirm-text="{% translate 'Yes, delete it!' %}"
                  _="install prompt_swal">
-              <i class="fa-solid fa-trash fa-fw"></i>
+                <i class="fa-solid fa-trash fa-fw"></i>
               </a>
             </div>
           </div>
@@ -101,33 +101,57 @@
                  data-text="{% translate "You won't be able to revert this!" %}"
                  data-confirm-text="{% translate 'Yes, delete it!' %}"
                  _="install prompt_swal">
-              <i class="fa-solid fa-trash fa-fw"></i>
+                <i class="fa-solid fa-trash fa-fw"></i>
               </a>
             </div>
           </div>
         {% endif %}
-      {% endfor %}
-      {% if not all_actions %}
+      {% empty %}
         <div class="card">
           <div class="card-body">
             {% translate 'This rule has no actions' %}
           </div>
         </div>
-      {% endif %}
+      {% endfor %}
       <hr>
-      <div class="dropdown">
-        <button class="btn btn-outline-primary text-decoration-none w-100" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-          <i class="fa-solid fa-circle-plus me-2"></i>{% translate 'Add new' %}
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end w-100">
-          <li><a class="dropdown-item" role="link"
-                 hx-get="{% url 'transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
-                 hx-target="#generic-offcanvas">{% trans 'Edit Transaction' %}</a></li>
-          <li><a class="dropdown-item" role="link"
-                 hx-get="{% url 'update_or_create_transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
-                 hx-target="#generic-offcanvas">{% trans 'Update or Create Transaction' %}</a></li>
-        </ul>
+      <div class="d-grid d-lg-flex gap-2">
+        <div class="dropdown flex-fill">
+          <button class="btn btn-outline-primary text-decoration-none w-100" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+            <i class="fa-solid fa-flask-vial me-2"></i>{% translate 'Test' %}
+          </button>
+          <ul class="dropdown-menu">
+            {% if transaction_rule.on_create %}
+              <li><a class="dropdown-item" role="link" href="#"
+                     hx-get="{% url 'transaction_rule_dry_run_created' pk=transaction_rule.id %}"
+                     hx-target="#generic-offcanvas">{% trans 'Create' %}</a></li>
+            {% endif %}
+            {% if transaction_rule.on_update %}
+              <li><a class="dropdown-item" role="link" href="#"
+                     hx-get="{% url 'transaction_rule_dry_run_updated' pk=transaction_rule.id %}"
+                     hx-target="#generic-offcanvas">{% trans 'Update' %}</a></li>
+            {% endif %}
+            {% if transaction_rule.on_delete %}
+              <li><a class="dropdown-item" role="link" href="#"
+                     hx-get="{% url 'transaction_rule_dry_run_deleted' pk=transaction_rule.id %}"
+                     hx-target="#generic-offcanvas">{% trans 'Delete' %}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="dropdown flex-fill">
+          <button class="btn btn-outline-primary text-decoration-none w-100" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+            <i class="fa-solid fa-circle-plus me-2"></i>{% translate 'Add new' %}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" role="link" href="#"
+                   hx-get="{% url 'transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
+                   hx-target="#generic-offcanvas">{% trans 'Edit Transaction' %}</a></li>
+            <li><a class="dropdown-item" role="link" href="#"
+                   hx-get="{% url 'update_or_create_transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
+                   hx-target="#generic-offcanvas">{% trans 'Update or Create Transaction' %}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

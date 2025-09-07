@@ -1,0 +1,16 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Edit transaction rule' %}{% endblock %}
+
+{% block body %}
+  <form hx-post="{% url 'transaction_rule_dry_run_deleted' pk=rule.id %}" hx-target="#generic-offcanvas"
+        hx-indicator="#dry-run-deleted-result, closest form" class="show-loading" novalidate>
+    {% crispy form %}
+  </form>
+  <hr>
+  <div id="dry-run-deleted-result" class="show-loading">
+    {% include 'rules/fragments/transaction_rule/dry_run/visual.html' with logs=logs results=results %}
+  </div>
+{% endblock %}

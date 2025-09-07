@@ -213,6 +213,7 @@ def transactions_bulk_edit(request):
         if form.is_valid():
             # Apply changes from the form to all selected transactions
             for transaction in transactions:
+                old_data = deepcopy(transaction)
                 for field_name, value in form.cleaned_data.items():
                     if value or isinstance(
                         value, bool
@@ -225,7 +226,7 @@ def transactions_bulk_edit(request):
                             setattr(transaction, field_name, value)
 
                 transaction.save()
-                transaction_updated.send(sender=transaction)
+                transaction_updated.send(sender=transaction, old_data=old_data)
 
             messages.success(
                 request,
@@ -373,10 +374,13 @@ def transactions_transfer(request):
 @require_http_methods(["GET"])
 def transaction_pay(request, transaction_id):
     transaction = get_object_or_404(Transaction, pk=transaction_id)
+    old_data = deepcopy(transaction)
+
     new_is_paid = False if transaction.is_paid else True
     transaction.is_paid = new_is_paid
     transaction.save()
-    transaction_updated.send(sender=transaction)
+
+    transaction_updated.send(sender=transaction, old_data=old_data)
 
     response = render(
         request,
@@ -394,11 +398,12 @@ def transaction_pay(request, transaction_id):
 @require_http_methods(["GET"])
 def transaction_mute(request, transaction_id):
     transaction = get_object_or_404(Transaction, pk=transaction_id)
+    old_data = deepcopy(transaction)
 
     new_mute = False if transaction.mute else True
     transaction.mute = new_mute
     transaction.save()
-    transaction_updated.send(sender=transaction)
+    transaction_updated.send(sender=transaction, old_data=old_data)
 
     response = render(
         request,
@@ -414,19 +419,20 @@ def transaction_mute(request, transaction_id):
 @require_http_methods(["GET"])
 def transaction_change_month(request, transaction_id, change_type):
     transaction: Transaction = get_object_or_404(Transaction, pk=transaction_id)
+    old_data = deepcopy(transaction)
 
     if change_type == "next":
         transaction.reference_date = transaction.reference_date + relativedelta(
             months=1
         )
         transaction.save()
-        transaction_updated.send(sender=transaction)
+        transaction_updated.send(sender=transaction, old_data=old_data)
     elif change_type == "previous":
         transaction.reference_date = transaction.reference_date - relativedelta(
             months=1
         )
         transaction.save()
-        transaction_updated.send(sender=transaction)
+        transaction_updated.send(sender=transaction, old_data=old_data)
 
     return HttpResponse(
         status=204,
@@ -440,9 +446,11 @@ def transaction_change_month(request, transaction_id, change_type):
 def transaction_move_to_today(request, transaction_id):
     transaction: Transaction = get_object_or_404(Transaction, pk=transaction_id)
 
+    old_data = deepcopy(transaction)
+
     transaction.date = timezone.localdate(timezone.now())
     transaction.save()
-    transaction_updated.send(sender=transaction)
+    transaction_updated.send(sender=transaction, old_data=old_data)
 
     return HttpResponse(
         status=204,

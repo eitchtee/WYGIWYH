@@ -9,5 +9,8 @@ def truncate_decimal(value, decimal_places):
     :param decimal_places: The number of decimal places to keep
     :return: Truncated Decimal value
     """
+    if isinstance(value, (int, float)):
+        value = Decimal(str(value))
+
     multiplier = Decimal(10**decimal_places)
     return (value * multiplier).to_integral_value(rounding=ROUND_DOWN) / multiplier

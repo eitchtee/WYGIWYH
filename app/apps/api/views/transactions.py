@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from rest_framework import viewsets
 
 from apps.api.custom.pagination import CustomPageNumberPagination
@@ -30,8 +32,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
         transaction_created.send(sender=instance)
 
     def perform_update(self, serializer):
+        old_data = deepcopy(Transaction.objects.get(pk=serializer.data["pk"]))
         instance = serializer.save()
-        transaction_updated.send(sender=instance)
+        transaction_updated.send(sender=instance, old_data=old_data)
 
     def partial_update(self, request, *args, **kwargs):
         kwargs["partial"] = True

@@ -1,4 +1,5 @@
 import logging
+from copy import deepcopy
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
@@ -33,13 +34,13 @@ transaction_deleted = Signal()
 
 class SoftDeleteQuerySet(models.QuerySet):
     @staticmethod
-    def _emit_signals(instances, created=False):
+    def _emit_signals(instances, created=False, old_data=None):
         """Helper to emit signals for multiple instances"""
-        for instance in instances:
+        for i, instance in enumerate(instances):
             if created:
                 transaction_created.send(sender=instance)
             else:
-                transaction_updated.send(sender=instance)
+                transaction_updated.send(sender=instance, old_data=old_data[i])
 
     def bulk_create(self, objs, emit_signal=True, **kwargs):
         instances = super().bulk_create(objs, **kwargs)
@@ -50,22 +51,25 @@ class SoftDeleteQuerySet(models.QuerySet):
         return instances
 
     def bulk_update(self, objs, fields, emit_signal=True, **kwargs):
+        old_data = deepcopy(objs)
         result = super().bulk_update(objs, fields, **kwargs)
 
         if emit_signal:
-            self._emit_signals(objs, created=False)
+            self._emit_signals(objs, created=False, old_data=old_data)
 
         return result
 
     def update(self, emit_signal=True, **kwargs):
         # Get instances before update
         instances = list(self)
+        old_data = deepcopy(instances)
+
         result = super().update(**kwargs)
 
         if emit_signal:
             # Refresh instances to get new values
             refreshed = self.model.objects.filter(pk__in=[obj.pk for obj in instances])
-            self._emit_signals(refreshed, created=False)
+            self._emit_signals(refreshed, created=False, old_data=old_data)
 
         return result
 
@@ -376,7 +380,7 @@ class Transaction(OwnedObject):
         db_table = "transactions"
         default_manager_name = "objects"
 
-    def save(self, *args, **kwargs):
+    def clean_fields(self, *args, **kwargs):
         self.amount = truncate_decimal(
             value=self.amount, decimal_places=self.account.currency.decimal_places
         )
@@ -386,6 +390,11 @@ class Transaction(OwnedObject):
         elif not self.reference_date and self.date:
             self.reference_date = self.date.replace(day=1)
 
+        super().clean_fields(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # This is not recommended as it will run twice on some cases like form and API saves.
+        # We only do this here because we forgot to independently call it on multiple places.
         self.full_clean()
         super().save(*args, **kwargs)
 
@@ -443,11 +452,57 @@ class Transaction(OwnedObject):
         type_display = self.get_type_display()
         frmt_date = date(self.date, "SHORT_DATE_FORMAT")
         account = self.account
-        tags = ", ".join([x.name for x in self.tags.all()]) or _("No tags")
+        tags = (
+            ", ".join([x.name for x in self.tags.all()])
+            if self.id
+            else None or _("No tags")
+        )
         category = self.category or _("No category")
         amount = localize_number(drop_trailing_zeros(self.amount))
         description = self.description or _("No description")
         return f"[{frmt_date}][{type_display}][{account}] {description} • {category} • {tags} • {amount}"
+
+    def deepcopy(self, memo=None):
+        """
+        Creates a deep copy of the transaction instance.
+
+        This method returns a new, unsaved Transaction instance with the same
+        values as the original, including its many-to-many relationships.
+        The primary key and any other unique fields are reset to avoid
+        database integrity errors upon saving.
+        """
+        if memo is None:
+            memo = {}
+
+        # Create a new instance of the class
+        new_obj = self.__class__()
+        memo[id(self)] = new_obj
+
+        # Copy all concrete fields from the original to the new object
+        for field in self._meta.concrete_fields:
+            # Skip the primary key to allow the database to generate a new one
+            if field.primary_key:
+                continue
+
+            # Reset any unique fields to None to avoid constraint violations
+            if field.unique and field.name == "internal_id":
+                setattr(new_obj, field.name, None)
+                continue
+
+            # Copy the value of the field
+            setattr(new_obj, field.name, getattr(self, field.name))
+
+        # Save the new object to the database to get a primary key
+        new_obj.save()
+
+        # Copy the many-to-many relationships
+        for field in self._meta.many_to_many:
+            source_manager = getattr(self, field.name)
+            destination_manager = getattr(new_obj, field.name)
+            # Set the M2M relationships for the new object
+            destination_manager.set(source_manager.all())
+
+        return new_obj
 
 
 class InstallmentPlan(models.Model):
