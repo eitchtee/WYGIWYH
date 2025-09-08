@@ -82,22 +82,16 @@ class AccountForm(forms.ModelForm):
         self.fields["group"].queryset = AccountGroup.objects.all()
 
         if self.instance.id:
-            self.fields["currency"].queryset = Currency.objects.filter(
-                Q(is_archived=False) | Q(accounts=self.instance.id),
-            )
-
-            self.fields["exchange_currency"].queryset = Currency.objects.filter(
+            qs = Currency.objects.filter(
                 Q(is_archived=False) | Q(accounts=self.instance.id)
-            )
+            ).distinct()
+            self.fields["currency"].queryset = qs
+            self.fields["exchange_currency"].queryset = qs
 
         else:
-            self.fields["currency"].queryset = Currency.objects.filter(
-                Q(is_archived=False),
-            )
-
-            self.fields["exchange_currency"].queryset = Currency.objects.filter(
-                Q(is_archived=False)
-            )
+            qs = Currency.objects.filter(Q(is_archived=False))
+            self.fields["currency"].queryset = qs
+            self.fields["exchange_currency"].queryset = qs
 
         self.helper = FormHelper()
         self.helper.form_tag = False
