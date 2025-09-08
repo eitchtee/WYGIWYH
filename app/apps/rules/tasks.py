@@ -1,6 +1,7 @@
 import decimal
 import logging
 import traceback
+from copy import deepcopy
 from datetime import datetime, date
 from decimal import Decimal
 from itertools import chain
@@ -33,14 +34,25 @@ logger = logging.getLogger(__name__)
 
 
 class DryRunResults:
-    def __init__(self):
+    def __init__(self, dry_run: bool):
         self.results = []
+        self.dry_run = dry_run
 
     def header(self, header: str, action):
+        if not self.dry_run:
+            return
+
         result = {"type": "header", "header_type": header, "action": action}
         self.results.append(result)
 
     def triggering_transaction(self, instance):
+        if not self.dry_run:
+            return
+        if isinstance(instance, Transaction):
+            instance = instance.deepcopy()
+        elif isinstance(instance, dict):
+            instance = deepcopy(instance)
+
         result = {
             "type": "triggering_transaction",
             "transaction": instance,
@@ -50,9 +62,16 @@ class DryRunResults:
     def edit_transaction(
         self, instance, action, old_value, new_value, field, tags, entities
     ):
+        if not self.dry_run:
+            return
+        if isinstance(instance, Transaction):
+            instance = instance.deepcopy()
+        elif isinstance(instance, dict):
+            instance = deepcopy(instance)
+
         result = {
             "type": "edit_transaction",
-            "transaction": instance.deepcopy(),
+            "transaction": instance,
             "action": action,
             "old_value": old_value,
             "new_value": new_value,
@@ -72,6 +91,14 @@ class DryRunResults:
         start_instance=None,
         end_instance=None,
     ):
+        if not self.dry_run:
+            return
+
+        if isinstance(end_instance, Transaction):
+            start_instance = end_instance.deepcopy()
+        elif isinstance(end_instance, dict):
+            start_instance = deepcopy(end_instance)
+
         result = {
             "type": "update_or_create_transaction",
             "start_transaction": start_instance,
@@ -85,6 +112,9 @@ class DryRunResults:
         self.results.append(result)
 
     def error(self, error, level: Literal["error", "warning", "info"] = "error"):
+        if not self.dry_run:
+            return
+
         result = {
             "type": "error",
             "error": error,
@@ -247,7 +277,10 @@ def check_for_transaction_rules(
             if searched_transactions.exists():
                 transaction = searched_transactions.first()
                 existing = True
-                starting_instance = transaction.deepcopy()
+
+                if dry_run:
+                    starting_instance = transaction.deepcopy()
+
                 _log("Found at least one matching transaction, using latest:")
                 _log("{}".format(pformat(model_to_dict(transaction))))
             else:
@@ -376,7 +409,7 @@ def check_for_transaction_rules(
 
         dry_run_results.update_or_create_transaction(
             start_instance=starting_instance,
-            end_instance=transaction.deepcopy(),
+            end_instance=transaction,
             updated=existing,
             action=processed_action,
             query=search_query,
@@ -473,7 +506,7 @@ def check_for_transaction_rules(
             )
 
         dry_run_results.edit_transaction(
-            instance=transaction.deepcopy(),
+            instance=transaction,
             action=processed_action,
             old_value=original_value,
             new_value=new_value,
@@ -489,7 +522,7 @@ def check_for_transaction_rules(
     user = get_user_model().objects.get(id=user_id)
     write_current_user(user)
     logs = [] if dry_run else None
-    dry_run_results = DryRunResults()
+    dry_run_results = DryRunResults(dry_run=dry_run)
 
     if dry_run and not rule_id:
         raise Exception("Cannot dry run without a rule id")
@@ -507,7 +540,7 @@ def check_for_transaction_rules(
                 # Regular transaction processing for creates and updates
                 instance = Transaction.objects.get(id=instance_id)
 
-            dry_run_results.triggering_transaction(instance.deepcopy())
+            dry_run_results.triggering_transaction(instance)
 
             functions = {
                 "relativedelta": relativedelta,
