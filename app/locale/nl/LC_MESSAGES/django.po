@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-08 12:20+0000\n"
-"PO-Revision-Date: 2025-09-01 06:17+0000\n"
+"PO-Revision-Date: 2025-09-09 18:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.2\n"
 
 #: apps/accounts/forms.py:26
 msgid "Group name"
@@ -1209,26 +1209,21 @@ msgid "Transaction"
 msgstr "Verrichting"
 
 #: apps/rules/forms.py:419 apps/rules/forms.py:456 apps/rules/forms.py:493
-#, fuzzy
-#| msgid "Type to search for a transaction to link to this entry"
 msgid "Type to search for a transaction"
-msgstr ""
-"Type om een transactie te zoeken die aan dit item moet worden gekoppeld"
+msgstr "Type om een transactie te zoeken"
 
 #: apps/rules/forms.py:431 apps/rules/forms.py:468 apps/rules/forms.py:504
 #: templates/rules/fragments/transaction_rule/view.html:121
 msgid "Test"
-msgstr ""
+msgstr "Test"
 
 #: apps/rules/models.py:15
 msgid "Trigger"
 msgstr "Trigger"
 
 #: apps/rules/models.py:17
-#, fuzzy
-#| msgid "Recurrence"
 msgid "Sequenced"
-msgstr "Terugkeerpatroon"
+msgstr "Opeenvolgend"
 
 #: apps/rules/models.py:26
 msgid "Transaction rule"
@@ -3319,12 +3314,12 @@ msgstr "Verrichtingsregel bewerken"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:8
 msgid "Visual"
-msgstr ""
+msgstr "Visueel"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:21
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:92
 msgid "Run a test to see..."
-msgstr ""
+msgstr "Voer een test uit om te zien..."
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:30
 #: templates/rules/fragments/transaction_rule/view.html:39
@@ -3339,10 +3334,8 @@ msgid "Update or create transaction"
 msgstr "Bewerk of maak verrichtingen"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:42
-#, fuzzy
-#| msgid "Start Date"
 msgid "Start"
-msgstr "Startdatum"
+msgstr "Start"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:51
 #: templates/rules/fragments/transaction_rule/view.html:44
@@ -3355,10 +3348,8 @@ msgid "to"
 msgstr "naar"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:70
-#, fuzzy
-#| msgid "No transactions on this date"
 msgid "No transaction found, a new one will be created"
-msgstr "Geen verrichtingen op deze datum"
+msgstr "Geen verrichting"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/add.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/add.html:5
@@ -3392,7 +3383,7 @@ msgstr "Deze regel heeft geen acties"
 
 #: templates/rules/fragments/transaction_rule/view.html:127
 msgid "Create"
-msgstr ""
+msgstr "Aanmaken"
 
 #: templates/rules/fragments/transaction_rule/view.html:144
 msgid "Add new"
