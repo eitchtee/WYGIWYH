@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-08 12:20+0000\n"
-"PO-Revision-Date: 2025-09-11 19:17+0000\n"
+"PO-Revision-Date: 2025-09-11 21:17+0000\n"
 "Last-Translator: Phillip Maizza <phillipmaizza@gmail.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
 "app/it/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: apps/accounts/forms.py:26
 msgid "Group name"
-msgstr "Nome gruppo"
+msgstr "Nome del gruppo"
 
 #: apps/accounts/forms.py:42 apps/accounts/forms.py:112
 #: apps/currencies/forms.py:55 apps/currencies/forms.py:93
@@ -103,7 +103,7 @@ msgstr "Categoria"
 #: templates/insights/fragments/category_overview/index.html:36
 #: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
 msgid "Tags"
-msgstr "Etichette"
+msgstr "Tag"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
@@ -1379,12 +1379,12 @@ msgstr "Categorizzato"
 
 #: apps/transactions/filters.py:195
 msgid "Tagged"
-msgstr "Etichettato"
+msgstr "Taggato"
 
 #: apps/transactions/filters.py:195
 #: templates/insights/fragments/category_overview/index.html:181
 msgid "Untagged"
-msgstr "Senza etichetta"
+msgstr "Senza tag"
 
 #: apps/transactions/filters.py:201
 msgid "Any entity"
@@ -1428,7 +1428,7 @@ msgstr "Trasferimento"
 
 #: apps/transactions/forms.py:907
 msgid "Tag name"
-msgstr "Nome etichetta"
+msgstr "Nome tag"
 
 #: apps/transactions/forms.py:939
 msgid "Entity name"
@@ -1471,12 +1471,12 @@ msgstr "Categorie transazione"
 msgid ""
 "Deactivated tags won't be able to be selected when creating new transactions"
 msgstr ""
-"Le etichette disattivate non potranno essere selezionate durante la "
-"creazione di nuove transazioni"
+"I tag disattivati non potranno essere selezionati durante la creazione di "
+"nuove transazioni"
 
 #: apps/transactions/models.py:252 apps/transactions/models.py:253
 msgid "Transaction Tags"
-msgstr "Etichette transazione"
+msgstr "Tag di transazione"
 
 #: apps/transactions/models.py:268
 msgid ""
@@ -1531,7 +1531,7 @@ msgstr "Eliminato alle"
 
 #: apps/transactions/models.py:458 templates/tags/fragments/table.html:71
 msgid "No tags"
-msgstr "Nessuna etichetta"
+msgstr "Nessun tag"
 
 #: apps/transactions/models.py:460
 msgid "No category"
@@ -1781,15 +1781,15 @@ msgstr "Transazione ricorrente eliminata correttamente"
 
 #: apps/transactions/views/tags.py:66
 msgid "Tag added successfully"
-msgstr "Etichetta aggiunta con successo"
+msgstr "Tag aggiunto con successo"
 
 #: apps/transactions/views/tags.py:104
 msgid "Tag updated successfully"
-msgstr "Etichetta aggiornata con successo"
+msgstr "Tag aggiornato con successo"
 
 #: apps/transactions/views/tags.py:133
 msgid "Tag deleted successfully"
-msgstr "Etichetta eliminata con successo"
+msgstr "Tag rimosso con successo"
 
 #: apps/transactions/views/transactions.py:183
 msgid "Transaction updated successfully"
@@ -2173,7 +2173,7 @@ msgstr "Sì, cancellalo!"
 #: templates/rules/fragments/list.html:57
 #: templates/tags/fragments/table.html:48
 msgid "Take ownership"
-msgstr ""
+msgstr "Prendi il comando"
 
 #: templates/account_groups/fragments/list.html:65
 #: templates/accounts/fragments/list.html:70
@@ -2721,7 +2721,7 @@ msgstr "Esegue"
 
 #: templates/import_app/fragments/profiles/list.html:86
 msgid "No import profiles"
-msgstr "Nessun profilo di importazione"
+msgstr "Nessun profilo importato"
 
 #: templates/import_app/fragments/profiles/list_presets.html:5
 msgid "Import Presets"
@@ -2877,28 +2877,32 @@ msgstr "Esci"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:8
 msgid "Access Denied"
-msgstr ""
+msgstr "Accesso negato"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:9
 msgid ""
 "You do not have permission to perform this action or access this resource."
 msgstr ""
+"Non hai l'autorizzazione per eseguire questa azione o accedere a questa "
+"risorsa."
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:19
 msgid "Something went wrong loading your data"
-msgstr ""
+msgstr "Si è verificato un errore durante il caricamento dei dati"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:20
 msgid "Try reloading the page or check the console for more information."
 msgstr ""
+"Prova a ricaricare la pagina o controlla la console per maggiori "
+"informazioni."
 
 #: templates/includes/scripts/hyperscript/swal.html:13
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #: templates/includes/scripts/hyperscript/swal.html:14
 msgid "Confirm"
-msgstr ""
+msgstr "Conferma"
 
 #: templates/insights/fragments/category_explorer/charts/account.html:100
 #: templates/insights/fragments/category_explorer/charts/currency.html:92
@@ -2911,584 +2915,593 @@ msgstr ""
 #: templates/yearly_overview/fragments/account_data.html:12
 #: templates/yearly_overview/fragments/currency_data.html:12
 msgid "No information to display"
-msgstr ""
+msgstr "Nessuna informazione da visualizzare"
 
 #: templates/insights/fragments/category_explorer/index.html:14
 msgid "Income/Expense by Account"
-msgstr ""
+msgstr "Entrate/Uscite per conto"
 
 #: templates/insights/fragments/category_explorer/index.html:26
 msgid "Income/Expense by Currency"
-msgstr ""
+msgstr "Entrate/Uscite per valuta"
 
 #: templates/insights/fragments/category_overview/index.html:14
 msgid "Table"
-msgstr ""
+msgstr "Tabella"
 
 #: templates/insights/fragments/category_overview/index.html:24
 msgid "Bars"
-msgstr ""
+msgstr "Barre"
 
 #: templates/insights/fragments/category_overview/index.html:39
 msgid ""
 "Transaction amounts associated with multiple tags will be counted once for "
 "each tag"
 msgstr ""
+"Gli importi delle transazioni associati a più tag verranno conteggiati una "
+"volta per ogni tag"
 
 #: templates/insights/fragments/category_overview/index.html:52
 msgid ""
 "Transaction amounts associated with multiple tags and entities will be "
 "counted once for each tag"
 msgstr ""
+"Gli importi delle transazioni associati a più tag ed entità verranno "
+"conteggiati una volta per ogni tag"
 
 #: templates/insights/fragments/category_overview/index.html:69
 msgid "Final total"
-msgstr ""
+msgstr "Totale finale"
 
 #: templates/insights/fragments/category_overview/index.html:81
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
-msgstr ""
+msgstr "Totale"
 
 #: templates/insights/fragments/category_overview/index.html:517
 msgid "Final Total"
-msgstr ""
+msgstr "Totale finale"
 
 #: templates/insights/fragments/emergency_fund.html:15
 msgid "You've spent an average of"
-msgstr ""
+msgstr "Hai speso una media di"
 
 #: templates/insights/fragments/emergency_fund.html:23
 msgid "on the last 12 months, at this rate you could go by"
-msgstr ""
+msgstr "negli ultimi 12 mesi, a questo ritmo potresti procedere a"
 
 #: templates/insights/fragments/emergency_fund.html:25
 msgid "months without any income."
-msgstr ""
+msgstr "mesi senza alcuna entrata."
 
 #: templates/insights/fragments/emergency_fund.html:34
 msgid "average expenses"
-msgstr ""
+msgstr "spese medie"
 
 #: templates/insights/fragments/emergency_fund.html:48
 msgid "liquid total"
-msgstr ""
+msgstr "liquidità totale"
 
 #: templates/insights/fragments/emergency_fund.html:62
 msgid "months left"
-msgstr ""
+msgstr "mesi rimasti"
 
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
-msgstr ""
+msgstr "Tutto bene!"
 
 #: templates/insights/fragments/late_transactions.html:16
 msgid "No late transactions"
-msgstr ""
+msgstr "Nessuna transazione in ritardo"
 
 #: templates/insights/fragments/latest_transactions.html:14
 msgid "No recent transactions"
-msgstr ""
+msgstr "Nessuna transazione recente"
 
 #: templates/insights/fragments/sankey.html:93
 msgid "From"
-msgstr ""
+msgstr "Da"
 
 #: templates/insights/fragments/sankey.html:96
 msgid "Percentage"
-msgstr ""
+msgstr "Percentuale"
 
 #: templates/insights/pages/index.html:37
 msgid "Month"
-msgstr ""
+msgstr "Mese"
 
 #: templates/insights/pages/index.html:40
 #: templates/yearly_overview/pages/overview_by_account.html:73
 #: templates/yearly_overview/pages/overview_by_currency.html:75
 msgid "Year"
-msgstr ""
+msgstr "Anno"
 
 #: templates/insights/pages/index.html:45
 msgid "Month Range"
-msgstr ""
+msgstr "Intervallo di mesi"
 
 #: templates/insights/pages/index.html:50
 msgid "Year Range"
-msgstr ""
+msgstr "Intervallo di anni"
 
 #: templates/insights/pages/index.html:55
 msgid "Date Range"
-msgstr ""
+msgstr "Intervallo di date"
 
 #: templates/insights/pages/index.html:83
 msgid "Account Flow"
-msgstr ""
+msgstr "Flusso del conto"
 
 #: templates/insights/pages/index.html:90
 msgid "Currency Flow"
-msgstr ""
+msgstr "Flusso di valuta"
 
 #: templates/insights/pages/index.html:97
 msgid "Category Explorer"
-msgstr ""
+msgstr "Esploratore di categorie"
 
 #: templates/insights/pages/index.html:104
 msgid "Categories Overview"
-msgstr ""
+msgstr "Panoramica delle categorie"
 
 #: templates/insights/pages/index.html:111
 msgid "Late Transactions"
-msgstr ""
+msgstr "Transazioni in ritardo"
 
 #: templates/insights/pages/index.html:117
 msgid "Latest Transactions"
-msgstr ""
+msgstr "Transazioni recenti"
 
 #: templates/insights/pages/index.html:123
 msgid "Emergency Fund"
-msgstr ""
+msgstr "Fondo d'emergenza"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
-msgstr ""
+msgstr "Aggiungi piano di rateizzazione"
 
 #: templates/installment_plans/fragments/edit.html:5
 msgid "Edit installment plan"
-msgstr ""
+msgstr "Modifica piano di rateizzazione"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
 #: templates/installment_plans/fragments/table.html:37
 msgid "Installments"
-msgstr ""
+msgstr "Rate"
 
 #: templates/installment_plans/fragments/table.html:45
 msgid "Refresh"
-msgstr ""
+msgstr "Aggiorna"
 
 #: templates/installment_plans/fragments/table.html:51
 msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
 msgstr ""
+"Verranno aggiornate tutte le transazioni associate a questo piano e verranno "
+"ricreate quelle mancanti"
 
 #: templates/installment_plans/fragments/table.html:52
 msgid "Yes, refresh it!"
-msgstr ""
+msgstr "Sì, aggiornalo!"
 
 #: templates/installment_plans/fragments/table.html:63
 msgid "This will delete the plan and all transactions associated with it"
-msgstr ""
+msgstr "Verrà eliminato il piano e tutte le transazioni ad esso associate"
 
 #: templates/installment_plans/fragments/table.html:91
 msgid "No installment plans"
-msgstr ""
+msgstr "Nessun piano di rateizzazione"
 
 #: templates/layouts/base.html:43
 msgid "This is a demo!"
-msgstr ""
+msgstr "Questa è una demo!"
 
 #: templates/layouts/base.html:43
 msgid "Any data you add here will be wiped in 24hrs or less"
-msgstr ""
+msgstr "Tutti i dati che aggiungi qui verranno cancellati entro 24 ore o meno"
 
 #: templates/mini_tools/currency_converter/currency_converter.html:58
 msgid "Invert"
-msgstr ""
+msgstr "Investi"
 
 #: templates/mini_tools/unit_price_calculator.html:27
 #: templates/mini_tools/unit_price_calculator.html:100
 #: templates/mini_tools/unit_price_calculator.html:125
 msgid "Item price"
-msgstr ""
+msgstr "Prezzo dell'elemento"
 
 #: templates/mini_tools/unit_price_calculator.html:33
 #: templates/mini_tools/unit_price_calculator.html:106
 #: templates/mini_tools/unit_price_calculator.html:131
 msgid "Item amount"
-msgstr ""
+msgstr "Quantità"
 
 #: templates/mini_tools/unit_price_calculator.html:38
 #: templates/mini_tools/unit_price_calculator.html:111
 #: templates/mini_tools/unit_price_calculator.html:136
 msgid "Unit price"
-msgstr ""
+msgstr "Prezzo unitario"
 
 #: templates/mini_tools/unit_price_calculator.html:94
 #: templates/mini_tools/unit_price_calculator.html:119
 #: templates/mini_tools/unit_price_calculator.html:158
 msgid "Item"
-msgstr ""
+msgstr "Elemento"
 
 #: templates/monthly_overview/fragments/list.html:46
 msgid "No transactions this month"
-msgstr ""
+msgstr "Nessuna transazione questo mese"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
 msgid "Daily Spending Allowance"
-msgstr ""
+msgstr "Quota di spesa giornaliera"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
 msgid "This is the final total divided by the remaining days in the month"
-msgstr ""
+msgstr "Questo è il totale finale diviso per i giorni rimanenti del mese"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 #: templates/monthly_overview/fragments/monthly_summary.html:106
 #: templates/monthly_overview/fragments/monthly_summary.html:170
 msgid "current"
-msgstr ""
+msgstr "attuale"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:72
 #: templates/monthly_overview/fragments/monthly_summary.html:136
 #: templates/monthly_overview/fragments/monthly_summary.html:199
 msgid "projected"
-msgstr ""
+msgstr "previsto"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:103
 msgid "Expenses"
-msgstr ""
+msgstr "Spese"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:257
 msgid "Distribution"
-msgstr ""
+msgstr "Distribuzione"
 
 #: templates/monthly_overview/pages/overview.html:68
 msgid "Summary"
-msgstr ""
+msgstr "Riepilogo"
 
 #: templates/monthly_overview/pages/overview.html:141
 #: templates/monthly_overview/pages/overview.html:195
 #: templates/transactions/pages/transactions.html:15
 #: templates/transactions/pages/transactions.html:69
 msgid "Oldest first"
-msgstr ""
+msgstr "Prima le più vecchie"
 
 #: templates/monthly_overview/pages/overview.html:142
 #: templates/monthly_overview/pages/overview.html:204
 #: templates/transactions/pages/transactions.html:16
 #: templates/transactions/pages/transactions.html:78
 msgid "Newest first"
-msgstr ""
+msgstr "Prima le più recenti"
 
 #: templates/monthly_overview/pages/overview.html:151
 #: templates/transactions/pages/transactions.html:25
 msgid "Filter transactions"
-msgstr ""
+msgstr "Filtra transazioni"
 
 #: templates/monthly_overview/pages/overview.html:176
 #: templates/transactions/pages/transactions.html:50
 msgid "Order by"
-msgstr ""
+msgstr "Ordina per"
 
 #: templates/net_worth/net_worth.html:40
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
-msgstr ""
+msgstr "Per valuta"
 
 #: templates/net_worth/net_worth.html:75
 msgid "Consolidated"
-msgstr ""
+msgstr "Consolidate"
 
 #: templates/net_worth/net_worth.html:104
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
-msgstr ""
+msgstr "Per conto"
 
 #: templates/net_worth/net_worth.html:211
 msgid "Evolution by currency"
-msgstr ""
+msgstr "Evoluzione per valuta"
 
 #: templates/net_worth/net_worth.html:275
 msgid "Evolution by account"
-msgstr ""
+msgstr "Evoluzione per conto"
 
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
 msgid "Add quick transaction"
-msgstr ""
+msgstr "Aggiungi transazione rapida"
 
 #: templates/quick_transactions/fragments/create_menu.html:13
 #: templates/quick_transactions/fragments/list.html:68
 msgid "Nothing to see here..."
-msgstr ""
+msgstr "Qui non c'è niente da vedere..."
 
 #: templates/quick_transactions/fragments/edit.html:5
 msgid "Edit quick transaction"
-msgstr ""
+msgstr "Modifica transazione rapida"
 
 #: templates/quick_transactions/fragments/list.html:40
 msgid "This will delete this item"
-msgstr ""
+msgstr "Questo elemento verrà eliminato"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
-msgstr ""
+msgstr "Aggiungi transazione ricorrente"
 
 #: templates/recurring_transactions/fragments/edit.html:5
 msgid "Edit recurring transaction"
-msgstr ""
+msgstr "Modifica transazione ricorrente"
 
 #: templates/recurring_transactions/fragments/table.html:49
 msgid "Unpause"
-msgstr ""
+msgstr "Riprendi"
 
 #: templates/recurring_transactions/fragments/table.html:56
 msgid "This will start creating new transactions until you pause it"
-msgstr ""
+msgstr "Verranno create nuove transazioni finché non lo metterai in pausa"
 
 #: templates/recurring_transactions/fragments/table.html:57
 msgid "Yes, unpause it!"
-msgstr ""
+msgstr "Sì, riattivalo!"
 
 #: templates/recurring_transactions/fragments/table.html:63
 msgid "Pause"
-msgstr ""
+msgstr "Sospendi"
 
 #: templates/recurring_transactions/fragments/table.html:70
 msgid "This will stop the creation of new transactions until you unpause it"
 msgstr ""
+"Verrà interrotta la creazione di nuove transazioni finché non la riattivi"
 
 #: templates/recurring_transactions/fragments/table.html:71
 msgid "Yes, pause it!"
-msgstr ""
+msgstr "Sì, mettilo in pausa!"
 
 #: templates/recurring_transactions/fragments/table.html:78
 msgid "Finish"
-msgstr ""
+msgstr "Fine"
 
 #: templates/recurring_transactions/fragments/table.html:85
 msgid ""
 "This will stop the creation of new transactions and delete any unpaid "
 "transactions after today"
 msgstr ""
+"Verrà interrotta la creazione di nuove transazioni ed eliminerà tutte le "
+"transazioni non pagate successive a oggi"
 
 #: templates/recurring_transactions/fragments/table.html:86
 msgid "Yes, finish it!"
-msgstr ""
+msgstr "Sì, finiscilo!"
 
 #: templates/recurring_transactions/fragments/table.html:99
 msgid "This will delete the recurrence and all transactions associated with it"
-msgstr ""
+msgstr "Ciò eliminerà la ricorrenza e tutte le transazioni ad essa associate"
 
 #: templates/recurring_transactions/fragments/table.html:127
 msgid "No recurring transactions"
-msgstr ""
+msgstr "Nessuna transazione ricorrente"
 
 #: templates/rules/fragments/list.html:38
 msgid "View"
-msgstr ""
+msgstr "Vista"
 
 #: templates/rules/fragments/list.html:78
 msgid "Deactivate"
-msgstr ""
+msgstr "Disattiva"
 
 #: templates/rules/fragments/list.html:78
 msgid "Activate"
-msgstr ""
+msgstr "Attiva"
 
 #: templates/rules/fragments/list.html:96
 msgid "No rules"
-msgstr ""
+msgstr "Nessuna regola"
 
 #: templates/rules/fragments/transaction_rule/add.html:5
 msgid "Add transaction rule"
-msgstr ""
+msgstr "Aggiungi regola per la transazione"
 
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
 #: templates/rules/fragments/transaction_rule/dry_run/deleted.html:5
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/edit.html:5
 msgid "Edit transaction rule"
-msgstr ""
+msgstr "Modifica regola per la transazione"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:8
 msgid "Visual"
-msgstr ""
+msgstr "Visivo"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:21
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:92
 msgid "Run a test to see..."
-msgstr ""
+msgstr "Esegui una prova per vedere..."
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:30
 #: templates/rules/fragments/transaction_rule/view.html:39
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
 msgid "Edit transaction"
-msgstr ""
+msgstr "Modifica transazione"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:32
 #: templates/rules/fragments/transaction_rule/view.html:78
 msgid "Update or create transaction"
-msgstr ""
+msgstr "Aggiorna o crea transazione"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:42
 msgid "Start"
-msgstr ""
+msgstr "Inizio"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:51
 #: templates/rules/fragments/transaction_rule/view.html:44
 msgid "Set"
-msgstr ""
+msgstr "Imposta"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:52
 #: templates/rules/fragments/transaction_rule/view.html:45
 msgid "to"
-msgstr ""
+msgstr "a"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:70
 msgid "No transaction found, a new one will be created"
-msgstr ""
+msgstr "Nessuna transazione trovata, ne verrà creata una nuova"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/add.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/add.html:5
 msgid "Add action to transaction rule"
-msgstr ""
+msgstr "Aggiungi azione alla regola per la transazione"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/edit.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/edit.html:5
 msgid "Edit transaction rule action"
-msgstr ""
+msgstr "Modifica azione alla regola per la transazione"
 
 #: templates/rules/fragments/transaction_rule/view.html:5
 msgid "Transaction Rule"
-msgstr ""
+msgstr "Regola per la transazione"
 
 #: templates/rules/fragments/transaction_rule/view.html:14
 msgid "If transaction..."
-msgstr ""
+msgstr "Se la transazione..."
 
 #: templates/rules/fragments/transaction_rule/view.html:32
 msgid "Then..."
-msgstr ""
+msgstr "Allora..."
 
 #: templates/rules/fragments/transaction_rule/view.html:82
 msgid "Edit to view"
-msgstr ""
+msgstr "Modifica per vedere"
 
 #: templates/rules/fragments/transaction_rule/view.html:112
 msgid "This rule has no actions"
-msgstr ""
+msgstr "Questa regola non ha azioni"
 
 #: templates/rules/fragments/transaction_rule/view.html:127
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #: templates/rules/fragments/transaction_rule/view.html:144
 msgid "Add new"
-msgstr ""
+msgstr "Aggiungi nuova"
 
 #: templates/rules/fragments/transaction_rule/view.html:149
 msgid "Edit Transaction"
-msgstr ""
+msgstr "Modifica transazione"
 
 #: templates/rules/fragments/transaction_rule/view.html:152
 msgid "Update or Create Transaction"
-msgstr ""
+msgstr "Aggiorna o crea transazione"
 
 #: templates/tags/fragments/add.html:5
 msgid "Add tag"
-msgstr ""
+msgstr "Aggiungi tag"
 
 #: templates/tags/fragments/edit.html:5
 msgid "Edit tag"
-msgstr ""
+msgstr "Modifica tag"
 
 #: templates/transactions/fragments/add.html:5
 #: templates/transactions/pages/add.html:5
 msgid "New transaction"
-msgstr ""
+msgstr "Nuova transazione"
 
 #: templates/transactions/fragments/add_installment_plan.html:5
 msgid "Add Installment Plan"
-msgstr ""
+msgstr "Aggiungi piano rateale"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Modifica in blocco"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "Editing"
-msgstr ""
+msgstr "Modifica"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "transactions"
-msgstr ""
+msgstr "transazioni"
 
 #: templates/transactions/fragments/list_all.html:46
 msgid "No transactions found"
-msgstr ""
+msgstr "Nessuna transazione trovata"
 
 #: templates/transactions/fragments/transfer.html:5
 msgid "New transfer"
-msgstr ""
+msgstr "Nuovo trasferimento"
 
 #: templates/transactions/fragments/trash_list.html:7
 msgid "No deleted transactions to show"
-msgstr ""
+msgstr "Nessuna transazione eliminata da mostrare"
 
 #: templates/transactions/pages/trash.html:4
 #: templates/transactions/pages/trash.html:9
 msgid "Deleted transactions"
-msgstr ""
+msgstr "Transazioni eliminate"
 
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:14
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
 msgid "Unchanged"
-msgstr ""
+msgstr "Nessun cambio"
 
 #: templates/users/fragments/add.html:5
 msgid "Add user"
-msgstr ""
+msgstr "Aggiungi utente"
 
 #: templates/users/fragments/edit.html:5
 msgid "Edit user"
-msgstr ""
+msgstr "Modifica utente"
 
 #: templates/users/fragments/list.html:30
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/users/fragments/list.html:31
 msgid "Superuser"
-msgstr ""
+msgstr "Superutente"
 
 #: templates/users/fragments/list.html:51
 msgid "Impersonate"
-msgstr ""
+msgstr "Impersona"
 
 #: templates/users/fragments/list.html:80
 msgid "No users"
-msgstr ""
+msgstr "Nessun utente"
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
-msgstr ""
+msgstr "Nascondi importi"
 
 #: templates/users/generic/mute_sounds.html:2
 msgid "Mute sounds"
-msgstr ""
+msgstr "Disattiva suoni"
 
 #: templates/users/generic/play_sounds.html:2
 msgid "Play sounds"
-msgstr ""
+msgstr "Riattiva suoni"
 
 #: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
-msgstr ""
+msgstr "Mostra importi"
 
 #: templates/users/login.html:18
 msgid "Welcome to WYGIWYH's demo!"
-msgstr ""
+msgstr "Benvenuti alla demo di WYGIWYH!"
 
 #: templates/users/login.html:19
 msgid "Use the credentials below to login"
-msgstr ""
+msgstr "Utilizza le credenziali qui sotto per accedere"
 
 #: templates/users/login.html:40
 msgid "Login with"
-msgstr ""
+msgstr "Accedi con"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
-msgstr ""
+msgstr "Panoramica annuale"
