@@ -10,17 +10,9 @@
   <nav
       id="sidebar"
       hx-boost="true"
+      hx-swap="transition:true"
       data-bs-scroll="true"
       class="offcanvas-lg offcanvas-start d-lg-flex flex-column position-fixed top-0 start-0 h-100 bg-body-tertiary shadow-sm tw:z-1020">
-
-{#    <div>#}
-{#      <a href="{% url 'index' %}" class="d-none d-lg-flex tw:justify-start p-3 text-decoration-none sidebar-title">#}
-{#        <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>#}
-{#        <span class="fs-4 fw-bold ms-3">WYGIWYH</span>#}
-{#      </a>#}
-{##}
-{##}
-{#    </div>#}
 
     <div class="d-none d-lg-flex tw:justify-between tw:items-center tw:border-b tw:border-gray-600 tw:lg:flex">
       <a href="{% url 'index' %}" class="m-0 d-none d-lg-flex tw:justify-start p-3 text-decoration-none sidebar-title">
