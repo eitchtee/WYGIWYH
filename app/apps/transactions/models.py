@@ -1,3 +1,4 @@
+import decimal
 import logging
 from copy import deepcopy
 
@@ -381,6 +382,9 @@ class Transaction(OwnedObject):
         default_manager_name = "objects"
 
     def clean_fields(self, *args, **kwargs):
+        if isinstance(self.amount, (str, int, float)):
+            self.amount = decimal.Decimal(str(self.amount))
+
         self.amount = truncate_decimal(
             value=self.amount, decimal_places=self.account.currency.decimal_places
         )
