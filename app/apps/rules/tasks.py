@@ -213,6 +213,16 @@ def check_for_transaction_rules(
                 f"{prefix}internal_id": transaction.internal_id,
                 f"{prefix}is_deleted": transaction.deleted,
                 f"{prefix}is_muted": transaction.mute,
+                f"{prefix}is_recurring": transaction.recurring_transaction is not None,
+                f"{prefix}is_installment": transaction.installment_plan is not None,
+                f"{prefix}installment_number": (
+                    transaction.installment_id if transaction.installment_plan else None
+                ),
+                f"{prefix}installment_total": (
+                    transaction.installment_plan.number_of_installments
+                    if transaction.installment_plan
+                    else None
+                ),
             }
         else:
             return {
@@ -256,6 +266,12 @@ def check_for_transaction_rules(
                 f"{prefix}internal_id": transaction.get("internal_id", ""),
                 f"{prefix}is_deleted": transaction.get("deleted", True),
                 f"{prefix}is_muted": transaction.get("mute", False),
+                f"{prefix}is_recurring": transaction.get(
+                    "recurring_transaction", False
+                ),
+                f"{prefix}is_installment": transaction.get("installment", False),
+                f"{prefix}installment_number": transaction.get("installment_id"),
+                f"{prefix}installment_total": transaction.get("installment_total"),
             }
 
     def _process_update_or_create_transaction_action(processed_action):
