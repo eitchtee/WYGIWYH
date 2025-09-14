@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{% translate 'Edit transaction rule' %}{% endblock %}
+{% block title %}{% trans 'Test' %} - {% trans 'Update' %}{% endblock %}
 
 {% block body %}
   <form hx-post="{% url 'transaction_rule_dry_run_updated' pk=rule.id %}" hx-target="#generic-offcanvas"
