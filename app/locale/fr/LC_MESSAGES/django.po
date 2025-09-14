@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-14 04:37+0000\n"
+"POT-Creation-Date: 2025-09-14 04:57+0000\n"
 "PO-Revision-Date: 2025-09-08 06:17+0000\n"
 "Last-Translator: sorcierwax <freakywax@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
@@ -33,6 +33,7 @@ msgstr "Nom de groupe"
 #: apps/transactions/forms.py:953 apps/transactions/forms.py:988
 #: apps/transactions/forms.py:1142 apps/users/forms.py:217
 #: apps/users/forms.py:379
+#: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:132
 msgid "Update"
 msgstr "Mise à jour"
@@ -1212,6 +1213,9 @@ msgid "Type to search for a transaction"
 msgstr "Saisissez pour rechercher une transaction"
 
 #: apps/rules/forms.py:431 apps/rules/forms.py:468 apps/rules/forms.py:504
+#: templates/rules/fragments/transaction_rule/dry_run/created.html:5
+#: templates/rules/fragments/transaction_rule/dry_run/deleted.html:5
+#: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:121
 msgid "Test"
 msgstr "Test"
@@ -2087,6 +2091,7 @@ msgstr "Editer"
 #: templates/quick_transactions/fragments/list.html:34
 #: templates/recurring_transactions/fragments/table.html:93
 #: templates/rules/fragments/list.html:45
+#: templates/rules/fragments/transaction_rule/dry_run/deleted.html:5
 #: templates/rules/fragments/transaction_rule/view.html:61
 #: templates/rules/fragments/transaction_rule/view.html:96
 #: templates/rules/fragments/transaction_rule/view.html:137
@@ -3320,11 +3325,9 @@ msgid "Add transaction rule"
 msgstr "Ajouter une règle de transaction"
 
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
-#: templates/rules/fragments/transaction_rule/dry_run/deleted.html:5
-#: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
-#: templates/rules/fragments/transaction_rule/edit.html:5
-msgid "Edit transaction rule"
-msgstr "Modifier une règle de transaction"
+#: templates/rules/fragments/transaction_rule/view.html:127
+msgid "Create"
+msgstr "Créer"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:8
 msgid "Visual"
@@ -3365,6 +3368,10 @@ msgstr "pour"
 msgid "No transaction found, a new one will be created"
 msgstr "Aucunes transactions trouvées, une nouvelle va être créée"
 
+#: templates/rules/fragments/transaction_rule/edit.html:5
+msgid "Edit transaction rule"
+msgstr "Modifier une règle de transaction"
+
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/add.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/add.html:5
 msgid "Add action to transaction rule"
@@ -3394,10 +3401,6 @@ msgstr "Modifier pour visualiser"
 #: templates/rules/fragments/transaction_rule/view.html:112
 msgid "This rule has no actions"
 msgstr "Cette règle n'a pas d'actions"
-
-#: templates/rules/fragments/transaction_rule/view.html:127
-msgid "Create"
-msgstr "Créer"
 
 #: templates/rules/fragments/transaction_rule/view.html:144
 msgid "Add new"
