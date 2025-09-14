@@ -95,9 +95,9 @@ class DryRunResults:
             return
 
         if isinstance(end_instance, Transaction):
-            start_instance = end_instance.deepcopy()
+            end_instance = end_instance.deepcopy()
         elif isinstance(end_instance, dict):
-            start_instance = deepcopy(end_instance)
+            end_instance = deepcopy(end_instance)
 
         result = {
             "type": "update_or_create_transaction",
