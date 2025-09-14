@@ -90,4 +90,12 @@ def serialize_transaction(sender: Transaction, deleted: bool):
         "internal_note": sender.internal_note,
         "internal_id": sender.internal_id,
         "mute": sender.mute,
+        "installment_id": sender.installment_id if sender.installment_plan else None,
+        "installment_total": (
+            sender.installment_plan.number_of_installments
+            if sender.installment_plan is not None
+            else None
+        ),
+        "installment": sender.installment_plan is not None,
+        "recurring_transaction": sender.recurring_transaction is not None,
     }
