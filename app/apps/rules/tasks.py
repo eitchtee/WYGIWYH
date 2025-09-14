@@ -536,7 +536,8 @@ def check_for_transaction_rules(
         return transaction
 
     user = get_user_model().objects.get(id=user_id)
-    write_current_user(user)
+    if not dry_run:
+        write_current_user(user)
     logs = [] if dry_run else None
     dry_run_results = DryRunResults(dry_run=dry_run)
 
@@ -761,11 +762,12 @@ def check_for_transaction_rules(
             "** Error while executing 'check_for_transaction_rules' task",
             level="error",
         )
-        delete_current_user()
         if not dry_run:
+            delete_current_user()
             raise e
 
-    delete_current_user()
+    if not dry_run:
+        delete_current_user()
 
     return logs, dry_run_results.results
 
