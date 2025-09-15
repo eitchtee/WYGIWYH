@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 04:57+0000\n"
-"PO-Revision-Date: 2025-09-15 17:17+0000\n"
+"PO-Revision-Date: 2025-09-15 18:17+0000\n"
 "Last-Translator: Phillip Maizza <phillipmaizza@gmail.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
 "app/it/>\n"
@@ -212,7 +212,7 @@ msgstr ""
 
 #: apps/accounts/views/account_groups.py:44
 msgid "Account Group added successfully"
-msgstr "Gruppo di conti aggiunto con successo"
+msgstr "Gruppo conti aggiunto con successo"
 
 #: apps/accounts/views/account_groups.py:69
 #: apps/accounts/views/account_groups.py:152 apps/accounts/views/accounts.py:68
@@ -228,7 +228,7 @@ msgstr "Solo il proprietario può modificare questo elemento"
 
 #: apps/accounts/views/account_groups.py:82
 msgid "Account Group updated successfully"
-msgstr "Gruppo di conti aggiornato con successo"
+msgstr "Gruppo conti aggiornato con successo"
 
 #: apps/accounts/views/account_groups.py:111
 #: apps/accounts/views/accounts.py:145 apps/dca/views.py:105
@@ -239,7 +239,7 @@ msgstr "L’elemento non è più condiviso con te"
 
 #: apps/accounts/views/account_groups.py:114
 msgid "Account Group deleted successfully"
-msgstr "Gruppo di conti eliminato con successo"
+msgstr "Gruppo conti eliminato con successo"
 
 #: apps/accounts/views/account_groups.py:135
 #: apps/accounts/views/accounts.py:189 apps/dca/views.py:129
@@ -490,7 +490,7 @@ msgstr "Rimuovi"
 #: templates/transactions/pages/transactions.html:89
 #: templates/transactions/pages/transactions.html:101
 msgid "Clear"
-msgstr "Pulisci"
+msgstr "Reset"
 
 #: apps/common/widgets/tom_select.py:16
 msgid "No results..."
@@ -655,12 +655,12 @@ msgstr "Cambio unico"
 #: apps/currencies/models.py:163
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
-"Crea un solo tasso di cambio e lo mantiene aggiornato. Evita ingombri nel "
+"Crea un solo cambio valuta e aggiornalo nel tempo, evitando duplicati nel "
 "database."
 
 #: apps/currencies/models.py:168
 msgid "Exchange Rate Service"
-msgstr "Servizio tasso di cambio"
+msgstr "Servizio cambio valuta"
 
 #: apps/currencies/models.py:169
 msgid "Exchange Rate Services"
@@ -704,15 +704,15 @@ msgstr "Valuta eliminata con successo"
 
 #: apps/currencies/views/exchange_rates.py:89
 msgid "Exchange rate added successfully"
-msgstr "Tasso di cambio aggiunto con successo"
+msgstr "Cambio valuta aggiunto con successo"
 
 #: apps/currencies/views/exchange_rates.py:117
 msgid "Exchange rate updated successfully"
-msgstr "Tasso di cambio aggiornato con successo"
+msgstr "Cambio valuta aggiornato con successo"
 
 #: apps/currencies/views/exchange_rates.py:143
 msgid "Exchange rate deleted successfully"
-msgstr "Tasso di cambio eliminato con successo"
+msgstr "Cambio valuta eliminato con successo"
 
 #: apps/currencies/views/exchange_rates_services.py:50
 msgid "Service added successfully"
@@ -899,7 +899,7 @@ msgstr "Pagamenti a rate"
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/navbar.html:143 templates/includes/sidebar.html:246
 msgid "Automatic Exchange Rates"
-msgstr "Tassi di cambio automatici"
+msgstr "Cambio valuta automatico"
 
 #: apps/export_app/forms.py:80 templates/includes/navbar.html:135
 #: templates/includes/sidebar.html:226 templates/rules/fragments/list.html:5
@@ -1625,7 +1625,7 @@ msgstr "Tipo di ricorrenza"
 
 #: apps/transactions/models.py:782
 msgid "Recurrence Interval"
-msgstr "Intervallo di ricorrenza"
+msgstr "Frequenza"
 
 #: apps/transactions/models.py:785
 msgid "Keep at most"
@@ -1886,8 +1886,8 @@ msgid ""
 "displayed\n"
 "Consider helping translate WYGIWYH to your language at %(translation_link)s"
 msgstr ""
-"Questo cambia la lingua (se disponibile) e la modalità di visualizzazione di "
-"numeri e date.\n"
+"Cambia la lingua (se disponibile) e la modalità di visualizzazione di numeri "
+"e date.\n"
 "Considera la possibilità di contribuire alla traduzione di WYGIWYH nella tua "
 "lingua su %(translation_link)s"
 
@@ -1897,7 +1897,7 @@ msgstr "Nuova Password"
 
 #: apps/users/forms.py:160
 msgid "Leave blank to keep the current password."
-msgstr "Lasciare vuoto per mantenere la password corrente."
+msgstr "Lascia vuoto per mantenere la password attuale."
 
 #: apps/users/forms.py:163
 msgid "Confirm New Password"
@@ -2016,11 +2016,11 @@ msgstr "Le tue impostazioni sono state aggiornate"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
-msgstr "Aggiungi gruppo di account"
+msgstr "Aggiungi gruppo conti"
 
 #: templates/account_groups/fragments/edit.html:5
 msgid "Edit account group"
-msgstr "Modifica gruppo di account"
+msgstr "Modifica gruppo conti"
 
 #: templates/account_groups/fragments/list.html:32
 #: templates/accounts/fragments/list.html:37
@@ -2192,7 +2192,7 @@ msgstr "Condividi"
 
 #: templates/account_groups/fragments/list.html:77
 msgid "No account groups"
-msgstr "Nessun gruppo di account"
+msgstr "Nessun gruppo conti"
 
 #: templates/account_groups/fragments/share.html:5
 #: templates/accounts/fragments/share.html:5
@@ -2517,7 +2517,7 @@ msgstr "Aggiungi strategia DCA"
 
 #: templates/dca/fragments/strategy/details.html:22
 msgid "No exchange rate available"
-msgstr "Nessun tasso di cambio disponibile"
+msgstr "Nessun cambio valuta disponibile"
 
 #: templates/dca/fragments/strategy/details.html:33
 msgid "Entries"
@@ -2610,11 +2610,11 @@ msgstr "Modifica la strategia DCA"
 #: templates/dca/fragments/strategy/list.html:5
 #: templates/dca/pages/strategy_index.html:4
 msgid "Dollar Cost Average Strategies"
-msgstr "Strategie di costo medio del dollaro"
+msgstr "Strategie DCA"
 
 #: templates/dca/pages/strategy_detail_index.html:4
 msgid "Dollar Cost Average Strategy"
-msgstr "Strategia del costo medio del dollaro"
+msgstr "Strategie DCA"
 
 #: templates/entities/fragments/add.html:5
 msgid "Add entity"
@@ -2631,12 +2631,12 @@ msgstr "Nessun beneficiario"
 #: templates/exchange_rates/fragments/add.html:5
 #: templates/exchange_rates_services/fragments/add.html:5
 msgid "Add exchange rate"
-msgstr "Aggiungi tasso di cambio"
+msgstr "Aggiungi cambio valuta"
 
 #: templates/exchange_rates/fragments/edit.html:5
 #: templates/exchange_rates_services/fragments/edit.html:5
 msgid "Edit exchange rate"
-msgstr "Modifica tasso di cambio"
+msgstr "Modifica cambio valuta"
 
 #: templates/exchange_rates/fragments/list.html:25
 #: templates/includes/navbar.html:62 templates/includes/sidebar.html:85
@@ -2659,7 +2659,7 @@ msgstr "Tasso"
 #: templates/exchange_rates/fragments/table.html:51
 #: templates/exchange_rates_services/fragments/table.html:51
 msgid "No exchange rates"
-msgstr "Nessun tasso di cambio"
+msgstr "Nessun cambio valuta"
 
 #: templates/exchange_rates/fragments/table.html:58
 #: templates/exchange_rates_services/fragments/table.html:58
@@ -2808,7 +2808,7 @@ msgstr "Attuale"
 #: templates/includes/navbar.html:51 templates/includes/sidebar.html:71
 #: templates/insights/pages/index.html:5
 msgid "Insights"
-msgstr "Approfondimenti"
+msgstr "Analisi"
 
 #: templates/includes/navbar.html:67 templates/includes/sidebar.html:93
 msgid "Trash Can"
@@ -2936,7 +2936,7 @@ msgstr "Tabella"
 
 #: templates/insights/fragments/category_overview/index.html:24
 msgid "Bars"
-msgstr "Barre"
+msgstr "Grafico a barre"
 
 #: templates/insights/fragments/category_overview/index.html:39
 msgid ""
@@ -2997,7 +2997,7 @@ msgstr "Tutto bene!"
 
 #: templates/insights/fragments/late_transactions.html:16
 msgid "No late transactions"
-msgstr "Nessuna transazione in ritardo"
+msgstr "Nessuna transazione in sospeso"
 
 #: templates/insights/fragments/latest_transactions.html:14
 msgid "No recent transactions"
@@ -3023,27 +3023,27 @@ msgstr "Anno"
 
 #: templates/insights/pages/index.html:45
 msgid "Month Range"
-msgstr "Intervallo di mesi"
+msgstr "Intervallo mesi"
 
 #: templates/insights/pages/index.html:50
 msgid "Year Range"
-msgstr "Intervallo di anni"
+msgstr "Intervallo anni"
 
 #: templates/insights/pages/index.html:55
 msgid "Date Range"
-msgstr "Intervallo di date"
+msgstr "Intervallo date"
 
 #: templates/insights/pages/index.html:83
 msgid "Account Flow"
-msgstr "Flusso del conto"
+msgstr "Flusso conti"
 
 #: templates/insights/pages/index.html:90
 msgid "Currency Flow"
-msgstr "Flusso di valuta"
+msgstr "Flusso valute"
 
 #: templates/insights/pages/index.html:97
 msgid "Category Explorer"
-msgstr "Analisi per categorie"
+msgstr "Categorie"
 
 #: templates/insights/pages/index.html:104
 msgid "Categories Overview"
@@ -3051,7 +3051,7 @@ msgstr "Panoramica categorie"
 
 #: templates/insights/pages/index.html:111
 msgid "Late Transactions"
-msgstr "Transazioni in ritardo"
+msgstr "Transazioni in sospeso"
 
 #: templates/insights/pages/index.html:117
 msgid "Latest Transactions"
@@ -3114,7 +3114,7 @@ msgstr "Investi"
 #: templates/mini_tools/unit_price_calculator.html:100
 #: templates/mini_tools/unit_price_calculator.html:125
 msgid "Item price"
-msgstr "Prezzo dell'elemento"
+msgstr "Prezzo"
 
 #: templates/mini_tools/unit_price_calculator.html:33
 #: templates/mini_tools/unit_price_calculator.html:106
@@ -3224,7 +3224,7 @@ msgstr "Aggiungi transazione rapida"
 #: templates/quick_transactions/fragments/create_menu.html:13
 #: templates/quick_transactions/fragments/list.html:68
 msgid "Nothing to see here..."
-msgstr "Qui non c'è niente da vedere..."
+msgstr "Non c’è nulla da mostrare..."
 
 #: templates/quick_transactions/fragments/edit.html:5
 msgid "Edit quick transaction"
