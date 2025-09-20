@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-14 04:57+0000\n"
+"POT-Creation-Date: 2025-09-20 14:05+0000\n"
 "PO-Revision-Date: 2025-09-09 18:17+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -1344,7 +1344,7 @@ msgstr "Verrichting Bijwerken Of Maken succesvol verwijderd"
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:32 templates/includes/navbar.html:47
 #: templates/insights/fragments/category_overview/index.html:61
-#: templates/net_worth/net_worth.html:32
+#: templates/net_worth/net_worth.html:33
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 msgid "Projected"
@@ -2208,6 +2208,8 @@ msgid "Current balance"
 msgstr "Huidige saldo"
 
 #: templates/accounts/fragments/account_reconciliation.html:39
+#: templates/net_worth/net_worth.html:105
+#: templates/net_worth/net_worth.html:362
 msgid "Difference"
 msgstr "Verschil"
 
@@ -2796,7 +2798,7 @@ msgstr "Netto Waarde"
 
 #: templates/includes/navbar.html:45
 #: templates/insights/fragments/category_overview/index.html:65
-#: templates/net_worth/net_worth.html:22
+#: templates/net_worth/net_worth.html:23
 msgid "Current"
 msgstr "Huidige"
 
@@ -3190,25 +3192,31 @@ msgstr "Filter verrichtingen"
 msgid "Order by"
 msgstr "Sorteer op"
 
-#: templates/net_worth/net_worth.html:40
+#: templates/net_worth/net_worth.html:42
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
 msgstr "Op munteenheid"
 
-#: templates/net_worth/net_worth.html:75
+#: templates/net_worth/net_worth.html:78
 msgid "Consolidated"
 msgstr "Samengevoegd"
 
-#: templates/net_worth/net_worth.html:104
+#: templates/net_worth/net_worth.html:101
+#, fuzzy
+#| msgid "Evolution by account"
+msgid "Evolution"
+msgstr "Evolutie per rekening"
+
+#: templates/net_worth/net_worth.html:128
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Op rekening"
 
-#: templates/net_worth/net_worth.html:211
+#: templates/net_worth/net_worth.html:236
 msgid "Evolution by currency"
 msgstr "Evolutie per munteenheid"
 
-#: templates/net_worth/net_worth.html:275
+#: templates/net_worth/net_worth.html:300
 msgid "Evolution by account"
 msgstr "Evolutie per rekening"
 

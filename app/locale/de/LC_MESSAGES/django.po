@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-14 04:57+0000\n"
+"POT-Creation-Date: 2025-09-20 14:05+0000\n"
 "PO-Revision-Date: 2025-07-22 06:17+0000\n"
 "Last-Translator: seraphblade2010 <marc.butenhoff@web.de>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -1358,7 +1358,7 @@ msgstr ""
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:32 templates/includes/navbar.html:47
 #: templates/insights/fragments/category_overview/index.html:61
-#: templates/net_worth/net_worth.html:32
+#: templates/net_worth/net_worth.html:33
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 msgid "Projected"
@@ -2235,6 +2235,8 @@ msgid "Current balance"
 msgstr "Aktueller Saldo"
 
 #: templates/accounts/fragments/account_reconciliation.html:39
+#: templates/net_worth/net_worth.html:105
+#: templates/net_worth/net_worth.html:362
 msgid "Difference"
 msgstr "Differenz"
 
@@ -2827,7 +2829,7 @@ msgstr "Nettovermögen"
 
 #: templates/includes/navbar.html:45
 #: templates/insights/fragments/category_overview/index.html:65
-#: templates/net_worth/net_worth.html:22
+#: templates/net_worth/net_worth.html:23
 msgid "Current"
 msgstr "Aktuell"
 
@@ -3228,25 +3230,31 @@ msgstr "Transaktionen filtern"
 msgid "Order by"
 msgstr "Sortieren nach"
 
-#: templates/net_worth/net_worth.html:40
+#: templates/net_worth/net_worth.html:42
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
 msgstr "Nach Währung"
 
-#: templates/net_worth/net_worth.html:75
+#: templates/net_worth/net_worth.html:78
 msgid "Consolidated"
 msgstr "Zusammengefasst"
 
-#: templates/net_worth/net_worth.html:104
+#: templates/net_worth/net_worth.html:101
+#, fuzzy
+#| msgid "Evolution by account"
+msgid "Evolution"
+msgstr "Verlauf nach Konto"
+
+#: templates/net_worth/net_worth.html:128
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Nach Konto"
 
-#: templates/net_worth/net_worth.html:211
+#: templates/net_worth/net_worth.html:236
 msgid "Evolution by currency"
 msgstr "Verlauf nach Währung"
 
-#: templates/net_worth/net_worth.html:275
+#: templates/net_worth/net_worth.html:300
 msgid "Evolution by account"
 msgstr "Verlauf nach Konto"
 

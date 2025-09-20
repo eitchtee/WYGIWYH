@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-14 04:57+0000\n"
+"POT-Creation-Date: 2025-09-20 14:05+0000\n"
 "PO-Revision-Date: 2025-09-11 22:17+0000\n"
 "Last-Translator: Phillip Maizza <phillipmaizza@gmail.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -1343,7 +1343,7 @@ msgstr "Azione Aggiornamento o Creazione transazione eliminata correttamente"
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:32 templates/includes/navbar.html:47
 #: templates/insights/fragments/category_overview/index.html:61
-#: templates/net_worth/net_worth.html:32
+#: templates/net_worth/net_worth.html:33
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 msgid "Projected"
@@ -2212,6 +2212,8 @@ msgid "Current balance"
 msgstr "Saldo corrente"
 
 #: templates/accounts/fragments/account_reconciliation.html:39
+#: templates/net_worth/net_worth.html:105
+#: templates/net_worth/net_worth.html:362
 msgid "Difference"
 msgstr "Differenza"
 
@@ -2801,7 +2803,7 @@ msgstr "Patrimonio netto"
 
 #: templates/includes/navbar.html:45
 #: templates/insights/fragments/category_overview/index.html:65
-#: templates/net_worth/net_worth.html:22
+#: templates/net_worth/net_worth.html:23
 msgid "Current"
 msgstr "Attuale"
 
@@ -3194,25 +3196,31 @@ msgstr "Filtra transazioni"
 msgid "Order by"
 msgstr "Ordina per"
 
-#: templates/net_worth/net_worth.html:40
+#: templates/net_worth/net_worth.html:42
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
 msgstr "Per valuta"
 
-#: templates/net_worth/net_worth.html:75
+#: templates/net_worth/net_worth.html:78
 msgid "Consolidated"
 msgstr "Consolidate"
 
-#: templates/net_worth/net_worth.html:104
+#: templates/net_worth/net_worth.html:101
+#, fuzzy
+#| msgid "Evolution by account"
+msgid "Evolution"
+msgstr "Evoluzione per conto"
+
+#: templates/net_worth/net_worth.html:128
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Per conto"
 
-#: templates/net_worth/net_worth.html:211
+#: templates/net_worth/net_worth.html:236
 msgid "Evolution by currency"
 msgstr "Evoluzione per valuta"
 
-#: templates/net_worth/net_worth.html:275
+#: templates/net_worth/net_worth.html:300
 msgid "Evolution by account"
 msgstr "Evoluzione per conto"
 
