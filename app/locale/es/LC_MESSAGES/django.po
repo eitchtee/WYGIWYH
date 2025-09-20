@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-14 04:57+0000\n"
+"POT-Creation-Date: 2025-09-20 14:08+0000\n"
 "PO-Revision-Date: 2025-07-21 18:17+0000\n"
 "Last-Translator: afermar <adrian.fm@protonmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -1495,7 +1495,7 @@ msgstr "Update or Create Transaction action deleted successfully"
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:32 templates/includes/navbar.html:47
 #: templates/insights/fragments/category_overview/index.html:61
-#: templates/net_worth/net_worth.html:32
+#: templates/net_worth/net_worth.html:33
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
 #, fuzzy
@@ -2492,6 +2492,8 @@ msgid "Current balance"
 msgstr "Current balance"
 
 #: templates/accounts/fragments/account_reconciliation.html:39
+#: templates/net_worth/net_worth.html:105
+#: templates/net_worth/net_worth.html:362
 #, fuzzy
 msgid "Difference"
 msgstr "Difference"
@@ -2941,22 +2943,22 @@ msgstr "Current Price"
 msgid "Amount Bought"
 msgstr "Amount Bought"
 
-#: templates/dca/fragments/strategy/details.html:390
+#: templates/dca/fragments/strategy/details.html:392
 #, fuzzy
 msgid "Entry Price vs Current Price"
 msgstr "Entry Price vs Current Price"
 
-#: templates/dca/fragments/strategy/details.html:406
+#: templates/dca/fragments/strategy/details.html:408
 #, fuzzy
 msgid "Days Between Investments"
 msgstr "Days Between Investments"
 
-#: templates/dca/fragments/strategy/details.html:453
+#: templates/dca/fragments/strategy/details.html:455
 #, fuzzy
 msgid "Investment Frequency"
 msgstr "Investment Frequency"
 
-#: templates/dca/fragments/strategy/details.html:455
+#: templates/dca/fragments/strategy/details.html:457
 #, fuzzy
 msgid "The straighter the blue line, the more consistent your DCA strategy is."
 msgstr ""
@@ -3203,7 +3205,7 @@ msgstr "Net Worth"
 
 #: templates/includes/navbar.html:45
 #: templates/insights/fragments/category_overview/index.html:65
-#: templates/net_worth/net_worth.html:22
+#: templates/net_worth/net_worth.html:23
 #, fuzzy
 msgid "Current"
 msgstr "Current"
@@ -3657,25 +3659,31 @@ msgstr "Filtrar transacciones"
 msgid "Order by"
 msgstr "Ordenar por"
 
-#: templates/net_worth/net_worth.html:40
+#: templates/net_worth/net_worth.html:42
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
 msgstr "Por moneda"
 
-#: templates/net_worth/net_worth.html:75
+#: templates/net_worth/net_worth.html:78
 msgid "Consolidated"
 msgstr "Consolidado"
 
-#: templates/net_worth/net_worth.html:104
+#: templates/net_worth/net_worth.html:101
+#, fuzzy
+#| msgid "Evolution by account"
+msgid "Evolution"
+msgstr "Evolución por cuenta"
+
+#: templates/net_worth/net_worth.html:128
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
 msgstr "Por cuenta"
 
-#: templates/net_worth/net_worth.html:211
+#: templates/net_worth/net_worth.html:236
 msgid "Evolution by currency"
 msgstr "Evolución por moneda"
 
-#: templates/net_worth/net_worth.html:275
+#: templates/net_worth/net_worth.html:300
 msgid "Evolution by account"
 msgstr "Evolución por cuenta"
 
