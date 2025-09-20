@@ -182,3 +182,29 @@ def calculate_historical_account_balance(queryset):
         historical_account_balance[date_filter(end_date, "b Y")] = month_data
 
     return historical_account_balance
+
+
+def calculate_monthly_net_worth_difference(historical_net_worth):
+    diff_dict = OrderedDict()
+    if not historical_net_worth:
+        return diff_dict
+
+    # Get all currencies
+    currencies = set()
+    for data in historical_net_worth.values():
+        currencies.update(data.keys())
+
+    # Initialize prev_values for all currencies
+    prev_values = {currency: Decimal("0.00") for currency in currencies}
+
+    for month, values in historical_net_worth.items():
+        diff_values = {}
+        for currency in sorted(list(currencies)):
+            current_val = values.get(currency, Decimal("0.00"))
+            prev_val = prev_values.get(currency, Decimal("0.00"))
+            diff_values[currency] = current_val - prev_val
+
+        diff_dict[month] = diff_values
+        prev_values = values.copy()
+
+    return diff_dict

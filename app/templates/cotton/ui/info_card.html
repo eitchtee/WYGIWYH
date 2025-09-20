@@ -3,7 +3,7 @@
     {% if icon %}<i class="{{ icon }}"></i>{% else %}<span class="fw-bold">{{ title.0 }}</span>{% endif %}
   </div>
   <div class="card-body">
-    <h5 class="tw:text-{{ color }}-400 fw-bold tw:mr-[50px]" {{ attrs }}>{{ title }}{% if help_text %}<c-ui.help-icon :content="help_text" icon=""></c-ui.help-icon>{% endif %}</h5>
+    <h5 class="tw:text-{{ color }}-400 fw-bold tw:mr-[50px]  {{ title_css_classes }}" {{ attrs }}>{{ title }}{% if help_text %}<c-ui.help-icon :content="help_text" icon=""></c-ui.help-icon>{% endif %}</h5>
     {{ slot }}
   </div>
 </div>
