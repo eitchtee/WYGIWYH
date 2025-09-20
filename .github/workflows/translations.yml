@@ -50,6 +50,22 @@ jobs:
           cd app
           python manage.py makemessages -a
 
+      - name: Merge PT-BR translations into PT
+        run: |
+          PT_PO="app/locale/pt/LC_MESSAGES/django.po"
+          PT_BR_PO="app/locale/pt_BR/LC_MESSAGES/django.po"
+          
+          if [ -f "$PT_PO" ] && [ -f "$PT_BR_PO" ]; then
+            echo "Merging PT-BR translations into PT for untranslated strings..."
+            # Use msgmerge to update pt.po with translations from pt_BR.po
+            # This fills in any msgstr "" in the PT file.
+            # --backup=none prevents creating backup files (e.g., django.po~)
+            msgmerge --update --backup=none "$PT_PO" "$PT_BR_PO"
+            echo "Merge complete."
+          else
+            echo "PT or PT-BR .po file not found. Skipping merge."
+          fi
+
       - name: Check for changes
         id: check_changes
         run: |
