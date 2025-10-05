@@ -13,6 +13,7 @@
   <a href="#key-features">Features</a> •
   <a href="#how-to-use">Usage</a> •
   <a href="#how-it-works">How</a> •
+  <a href="#mcp-server">MCP Server</a> •
   <a href="#help-us-translate-wygiwyh">Translate</a> •
   <a href="#caveats-and-warnings">Caveats and Warnings</a> •
   <a href="#built-with">Built with</a>
@@ -181,6 +182,10 @@ Check out our [Wiki](https://github.com/eitchtee/WYGIWYH/wiki) for more informat
 
 > [!NOTE]
 > Login with your github account
+
+# MCP Server
+
+[IZIme07](https://github.com/IZIme07) has kindly created an MCP Server for WYGIWYH that you can self-host. [Check it out at MCP-WYGIWYH](https://github.com/ReNewator/MCP-WYGIWYH)!
 
 # Caveats and Warnings
 
