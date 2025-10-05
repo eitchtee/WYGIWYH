@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-05 07:17+0000\n"
+"PO-Revision-Date: 2025-10-05 08:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.herculino.com/projects/wygiwyh/app/zh_Hant/>\n"
@@ -74,7 +74,7 @@ msgstr "群組"
 
 #: apps/accounts/forms.py:129
 msgid "New balance"
-msgstr "結餘"
+msgstr "新的餘額"
 
 #: apps/accounts/forms.py:135 apps/dca/forms.py:85 apps/dca/forms.py:92
 #: apps/insights/forms.py:118 apps/rules/forms.py:185 apps/rules/forms.py:201
@@ -159,7 +159,7 @@ msgstr "資產帳戶"
 #: apps/accounts/models.py:57
 msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
-msgstr ""
+msgstr "只有淨資產會將資產帳戶列入計算，但是不會計算在每個月的收支內。"
 
 #: apps/accounts/models.py:62 apps/currencies/models.py:37
 #: templates/accounts/fragments/list.html:30
@@ -172,7 +172,7 @@ msgstr "封存"
 
 #: apps/accounts/models.py:63
 msgid "Archived accounts don't show up nor count towards your net worth"
-msgstr ""
+msgstr "封存的帳戶不會在淨資產中被計算或顯示"
 
 #: apps/accounts/models.py:75 apps/rules/forms.py:177 apps/rules/forms.py:191
 #: apps/rules/models.py:35 apps/rules/models.py:267
@@ -304,7 +304,7 @@ msgstr "無效的個體資訊，請提供ID或名稱。"
 
 #: apps/api/serializers/transactions.py:192
 msgid "Either 'date' or 'reference_date' must be provided."
-msgstr "必須提供「日期」或著「參考日期」。"
+msgstr "必須提供「日期」或著「起算日」。"
 
 #: apps/common/admin.py:5
 msgid "Make public"
@@ -563,23 +563,23 @@ msgstr "不能選擇相同的來源跟目標貨幣。"
 
 #: apps/currencies/models.py:110
 msgid "On"
-msgstr ""
+msgstr "在"
 
 #: apps/currencies/models.py:111
 msgid "Every X hours"
-msgstr ""
+msgstr "每多少小時"
 
 #: apps/currencies/models.py:112
 msgid "Not on"
-msgstr ""
+msgstr "不在特定"
 
 #: apps/currencies/models.py:114
 msgid "Service Name"
-msgstr ""
+msgstr "服務名稱"
 
 #: apps/currencies/models.py:116
 msgid "Service Type"
-msgstr ""
+msgstr "服務類型"
 
 #: apps/currencies/models.py:118 apps/transactions/models.py:219
 #: apps/transactions/models.py:243 apps/transactions/models.py:267
@@ -588,31 +588,31 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:21
 #: templates/tags/fragments/list.html:21 templates/users/fragments/list.html:28
 msgid "Active"
-msgstr ""
+msgstr "啟用"
 
 #: apps/currencies/models.py:123
 msgid "API Key"
-msgstr ""
+msgstr "API金鑰"
 
 #: apps/currencies/models.py:124
 msgid "API key for the service (if required)"
-msgstr ""
+msgstr "服務所需的API金鑰（如果需要）"
 
 #: apps/currencies/models.py:129
 msgid "Interval Type"
-msgstr ""
+msgstr "間隔型態"
 
 #: apps/currencies/models.py:133
 msgid "Interval"
-msgstr ""
+msgstr "間隔"
 
 #: apps/currencies/models.py:136
 msgid "Last Successful Fetch"
-msgstr ""
+msgstr "最後更新時間"
 
 #: apps/currencies/models.py:141
 msgid "Target Currencies"
-msgstr ""
+msgstr "目標貨幣"
 
 #: apps/currencies/models.py:143
 msgid ""
@@ -680,81 +680,81 @@ msgstr ""
 
 #: apps/currencies/views/exchange_rates.py:89
 msgid "Exchange rate added successfully"
-msgstr ""
+msgstr "成功新增匯率"
 
 #: apps/currencies/views/exchange_rates.py:117
 msgid "Exchange rate updated successfully"
-msgstr ""
+msgstr "成功更新匯率"
 
 #: apps/currencies/views/exchange_rates.py:143
 msgid "Exchange rate deleted successfully"
-msgstr ""
+msgstr "成功刪除匯率"
 
 #: apps/currencies/views/exchange_rates_services.py:50
 msgid "Service added successfully"
-msgstr ""
+msgstr "成功新增服務"
 
 #: apps/currencies/views/exchange_rates_services.py:79
 msgid "Service updated successfully"
-msgstr ""
+msgstr "成功更新服務"
 
 #: apps/currencies/views/exchange_rates_services.py:106
 msgid "Service deleted successfully"
-msgstr ""
+msgstr "成功刪除服務"
 
 #: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
-msgstr ""
+msgstr "成功排程服務"
 
 #: apps/dca/forms.py:65 apps/dca/forms.py:164
 msgid "Create transaction"
-msgstr ""
+msgstr "建立交易"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:515
 msgid "From Account"
-msgstr ""
+msgstr "來源帳戶"
 
 #: apps/dca/forms.py:76 apps/transactions/forms.py:520
 msgid "To Account"
-msgstr ""
+msgstr "目標帳戶"
 
 #: apps/dca/forms.py:116 apps/dca/models.py:171
 msgid "Expense Transaction"
-msgstr ""
+msgstr "支出"
 
 #: apps/dca/forms.py:120 apps/dca/forms.py:130
 msgid "Type to search for a transaction to link to this entry"
-msgstr ""
+msgstr "輸入內容來搜尋這筆資料的交易資訊並建立連結"
 
 #: apps/dca/forms.py:126 apps/dca/models.py:179
 msgid "Income Transaction"
-msgstr ""
+msgstr "收入"
 
 #: apps/dca/forms.py:210
 msgid "Link transaction"
-msgstr ""
+msgstr "連結交易"
 
 #: apps/dca/forms.py:297 apps/dca/forms.py:298 apps/dca/forms.py:303
 #: apps/dca/forms.py:307
 msgid "You must provide an account."
-msgstr ""
+msgstr "務必選擇一個帳戶。"
 
 #: apps/dca/forms.py:312 apps/transactions/forms.py:690
 msgid "From and To accounts must be different."
-msgstr ""
+msgstr "來源跟目標帳戶不得相同。"
 
 #: apps/dca/forms.py:326
 #, python-format
 msgid "DCA for %(strategy_name)s"
-msgstr ""
+msgstr "%(strategy_name)s的定期定額"
 
 #: apps/dca/models.py:16
 msgid "Target Currency"
-msgstr ""
+msgstr "目標貨幣"
 
 #: apps/dca/models.py:22
 msgid "Payment Currency"
-msgstr ""
+msgstr "交易貨幣"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:184
 #: apps/rules/forms.py:200 apps/rules/models.py:43 apps/rules/models.py:295
@@ -1130,7 +1130,7 @@ msgstr ""
 #: apps/transactions/forms.py:773 apps/transactions/models.py:306
 #: apps/transactions/models.py:543 apps/transactions/models.py:772
 msgid "Reference Date"
-msgstr ""
+msgstr "起算日"
 
 #: apps/rules/forms.py:182 apps/rules/forms.py:196 apps/rules/models.py:41
 #: apps/rules/models.py:287 apps/transactions/forms.py:423
@@ -1917,11 +1917,11 @@ msgstr ""
 
 #: apps/users/models.py:467 templates/net_worth/net_worth.html:9
 msgid "Current Net Worth"
-msgstr ""
+msgstr "目前的淨資產"
 
 #: apps/users/models.py:468 templates/net_worth/net_worth.html:9
 msgid "Projected Net Worth"
-msgstr ""
+msgstr "預期的淨資產"
 
 #: apps/users/models.py:469
 msgid "All Transactions"
@@ -2163,7 +2163,7 @@ msgstr ""
 
 #: templates/accounts/fragments/account_reconciliation.html:26
 msgid "Current balance"
-msgstr ""
+msgstr "目前餘額"
 
 #: templates/accounts/fragments/account_reconciliation.html:39
 #: templates/net_worth/net_worth.html:105
@@ -2173,7 +2173,7 @@ msgstr ""
 
 #: templates/accounts/fragments/account_reconciliation.html:70
 msgid "Reconcile balances"
-msgstr ""
+msgstr "餘額調整"
 
 #: templates/accounts/fragments/add.html:5
 msgid "Add account"
@@ -2433,7 +2433,7 @@ msgstr ""
 #: templates/cotton/ui/quick_transactions_buttons.html:47
 #: templates/cotton/ui/transactions_fab.html:52
 msgid "Balance"
-msgstr ""
+msgstr "餘額"
 
 #: templates/cotton/ui/transactions_action_bar.html:66
 msgid "Mark as unpaid"
@@ -2751,7 +2751,7 @@ msgstr ""
 
 #: templates/includes/navbar.html:41 templates/includes/sidebar.html:77
 msgid "Net Worth"
-msgstr ""
+msgstr "淨資產"
 
 #: templates/includes/navbar.html:45
 #: templates/insights/fragments/category_overview/index.html:65
