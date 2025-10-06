@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-06 08:17+0000\n"
+"PO-Revision-Date: 2025-10-06 09:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.herculino.com/projects/wygiwyh/app/zh_Hant/>\n"
@@ -860,7 +860,7 @@ msgstr "實體"
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
-msgstr "重複發生的交易"
+msgstr "定期扣款交易"
 
 #: apps/export_app/forms.py:62 apps/export_app/forms.py:138
 #: apps/transactions/models.py:583 templates/includes/navbar.html:75
@@ -1487,7 +1487,7 @@ msgstr "分期付款計劃"
 
 #: apps/transactions/models.py:354 apps/transactions/models.py:806
 msgid "Recurring Transaction"
-msgstr "重複發生的交易"
+msgstr "定期扣款交易"
 
 #: apps/transactions/models.py:362
 msgid "Deleted"
@@ -1720,27 +1720,27 @@ msgstr "成功新增交易"
 
 #: apps/transactions/views/recurring_transactions.py:112
 msgid "Recurring Transaction added successfully"
-msgstr "成功新增重複性交易"
+msgstr "成功新增定期扣款"
 
 #: apps/transactions/views/recurring_transactions.py:142
 msgid "Recurring Transaction updated successfully"
-msgstr "成功更新重複性交易"
+msgstr "成功更新定期扣款"
 
 #: apps/transactions/views/recurring_transactions.py:186
 msgid "Recurring transaction unpaused successfully"
-msgstr "成功啟用重複性交易"
+msgstr "成功啟用定期扣款"
 
 #: apps/transactions/views/recurring_transactions.py:189
 msgid "Recurring transaction paused successfully"
-msgstr "成功暫停重複性交易"
+msgstr "成功暫停定期扣款"
 
 #: apps/transactions/views/recurring_transactions.py:215
 msgid "Recurring transaction finished successfully"
-msgstr "成功完成重複性交易"
+msgstr "成功完成定期扣款"
 
 #: apps/transactions/views/recurring_transactions.py:235
 msgid "Recurring Transaction deleted successfully"
-msgstr "成功刪除重複性交易"
+msgstr "成功刪除定期扣款"
 
 #: apps/transactions/views/tags.py:66
 msgid "Tag added successfully"
@@ -2955,33 +2955,33 @@ msgstr "百分比"
 
 #: templates/insights/pages/index.html:37
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 #: templates/insights/pages/index.html:40
 #: templates/yearly_overview/pages/overview_by_account.html:73
 #: templates/yearly_overview/pages/overview_by_currency.html:75
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: templates/insights/pages/index.html:45
 msgid "Month Range"
-msgstr ""
+msgstr "月份區間"
 
 #: templates/insights/pages/index.html:50
 msgid "Year Range"
-msgstr ""
+msgstr "年份區間"
 
 #: templates/insights/pages/index.html:55
 msgid "Date Range"
-msgstr ""
+msgstr "日期區間"
 
 #: templates/insights/pages/index.html:83
 msgid "Account Flow"
-msgstr ""
+msgstr "帳戶資金流"
 
 #: templates/insights/pages/index.html:90
 msgid "Currency Flow"
-msgstr ""
+msgstr "貨幣資金流"
 
 #: templates/insights/pages/index.html:97
 msgid "Category Explorer"
@@ -2989,391 +2989,392 @@ msgstr "瀏覽分類"
 
 #: templates/insights/pages/index.html:104
 msgid "Categories Overview"
-msgstr ""
+msgstr "分類總覽"
 
 #: templates/insights/pages/index.html:111
 msgid "Late Transactions"
-msgstr ""
+msgstr "逾期交易"
 
 #: templates/insights/pages/index.html:117
 msgid "Latest Transactions"
-msgstr ""
+msgstr "最後的交易"
 
 #: templates/insights/pages/index.html:123
 msgid "Emergency Fund"
-msgstr ""
+msgstr "緊急資金"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
-msgstr ""
+msgstr "新增分期付款計劃"
 
 #: templates/installment_plans/fragments/edit.html:5
 msgid "Edit installment plan"
-msgstr ""
+msgstr "編輯分期付款計劃"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
 #: templates/installment_plans/fragments/table.html:37
 msgid "Installments"
-msgstr ""
+msgstr "分期付款"
 
 #: templates/installment_plans/fragments/table.html:45
 msgid "Refresh"
-msgstr ""
+msgstr "重新整理"
 
 #: templates/installment_plans/fragments/table.html:51
 msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
-msgstr ""
+msgstr "這會更新這個分期付款中的所有交易，並且補上遺失的交易"
 
 #: templates/installment_plans/fragments/table.html:52
 msgid "Yes, refresh it!"
-msgstr ""
+msgstr "確定，重新整理！"
 
 #: templates/installment_plans/fragments/table.html:63
 msgid "This will delete the plan and all transactions associated with it"
-msgstr ""
+msgstr "這會刪除這個分期付款計劃，以及連結的所有交易"
 
 #: templates/installment_plans/fragments/table.html:91
 msgid "No installment plans"
-msgstr ""
+msgstr "沒有分期付款計劃"
 
 #: templates/layouts/base.html:43
 msgid "This is a demo!"
-msgstr ""
+msgstr "這是展示！"
 
 #: templates/layouts/base.html:43
 msgid "Any data you add here will be wiped in 24hrs or less"
-msgstr ""
+msgstr "任何新增的資料都會在24小時內被刪除"
 
 #: templates/mini_tools/currency_converter/currency_converter.html:58
 msgid "Invert"
-msgstr ""
+msgstr "交換"
 
 #: templates/mini_tools/unit_price_calculator.html:27
 #: templates/mini_tools/unit_price_calculator.html:100
 #: templates/mini_tools/unit_price_calculator.html:125
 msgid "Item price"
-msgstr ""
+msgstr "項目價格"
 
 #: templates/mini_tools/unit_price_calculator.html:33
 #: templates/mini_tools/unit_price_calculator.html:106
 #: templates/mini_tools/unit_price_calculator.html:131
 msgid "Item amount"
-msgstr ""
+msgstr "項目數量"
 
 #: templates/mini_tools/unit_price_calculator.html:38
 #: templates/mini_tools/unit_price_calculator.html:111
 #: templates/mini_tools/unit_price_calculator.html:136
 msgid "Unit price"
-msgstr ""
+msgstr "單位價格"
 
 #: templates/mini_tools/unit_price_calculator.html:94
 #: templates/mini_tools/unit_price_calculator.html:119
 #: templates/mini_tools/unit_price_calculator.html:158
 msgid "Item"
-msgstr ""
+msgstr "項目"
 
 #: templates/monthly_overview/fragments/list.html:46
 msgid "No transactions this month"
-msgstr ""
+msgstr "這個月沒有交易"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
 msgid "Daily Spending Allowance"
-msgstr ""
+msgstr "每日支出上限"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
 msgid "This is the final total divided by the remaining days in the month"
-msgstr ""
+msgstr "這是最終總額除以這個月的剩餘天數所計算"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 #: templates/monthly_overview/fragments/monthly_summary.html:106
 #: templates/monthly_overview/fragments/monthly_summary.html:170
 msgid "current"
-msgstr ""
+msgstr "目前"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:72
 #: templates/monthly_overview/fragments/monthly_summary.html:136
 #: templates/monthly_overview/fragments/monthly_summary.html:199
 msgid "projected"
-msgstr ""
+msgstr "預期的"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:103
 msgid "Expenses"
-msgstr ""
+msgstr "支出"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:257
 msgid "Distribution"
-msgstr ""
+msgstr "分佈"
 
 #: templates/monthly_overview/pages/overview.html:68
 msgid "Summary"
-msgstr ""
+msgstr "總結"
 
 #: templates/monthly_overview/pages/overview.html:141
 #: templates/monthly_overview/pages/overview.html:195
 #: templates/transactions/pages/transactions.html:15
 #: templates/transactions/pages/transactions.html:69
 msgid "Oldest first"
-msgstr ""
+msgstr "最舊的優先"
 
 #: templates/monthly_overview/pages/overview.html:142
 #: templates/monthly_overview/pages/overview.html:204
 #: templates/transactions/pages/transactions.html:16
 #: templates/transactions/pages/transactions.html:78
 msgid "Newest first"
-msgstr ""
+msgstr "最新的優先"
 
 #: templates/monthly_overview/pages/overview.html:151
 #: templates/transactions/pages/transactions.html:25
 msgid "Filter transactions"
-msgstr ""
+msgstr "過濾交易"
 
 #: templates/monthly_overview/pages/overview.html:176
 #: templates/transactions/pages/transactions.html:50
 msgid "Order by"
-msgstr ""
+msgstr "排序方式"
 
 #: templates/net_worth/net_worth.html:42
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "By currency"
-msgstr ""
+msgstr "按照貨幣"
 
 #: templates/net_worth/net_worth.html:78
 msgid "Consolidated"
-msgstr ""
+msgstr "合併"
 
 #: templates/net_worth/net_worth.html:101
 msgid "Evolution"
-msgstr ""
+msgstr "變化"
 
 #: templates/net_worth/net_worth.html:128
 #: templates/yearly_overview/pages/overview_by_account.html:7
 msgid "By account"
-msgstr ""
+msgstr "按照帳戶"
 
 #: templates/net_worth/net_worth.html:236
 msgid "Evolution by currency"
-msgstr ""
+msgstr "按照貨幣的變化"
 
 #: templates/net_worth/net_worth.html:300
 msgid "Evolution by account"
-msgstr ""
+msgstr "按照帳戶的變化"
 
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
 msgid "Add quick transaction"
-msgstr ""
+msgstr "新增快速交易"
 
 #: templates/quick_transactions/fragments/create_menu.html:13
 #: templates/quick_transactions/fragments/list.html:68
 msgid "Nothing to see here..."
-msgstr ""
+msgstr "這裡什麼都沒有…"
 
 #: templates/quick_transactions/fragments/edit.html:5
 msgid "Edit quick transaction"
-msgstr ""
+msgstr "編輯快速交易"
 
 #: templates/quick_transactions/fragments/list.html:40
 msgid "This will delete this item"
-msgstr ""
+msgstr "這將刪除這個項目"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
-msgstr ""
+msgstr "新增重複交易"
 
 #: templates/recurring_transactions/fragments/edit.html:5
 msgid "Edit recurring transaction"
-msgstr ""
+msgstr "編輯重複交易"
 
 #: templates/recurring_transactions/fragments/table.html:49
 msgid "Unpause"
-msgstr ""
+msgstr "重新啟用"
 
 #: templates/recurring_transactions/fragments/table.html:56
 msgid "This will start creating new transactions until you pause it"
-msgstr ""
+msgstr "這機會建立新的交易直到您暫停"
 
 #: templates/recurring_transactions/fragments/table.html:57
 msgid "Yes, unpause it!"
-msgstr ""
+msgstr "確定，啟動！"
 
 #: templates/recurring_transactions/fragments/table.html:63
 msgid "Pause"
-msgstr ""
+msgstr "暫停"
 
 #: templates/recurring_transactions/fragments/table.html:70
 msgid "This will stop the creation of new transactions until you unpause it"
-msgstr ""
+msgstr "這將會暫停建立新的交易，直到您重新啟動"
 
 #: templates/recurring_transactions/fragments/table.html:71
 msgid "Yes, pause it!"
-msgstr ""
+msgstr "確定，暫停！"
 
 #: templates/recurring_transactions/fragments/table.html:78
 msgid "Finish"
-msgstr ""
+msgstr "完成"
 
 #: templates/recurring_transactions/fragments/table.html:85
 msgid ""
 "This will stop the creation of new transactions and delete any unpaid "
 "transactions after today"
-msgstr ""
+msgstr "這將會停止建立新的交易並且刪除今天以後任何未支付的交易"
 
 #: templates/recurring_transactions/fragments/table.html:86
 msgid "Yes, finish it!"
-msgstr ""
+msgstr "確定，完成！"
 
 #: templates/recurring_transactions/fragments/table.html:99
 msgid "This will delete the recurrence and all transactions associated with it"
-msgstr ""
+msgstr "這將刪除這筆定期扣款以及所有已經連結的交易資訊"
 
 #: templates/recurring_transactions/fragments/table.html:127
 msgid "No recurring transactions"
-msgstr ""
+msgstr "沒有定期扣款交易"
 
 #: templates/rules/fragments/list.html:38
 msgid "View"
-msgstr ""
+msgstr "檢視"
 
 #: templates/rules/fragments/list.html:78
 msgid "Deactivate"
-msgstr ""
+msgstr "停用"
 
 #: templates/rules/fragments/list.html:78
 msgid "Activate"
-msgstr ""
+msgstr "啟用"
 
 #: templates/rules/fragments/list.html:96
 msgid "No rules"
-msgstr ""
+msgstr "沒有規則"
 
 #: templates/rules/fragments/transaction_rule/add.html:5
 msgid "Add transaction rule"
-msgstr ""
+msgstr "新增交易規則"
 
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
 #: templates/rules/fragments/transaction_rule/view.html:127
 msgid "Create"
-msgstr ""
+msgstr "建立"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:8
 msgid "Visual"
-msgstr ""
+msgstr "視覺化"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:21
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:92
 msgid "Run a test to see..."
-msgstr ""
+msgstr "執行測試…"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:30
 #: templates/rules/fragments/transaction_rule/view.html:39
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
 msgid "Edit transaction"
-msgstr ""
+msgstr "編輯交易"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:32
 #: templates/rules/fragments/transaction_rule/view.html:78
 msgid "Update or create transaction"
-msgstr ""
+msgstr "更新或建立交易"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:42
 msgid "Start"
-msgstr ""
+msgstr "開始"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:51
 #: templates/rules/fragments/transaction_rule/view.html:44
 msgid "Set"
-msgstr ""
+msgstr "設定"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:52
 #: templates/rules/fragments/transaction_rule/view.html:45
 msgid "to"
-msgstr ""
+msgstr "為"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:70
 msgid "No transaction found, a new one will be created"
-msgstr ""
+msgstr "沒有發現已存在的交易，將建立一個新的"
 
 #: templates/rules/fragments/transaction_rule/edit.html:5
 msgid "Edit transaction rule"
-msgstr ""
+msgstr "編輯交易規則"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/add.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/add.html:5
 msgid "Add action to transaction rule"
-msgstr ""
+msgstr "增加一個新的行為到交易規則中"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/edit.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/edit.html:5
 msgid "Edit transaction rule action"
-msgstr ""
+msgstr "編輯交易規則的行為"
 
 #: templates/rules/fragments/transaction_rule/view.html:5
 msgid "Transaction Rule"
-msgstr ""
+msgstr "交易規則"
 
 #: templates/rules/fragments/transaction_rule/view.html:14
 msgid "If transaction..."
-msgstr ""
+msgstr "如果交易…"
 
 #: templates/rules/fragments/transaction_rule/view.html:32
 msgid "Then..."
-msgstr ""
+msgstr "就…"
 
 #: templates/rules/fragments/transaction_rule/view.html:82
+#, fuzzy
 msgid "Edit to view"
-msgstr ""
+msgstr "編輯"
 
 #: templates/rules/fragments/transaction_rule/view.html:112
 msgid "This rule has no actions"
-msgstr ""
+msgstr "這個規則沒有行為"
 
 #: templates/rules/fragments/transaction_rule/view.html:144
 msgid "Add new"
-msgstr ""
+msgstr "新增"
 
 #: templates/rules/fragments/transaction_rule/view.html:149
 msgid "Edit Transaction"
-msgstr ""
+msgstr "編輯交易"
 
 #: templates/rules/fragments/transaction_rule/view.html:152
 msgid "Update or Create Transaction"
-msgstr ""
+msgstr "更新或建立交易"
 
 #: templates/tags/fragments/add.html:5
 msgid "Add tag"
-msgstr ""
+msgstr "增加標籤"
 
 #: templates/tags/fragments/edit.html:5
 msgid "Edit tag"
-msgstr ""
+msgstr "編輯標籤"
 
 #: templates/transactions/fragments/add.html:5
 #: templates/transactions/pages/add.html:5
 msgid "New transaction"
-msgstr ""
+msgstr "新的交易"
 
 #: templates/transactions/fragments/add_installment_plan.html:5
 msgid "Add Installment Plan"
-msgstr ""
+msgstr "新增分期付款計劃"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
-msgstr ""
+msgstr "批次編輯"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "Editing"
-msgstr ""
+msgstr "編輯"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "transactions"
-msgstr ""
+msgstr "交易"
 
 #: templates/transactions/fragments/list_all.html:46
 msgid "No transactions found"
-msgstr ""
+msgstr "沒有發現交易"
 
 #: templates/transactions/fragments/transfer.html:5
 msgid "New transfer"
@@ -3381,71 +3382,71 @@ msgstr "新增轉帳"
 
 #: templates/transactions/fragments/trash_list.html:7
 msgid "No deleted transactions to show"
-msgstr ""
+msgstr "沒有刪除的交易可以顯示"
 
 #: templates/transactions/pages/trash.html:4
 #: templates/transactions/pages/trash.html:9
 msgid "Deleted transactions"
-msgstr ""
+msgstr "刪除的交易"
 
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:14
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
 msgid "Unchanged"
-msgstr ""
+msgstr "未變更"
 
 #: templates/users/fragments/add.html:5
 msgid "Add user"
-msgstr ""
+msgstr "新增使用者"
 
 #: templates/users/fragments/edit.html:5
 msgid "Edit user"
-msgstr ""
+msgstr "編輯使用者"
 
 #: templates/users/fragments/list.html:30
 msgid "Email"
-msgstr ""
+msgstr "電子郵件"
 
 #: templates/users/fragments/list.html:31
 msgid "Superuser"
-msgstr ""
+msgstr "超級使用者"
 
 #: templates/users/fragments/list.html:51
 msgid "Impersonate"
-msgstr ""
+msgstr "變身為"
 
 #: templates/users/fragments/list.html:80
 msgid "No users"
-msgstr ""
+msgstr "沒有使用者"
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
-msgstr ""
+msgstr "隱藏金額"
 
 #: templates/users/generic/mute_sounds.html:2
 msgid "Mute sounds"
-msgstr ""
+msgstr "關閉音效"
 
 #: templates/users/generic/play_sounds.html:2
 msgid "Play sounds"
-msgstr ""
+msgstr "播放音效"
 
 #: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
-msgstr ""
+msgstr "顯示金額"
 
 #: templates/users/login.html:18
 msgid "Welcome to WYGIWYH's demo!"
-msgstr ""
+msgstr "歡迎來到 WYGIWYH 的展示站！"
 
 #: templates/users/login.html:19
 msgid "Use the credentials below to login"
-msgstr ""
+msgstr "使用以下資訊登入"
 
 #: templates/users/login.html:40
 msgid "Login with"
-msgstr ""
+msgstr "登入"
 
 #: templates/yearly_overview/pages/overview_by_account.html:7
 #: templates/yearly_overview/pages/overview_by_currency.html:9
 msgid "Yearly Overview"
-msgstr ""
+msgstr "年份總覽"
