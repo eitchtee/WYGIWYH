@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-06 09:17+0000\n"
+"PO-Revision-Date: 2025-10-06 10:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.herculino.com/projects/wygiwyh/app/zh_Hant/>\n"
@@ -150,7 +150,7 @@ msgstr "貨幣換算"
 
 #: apps/accounts/models.py:50 apps/currencies/models.py:32
 msgid "Default currency for exchange calculations"
-msgstr "預設的貨幣換算幣別"
+msgstr "預設的目標換算貨幣"
 
 #: apps/accounts/models.py:55
 msgid "Asset account"
@@ -296,11 +296,11 @@ msgstr "無效的標籤資訊，請提供ID或名稱。"
 
 #: apps/api/fields/transactions.py:105
 msgid "Entity with this ID does not exist."
-msgstr "這個ID的個體不存在。"
+msgstr "這個ID的實體不存在。"
 
 #: apps/api/fields/transactions.py:115
 msgid "Invalid entity data. Provide an ID or name."
-msgstr "無效的個體資訊，請提供ID或名稱。"
+msgstr "無效的實體資訊，請提供ID或名稱。"
 
 #: apps/api/serializers/transactions.py:192
 msgid "Either 'date' or 'reference_date' must be provided."
@@ -326,7 +326,7 @@ msgstr "無法建立新的物件"
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
 msgid "Ungrouped"
-msgstr "解除分組"
+msgstr "取消分組"
 
 #: apps/common/fields/month_year.py:30
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
@@ -558,7 +558,7 @@ msgstr "換算匯率"
 
 #: apps/currencies/models.py:94
 msgid "From and To currencies cannot be the same."
-msgstr "不能選擇相同的來源跟目標貨幣。"
+msgstr "來源跟目標貨幣不能相同。"
 
 #: apps/currencies/models.py:110
 msgid "On"
@@ -786,7 +786,7 @@ msgstr "收款總額"
 
 #: apps/dca/models.py:186
 msgid "DCA Entry"
-msgstr "定期定額投入資訊"
+msgstr "定期定額投入"
 
 #: apps/dca/models.py:187 apps/export_app/forms.py:154
 msgid "DCA Entries"
@@ -1511,12 +1511,12 @@ msgstr "沒有描述"
 
 #: apps/transactions/models.py:514 templates/includes/sidebar.html:59
 msgid "Yearly"
-msgstr "年報"
+msgstr "年"
 
 #: apps/transactions/models.py:515 apps/users/models.py:464
 #: templates/includes/navbar.html:27 templates/includes/sidebar.html:53
 msgid "Monthly"
-msgstr "月報"
+msgstr "月"
 
 #: apps/transactions/models.py:516
 msgid "Weekly"
@@ -2758,7 +2758,7 @@ msgstr "目前"
 #: templates/includes/navbar.html:51 templates/includes/sidebar.html:71
 #: templates/insights/pages/index.html:5
 msgid "Insights"
-msgstr ""
+msgstr "深入瞭解"
 
 #: templates/includes/navbar.html:67 templates/includes/sidebar.html:93
 msgid "Trash Can"
@@ -2947,7 +2947,7 @@ msgstr "沒有近期交易"
 
 #: templates/insights/fragments/sankey.html:93
 msgid "From"
-msgstr ""
+msgstr "從"
 
 #: templates/insights/fragments/sankey.html:96
 msgid "Percentage"
@@ -3323,7 +3323,6 @@ msgid "Then..."
 msgstr "就…"
 
 #: templates/rules/fragments/transaction_rule/view.html:82
-#, fuzzy
 msgid "Edit to view"
 msgstr "編輯"
 
