@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/eitchtee-wygiwyh-badge.png)](https://mseep.ai/app/eitchtee-wygiwyh)
+
 <h1 align="center">
   <br>
   <img alt="WYGIWYH" title="WYGIWYH" src="./.github/img/logo.png" />
