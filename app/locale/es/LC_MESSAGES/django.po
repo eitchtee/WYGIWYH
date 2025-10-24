@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-24 21:32+0000\n"
+"PO-Revision-Date: 2025-10-24 22:17+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
 "app/es/>\n"
@@ -754,35 +754,30 @@ msgid "Income Transaction"
 msgstr "Transacción de Ingreso"
 
 #: apps/dca/forms.py:210
-#, fuzzy
 msgid "Link transaction"
-msgstr "Link transaction"
+msgstr "Enlazar transacción"
 
 #: apps/dca/forms.py:297 apps/dca/forms.py:298 apps/dca/forms.py:303
 #: apps/dca/forms.py:307
-#, fuzzy
 msgid "You must provide an account."
-msgstr "You must provide an account."
+msgstr "Debes proporcionar una cuenta."
 
 #: apps/dca/forms.py:312 apps/transactions/forms.py:690
-#, fuzzy
 msgid "From and To accounts must be different."
-msgstr "From and To accounts must be different."
+msgstr "Las cuentas de origen y destino deben ser diferentes."
 
 #: apps/dca/forms.py:326
-#, fuzzy, python-format
+#, python-format
 msgid "DCA for %(strategy_name)s"
-msgstr "DCA for %(strategy_name)s"
+msgstr "DCA para %(strategy_name)s"
 
 #: apps/dca/models.py:16
-#, fuzzy
 msgid "Target Currency"
-msgstr "Target Currency"
+msgstr "Moneda objetivo"
 
 #: apps/dca/models.py:22
-#, fuzzy
 msgid "Payment Currency"
-msgstr "Payment Currency"
+msgstr "Moneda de pago"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:184
 #: apps/rules/forms.py:200 apps/rules/models.py:43 apps/rules/models.py:295
@@ -806,21 +801,19 @@ msgstr "Estrategia"
 
 #: apps/dca/models.py:160 templates/dca/fragments/strategy/details.html:54
 msgid "Amount Paid"
-msgstr "Cantidad Pagada"
+msgstr "Monto Pagado"
 
 #: apps/dca/models.py:163 templates/dca/fragments/strategy/details.html:53
 msgid "Amount Received"
-msgstr "Cantidad Recibida"
+msgstr "Monto Recibido"
 
 #: apps/dca/models.py:186
-#, fuzzy
 msgid "DCA Entry"
-msgstr "DCA Entry"
+msgstr "Entrada DCA"
 
 #: apps/dca/models.py:187 apps/export_app/forms.py:154
-#, fuzzy
 msgid "DCA Entries"
-msgstr "DCA Entries"
+msgstr "Entradas DCA"
 
 #: apps/dca/views.py:39
 msgid "DCA Strategy added successfully"
@@ -835,26 +828,22 @@ msgid "DCA strategy deleted successfully"
 msgstr "Estrategia DCA eliminada con éxito"
 
 #: apps/dca/views.py:238
-#, fuzzy
 msgid "Entry added successfully"
-msgstr "Entry added successfully"
+msgstr "Entrada agregada con éxito"
 
 #: apps/dca/views.py:265
-#, fuzzy
 msgid "Entry updated successfully"
-msgstr "Entry updated successfully"
+msgstr "Entrada actualizada con éxito"
 
 #: apps/dca/views.py:291
-#, fuzzy
 msgid "Entry deleted successfully"
-msgstr "Entry deleted successfully"
+msgstr "Entrada eliminada con éxito"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
 #: templates/includes/navbar.html:150 templates/includes/sidebar.html:255
 #: templates/users/fragments/list.html:6 templates/users/pages/index.html:4
-#, fuzzy
 msgid "Users"
-msgstr "Users"
+msgstr "Usuarios"
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
 #: apps/transactions/models.py:380 templates/includes/navbar.html:58
@@ -863,9 +852,8 @@ msgstr "Users"
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:39
 #: templates/transactions/pages/transactions.html:5
-#, fuzzy
 msgid "Transactions"
-msgstr "Transactions"
+msgstr "Transacciones"
 
 #: apps/export_app/forms.py:38 apps/export_app/forms.py:134
 #: apps/transactions/filters.py:64 templates/categories/fragments/list.html:5
@@ -1132,32 +1120,27 @@ msgstr "To"
 #: apps/rules/forms.py:78 apps/rules/forms.py:162 apps/rules/models.py:20
 #: apps/rules/models.py:62 apps/rules/models.py:323
 #: templates/rules/fragments/list.html:26
-#, fuzzy
-#| msgid "Order by"
 msgid "Order"
-msgstr "Ordenar por"
+msgstr "Orden"
 
 #: apps/rules/forms.py:129
-#, fuzzy
 msgid "A value for this field already exists in the rule."
-msgstr "A value for this field already exists in the rule."
+msgstr "Ya existe un valor para este campo en la regla."
 
 #: apps/rules/forms.py:163 apps/rules/forms.py:164 apps/rules/forms.py:165
 #: apps/rules/forms.py:166 apps/rules/forms.py:167 apps/rules/forms.py:168
 #: apps/rules/forms.py:169 apps/rules/forms.py:170 apps/rules/forms.py:171
 #: apps/rules/forms.py:172 apps/rules/forms.py:173 apps/rules/forms.py:174
 #: apps/rules/forms.py:175 apps/rules/forms.py:176
-#, fuzzy
 msgid "Operator"
-msgstr "Operator"
+msgstr "Operador"
 
 #: apps/rules/forms.py:178 apps/rules/forms.py:192 apps/rules/models.py:36
 #: apps/rules/models.py:271 apps/transactions/forms.py:396
 #: apps/transactions/models.py:302 apps/transactions/models.py:525
 #: apps/transactions/models.py:748 apps/transactions/models.py:991
-#, fuzzy
 msgid "Type"
-msgstr "Type"
+msgstr "Tipo"
 
 #: apps/rules/forms.py:179 apps/rules/forms.py:193 apps/rules/models.py:37
 #: apps/rules/models.py:275 apps/transactions/filters.py:23
@@ -1166,9 +1149,8 @@ msgstr "Type"
 #: templates/cotton/transaction/item.html:32
 #: templates/transactions/widgets/paid_toggle_button.html:12
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:16
-#, fuzzy
 msgid "Paid"
-msgstr "Paid"
+msgstr "Pagado"
 
 #: apps/rules/forms.py:181 apps/rules/forms.py:195 apps/rules/models.py:39
 #: apps/rules/models.py:283 apps/transactions/forms.py:72
@@ -1186,9 +1168,8 @@ msgstr "Reference Date"
 #: templates/installment_plans/fragments/table.html:18
 #: templates/quick_transactions/fragments/list.html:15
 #: templates/recurring_transactions/fragments/table.html:20
-#, fuzzy
 msgid "Amount"
-msgstr "Amount"
+msgstr "Monto"
 
 #: apps/rules/forms.py:183 apps/rules/forms.py:197 apps/rules/models.py:14
 #: apps/rules/models.py:42 apps/rules/models.py:291
@@ -1201,16 +1182,14 @@ msgstr "Descripción"
 #: apps/rules/forms.py:186 apps/rules/forms.py:202 apps/rules/models.py:47
 #: apps/rules/models.py:299 apps/transactions/models.py:356
 #: apps/transactions/models.py:1026
-#, fuzzy
 msgid "Internal Note"
-msgstr "Internal Note"
+msgstr "Nota Interna"
 
 #: apps/rules/forms.py:187 apps/rules/forms.py:203 apps/rules/models.py:48
 #: apps/rules/models.py:303 apps/transactions/models.py:358
 #: apps/transactions/models.py:1028
-#, fuzzy
 msgid "Internal ID"
-msgstr "Internal ID"
+msgstr "ID Interno"
 
 #: apps/rules/forms.py:190 apps/rules/forms.py:204 apps/rules/models.py:40
 #: apps/rules/models.py:319 apps/transactions/forms.py:588
@@ -1220,9 +1199,8 @@ msgid "Mute"
 msgstr "Silenciar"
 
 #: apps/rules/forms.py:219
-#, fuzzy
 msgid "Search Criteria"
-msgstr "Search Criteria"
+msgstr "Criterio de Búsqueda"
 
 #: apps/rules/forms.py:364
 #, fuzzy
@@ -1231,14 +1209,12 @@ msgstr "Set Values"
 
 #: apps/rules/forms.py:415 apps/rules/forms.py:452 apps/rules/forms.py:489
 #: apps/transactions/models.py:379
-#, fuzzy
 msgid "Transaction"
-msgstr "Transaction"
+msgstr "Transacción"
 
 #: apps/rules/forms.py:419 apps/rules/forms.py:456 apps/rules/forms.py:493
-#, fuzzy
 msgid "Type to search for a transaction"
-msgstr "Type to search for a transaction to link to this entry"
+msgstr "Escribe para buscar una transacción y vincularla a esta entrada"
 
 #: apps/rules/forms.py:431 apps/rules/forms.py:468 apps/rules/forms.py:504
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
@@ -1253,59 +1229,48 @@ msgid "Trigger"
 msgstr "Activador"
 
 #: apps/rules/models.py:17
-#, fuzzy
 msgid "Sequenced"
-msgstr "Recurrence"
+msgstr "Secuenciado"
 
 #: apps/rules/models.py:26
-#, fuzzy
 msgid "Transaction rule"
-msgstr "Transaction rule"
+msgstr "Regla de transacción"
 
 #: apps/rules/models.py:54 apps/rules/models.py:98
-#, fuzzy
 msgid "Rule"
-msgstr "Rule"
+msgstr "Regla"
 
 #: apps/rules/models.py:59
-#, fuzzy
 msgid "Field"
-msgstr "Field"
+msgstr "Campo"
 
 #: apps/rules/models.py:61
-#, fuzzy
 msgid "Value"
-msgstr "Value"
+msgstr "Valor"
 
 #: apps/rules/models.py:69
-#, fuzzy
 msgid "Edit transaction actions"
-msgstr "Edit transaction actions"
+msgstr "Editar acciones de transacción"
 
 #: apps/rules/models.py:84
-#, fuzzy
 msgid "is exactly"
-msgstr "is exactly"
+msgstr "es exactamente"
 
 #: apps/rules/models.py:85
-#, fuzzy
 msgid "contains"
-msgstr "contains"
+msgstr "contiene"
 
 #: apps/rules/models.py:86
-#, fuzzy
 msgid "starts with"
-msgstr "starts with"
+msgstr "empieza por"
 
 #: apps/rules/models.py:87
-#, fuzzy
 msgid "ends with"
-msgstr "ends with"
+msgstr "termina por"
 
 #: apps/rules/models.py:88
-#, fuzzy
 msgid "equals"
-msgstr "equals"
+msgstr "es igual a"
 
 #: apps/rules/models.py:89
 msgid "greater than"
@@ -1328,68 +1293,56 @@ msgid "Filter"
 msgstr "Filtrar"
 
 #: apps/rules/models.py:105
-#, fuzzy
 msgid ""
 "Generic expression to enable or disable execution. Should evaluate to True "
 "or False"
 msgstr ""
-"Generic expression to enable or disable execution. Should evaluate to True "
-"or False"
+"Expresión genérica para habilitar o deshabilitar la ejecución. Debe "
+"evaluarse como True o False"
 
 #: apps/rules/models.py:326
-#, fuzzy
 msgid "Update or create transaction action"
-msgstr "Update or create transaction action"
+msgstr "Actualizar o crear acción de transacción"
 
 #: apps/rules/views.py:71
-#, fuzzy
 msgid "Rule deactivated successfully"
-msgstr "Rule deactivated successfully"
+msgstr "Regla desactivada con éxito"
 
 #: apps/rules/views.py:73
-#, fuzzy
 msgid "Rule activated successfully"
-msgstr "Rule activated successfully"
+msgstr "Regla activada con éxito"
 
 #: apps/rules/views.py:92
-#, fuzzy
 msgid "Rule added successfully"
-msgstr "Rule added successfully"
+msgstr "Regla agregada con éxito"
 
 #: apps/rules/views.py:131
-#, fuzzy
 msgid "Rule updated successfully"
-msgstr "Rule updated successfully"
+msgstr "Regla actualizada con éxito"
 
 #: apps/rules/views.py:188
-#, fuzzy
 msgid "Rule deleted successfully"
-msgstr "Rule deleted successfully"
+msgstr "Regla eliminada con éxito"
 
 #: apps/rules/views.py:305
-#, fuzzy
 msgid "Action updated successfully"
-msgstr "Action updated successfully"
+msgstr "Acción actualizada con éxito"
 
 #: apps/rules/views.py:336
-#, fuzzy
 msgid "Action deleted successfully"
-msgstr "Action deleted successfully"
+msgstr "Acción eliminada con éxito"
 
 #: apps/rules/views.py:360
-#, fuzzy
 msgid "Update or Create Transaction action added successfully"
-msgstr "Update or Create Transaction action added successfully"
+msgstr "Acción de Actualizar o Crear Transacción agregada con éxito."
 
 #: apps/rules/views.py:393
-#, fuzzy
 msgid "Update or Create Transaction action updated successfully"
-msgstr "Update or Create Transaction action updated successfully"
+msgstr "Acción de Actualizar o Crear Transacción actualizada con éxito."
 
 #: apps/rules/views.py:423
-#, fuzzy
 msgid "Update or Create Transaction action deleted successfully"
-msgstr "Update or Create Transaction action deleted successfully"
+msgstr "Acción de Actualizar o Crear Transacción eliminada con éxito."
 
 #: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:32 templates/includes/navbar.html:47
@@ -1397,9 +1350,8 @@ msgstr "Update or Create Transaction action deleted successfully"
 #: templates/net_worth/net_worth.html:33
 #: templates/transactions/widgets/paid_toggle_button.html:8
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
-#, fuzzy
 msgid "Projected"
-msgstr "Projected"
+msgstr "Proyectado"
 
 #: apps/transactions/filters.py:41
 msgid "Content"
@@ -1415,9 +1367,8 @@ msgid "Date from"
 msgstr "Date from"
 
 #: apps/transactions/filters.py:90 apps/transactions/filters.py:100
-#, fuzzy
 msgid "Until"
-msgstr "Until"
+msgstr "Hasta"
 
 #: apps/transactions/filters.py:95
 #, fuzzy
@@ -1425,14 +1376,12 @@ msgid "Reference date from"
 msgstr "Reference date from"
 
 #: apps/transactions/filters.py:105
-#, fuzzy
 msgid "Amount min"
-msgstr "Amount min"
+msgstr "Monto mínimo"
 
 #: apps/transactions/filters.py:110
-#, fuzzy
 msgid "Amount max"
-msgstr "Amount max"
+msgstr "Monto máximo"
 
 #: apps/transactions/filters.py:188
 #, fuzzy
@@ -1441,12 +1390,12 @@ msgstr "Categories"
 
 #: apps/transactions/filters.py:195
 msgid "Tagged"
-msgstr ""
+msgstr "Etiquetado"
 
 #: apps/transactions/filters.py:195
 #: templates/insights/fragments/category_overview/index.html:181
 msgid "Untagged"
-msgstr ""
+msgstr "Sin etiqueta"
 
 #: apps/transactions/filters.py:201
 #, fuzzy
@@ -1679,9 +1628,8 @@ msgid "Recurrence"
 msgstr "Recurrence"
 
 #: apps/transactions/models.py:553
-#, fuzzy
 msgid "Installment Amount"
-msgstr "Installment Amount"
+msgstr "Monto de la Cuota"
 
 #: apps/transactions/models.py:572 apps/transactions/models.py:796
 #, fuzzy
@@ -1730,7 +1678,7 @@ msgstr "Recurrence Interval"
 
 #: apps/transactions/models.py:785
 msgid "Keep at most"
-msgstr ""
+msgstr "Mantener como máximo"
 
 #: apps/transactions/models.py:789
 #, fuzzy
@@ -2087,11 +2035,12 @@ msgstr "No puede desactivar su propia cuenta usando este formulario."
 
 #: apps/users/forms.py:294
 msgid "Cannot remove status from the last superuser."
-msgstr ""
+msgstr "No se puede eliminar el estado del último superusuario."
 
 #: apps/users/forms.py:300
 msgid "You cannot remove your own superuser status using this form."
 msgstr ""
+"No puedes eliminar tu propio estado de superusuario usando este formulario."
 
 #: apps/users/forms.py:397
 #, fuzzy
@@ -2131,7 +2080,7 @@ msgstr "Calendar"
 
 #: apps/users/models.py:480
 msgid "Volume"
-msgstr ""
+msgstr "Volumen"
 
 #: apps/users/models.py:499
 #, fuzzy
@@ -2149,14 +2098,12 @@ msgid "Start page"
 msgstr "Start page"
 
 #: apps/users/views.py:68
-#, fuzzy
 msgid "Transaction amounts are now hidden"
-msgstr "Transaction amounts are now hidden"
+msgstr "Los montos de las transacciones ahora están ocultos"
 
 #: apps/users/views.py:71
-#, fuzzy
 msgid "Transaction amounts are now displayed"
-msgstr "Transaction amounts are now displayed"
+msgstr "Los montos de las transacciones ahora son visibles."
 
 #: apps/users/views.py:89
 #, fuzzy
@@ -2517,7 +2464,7 @@ msgstr "Select"
 #: templates/cotton/transaction/item.html:189
 #: templates/cotton/transaction/item.html:199
 msgid "Show on summaries"
-msgstr ""
+msgstr "Mostrar en los resúmenes"
 
 #: templates/cotton/transaction/item.html:180
 #, fuzzy
@@ -2531,7 +2478,7 @@ msgstr "No category"
 
 #: templates/cotton/transaction/item.html:204
 msgid "Hide from summaries"
-msgstr ""
+msgstr "Ocultar de los resúmenes"
 
 #: templates/cotton/transaction/item.html:208
 #, fuzzy
@@ -2541,15 +2488,15 @@ msgstr "Agregar transacción rápida"
 
 #: templates/cotton/transaction/item.html:215
 msgid "Move to previous month"
-msgstr ""
+msgstr "Mover al mes anterior"
 
 #: templates/cotton/transaction/item.html:219
 msgid "Move to next month"
-msgstr ""
+msgstr "Mover al mes siguiente"
 
 #: templates/cotton/transaction/item.html:222
 msgid "Move to today"
-msgstr ""
+msgstr "Mover a hoy"
 
 #: templates/cotton/transaction/item.html:228
 #: templates/cotton/ui/transactions_action_bar.html:82
@@ -2728,11 +2675,11 @@ msgstr "No currencies"
 
 #: templates/dca/fragments/entry/add.html:5
 msgid "Add DCA entry"
-msgstr "Agregar registro DCA"
+msgstr "Agregar entrada DCA"
 
 #: templates/dca/fragments/entry/edit.html:5
 msgid "Edit DCA entry"
-msgstr "Editar registro DCA"
+msgstr "Editar entrada DCA"
 
 #: templates/dca/fragments/strategy/add.html:5
 msgid "Add DCA strategy"
@@ -2760,7 +2707,7 @@ msgstr "P/L"
 
 #: templates/dca/fragments/strategy/details.html:124
 msgid "No entries for this DCA"
-msgstr "Sin registros para este DCA"
+msgstr "Sin entradas para este DCA"
 
 #: templates/dca/fragments/strategy/details.html:125
 #: templates/monthly_overview/fragments/list.html:47
@@ -3136,7 +3083,7 @@ msgstr "Automation"
 
 #: templates/includes/navbar.html:148 templates/includes/sidebar.html:253
 msgid "Admin"
-msgstr ""
+msgstr "Administrador"
 
 #: templates/includes/navbar.html:157 templates/includes/sidebar.html:262
 #, fuzzy
@@ -3150,7 +3097,7 @@ msgstr "Django Admin"
 
 #: templates/includes/navbar.html:169 templates/includes/sidebar.html:276
 msgid "is available"
-msgstr ""
+msgstr "está disponible"
 
 #: templates/includes/navbar.html:174 templates/includes/navbar.html:177
 #: templates/includes/sidebar.html:282
@@ -3236,23 +3183,27 @@ msgstr "Income/Expense by Currency"
 
 #: templates/insights/fragments/category_overview/index.html:14
 msgid "Table"
-msgstr ""
+msgstr "Tabla"
 
 #: templates/insights/fragments/category_overview/index.html:24
 msgid "Bars"
-msgstr ""
+msgstr "Barras"
 
 #: templates/insights/fragments/category_overview/index.html:39
 msgid ""
 "Transaction amounts associated with multiple tags will be counted once for "
 "each tag"
 msgstr ""
+"Los montos de las transacciones asociados con varias etiquetas se contarán "
+"una vez por cada etiqueta"
 
 #: templates/insights/fragments/category_overview/index.html:52
 msgid ""
 "Transaction amounts associated with multiple tags and entities will be "
 "counted once for each tag"
 msgstr ""
+"Los montos de las transacciones asociados con varias etiquetas y entidades "
+"se contarán una vez por cada etiqueta"
 
 #: templates/insights/fragments/category_overview/index.html:69
 #, fuzzy
@@ -3663,30 +3614,28 @@ msgstr "Agregar regla de transacción"
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
 #: templates/rules/fragments/transaction_rule/view.html:127
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:8
 msgid "Visual"
-msgstr ""
+msgstr "Visual"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:21
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:92
 msgid "Run a test to see..."
-msgstr ""
+msgstr "Ejecuta una prueba para ver..."
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:30
 #: templates/rules/fragments/transaction_rule/view.html:39
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
-#, fuzzy
 msgid "Edit transaction"
-msgstr "Edit transaction"
+msgstr "Editar transacción"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:32
 #: templates/rules/fragments/transaction_rule/view.html:78
-#, fuzzy
 msgid "Update or create transaction"
-msgstr "Update or create transaction"
+msgstr "Actualizar o crear transacción"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:42
 #, fuzzy
@@ -3706,9 +3655,8 @@ msgid "to"
 msgstr "to"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:70
-#, fuzzy
 msgid "No transaction found, a new one will be created"
-msgstr "No transactions on this date"
+msgstr "No se encontró ninguna transacción; se creará una nueva"
 
 #: templates/rules/fragments/transaction_rule/edit.html:5
 msgid "Edit transaction rule"
