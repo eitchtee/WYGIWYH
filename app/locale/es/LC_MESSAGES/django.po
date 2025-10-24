@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-24 20:17+0000\n"
+"PO-Revision-Date: 2025-10-24 20:53+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
 "app/es/>\n"
@@ -311,13 +311,11 @@ msgstr "Se debe proporcionar \"date\" o \"reference_date\"."
 
 #: apps/common/admin.py:5
 msgid "Make public"
-msgstr ""
+msgstr "Hacer público"
 
 #: apps/common/admin.py:10
-#, fuzzy
-#| msgid "Private"
 msgid "Make private"
-msgstr "Privado"
+msgstr "Hacer privado"
 
 #: apps/common/admin.py:20 apps/common/forms.py:35 apps/common/models.py:51
 msgid "Shared with users"
@@ -560,9 +558,8 @@ msgstr "Fecha y Hora"
 
 #: apps/currencies/models.py:78 apps/users/models.py:12
 #: apps/users/models.py:497
-#, fuzzy
 msgid "Auto"
-msgstr "Auto"
+msgstr "Automático"
 
 #: apps/currencies/models.py:82 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
@@ -651,131 +648,110 @@ msgstr ""
 "de referencia establecida."
 
 #: apps/currencies/models.py:160
-#, fuzzy
 msgid "Single exchange rate"
-msgstr "Edit exchange rate"
+msgstr "Tasa de cambio única"
 
 #: apps/currencies/models.py:163
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
+"Crea una única tasa de cambio y mantenla actualizada. Evita la acumulación "
+"de datos en la base de datos."
 
 #: apps/currencies/models.py:168
-#, fuzzy
 msgid "Exchange Rate Service"
-msgstr "Exchange Rate Service"
+msgstr "Servicio de Tasas de Cambio"
 
 #: apps/currencies/models.py:169
-#, fuzzy
 msgid "Exchange Rate Services"
-msgstr "Exchange Rate Services"
+msgstr "Servicios de Tasas de Cambio"
 
 #: apps/currencies/models.py:221
-#, fuzzy
 msgid "'Every X hours' interval type requires a positive integer."
-msgstr "'Every X hours' interval type requires a positive integer."
+msgstr "El tipo de intervalo 'Cada X horas' requiere un entero positivo."
 
 #: apps/currencies/models.py:230
-#, fuzzy
 msgid "'Every X hours' interval must be between 1 and 24."
-msgstr "'Every X hours' interval must be between 1 and 24."
+msgstr "El tipo de intervalo 'Cada X horas' debe ser ente 1 y 24."
 
 #: apps/currencies/models.py:244
-#, fuzzy
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
-"Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
-"'1-5,8,10-12')."
+"Formato de hora no válido. Usa horas separadas por coma (0-23) y/o rangos "
+"(p. ej., \"1-5,8,10-12\")."
 
 #: apps/currencies/models.py:255
-#, fuzzy
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
 msgstr ""
-"Invalid format. Please check the requirements for your selected interval "
-"type."
+"Formato no válido. Por favor verifica los requisitos del tipo de intervalo "
+"seleccionado."
 
 #: apps/currencies/views/currencies.py:42
-#, fuzzy
 msgid "Currency added successfully"
-msgstr "Currency added successfully"
+msgstr "Moneda añadida con éxito"
 
 #: apps/currencies/views/currencies.py:70
-#, fuzzy
 msgid "Currency updated successfully"
-msgstr "Currency updated successfully"
+msgstr "Moneda actualizada con éxito"
 
 #: apps/currencies/views/currencies.py:96
-#, fuzzy
 msgid "Currency deleted successfully"
-msgstr "Currency deleted successfully"
+msgstr "Moneda borrada con éxito"
 
 #: apps/currencies/views/exchange_rates.py:89
-#, fuzzy
 msgid "Exchange rate added successfully"
-msgstr "Exchange rate added successfully"
+msgstr "Tasa de cambio agregada con éxito"
 
 #: apps/currencies/views/exchange_rates.py:117
-#, fuzzy
 msgid "Exchange rate updated successfully"
-msgstr "Exchange rate updated successfully"
+msgstr "Tasa de cambio actualizada con éxito"
 
 #: apps/currencies/views/exchange_rates.py:143
-#, fuzzy
 msgid "Exchange rate deleted successfully"
-msgstr "Exchange rate deleted successfully"
+msgstr "Tasa de cambio borrada con éxito"
 
 #: apps/currencies/views/exchange_rates_services.py:50
-#, fuzzy
 msgid "Service added successfully"
-msgstr "Service added successfully"
+msgstr "Servicio agregado con éxito"
 
 #: apps/currencies/views/exchange_rates_services.py:79
-#, fuzzy
 msgid "Service updated successfully"
-msgstr "Service updated successfully"
+msgstr "Servicio actualizado con éxito"
 
 #: apps/currencies/views/exchange_rates_services.py:106
-#, fuzzy
 msgid "Service deleted successfully"
-msgstr "Service deleted successfully"
+msgstr "Servicio borrado con éxito"
 
 #: apps/currencies/views/exchange_rates_services.py:122
-#, fuzzy
 msgid "Services queued successfully"
-msgstr "Services queued successfully"
+msgstr "Servicios agregados a la cola con éxito"
 
 #: apps/dca/forms.py:65 apps/dca/forms.py:164
-#, fuzzy
 msgid "Create transaction"
-msgstr "Create transaction"
+msgstr "Crear transacción"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:515
-#, fuzzy
 msgid "From Account"
-msgstr "From Account"
+msgstr "Cuenta de Origen"
 
 #: apps/dca/forms.py:76 apps/transactions/forms.py:520
-#, fuzzy
 msgid "To Account"
-msgstr "To Account"
+msgstr "Cuenta de Destino"
 
 #: apps/dca/forms.py:116 apps/dca/models.py:171
-#, fuzzy
 msgid "Expense Transaction"
-msgstr "Expense Transaction"
+msgstr "Transacción de Gasto"
 
 #: apps/dca/forms.py:120 apps/dca/forms.py:130
-#, fuzzy
 msgid "Type to search for a transaction to link to this entry"
-msgstr "Type to search for a transaction to link to this entry"
+msgstr "Escribe para buscar una transacción y vincularla a esta entrada"
 
 #: apps/dca/forms.py:126 apps/dca/models.py:179
-#, fuzzy
 msgid "Income Transaction"
-msgstr "Income Transaction"
+msgstr "Transacción de Ingreso"
 
 #: apps/dca/forms.py:210
 #, fuzzy
@@ -813,9 +789,8 @@ msgstr "Payment Currency"
 #: apps/transactions/forms.py:432 apps/transactions/forms.py:584
 #: apps/transactions/models.py:319 apps/transactions/models.py:569
 #: apps/transactions/models.py:770 apps/transactions/models.py:1006
-#, fuzzy
 msgid "Notes"
-msgstr "Notes"
+msgstr "Notas"
 
 #: apps/dca/models.py:34
 #, fuzzy
@@ -904,9 +879,8 @@ msgstr "Transactions"
 #: apps/transactions/filters.py:64 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:109
 #: templates/includes/sidebar.html:178
-#, fuzzy
 msgid "Categories"
-msgstr "Categories"
+msgstr "Categorías"
 
 #: apps/export_app/forms.py:50 apps/export_app/forms.py:136
 #: apps/rules/forms.py:189 apps/rules/forms.py:199 apps/rules/models.py:46
@@ -920,42 +894,37 @@ msgstr "Categories"
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:113
 #: templates/includes/sidebar.html:190
 #: templates/insights/fragments/category_overview/index.html:49
-#, fuzzy
 msgid "Entities"
-msgstr "Entities"
+msgstr "Entidades"
 
 #: apps/export_app/forms.py:56 apps/export_app/forms.py:140
 #: apps/transactions/models.py:807 templates/includes/navbar.html:77
 #: templates/includes/sidebar.html:112
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
-#, fuzzy
 msgid "Recurring Transactions"
-msgstr "Recurring Transactions"
+msgstr "Transacciones Recurrentes"
 
 #: apps/export_app/forms.py:62 apps/export_app/forms.py:138
 #: apps/transactions/models.py:583 templates/includes/navbar.html:75
 #: templates/includes/sidebar.html:106
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
-#, fuzzy
 msgid "Installment Plans"
-msgstr "Installment Plans"
+msgstr "Planes de Pago a Plazos"
 
 #: apps/export_app/forms.py:74 apps/export_app/forms.py:143
 #: templates/exchange_rates_services/fragments/list.html:6
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/navbar.html:143 templates/includes/sidebar.html:246
-#, fuzzy
 msgid "Automatic Exchange Rates"
-msgstr "Automatic Exchange Rates"
+msgstr "Tasas de Cambio Automáticas"
 
 #: apps/export_app/forms.py:80 templates/includes/navbar.html:135
 #: templates/includes/sidebar.html:226 templates/rules/fragments/list.html:5
 #: templates/rules/pages/index.html:4
-#, fuzzy
 msgid "Rules"
-msgstr "Rules"
+msgstr "Reglas"
 
 #: apps/export_app/forms.py:86 templates/cotton/transaction/item.html:58
 #, fuzzy
@@ -965,140 +934,116 @@ msgstr "DCA"
 #: apps/export_app/forms.py:92 apps/export_app/forms.py:155
 #: templates/import_app/fragments/profiles/list.html:5
 #: templates/import_app/pages/profiles_index.html:4
-#, fuzzy
 msgid "Import Profiles"
-msgstr "Import Profiles"
+msgstr "Perfiles de Importación"
 
 #: apps/export_app/forms.py:119 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:15
-#, fuzzy
 msgid "Export"
-msgstr "Export"
+msgstr "Exportar"
 
 #: apps/export_app/forms.py:128
-#, fuzzy
 msgid "Import a ZIP file exported from WYGIWYH"
-msgstr "Import a ZIP file exported from WYGIWYH"
+msgstr "Importa un archivo ZIP exportado desde WYGIWYH."
 
 #: apps/export_app/forms.py:129
-#, fuzzy
 msgid "ZIP File"
-msgstr "ZIP File"
+msgstr "Archivo ZIP"
 
 #: apps/export_app/forms.py:146 apps/rules/models.py:27
-#, fuzzy
 msgid "Transaction rules"
-msgstr "Transaction rules"
+msgstr "Reglas de transacción"
 
 #: apps/export_app/forms.py:148 apps/rules/models.py:68
-#, fuzzy
 msgid "Edit transaction action"
-msgstr "Edit transaction action"
+msgstr "Editar acciones de transacción"
 
 #: apps/export_app/forms.py:151 apps/rules/models.py:327
-#, fuzzy
 msgid "Update or create transaction actions"
-msgstr "Update or create transaction actions"
+msgstr "Actualizar o crear acciones de transacción"
 
 #: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:234
 #: templates/cotton/ui/deleted_transactions_action_bar.html:47
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:24
-#, fuzzy
 msgid "Restore"
-msgstr "Restore"
+msgstr "Restaurar"
 
 #: apps/export_app/forms.py:196
-#, fuzzy
 msgid "Please upload either a ZIP file or at least one CSV file"
-msgstr "Please upload either a ZIP file or at least one CSV file"
+msgstr "Por favor, sube un archivo ZIP o al menos un archivo CSV"
 
 #: apps/export_app/views.py:177
-#, fuzzy
 msgid "You have to select at least one export"
-msgstr "You have to select at least one export"
+msgstr "Debes seleccionar al menos una exportación"
 
 #: apps/export_app/views.py:197
-#, fuzzy
 msgid "Data restored successfully"
-msgstr "Data restored successfully"
+msgstr "Datos restaurados con éxito"
 
 #: apps/export_app/views.py:209
-#, fuzzy
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
-"There was an error restoring your data. Check the logs for more details."
+"Hubo un error al restaurar tus datos. Revisa los registros para más detalles."
 
 #: apps/import_app/forms.py:49
-#, fuzzy
 msgid "Select a file"
-msgstr "Select a file"
+msgstr "Selecciona un archivo"
 
 #: apps/import_app/forms.py:61
 #: templates/import_app/fragments/profiles/list.html:62
 #: templates/includes/navbar.html:137 templates/includes/sidebar.html:232
-#, fuzzy
 msgid "Import"
-msgstr "Import"
+msgstr "Importar"
 
 #: apps/import_app/models.py:15
-#, fuzzy
 msgid "YAML Configuration"
-msgstr "YAML Configuration"
+msgstr "Configuración YAML"
 
 #: apps/import_app/models.py:19
 #: templates/import_app/fragments/profiles/list.html:37
-#, fuzzy
 msgid "Version"
-msgstr "Version"
+msgstr "Versión"
 
 #: apps/import_app/models.py:30
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Version {number}"
-msgstr "Version {number}"
+msgstr "Versión {number}"
 
 #: apps/import_app/models.py:39
-#, fuzzy
 msgid "Invalid YAML Configuration: "
-msgstr "Invalid YAML Configuration: "
+msgstr "Configuración YAML no válida: "
 
 #: apps/import_app/models.py:45
-#, fuzzy
 msgid "Queued"
-msgstr "Queued"
+msgstr "En cola"
 
 #: apps/import_app/models.py:46
-#, fuzzy
 msgid "Processing"
-msgstr "Processing"
+msgstr "Procesando"
 
 #: apps/import_app/models.py:47
-#, fuzzy
 msgid "Failed"
-msgstr "Failed"
+msgstr "Fallido"
 
 #: apps/import_app/models.py:48
 #: templates/installment_plans/fragments/list.html:24
 #: templates/recurring_transactions/fragments/list.html:27
-#, fuzzy
 msgid "Finished"
-msgstr "Finished"
+msgstr "Finalizado"
 
 #: apps/import_app/models.py:54
-#, fuzzy
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: apps/import_app/models.py:62
-#, fuzzy
 msgid "File name"
-msgstr "File name"
+msgstr "Nombre de archivo"
 
 #: apps/import_app/views.py:67
-#, fuzzy
 msgid "Import Profile added successfully"
-msgstr "Import Profile added successfully"
+msgstr "Perfil de importación agregado con éxito"
 
 #: apps/import_app/views.py:103
 #, fuzzy
