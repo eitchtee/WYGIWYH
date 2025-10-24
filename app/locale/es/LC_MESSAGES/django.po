@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-07-21 18:17+0000\n"
-"Last-Translator: afermar <adrian.fm@protonmail.com>\n"
+"PO-Revision-Date: 2025-10-24 19:57+0000\n"
+"Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
 "app/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: apps/accounts/forms.py:26
 msgid "Group name"
@@ -302,14 +302,12 @@ msgid "Entity with this ID does not exist."
 msgstr "No existe una entidad con este ID."
 
 #: apps/api/fields/transactions.py:115
-#, fuzzy
 msgid "Invalid entity data. Provide an ID or name."
-msgstr "Invalid entity data. Provide an ID or name."
+msgstr "Datos de entidad no válidos. Proporciona un ID o nombre."
 
 #: apps/api/serializers/transactions.py:192
-#, fuzzy
 msgid "Either 'date' or 'reference_date' must be provided."
-msgstr "Either 'date' or 'reference_date' must be provided."
+msgstr "Se debe proporcionar \"date\" o \"reference_date\"."
 
 #: apps/common/admin.py:5
 msgid "Make public"
@@ -327,56 +325,50 @@ msgstr "Compartido con los usuarios"
 
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:142
-#, fuzzy
 msgid "Error creating new instance"
-msgstr "Error creating new instance"
+msgstr "Error creando nueva instancia"
 
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
-#, fuzzy
 msgid "Ungrouped"
-msgstr "Ungrouped"
+msgstr "Sin agrupar"
 
 #: apps/common/fields/month_year.py:30
-#, fuzzy
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
-msgstr "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
+msgstr "Formato de fecha no válido. Usa YYYY-MM o YYYY-MM-DD."
 
 #: apps/common/fields/month_year.py:59
-#, fuzzy
 msgid "Invalid date format. Use YYYY-MM."
-msgstr "Invalid date format. Use YYYY-MM."
+msgstr "Formato de fecha no válido. Usa YYYY-MM."
 
 #: apps/common/forms.py:25 apps/common/models.py:39
 msgid "Owner"
 msgstr "Dueño"
 
 #: apps/common/forms.py:28
-#, fuzzy
 msgid ""
 "The owner of this object, if empty all users can see, edit and take "
 "ownership."
 msgstr ""
-"The owner of this object, if empty all users can see, edit and take "
-"ownership."
+"El propietario de este objeto; si está vacío, todos los usuarios pueden ver, "
+"editar y asumir la propiedad."
 
 #: apps/common/forms.py:36
-#, fuzzy
 msgid "Select users to share this object with"
-msgstr "Select users to share this object with"
+msgstr "Selecciona los usuarios con los que compartir este objeto"
 
 #: apps/common/forms.py:41 apps/common/models.py:45
 msgid "Visibility"
 msgstr "Visibilidad"
 
 #: apps/common/forms.py:43
-#, fuzzy
 msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
-"Private: Only shown for the owner and shared users. Only editable by the "
-"owner.<br/>Public: Shown for all users. Only editable by the owner."
+"Privado: Solo visible para el propietario y los usuarios con los que se haya "
+"compartido. Solo el propietario puede editarlo.<br/>Público: Visible para "
+"todos los usuarios. Solo el propietario puede editarlo."
 
 #: apps/common/forms.py:80 apps/users/forms.py:142
 msgid "Save"
