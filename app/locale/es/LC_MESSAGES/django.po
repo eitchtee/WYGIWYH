@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-24 22:23+0000\n"
+"PO-Revision-Date: 2025-10-25 04:17+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
 "app/es/>\n"
@@ -1438,14 +1438,12 @@ msgstr "To Amount"
 #: apps/transactions/forms.py:657
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
-#, fuzzy
 msgid "Transfer"
-msgstr "Transfer"
+msgstr "Transferir"
 
 #: apps/transactions/forms.py:907
-#, fuzzy
 msgid "Tag name"
-msgstr "Tag name"
+msgstr "Nombre de etiqueta"
 
 #: apps/transactions/forms.py:939
 msgid "Entity name"
@@ -1461,60 +1459,51 @@ msgstr ""
 "Las categorías silenciadas no serán mostradas en los resúmenes mensuales"
 
 #: apps/transactions/forms.py:1131
-#, fuzzy
-#| msgid "Filter transactions"
 msgid "future transactions"
-msgstr "Filtrar transacciones"
+msgstr "transacciones futuras"
 
 #: apps/transactions/forms.py:1161
-#, fuzzy
 msgid "End date should be after the start date"
-msgstr "End date should be after the start date"
+msgstr "La fecha de fin debe ser posterior a la fecha de inicio"
 
 #: apps/transactions/models.py:221
-#, fuzzy
 msgid ""
 "Deactivated categories won't be able to be selected when creating new "
 "transactions"
 msgstr ""
-"Deactivated categories won't be able to be selected when creating new "
-"transactions"
+"Las categorías desactivadas no podrán seleccionarse al crear nuevas "
+"transacciones"
 
 #: apps/transactions/models.py:229
-#, fuzzy
 msgid "Transaction Category"
-msgstr "Transaction Category"
+msgstr "Categoría de Transacción"
 
 #: apps/transactions/models.py:230
-#, fuzzy
 msgid "Transaction Categories"
-msgstr "Transaction Categories"
+msgstr "Categorías de Transacción"
 
 #: apps/transactions/models.py:245
-#, fuzzy
 msgid ""
 "Deactivated tags won't be able to be selected when creating new transactions"
 msgstr ""
-"Deactivated tags won't be able to be selected when creating new transactions"
+"Las etiquetas desactivadas no podrán seleccionarse al crear nuevas "
+"transacciones"
 
 #: apps/transactions/models.py:253 apps/transactions/models.py:254
-#, fuzzy
 msgid "Transaction Tags"
-msgstr "Transaction Tags"
+msgstr "Etiquetas de Transacción"
 
 #: apps/transactions/models.py:269
-#, fuzzy
 msgid ""
 "Deactivated entities won't be able to be selected when creating new "
 "transactions"
 msgstr ""
-"Deactivated entities won't be able to be selected when creating new "
-"transactions"
+"Las entidades desactivadas no podrán seleccionarse al crear nuevas "
+"transacciones"
 
 #: apps/transactions/models.py:277
-#, fuzzy
 msgid "Entity"
-msgstr "Entity"
+msgstr "Entidad"
 
 #: apps/transactions/models.py:289 apps/transactions/models.py:971
 #: templates/calendar_view/fragments/list.html:42
@@ -1525,9 +1514,8 @@ msgstr "Entity"
 #: templates/cotton/ui/transactions_fab.html:10
 #: templates/insights/fragments/category_overview/index.html:79
 #: templates/monthly_overview/fragments/monthly_summary.html:39
-#, fuzzy
 msgid "Income"
-msgstr "Income"
+msgstr "Ingreso"
 
 #: apps/transactions/models.py:290 apps/transactions/models.py:972
 #: templates/calendar_view/fragments/list.html:46
@@ -1537,24 +1525,20 @@ msgstr "Income"
 #: templates/cotton/ui/quick_transactions_buttons.html:18
 #: templates/cotton/ui/transactions_fab.html:19
 #: templates/insights/fragments/category_overview/index.html:80
-#, fuzzy
 msgid "Expense"
-msgstr "Expense"
+msgstr "Gasto"
 
 #: apps/transactions/models.py:345 apps/transactions/models.py:582
-#, fuzzy
 msgid "Installment Plan"
-msgstr "Installment Plan"
+msgstr "Plan de Cuotas"
 
 #: apps/transactions/models.py:354 apps/transactions/models.py:806
-#, fuzzy
 msgid "Recurring Transaction"
-msgstr "Recurring Transaction"
+msgstr "Transacción Recurrente"
 
 #: apps/transactions/models.py:362
-#, fuzzy
 msgid "Deleted"
-msgstr "Deleted"
+msgstr "Eliminado"
 
 #: apps/transactions/models.py:367
 #, fuzzy
@@ -1562,104 +1546,85 @@ msgid "Deleted At"
 msgstr "Deleted At"
 
 #: apps/transactions/models.py:462 templates/tags/fragments/table.html:71
-#, fuzzy
 msgid "No tags"
-msgstr "No tags"
+msgstr "Sin etiquetas"
 
 #: apps/transactions/models.py:464
-#, fuzzy
 msgid "No category"
-msgstr "No category"
+msgstr "Sin categoría"
 
 #: apps/transactions/models.py:466
-#, fuzzy
 msgid "No description"
-msgstr "No description"
+msgstr "Sin descripción"
 
 #: apps/transactions/models.py:514 templates/includes/sidebar.html:59
-#, fuzzy
 msgid "Yearly"
-msgstr "Yearly"
+msgstr "Anual"
 
 #: apps/transactions/models.py:515 apps/users/models.py:464
 #: templates/includes/navbar.html:27 templates/includes/sidebar.html:53
-#, fuzzy
 msgid "Monthly"
-msgstr "Monthly"
+msgstr "Mensual"
 
 #: apps/transactions/models.py:516
-#, fuzzy
 msgid "Weekly"
-msgstr "Weekly"
+msgstr "Semanal"
 
 #: apps/transactions/models.py:517
-#, fuzzy
 msgid "Daily"
-msgstr "Daily"
+msgstr "Diario"
 
 #: apps/transactions/models.py:530
-#, fuzzy
 msgid "Number of Installments"
-msgstr "Number of Installments"
+msgstr "Cantidad de cuotas"
 
 #: apps/transactions/models.py:535
-#, fuzzy
 msgid "Installment Start"
-msgstr "Installment Start"
+msgstr "Cuota de Inicio"
 
 #: apps/transactions/models.py:536
-#, fuzzy
 msgid "The installment number to start counting from"
-msgstr "The installment number to start counting from"
+msgstr "El número de la cuota desde la cual comenzar a contar"
 
 #: apps/transactions/models.py:541 apps/transactions/models.py:776
-#, fuzzy
 msgid "Start Date"
-msgstr "Start Date"
+msgstr "Fecha de Inicio"
 
 #: apps/transactions/models.py:545 apps/transactions/models.py:777
-#, fuzzy
 msgid "End Date"
-msgstr "End Date"
+msgstr "Fecha de Fin"
 
 #: apps/transactions/models.py:550
-#, fuzzy
 msgid "Recurrence"
-msgstr "Recurrence"
+msgstr "Recurrencia"
 
 #: apps/transactions/models.py:553
 msgid "Installment Amount"
 msgstr "Monto de la Cuota"
 
 #: apps/transactions/models.py:572 apps/transactions/models.py:796
-#, fuzzy
 msgid "Add description to transactions"
-msgstr "Add description to transactions"
+msgstr "Agregar descripción a las transacciones"
 
 #: apps/transactions/models.py:575 apps/transactions/models.py:799
-#, fuzzy
 msgid "Add notes to transactions"
-msgstr "Add notes to transactions"
+msgstr "Agregar notas a las transacciones"
 
 #: apps/transactions/models.py:735
-#, fuzzy
 msgid "day(s)"
-msgstr "day(s)"
+msgstr "día(s)"
 
 #: apps/transactions/models.py:736
-#, fuzzy
 msgid "week(s)"
-msgstr "week(s)"
+msgstr "semana(s)"
 
 #: apps/transactions/models.py:737
-#, fuzzy
 msgid "month(s)"
-msgstr "month(s)"
+msgstr "mes(es)"
 
 #: apps/transactions/models.py:738
-#, fuzzy
 msgid "year(s)"
-msgstr "year(s)"
+msgstr "año(s)"
 
 #: apps/transactions/models.py:740
 #: templates/recurring_transactions/fragments/list.html:24
@@ -1667,28 +1632,24 @@ msgid "Paused"
 msgstr "Pausado"
 
 #: apps/transactions/models.py:779
-#, fuzzy
 msgid "Recurrence Type"
-msgstr "Recurrence Type"
+msgstr "Tipo de Recurrencia"
 
 #: apps/transactions/models.py:782
-#, fuzzy
 msgid "Recurrence Interval"
-msgstr "Recurrence Interval"
+msgstr "Intervalo de Recurrencia"
 
 #: apps/transactions/models.py:785
 msgid "Keep at most"
 msgstr "Mantener como máximo"
 
 #: apps/transactions/models.py:789
-#, fuzzy
 msgid "Last Generated Date"
-msgstr "Last Generated Date"
+msgstr "Última Fecha Generada"
 
 #: apps/transactions/models.py:792
-#, fuzzy
 msgid "Last Generated Reference Date"
-msgstr "Last Generated Reference Date"
+msgstr "Última Fecha de Referencia Generada"
 
 #: apps/transactions/models.py:1038
 #: apps/transactions/views/quick_transactions.py:177
@@ -1696,92 +1657,84 @@ msgstr "Last Generated Reference Date"
 #: apps/transactions/views/quick_transactions.py:188
 #: apps/transactions/views/quick_transactions.py:190
 #: templates/cotton/ui/transactions_fab.html:59
-#, fuzzy
 msgid "Quick Transaction"
-msgstr "Edit Transaction"
+msgstr "Transacción Rápida"
 
 #: apps/transactions/models.py:1039 templates/includes/navbar.html:73
 #: templates/includes/sidebar.html:100
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:11
-#, fuzzy
 msgid "Quick Transactions"
-msgstr "Transactions"
+msgstr "Transacciones Rápidas"
 
 #: apps/transactions/validators.py:8
-#, fuzzy, python-format
+#, python-format
 msgid "%(value)s has too many decimal places. Maximum is 30."
-msgstr "%(value)s has too many decimal places. Maximum is 30."
+msgstr "%(value)s tiene demasiados decimales. El máximo permitido es 30."
 
 #: apps/transactions/validators.py:16
-#, fuzzy, python-format
+#, python-format
 msgid "%(value)s is not a non-negative number"
-msgstr "%(value)s is not a non-negative number"
+msgstr "%(value)s no es un número positivo"
 
 #: apps/transactions/views/actions.py:24
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s transaction marked as paid"
 msgid_plural "%(count)s transactions marked as paid"
-msgstr[0] "%(count)s transaction marked as paid"
-msgstr[1] "%(count)s transactions marked as paid"
+msgstr[0] "%(count)s transacción marcada como pagada"
+msgstr[1] "%(count)s transacciones marcadas como pagadas"
 
 #: apps/transactions/views/actions.py:48
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s transaction marked as not paid"
 msgid_plural "%(count)s transactions marked as not paid"
-msgstr[0] "%(count)s transaction marked as not paid"
-msgstr[1] "%(count)s transactions marked as not paid"
+msgstr[0] "%(count)s transacción marcada como no pagada"
+msgstr[1] "%(count)s transacciones marcadas como no pagadas"
 
 #: apps/transactions/views/actions.py:72
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s transaction deleted successfully"
 msgid_plural "%(count)s transactions deleted successfully"
-msgstr[0] "%(count)s transaction deleted successfully"
-msgstr[1] "%(count)s transactions deleted successfully"
+msgstr[0] "%(count)s transacción eliminada con éxito"
+msgstr[1] "%(count)s transacciones eliminadas con éxito"
 
 #: apps/transactions/views/actions.py:96
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s transaction restored successfully"
 msgid_plural "%(count)s transactions restored successfully"
-msgstr[0] "%(count)s transaction restored successfully"
-msgstr[1] "%(count)s transactions restored successfully"
+msgstr[0] "%(count)s transacción restaurada con éxito"
+msgstr[1] "%(count)s transacciones restauradas con éxito"
 
 #: apps/transactions/views/actions.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s transaction duplicated successfully"
 msgid_plural "%(count)s transactions duplicated successfully"
-msgstr[0] "%(count)s transaction duplicated successfully"
-msgstr[1] "%(count)s transactions duplicated successfully"
+msgstr[0] "%(count)s transacción duplicada con éxito"
+msgstr[1] "%(count)s transacciones duplicadas con éxito"
 
 #: apps/transactions/views/categories.py:66
-#, fuzzy
 msgid "Category added successfully"
-msgstr "Category added successfully"
+msgstr "Categoría agregada con éxito"
 
 #: apps/transactions/views/categories.py:104
-#, fuzzy
 msgid "Category updated successfully"
-msgstr "Category updated successfully"
+msgstr "Categoría actualizada con éxito"
 
 #: apps/transactions/views/categories.py:171
-#, fuzzy
 msgid "Category deleted successfully"
-msgstr "Category deleted successfully"
+msgstr "Categoría eliminada con éxito"
 
 #: apps/transactions/views/entities.py:66
-#, fuzzy
 msgid "Entity added successfully"
-msgstr "Entity added successfully"
+msgstr "Entidad agregada con éxito"
 
 #: apps/transactions/views/entities.py:104
-#, fuzzy
 msgid "Entity updated successfully"
-msgstr "Entity updated successfully"
+msgstr "Entidad actualizada con éxito"
 
 #: apps/transactions/views/entities.py:133
-#, fuzzy
 msgid "Entity deleted successfully"
-msgstr "Entity deleted successfully"
+msgstr "Entidad eliminada con éxito"
 
 #: apps/transactions/views/installment_plans.py:87
 #, fuzzy
@@ -1805,9 +1758,8 @@ msgstr "Installment Plan deleted successfully"
 
 #: apps/transactions/views/quick_transactions.py:45
 #: apps/transactions/views/quick_transactions.py:222 apps/users/views.py:170
-#, fuzzy
 msgid "Item added successfully"
-msgstr "Rule added successfully"
+msgstr "Item added successfully"
 
 #: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:202
 #, fuzzy
@@ -1857,24 +1809,20 @@ msgid "Recurring Transaction deleted successfully"
 msgstr "Recurring Transaction deleted successfully"
 
 #: apps/transactions/views/tags.py:66
-#, fuzzy
 msgid "Tag added successfully"
-msgstr "Tag added successfully"
+msgstr "Etiqueta agregada con éxito"
 
 #: apps/transactions/views/tags.py:104
-#, fuzzy
 msgid "Tag updated successfully"
-msgstr "Tag updated successfully"
+msgstr "Etiqueta actualizada con éxito"
 
 #: apps/transactions/views/tags.py:133
-#, fuzzy
 msgid "Tag deleted successfully"
-msgstr "Tag deleted successfully"
+msgstr "Etiqueta eliminada con éxito"
 
 #: apps/transactions/views/transactions.py:183
-#, fuzzy
 msgid "Transaction updated successfully"
-msgstr "Transaction updated successfully"
+msgstr "Transacción actualizada con éxito"
 
 #: apps/transactions/views/transactions.py:234
 #, fuzzy, python-format
@@ -1914,9 +1862,8 @@ msgid "User Setting"
 msgstr "User Setting"
 
 #: apps/users/admin.py:48
-#, fuzzy
 msgid "Personal info"
-msgstr "Personal info"
+msgstr "Información Personal"
 
 #: apps/users/admin.py:50
 #, fuzzy
@@ -1924,54 +1871,45 @@ msgid "Permissions"
 msgstr "Permissions"
 
 #: apps/users/admin.py:61
-#, fuzzy
 msgid "Important dates"
-msgstr "Important dates"
+msgstr "Fechas Importantes"
 
 #: apps/users/forms.py:23 apps/users/models.py:451
 #: templates/users/login.html:20
-#, fuzzy
 msgid "E-mail"
-msgstr "E-mail"
+msgstr "Correo Electrónico"
 
 #: apps/users/forms.py:29 templates/users/login.html:21
-#, fuzzy
 msgid "Password"
-msgstr "Password"
+msgstr "Contraseña"
 
 #: apps/users/forms.py:37
-#, fuzzy
 msgid "Invalid e-mail or password"
-msgstr "Invalid e-mail or password"
+msgstr "Correo o contraseña no válidos"
 
 #: apps/users/forms.py:38
-#, fuzzy
 msgid "This account is deactivated"
-msgstr "This account is deactivated"
+msgstr "Esta cuenta está desactivada"
 
 #: apps/users/forms.py:54 apps/users/forms.py:67 apps/users/forms.py:89
 #: templates/monthly_overview/pages/overview.html:140
 #: templates/monthly_overview/pages/overview.html:186
 #: templates/transactions/pages/transactions.html:14
 #: templates/transactions/pages/transactions.html:60
-#, fuzzy
 msgid "Default"
-msgstr "Default"
+msgstr "Por Defecto"
 
 #: apps/users/forms.py:97 apps/users/models.py:484
-#, fuzzy
 msgid "Date Format"
-msgstr "Date Format"
+msgstr "Formato de Fecha"
 
 #: apps/users/forms.py:102 apps/users/models.py:489
-#, fuzzy
 msgid "Datetime Format"
-msgstr "Datetime Format"
+msgstr "Formato de Fecha y Hora"
 
 #: apps/users/forms.py:108 apps/users/models.py:492
-#, fuzzy
 msgid "Number Format"
-msgstr "Number Format"
+msgstr "Formato de Número"
 
 #: apps/users/forms.py:148
 #, python-format
@@ -3066,9 +3004,8 @@ msgstr "Unit Price Calculator"
 #: templates/includes/navbar.html:95 templates/includes/sidebar.html:132
 #: templates/mini_tools/currency_converter/currency_converter.html:8
 #: templates/mini_tools/currency_converter/currency_converter.html:15
-#, fuzzy
 msgid "Currency Converter"
-msgstr "Currency Converter"
+msgstr "Conversor de Monedas"
 
 #: templates/includes/navbar.html:104 templates/includes/sidebar.html:150
 #: templates/includes/sidebar.html:163
@@ -3091,9 +3028,8 @@ msgid "Only use this if you know what you're doing"
 msgstr "Only use this if you know what you're doing"
 
 #: templates/includes/navbar.html:158 templates/includes/sidebar.html:261
-#, fuzzy
 msgid "Django Admin"
-msgstr "Django Admin"
+msgstr "Administrador de Django"
 
 #: templates/includes/navbar.html:169 templates/includes/sidebar.html:276
 msgid "is available"
@@ -3101,14 +3037,12 @@ msgstr "está disponible"
 
 #: templates/includes/navbar.html:174 templates/includes/navbar.html:177
 #: templates/includes/sidebar.html:282
-#, fuzzy
 msgid "Calculator"
-msgstr "Calculator"
+msgstr "Calculadora"
 
 #: templates/includes/navbar/user_menu.html:12
-#, fuzzy
 msgid "Settings"
-msgstr "Settings"
+msgstr "Ajustes"
 
 #: templates/includes/navbar/user_menu.html:17
 #, fuzzy
@@ -3116,36 +3050,30 @@ msgid "Edit profile"
 msgstr "Edit import profile"
 
 #: templates/includes/navbar/user_menu.html:44
-#, fuzzy
 msgid "Clear cache"
-msgstr "Clear cache"
+msgstr "Limpiar Caché"
 
 #: templates/includes/navbar/user_menu.html:48
-#, fuzzy
 msgid "Logout"
-msgstr "Logout"
+msgstr "Cerrar Sesión"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:8
-#, fuzzy
 msgid "Access Denied"
-msgstr "Access Denied"
+msgstr "Acceso Denegado"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:9
-#, fuzzy
 msgid ""
 "You do not have permission to perform this action or access this resource."
-msgstr ""
-"You do not have permission to perform this action or access this resource."
+msgstr "No tienes permiso para realizar esta acción o acceder a este recurso."
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:19
-#, fuzzy
 msgid "Something went wrong loading your data"
-msgstr "Something went wrong loading your data"
+msgstr "Algo salió mal al cargar tus datos"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:20
-#, fuzzy
 msgid "Try reloading the page or check the console for more information."
-msgstr "Try reloading the page or check the console for more information."
+msgstr ""
+"Intenta recargar la página o revisa la consola para obtener más información."
 
 #: templates/includes/scripts/hyperscript/swal.html:13
 #, fuzzy
@@ -3212,7 +3140,6 @@ msgstr "final total"
 
 #: templates/insights/fragments/category_overview/index.html:81
 #: templates/monthly_overview/fragments/monthly_summary.html:167
-#, fuzzy
 msgid "Total"
 msgstr "Total"
 
@@ -3227,14 +3154,12 @@ msgid "You've spent an average of"
 msgstr "You've spent an average of"
 
 #: templates/insights/fragments/emergency_fund.html:23
-#, fuzzy
 msgid "on the last 12 months, at this rate you could go by"
-msgstr "on the last 12 months, at this rate you could go by"
+msgstr "En los últimos 12 meses, a este ritmo podrías continuar durante"
 
 #: templates/insights/fragments/emergency_fund.html:25
-#, fuzzy
 msgid "months without any income."
-msgstr "months without any income."
+msgstr "meses sin ningún ingreso."
 
 #: templates/insights/fragments/emergency_fund.html:34
 #, fuzzy
@@ -3247,14 +3172,12 @@ msgid "liquid total"
 msgstr "liquid total"
 
 #: templates/insights/fragments/emergency_fund.html:62
-#, fuzzy
 msgid "months left"
-msgstr "months left"
+msgstr "meses restantes"
 
 #: templates/insights/fragments/late_transactions.html:15
-#, fuzzy
 msgid "All good!"
-msgstr "All good!"
+msgstr "¡Todo bien!"
 
 #: templates/insights/fragments/late_transactions.html:16
 #, fuzzy
@@ -3272,61 +3195,50 @@ msgid "From"
 msgstr "From"
 
 #: templates/insights/fragments/sankey.html:96
-#, fuzzy
 msgid "Percentage"
-msgstr "Percentage"
+msgstr "Porcentaje"
 
 #: templates/insights/pages/index.html:37
-#, fuzzy
 msgid "Month"
-msgstr "Month"
+msgstr "Mes"
 
 #: templates/insights/pages/index.html:40
 #: templates/yearly_overview/pages/overview_by_account.html:73
 #: templates/yearly_overview/pages/overview_by_currency.html:75
-#, fuzzy
 msgid "Year"
-msgstr "Year"
+msgstr "Año"
 
 #: templates/insights/pages/index.html:45
-#, fuzzy
 msgid "Month Range"
-msgstr "Month Range"
+msgstr "Rango de Mes"
 
 #: templates/insights/pages/index.html:50
-#, fuzzy
 msgid "Year Range"
-msgstr "Year Range"
+msgstr "Rango de Año"
 
 #: templates/insights/pages/index.html:55
-#, fuzzy
 msgid "Date Range"
-msgstr "Date Range"
+msgstr "Rango de Fecha"
 
 #: templates/insights/pages/index.html:83
-#, fuzzy
 msgid "Account Flow"
-msgstr "Account Flow"
+msgstr "Flujo de Cuenta"
 
 #: templates/insights/pages/index.html:90
-#, fuzzy
 msgid "Currency Flow"
-msgstr "Currency Flow"
+msgstr "Flujo de Moneda"
 
 #: templates/insights/pages/index.html:97
-#, fuzzy
 msgid "Category Explorer"
-msgstr "Category Explorer"
+msgstr "Explorador de Categorías"
 
 #: templates/insights/pages/index.html:104
-#, fuzzy
 msgid "Categories Overview"
-msgstr "Categories Overview"
+msgstr "Resumen de Categorías"
 
 #: templates/insights/pages/index.html:111
-#, fuzzy
 msgid "Late Transactions"
-msgstr "Late Transactions"
+msgstr "Transacciones Atrasadas"
 
 #: templates/insights/pages/index.html:117
 #, fuzzy
@@ -3334,9 +3246,8 @@ msgid "Latest Transactions"
 msgstr "Latest Transactions"
 
 #: templates/insights/pages/index.html:123
-#, fuzzy
 msgid "Emergency Fund"
-msgstr "Emergency Fund"
+msgstr "Fondo de Emergencia"
 
 #: templates/installment_plans/fragments/add.html:5
 #, fuzzy
@@ -3350,14 +3261,12 @@ msgstr "Edit installment plan"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
 #: templates/installment_plans/fragments/table.html:37
-#, fuzzy
 msgid "Installments"
-msgstr "Installments"
+msgstr "Cuotas"
 
 #: templates/installment_plans/fragments/table.html:45
-#, fuzzy
 msgid "Refresh"
-msgstr "Refresh"
+msgstr "Actualizar"
 
 #: templates/installment_plans/fragments/table.html:51
 #, fuzzy
@@ -3369,9 +3278,8 @@ msgstr ""
 "missing ones"
 
 #: templates/installment_plans/fragments/table.html:52
-#, fuzzy
 msgid "Yes, refresh it!"
-msgstr "Yes, refresh it!"
+msgstr "¡Sí, actualízalo!"
 
 #: templates/installment_plans/fragments/table.html:63
 #, fuzzy
@@ -3379,9 +3287,8 @@ msgid "This will delete the plan and all transactions associated with it"
 msgstr "This will delete the plan and all transactions associated with it"
 
 #: templates/installment_plans/fragments/table.html:91
-#, fuzzy
 msgid "No installment plans"
-msgstr "No installment plans"
+msgstr "Sin Planes de Pago a Plazos"
 
 #: templates/layouts/base.html:43
 msgid "This is a demo!"
@@ -3425,9 +3332,8 @@ msgid "Item"
 msgstr "Item"
 
 #: templates/monthly_overview/fragments/list.html:46
-#, fuzzy
 msgid "No transactions this month"
-msgstr "No transactions this month"
+msgstr "Sin transacciones este mes"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:6
 #, fuzzy
@@ -3497,10 +3403,8 @@ msgid "Consolidated"
 msgstr "Consolidado"
 
 #: templates/net_worth/net_worth.html:101
-#, fuzzy
-#| msgid "Evolution by account"
 msgid "Evolution"
-msgstr "Evolución por cuenta"
+msgstr "Evolución"
 
 #: templates/net_worth/net_worth.html:128
 #: templates/yearly_overview/pages/overview_by_account.html:7
@@ -3682,9 +3586,8 @@ msgid "If transaction..."
 msgstr "If transaction..."
 
 #: templates/rules/fragments/transaction_rule/view.html:32
-#, fuzzy
 msgid "Then..."
-msgstr "Then..."
+msgstr "Entonces..."
 
 #: templates/rules/fragments/transaction_rule/view.html:82
 msgid "Edit to view"
@@ -3720,9 +3623,8 @@ msgid "New transaction"
 msgstr "Nueva Transacción"
 
 #: templates/transactions/fragments/add_installment_plan.html:5
-#, fuzzy
 msgid "Add Installment Plan"
-msgstr "Add Installment Plan"
+msgstr "Agregar plan de cuotas"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 #, fuzzy
