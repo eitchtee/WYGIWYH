@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-27 13:17+0000\n"
+"PO-Revision-Date: 2025-10-27 14:17+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
 "app/es/>\n"
@@ -550,7 +550,7 @@ msgstr "A Moneda"
 
 #: apps/currencies/models.py:74 apps/currencies/models.py:81
 msgid "Exchange Rate"
-msgstr "Tipo de cambio"
+msgstr "Tasa de cambio"
 
 #: apps/currencies/models.py:76
 msgid "Date and Time"
@@ -566,7 +566,7 @@ msgstr "Automático"
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:129 templates/includes/sidebar.html:218
 msgid "Exchange Rates"
-msgstr "Tipos de cambio"
+msgstr "Tasas de cambio"
 
 #: apps/currencies/models.py:94
 msgid "From and To currencies cannot be the same."
@@ -747,7 +747,7 @@ msgstr "Transacción de Gasto"
 
 #: apps/dca/forms.py:120 apps/dca/forms.py:130
 msgid "Type to search for a transaction to link to this entry"
-msgstr "Escribe para buscar una transacción y vincularla a esta entrada"
+msgstr "Escribe para buscar una transacción"
 
 #: apps/dca/forms.py:126 apps/dca/models.py:179
 msgid "Income Transaction"
@@ -935,7 +935,7 @@ msgstr "Reglas de transacción"
 
 #: apps/export_app/forms.py:148 apps/rules/models.py:68
 msgid "Edit transaction action"
-msgstr "Editar acciones de transacción"
+msgstr "Editar acción de transacción"
 
 #: apps/export_app/forms.py:151 apps/rules/models.py:327
 msgid "Update or create transaction actions"
@@ -1033,14 +1033,12 @@ msgid "Import Profile deleted successfully"
 msgstr "Perfil de importación eliminado con éxito"
 
 #: apps/import_app/views.py:195
-#, fuzzy
 msgid "Import Run queued successfully"
-msgstr "Import Run queued successfully"
+msgstr "Tarea de importación agregada a la cola con éxito"
 
 #: apps/import_app/views.py:222
-#, fuzzy
 msgid "Run deleted successfully"
-msgstr "Run deleted successfully"
+msgstr "Tarea de importación eliminada con éxito"
 
 #: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:189
@@ -1108,9 +1106,8 @@ msgid "If..."
 msgstr "Si..."
 
 #: apps/rules/forms.py:76
-#, fuzzy
 msgid "Set field"
-msgstr "Set field"
+msgstr "Establecer campo"
 
 #: apps/rules/forms.py:77 templates/insights/fragments/sankey.html:94
 msgid "To"
@@ -1201,9 +1198,8 @@ msgid "Search Criteria"
 msgstr "Criterio de Búsqueda"
 
 #: apps/rules/forms.py:364
-#, fuzzy
 msgid "Set Values"
-msgstr "Set Values"
+msgstr "Establecer Valores"
 
 #: apps/rules/forms.py:415 apps/rules/forms.py:452 apps/rules/forms.py:489
 #: apps/transactions/models.py:379
@@ -1360,18 +1356,16 @@ msgid "Transaction Type"
 msgstr "Tipo de Transacción"
 
 #: apps/transactions/filters.py:85
-#, fuzzy
 msgid "Date from"
-msgstr "Date from"
+msgstr "Desde la fecha"
 
 #: apps/transactions/filters.py:90 apps/transactions/filters.py:100
 msgid "Until"
 msgstr "Hasta"
 
 #: apps/transactions/filters.py:95
-#, fuzzy
 msgid "Reference date from"
-msgstr "Reference date from"
+msgstr "Desde la fecha de referencia"
 
 #: apps/transactions/filters.py:105
 msgid "Amount min"
@@ -1382,9 +1376,8 @@ msgid "Amount max"
 msgstr "Monto máximo"
 
 #: apps/transactions/filters.py:188
-#, fuzzy
 msgid "Categorized"
-msgstr "Categories"
+msgstr "Con Categoría"
 
 #: apps/transactions/filters.py:195
 msgid "Tagged"
@@ -1401,9 +1394,8 @@ msgstr "Cualquier entidad"
 
 #: apps/transactions/filters.py:202
 #: templates/insights/fragments/category_overview/index.html:274
-#, fuzzy
 msgid "No entity"
-msgstr "No entities"
+msgstr "Ninguna entidad"
 
 #: apps/transactions/forms.py:175
 msgid "More"
@@ -1424,12 +1416,11 @@ msgstr ""
 
 #: apps/transactions/forms.py:527
 msgid "From Amount"
-msgstr "Desde la Cuenta"
+msgstr "Monto de Origen"
 
 #: apps/transactions/forms.py:532
-#, fuzzy
 msgid "To Amount"
-msgstr "To Amount"
+msgstr "Monto de Destino"
 
 #: apps/transactions/forms.py:657
 #: templates/cotton/ui/quick_transactions_buttons.html:40
@@ -1537,9 +1528,8 @@ msgid "Deleted"
 msgstr "Eliminado"
 
 #: apps/transactions/models.py:367
-#, fuzzy
 msgid "Deleted At"
-msgstr "Deleted At"
+msgstr "Eliminado en"
 
 #: apps/transactions/models.py:462 templates/tags/fragments/table.html:71
 msgid "No tags"
@@ -1751,17 +1741,15 @@ msgstr "Plan de cuotas eliminado con éxito"
 #: apps/transactions/views/quick_transactions.py:45
 #: apps/transactions/views/quick_transactions.py:222 apps/users/views.py:170
 msgid "Item added successfully"
-msgstr "Item added successfully"
+msgstr "Ítem agregado con éxito"
 
 #: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:202
-#, fuzzy
 msgid "Item updated successfully"
-msgstr "Rule updated successfully"
+msgstr "Ítem actualizado con éxito"
 
 #: apps/transactions/views/quick_transactions.py:99
-#, fuzzy
 msgid "Item deleted successfully"
-msgstr "Rule deleted successfully"
+msgstr "Ítem eliminado con éxito"
 
 #: apps/transactions/views/quick_transactions.py:155
 #: apps/transactions/views/transactions.py:53
@@ -1778,9 +1766,8 @@ msgid "Recurring Transaction updated successfully"
 msgstr "Transacción Recurrente actualizada exitosamente"
 
 #: apps/transactions/views/recurring_transactions.py:186
-#, fuzzy
 msgid "Recurring transaction unpaused successfully"
-msgstr "Recurring transaction unpaused successfully"
+msgstr "Transacción recurrente reanudada con éxito"
 
 #: apps/transactions/views/recurring_transactions.py:189
 msgid "Recurring transaction paused successfully"
@@ -2210,7 +2197,7 @@ msgstr "No hay grupos de cuentas"
 #: templates/entities/fragments/share.html:5
 #: templates/rules/fragments/share.html:5 templates/tags/fragments/share.html:5
 msgid "Share settings"
-msgstr "Share settings"
+msgstr "Configuración de uso compartido"
 
 #: templates/accounts/fragments/account_reconciliation.html:6
 msgid "Account Reconciliation"
@@ -2283,9 +2270,8 @@ msgid "SUN"
 msgstr "DOM"
 
 #: templates/calendar_view/fragments/list_transactions.html:5
-#, fuzzy
 msgid "Transactions on"
-msgstr "Transactions on"
+msgstr "Transacciones en"
 
 #: templates/calendar_view/fragments/list_transactions.html:13
 msgid "No transactions on this date"
@@ -2341,14 +2327,12 @@ msgid "Show on summaries"
 msgstr "Mostrar en los resúmenes"
 
 #: templates/cotton/transaction/item.html:180
-#, fuzzy
 msgid "Controlled by account"
-msgstr "No category"
+msgstr "Controlado por cuenta"
 
 #: templates/cotton/transaction/item.html:191
-#, fuzzy
 msgid "Controlled by category"
-msgstr "No category"
+msgstr "Controlado por categoría"
 
 #: templates/cotton/transaction/item.html:204
 msgid "Hide from summaries"
@@ -2450,15 +2434,13 @@ msgstr "Alternar menú desplegable"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:122
 #: templates/cotton/ui/transactions_action_bar.html:158
-#, fuzzy
 msgid "Flat Total"
-msgstr "Flat Total"
+msgstr "Total Fijo"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:142
 #: templates/cotton/ui/transactions_action_bar.html:178
-#, fuzzy
 msgid "Real Total"
-msgstr "Real Total"
+msgstr "Total Real"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:162
 #: templates/cotton/ui/transactions_action_bar.html:198
@@ -2487,9 +2469,8 @@ msgstr "Cuota"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:32
 #: templates/cotton/ui/transactions_fab.html:35
-#, fuzzy
 msgid "Recurring"
-msgstr "Recurring"
+msgstr "Recurrente"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:47
 #: templates/cotton/ui/transactions_fab.html:52
@@ -2513,9 +2494,8 @@ msgid "Edit currency"
 msgstr "Editar moneda"
 
 #: templates/currencies/fragments/list.html:25
-#, fuzzy
 msgid "Code"
-msgstr "Code"
+msgstr "Código"
 
 #: templates/currencies/fragments/list.html:63
 msgid "No currencies"
@@ -2534,22 +2514,18 @@ msgid "Add DCA strategy"
 msgstr "Agregar estrategia DCA"
 
 #: templates/dca/fragments/strategy/details.html:22
-#, fuzzy
 msgid "No exchange rate available"
-msgstr "No exchange rate available"
+msgstr "No hay tasas de cambio disponibles"
 
 #: templates/dca/fragments/strategy/details.html:33
-#, fuzzy
 msgid "Entries"
-msgstr "Entries"
+msgstr "Entradas"
 
 #: templates/dca/fragments/strategy/details.html:55
-#, fuzzy
 msgid "Current Value"
-msgstr "Current Value"
+msgstr "Valor Actual"
 
 #: templates/dca/fragments/strategy/details.html:56
-#, fuzzy
 msgid "P/L"
 msgstr "P/L"
 
@@ -2576,59 +2552,50 @@ msgid "Current Total Value"
 msgstr "Valor Total Actual"
 
 #: templates/dca/fragments/strategy/details.html:177
-#, fuzzy
 msgid "Average Entry Price"
-msgstr "Average Entry Price"
+msgstr "Precio Promedio de Entrada"
 
 #: templates/dca/fragments/strategy/details.html:191
-#, fuzzy
 msgid "Total P/L"
 msgstr "Total P/L"
 
 #: templates/dca/fragments/strategy/details.html:207
-#, fuzzy, python-format
+#, python-format
 msgid "Total %% P/L"
 msgstr "Total %% P/L"
 
 #: templates/dca/fragments/strategy/details.html:226
-#, fuzzy, python-format
+#, python-format
 msgid "P/L %%"
 msgstr "P/L %%"
 
 #: templates/dca/fragments/strategy/details.html:288
-#, fuzzy
 msgid "Performance Over Time"
-msgstr "Performance Over Time"
+msgstr "Rendimiento a lo Largo del Tiempo"
 
 #: templates/dca/fragments/strategy/details.html:306
-#, fuzzy
 msgid "Entry Price"
-msgstr "Entry Price"
+msgstr "Precio de Entrada"
 
 #: templates/dca/fragments/strategy/details.html:314
-#, fuzzy
 msgid "Current Price"
-msgstr "Current Price"
+msgstr "Precio Actual"
 
 #: templates/dca/fragments/strategy/details.html:322
-#, fuzzy
 msgid "Amount Bought"
-msgstr "Amount Bought"
+msgstr "Cantidad Comprada"
 
 #: templates/dca/fragments/strategy/details.html:392
-#, fuzzy
 msgid "Entry Price vs Current Price"
-msgstr "Entry Price vs Current Price"
+msgstr "Precio de Entrada vs Precio Actual"
 
 #: templates/dca/fragments/strategy/details.html:408
-#, fuzzy
 msgid "Days Between Investments"
-msgstr "Days Between Investments"
+msgstr "Días entre Inversiones"
 
 #: templates/dca/fragments/strategy/details.html:455
-#, fuzzy
 msgid "Investment Frequency"
-msgstr "Investment Frequency"
+msgstr "Frecuencia de Inversión"
 
 #: templates/dca/fragments/strategy/details.html:457
 msgid "The straighter the blue line, the more consistent your DCA strategy is."
@@ -2649,121 +2616,100 @@ msgid "Dollar Cost Average Strategy"
 msgstr "Estrategia de Promedio de Costo en Dólares (DCA)"
 
 #: templates/entities/fragments/add.html:5
-#, fuzzy
 msgid "Add entity"
-msgstr "Add entity"
+msgstr "Agregar entidad"
 
 #: templates/entities/fragments/edit.html:5
-#, fuzzy
 msgid "Edit entity"
-msgstr "Edit entity"
+msgstr "Editar entidad"
 
 #: templates/entities/fragments/table.html:71
-#, fuzzy
 msgid "No entities"
-msgstr "No entities"
+msgstr "No hay entidades"
 
 #: templates/exchange_rates/fragments/add.html:5
 #: templates/exchange_rates_services/fragments/add.html:5
-#, fuzzy
 msgid "Add exchange rate"
-msgstr "Add exchange rate"
+msgstr "Agregar tasa de cambio"
 
 #: templates/exchange_rates/fragments/edit.html:5
 #: templates/exchange_rates_services/fragments/edit.html:5
-#, fuzzy
 msgid "Edit exchange rate"
-msgstr "Edit exchange rate"
+msgstr "Editar tasa de cambio"
 
 #: templates/exchange_rates/fragments/list.html:25
 #: templates/includes/navbar.html:62 templates/includes/sidebar.html:85
 #: templates/installment_plans/fragments/list.html:21
 #: templates/yearly_overview/pages/overview_by_account.html:105
 #: templates/yearly_overview/pages/overview_by_currency.html:107
-#, fuzzy
 msgid "All"
-msgstr "All"
+msgstr "Todos"
 
 #: templates/exchange_rates/fragments/table.html:11
 #: templates/exchange_rates_services/fragments/table.html:11
-#, fuzzy
 msgid "Pairing"
-msgstr "Pairing"
+msgstr "Emparejando"
 
 #: templates/exchange_rates/fragments/table.html:12
 #: templates/exchange_rates_services/fragments/table.html:12
-#, fuzzy
 msgid "Rate"
-msgstr "Rate"
+msgstr "Tasa"
 
 #: templates/exchange_rates/fragments/table.html:51
 #: templates/exchange_rates_services/fragments/table.html:51
-#, fuzzy
 msgid "No exchange rates"
-msgstr "No exchange rates"
+msgstr "No hay tasas de cambio"
 
 #: templates/exchange_rates/fragments/table.html:58
 #: templates/exchange_rates_services/fragments/table.html:58
 #: templates/transactions/fragments/list_all.html:54
-#, fuzzy
 msgid "Page navigation"
-msgstr "Page navigation"
+msgstr "Navegación entre páginas"
 
 #: templates/exchange_rates_services/fragments/list.html:21
-#, fuzzy
 msgid "Fetch all"
-msgstr "Fetch all"
+msgstr "Obtener todo"
 
 #: templates/exchange_rates_services/fragments/list.html:33
-#, fuzzy
 msgid "Service"
-msgstr "Service"
+msgstr "Servicio"
 
 #: templates/exchange_rates_services/fragments/list.html:34
-#, fuzzy
 msgid "Targeting"
-msgstr "Targeting"
+msgstr "Dirigido a"
 
 #: templates/exchange_rates_services/fragments/list.html:35
-#, fuzzy
 msgid "Last fetch"
-msgstr "Last fetch"
+msgstr "Última sincronización"
 
 #: templates/exchange_rates_services/fragments/list.html:67
-#, fuzzy
 msgid "currencies"
-msgstr "currencies"
+msgstr "monedas"
 
 #: templates/exchange_rates_services/fragments/list.html:67
-#, fuzzy
 msgid "accounts"
-msgstr "accounts"
+msgstr "cuentas"
 
 #: templates/exchange_rates_services/fragments/list.html:75
-#, fuzzy
 msgid "No services configured"
-msgstr "No services configured"
+msgstr "No hay servicios configurados"
 
 #: templates/export_app/pages/index.html:4 templates/includes/navbar.html:140
 #: templates/includes/sidebar.html:239
-#, fuzzy
 msgid "Export and Restore"
-msgstr "Export and Restore"
+msgstr "Exportar y Restaurar"
 
 #: templates/import_app/fragments/profiles/add.html:6
-#, fuzzy
 msgid "Add new import profile"
-msgstr "Add new import profile"
+msgstr "Agregar nuevo perfil de importación"
 
 #: templates/import_app/fragments/profiles/add.html:11
-#, fuzzy
 msgid "A message from the author"
-msgstr "A message from the author"
+msgstr "Un mensaje del autor"
 
 #: templates/import_app/fragments/profiles/edit.html:5
-#, fuzzy
 msgid "Edit import profile"
-msgstr "Edit import profile"
+msgstr "Editar perfil de importación"
 
 #: templates/import_app/fragments/profiles/list.html:17
 msgid "New"
@@ -2774,95 +2720,79 @@ msgid "From preset"
 msgstr "Desde plantilla"
 
 #: templates/import_app/fragments/profiles/list.html:55
-#, fuzzy
 msgid "Runs"
-msgstr "Runs"
+msgstr "Ejecuciones"
 
 #: templates/import_app/fragments/profiles/list.html:86
-#, fuzzy
 msgid "No import profiles"
-msgstr "No import profiles"
+msgstr "No hay perfiles de importación"
 
 #: templates/import_app/fragments/profiles/list_presets.html:5
-#, fuzzy
 msgid "Import Presets"
-msgstr "Import Presets"
+msgstr "Plantillas de Importación"
 
 #: templates/import_app/fragments/profiles/list_presets.html:33
-#, fuzzy
 msgid "By"
-msgstr "By"
+msgstr "Por"
 
 #: templates/import_app/fragments/profiles/list_presets.html:40
-#, fuzzy
 msgid "No presets yet"
-msgstr "No presets yet"
+msgstr "Aún no hay plantillas"
 
 #: templates/import_app/fragments/runs/add.html:5
-#, fuzzy
 msgid "Import file with profile"
-msgstr "Import file with profile"
+msgstr "Importar archivo con perfil"
 
 #: templates/import_app/fragments/runs/list.html:5
-#, fuzzy
 msgid "Runs for"
-msgstr "Runs for"
+msgstr "Ejecuciones para"
 
 #: templates/import_app/fragments/runs/list.html:29
-#, fuzzy
 msgid "Total Items"
-msgstr "Total Items"
+msgstr "Total de Ítems"
 
 #: templates/import_app/fragments/runs/list.html:42
-#, fuzzy
 msgid "Processed Items"
-msgstr "Processed Items"
+msgstr "Ítems Procesados"
 
 #: templates/import_app/fragments/runs/list.html:55
-#, fuzzy
 msgid "Skipped Items"
-msgstr "Skipped Items"
+msgstr "Ítemos Omitidos"
 
 #: templates/import_app/fragments/runs/list.html:68
-#, fuzzy
 msgid "Failed Items"
-msgstr "Failed Items"
+msgstr "Ítems Fallidos"
 
 #: templates/import_app/fragments/runs/list.html:81
-#, fuzzy
 msgid "Successful Items"
-msgstr "Successful Items"
+msgstr "Ítems con Éxito"
 
 #: templates/import_app/fragments/runs/list.html:96
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:12
-#, fuzzy
 msgid "Logs"
-msgstr "Logs"
+msgstr "Registros"
 
 #: templates/import_app/fragments/runs/list.html:107
-#, fuzzy
 msgid "You won't be able to revert this! All imported items will be kept."
-msgstr "You won't be able to revert this! All imported items will be kept."
+msgstr ""
+"¡No podrás revertir esta acción!. Todos los elementos importados se "
+"conservarán."
 
 #: templates/import_app/fragments/runs/list.html:116
-#, fuzzy
 msgid "No runs yet"
-msgstr "No runs yet"
+msgstr "Aún no hay ejecuciones"
 
 #: templates/import_app/fragments/runs/log.html:5
-#, fuzzy
 msgid "Logs for"
-msgstr "Logs for"
+msgstr "Registros para"
 
 #: templates/includes/mobile_navbar.html:12 templates/includes/navbar.html:12
-#, fuzzy
 msgid "Toggle navigation"
-msgstr "Toggle navigation"
+msgstr "Alternar navegación"
 
 #: templates/includes/navbar.html:23
-#, fuzzy
 msgid "Overview"
-msgstr "Overview"
+msgstr "Visión General"
 
 #: templates/includes/navbar.html:41 templates/includes/sidebar.html:77
 msgid "Net Worth"
@@ -2876,9 +2806,8 @@ msgstr "Actual"
 
 #: templates/includes/navbar.html:51 templates/includes/sidebar.html:71
 #: templates/insights/pages/index.html:5
-#, fuzzy
 msgid "Insights"
-msgstr "Insights"
+msgstr "Análisis"
 
 #: templates/includes/navbar.html:67 templates/includes/sidebar.html:93
 msgid "Trash Can"
@@ -2895,9 +2824,8 @@ msgstr "Seguimiento de Promedio de Costo en Dólares (DCA)"
 #: templates/includes/navbar.html:92 templates/includes/sidebar.html:126
 #: templates/mini_tools/unit_price_calculator.html:5
 #: templates/mini_tools/unit_price_calculator.html:10
-#, fuzzy
 msgid "Unit Price Calculator"
-msgstr "Unit Price Calculator"
+msgstr "Calculadora de Precio Unitario"
 
 #: templates/includes/navbar.html:95 templates/includes/sidebar.html:132
 #: templates/mini_tools/currency_converter/currency_converter.html:8
@@ -2919,9 +2847,8 @@ msgid "Admin"
 msgstr "Administrador"
 
 #: templates/includes/navbar.html:157 templates/includes/sidebar.html:262
-#, fuzzy
 msgid "Only use this if you know what you're doing"
-msgstr "Only use this if you know what you're doing"
+msgstr "Usa esto sólo si sabes lo que estás haciendo"
 
 #: templates/includes/navbar.html:158 templates/includes/sidebar.html:261
 msgid "Django Admin"
@@ -2941,9 +2868,8 @@ msgid "Settings"
 msgstr "Ajustes"
 
 #: templates/includes/navbar/user_menu.html:17
-#, fuzzy
 msgid "Edit profile"
-msgstr "Edit import profile"
+msgstr "Editar perfil"
 
 #: templates/includes/navbar/user_menu.html:44
 msgid "Clear cache"
@@ -2993,9 +2919,8 @@ msgid "No information to display"
 msgstr "No hay información para mostrar"
 
 #: templates/insights/fragments/category_explorer/index.html:14
-#, fuzzy
 msgid "Income/Expense by Account"
-msgstr "Income/Expense by Account"
+msgstr "Ingreso/Gasto por Cuenta"
 
 #: templates/insights/fragments/category_explorer/index.html:26
 msgid "Income/Expense by Currency"
@@ -3026,9 +2951,8 @@ msgstr ""
 "se contarán una vez por cada etiqueta"
 
 #: templates/insights/fragments/category_overview/index.html:69
-#, fuzzy
 msgid "Final total"
-msgstr "final total"
+msgstr "Total final"
 
 #: templates/insights/fragments/category_overview/index.html:81
 #: templates/monthly_overview/fragments/monthly_summary.html:167
@@ -3036,9 +2960,8 @@ msgid "Total"
 msgstr "Total"
 
 #: templates/insights/fragments/category_overview/index.html:517
-#, fuzzy
 msgid "Final Total"
-msgstr "final total"
+msgstr "Total Final"
 
 #: templates/insights/fragments/emergency_fund.html:15
 msgid "You've spent an average of"
@@ -3077,9 +3000,8 @@ msgid "No recent transactions"
 msgstr "No hay transacciones recientes"
 
 #: templates/insights/fragments/sankey.html:93
-#, fuzzy
 msgid "From"
-msgstr "From"
+msgstr "Desde"
 
 #: templates/insights/fragments/sankey.html:96
 msgid "Percentage"
@@ -3150,7 +3072,7 @@ msgstr "Cuotas"
 
 #: templates/installment_plans/fragments/table.html:45
 msgid "Refresh"
-msgstr "Actualizar"
+msgstr "Refrescar"
 
 #: templates/installment_plans/fragments/table.html:51
 msgid ""
@@ -3422,9 +3344,8 @@ msgstr "Fecha de inicio"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:51
 #: templates/rules/fragments/transaction_rule/view.html:44
-#, fuzzy
 msgid "Set"
-msgstr "Set"
+msgstr "Establecer"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:52
 #: templates/rules/fragments/transaction_rule/view.html:45
