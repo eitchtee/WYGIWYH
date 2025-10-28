@@ -1,0 +1,11 @@
+<div id="{{ modal.css_id }}" class="tw:modal {{ modal.css_class }}" {{ modal.flat_attrs }}>
+    <div class="tw:modal-box" role="document">
+        <form method="dialog">
+            <button class="tw:btn tw:btn-sm tw:btn-circle tw:btn-ghost tw:absolute tw:right-2 tw:top-2" aria-label="Close">✕</button>
+        </form>
+        <h3 class="tw:font-bold tw:text-lg {{ modal.title_class }}" id="{{ modal.title_id }}-label">{{ modal.title }}</h3>
+        <div class="tw:py-4">
+            {{ fields }}
+        </div>
+    </div>
+</div>

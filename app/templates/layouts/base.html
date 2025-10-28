@@ -3,9 +3,8 @@
 {% load formats %}
 {% load i18n %}
 {% load title %}
-{% load webpack_loader %}
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,14 +18,14 @@
   {% include 'includes/head/favicons.html' %}
   {% progressive_web_app_meta %}
 
-  {% include 'includes/styles.html' %}
+{#  {% include 'includes/styles.html' %}#}
   {% block extra_styles %}{% endblock %}
 
   {% include 'includes/scripts.html' %}
 
   {% block extra_js_head %}{% endblock %}
 </head>
-<body class="font-monospace">
+<body class="tw:font-mono tw:bg-base-100">
 <div _="install hide_amounts
         install htmx_error_handler
         {% block body_hyperscript %}{% endblock %}"
@@ -38,10 +37,10 @@
   <main class="tw:p-4">
     {% settings "DEMO" as demo_mode %}
     {% if demo_mode %}
-    <div class="px-3 m-0" id="demo-mode-alert" hx-preserve>
-      <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+    <div class="tw:px-3 tw:m-0" id="demo-mode-alert" hx-preserve>
+      <div class="tw:alert tw:alert-warning tw:my-3" role="alert">
         <strong>{% trans 'This is a demo!' %}</strong> {% trans 'Any data you add here will be wiped in 24hrs or less' %}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="tw:btn tw:btn-sm tw:btn-ghost tw:absolute tw:right-2 tw:top-2" onclick="this.parentElement.style.display='none'" aria-label="Close">✕</button>
       </div>
     </div>
     {% endif %}

@@ -11,18 +11,17 @@
       id="sidebar"
       hx-boost="true"
       hx-swap="transition:true"
-      data-bs-scroll="true"
-      class="offcanvas-lg offcanvas-start d-lg-flex flex-column position-fixed top-0 start-0 h-100 bg-body-tertiary shadow-sm tw:z-1020">
-
-    <div class="d-none d-lg-flex tw:justify-between tw:items-center tw:border-b tw:border-gray-600 tw:lg:flex">
-      <a href="{% url 'index' %}" class="m-0 d-none d-lg-flex tw:justify-start p-3 text-decoration-none sidebar-title">
+      class="offcanvas-lg offcanvas-start tw:lg:flex tw:flex-col tw:fixed tw:top-0 tw:left-0 tw:h-full tw:bg-base-300! tw:shadow-sm tw:z-[1020]">
+    <div class="tw:hidden tw:lg:flex tw:items-center tw:justify-between tw:pr-4 tw:border-b tw:border-base-content/10 sidebar-submenu-header">
+      <a href="{% url 'index' %}" class="tw:m-0 tw:hidden tw:lg:flex tw:justify-start tw:p-3 tw:no-underline sidebar-title">
         <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
-        <span class="fs-4 fw-bold ms-3">WYGIWYH</span>
+        <span class="tw:text-2xl tw:font-bold tw:ml-3">WYGIWYH</span>
       </a>
 
       <button
           id="sidebar-toggle-btn"
-          class="text-secondary-emphasis tw:rounded-full tw:w-12 tw:h-12 tw:flex tw:items-center tw:justify-center tw:transition-all tw:duration-300"
+
+          class="tw:btn tw:btn-ghost tw:btn-circle tw:w-12 tw:h-12 tw:flex tw:items-center tw:justify-center tw:transition-all tw:duration-300"
           hx-get="{% url 'toggle_sidebar_status' %}"
           _="on click
            toggle .sidebar-floating on #sidebar-container
@@ -36,17 +35,17 @@
       </button>
     </div>
 
-    <div class="offcanvas-header">
-      <a href="{% url 'index' %}" class="offcanvas-title d-flex tw:justify-start text-decoration-none">
+    <div class="tw:lg:hidden tw:flex tw:justify-between tw:items-center tw:p-4 tw:text-base-content">
+      <a href="{% url 'index' %}" class="tw:flex tw:justify-start tw:no-underline">
         <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
-        <span class="fs-4 fw-bold ms-3">WYGIWYH</span>
+        <span class="tw:text-2xl tw:font-bold tw:ml-3">WYGIWYH</span>
       </a>
-      <button type="button" class="btn-close" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
-              aria-label={% translate 'Close' %}></button>
+      <button type="button" class="tw:btn tw:btn-ghost tw:btn-sm tw:btn-circle" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
+              aria-label={% translate 'Close' %}><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <hr class="m-0">
+    <hr class="tw:m-0 tw:text-base-content/60">
 
-    <ul class="list-unstyled p-3 d-flex flex-column gap-0 tw:text-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
+    <ul class="tw:list-none tw:p-3 tw:flex tw:flex-col tw:gap-1 tw:whitespace-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
         style="animation-duration: 100ms">
 
       <c-components.sidebar-menu-item
@@ -136,42 +135,43 @@
       </c-components.sidebar-menu-item>
 
       <div>
-        <hr>
+        <hr class="tw:border-base-300">
       </div>
 
-      <div type="button"
+      <div role="button"
            data-bs-toggle="collapse"
            data-bs-target="#collapsible-panel"
            aria-expanded="false"
            aria-controls="collapsible-panel"
-           class="sidebar-menu-item tw:text-wrap tw:lg:text-nowrap tw:lg:text-sm d-flex align-items-center text-decoration-none p-2 rounded-3 sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
+           class="sidebar-menu-item tw:text-wrap tw:lg:text-nowrap tw:lg:text-sm tw:flex tw:items-center tw:no-underline tw:p-2 tw:rounded-2xl tw:cursor-pointer sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
         <i class="fa-solid fa-toolbox fa-fw"></i>
-        <span class="ms-3 fw-medium tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">
+        <span class="tw:ml-3 tw:font-medium tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">
           {% translate 'Management' %}
         </span>
-        <i class="fa-solid fa-chevron-right fa-fw ms-auto pe-2"></i>
+        <i class="fa-solid fa-chevron-right fa-fw tw:ml-auto tw:pe-2"></i>
       </div>
     </ul>
 
-    <div class="mt-auto p-2 w-100">
+    <div class="tw:mt-auto tw:p-2 tw:w-full">
       <div id="collapsible-panel"
-           class="p-0 collapse tw:absolute tw:bottom-0 tw:left-0 tw:w-full tw:z-30 tw:max-h-dvh {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="show" %}">
+           class="tw:p-0 collapse tw:absolute tw:bottom-0 tw:left-0 tw:w-full tw:z-30 tw:max-h-dvh {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="show" %}">
         <div class="tw:h-dvh tw:backdrop-blur-3xl tw:flex tw:flex-col">
           <div
-              class="tw:justify-between tw:items-center tw:p-4 tw:border-b tw:border-gray-600 sidebar-submenu-header">
-            <h5 class="tw:text-lg tw:font-semibold tw:text-gray-800 m-0">
+              class="tw:justify-between tw:items-center tw:p-4 tw:border-b tw:border-base-content/10 sidebar-submenu-header tw:text-base-content">
+            <h5 class="tw:text-lg tw:font-semibold tw:text-base-content tw:m-0">
               {% trans 'Management' %}
             </h5>
 
-            <button type="button" class="btn-close" aria-label="Close"
+            <button type="button" class="tw:btn tw:btn-ghost tw:btn-sm tw:btn-circle" aria-label="{% trans 'Close' %}"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapsible-panel"
                     aria-expanded="true"
                     aria-controls="collapsible-panel">
+              <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
 
-          <ul class="list-unstyled p-3 d-flex flex-column gap-1 tw:lg:group-hover:animate-[disable-pointer-events] tw:flex-1"
+          <ul class="tw:list-none tw:p-3 tw:flex tw:flex-col tw:gap-2 tw:lg:group-hover:animate-[disable-pointer-events] tw:flex-1"
               style="animation-duration: 100ms">
             <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
             <c-components.sidebar-menu-item
@@ -269,16 +269,16 @@
       </div>
       {% get_update_check as update_check %}
       {% if update_check.update_available %}
-        <div class="my-3">
-          <a class="px-3 badge text-bg-primary text-decoration-none tw:cursor-pointer w-100 tw:text-xs!"
+        <div class="tw:my-3">
+          <a class="tw:px-3 tw:badge tw:badge-primary tw:no-underline tw:cursor-pointer tw:w-full !tw:text-xs"
              href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i
-              class="fa-solid fa-circle-exclamation fa-fw me-2"></i><span
+              class="fa-solid fa-circle-exclamation fa-fw tw:mr-2"></i><span
               class="tw:lg:invisible tw:lg:group-hover:visible">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
         </div>
       {% endif %}
 
-      <div class="btn-group w-100 sidebar-item" role="group">
-        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip"
+      <div class="tw:btn-group tw:w-full sidebar-item" role="group">
+        <button type="button" class="tw:btn tw:btn-secondary tw:btn-sm tw:w-full" data-bs-toggle="tooltip"
                 data-bs-title="{% trans "Calculator" %}"
                 _="on click trigger show on #calculator">
           <i class="fa-solid fa-calculator fa-fw"></i>
@@ -287,14 +287,14 @@
     </div>
 
     <div>
-      <hr class="my-1">
+      <hr class="tw:my-1 tw:border-base-300">
       <div
-          class="ps-4 pe-2 py-2 d-flex align-items-center text-decoration-none justify-content-between">
+          class="tw:ps-4 tw:pe-2 tw:py-2 tw:flex tw:items-center tw:no-underline tw:justify-between">
 
-        <div class="d-flex align-items-center" style="min-width: 0;">
-          <i class="fa-solid fa-circle-user text-body-secondary"></i>
+        <div class="tw:flex tw:items-center" style="min-width: 0;">
+          <i class="fa-solid fa-circle-user tw:text-base-content/60"></i>
 
-          <strong class="mx-2 text-body-secondary text-truncate sidebar-invisible">
+          <strong class="tw:mx-2 tw:text-base-content/60 tw:truncate sidebar-invisible">
             {{ user.email }}
           </strong>
         </div>

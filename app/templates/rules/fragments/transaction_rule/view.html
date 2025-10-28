@@ -10,14 +10,14 @@
     <div class="tw:text-2xl">{{ transaction_rule.name }}</div>
     <div class="tw:text-base tw:text-gray-400">{{ transaction_rule.description }}</div>
     <hr>
-    <div class="my-3">
-      <div class="tw:text-xl mb-2">{% translate 'If transaction...' %}</div>
-      <div class="card">
-        <div class="card-body">
+    <div class="tw:my-3">
+      <div class="tw:text-xl tw:mb-2">{% translate 'If transaction...' %}</div>
+      <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+        <div class="tw:card-body">
           {{ transaction_rule.trigger }}
         </div>
-        <div class="card-footer text-end">
-          <a class="text-decoration-none tw:text-gray-400 p-1"
+        <div class="tw:card-footer tw:text-end">
+          <a class="tw:no-underline tw:text-gray-400 tw:p-1"
              role="button"
              data-bs-toggle="tooltip"
              data-bs-title="{% translate "Edit" %}"
@@ -28,26 +28,26 @@
       </div>
     </div>
 
-    <div class="my-3">
-      <div class="tw:text-xl mb-2">{% translate 'Then...' %}</div>
+    <div class="tw:my-3">
+      <div class="tw:text-xl tw:mb-2">{% translate 'Then...' %}</div>
       {% for action in all_actions %}
         {% if action.action_type == "edit_transaction" %}
-          <div class="card mb-3">
-            <div class="card-header">
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3">
+            <div class="tw:card-header tw:bg-base-200 tw:p-4">
               <div>
-                {% if action.order != 0 %}<span class="badge text-bg-secondary">{{ action.order }}</span>{% endif %}
-                <span class="badge text-bg-primary">{% trans 'Edit transaction' %}</span>
+                {% if action.order != 0 %}<span class="tw:badge tw:badge-secondary">{{ action.order }}</span>{% endif %}
+                <span class="tw:badge tw:badge-primary">{% trans 'Edit transaction' %}</span>
               </div>
             </div>
-            <div class="card-body">
+            <div class="tw:card-body">
               <div>
                 {% translate 'Set' %} <span
-                  class="badge text-bg-secondary">{{ action.get_field_display }}</span> {% translate 'to' %}
+                  class="tw:badge tw:badge-secondary">{{ action.get_field_display }}</span> {% translate 'to' %}
               </div>
-              <div class="text-bg-secondary rounded-3 mt-3 p-2">{{ action.value }}</div>
+              <div class="tw:bg-base-200 tw:rounded-3xl tw:mt-3 tw:p-2">{{ action.value }}</div>
             </div>
-            <div class="card-footer text-end">
-              <a class="text-decoration-none tw:text-gray-400 p-1"
+            <div class="tw:card-footer tw:text-end">
+              <a class="tw:no-underline tw:text-gray-400 tw:p-1"
                  role="button"
                  data-bs-toggle="tooltip"
                  data-bs-title="{% translate 'Edit' %}"
@@ -55,7 +55,7 @@
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i>
               </a>
-              <a class="text-danger text-decoration-none p-1"
+              <a class="tw:text-error tw:no-underline tw:p-1"
                  role="button"
                  data-bs-toggle="tooltip"
                  data-bs-title="{% translate 'Delete' %}"
@@ -71,18 +71,18 @@
             </div>
           </div>
         {% elif action.action_type == "update_or_create_transaction" %}
-          <div class="card mb-3">
-            <div class="card-header">
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3">
+            <div class="tw:card-header tw:bg-base-200 tw:p-4">
               <div>
-                {% if action.order != 0 %}<span class="badge text-bg-secondary">{{ action.order }}</span>{% endif %}
-                <span class="badge text-bg-primary">{% trans 'Update or create transaction' %}</span>
+                {% if action.order != 0 %}<span class="tw:badge tw:badge-secondary">{{ action.order }}</span>{% endif %}
+                <span class="tw:badge tw:badge-primary">{% trans 'Update or create transaction' %}</span>
               </div>
             </div>
-            <div class="card-body">
+            <div class="tw:card-body">
               <div>{% trans 'Edit to view' %}</div>
             </div>
-            <div class="card-footer text-end">
-              <a class="text-decoration-none tw:text-gray-400 p-1"
+            <div class="tw:card-footer tw:text-end">
+              <a class="tw:no-underline tw:text-gray-400 tw:p-1"
                  role="button"
                  data-bs-toggle="tooltip"
                  data-bs-title="{% translate 'Edit' %}"
@@ -90,7 +90,7 @@
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i>
               </a>
-              <a class="text-danger text-decoration-none p-1"
+              <a class="tw:text-error tw:no-underline tw:p-1"
                  role="button"
                  data-bs-toggle="tooltip"
                  data-bs-title="{% translate 'Delete' %}"
@@ -107,47 +107,47 @@
           </div>
         {% endif %}
       {% empty %}
-        <div class="card">
-          <div class="card-body">
+        <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+          <div class="tw:card-body">
             {% translate 'This rule has no actions' %}
           </div>
         </div>
       {% endfor %}
       <hr>
-      <div class="d-grid d-lg-flex gap-2">
-        <div class="dropdown flex-fill">
-          <button class="btn btn-outline-primary text-decoration-none w-100" type="button" data-bs-toggle="dropdown"
+      <div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-2 tw:gap-2">
+        <div class="tw:dropdown">
+          <button class="tw:btn tw:btn-outline tw:btn-primary tw:no-underline tw:w-full" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
-            <i class="fa-solid fa-flask-vial me-2"></i>{% translate 'Test' %}
+            <i class="fa-solid fa-flask-vial tw:me-2"></i>{% translate 'Test' %}
           </button>
-          <ul class="dropdown-menu">
+          <ul class="tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:w-52 tw:p-2 tw:shadow">
             {% if transaction_rule.on_create %}
-              <li><a class="dropdown-item" role="link" href="#"
+              <li><a role="link" href="#"
                      hx-get="{% url 'transaction_rule_dry_run_created' pk=transaction_rule.id %}"
                      hx-target="#generic-offcanvas">{% trans 'Create' %}</a></li>
             {% endif %}
             {% if transaction_rule.on_update %}
-              <li><a class="dropdown-item" role="link" href="#"
+              <li><a role="link" href="#"
                      hx-get="{% url 'transaction_rule_dry_run_updated' pk=transaction_rule.id %}"
                      hx-target="#generic-offcanvas">{% trans 'Update' %}</a></li>
             {% endif %}
             {% if transaction_rule.on_delete %}
-              <li><a class="dropdown-item" role="link" href="#"
+              <li><a role="link" href="#"
                      hx-get="{% url 'transaction_rule_dry_run_deleted' pk=transaction_rule.id %}"
                      hx-target="#generic-offcanvas">{% trans 'Delete' %}</a></li>
             {% endif %}
           </ul>
         </div>
-        <div class="dropdown flex-fill">
-          <button class="btn btn-outline-primary text-decoration-none w-100" type="button" data-bs-toggle="dropdown"
+        <div class="tw:dropdown">
+          <button class="tw:btn tw:btn-outline tw:btn-primary tw:no-underline tw:w-full" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
-            <i class="fa-solid fa-circle-plus me-2"></i>{% translate 'Add new' %}
+            <i class="fa-solid fa-circle-plus tw:me-2"></i>{% translate 'Add new' %}
           </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" role="link" href="#"
+          <ul class="tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:w-52 tw:p-2 tw:shadow">
+            <li><a role="link" href="#"
                    hx-get="{% url 'transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
                    hx-target="#generic-offcanvas">{% trans 'Edit Transaction' %}</a></li>
-            <li><a class="dropdown-item" role="link" href="#"
+            <li><a role="link" href="#"
                    hx-get="{% url 'update_or_create_transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
                    hx-target="#generic-offcanvas">{% trans 'Update or Create Transaction' %}</a></li>
           </ul>

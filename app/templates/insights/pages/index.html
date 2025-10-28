@@ -5,12 +5,12 @@
 {% block title %}{% translate 'Insights' %}{% endblock %}
 
 {% block content %}
-  <div class="container-fluid">
-    <div class="row my-3 h-100">
-      <div class="col-lg-2 col-md-3 mb-3 mb-md-0">
-        <div class="position-sticky tw:top-3">
+  <div class="tw:container-fluid">
+    <div class="tw:flex tw:flex-wrap tw:my-3 tw:h-full">
+      <div class="tw:w-full tw:lg:w-2/12 tw:md:w-3/12 tw:mb-3 tw:md:mb-0">
+        <div class="tw:sticky tw:top-3">
           <div class="">
-            <div class="mb-2 w-100 d-lg-inline-flex d-grid gap-2 flex-wrap justify-content-lg-center" role="group"
+            <div class="tw:mb-2 tw:w-full tw:lg:inline-flex tw:grid tw:gap-2 tw:flex-wrap tw:lg:justify-center" role="group"
                  _="on change
                     set type to event.target.value
                     add .tw:hidden to <#picker-form > div:not(.tw\\:hidden)/>
@@ -32,27 +32,15 @@
                     end
                     then trigger updated"
                  id="picker-type">
-              <input type="radio" class="btn-check" name="type" value="month" id="monthradio" autocomplete="off"
-                     checked>
-              <label class="btn btn-sm btn-outline-primary flex-grow-1" for="monthradio">{% translate 'Month' %}</label>
+              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="month" id="monthradio" autocomplete="off" aria-label="{% translate 'Month' %}" checked>
 
-              <input type="radio" class="btn-check" name="type" value="year" id="yearradio" autocomplete="off">
-              <label class="btn btn-sm btn-outline-primary flex-grow-1" for="yearradio">{% translate 'Year' %}</label>
+              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="year" id="yearradio" autocomplete="off" aria-label="{% translate 'Year' %}">
 
-              <input type="radio" class="btn-check" name="type" value="month-range" id="monthrangeradio"
-                     autocomplete="off">
-              <label class="btn btn-sm btn-outline-primary flex-grow-1"
-                     for="monthrangeradio">{% translate 'Month Range' %}</label>
+              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="month-range" id="monthrangeradio" autocomplete="off" aria-label="{% translate 'Month Range' %}">
 
-              <input type="radio" class="btn-check" name="type" value="year-range" id="yearrangeradio"
-                     autocomplete="off">
-              <label class="btn btn-sm btn-outline-primary flex-grow-1"
-                     for="yearrangeradio">{% translate 'Year Range' %}</label>
+              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="year-range" id="yearrangeradio" autocomplete="off" aria-label="{% translate 'Year Range' %}">
 
-              <input type="radio" class="btn-check" name="type" value="date-range" id="daterangeradio"
-                     autocomplete="off">
-              <label class="btn btn-sm btn-outline-primary flex-grow-1"
-                     for="daterangeradio">{% translate 'Date Range' %}</label>
+              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="date-range" id="daterangeradio" autocomplete="off" aria-label="{% translate 'Date Range' %}">
             </div>
             <form id="picker-form"
                   _="install init_datepicker
@@ -74,49 +62,49 @@
               </div>
             </form>
           </div>
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+          <div class="tw:menu tw:menu-vertical tw:flex-col" id="v-pills-tab" role="tablist"
                aria-orientation="vertical">
-            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_sankey_by_account' %}" hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Account Flow' %}
             </button>
-            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_sankey_by_currency' %}"
                     hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Currency Flow' %}
             </button>
-            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'category_explorer_index' %}"
                     hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Category Explorer' %}
             </button>
-            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'category_overview' %}"
                     hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Categories Overview' %}
             </button>
-            <hr>
-            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <hr class="tw:border-base-300">
+            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_late_transactions' %}"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Late Transactions' %}
             </button>
-            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_latest_transactions' %}"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Latest Transactions' %}
             </button>
-            <button class="nav-link" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_emergency_fund' %}"
                     hx-indicator="#tab-content"
@@ -125,12 +113,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-9 col-lg-10">
-        <div class="tab-content w-100" id="v-pills-tabContent">
-          <div class="tab-pane fade" id="v-pills-content" role="tabpanel" tabindex="0">
-            <div id="tab-content" class="show-loading"></div>
-          </div>
-        </div>
+      <div class="tw:w-full tw:md:w-9/12 tw:lg:w-10/12">
+        <div id="tab-content" class="show-loading"></div>
       </div>
     </div>
   </div>

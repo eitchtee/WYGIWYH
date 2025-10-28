@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
-    "webpack_boilerplate",
+    "django_vite",
     "django.contrib.humanize",
     "django.contrib.postgres",
     "django_browser_reload",
@@ -127,6 +128,14 @@ STORAGES = {
 }
 
 WHITENOISE_MANIFEST_STRICT = False
+
+
+def immutable_file_test(path, url):
+    # Match vite (rollup)-generated hashes, à la, `some_file-CSliV9zW.js`
+    return re.match(r"^.+[.-][0-9a-zA-Z_-]{8,12}\..+$", url)
+
+
+WHITENOISE_IMMUTABLE_FILE_TEST = immutable_file_test
 
 WSGI_APPLICATION = "WYGIWYH.wsgi.application"
 
@@ -289,7 +298,7 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static_files"
 
 STATICFILES_DIRS = [
-    ROOT_DIR / "frontend/build",
+    ROOT_DIR / "frontend" / "build",
     BASE_DIR / "static",
 ]
 
@@ -305,9 +314,10 @@ CACHES = {
     }
 }
 
-WEBPACK_LOADER = {
-    "MANIFEST_FILE": ROOT_DIR / "frontend/build/manifest.json",
-}
+DJANGO_VITE_ASSETS_PATH = ROOT_DIR / "frontend" / "build"
+DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
+DJANGO_VITE_DEV_MODE = DEBUG
+DJANGO_VITE_DEV_SERVER_PORT = 5173
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -354,8 +364,12 @@ ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
 
 # CRISPY FORMS
-CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5", "crispy_forms/pure_text"]
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = [
+    "bootstrap5",
+    "crispy_forms/pure_text",
+    "crispy-daisyui",
+]
+CRISPY_TEMPLATE_PACK = "crispy-daisyui"
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = int(os.getenv("SESSION_EXPIRY_TIME", 2678400))  # 31 days

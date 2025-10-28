@@ -5,10 +5,10 @@
 {% block title %}{% translate 'Add quick transaction' %}{% endblock %}
 
 {% block body %}
-  <div class="list-group list-group-flush">
+  <div class="tw:menu tw:menu-vertical tw:bg-base-100 tw:w-full">
     {% for qt in quick_transactions %}
       <a hx-get="{% url 'quick_transaction_add_as_transaction' quick_transaction_id=qt.id %}"
-         class="list-group-item list-group-item-action tw:cursor-pointer {% if qt.type == 'EX' %}tw:text-red-400!{% else %}tw:text-green-400!{% endif %}">{{ qt.name }}</a>
+         class="tw:menu-item {% if qt.type == 'EX' %}tw:text-red-400!{% else %}tw:text-green-400!{% endif %}">{{ qt.name }}</a>
     {% empty %}
       <c-msg.empty title="{% translate "Nothing to see here..." %}" remove-padding></c-msg.empty>
     {% endfor %}

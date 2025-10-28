@@ -1,0 +1,19 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="tw:form-control tw:mb-3{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+        <div class="{{ field_class }}">
+            {% if field.errors %}
+                {% crispy_field field 'class' 'tw:toggle tw:toggle-error' 'role' 'switch' %}
+            {% else %}
+                {% crispy_field field 'class' 'tw:toggle' 'role' 'switch' %}
+            {% endif %}
+            <label for="{{ field.id_for_label }}" class="tw:label{% if field.field.required %} requiredField{% endif %}">
+                {{ field.label }}
+            </label>
+            {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
+        </div>
+    </{% if tag %}{{ tag }}{% else %}div{% endif %}>
+{% endif %}

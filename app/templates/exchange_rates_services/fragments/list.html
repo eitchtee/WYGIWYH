@@ -1,10 +1,10 @@
 {% load currency_display %}
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+<div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5">
+  <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
     {% spaceless %}
       <div>{% translate 'Automatic Exchange Rates' %}<span>
-      <a class="text-decoration-none tw:text-2xl p-1 category-action"
+      <a class="tw:no-underline tw:text-2xl tw:p-1 category-action"
          role="button"
          data-bs-toggle="tooltip"
          data-bs-title="{% translate "Add" %}"
@@ -15,39 +15,39 @@
     {% endspaceless %}
   </div>
 
-  <div class="card">
-    <div class="card-header text-body-secondary">
+  <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+    <div class="tw:card-header tw:bg-base-200 tw:p-4 tw:text-base-content/70">
       <button type="button" hx-get="{% url 'automatic_exchange_rate_force_fetch' %}"
-              class="btn btn-outline-primary btn-sm">{% trans 'Fetch all' %}</button>
+              class="tw:btn tw:btn-outline tw:btn-primary tw:btn-sm">{% trans 'Fetch all' %}</button>
     </div>
-    <div class="card-body">
+    <div class="tw:card-body">
       {% if services %}
         <c-config.search></c-config.search>
-        <div class="table-responsive">
-          <table class="table table-hover">
+        <div class="tw:overflow-x-auto">
+          <table class="tw:table tw:table-hover">
             <thead>
             <tr>
-              <th scope="col" class="col-auto"></th>
-              <th scope="col" class="col-auto"></th>
-              <th scope="col" class="col-auto">{% translate 'Name' %}</th>
-              <th scope="col" class="col">{% translate 'Service' %}</th>
-              <th scope="col" class="col">{% translate 'Targeting' %}</th>
-              <th scope="col" class="col">{% translate 'Last fetch' %}</th>
+              <th scope="col" class="tw:w-auto"></th>
+              <th scope="col" class="tw:w-auto"></th>
+              <th scope="col" class="tw:w-auto">{% translate 'Name' %}</th>
+              <th scope="col">{% translate 'Service' %}</th>
+              <th scope="col">{% translate 'Targeting' %}</th>
+              <th scope="col">{% translate 'Last fetch' %}</th>
             </tr>
             </thead>
             <tbody>
             {% for service in services %}
               <tr class="services">
-                <td class="col-auto">
-                  <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-                    <a class="btn btn-secondary btn-sm"
+                <td class="tw:w-auto">
+                  <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
+                    <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
                        role="button"
                        data-bs-toggle="tooltip"
                        data-bs-title="{% translate "Edit" %}"
                        hx-get="{% url 'automatic_exchange_rate_edit' pk=service.id %}"
                        hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-pencil fa-fw"></i></a>
-                    <a class="btn btn-secondary btn-sm text-danger"
+                    <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-error"
                        role="button"
                        data-bs-toggle="tooltip"
                        data-bs-title="{% translate "Delete" %}"
@@ -60,12 +60,12 @@
                        _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
                   </div>
                 </td>
-                <td class="col-auto">{% if service.is_active %}<i class="fa-solid fa-circle text-success"></i>{% else %}
-                  <i class="fa-solid fa-circle text-danger"></i>{% endif %}</td>
-                <td class="col-auto">{{ service.name }}</td>
-                <td class="col">{{ service.get_service_type_display }}</td>
-                <td class="col">{{ service.target_currencies.count }} {% trans 'currencies' %}, {{ service.target_accounts.count }} {% trans 'accounts' %}</td>
-                <td class="col">{{ service.last_fetch|date:"SHORT_DATETIME_FORMAT" }}</td>
+                <td class="tw:w-auto">{% if service.is_active %}<i class="fa-solid fa-circle tw:text-success"></i>{% else %}
+                  <i class="fa-solid fa-circle tw:text-error"></i>{% endif %}</td>
+                <td class="tw:w-auto">{{ service.name }}</td>
+                <td>{{ service.get_service_type_display }}</td>
+                <td>{{ service.target_currencies.count }} {% trans 'currencies' %}, {{ service.target_accounts.count }} {% trans 'accounts' %}</td>
+                <td>{{ service.last_fetch|date:"SHORT_DATETIME_FORMAT" }}</td>
               </tr>
             {% endfor %}
             </tbody>

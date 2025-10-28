@@ -11,21 +11,21 @@
        class="show-loading"
        hx-swap="show:none scroll:none">
     {% if runs %}
-    <div class="row row-cols-1 g-4">
+    <div class="tw:grid tw:grid-cols-1 tw:gap-4">
     {% for run in runs %}
       <div class="col">
-        <div class="card">
-          <div class="card-header tw:text-sm {% if run.status == run.Status.QUEUED %}text-body{% elif run.status == run.Status.PROCESSING %}text-warning{% elif run.status == run.Status.FINISHED %}text-success{% else %}text-danger{% endif %}">
-            <span><i class="fa-solid {% if run.status == run.Status.QUEUED %}fa-hourglass-half{% elif run.status == run.Status.PROCESSING %}fa-spinner{% elif run.status == run.Status.FINISHED %}fa-check{% else %}fa-xmark{% endif %} fa-fw me-2"></i>{{ run.get_status_display }}</span>
+        <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+          <div class="tw:card-header tw:bg-base-200 tw:p-4 tw:text-sm {% if run.status == run.Status.QUEUED %}tw:text-base-content{% elif run.status == run.Status.PROCESSING %}tw:text-warning{% elif run.status == run.Status.FINISHED %}tw:text-success{% else %}tw:text-error{% endif %}">
+            <span><i class="fa-solid {% if run.status == run.Status.QUEUED %}fa-hourglass-half{% elif run.status == run.Status.PROCESSING %}fa-spinner{% elif run.status == run.Status.FINISHED %}fa-check{% else %}fa-xmark{% endif %} fa-fw tw:me-2"></i>{{ run.get_status_display }}</span>
           </div>
-          <div class="card-body">
-            <h5 class="card-title"><i class="fa-solid fa-hashtag me-1 tw:text-xs tw:text-gray-400"></i>{{ run.id }}<span class="tw:text-xs tw:text-gray-400 ms-1">({{ run.file_name }})</span></h5>
+          <div class="tw:card-body">
+            <h5 class="tw:card-title"><i class="fa-solid fa-hashtag tw:me-1 tw:text-xs tw:text-gray-400"></i>{{ run.id }}<span class="tw:text-xs tw:text-gray-400 tw:ms-1">({{ run.file_name }})</span></h5>
             <hr>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 w-100 g-4">
+            <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:lg:grid-cols-3 tw:w-full tw:gap-4">
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="tw:flex tw:flex-row">
+                  <div class="tw:flex tw:flex-col">
+                    <div class="tw:text-base-content/70 tw:text-xs tw:font-medium">
                       {% trans 'Total Items' %}
                     </div>
                     <div class="tw:text-sm">
@@ -36,9 +36,9 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="tw:flex tw:flex-row">
+                  <div class="tw:flex tw:flex-col">
+                    <div class="tw:text-base-content/70 tw:text-xs tw:font-medium">
                       {% trans 'Processed Items' %}
                     </div>
                     <div class="tw:text-sm">
@@ -49,9 +49,9 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="tw:flex tw:flex-row">
+                  <div class="tw:flex tw:flex-col">
+                    <div class="tw:text-base-content/70 tw:text-xs tw:font-medium">
                       {% trans 'Skipped Items' %}
                     </div>
                     <div class="tw:text-sm">
@@ -62,9 +62,9 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="tw:flex tw:flex-row">
+                  <div class="tw:flex tw:flex-col">
+                    <div class="tw:text-base-content/70 tw:text-xs tw:font-medium">
                       {% trans 'Failed Items' %}
                     </div>
                     <div class="tw:text-sm">
@@ -75,9 +75,9 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="tw:flex tw:flex-row">
+                  <div class="tw:flex tw:flex-col">
+                    <div class="tw:text-base-content/70 tw:text-xs tw:font-medium">
                       {% trans 'Successful Items' %}
                     </div>
                     <div class="tw:text-sm">
@@ -89,14 +89,14 @@
 
             </div>
           </div>
-          <div class="card-footer text-body-secondary">
-            <a class="text-decoration-none text-info"
+          <div class="tw:card-footer tw:bg-base-200 tw:p-4 tw:text-base-content/70">
+            <a class="tw:no-underline tw:text-info"
                role="button"
                data-bs-toggle="tooltip"
                data-bs-title="{% translate "Logs" %}"
                hx-get="{% url 'import_run_log' profile_id=profile.id run_id=run.id %}"
                hx-target="#generic-offcanvas"><i class="fa-solid fa-file-lines"></i></a>
-            <a class="text-decoration-none text-danger"
+            <a class="tw:no-underline tw:text-error"
                role="button"
                data-bs-toggle="tooltip"
                data-bs-title="{% translate "Delete" %}"

@@ -1,8 +1,7 @@
 {% load i18n %}
-{% load webpack_loader %}
-<div class="offcanvas-header">
-  <h5 class="offcanvas-title">{% block title %}{% endblock %}</h5>
-  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label={% translate 'Close' %}></button>
+<div class="offcanvas-header tw:flex tw:justify-between tw:items-center">
+  <h5 class="offcanvas-title tw:font-medium tw:text-xl">{% block title %}{% endblock %}</h5>
+  <button type="button" class="tw:btn tw:btn-ghost tw:btn-sm tw:btn-circle" aria-label="{% trans 'Close' %}" data-bs-dismiss="offcanvas"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <div id="generic-offcanvas-body" class="offcanvas-body"
      _="install init_tom_select

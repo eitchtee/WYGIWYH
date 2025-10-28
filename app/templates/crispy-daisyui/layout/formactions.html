@@ -1,0 +1,11 @@
+<div
+    {% if formactions.flat_attrs %}{{ formactions.flat_attrs }}{% endif %} 
+    class="tw:mb-3 tw:flex tw:gap-2 {{ formactions.css_class|default:'' }} {{ field_class }}" 
+    {% if formactions.id %} id="{{ formactions.id }}"{% endif %}>
+    {% if label_class %}
+        <div class="aab {{ label_class }}"></div>
+    {% endif %}
+    <div class="{{ field_class }}">
+        {{ fields_output|safe }}
+    </div>
+</div>

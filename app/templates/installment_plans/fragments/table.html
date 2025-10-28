@@ -8,22 +8,22 @@
   {% if installment_plans %}
   <c-config.search></c-config.search>
 
-  <div class="table-responsive">
-    <table class="table table-hover align-middle">
+  <div class="tw:overflow-x-auto">
+    <table class="tw:table tw:table-zebra">
       <thead>
         <tr>
-          <th scope="col" class="col-auto"></th>
-          <th scope="col" class="col">{% translate 'Name' %}</th>
-          <th scope="col" class="col">{% translate 'Account' %}</th>
-          <th scope="col" class="col">{% translate 'Amount' %}</th>
+          <th scope="col" class="tw:w-auto"></th>
+          <th scope="col">{% translate 'Name' %}</th>
+          <th scope="col">{% translate 'Account' %}</th>
+          <th scope="col">{% translate 'Amount' %}</th>
         </tr>
       </thead>
       <tbody>
         {% for installment_plan in installment_plans %}
         <tr class="installment-plan">
-          <td class="col-auto text-center">
-            <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-              <a class="btn btn-secondary btn-sm"
+          <td class="tw:w-auto tw:text-center">
+            <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
+              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
                     role="button"
                     data-bs-toggle="tooltip"
                     data-bs-title="{% translate "Edit" %}"
@@ -31,7 +31,7 @@
                     hx-swap="innerHTML"
                     hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm"
+              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
                     role="button"
                     data-bs-toggle="tooltip"
                     data-bs-title="{% translate "Installments" %}"
@@ -39,7 +39,7 @@
                     hx-swap="innerHTML"
                     hx-target="#persistent-generic-offcanvas-left">
                 <i class="fa-solid fa-eye fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm text-info"
+              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-info"
                     role="button"
                     data-bs-toggle="tooltip"
                     data-bs-title="{% translate "Refresh" %}"
@@ -52,7 +52,7 @@
                     data-confirm-text="{% translate "Yes, refresh it!" %}"
                     _="install prompt_swal">
                 <i class="fa-solid fa-arrows-rotate fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm text-danger"
+              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-error"
                       role="button"
                       data-bs-toggle="tooltip"
                       data-bs-title="{% translate "Delete" %}"
@@ -65,16 +65,16 @@
                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
             </div>
           </td>
-          <td class="col">
+          <td>
             <div class="{% if installment_plan.type == 'EX' %}tw:text-red-400{% else %}tw:text-green-400{% endif %}">
               {{ installment_plan.description }}
             </div>
-            <div class="tw:text-sm tw:text-gray-400">{{ installment_plan.notes|linebreaksbr }}</div>
+            <div class="tw:text-sm tw:text-base-content/60">{{ installment_plan.notes|linebreaksbr }}</div>
           </td>
-          <td class="col-auto">
+          <td class="tw:w-auto">
             {% if installment_plan.account.group %}{{ installment_plan.account.group }} • {% endif %}{{ installment_plan.account }}
           </td>
-          <td class="col-auto">
+          <td class="tw:w-auto">
             <c-amount.display
               :amount="installment_plan.installment_amount"
               :prefix="installment_plan.account.currency.prefix"

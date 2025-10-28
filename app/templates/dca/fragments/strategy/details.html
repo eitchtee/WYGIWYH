@@ -1,13 +1,13 @@
 {% load currency_display %}
 {% load i18n %}
-<div class="container-fluid px-md-3 py-3 column-gap-5">
-  <div class="d-lg-flex justify-content-between mb-3 w-100">
-    <div class="tw:text-3xl fw-bold font-monospace d-flex align-items-center">
+<div class="tw:container-fluid tw:px-md-3 tw:py-3 tw:column-gap-5">
+  <div class="tw:lg:flex tw:justify-between tw:mb-3 tw:w-full">
+    <div class="tw:text-3xl tw:font-bold tw:font-mono tw:flex tw:items-center">
       {{ strategy.name }}
     </div>
-    <div class="tw:text-sm text-lg-end mt-2 mt-lg-0">
-      <div class="mb-2">
-        <span class="badge rounded-pill text-bg-secondary">{{ strategy.payment_currency.name }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ strategy.target_currency.name }}</span>
+    <div class="tw:text-sm tw:lg:text-right tw:mt-2 tw:lg:mt-0">
+      <div class="tw:mb-2">
+        <span class="tw:badge tw:badge-secondary tw:rounded-full">{{ strategy.payment_currency.name }}</span> x <span class="tw:badge tw:badge-secondary tw:rounded-full">{{ strategy.target_currency.name }}</span>
       </div>
       <div>
         {% if strategy.current_price %}
@@ -25,13 +25,13 @@
     </div>
   </div>
 
-  <div class="row gy-3 gx-3">
-    <div class="col-xl-6 col">
-      <div class="card">
-        <div class="card-body">
+  <div class="tw:grid tw:lg:grid-cols-2 tw:gap-3">
+    <div>
+      <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+        <div class="tw:card-body">
           {% spaceless %}
-            <div class="card-title tw:text-xl">{% trans "Entries" %}<span>
-                <a class="text-decoration-none p-1 category-action"
+            <div class="tw:card-title tw:text-xl">{% trans "Entries" %}<span>
+                <a class="tw:no-underline tw:p-1 category-action"
                    role="button"
                    data-bs-toggle="tooltip"
                    data-bs-title="{% translate "Add" %}"
@@ -44,8 +44,8 @@
           {% endspaceless %}
 
           {% if entries %}
-            <div class="table-responsive">
-              <table class="table table-hover text-nowrap">
+            <div class="tw:overflow-x-auto">
+              <table class="tw:table tw:table-hover tw:whitespace-nowrap">
                 <thead>
                 <tr>
                   <th></th>
@@ -59,9 +59,9 @@
                 <tbody>
                 {% for entry in entries %}
                   <tr>
-                    <td class="col-auto">
-                      <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-                        <a class="btn btn-secondary btn-sm"
+                    <td class="tw:w-auto">
+                      <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
+                        <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
                            role="button"
                            data-bs-toggle="tooltip"
                            data-bs-title="{% translate "Edit" %}"
@@ -69,7 +69,7 @@
                            hx-target="#generic-offcanvas"
                            hx-swap="innerHTML">
                           <i class="fa-solid fa-pencil fa-fw"></i></a>
-                        <a class="btn btn-secondary btn-sm text-danger"
+                        <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-error"
                            role="button"
                            data-bs-toggle="tooltip"
                            data-bs-title="{% translate "Delete" %}"
@@ -107,11 +107,11 @@
                     </td>
                     <td>
                       {% if entry.profit_loss_percentage > 0 %}
-                        <span class="badge text-bg-success"><i
-                            class="fa-solid fa-up-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
+                        <span class="tw:badge tw:badge-success"><i
+                            class="fa-solid fa-up-long tw:me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
                       {% elif entry.profit_loss_percentage < 0 %}
-                        <span class="badge text-bg-danger"><i
-                            class="fa-solid fa-down-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
+                        <span class="tw:badge tw:badge-error"><i
+                            class="fa-solid fa-down-long tw:me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
                       {% endif %}
                     </td>
                   </tr>
@@ -127,13 +127,13 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-6 col">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 gy-3 gx-3">
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Total Invested" %}</h5>
-              <div class="card-text">
+    <div>
+      <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:xl:grid-cols-3 tw:gap-3">
+        <div>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Total Invested" %}</h5>
+              <div class="tw:text-base-content">
                 <c-amount.display
                     :amount="strategy.total_invested"
                     :prefix="strategy.payment_currency.prefix"
@@ -143,11 +143,11 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Total Received" %}</h5>
-              <div class="card-text">
+        <div>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Total Received" %}</h5>
+              <div class="tw:text-base-content">
                 <c-amount.display
                     :amount="strategy.total_received"
                     :prefix="strategy.target_currency.prefix"
@@ -157,11 +157,11 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Current Total Value" %}</h5>
-              <div class="card-text">
+        <div>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Current Total Value" %}</h5>
+              <div class="tw:text-base-content">
                 <c-amount.display
                     :amount="strategy.current_total_value"
                     :prefix="strategy.payment_currency.prefix"
@@ -171,11 +171,11 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Average Entry Price" %}</h5>
-              <div class="card-text">
+        <div>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Average Entry Price" %}</h5>
+              <div class="tw:text-base-content">
                 <c-amount.display
                     :amount="strategy.average_entry_price"
                     :prefix="strategy.payment_currency.prefix"
@@ -185,12 +185,12 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Total P/L" %}</h5>
+        <div>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Total P/L" %}</h5>
               <div
-                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
+                  class="tw:text-base-content {% if strategy.total_profit_loss >= 0 %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
                 <c-amount.display
                     :amount="strategy.total_profit_loss"
                     :prefix="strategy.payment_currency.prefix"
@@ -201,20 +201,20 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Total % P/L" %}</h5>
+        <div>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Total % P/L" %}</h5>
               <div
-                  class="card-text {% if strategy.total_profit_loss >= 0 %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
+                  class="tw:text-base-content {% if strategy.total_profit_loss >= 0 %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
                 {{ strategy.total_profit_loss_percentage|floatformat:2 }}%
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-12"
+      <div class="tw:grid tw:mt-4">
+        <div class="tw:col-span-12"
              _="on htmx:afterSettle from #strategy-details
               set perfomancectx to #performanceChart.getContext('2d')
               js(perfomancectx)
@@ -283,16 +283,16 @@
 })
               end
             ">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Performance Over Time" %}</h5>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Performance Over Time" %}</h5>
               <canvas id="performanceChart"></canvas>
             </div>
           </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-12"
+      <div class="tw:grid tw:mt-4">
+        <div class="tw:col-span-12"
              _="on htmx:afterSettle from #strategy-details
               set pricectx to #priceChart.getContext('2d')
               set priceData to {{ price_comparison_data|safe }}
@@ -387,16 +387,16 @@
 })
               end
             ">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Entry Price vs Current Price" %}</h5>
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Entry Price vs Current Price" %}</h5>
               <canvas id="priceChart"></canvas>
             </div>
           </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-12"
+      <div class="tw:grid tw:mt-4">
+        <div class="tw:col-span-12"
              _="on htmx:afterSettle from #strategy-details
               set frequencyctx to #frequencyChart.getContext('2d')
               js(frequencyctx)
@@ -450,10 +450,10 @@
 })
               end
             ">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{% trans "Investment Frequency" %}</h5>
-              <p class="card-text tw:text-gray-400">
+          <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+            <div class="tw:card-body">
+              <h5 class="tw:card-title">{% trans "Investment Frequency" %}</h5>
+              <p class="tw:text-base-content/60">
                 {% trans "The straighter the blue line, the more consistent your DCA strategy is." %}
               </p>
               <canvas id="frequencyChart"></canvas>

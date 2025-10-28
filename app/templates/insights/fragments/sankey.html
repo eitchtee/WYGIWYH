@@ -7,7 +7,7 @@
   <div class="show-loading" hx-get="{% url 'insights_sankey_by_currency' %}" hx-trigger="updated from:window"
        hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
 {% endif %}
-<div class="chart-container position-relative tw:min-h-[85vh] tw:max-h-[85vh] tw:h-full tw:w-full"
+<div class="chart-container tw:relative tw:min-h-[85vh] tw:max-h-[85vh] tw:h-full tw:w-full"
      id="sankeyContainer"
      _="init call setupSankeyChart() end">
   <canvas id="sankeyChart"></canvas>

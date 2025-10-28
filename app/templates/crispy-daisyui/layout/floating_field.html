@@ -1,0 +1,28 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="tw:mb-3{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    
+    <label class="tw:input tw:input-bordered tw:flex tw:items-center tw:gap-2" {% if field.id_for_label %}for="{{ field.id_for_label }}"{% endif %}{% if label_class %} {{ label_class }}{% endif %}>
+    {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+    {% if field|is_select %}
+        {%if field.errors %}
+            {% crispy_field field 'class' 'tw:select tw:select-bordered tw:select-error tw:grow' 'placeholder' field.name %}
+        {% else %}
+            {% crispy_field field 'class' 'tw:select tw:select-bordered tw:grow' 'placeholder' field.name %}
+        {% endif %}
+    {% else %}
+        {% if field.errors %}
+            {% crispy_field field 'class' 'tw:grow' 'placeholder' field.name %}
+        {% else %}
+            {% crispy_field field 'class' 'tw:grow' 'placeholder' field.name %}
+        {% endif %} 
+    {% endif %} 
+    </label>
+
+    {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
+
+    </{% if tag %}{{ tag }}{% else %}div{% endif %}>
+{% endif %}

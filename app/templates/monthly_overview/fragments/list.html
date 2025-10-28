@@ -6,8 +6,8 @@
   {% for x in transactions_by_date %}
     <div id="{{ x.grouper|slugify }}" class="transactions-divider"
          _="on htmx:afterSwap from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
-      <div class="mt-3 mb-1 w-100 tw:text-base border-bottom bg-body transactions-divider-title">
-        <a class="text-decoration-none d-inline-block w-100"
+      <div class="tw:mt-3 tw:mb-1 tw:w-full tw:text-base tw:border-b tw:border-b-base-content/30 transactions-divider-title">
+        <a class="tw:no-underline tw:inline-block tw:w-full"
            role="button"
            data-bs-toggle="collapse"
            data-bs-target="#c-{{ x.grouper|slugify }}-collapse"
@@ -32,7 +32,7 @@
               on show
                 add .show to me
                 set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to true">
-        <div class="d-flex flex-column">
+        <div class="tw:flex tw:flex-col">
         {% for transaction in x.list %}
           <c-transaction.item
             :transaction="transaction"></c-transaction.item>

@@ -2,40 +2,40 @@
 {% load i18n %}
 
 <div>
-  <div class="tw:hidden tw:lg:grid tw:lg:grid-cols-7 tw:gap-4 tw:lg:gap-0">
-    <div class="border-start border-top border-bottom p-2 text-center">
+  <div class="tw:hidden tw:lg:grid tw:lg:grid-cols-7 tw:gap-4 tw:lg:gap-0 bg-base-300">
+    <div class="tw:border-l tw:border-t tw:border-b tw:border-base-100 tw:p-2 tw:text-center">
       {% translate 'MON' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="tw:border-t tw:border-b tw:border-base-300 tw:p-2 tw:text-center">
       {% translate 'TUE' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="tw:border-t tw:border-b tw:border-base-300 tw:p-2 tw:text-center">
       {% translate 'WED' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="tw:border-t tw:border-b tw:border-base-300 tw:p-2 tw:text-center">
       {% translate 'THU' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="tw:border-t tw:border-b tw:border-base-300 tw:p-2 tw:text-center">
       {% translate 'FRI' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="tw:border-t tw:border-b tw:border-base-300 tw:p-2 tw:text-center">
       {% translate 'SAT' %}
     </div>
-    <div class="border-end border-top border-bottom p-2 text-center">
+    <div class="tw:border-r tw:border-t tw:border-b tw:border-base-300 tw:p-2 tw:text-center">
       {% translate 'SUN' %}
     </div>
   </div>
   <div class="tw:grid tw:grid-cols-1 tw:grid-rows-1 tw:lg:grid-cols-7 tw:lg:grid-rows-6 tw:gap-4 tw:lg:gap-0">
     {% for date in dates %}
       {% if date %}
-      <div class="card h-100 tw:hover:bg-zinc-900! rounded-0{% if not date.transactions %} tw:hidden! tw:lg:flex!{% endif %}{% if today == date.date %} tw:border-yellow-300 border-primary{% endif %} " role="button"
+      <div class="tw:card tw:bg-base-200 tw:h-full tw:hover:bg-base-300! tw:rounded-none tw:card-border tw:border-base-content/50 {% if not date.transactions %}tw:hidden! tw:lg:flex!{% endif %}{% if today == date.date %} tw:card-border tw:border-2 tw:border-primary{% endif %}" role="button"
         hx-get="{% url 'calendar_transactions_list' day=date.date.day month=date.date.month year=date.date.year %}"
         hx-target="#persistent-generic-offcanvas-left">
-        <div class="card-header border-0 bg-transparent text-end tw:flex justify-content-between p-2 w-100">
-          <div class="tw:lg:hidden text-start w-100">{{ date.date|date:"l"|lower }}</div>
-          <div class="text-end w-100">{{ date.day }}</div>
+        <div class="tw:card-header tw:border-0 tw:bg-transparent tw:text-end tw:flex tw:justify-between tw:p-2 tw:w-full">
+          <div class="tw:lg:hidden tw:text-start tw:w-full">{{ date.date|date:"l"|lower }}</div>
+          <div class="tw:text-end tw:w-full">{{ date.day }}</div>
         </div>
-        <div class="card-body p-2">
+        <div class="tw:card-body tw:p-2">
           {% for transaction in date.transactions %}
             {% if transaction.is_paid %}
               {% if transaction.type == "IN" and not transaction.account.is_asset %}
@@ -62,7 +62,7 @@
         </div>
       </div>
       {% else %}
-        <div class="tw:hidden! tw:lg:block! card h-100 rounded-0"></div>
+        <div class="tw:hidden! tw:lg:block! tw:card tw:bg-base-100 tw:h-full tw:rounded-none"></div>
       {% endif %}
     {% endfor %}
   </div>

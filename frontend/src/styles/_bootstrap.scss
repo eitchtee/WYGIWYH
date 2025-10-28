@@ -1,33 +1,28 @@
 @use "sass:map";
-@import "bootstrap/scss/functions";
 @import "variables";
+@import "bootstrap/scss/bootstrap-utilities";
 
 // Import all of Bootstrap's CSS
-@import "bootstrap/scss/bootstrap";
+// @import "bootstrap/scss/bootstrap";
+@import "bootstrap/scss/offcanvas";
+// @import "bootstrap/scss/forms";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+
+// @import "bootstrap/scss/"
 
 .form-label {
   font-size: $font-size-base; // Fixes crispy-bootstrap5 legend labels being too big
   font-weight: bold;
 }
 
-$theme-colors: map.merge(
-  $theme-colors,
-  (
-    "primary": $primary
-  )
-);
-
-@media all and (min-width: 992px) {
-  .navbar .nav-item .dropdown-menu {
-    display: none;
-    margin-top: 0;
-  }
-
-  .navbar .nav-item:hover .dropdown-menu {
-    display: block;
-    left: 0;
-  }
-}
+$theme-colors: map.merge($theme-colors,
+    ("primary": $primary ));
 
 .table .col-auto {
   width: 1%;
@@ -42,7 +37,8 @@ $theme-colors: map.merge(
   --#{$prefix}offcanvas-width: min(95vw, 90vw) !important;
 }
 
-.offcanvas-size-md { /* add Responsivenes to default offcanvas */
+.offcanvas-size-md {
+  /* add Responsivenes to default offcanvas */
   --#{$prefix}offcanvas-width: min(95vw, 400px) !important;
 }
 
@@ -51,5 +47,5 @@ $theme-colors: map.merge(
 }
 
 .dropdown-toggle.dropdown-toggle-no-icon::after {
-  display:none;
+  display: none;
 }

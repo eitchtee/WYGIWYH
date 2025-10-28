@@ -5,12 +5,12 @@
 {% block title %}{% translate 'Restore' %}{% endblock %}
 
 {% block body %}
-  <div class="container p-3">
+  <div class="tw:container tw:p-3">
     <form hx-post="{% url 'restore_form' %}"
           hx-target="#generic-offcanvas"
           id="restore-form"
           enctype="multipart/form-data"
-          class="show-loading px-1">
+          class="show-loading tw:px-1">
       {% crispy form %}
     </form>
   </div>

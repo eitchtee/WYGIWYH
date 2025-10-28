@@ -3,68 +3,62 @@
 
 <div hx-get="{% url 'insights_emergency_fund' %}" hx-trigger="updated from:window" class="show-loading"
      hx-swap="outerHTML">
-  <div class="accordion" id="emergency-fund-accordion">
+  <div class="tw:join tw:join-vertical tw:w-full" id="emergency-fund-accordion">
     {% for id, data in data.items %}
       {% if data.average %}
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapse-{{ id }}" aria-expanded="false"
-                    aria-controls="flush-collapse-{{ id }}">
-              <span>
-                <span class="tw:text-gray-300">{% trans "You've spent an average of" %}</span>
+        <div class="tw:collapse tw:collapse-arrow tw:join-item tw:border-base-300 tw:border">
+          <input type="radio" name="emergency-fund-accordion" />
+          <div class="tw:collapse-title tw:text-base tw:font-medium">
+            <span>
+              <span class="tw:text-base-content/60">{% trans "You've spent an average of" %}</span>
+              <c-amount.display
+                  :amount="data.average"
+                  :prefix="data.currency.prefix"
+                  :suffix="data.currency.suffix"
+                  :decimal_places="data.currency.decimal_places"
+                  custom_class="tw:text-3xl"
+                  divless></c-amount.display>
+              <span class="tw:text-base-content/60">{% trans 'on the last 12 months, at this rate you could go by' %}</span>
+              <span class="tw:text-3xl">{{ data.months }}</span>
+              <span class="tw:text-base-content/60">{% trans 'months without any income.' %}</span>
+            </span>
+          </div>
+          <div class="tw:collapse-content">
+            <div class="tw:flex tw:justify-between tw:items-baseline tw:mt-2">
+              <div class="tw:text-end tw:font-mono">
+                <div class="tw:text-base-content/60">{% translate 'average expenses' %}</div>
+              </div>
+              <div class="dotted-line tw:flex-grow"></div>
+              <div class="tw:text-end tw:font-mono">
                 <c-amount.display
                     :amount="data.average"
                     :prefix="data.currency.prefix"
                     :suffix="data.currency.suffix"
                     :decimal_places="data.currency.decimal_places"
-                    custom_class="tw:text-3xl"
-                    divless></c-amount.display>
-                <span class="tw:text-gray-300">{% trans 'on the last 12 months, at this rate you could go by' %}</span>
-                <span class="tw:text-3xl">{{ data.months }}</span>
-                <span class="tw:text-gray-300">{% trans 'months without any income.' %}</span>
-              </span>
-            </button>
-          </h2>
-          <div id="flush-collapse-{{ id }}" class="accordion-collapse collapse"
-               data-bs-parent="#emergency-fund-accordion">
-            <div class="accordion-body">
-              <div class="d-flex justify-content-between align-items-baseline mt-2">
-                <div class="text-end font-monospace">
-                  <div class="tw:text-gray-400">{% translate 'average expenses' %}</div>
-                </div>
-                <div class="dotted-line flex-grow-1"></div>
-                <div class="text-end font-monospace">
-                  <c-amount.display
-                      :amount="data.average"
-                      :prefix="data.currency.prefix"
-                      :suffix="data.currency.suffix"
-                      :decimal_places="data.currency.decimal_places"
-                      color="red"></c-amount.display>
-                </div>
+                    color="red"></c-amount.display>
               </div>
-              <div class="d-flex justify-content-between align-items-baseline mt-2">
-                <div class="text-end font-monospace">
-                  <div class="tw:text-gray-400">{% translate 'liquid total' %}</div>
-                </div>
-                <div class="dotted-line flex-grow-1"></div>
-                <div class="text-end font-monospace">
-                  <c-amount.display
-                      :amount="data.total_current"
-                      :prefix="data.currency.prefix"
-                      :suffix="data.currency.suffix"
-                      :decimal_places="data.currency.decimal_places"
-                      color="{% if data.total_current > 0 %}green{% elif data.total_current < 0 %}red{% endif %}"></c-amount.display>
-                </div>
+            </div>
+            <div class="tw:flex tw:justify-between tw:items-baseline tw:mt-2">
+              <div class="tw:text-end tw:font-mono">
+                <div class="tw:text-base-content/60">{% translate 'liquid total' %}</div>
               </div>
-              <div class="d-flex justify-content-between align-items-baseline mt-2">
-                <div class="text-end font-monospace">
-                  <div class="tw:text-gray-400">{% translate 'months left' %}</div>
-                </div>
-                <div class="dotted-line flex-grow-1"></div>
-                <div class="text-end font-monospace">
-                  <span>{{ data.months }}</span>
-                </div>
+              <div class="dotted-line tw:flex-grow"></div>
+              <div class="tw:text-end tw:font-mono">
+                <c-amount.display
+                    :amount="data.total_current"
+                    :prefix="data.currency.prefix"
+                    :suffix="data.currency.suffix"
+                    :decimal_places="data.currency.decimal_places"
+                    color="{% if data.total_current > 0 %}green{% elif data.total_current < 0 %}red{% endif %}"></c-amount.display>
+              </div>
+            </div>
+            <div class="tw:flex tw:justify-between tw:items-baseline tw:mt-2">
+              <div class="tw:text-end tw:font-mono">
+                <div class="tw:text-base-content/60">{% translate 'months left' %}</div>
+              </div>
+              <div class="dotted-line tw:flex-grow"></div>
+              <div class="tw:text-end tw:font-mono">
+                <span>{{ data.months }}</span>
               </div>
             </div>
           </div>

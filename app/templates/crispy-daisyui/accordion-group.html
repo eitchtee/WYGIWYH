@@ -1,0 +1,9 @@
+<div class="tw:collapse tw:collapse-arrow tw:bg-base-100 tw:border tw:border-base-300{% if div.css_class %} {{div.css_class}}{% endif %}">
+    <input type="radio" name="{{ div.data_parent }}" {% if div.active %}checked="checked"{% endif %} />
+    <div class="tw:collapse-title tw:font-semibold">
+        {{ div.name }}
+    </div>
+    <div class="tw:collapse-content">
+        {{ fields|safe }}
+    </div>
+</div>

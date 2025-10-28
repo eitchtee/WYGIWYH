@@ -1,0 +1,4 @@
+<div class="tw:alert {{ alert.css_class }}" role="alert"{% if alert.css_id %} id="{{ alert.css_id }}"{% endif %}>
+    {{ content|safe }}
+    {% if dismiss %}<button type="button" class="tw:btn tw:btn-sm tw:btn-circle tw:btn-ghost" data-bs-dismiss="alert" aria-label="Close">✕</button>{% endif %}
+</div>

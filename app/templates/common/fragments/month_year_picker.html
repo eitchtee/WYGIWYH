@@ -7,49 +7,33 @@
 {% block body %}
   {% regroup month_year_data by year as years_list %}
 
-  <ul class="nav nav-pills nav-fill" id="yearTabs" role="tablist">
+  <div role="tablist" class="tw:tabs tw:tabs-bordered tw:w-full" id="yearTabs">
     {% for x in years_list %}
-      <li class="nav-item" role="presentation">
-        <button class="nav-link{% if x.grouper == current_year %} active{% endif %}"
-                id="{{ x.grouper }}"
-                data-bs-toggle="tab"
-                data-bs-target="#{{ x.grouper }}-pane"
-                type="button"
-                role="tab"
-                aria-controls="{{ x.grouper }}-pane"
-                aria-selected="{% if x.grouper == current_year %}true{% else %}false{% endif %}">
-          {{ x.grouper }}
-        </button>
-      </li>
-    {% endfor %}
-  </ul>
-  <div class="tab-content" id="yearTabsContent" hx-boost="true">
-    {% for x in years_list %}
-      <div class="tab-pane fade{% if x.grouper == current_year %} show active{% endif %} mt-2"
-           id="{{ x.grouper }}-pane"
-           role="tabpanel"
-           aria-labelledby="{{ x.grouper }}"
-           tabindex="0">
-        <ul class="list-group list-group-flush" id="month-year-list">
+      <input type="radio" 
+             name="year_tabs" 
+             role="tab" 
+             class="tw:tab" 
+             aria-label="{{ x.grouper }}"
+             id="tab-{{ x.grouper }}"
+             {% if x.grouper == current_year %}checked="checked"{% endif %} />
+      <div role="tabpanel" class="tw:tab-content tw:p-4" id="{{ x.grouper }}-pane">
+        <ul class="tw:menu tw:bg-base-100 tw:w-full" id="month-year-list" hx-boost="true">
           {% for month_data in x.list %}
-            <li class="list-group-item tw:hover:bg-zinc-900
-            {% if month_data.month == current_month and month_data.year == current_year %} disabled bg-primary{% endif %}"
-                {% if month_data.month == current_month and month_data.year == current_year %}aria-disabled="true"{% endif %}>
-              <div class="d-flex justify-content-between">
-                <a class="text-decoration-none stretched-link {% if month_data.month == current_month and month_data.year == current_year %} text-black{% endif %}"
-                   href={{ month_data.url }}>
-                  {{ month_data.month|month_name }}</a>
-                <span class="badge text-bg-secondary">{{ month_data.transaction_count }}</span>
-              </div>
-
+            <li {% if month_data.month == current_month and month_data.year == current_year %}class="tw:disabled"{% endif %}>
+              <a class="{% if month_data.month == current_month and month_data.year == current_year %}tw:active{% endif %}"
+                 href={{ month_data.url }}
+                 {% if month_data.month == current_month and month_data.year == current_year %}aria-disabled="true"{% endif %}>
+                <span class="tw:flex-1">{{ month_data.month|month_name }}</span>
+                <span class="tw:badge tw:badge-primary">{{ month_data.transaction_count }}</span>
+              </a>
             </li>
           {% endfor %}
         </ul>
       </div>
     {% endfor %}
   </div>
-  <hr>
-  <div class="w-full text-end">
-    <a class="btn btn-outline-primary btn-sm" href="{{ today_url }}" role="button" hx-boost="true">{% trans 'Today' %}</a>
+  <hr class="tw:border-base-300">
+  <div class="tw:w-full tw:text-end">
+    <a class="tw:btn tw:btn-outline tw:btn-primary tw:btn-sm" href="{{ today_url }}" role="button" hx-boost="true">{% trans 'Today' %}</a>
   </div>
 {% endblock %}

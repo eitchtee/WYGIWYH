@@ -1,5 +1,5 @@
 {% load formats %}
-<div class="tw:hidden tw:w-[60vw] tw:lg:w-[30vw] tw:xl:w-[20vw] position-fixed shadow rounded-3 bg-body tw:border-gray-700 tw:border tw:border-solid tw:text-center tw:align-middle tw:z-[2000] tw:touch-none user-select-none"
+<div class="tw:hidden tw:w-[60vw] tw:lg:w-[30vw] tw:xl:w-[20vw] tw:fixed tw:shadow tw:rounded-3xl tw:bg-base-100 tw:border-base-300 tw:border tw:border-solid tw:text-center tw:align-middle tw:z-[2000] tw:touch-none tw:select-none"
      id="calculator"
      hx-preserve
      _="
@@ -48,12 +48,12 @@
           end">
 
       <div id="calculator-handle"
-           class="position-absolute bg-secondary rounded-top-2 tw:cursor-move d-flex align-items-center justify-content-center tw:top-[-20px] tw:left-[3px] tw:w-[2em] tw:h-[20px]">
+           class="tw:absolute tw:bg-secondary tw:rounded-t-lg tw:cursor-move tw:flex tw:items-center tw:justify-center tw:top-[-20px] tw:left-[3px] tw:w-[2em] tw:h-[20px]">
         <i class="fa-solid fa-grip"></i>
       </div>
 
       <input type="search"
-             class="form-control"
+             class="tw:input tw:w-full"
              id="calculator-input"
              _="on click me.focus()
               on input or search
@@ -91,12 +91,12 @@
               end"
              placeholder="2 + 2">
       <div class="tw:hidden" id="calculator-result-container">
-        <div class="d-flex flex-row p-2 justify-content-between">
-          <div class="tw:text-gray-400">=</div>
-          <div id="calculator-result" class="user-select-all"></div>
+        <div class="tw:flex tw:flex-row tw:p-2 tw:justify-between">
+          <div class="tw:text-base-content/40">=</div>
+          <div id="calculator-result" class="tw:select-all"></div>
         </div>
       </div>
-      <div class="position-absolute tw:cursor-pointer top-0 start-100 translate-middle tw:p-0 text-bg-primary border border-light rounded-circle tw:flex tw:items-center tw:justify-center tw:w-5 tw:h-5"
+      <div class="tw:absolute tw:cursor-pointer tw:top-0 tw:left-full tw:start-100 tw:-translate-x-1/2 tw:-translate-y-1/2 tw:p-0 tw:bg-primary tw:text-primary-content tw:border tw:border-base-100 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:w-5 tw:h-5"
             _="on click trigger show on #calculator">
         <i class="fa-solid fa-xmark tw:flex tw:items-center tw:justify-center tw:w-full tw:h-full"></i>
       </div>

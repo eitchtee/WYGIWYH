@@ -34,9 +34,9 @@ services:
       - ./app/:/usr/src/app/
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
       - /usr/src/frontend/node_modules
-    command: npm run watch
+    command: npm run dev
     ports:
-      - '${WEBPACK_OUTBOUND_PORT}:9091'
+      - '${WEBPACK_OUTBOUND_PORT}:5173'
     environment:
       - WATCHPACK_POLLING=true
     restart: unless-stopped

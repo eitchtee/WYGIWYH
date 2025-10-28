@@ -1,22 +1,20 @@
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+<div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5">
+  <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
     {% spaceless %}
     <div>{% translate 'Import Profiles' %}<span>
-      <span class="dropdown" data-bs-toggle="tooltip"
+      <span class="tw:dropdown" data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Add" %}">
-        <a class="text-decoration-none tw:text-2xl p-1" role="button"
+        <a class="tw:no-underline tw:text-2xl tw:p-1" role="button"
                 data-bs-toggle="dropdown"
                 data-bs-title="{% translate "Add" %}" aria-expanded="false">
           <i class="fa-solid fa-circle-plus fa-fw"></i>
         </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item"
-                 role="button"
+        <ul class="tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:w-52 tw:p-2 tw:shadow">
+          <li><a role="button"
                  hx-get="{% url 'import_profiles_add' %}"
                  hx-target="#generic-offcanvas">{% trans 'New' %}</a></li>
-          <li><a class="dropdown-item"
-                 role="button"
+          <li><a role="button"
                  hx-get="{% url 'import_presets_list' %}"
                  hx-target="#persistent-generic-offcanvas-left">{% trans 'From preset' %}</a></li>
         </ul>
@@ -25,45 +23,45 @@
     {% endspaceless %}
   </div>
 
-  <div class="card">
-    <div class="card-body table-responsive">
+  <div class="tw:card tw:bg-base-100 tw:shadow-xl">
+    <div class="tw:card-body tw:overflow-x-auto">
       {% if profiles %}
       <c-config.search></c-config.search>
-      <table class="table table-hover text-nowrap">
+      <table class="tw:table tw:table-hover tw:whitespace-nowrap">
         <thead>
           <tr>
-            <th scope="col" class="col-auto"></th>
-            <th scope="col" class="col">{% translate 'Name' %}</th>
-            <th scope="col" class="col">{% translate 'Version' %}</th>
+            <th scope="col" class="tw:w-auto"></th>
+            <th scope="col">{% translate 'Name' %}</th>
+            <th scope="col">{% translate 'Version' %}</th>
           </tr>
         </thead>
         <tbody>
           {% for profile in profiles %}
           <tr class="profile">
-            <td class="col-auto">
-              <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-                <a class="btn btn-secondary btn-sm"
+            <td class="tw:w-auto">
+              <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
+                <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
                       role="button"
                       data-bs-toggle="tooltip"
                       data-bs-title="{% translate "Edit" %}"
                       hx-get="{% url 'import_profile_edit' profile_id=profile.id %}"
                       hx-target="#generic-offcanvas">
                   <i class="fa-solid fa-pencil fa-fw"></i></a>
-                  <a class="btn btn-secondary btn-sm text-success"
+                  <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-success"
                         role="button"
                         data-bs-toggle="tooltip"
                         data-bs-title="{% translate "Runs" %}"
                         hx-get="{% url 'import_profile_runs_list' profile_id=profile.id %}"
                         hx-target="#persistent-generic-offcanvas-left">
                     <i class="fa-solid fa-person-running fa-fw"></i></a>
-                <a class="btn btn-secondary btn-sm text-primary"
+                <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-primary"
                         role="button"
                         data-bs-toggle="tooltip"
                         data-bs-title="{% translate "Import" %}"
                         hx-get="{% url 'import_run_add' profile_id=profile.id %}"
                         hx-target="#generic-offcanvas">
                     <i class="fa-solid fa-file-import fa-fw"></i></a>
-                <a class="btn btn-secondary btn-sm text-danger"
+                <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-error"
                         role="button"
                         data-bs-toggle="tooltip"
                         data-bs-title="{% translate "Delete" %}"
@@ -76,8 +74,8 @@
                         _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
               </div>
             </td>
-            <td class="col">{{ profile.name }}</td>
-            <td class="col">{{ profile.get_version_display }}</td>
+            <td>{{ profile.name }}</td>
+            <td>{{ profile.get_version_display }}</td>
           </tr>
           {% endfor %}
         </tbody>

@@ -3,14 +3,16 @@
 {% load static %}
 {% load i18n %}
 {% load active_link %}
-<nav class="navbar border-bottom bg-body-tertiary d-flex d-lg-none" hx-boost="true">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary font-base" href="{% url 'index' %}">
+<nav class="tw:navbar tw:border-b tw:border-base-300 tw:bg-base-200 tw:flex tw:lg:hidden" hx-boost="true">
+  <div class="tw:container tw:mx-auto tw:px-4 tw:flex tw:justify-between tw:items-center tw:w-full">
+    <a class="tw:text-xl tw:font-bold tw:text-primary" href="{% url 'index' %}">
       <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="40" width="40" title="WYGIWYH"/>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+    <button class="tw:btn tw:btn-ghost tw:lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
             aria-controls="sidebar" aria-label={% translate "Toggle navigation" %}>
-      <span class="navbar-toggler-icon"></span>
+      <svg class="tw:w-6 tw:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
     </button>
   </div>
 </nav>

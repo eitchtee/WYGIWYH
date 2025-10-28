@@ -7,8 +7,8 @@
   {% for x in transactions_by_date %}
     <div id="{{ x.grouper|slugify }}" class="transactions-divider"
          _="on htmx:afterSwap from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
-      <div class="mt-3 mb-1 w-100 tw:text-base border-bottom bg-body transactions-divider-title">
-        <a class="text-decoration-none d-inline-block w-100"
+      <div class="tw:mt-3 tw:mb-1 tw:w-full tw:text-base tw:border-b tw:border-base-300 tw:bg-base-100 transactions-divider-title">
+        <a class="tw:no-underline tw:inline-block tw:w-full"
            role="button"
            data-bs-toggle="collapse"
            data-bs-target="#c-{{ x.grouper|slugify }}-collapse"
@@ -18,7 +18,7 @@
         {{ x.grouper }}
         </a>
       </div>
-      <div class="collapse transactions-divider-collapse" id="c-{{ x.grouper|slugify }}-collapse"
+      <div class="tw:collapse transactions-divider-collapse" id="c-{{ x.grouper|slugify }}-collapse"
            _="on shown.bs.collapse sessionStorage.setItem(the closest parent @id, 'true')
               on hidden.bs.collapse sessionStorage.setItem(the closest parent @id, 'false')
               on htmx:afterSettle from #transactions or toggle
@@ -33,7 +33,7 @@
               on show
                 add .show to me
                 set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to true">
-        <div class="d-flex flex-column">
+        <div class="tw:flex tw:flex-col">
         {% for transaction in x.list %}
           <c-transaction.item
             :transaction="transaction"></c-transaction.item>
@@ -48,13 +48,13 @@
   {% endfor %}
 
   {% if page_obj.has_other_pages %}
-    <div class="mt-auto">
+    <div class="tw:mt-auto">
       <input value="{{ page_obj.number }}" name="page" type="hidden" id="page">
 
       <nav aria-label="{% translate 'Page navigation' %}">
-        <ul class="pagination justify-content-center mt-5">
-          <li class="page-item">
-            <a class="page-link tw:cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
+        <ul class="tw:join tw:flex tw:justify-center tw:mt-5">
+          <li>
+            <a class="tw:join-item tw:btn tw:btn-sm {% if not page_obj.has_previous %}tw:btn-disabled{% endif %}"
                hx-get="{% if page_obj.has_previous %}{% url 'transactions_all_list' %}{% endif %}"
                hx-vals='{"page": 1}'
                hx-include="#filter, #order"
@@ -74,14 +74,14 @@
               {% endcomment %}
             {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
               {% if page_obj.number == page_number %}
-                <li class="page-item active">
-                  <a class="page-link tw:cursor-pointer">
+                <li>
+                  <a class="tw:join-item tw:btn tw:btn-sm tw:btn-active">
                     {{ page_number }}
                   </a>
                 </li>
               {% else %}
-                <li class="page-item">
-                  <a class="page-link tw:cursor-pointer"
+                <li>
+                  <a class="tw:join-item tw:btn tw:btn-sm"
                      hx-get="{% url 'transactions_all_list' %}"
                      hx-vals='{"page": {{ page_number }}}'
                      hx-include="#filter, #order"
@@ -94,14 +94,14 @@
             {% endif %}
           {% endfor %}
           {% if page_obj.number|add:3 < page_obj.paginator.num_pages %}
-            <li class="page-item">
-              <a class="page-link disabled"
+            <li>
+              <a class="tw:join-item tw:btn tw:btn-sm tw:btn-disabled"
                  aria-label="...">
                 <span aria-hidden="true">...</span>
               </a>
             </li>
-            <li class="page-item">
-              <a class="page-link tw:cursor-pointer"
+            <li>
+              <a class="tw:join-item tw:btn tw:btn-sm"
                  hx-get="{% url 'transactions_all_list' %}" hx-target="#transactions-list"
                  hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
                  hx-include="#filter, #order"
@@ -111,8 +111,8 @@
               </a>
             </li>
           {% endif %}
-          <li class="page-item">
-            <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw:cursor-pointer"
+          <li>
+            <a class="tw:join-item tw:btn tw:btn-sm {% if not page_obj.has_next %}tw:btn-disabled{% endif %}"
                hx-get="{% if page_obj.has_next %}{% url 'transactions_all_list' %}{% endif %}"
                hx-vals='{"page": {{ page_obj.paginator.num_pages }}}'
                hx-include="#filter, #order"

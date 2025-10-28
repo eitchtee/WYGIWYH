@@ -1,0 +1,6 @@
+<div {% if div.css_id %}id="{{ div.css_id }}"{% endif %}
+     class="tw:col-span-12 {{ div.css_class|default:'' }}" {{ div.flat_attrs }}>
+        {{ fields|safe }}
+</div>
+
+

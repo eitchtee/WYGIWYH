@@ -1,0 +1,22 @@
+{% for fieldset in form.fieldsets %}
+    <fieldset class="tw:fieldset fieldset-{{ forloop.counter }} {{ fieldset.classes }}">
+        {% if fieldset.legend %}
+            <legend class="tw:fieldset-legend">{{ fieldset.legend }}</legend>
+        {% endif %}
+
+        {% if fieldset.description %}
+            <p class="tw:text-sm tw:text-base-content/60">{{ fieldset.description }}</p>
+        {% endif %}
+
+        {% for field in fieldset %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% include "crispy-daisyui/field.html" %}
+            {% endif %}
+        {% endfor %}
+    {% if not forloop.last or not fieldset_open %}
+        </fieldset>
+    {% endif %}
+{% endfor %}
+

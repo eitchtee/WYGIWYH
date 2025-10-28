@@ -1,48 +1,47 @@
 {% extends "layouts/base.html" %}
 {% load i18n %}
-{% load webpack_loader %}
 
 {% block title %}{% translate 'Unit Price Calculator' %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 column-gap-5">
-    <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+  <div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5">
+    <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
       <div>{% translate 'Unit Price Calculator' %}</div>
     </div>
-    <div class="card mb-3 d-none" id="card-placeholder">
-      <div class="card-header d-flex flex-row justify-content-between">
-        <h5 class="title flex-grow-1"></h5>
-        <button class="btn btn-secondary btn-sm text-danger"
+    <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3 tw:hidden" id="card-placeholder">
+      <div class="tw:card-header tw:bg-base-200 tw:p-4 tw:flex tw:flex-row tw:justify-between">
+        <h5 class="title tw:flex-grow"></h5>
+        <button class="tw:btn tw:btn-secondary tw:btn-sm tw:text-error"
                 role="button"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Delete" %}"
-                _="on click remove the closest .card to me then trigger update on #items then call bootstrap.Tooltip.getOrCreateInstance(me).dispose()">
+                _="on click remove the closest .tw\:card to me then trigger update on #items then call bootstrap.Tooltip.getOrCreateInstance(me).dispose()">
           <i class="fa-solid fa-trash fa-fw"></i>
         </button>
       </div>
-      <div class="card-body">
-        <div class="row gy-3">
-          <div class="col-lg">
+      <div class="tw:card-body">
+        <div class="tw:grid tw:lg:grid-cols-3 tw:gap-3">
+          <div>
             <div>
-              <label for="price" class="form-label">{% trans 'Item price' %}</label>
-              <input type="number" inputmode="decimal" class="form-control item-price" id="price">
+              <label for="price" class="tw:label">{% trans 'Item price' %}</label>
+              <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-price" id="price">
             </div>
           </div>
-          <div class="col-lg">
+          <div>
             <div>
-              <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
-              <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
+              <label for="amount" class="tw:label">{% trans 'Item amount' %}</label>
+              <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-amount" id="amount">
             </div>
           </div>
-          <div class="col-lg">
-            <label class="form-label">{% trans 'Unit price' %}</label>
+          <div>
+            <label class="tw:label">{% trans 'Unit price' %}</label>
             <div class="unit-price tw:text-xl" data-amount="0">0</div>
           </div>
         </div>
       </div>
     </div>
     <div id="items" _="on input or update
-                      for card in <.card />
+                      for card in <tw\\:card />
                         set price to card.querySelector('.item-price').value
                         set amount to card.querySelector('.item-amount').value
 
@@ -58,13 +57,15 @@
 
                       // Remove existing highlight classes from all unit prices
                       for unitPriceEl in <.unit-price/>
-                        remove .bg-danger-subtle from the closest .card to unitPriceEl
-                        remove .bg-success-subtle from the closest .card to unitPriceEl
+                        remove .tw\:bg-error from the closest .tw\\:card to unitPriceEl
+                        remove .tw\:bg-error from unitPriceEl's classList
+                        remove .tw\:bg-success from the closest .tw\\:card to unitPriceEl
+                        remove .tw\:bg-success from unitPriceEl's classList
                       end
 
                       // Get all unit prices and find min/max
-                      set unitPrices to <.card:not(#card-placeholder) .unit-price/>
-                      set unitPricesAmounts to <.card:not(#card-placeholder) .unit-price/> @data-amount
+                      set unitPrices to <.tw\:card\:not(#card-placeholder) .unit-price/>
+                      set unitPricesAmounts to <.tw\:card\:not(#card-placeholder) .unit-price/> @data-amount
                       js(unitPricesAmounts)
                         unitPricesAmounts = unitPricesAmounts.filter(element => element !== '0')
                         return Math.min(...unitPricesAmounts)
@@ -80,60 +81,62 @@
                         for unitPriceEl in unitPrices
                           set amount to parseFloat(unitPriceEl.getAttribute('data-amount'))
                           if amount == minAmount
-                            add .bg-success-subtle to the closest .card to unitPriceEl
+                            add .tw\:bg-success to the closest .tw\:card to unitPriceEl
+                            add .tw\:bg-opacity-20 to the closest .tw\:card to unitPriceEl
                             continue
                           end
                           if amount == maxAmount
-                            add .bg-danger-subtle to the closest .card to unitPriceEl
+                            add .tw\:bg-error to the closest .tw\:card to unitPriceEl
+                            add .tw\:bg-opacity-20 to the closest .tw\:card to unitPriceEl
                           end
                         end
                       end
                     end">
-      <div class="card mb-3">
-        <div class="card-header">
+      <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3">
+        <div class="tw:card-header tw:bg-base-200 tw:p-4">
           <h5>{% trans "Item" %} A</h5>
         </div>
-        <div class="card-body">
-          <div class="row gy-3">
-            <div class="col-lg">
+        <div class="tw:card-body">
+          <div class="tw:grid tw:lg:grid-cols-3 tw:gap-3">
+            <div>
               <div>
-                <label for="price" class="form-label">{% trans 'Item price' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-price" id="price">
+                <label for="price" class="tw:label">{% trans 'Item price' %}</label>
+                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-price" id="price">
               </div>
             </div>
-            <div class="col-lg">
+            <div>
               <div>
-                <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
+                <label for="amount" class="tw:label">{% trans 'Item amount' %}</label>
+                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-amount" id="amount">
               </div>
             </div>
-            <div class="col-lg">
-              <label class="form-label">{% trans 'Unit price' %}</label>
+            <div>
+              <label class="tw:label">{% trans 'Unit price' %}</label>
               <div class="unit-price tw:text-xl" data-amount="0">0</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card mb-3">
-        <div class="card-header">
+      <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3">
+        <div class="tw:card-header tw:bg-base-200 tw:p-4">
           <h5>{% trans "Item" %} B</h5>
         </div>
-        <div class="card-body">
-          <div class="row gy-3">
-            <div class="col-lg">
+        <div class="tw:card-body">
+          <div class="tw:grid tw:lg:grid-cols-3 tw:gap-3">
+            <div>
               <div>
-                <label for="price" class="form-label">{% trans 'Item price' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-price" id="price">
+                <label for="price" class="tw:label">{% trans 'Item price' %}</label>
+                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-price" id="price">
               </div>
             </div>
-            <div class="col-lg">
+            <div>
               <div>
-                <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
+                <label for="amount" class="tw:label">{% trans 'Item amount' %}</label>
+                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-amount" id="amount">
               </div>
             </div>
-            <div class="col-lg">
-              <label class="form-label">{% trans 'Unit price' %}</label>
+            <div>
+              <label class="tw:label">{% trans 'Unit price' %}</label>
               <div class="unit-price tw:text-xl" data-amount="0">0</div>
             </div>
           </div>
@@ -141,15 +144,15 @@
       </div>
     </div>
 
-    <div class="row mt-3">
-      <div class="col-lg-8">
-        <button class="btn btn-outline-primary w-100"
+    <div class="tw:grid tw:lg:grid-cols-[2fr_1fr] tw:gap-3 tw:mt-3">
+      <div>
+        <button class="tw:btn tw:btn-outline tw:btn-primary tw:w-full"
             _="on click
                 get #card-placeholder
                 set newCard to it.cloneNode(true)
                 remove @id from newCard
-                remove .d-none from newCard then
-                set itemCount to <#items .card/>'s length
+                remove .tw\:hidden from newCard then
+                set itemCount to <#items [class='tw:card'] />'s length
                 if itemCount < 26
                   set letter to String.fromCharCode(65 + itemCount)
                 else
@@ -162,11 +165,11 @@
       {% trans 'Add' %}
     </button>
       </div>
-      <div class="col-lg-4 mt-3 mt-lg-0">
-        <button class="btn btn-outline-danger w-100"
+      <div>
+        <button class="tw:btn tw:btn-outline tw:btn-error tw:w-full"
                 _="on click
                     for el in <.item-price, .item-amount />
-                      set card to the closest .card to el
+                      set card to the closest .tw:\card to el
                       set el's value to ''
                      end
                      trigger update on #items

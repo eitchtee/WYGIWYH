@@ -1,11 +1,10 @@
-@import "variables";
-@import "font-awesome";
-@import "bootstrap";
-@import "datepicker";
-@import "tom-select";
-@import "animations";
-@import "scrollbar";
-@import "./tailwind.css";
+@use "variables";
+@use "font-awesome";
+@use "bootstrap";
+@use "datepicker";
+@use "tom-select";
+@use "animations";
+@use "scrollbar";
 
 .sticky-sidebar {
   position: sticky;
@@ -21,17 +20,17 @@ select[multiple] {
   max-height: 50vh;
 }
 
-.font-base {
-  font-family: $font-family-base;
-}
+//.font-base {
+//  font-family: bootstrap.$font-family-base;
+//}
 
 ::selection {
-  color: $gray-800;
-  background-color: $primary;
+  color: variables.$gray-800;
+  background-color: variables.$primary;
 }
 
 .dotted-line {
-  border-bottom: 2px dotted $gray-700;
+  border-bottom: 2px dotted variables.$gray-700;
   margin: 0 5px;
   position: relative;
 }
@@ -50,9 +49,9 @@ select[multiple] {
   padding: 0 8px !important;
 }
 
-.transaction:has(input[type="checkbox"]:checked) > div > .transaction-item {
-  background-color: $primary-bg-subtle-dark;
-}
+//.transaction:has(input[type="checkbox"]:checked) > div > .transaction-item {
+//  background-color: bootstrap.$primary-bg-subtle-dark;
+//}
 
 .offline {
   text-align: center;

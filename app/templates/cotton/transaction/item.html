@@ -2,22 +2,21 @@
 {% load i18n %}
 <div
     class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} tw:group/transaction tw:relative tw:hover:z-10">
-  <div class="d-flex my-1">
+  <div class="tw:flex tw:my-1">
     {% if not disable_selection or not dummy %}
-      <label class="px-3 d-flex align-items-center justify-content-center">
-        <input class="form-check-input" type="checkbox" name="transactions" value="{{ transaction.id }}"
+      <label class="tw:px-3 tw:flex! tw:items-center tw:justify-center">
+        <input class="tw:checkbox" type="checkbox" name="transactions" value="{{ transaction.id }}"
                id="check-{{ transaction.id }}" aria-label="{% translate 'Select' %}" hx-preserve>
       </label>
     {% endif %}
-    <div class="tw:border-s-4 tw:border-e-0 tw:border-t-0 tw:border-b-0 border-bottom
-                tw:hover:bg-zinc-900 p-2 {% if transaction.account.is_asset %}tw:border-dashed{% else %}tw:border-solid{% endif %}
-                {% if transaction.type == "EX" %}tw:border-red-500{% else %}tw:border-green-500{% endif %} tw:relative
-                w-100 transaction-item">
-      <div class="row font-monospace tw:text-sm align-items-center">
-        <div
-            class="col-lg-auto col-12 d-flex align-items-center tw:text-2xl tw:lg:text-xl text-lg-center text-center p-0 ps-1">
+    <div class="tw:border-s-4 tw:border-e-0 tw:border-t-0
+                tw:hover:bg-neutral-500/20 tw:p-2 {% if transaction.account.is_asset %}tw:border-l-dashed{% else %}tw:border-solid{% endif %}
+                {% if transaction.type == "EX" %}tw:border-l-red-500{% else %}tw:border-l-green-500{% endif %} tw:relative
+                tw:w-full transaction-item tw:bg-base-200 tw:rounded">
+      <div class="tw:flex tw:flex-wrap tw:font-mono tw:text-sm tw:items-center">
+        <div class="tw:lg:w-auto tw:w-full tw:flex tw:items-center tw:text-2xl tw:lg:text-xl tw:lg:text-center tw:text-center tw:p-0 tw:cursor-pointer">
           {% if not transaction.deleted %}
-            <a class="text-decoration-none p-3 tw:text-gray-500!"
+            <a class="tw:no-underline tw:p-3 tw:text-gray-500!"
                title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}"
                role="button"
                 {% if not dummy %}
@@ -28,7 +27,7 @@
                   class="fa-regular fa-circle"></i>{% endif %}
             </a>
           {% else %}
-            <div class="text-decoration-none p-3 tw:text-gray-500!"
+            <div class="tw:no-underline tw:p-3 tw:text-gray-500!"
                  title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}">
               {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
                   class="fa-regular fa-circle"></i>{% endif %}
@@ -36,79 +35,79 @@
           {% endif %}
         </div>
         <div
-            class="col-lg col-12 {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
+            class="tw:lg:flex-1 tw:w-full {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
           {#      Date#}
-          <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-            <div class="col-auto pe-1"><i class="fa-solid fa-calendar fa-fw me-1 fa-xs"></i></div>
+          <div class="tw:flex tw:flex-wrap tw:mb-2 tw:lg:mb-1 tw:text-base-content/70">
+            <div class="tw:w-auto tw:pe-1"><i class="fa-solid fa-calendar fa-fw tw:mr-1 fa-xs"></i></div>
             <div
-                class="col ps-0">{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
+                class="tw:flex-1 tw:ps-0">{{ transaction.date|date:"SHORT_DATE_FORMAT" }} • {{ transaction.reference_date|date:"b/Y" }}</div>
           </div>
           {#      Description#}
-          <div class="mb-2 mb-lg-1 text-body tw:text-base">
+          <div class="tw:mb-2 tw:lg:mb-1 tw:text-base-content tw:text-base">
             {% spaceless %}
-              <span class="{% if transaction.description %}me-2{% endif %}">{{ transaction.description }}</span>
+              <span class="{% if transaction.description %}tw:mr-2{% endif %}">{{ transaction.description }}</span>
               {% if transaction.installment_plan and transaction.installment_id %}
                 <span
-                    class="badge text-bg-secondary mx-1">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
+                    class="tw:badge tw:badge-neutral tw:mx-1">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
               {% endif %}
               {% if transaction.recurring_transaction %}
-                <span class="text-primary tw:text-xs mx-1"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
+                <span class="tw:text-primary tw:text-xs tw:mx-1"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
               {% endif %}
               {% if transaction.dca_expense_entries.all or transaction.dca_income_entries.all %}
-                <span class="badge text-bg-secondary mx-1">{% trans 'DCA' %}</span>
+                <span class="tw:badge tw:badge-neutral tw:mx-1">{% trans 'DCA' %}</span>
               {% endif %}
             {% endspaceless %}
           </div>
-          <div class="tw:text-gray-400 tw:text-sm">
+          <div class="tw:text-base-content/70 tw:text-sm">
             {#        Entities #}
             {% comment %} First, check for the highest priority: a valid 'overriden_entities' list. {% endcomment %}
             {% if overriden_entities %}
-              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
-                <div class="col ps-0">{{ overriden_entities|join:", " }}</div>
+              <div class="tw:flex tw:flex-wrap tw:mb-2 tw:lg:mb-1 tw:text-base-content/70">
+                <div class="tw:w-auto tw:pe-1"><i class="fa-solid fa-user-group fa-fw tw:mr-1 fa-xs"></i></div>
+                <div class="tw:flex-1 tw:ps-0">{{ overriden_entities|join:", " }}</div>
               </div>
 
               {% comment %} If no override, fall back to transaction entities, but ONLY if the transaction has an ID. {% endcomment %}
             {% elif transaction.id and transaction.entities.all %}
-              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                <div class="col-auto pe-1"><i class="fa-solid fa-user-group fa-fw me-1 fa-xs"></i></div>
-                <div class="col ps-0">{{ transaction.entities.all|join:", " }}</div>
+              <div class="tw:flex tw:flex-wrap tw:mb-2 tw:lg:mb-1 tw:text-base-content/70">
+                <div class="tw:w-auto tw:pe-1"><i class="fa-solid fa-user-group fa-fw tw:mr-1 fa-xs"></i></div>
+                <div class="tw:flex-1 tw:ps-0">{{ transaction.entities.all|join:", " }}</div>
               </div>
             {% endif %}
             {#        Notes#}
             {% if transaction.notes %}
-              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                <div class="col-auto pe-1"><i class="fa-solid fa-align-left fa-fw me-1 fa-xs"></i></div>
-                <div class="col ps-0">{{ transaction.notes | limited_markdown | linebreaksbr }}</div>
+              <div class="tw:flex tw:flex-wrap tw:mb-2 tw:lg:mb-1 tw:text-base-content/70">
+                <div class="tw:w-auto tw:pe-1"><i class="fa-solid fa-align-left fa-fw tw:mr-1 fa-xs"></i></div>
+                <div class="tw:flex-1 tw:ps-0">{{ transaction.notes | limited_markdown | linebreaksbr }}</div>
               </div>
             {% endif %}
             {#        Category#}
             {% if transaction.category %}
-              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                <div class="col-auto pe-1"><i class="fa-solid fa-icons fa-fw me-1 fa-xs"></i></div>
-                <div class="col ps-0">{{ transaction.category.name }}</div>
+              <div class="tw:flex tw:flex-wrap tw:mb-2 tw:lg:mb-1 tw:text-base-content/70">
+                <div class="tw:w-auto tw:pe-1"><i class="fa-solid fa-icons fa-fw tw:mr-1 fa-xs"></i></div>
+                <div class="tw:flex-1 tw:ps-0">{{ transaction.category.name }}</div>
               </div>
             {% endif %}
             {#        Tags#}
             {% comment %} First, check for the highest priority: a valid 'overriden_tags' list. {% endcomment %}
             {% if overriden_tags %}
-              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
-                <div class="col ps-0">{{ overriden_tags|join:", " }}</div>
+              <div class="tw:flex tw:flex-wrap tw:mb-2 tw:lg:mb-1 tw:text-base-content/70">
+                <div class="tw:w-auto tw:pe-1"><i class="fa-solid fa-hashtag fa-fw tw:mr-1 fa-xs"></i></div>
+                <div class="tw:flex-1 tw:ps-0">{{ overriden_tags|join:", " }}</div>
               </div>
 
               {% comment %} If no override, fall back to transaction tags, but ONLY if the transaction has an ID. {% endcomment %}
             {% elif transaction.id and transaction.tags.all %}
-              <div class="row mb-2 mb-lg-1 tw:text-gray-400">
-                <div class="col-auto pe-1"><i class="fa-solid fa-hashtag fa-fw me-1 fa-xs"></i></div>
-                <div class="col ps-0">{{ transaction.tags.all|join:", " }}</div>
+              <div class="tw:flex tw:flex-wrap tw:mb-2 tw:lg:mb-1 tw:text-base-content/70">
+                <div class="tw:w-auto tw:pe-1"><i class="fa-solid fa-hashtag fa-fw tw:mr-1 fa-xs"></i></div>
+                <div class="tw:flex-1 tw:ps-0">{{ transaction.tags.all|join:", " }}</div>
               </div>
             {% endif %}
           </div>
         </div>
         <div
-            class="col-lg-auto col-12 text-lg-end align-self-end {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
-          <div class="main-amount mb-2 mb-lg-0">
+            class="tw:lg:w-auto tw:w-full tw:lg:text-right tw:self-end {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}tw:brightness-80{% endif %}">
+          <div class="main-amount tw:mb-2 tw:lg:mb-0">
             <c-amount.display
                 :amount="transaction.amount"
                 :prefix="transaction.account.currency.prefix"
@@ -120,7 +119,7 @@
           {% if not dummy %}
             {% with exchanged=transaction.exchanged_amount %}
               {% if exchanged %}
-                <div class="exchanged-amount mb-2 mb-lg-0">
+                <div class="exchanged-amount tw:mb-2 tw:lg:mb-0">
                   <c-amount.display
                       :amount="exchanged.amount"
                       :prefix="exchanged.prefix"
@@ -139,109 +138,106 @@
           <div>
             {#      Item actions#}
             <div
-                class="transaction-actions tw:absolute! tw:left-1/2 tw:top-0 tw:-translate-x-1/2 tw:-translate-y-1/2 tw:invisible tw:group-hover/transaction:visible d-flex flex-row card">
-              <div class="card-body p-1 shadow-lg d-flex flex-row gap-1">
+                class="transaction-actions tw:absolute! tw:left-1/2 tw:top-0 tw:-translate-x-1/2 tw:-translate-y-1/2 tw:invisible tw:group-hover/transaction:visible tw:flex tw:flex-row tw:card tw:bg-base-300">
+              <div class="tw:card-body tw:p-1 tw:shadow-lg tw:flex tw:flex-row tw:gap-1">
                 {% if not transaction.deleted %}
-                  <a class="btn btn-secondary btn-sm transaction-action"
-                     role="button"
-                     data-bs-toggle="tooltip"
-                     data-bs-title="{% translate "Edit" %}"
-                     hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
-                     hx-target="#generic-offcanvas" hx-swap="innerHTML">
-                    <i class="fa-solid fa-pencil fa-fw"></i></a>
-                  <a class="btn btn-secondary btn-sm transaction-action"
-                     role="button"
-                     data-bs-toggle="tooltip"
-                     data-bs-title="{% translate "Delete" %}"
-                     hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
-                     hx-trigger='confirmed'
-                     data-bypass-on-ctrl="true"
-                     data-title="{% translate "Are you sure?" %}"
-                     data-text="{% translate "You won't be able to revert this!" %}"
-                     data-confirm-text="{% translate "Yes, delete it!" %}"
-                     _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-danger"></i>
-                  </a>
-                  <button class="btn btn-secondary btn-sm transaction-action" type="button" data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                    <i class="fa-solid fa-ellipsis fa-fw"></i>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
-                    {% if transaction.account.is_untracked_by %}
-                      <li>
-                        <a class="dropdown-item disabled d-flex align-items-center" aria-disabled="true">
-                          <i class="fa-solid fa-eye fa-fw me-2"></i>
-                          <div>
-                            {% translate 'Show on summaries' %}
-                            <div
-                                class="d-block text-body-secondary tw:text-xs tw:font-medium">{% translate 'Controlled by account' %}</div>
-                          </div>
-                        </a>
+                  <div class="tw:tooltip" data-tip="{% translate "Edit" %}">
+                    <a class="tw:btn btn-neutral tw:btn-sm transaction-action"
+                       role="button"
+                       hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
+                       hx-target="#generic-offcanvas" hx-swap="innerHTML">
+                      <i class="fa-solid fa-pencil fa-fw"></i></a>
+                  </div>
+                  <div class="tw:tooltip" data-tip="{% translate "Delete" %}">
+                    <a class="tw:btn btn-neutral tw:btn-sm transaction-action"
+                       role="button"
+                       hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                       hx-trigger='confirmed'
+                       data-bypass-on-ctrl="true"
+                       data-title="{% translate "Are you sure?" %}"
+                       data-text="{% translate "You won't be able to revert this!" %}"
+                       data-confirm-text="{% translate "Yes, delete it!" %}"
+                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw tw:text-red-500"></i>
+                    </a>
+                  </div>
+                  <div class="tw:dropdown tw:dropdown-end">
+                    <button type="button" tabindex="0" role="button" class="tw:btn btn-neutral tw:btn-sm transaction-action">
+                      <i class="fa-solid fa-ellipsis fa-fw"></i>
+                    </button>
+                    <ul tabindex="0" class="tw:dropdown-content tw:menu tw:p-2 tw:shadow tw:bg-base-200 tw:rounded-box tw:w-72 z-[1]">
+                      {% if transaction.account.is_untracked_by %}
+                        <li>
+                          <a class="tw:disabled tw:flex tw:items-center" aria-disabled="true">
+                            <i class="fa-solid fa-eye fa-fw tw:mr-2"></i>
+                            <div>
+                              {% translate 'Show on summaries' %}
+                              <div
+                                  class="tw:block tw:text-gray-500 tw:text-xs tw:font-medium">{% translate 'Controlled by account' %}</div>
+                            </div>
+                          </a>
+                        </li>
+                      {% elif transaction.category.mute %}
+                        <li>
+                          <a class="tw:disabled tw:flex tw:items-center" aria-disabled="true">
+                            <i class="fa-solid fa-eye fa-fw tw:mr-2"></i>
+                            <div>
+                              {% translate 'Show on summaries' %}
+                              <div
+                                  class="tw:block tw:text-gray-500 tw:text-xs tw:font-medium">{% translate 'Controlled by category' %}</div>
+                            </div>
+                          </a>
+                        </li>
+                      {% elif transaction.mute %}
+                        <li><a href="#"
+                               hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}"
+                               hx-target="closest .transaction" hx-swap="outerHTML"><i
+                            class="fa-solid fa-eye fa-fw tw:mr-2"></i>{% translate 'Show on summaries' %}</a></li>
+                      {% else %}
+                        <li><a href="#"
+                               hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}"
+                               hx-target="closest .transaction" hx-swap="outerHTML"><i
+                            class="fa-solid fa-eye-slash fa-fw tw:mr-2"></i>{% translate 'Hide from summaries' %}</a></li>
+                      {% endif %}
+                      <li><a href="#"
+                             hx-get="{% url 'quick_transaction_add_as_quick_transaction' transaction_id=transaction.id %}"><i
+                          class="fa-solid fa-person-running fa-fw tw:mr-2"></i>{% translate 'Add as quick transaction' %}</a>
                       </li>
-                    {% elif transaction.category.mute %}
-                      <li>
-                        <a class="dropdown-item disabled d-flex align-items-center" aria-disabled="true">
-                          <i class="fa-solid fa-eye fa-fw me-2"></i>
-                          <div>
-                            {% translate 'Show on summaries' %}
-                            <div
-                                class="d-block text-body-secondary tw:text-xs tw:font-medium">{% translate 'Controlled by category' %}</div>
-                          </div>
-                        </a>
+                      <hr class="tw:my-1 tw:text-base-content/60">
+                      <li><a href="#"
+                             hx-get="{% url 'transaction_change_month' transaction_id=transaction.id change_type='previous' %}"><i
+                          class="fa-solid fa-calendar-minus fa-fw tw:mr-2"></i>{% translate 'Move to previous month' %}</a>
                       </li>
-                    {% elif transaction.mute %}
-                      <li><a class="dropdown-item" href="#"
-                             hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}"
-                             hx-target="closest .transaction" hx-swap="outerHTML"><i
-                          class="fa-solid fa-eye fa-fw me-2"></i>{% translate 'Show on summaries' %}</a></li>
-                    {% else %}
-                      <li><a class="dropdown-item" href="#"
-                             hx-get="{% url 'transaction_mute' transaction_id=transaction.id %}"
-                             hx-target="closest .transaction" hx-swap="outerHTML"><i
-                          class="fa-solid fa-eye-slash fa-fw me-2"></i>{% translate 'Hide from summaries' %}</a></li>
-                    {% endif %}
-                    <li><a class="dropdown-item" href="#"
-                           hx-get="{% url 'quick_transaction_add_as_quick_transaction' transaction_id=transaction.id %}"><i
-                        class="fa-solid fa-person-running fa-fw me-2"></i>{% translate 'Add as quick transaction' %}</a>
-                    </li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#"
-                           hx-get="{% url 'transaction_change_month' transaction_id=transaction.id change_type='previous' %}"><i
-                        class="fa-solid fa-calendar-minus fa-fw me-2"></i>{% translate 'Move to previous month' %}</a>
-                    </li>
-                    <li><a class="dropdown-item" href="#"
-                           hx-get="{% url 'transaction_change_month' transaction_id=transaction.id change_type='next' %}"><i
-                        class="fa-solid fa-calendar-plus fa-fw me-2"></i>{% translate 'Move to next month' %}</a></li>
-                    <li><a class="dropdown-item" href="#"
-                           hx-get="{% url 'transaction_move_to_today' transaction_id=transaction.id %}"><i
-                        class="fa-solid fa-calendar-day fa-fw me-2"></i>{% translate 'Move to today' %}</a></li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#"
-                           hx-get="{% url 'transaction_clone' transaction_id=transaction.id %}"><i
-                        class="fa-solid fa-clone fa-fw me-2"></i>{% translate 'Duplicate' %}</a></li>
-                  </ul>
+                      <li><a href="#"
+                             hx-get="{% url 'transaction_change_month' transaction_id=transaction.id change_type='next' %}"><i
+                          class="fa-solid fa-calendar-plus fa-fw tw:mr-2"></i>{% translate 'Move to next month' %}</a></li>
+                      <li><a href="#"
+                             hx-get="{% url 'transaction_move_to_today' transaction_id=transaction.id %}"><i
+                          class="fa-solid fa-calendar-day fa-fw tw:mr-2"></i>{% translate 'Move to today' %}</a></li>
+                      <hr class="tw:my-1 tw:text-base-content/60">
+                      <li><a href="#"
+                             hx-get="{% url 'transaction_clone' transaction_id=transaction.id %}"><i
+                          class="fa-solid fa-clone fa-fw tw:mr-2"></i>{% translate 'Duplicate' %}</a></li>
+                    </ul>
+                  </div>
                 {% else %}
-                  <a class="btn btn-secondary btn-sm transaction-action"
-                     role="button"
-                     data-bs-toggle="tooltip"
-                     data-bs-title="{% translate "Restore" %}"
-                     hx-get="{% url 'transaction_undelete' transaction_id=transaction.id %}"><i
-                      class="fa-solid fa-trash-arrow-up"></i></a>
-                  <a class="btn btn-secondary btn-sm transaction-action"
-                     role="button"
-                     data-bs-toggle="tooltip"
-                     data-bs-title="{% translate "Delete" %}"
-                     hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
-                     hx-trigger='confirmed'
-                     data-bypass-on-ctrl="true"
-                     data-title="{% translate "Are you sure?" %}"
-                     data-text="{% translate "You won't be able to revert this!" %}"
-                     data-confirm-text="{% translate "Yes, delete it!" %}"
-                     _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-danger"></i>
-                  </a>
+                  <div class="tw:tooltip" data-tip="{% translate "Restore" %}">
+                    <a class="tw:btn tw:btn-secondary tw:btn-sm transaction-action"
+                       role="button"
+                       hx-get="{% url 'transaction_undelete' transaction_id=transaction.id %}"><i
+                        class="fa-solid fa-trash-arrow-up"></i></a>
+                  </div>
+                  <div class="tw:tooltip" data-tip="{% translate "Delete" %}">
+                    <a class="tw:btn tw:btn-secondary tw:btn-sm transaction-action"
+                       role="button"
+                       hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
+                       hx-trigger='confirmed'
+                       data-bypass-on-ctrl="true"
+                       data-title="{% translate "Are you sure?" %}"
+                       data-text="{% translate "You won't be able to revert this!" %}"
+                       data-confirm-text="{% translate "Yes, delete it!" %}"
+                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw tw:text-red-500"></i>
+                    </a>
+                  </div>
                 {% endif %}
               </div>
             </div>

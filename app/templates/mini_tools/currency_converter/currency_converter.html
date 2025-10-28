@@ -3,21 +3,20 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% load i18n %}
-{% load webpack_loader %}
 
 {% block title %}{% translate 'Currency Converter' %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 column-gap-5"
+  <div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5"
        _="install init_tom_select
           install init_datepicker">
-    <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+    <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
       <div>{% translate 'Currency Converter' %}</div>
     </div>
-    <div class="row">
-      <div class="col-12 col-lg-5">
+    <div class="tw:grid tw:lg:grid-cols-[2fr_auto_2fr] tw:gap-4">
+      <div>
         <div>
-          <input class="form-control form-control-lg mb-3"
+          <input class="tw:input tw:input-bordered tw:input-lg tw:w-full tw:mb-3"
                  type="text"
                  value="1"
                  name="from_value"
@@ -27,15 +26,15 @@
         </div>
         <div>{{ form.from_currency|as_crispy_field }}</div>
       </div>
-      <div class="col text-primary tw:flex tw:items-center tw:justify-center my-3 my-lg-0">
+      <div class="tw:text-primary tw:flex tw:items-center tw:justify-center tw:my-3 tw:lg:my-0">
         <i class="fa-solid fa-equals"></i>
       </div>
-      <div class="col-12 col-lg-5">
+      <div>
         <div hx-get="{% url 'currency_converter_convert' %}"
              hx-trigger="input from:#from_value, input from:#id_from_currency, input from:#id_to_currency, updated"
              hx-include="#from_value, #id_from_currency, #id_to_currency"
              id="result">
-          <input class="form-control form-control-lg mb-3"
+          <input class="tw:input tw:input-bordered tw:input-lg tw:w-full tw:mb-3"
                  type="text"
                  name="to_value"
                  id="to_value"
@@ -44,8 +43,8 @@
         <div>{{ form.to_currency|as_crispy_field }}</div>
       </div>
     </div>
-    <div class="row">
-      <div class="tw:cursor-pointer text-primary text-end"
+    <div class="tw:grid">
+      <div class="tw:cursor-pointer tw:text-primary tw:text-right"
            _="on click
                 set from_value to #id_from_currency's value
                 set to_value to #id_to_currency's value
@@ -55,18 +54,18 @@
                 call #id_to_currency.tomselect.sync()
                 trigger updated on #result
               end">
-        <i class="fa-solid fa-rotate me-2"></i><span>{% trans 'Invert' %}</span>
+        <i class="fa-solid fa-rotate tw:me-2"></i><span>{% trans 'Invert' %}</span>
       </div>
     </div>
-    <hr>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <hr class="tw:my-4">
+    <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:lg:grid-cols-3 tw:gap-4">
       {% for currency, data in rate_map.items %}
-        <div class="col">
+        <div>
           <c-ui.info-card color="yellow" title="{{ currency }}">
             {% for rate in data.rates.values %}
-              <div class="d-flex justify-content-between align-items-baseline mt-2">
-                <div class="text-end font-monospace">
-                  <div class="tw:text-gray-400">
+              <div class="tw:flex tw:justify-between tw:items-baseline tw:mt-2">
+                <div class="tw:text-right tw:font-mono">
+                  <div class="tw:text-base-content/60">
 {#                    <c-amount.display#}
 {#                        :amount="1"#}
 {#                        :prefix="data.prefix"#}
@@ -74,9 +73,9 @@
 {#                        :decimal_places="data.decimal_places"></c-amount.display>#}
                   </div>
                 </div>
-                <div class="dotted-line flex-grow-1"></div>
+                <div class="dotted-line tw:flex-grow"></div>
                 {% if currency.income_projected != 0 %}
-                  <div class="text-end font-monospace tw:text-green-400">
+                  <div class="tw:text-right tw:font-mono tw:text-green-400">
                     <c-amount.display
                         :amount="rate.rate"
                         :prefix="rate.prefix"
@@ -84,7 +83,7 @@
                         :decimal_places="rate.decimal_places"></c-amount.display>
                   </div>
                 {% else %}
-                  <div class="text-end font-monospace">-</div>
+                  <div class="tw:text-right tw:font-mono">-</div>
                 {% endif %}
               </div>
             {% endfor %}

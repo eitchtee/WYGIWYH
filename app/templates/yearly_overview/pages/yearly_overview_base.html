@@ -1,0 +1,107 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+{% load month_name %}
+{% load static %}
+
+{% block title %}{% translate 'Yearly Overview' %} :: {% block overview_type_title %}{% endblock %} :: {{ year }}{% endblock %}
+
+{% block body_hyperscript %}
+  on keyup[code is 'ArrowLeft' and target.nodeName is 'BODY'] from body trigger 'previous_year' end
+  on keyup[code is 'ArrowRight' and target.nodeName is 'BODY'] from body trigger 'next_year' end
+{% endblock %}
+
+{% block content %}
+  <div class="tw:h-full tw:text-center tw:mb-4 tw:pt-2">
+    <div class="tw:btn-group tw:gap-3" role="group">
+      <a href="{% url 'yearly_overview_currency' year=year %}" class="tw:btn {% if type != 'currency' %}tw:btn-outline tw:btn-primary{% else %}tw:btn-primary{% endif %} tw:rounded-full" hx-boost>
+        <i class="fa-solid fa-solid fa-coins fa-fw tw:me-2"></i>{% trans 'Currency' %}
+      </a>
+
+      <a href="{% url 'yearly_overview_account' year=year %}" class="tw:btn {% if type != 'account' %}tw:btn-outline tw:btn-primary{% else %}tw:btn-primary{% endif %} tw:rounded-full" hx-boost>
+        <i class="fa-solid fa-wallet fa-fw tw:me-2"></i>{% trans 'Account' %}
+      </a>
+    </div>
+  </div>
+  <div class="tw:container tw:px-md-3 tw:py-3 tw:gap-x-5" id="yearly-content">
+    <div class="tw:flex tw:flex-wrap tw:mb-4 tw:gap-x-xl-4 tw:gap-y-3">
+      {#    Date picker#}
+      <div class="tw:w-full tw:xl:w-auto tw:flex-row tw:items-center tw:flex">
+        <div class="tw:text-base tw:h-full tw:items-center tw:flex">
+          <a role="button"
+             class="tw:pe-4 tw:py-2"
+             hx-boost="true"
+             hx-trigger="click, previous_year from:window"
+             href="{% block previous_year_url %}{% endblock %}">
+            <i class="fa-solid fa-chevron-left"></i></a>
+        </div>
+        <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:text-center">
+          {{ year }}
+        </div>
+        <div class="tw:text-base tw:mx-2 tw:h-full tw:items-center tw:flex">
+          <a role="button"
+             class="tw:ps-3 tw:py-2"
+             hx-boost="true"
+             hx-trigger="click, next_year from:window"
+             href="{% block next_year_url %}{% endblock %}">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </div>
+      </div>
+      {#    Action buttons#}
+      <div class="tw:w-full tw:xl:flex-1">
+      </div>
+    </div>
+    <div class="tw:flex tw:flex-wrap">
+      <div class="tw:w-full tw:lg:w-2/12">
+        <input type="hidden" name="month" value="">
+        <div class="tw:flex-col tw:join tw:join-vertical" id="month-pills" role="tablist"
+             hx-indicator="#data-content">
+          <button class="tw:btn tw:btn-outline tw:btn-primary tw:btn-active tw:justify-start tw:join-item"
+                  role="tab"
+                  hx-get="{% block data_url %}{% endblock %}"
+                  hx-target="#data-content"
+                  hx-trigger="click"
+                  hx-include="{% block hx_include %}{% endblock %}"
+                  hx-swap="innerHTML"
+                  onclick="document.querySelector('[name=month]').value = ''"
+                  _="on click
+                       remove .tw:btn-active from <button/> in #month-pills
+                       add .tw:btn-active to me">
+            {% translate 'Year' %}
+          </button>
+          {% for month in months %}
+            <button class="tw:btn tw:btn-outline tw:btn-primary tw:justify-start tw:join-item"
+                    role="tab"
+                    hx-get="{% block month_data_url %}{% endblock %}"
+                    hx-target="#data-content"
+                    hx-trigger="click"
+                    hx-include="{% block month_hx_include %}{% endblock %}"
+                    hx-swap="innerHTML"
+                    onclick="document.querySelector('[name=month]').value = '{{ month }}'"
+                    _="on click
+                       remove .tw:btn-active from <button/> in #month-pills
+                       add .tw:btn-active to me">
+              {{ month|month_name }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <hr class="tw:my-4 tw:block tw:lg:hidden">
+      <div class="tw:w-full tw:lg:w-3/12">
+        {% block filter_pills %}{% endblock %}
+      </div>
+
+      <div class="tw:w-full tw:lg:w-7/12">
+        <div id="data-content"
+             class="show-loading"
+             hx-get="{% block content_data_url %}{% endblock %}"
+             hx-trigger="load, every 10m, updated from:window"
+             hx-include="{% block content_hx_include %}{% endblock %}"
+             hx-swap="innerHTML">
+        </div>
+      </div>
+    </div>
+  </div>
+  <c-ui.transactions_fab></c-ui.transactions_fab>
+{% endblock %}

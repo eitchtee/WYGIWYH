@@ -8,34 +8,34 @@
 
 {% block content %}
   <div>
-    <div class="container">
-      <div class="row tw:h-dvh d-flex justify-content-center align-items-center">
-        <div class="col-md-6 col-xl-4 col-12">
+    <div class="tw:container">
+      <div class="tw:grid tw:h-dvh tw:flex tw:justify-center tw:items-center">
+        <div class="tw:col-span-12 md:tw:col-span-6 xl:tw:col-span-4">
           {% settings "DEMO" as demo_mode %}
           {% if demo_mode %}
-            <div class="card shadow mb-3">
-              <div class="card-body">
-                <h1 class="h5 card-title text-center mb-4">{% trans "Welcome to WYGIWYH's demo!" %}</h1>
+            <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3">
+              <div class="tw:card-body">
+                <h1 class="tw:text-lg tw:card-title tw:text-center tw:mb-4">{% trans "Welcome to WYGIWYH's demo!" %}</h1>
                 <p>{% trans 'Use the credentials below to login' %}:</p>
-                <p>{% trans 'E-mail' %}: <span class="badge text-bg-secondary user-select-all">demo@demo.com</span></p>
-                <p>{% trans 'Password' %}: <span class="badge text-bg-secondary user-select-all">wygiwyhdemo</span></p>
+                <p>{% trans 'E-mail' %}: <span class="tw:badge tw:badge-secondary tw:select-all">demo@demo.com</span></p>
+                <p>{% trans 'Password' %}: <span class="tw:badge tw:badge-secondary tw:select-all">wygiwyhdemo</span></p>
               </div>
             </div>
           {% endif %}
-          <div class="card shadow-lg">
-            <div class="card-body">
-              <h1 class="h2 card-title text-center mb-4">Login</h1>
+          <div class="tw:card tw:bg-base-100 tw:shadow-2xl">
+            <div class="tw:card-body">
+              <h1 class="tw:text-2xl tw:card-title tw:text-center tw:mb-4">Login</h1>
               {% crispy form %}
 
               {% get_providers as socialaccount_providers %}
               {% if socialaccount_providers %}
-                <div class="mt-3">
+                <div class="tw:mt-3">
                   <hr>
-                  <ul class="socialaccount_providers list-unstyled">
+                  <ul class="socialaccount_providers tw:list-none">
                     {% for provider in socialaccount_providers %}
-                      <li class="mt-2">
+                      <li class="tw:mt-2">
                         <a title="{{ provider.name }}"
-                           class="btn btn-outline-primary w-100 socialaccount_provider {{ provider.id }}"
+                           class="tw:btn tw:btn-outline tw:btn-primary tw:w-full socialaccount_provider {{ provider.id }}"
                            href="{% provider_login_url provider %}">
                           {% translate 'Login with' %} {{ provider.name }}
                         </a>

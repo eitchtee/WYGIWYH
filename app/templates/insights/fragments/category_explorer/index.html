@@ -7,25 +7,25 @@
   {% crispy category_form %}
 </form>
 
-<div class="row row-cols-1 row-cols-lg-2 gx-3 gy-3">
-  <div class="col">
-    <div class="card h-100">
-      <div class="card-header">
+<div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-2 tw:gap-3">
+  <div class="tw:w-full">
+    <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+      <div class="tw:card-header tw:bg-base-200 tw:p-4 tw:font-semibold">
         {% trans "Income/Expense by Account" %}
       </div>
-      <div class="card-body">
+      <div class="tw:card-body">
         <div id="account-card" class="show-loading" hx-get="{% url 'category_sum_by_account' %}"
              hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
         </div>
       </div>
     </div>
   </div>
-  <div class="col">
-    <div class="card h-100">
-      <div class="card-header">
+  <div class="tw:w-full">
+    <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full">
+      <div class="tw:card-header tw:bg-base-200 tw:p-4 tw:font-semibold">
         {% trans "Income/Expense by Currency" %}
       </div>
-      <div class="card-body">
+      <div class="tw:card-body">
         <div id="currency-card" class="show-loading" hx-get="{% url 'category_sum_by_currency' %}"
              hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
         </div>

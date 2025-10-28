@@ -1,56 +1,57 @@
-@import "tom-select/dist/css/tom-select.bootstrap5.min.css";
-@import "variables";
-
-/* FIX BOOTSTRAP STYLING FOR TOM SELECT */
-.ts-dropdown,
-.ts-control,
-.ts-control input {
-  color: var(--bs-body-color);
-}
-
-/* stylelint-disable-next-line selector-class-pattern */
-.ts-wrapper.plugin-remove_button .item .remove {
-  color: $red;
-}
-
-/* stylelint-disable-next-line selector-class-pattern */
-.plugin-clear_button .clear-button {
-  color: $red;
-  right: 60px;
-}
-
-.ts-wrapper.multi .ts-control > div.active {
-  background: $primary;
-  color: $body-color;
-  border: 0 solid #0000;
-}
-
-.focus .ts-control {
-  color: $input-focus-color;
-  background-color: $input-focus-bg;
-  border-color: $input-focus-border-color;
-  outline: 0;
-
-  @if $enable-shadows {
-    @include box-shadow($input-box-shadow, $input-focus-box-shadow);
-  } @else {
-    // Avoid using mixin so we can pass custom focus shadow properly
-    box-shadow: $input-focus-box-shadow;
-  }
-}
-
-.focus.ts-wrapper {
-  border-color: $form-select-focus-border-color;
-  outline: 0;
-
-  @if $enable-shadows {
-    @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
-  } @else {
-    // Avoid using mixin so we can pass custom focus shadow properly
-    box-shadow: $form-select-focus-box-shadow;
-  }
-}
-
-.ts-control > .clear-button {
-  color: $red !important;
-}
+//@use "tom-select/dist/css/tom-select.default.min.css";
+//@use "tom-select/dist/css/tom-select.bootstrap5.min.css";
+//@use "variables";
+//
+///* FIX BOOTSTRAP STYLING FOR TOM SELECT */
+//.ts-dropdown,
+//.ts-control,
+//.ts-control input {
+//  color: var(--bs-body-color);
+//}
+//
+///* stylelint-disable-next-line selector-class-pattern */
+////.ts-wrapper.plugin-remove_button .item .remove {
+////  color: $red;
+////}
+//
+///* stylelint-disable-next-line selector-class-pattern */
+////.plugin-clear_button .clear-button {
+////  color: $red;
+////  right: 60px;
+////}
+//
+//.ts-wrapper.multi .ts-control > div.active {
+//  //background: $primary;
+//  //color: $body-color;
+//  border: 0 solid #0000;
+//}
+//
+//.focus .ts-control {
+//  //color: $input-focus-color;
+//  //background-color: $input-focus-bg;
+//  //border-color: $input-focus-border-color;
+//  outline: 0;
+//
+//  @if $enable-shadows {
+//    @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+//  } @else {
+//    // Avoid using mixin so we can pass custom focus shadow properly
+//    box-shadow: $input-focus-box-shadow;
+//  }
+//}
+//
+//.focus.ts-wrapper {
+//  border-color: $form-select-focus-border-color;
+//  outline: 0;
+//
+//  @if $enable-shadows {
+//    @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
+//  } @else {
+//    // Avoid using mixin so we can pass custom focus shadow properly
+//    box-shadow: $form-select-focus-box-shadow;
+//  }
+//}
+//
+//.ts-control > .clear-button {
+//  color: $red !important;
+//}

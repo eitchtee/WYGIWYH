@@ -1,3 +1,5 @@
+import 'tom-select/dist/css/tom-select.bootstrap5.min.css';
+
 import TomSelect from "tom-select";
 import * as Popper from "@popperjs/core";
 

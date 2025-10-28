@@ -1,10 +1,12 @@
-{% load webpack_loader %}
+{% load django_vite %}
 
-{% javascript_pack 'bootstrap' attrs="defer" %}
-{% javascript_pack 'sweetalert2' attrs="defer" %}
-{% javascript_pack 'select' attrs="defer" %}
-{% javascript_pack 'datepicker' %}
-{% javascript_pack 'autosize' attrs="defer" %}
+{% vite_hmr_client %}
+
+{% vite_asset 'bootstrap' defer=True %}
+{% vite_asset 'sweetalert2' defer=True %}
+{% vite_asset 'select' defer=True %}
+{% vite_asset 'datepicker' %}
+{% vite_asset 'autosize' defer=True %}
 
 {% include 'includes/scripts/hyperscript/init_tom_select.html' %}
 {% include 'includes/scripts/hyperscript/init_date_picker.html' %}
@@ -15,8 +17,10 @@
 {% include 'includes/scripts/hyperscript/sounds.html' %}
 {% include 'includes/scripts/hyperscript/swal.html' %}
 
-{% javascript_pack 'htmx' attrs="defer" %}
-{% javascript_pack 'charts' %}
+{% vite_asset 'htmx' defer=True %}
+{% vite_asset 'charts' %}
+
+{% vite_asset 'style' %}
 
 <script>
 let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
