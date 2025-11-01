@@ -2,12 +2,12 @@
 {% load toast_bg %}
 {% if messages %}
   {% for message in messages %}
-      <div class="tw:alert tw:alert-{{ message.tags | toast_bg }}"
+      <div class="toasty alert alert-{{ message.tags | toast_bg }}"
            role="alert"
            aria-live="assertive"
            aria-atomic="true">
-          <div class="tw:flex tw:items-center tw:justify-between tw:w-full">
-              <div class="tw:flex tw:items-center tw:gap-2">
+          <div class="flex items-center justify-between w-full">
+              <div class="flex items-center gap-2">
                   <i class="{{ message.tags | toast_icon }} fa-fw"></i>
                   <div>
                       <strong>{{ message.tags | toast_title }}</strong>
@@ -15,8 +15,8 @@
                   </div>
               </div>
               <button type="button"
-                      class="tw:btn tw:btn-ghost tw:btn-sm tw:btn-circle"
-                      data-bs-dismiss="toast"
+                      class="btn btn-ghost btn-sm btn-circle"
+                      _="on click remove closest .toasty"
                       aria-label={% translate 'Close' %}>
                   <i class="fa-solid fa-xmark"></i>
               </button>

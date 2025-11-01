@@ -5,23 +5,22 @@
 {% load static %}
 
 <div
-    class="sidebar {% if request.session.sidebar_status == 'floating' %}tw:group sidebar-floating{% elif request.session.sidebar_status == 'fixed' %}sidebar-fixed{% else %}tw:group sidebar-floating{% endif %}"
+    class="sidebar {% if request.session.sidebar_status == 'floating' %}group sidebar-floating{% elif request.session.sidebar_status == 'fixed' %}sidebar-fixed{% else %}group sidebar-floating{% endif %}"
     id="sidebar-container">
   <nav
       id="sidebar"
       hx-boost="true"
       hx-swap="transition:true"
-      class="offcanvas-lg offcanvas-start tw:lg:flex tw:flex-col tw:fixed tw:top-0 tw:left-0 tw:h-full tw:bg-base-300! tw:shadow-sm tw:z-[1020]">
-    <div class="tw:hidden tw:lg:flex tw:items-center tw:justify-between tw:pr-4 tw:border-b tw:border-base-content/10 sidebar-submenu-header">
-      <a href="{% url 'index' %}" class="tw:m-0 tw:hidden tw:lg:flex tw:justify-start tw:p-3 tw:no-underline sidebar-title">
+      class="offcanvas-lg offcanvas-start lg:flex flex-col fixed top-0 left-0 h-full bg-base-300! shadow-sm z-[1045]">
+    <div data-theme="wygiwyh_dark" class="hidden lg:flex items-center justify-between pr-4 border-b border-base-content/10 sidebar-submenu-header bg-base-300">
+      <a href="{% url 'index' %}" class="m-0 hidden lg:flex justify-start p-3 no-underline sidebar-title">
         <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
-        <span class="tw:text-2xl tw:font-bold tw:ml-3">WYGIWYH</span>
+        <span class="text-2xl font-bold ml-3">WYGIWYH</span>
       </a>
 
       <button
           id="sidebar-toggle-btn"
-
-          class="tw:btn tw:btn-ghost tw:btn-circle tw:w-12 tw:h-12 tw:flex tw:items-center tw:justify-center tw:transition-all tw:duration-300"
+          class="btn btn-ghost btn-circle w-12 h-12 flex items-center justify-center transition-all duration-300"
           hx-get="{% url 'toggle_sidebar_status' %}"
           _="on click
            toggle .sidebar-floating on #sidebar-container
@@ -35,17 +34,17 @@
       </button>
     </div>
 
-    <div class="tw:lg:hidden tw:flex tw:justify-between tw:items-center tw:p-4 tw:text-base-content">
-      <a href="{% url 'index' %}" class="tw:flex tw:justify-start tw:no-underline">
+    <div class="lg:hidden flex justify-between items-center p-4 text-base-content">
+      <a href="{% url 'index' %}" class="flex justify-start no-underline">
         <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
-        <span class="tw:text-2xl tw:font-bold tw:ml-3">WYGIWYH</span>
+        <span class="text-2xl font-bold ml-3">WYGIWYH</span>
       </a>
-      <button type="button" class="tw:btn tw:btn-ghost tw:btn-sm tw:btn-circle" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
+      <button type="button" class="btn btn-ghost btn-sm btn-circle" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
               aria-label={% translate 'Close' %}><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <hr class="tw:m-0 tw:text-base-content/60">
+    <hr class="m-0 hr">
 
-    <ul class="tw:list-none tw:p-3 tw:flex tw:flex-col tw:gap-1 tw:whitespace-nowrap tw:lg:group-hover:animate-[disable-pointer-events]"
+    <ul class="list-none p-3 flex flex-col gap-1 whitespace-nowrap lg:group-hover:animate-[disable-pointer-events]"
         style="animation-duration: 100ms">
 
       <c-components.sidebar-menu-item
@@ -135,7 +134,7 @@
       </c-components.sidebar-menu-item>
 
       <div>
-        <hr class="tw:border-base-300">
+        <hr class="hr">
       </div>
 
       <div role="button"
@@ -143,26 +142,26 @@
            data-bs-target="#collapsible-panel"
            aria-expanded="false"
            aria-controls="collapsible-panel"
-           class="sidebar-menu-item tw:text-wrap tw:lg:text-nowrap tw:lg:text-sm tw:flex tw:items-center tw:no-underline tw:p-2 tw:rounded-2xl tw:cursor-pointer sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
+           class="sidebar-menu-item text-wrap lg:text-nowrap lg:text-sm flex items-center no-underline p-2 rounded-2xl cursor-pointer sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
         <i class="fa-solid fa-toolbox fa-fw"></i>
-        <span class="tw:ml-3 tw:font-medium tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">
+        <span class="ml-3 font-medium lg:group-hover:truncate lg:group-focus:truncate lg:group-hover:text-ellipsis lg:group-focus:text-ellipsis">
           {% translate 'Management' %}
         </span>
-        <i class="fa-solid fa-chevron-right fa-fw tw:ml-auto tw:pe-2"></i>
+        <i class="fa-solid fa-chevron-right fa-fw ml-auto pe-2"></i>
       </div>
     </ul>
 
-    <div class="tw:mt-auto tw:p-2 tw:w-full">
+    <div class="mt-auto p-2 w-full">
       <div id="collapsible-panel"
-           class="tw:p-0 collapse tw:absolute tw:bottom-0 tw:left-0 tw:w-full tw:z-30 tw:max-h-dvh {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="show" %}">
-        <div class="tw:h-dvh tw:backdrop-blur-3xl tw:flex tw:flex-col">
+           class="p-0 collapse absolute bottom-0 left-0 w-full z-30 max-h-dvh {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="show" %}">
+        <div class="h-dvh backdrop-blur-3xl flex flex-col">
           <div
-              class="tw:justify-between tw:items-center tw:p-4 tw:border-b tw:border-base-content/10 sidebar-submenu-header tw:text-base-content">
-            <h5 class="tw:text-lg tw:font-semibold tw:text-base-content tw:m-0">
+              class="justify-between items-center p-4 border-b border-base-content/10 sidebar-submenu-header text-base-content">
+            <h5 class="text-lg font-semibold text-base-content m-0">
               {% trans 'Management' %}
             </h5>
 
-            <button type="button" class="tw:btn tw:btn-ghost tw:btn-sm tw:btn-circle" aria-label="{% trans 'Close' %}"
+            <button type="button" class="btn btn-ghost btn-sm btn-circle" aria-label="{% trans 'Close' %}"
                     data-bs-toggle="collapse"
                     data-bs-target="#collapsible-panel"
                     aria-expanded="true"
@@ -171,7 +170,7 @@
             </button>
           </div>
 
-          <ul class="tw:list-none tw:p-3 tw:flex tw:flex-col tw:gap-2 tw:lg:group-hover:animate-[disable-pointer-events] tw:flex-1"
+          <ul class="list-none p-3 flex flex-col gap-2 lg:group-hover:animate-[disable-pointer-events] flex-1"
               style="animation-duration: 100ms">
             <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
             <c-components.sidebar-menu-item
@@ -269,16 +268,16 @@
       </div>
       {% get_update_check as update_check %}
       {% if update_check.update_available %}
-        <div class="tw:my-3">
-          <a class="tw:px-3 tw:badge tw:badge-primary tw:no-underline tw:cursor-pointer tw:w-full !tw:text-xs"
+        <div class="my-3">
+          <a class="px-3 badge badge-primary no-underline cursor-pointer w-full !text-xs"
              href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i
-              class="fa-solid fa-circle-exclamation fa-fw tw:mr-2"></i><span
-              class="tw:lg:invisible tw:lg:group-hover:visible">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
+              class="fa-solid fa-circle-exclamation fa-fw mr-2"></i><span
+              class="lg:invisible lg:group-hover:visible">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
         </div>
       {% endif %}
 
-      <div class="tw:btn-group tw:w-full sidebar-item" role="group">
-        <button type="button" class="tw:btn tw:btn-secondary tw:btn-sm tw:w-full" data-bs-toggle="tooltip"
+      <div class="btn-group w-full sidebar-item" role="group">
+        <button type="button" class="btn btn-secondary btn-sm w-full" data-bs-toggle="tooltip"
                 data-bs-title="{% trans "Calculator" %}"
                 _="on click trigger show on #calculator">
           <i class="fa-solid fa-calculator fa-fw"></i>
@@ -287,14 +286,14 @@
     </div>
 
     <div>
-      <hr class="tw:my-1 tw:border-base-300">
+      <hr class="my-1 border-base-300">
       <div
-          class="tw:ps-4 tw:pe-2 tw:py-2 tw:flex tw:items-center tw:no-underline tw:justify-between">
+          class="ps-4 pe-2 py-2 flex items-center no-underline justify-between">
 
-        <div class="tw:flex tw:items-center" style="min-width: 0;">
-          <i class="fa-solid fa-circle-user tw:text-base-content/60"></i>
+        <div class="flex items-center" style="min-width: 0;">
+          <i class="fa-solid fa-circle-user text-base-content/60"></i>
 
-          <strong class="tw:mx-2 tw:text-base-content/60 tw:truncate sidebar-invisible">
+          <strong class="mx-2 text-base-content/60 truncate sidebar-invisible">
             {{ user.email }}
           </strong>
         </div>
@@ -308,5 +307,5 @@
   </nav>
 
   <div
-      class="tw:hidden tw:lg:group-hover:block tw:absolute tw:top-0 tw:left-104 tw:w-16 tw:h-full tw:bg-transparent"></div>
+      class="hidden lg:group-hover:block absolute top-0 left-104 w-16 h-full bg-transparent"></div>
 </div>

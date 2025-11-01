@@ -1,9 +1,9 @@
-<div class="tw:card tw:relative tw:h-full tw:shadow tw:bg-base-300">
-  <div class="tw:absolute tw:h-8 tw:w-8 tw:right-2 tw:top-2 tw:bg-{{ color }}-300 tw:text-{{ color }}-800 tw:text-center tw:flex tw:items-center tw:justify-center tw:rounded-lg">
-    {% if icon %}<i class="{{ icon }}"></i>{% else %}<span class="tw:font-bold">{{ title.0 }}</span>{% endif %}
+<div class="card card-border border-2 border-base-300 relative h-full shadow bg-base-100">
+  <div class="absolute h-8 w-8 right-2 top-2 bg-{{ color }}-300 text-{{ color }}-800 text-center flex items-center justify-center rounded-lg">
+    {% if icon %}<i class="{{ icon }}"></i>{% else %}<span class="font-bold">{{ title.0 }}</span>{% endif %}
   </div>
-  <div class="tw:card-body">
-    <h5 class="tw:text-{{ color }}-400 tw:font-bold tw:mr-[50px] {{ title_css_classes }}" {{ attrs }}>{{ title }}{% if help_text %}<c-ui.help-icon :content="help_text" icon=""></c-ui.help-icon>{% endif %}</h5>
+  <div class="card-body">
+    <h5 class="font-bold mr-[50px] text-xl {{ title_css_classes }}" {{ attrs }}>{{ title }}{% if help_text %}<c-ui.help-icon :content="help_text" icon=""></c-ui.help-icon>{% endif %}</h5>
     {{ slot }}
   </div>
 </div>

@@ -14,6 +14,7 @@ WORKDIR /usr/src/frontend
 COPY ./frontend .
 COPY ./app/templates /usr/src/app/templates
 RUN --mount=type=cache,target=/root/.npm \
+    rm -rf node_modules package-lock.json && \
     npm install --verbose && \
     npm run build
 

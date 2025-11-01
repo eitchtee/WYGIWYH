@@ -1,8 +1,8 @@
 @use "variables";
 @use "font-awesome";
 @use "bootstrap";
-@use "datepicker";
-@use "tom-select";
+// @use "datepicker";
+// @use "tom-select";
 @use "animations";
 @use "scrollbar";
 
@@ -12,13 +12,15 @@
 }
 
 // Somewhat prevents flickering when replacing with Tom-select
-select[multiple] {
+select[multiple],
+select {
   visibility: hidden;
+  display: none;
 }
 
-.ts-dropdown-content {
-  max-height: 50vh;
-}
+// .ts-dropdown-content {
+//   max-height: 50vh;
+// }
 
 //.font-base {
 //  font-family: bootstrap.$font-family-base;

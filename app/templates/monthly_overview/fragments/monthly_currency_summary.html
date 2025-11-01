@@ -1,7 +1,7 @@
 {% load tools %}
 {% load i18n %}
 {% load currency_display %}
-<div class="tw:grid tw:grid-cols-1 tw:gap-4 tw:mt-1 tw:mb-3">
+<div class="grid grid-cols-1 gap-4 mt-1 mb-3">
   {% for currency_id, currency in currency_data.items %}
     <div>
       <c-ui.currency_card :currency="currency" :currency_id="currency_id"

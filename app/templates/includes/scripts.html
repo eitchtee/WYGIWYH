@@ -2,25 +2,24 @@
 
 {% vite_hmr_client %}
 
-{% vite_asset 'bootstrap' defer=True %}
-{% vite_asset 'sweetalert2' defer=True %}
-{% vite_asset 'select' defer=True %}
-{% vite_asset 'datepicker' %}
-{% vite_asset 'autosize' defer=True %}
+{% vite_asset 'bootstrap.js' defer=True %}
+{% vite_asset 'sweetalert2.js' defer=True %}
+{% vite_asset 'select.js' defer=True %}
+{% vite_asset 'datepicker.js' %}
+{% vite_asset 'autosize.js' defer=True %}
 
 {% include 'includes/scripts/hyperscript/init_tom_select.html' %}
 {% include 'includes/scripts/hyperscript/init_date_picker.html' %}
 {% include 'includes/scripts/hyperscript/hide_amount.html' %}
 {% include 'includes/scripts/hyperscript/tooltip.html' %}
-{% include 'includes/scripts/hyperscript/autosize.html' %}
 {% include 'includes/scripts/hyperscript/htmx_error_handler.html' %}
 {% include 'includes/scripts/hyperscript/sounds.html' %}
 {% include 'includes/scripts/hyperscript/swal.html' %}
 
-{% vite_asset 'htmx' defer=True %}
-{% vite_asset 'charts' %}
+{% vite_asset 'htmx.js' defer=True %}
+{% vite_asset 'charts.js' %}
 
-{% vite_asset 'style' %}
+{% vite_asset 'style.js' %}
 
 <script>
 let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;

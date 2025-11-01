@@ -1,12 +1,12 @@
 {% load currency_display %}
 {% load i18n %}
-<div class="tw:card-body show-loading" hx-get="{% url 'exchange_rates_list_pair' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-vals='{"page": "{{ page_obj.number }}", "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'>
+<div class="card-body show-loading" hx-get="{% url 'exchange_rates_list_pair' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-vals='{"page": "{{ page_obj.number }}", "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'>
   {% if page_obj %}
-  <div class="tw:overflow-x-auto">
-    <table class="tw:table tw:table-hover tw:whitespace-nowrap">
+  <div class="overflow-x-auto">
+    <table class="table table-hover whitespace-nowrap">
       <thead>
         <tr>
-          <th scope="col" class="tw:w-auto"></th>
+          <th scope="col" class="w-auto"></th>
           <th scope="col">{% translate 'Date' %}</th>
           <th scope="col">{% translate 'Pairing' %}</th>
           <th scope="col">{% translate 'Rate' %}</th>
@@ -15,9 +15,9 @@
       <tbody>
         {% for exchange_rate in page_obj %}
         <tr class="exchange-rate">
-          <td class="tw:w-auto">
-            <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
-              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
+          <td class="w-auto">
+            <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+              <a class="btn btn-secondary btn-sm join-item"
                     role="button"
                     data-bs-toggle="tooltip"
                     data-bs-title="{% translate "Edit" %}"
@@ -25,7 +25,7 @@
                     hx-target="#generic-offcanvas"
                     hx-swap="innerHTML">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-error"
+              <a class="btn btn-secondary btn-sm join-item text-error"
                       role="button"
                       data-bs-toggle="tooltip"
                       data-bs-title="{% translate "Delete" %}"
@@ -39,9 +39,9 @@
                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
             </div>
           </td>
-          <td class="tw:w-1/4">{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
-          <td class="tw:w-1/4"><span class="tw:badge tw:badge-secondary tw:rounded-full">{{ exchange_rate.from_currency.name }}</span> x <span class="tw:badge tw:badge-secondary tw:rounded-full">{{ exchange_rate.to_currency.name }}</span></td>
-          <td class="tw:w-1/4">1 {{ exchange_rate.from_currency.name }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places%}</td>
+          <td class="w-1/4">{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
+          <td class="w-1/4"><span class="badge badge-secondary rounded-full">{{ exchange_rate.from_currency.name }}</span> x <span class="badge badge-secondary rounded-full">{{ exchange_rate.to_currency.name }}</span></td>
+          <td class="w-1/4">1 {{ exchange_rate.from_currency.name }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places%}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -52,12 +52,12 @@
   {% endif %}
 
   {% if page_obj.has_other_pages %}
-  <div class="tw:mt-auto">
+  <div class="mt-auto">
     <input value="{{ page_obj.number }}" name="page" type="hidden" id="page">
 
     <nav aria-label="{% translate 'Page navigation' %}">
-    <div class="tw:join tw:flex tw:justify-center tw:mt-5">
-      <button class="tw:join-item tw:btn tw:btn-sm tw:cursor-pointer {% if not page_obj.has_previous %}tw:btn-disabled{% endif %}"
+    <div class="join flex justify-center mt-5">
+      <button class="join-item btn btn-sm cursor-pointer {% if not page_obj.has_previous %}btn-disabled{% endif %}"
            hx-get="{% if page_obj.has_previous %}{% url 'exchange_rates_list_pair' %}{% endif %}"
            hx-vals='{"page": 1, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
            hx-include="#filter, #order"
@@ -76,11 +76,11 @@
               {% endcomment %}
               {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
                   {% if page_obj.number == page_number %}
-                      <button class="tw:join-item tw:btn tw:btn-sm tw:btn-active tw:cursor-pointer">
+                      <button class="join-item btn btn-sm btn-active cursor-pointer">
                               {{ page_number }}
                           </button>
                   {% else %}
-                      <button class="tw:join-item tw:btn tw:btn-sm tw:cursor-pointer"
+                      <button class="join-item btn btn-sm cursor-pointer"
                              hx-get="{% url 'exchange_rates_list_pair' %}"
                              hx-vals='{"page": {{ page_number }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
                              hx-target="#exchange-rates-table"
@@ -91,11 +91,11 @@
               {% endif %}
       {% endfor %}
       {% if page_obj.number|add:3 < page_obj.paginator.num_pages %}
-        <button class="tw:join-item tw:btn tw:btn-sm tw:btn-disabled"
+        <button class="join-item btn btn-sm btn-disabled"
              aria-label="...">
             <span aria-hidden="true">...</span>
           </button>
-        <button class="tw:join-item tw:btn tw:btn-sm tw:cursor-pointer"
+        <button class="join-item btn btn-sm cursor-pointer"
              hx-get="{% url 'exchange_rates_list_pair' %}" hx-target="#exchange-rates-table"
              hx-vals='{"page": {{ page_obj.paginator.num_pages }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
              hx-include="#filter, #order"
@@ -104,7 +104,7 @@
             <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
           </button>
       {% endif %}
-      <button class="tw:join-item tw:btn tw:btn-sm {% if not page_obj.has_next %}tw:btn-disabled{% endif %} tw:cursor-pointer"
+      <button class="join-item btn btn-sm {% if not page_obj.has_next %}btn-disabled{% endif %} cursor-pointer"
            hx-get="{% if page_obj.has_next %}{% url 'exchange_rates_list_pair' %}{% endif %}"
            hx-vals='{"page": {{ page_obj.paginator.num_pages }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
            hx-include="#filter, #order"

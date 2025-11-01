@@ -1,6 +1,6 @@
-import {resolve, dirname} from 'path';
-import {fileURLToPath} from 'url';
-import {defineConfig} from 'vite';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 // import commonjs from '@rollup/plugin-commonjs';
 // import * as path from "node:path";
@@ -12,7 +12,7 @@ const __dirname = dirname(__filename);
 const rollupInputs = {
     autosize: resolve(__dirname, 'src/autosize.js'),
     charts: resolve(__dirname, 'src/charts.js'),
-    // datepicker: resolve(__dirname, 'src/datepicker.js'),
+    datepicker: resolve(__dirname, 'src/datepicker.js'),
     bootstrap: resolve(__dirname, 'src/bootstrap.js'),
     htmx: resolve(__dirname, 'src/htmx.js'),
     select: resolve(__dirname, 'src/select.js'),
@@ -28,8 +28,11 @@ export default defineConfig({
 
     plugins: [
         tailwindcss(),
-        // commonjs()
     ],
+
+    css: {
+        devSourcemap: true,
+    },
 
     server: {
         host: '0.0.0.0',

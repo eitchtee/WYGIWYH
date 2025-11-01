@@ -5,42 +5,42 @@
 {% block title %}{% translate 'Insights' %}{% endblock %}
 
 {% block content %}
-  <div class="tw:container-fluid">
-    <div class="tw:flex tw:flex-wrap tw:my-3 tw:h-full">
-      <div class="tw:w-full tw:lg:w-2/12 tw:md:w-3/12 tw:mb-3 tw:md:mb-0">
-        <div class="tw:sticky tw:top-3">
+  <div class="container-fluid">
+    <div class="flex flex-wrap my-3 h-full">
+      <div class="w-full lg:w-2/12 md:w-3/12 mb-3 md:mb-0">
+        <div class="sticky top-3">
           <div class="">
-            <div class="tw:mb-2 tw:w-full tw:lg:inline-flex tw:grid tw:gap-2 tw:flex-wrap tw:lg:justify-center" role="group"
+            <div class="mb-2 w-full lg:inline-flex grid gap-2 flex-wrap lg:justify-center" role="group"
                  _="on change
                     set type to event.target.value
-                    add .tw:hidden to <#picker-form > div:not(.tw\\:hidden)/>
+                    add .hidden to <#picker-form > div:not(.tw\\:hidden)/>
 
                     if type == 'month'
-                      remove .tw:hidden from #month-form
+                      remove .hidden from #month-form
                     end
                     if type == 'year'
-                      remove .tw:hidden from #year-form
+                      remove .hidden from #year-form
                     end
                     if type == 'month-range'
-                      remove .tw:hidden from #month-range-form
+                      remove .hidden from #month-range-form
                     end
                     if type == 'year-range'
-                      remove .tw:hidden from #year-range-form
+                      remove .hidden from #year-range-form
                     end
                     if type == 'date-range'
-                      remove .tw:hidden from #date-range-form
+                      remove .hidden from #date-range-form
                     end
                     then trigger updated"
                  id="picker-type">
-              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="month" id="monthradio" autocomplete="off" aria-label="{% translate 'Month' %}" checked>
+              <input type="radio" class="join-item btn btn-sm btn-outline btn-primary flex-grow" name="type" value="month" id="monthradio" autocomplete="off" aria-label="{% translate 'Month' %}" checked>
 
-              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="year" id="yearradio" autocomplete="off" aria-label="{% translate 'Year' %}">
+              <input type="radio" class="join-item btn btn-sm btn-outline btn-primary flex-grow" name="type" value="year" id="yearradio" autocomplete="off" aria-label="{% translate 'Year' %}">
 
-              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="month-range" id="monthrangeradio" autocomplete="off" aria-label="{% translate 'Month Range' %}">
+              <input type="radio" class="join-item btn btn-sm btn-outline btn-primary flex-grow" name="type" value="month-range" id="monthrangeradio" autocomplete="off" aria-label="{% translate 'Month Range' %}">
 
-              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="year-range" id="yearrangeradio" autocomplete="off" aria-label="{% translate 'Year Range' %}">
+              <input type="radio" class="join-item btn btn-sm btn-outline btn-primary flex-grow" name="type" value="year-range" id="yearrangeradio" autocomplete="off" aria-label="{% translate 'Year Range' %}">
 
-              <input type="radio" class="tw:join-item tw:btn tw:btn-sm tw:btn-outline tw:btn-primary tw:flex-grow" name="type" value="date-range" id="daterangeradio" autocomplete="off" aria-label="{% translate 'Date Range' %}">
+              <input type="radio" class="join-item btn btn-sm btn-outline btn-primary flex-grow" name="type" value="date-range" id="daterangeradio" autocomplete="off" aria-label="{% translate 'Date Range' %}">
             </div>
             <form id="picker-form"
                   _="install init_datepicker
@@ -48,63 +48,63 @@
               <div id="month-form" class="">
                 {% crispy month_form %}
               </div>
-              <div id="year-form" class="tw:hidden">
+              <div id="year-form" class="hidden">
                 {% crispy year_form %}
               </div>
-              <div id="month-range-form" class="tw:hidden">
+              <div id="month-range-form" class="hidden">
                 {% crispy month_range_form %}
               </div>
-              <div id="year-range-form" class="tw:hidden">
+              <div id="year-range-form" class="hidden">
                 {% crispy year_range_form %}
               </div>
-              <div id="date-range-form" class="tw:hidden">
+              <div id="date-range-form" class="hidden">
                 {% crispy date_range_form %}
               </div>
             </form>
           </div>
-          <div class="tw:menu tw:menu-vertical tw:flex-col" id="v-pills-tab" role="tablist"
+          <div class="menu menu-vertical flex-col" id="v-pills-tab" role="tablist"
                aria-orientation="vertical">
-            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="btn btn-ghost justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_sankey_by_account' %}" hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Account Flow' %}
             </button>
-            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="btn btn-ghost justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_sankey_by_currency' %}"
                     hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Currency Flow' %}
             </button>
-            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="btn btn-ghost justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'category_explorer_index' %}"
                     hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Category Explorer' %}
             </button>
-            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="btn btn-ghost justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'category_overview' %}"
                     hx-include="#picker-form, #picker-type"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Categories Overview' %}
             </button>
-            <hr class="tw:border-base-300">
-            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <hr class="hr">
+            <button class="btn btn-ghost justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_late_transactions' %}"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Late Transactions' %}
             </button>
-            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="btn btn-ghost justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_latest_transactions' %}"
                     hx-indicator="#tab-content"
                     hx-target="#tab-content">{% trans 'Latest Transactions' %}
             </button>
-            <button class="tw:btn tw:btn-ghost tw:justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
+            <button class="btn btn-ghost justify-start" id="v-pills-tab" data-bs-toggle="pill" data-bs-target="#v-pills-content"
                     type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                     hx-get="{% url 'insights_emergency_fund' %}"
                     hx-indicator="#tab-content"
@@ -113,7 +113,7 @@
           </div>
         </div>
       </div>
-      <div class="tw:w-full tw:md:w-9/12 tw:lg:w-10/12">
+      <div class="w-full md:w-9/12 lg:w-10/12">
         <div id="tab-content" class="show-loading"></div>
       </div>
     </div>

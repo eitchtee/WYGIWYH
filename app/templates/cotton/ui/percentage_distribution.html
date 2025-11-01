@@ -1,35 +1,57 @@
 {% load i18n %}
-<div class="tw:flex tw:flex-col">
-  <div class="tw:flex tw:relative" role="progressbar" aria-label="{% trans 'Projected Income' %} ({{ percentage.percentages.income_projected|floatformat:2 }}%)" aria-valuenow="{{ percentage.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage.percentages.income_projected|floatformat:"2u" }}%">
-    <div class="tw:h-6 tw:bg-green-300 tw:bg-striped"
-         data-bs-toggle="tooltip"
-         data-bs-placement="top"
-         title="{% trans 'Projected Income' %} ({{ percentage.percentages.income_projected|floatformat:2 }}%)"
-         style="width: 100%">
+<div class="flex w-full h-4 rounded-full bg-white"
+    role="group"
+    aria-label="{% trans 'Income and Expense Percentages' %}">
+    
+    <!-- Segment 1: Projected Income -->
+    <div class="flex items-center justify-center h-4 bg-success/60 tooltip tooltip-bottom tooltip-success
+        {% if percentage.percentages.income_projected > 0 %}rounded-s-full{% endif %}
+        {% if percentage.percentages.income_projected > 0 and percentage.percentages.income_current <= 0 and percentage.percentages.expense_projected <= 0 and percentage.percentages.expense_current <= 0 %}rounded-e-full{% endif %}"
+        style="width: {{ percentage.percentages.income_projected|floatformat:'2u' }}%"
+        data-tip="{% trans 'Projected Income' %} ({{ percentage.percentages.income_projected|floatformat:2 }}%)"
+        role="progressbar"
+        aria-label="{% trans 'Projected Income' %} ({{ percentage.percentages.income_projected|floatformat:2 }}%)"
+        aria-valuenow="{{ percentage.percentages.income_projected|floatformat:0 }}"
+        aria-valuemin="0"
+        aria-valuemax="100">
     </div>
-  </div>
-  <div class="tw:flex tw:relative" role="progressbar" aria-label="{% trans 'Current Income' %} ({{ percentage.percentages.income_current|floatformat:2 }}%)" aria-valuenow="{{ percentage.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage.percentages.income_current|floatformat:"2u" }}%">
-    <div class="tw:h-6 tw:bg-green-400"
-         data-bs-toggle="tooltip"
-         data-bs-placement="top"
-         title="{% trans 'Current Income' %} ({{ p.percentages.income_current|floatformat:2 }}%)"
-         style="width: 100%">
+    
+    <!-- Segment 2: Current Income -->
+    <div class="flex items-center justify-center h-4 bg-success tooltip tooltip-bottom tooltip-success
+        {% if percentage.percentages.income_projected <= 0 and percentage.percentages.income_current > 0 %}rounded-s-full{% endif %}
+        {% if percentage.percentages.income_current > 0 and percentage.percentages.expense_projected <= 0 and percentage.percentages.expense_current <= 0 %}rounded-e-full{% endif %}"
+        style="width: {{ percentage.percentages.income_current|floatformat:'2u' }}%"
+        data-tip="{% trans 'Current Income' %} ({{ percentage.percentages.income_current|floatformat:2 }}%)"
+        role="progressbar"
+        aria-label="{% trans 'Current Income' %} ({{ percentage.percentages.income_current|floatformat:2 }}%)"
+        aria-valuenow="{{ percentage.percentages.income_current|floatformat:0 }}"
+        aria-valuemin="0"
+        aria-valuemax="100">
     </div>
-  </div>
-  <div class="tw:flex tw:relative" role="progressbar" aria-label="{% trans 'Projected Expenses' %} ({{ percentage.percentages.expense_projected|floatformat:2 }}%)" aria-valuenow="{{ percentage.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage.percentages.expense_projected|floatformat:"2u" }}%">
-    <div class="tw:h-6 tw:bg-red-300 tw:bg-striped"
-         data-bs-toggle="tooltip"
-         data-bs-placement="top"
-         title="{% trans 'Projected Expenses' %} ({{ percentage.percentages.expense_projected|floatformat:2 }}%)"
-         style="width: 100%">
+    
+    <!-- Segment 3: Projected Expenses -->
+    <div class="flex items-center justify-center h-4 bg-error/60 tooltip tooltip-bottom tooltip-error
+        {% if percentage.percentages.income_projected <= 0 and percentage.percentages.income_current <= 0 and percentage.percentages.expense_projected > 0 %}rounded-s-full{% endif %}
+        {% if percentage.percentages.expense_projected > 0 and percentage.percentages.expense_current <= 0 %}rounded-e-full{% endif %}"
+        style="width: {{ percentage.percentages.expense_projected|floatformat:'2u' }}%"
+        data-tip="{% trans 'Projected Expenses' %} ({{ percentage.percentages.expense_projected|floatformat:2 }}%)"
+        role="progressbar"
+        aria-label="{% trans 'Projected Expenses' %} ({{ percentage.percentages.expense_projected|floatformat:2 }}%)"
+        aria-valuenow="{{ percentage.percentages.expense_projected|floatformat:0 }}"
+        aria-valuemin="0"
+        aria-valuemax="100">
     </div>
-  </div>
-  <div class="tw:flex tw:relative" role="progressbar" aria-label="{% trans 'Current Expenses' %} ({{ percentage.percentages.expense_current|floatformat:2 }}%)" aria-valuenow="{{ percentage.percentages.expense_projected|floatformat:0 }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage.percentages.expense_current|floatformat:"2u" }}%">
-    <div class="tw:h-6 tw:bg-red-400"
-         data-bs-toggle="tooltip"
-         data-bs-placement="top"
-         title="{% trans 'Current Expenses' %} ({{ percentage.percentages.expense_current|floatformat:2 }}%)"
-         style="width: 100%">
+    
+    <!-- Segment 4: Current Expenses -->
+    <div class="flex items-center justify-center h-4 bg-error tooltip tooltip-bottom tooltip-error
+        {% if percentage.percentages.income_projected <= 0 and percentage.percentages.income_current <= 0 and percentage.percentages.expense_projected <= 0 and percentage.percentages.expense_current > 0 %}rounded-s-full{% endif %}
+        {% if percentage.percentages.expense_current > 0 %}rounded-e-full{% endif %}"
+        style="width: {{ percentage.percentages.expense_current|floatformat:'2u' }}%"
+        data-tip="{% trans 'Current Expenses' %} ({{ percentage.percentages.expense_current|floatformat:2 }}%)"
+        role="progressbar"
+        aria-label="{% trans 'Current Expenses' %} ({{ percentage.percentages.expense_current|floatformat:2 }}%)"
+        aria-valuenow="{{ percentage.percentages.expense_current|floatformat:0 }}"
+        aria-valuemin="0"
+        aria-valuemax="100">
     </div>
-  </div>
 </div>

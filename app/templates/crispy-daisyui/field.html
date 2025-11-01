@@ -4,16 +4,16 @@
     {{ field }}
 {% else %}
     {% if field|is_checkbox and tag != "td" %}
-        <div class="tw:mb-3">
+        <div class="">
         {% if label_class %}
             <div class="{{ field_class }}">
         {% endif %}
     {% endif %}
-    <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="{% if field|is_checkbox and form_show_labels %}tw:form-control{% else %}tw:mb-3{% endif %}{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    <{% if tag %}{{ tag }}{% else %}fieldset{% endif %} id="div_{{ field.auto_id }}" class="{% if field|is_checkbox and form_show_labels %}form-control{% else %}fieldset{% endif %}{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
         {% if field.label and not field|is_checkbox and form_show_labels %}
-            {% if field.use_fieldset %}<fieldset class="tw:fieldset"{% if field.aria_describedby %} aria-describedby="{{ field.aria_describedby }}"{% endif %}>{% endif %}
+            {% if field.use_fieldset %}<fieldset class="fieldset"{% if field.aria_describedby %} aria-describedby="{{ field.aria_describedby }}"{% endif %}>{% endif %}
             <{% if field.use_fieldset %}legend{% else %}label{% endif %}
-                {% if field.id_for_label %}for="{{ field.id_for_label }}"{% endif %} class="tw:label{% if label_class %} {{ label_class }}{% endif %}{% if field.field.required %} requiredField{% endif %}">
+                {% if field.id_for_label %}for="{{ field.id_for_label }}"{% endif %} class="fieldset-legend{% if label_class %} {{ label_class }}{% endif %}{% if field.field.required %} requiredField{% endif %}">
                 {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
             </{% if field.use_fieldset %}legend{% else %}label{% endif %}>
         {% endif %}
@@ -25,11 +25,11 @@
         {% if not field|is_checkboxselectmultiple and not field|is_radioselect %}
             {% if field|is_checkbox and form_show_labels %}
                     {% if field.errors %}
-                        {% crispy_field field 'class' 'tw:checkbox tw:checkbox-error' %}
+                        {% crispy_field field 'class' 'checkbox checkbox-error' %}
                     {% else %}
-                        {% crispy_field field 'class' 'tw:checkbox' %}
+                        {% crispy_field field 'class' 'checkbox' %}
                     {% endif %}
-                <label for="{{ field.id_for_label }}" class="tw:label{% if field.field.required %} requiredField{% endif %}">
+                <label for="{{ field.id_for_label }}" class="label{% if field.field.required %} requiredField{% endif %}">
                     {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
                 </label>
                 {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
@@ -39,20 +39,20 @@
                         {% include 'crispy-daisyui/layout/field_file.html' %}
                     {% elif field|is_select %}
                         {% if field.errors %}
-                            {% crispy_field field 'class' 'tw:select tw:select-bordered tw:select-error tw:w-full' %}
+                            {% crispy_field field 'class' 'select-error input-error w-full' %}
                         {% else %}
-                            {% crispy_field field 'class' 'tw:select tw:select-bordered tw:w-full' %}
+                            {% crispy_field field 'class' '' %}
                         {% endif %}
                     {% elif field|is_checkbox %}
                         {% if field.errors %}
-                            {% crispy_field field 'class' 'tw:checkbox tw:checkbox-error' %}
+                            {% crispy_field field 'class' 'checkbox checkbox-error w-full' %}
                         {% else %}
-                            {% crispy_field field 'class' 'tw:checkbox' %}
+                            {% crispy_field field 'class' 'checkbox w-full' %}
                         {% endif %}
                     {% elif field.errors %}
-                        {% crispy_field field 'class' 'tw:input tw:input-bordered tw:input-error tw:w-full' %}
+                        {% crispy_field field 'class' 'input input-error w-full' %}
                     {% else %}
-                        {% crispy_field field 'class' 'tw:input tw:input-bordered tw:w-full' %}
+                        {% crispy_field field 'class' 'input w-full' %}
                     {% endif %}
                     {% if not field|is_file %}
                         {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
@@ -61,7 +61,7 @@
             {% endif %}
         {% endif %}
         {% if field.use_fieldset and field.label and form_show_labels %}</fieldset>{% endif %}
-    </{% if tag %}{{ tag }}{% else %}div{% endif %}>
+    </{% if tag %}{{ tag }}{% else %}fieldset{% endif %}>
     {% if field|is_checkbox and tag != "td" %}
         {% if label_class %}
             </div>

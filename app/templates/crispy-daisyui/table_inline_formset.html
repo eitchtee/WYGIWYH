@@ -14,7 +14,7 @@
         {{ formset.management_form|crispy }}
     </div>
 
-    <table{% if form_id %} id="{{ form_id }}_table"{% endif%} class="tw:table tw:table-zebra tw:table-sm">
+    <table{% if form_id %} id="{{ form_id }}_table"{% endif%} class="table table-zebra table-sm">
         <thead>
             {% if formset.readonly and not formset.queryset.exists %}
             {% else %}
@@ -31,7 +31,7 @@
         </thead>
 
         <tbody>
-            <tr class="tw:hidden empty-form">
+            <tr class="hidden empty-form">
                 {% for field in formset.empty_form %}
                     {% include 'crispy-daisyui/field.html' with tag="td" form_show_labels=False %}
                 {% endfor %}

@@ -3,16 +3,16 @@
 {% if field.is_hidden %}
     {{ field }}
 {% else %}
-    <div id="div_{{ field.auto_id }}" class="tw:mb-3{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if form_group_wrapper_class %} {{ form_group_wrapper_class }}{% endif %}{% if form_show_errors and field.errors %} tw:has-error{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    <div id="div_{{ field.auto_id }}" class="{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if form_group_wrapper_class %} {{ form_group_wrapper_class }}{% endif %}{% if form_show_errors and field.errors %} has-error{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
 
         {% if field.label and form_show_labels %}
-            <label for="{{ field.id_for_label }}" class="tw:label{{ label_class }}{% if field.field.required %} requiredField{% endif %}">
-                <span class="tw:label-text">{{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}</span>
+            <label for="{{ field.id_for_label }}" class="label{{ label_class }}{% if field.field.required %} requiredField{% endif %}">
+                <span class="label-text">{{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}</span>
             </label>
         {% endif %}
 
         <div {% if field_class %}class="{{ field_class }}"{% endif %}>
-            <label class="tw:input tw:input-bordered tw:flex tw:items-center tw:gap-2{% if input_size %} {{ input_size }}{% endif %}{% if field.errors %} tw:input-error{% endif %}">
+            <label class="input input-bordered flex items-center gap-2{% if input_size %} {{ input_size }}{% endif %}{% if field.errors %} input-error{% endif %}">
                 {# prepend #}
                 {% if crispy_prepended_text %}
                     <span>{{ crispy_prepended_text }}</span>
@@ -21,14 +21,14 @@
                 {# input #}
                 {% if field|is_select %}
                     {% if field.errors %}
-                        {% crispy_field field 'class' 'tw:select tw:select-bordered tw:select-error tw:w-full' %}
+                        {% crispy_field field 'class' 'select-error' %}
                     {% else %}
-                        {% crispy_field field 'class' 'tw:select tw:select-bordered tw:w-full' %}
+                        {% crispy_field field 'class' '' %}
                     {% endif %}
                 {% elif field.errors %}
-                    {% crispy_field field 'class' 'tw:grow' %}
+                    {% crispy_field field 'class' 'grow' %}
                 {% else %}
-                    {% crispy_field field 'class' 'tw:grow' %}
+                    {% crispy_field field 'class' 'grow' %}
                 {% endif %}
                 
                 {# append #}

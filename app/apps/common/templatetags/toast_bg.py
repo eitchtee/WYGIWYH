@@ -11,7 +11,7 @@ def toast_bg(tags):
     elif "warning" in tags:
         return "warning"
     elif "error" in tags:
-        return "danger"
+        return "error"
     elif "info" in tags:
         return "info"
 

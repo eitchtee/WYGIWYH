@@ -1,6 +1,6 @@
 {% load crispy_forms_field %}
 
-<div class="tw:join tw:w-full tw:mb-3"
+<div class="join w-full flex mb-3"
      role="group"
      aria-label="{{ field.label }}"
      _="on click
@@ -10,7 +10,7 @@
         end">
     {% for choice in field.field.choices %}
         <input type="checkbox"
-               class="tw:join-item tw:btn tw:btn-outline"
+               class="join-item btn btn-secondary btn-outline grow"
                name="{{ field.html_name }}"
                id="{{ field.html_name }}_{{ forloop.counter }}"
                value="{{ choice.0 }}"

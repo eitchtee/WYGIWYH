@@ -1,19 +1,19 @@
 {% load i18n %}
 {% load crispy_forms_field %}
 
-<div class="tw:form-group tw:mb-3">
-    <div class="tw:join tw:w-full" role="group" aria-label="{{ field.label }}">
-        <input type="radio" class="tw:join-item tw:btn tw:btn-neutral" name="{{ field.name }}" id="{{ field.id_for_label }}_null"
+<div class="form-group mb-3">
+    <div class="join w-full" role="group" aria-label="{{ field.label }}">
+        <input type="radio" class="join-item btn btn-neutral" name="{{ field.name }}" id="{{ field.id_for_label }}_null"
                value="" aria-label="{% trans 'Unchanged' %}" {% if field.value is None %}checked{% endif %}>
 
-        <input type="radio" class="tw:join-item tw:btn tw:btn-primary" name="{{ field.name }}" id="{{ field.id_for_label }}_false"
+        <input type="radio" class="join-item btn btn-primary" name="{{ field.name }}" id="{{ field.id_for_label }}_false"
                value="false" aria-label="{% trans 'Projected' %}" {% if field.value is False %}checked{% endif %}">
 
-        <input type="radio" class="tw:join-item tw:btn tw:btn-success" name="{{ field.name }}" id="{{ field.id_for_label }}_true"
+        <input type="radio" class="join-item btn btn-success" name="{{ field.name }}" id="{{ field.id_for_label }}_true"
                value="true" aria-label="{% trans 'Paid' %}" {% if field.value is True %}checked{% endif %}>
     </div>
 
     {% if field.help_text %}
-        <div class="tw:text-base-content/60 tw:text-sm tw:mt-1">{{ field.help_text|safe }}</div>
+        <div class="text-base-content/60 text-sm mt-1">{{ field.help_text|safe }}</div>
     {% endif %}
 </div>

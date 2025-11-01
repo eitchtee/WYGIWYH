@@ -10,10 +10,10 @@
 {% block content %}
   <div hx-trigger="every 60m, updated from:window" hx-include="#view-type" class="show-loading" hx-get=""
        hx-target="body">
-    <div class="tw:h-full tw:text-center tw:mb-4 tw:pt-2">
-      <div class="tw:join" role="group" id="view-type" _="on change trigger updated">
+    <div class="h-full text-center mb-4 pt-2">
+      <div class="join" role="group" id="view-type" _="on change trigger updated">
         <input type="radio" 
-               class="tw:join-item tw:btn tw:btn-outline tw:btn-primary tw:rounded-full"
+               class="join-item btn btn-outline btn-primary rounded-full"
                name="view_type"
                aria-label="{% trans 'Current' %}"
                autocomplete="off"
@@ -21,7 +21,7 @@
                {% if type == "current" %}checked{% endif %}>
 
         <input type="radio"
-               class="tw:join-item tw:btn tw:btn-outline tw:btn-primary tw:rounded-full"
+               class="join-item btn btn-outline btn-primary rounded-full"
                name="view_type"
                aria-label="{% trans 'Projected' %}"
                autocomplete="off"
@@ -29,23 +29,23 @@
                {% if type == "projected" %}checked{% endif %}>
       </div>
     </div>
-    <div class="tw:container tw:px-md-3 tw:py-3"
+    <div class="container px-md-3 py-3"
          _="init call initializeAccountChart() then initializeCurrencyChart() then initializeMonthlyDifferenceChart() end">
-      <div class="tw:flex tw:flex-wrap tw:gap-x-xl-4 tw:gap-y-3 tw:mb-4">
-        <div class="tw:w-full tw:xl:w-5/12">
-          <div class="tw:grid tw:grid-cols-1 tw:gap-4">
+      <div class="flex flex-wrap gap-x-xl-4 gap-y-3 mb-4">
+        <div class="w-full xl:w-5/12">
+          <div class="grid grid-cols-1 gap-4">
             <div>
               <c-ui.info-card color="yellow" icon="fa-solid fa-coins" title="{% trans 'By currency' %}"
-                              title_css_classes="tw:cursor-pointer"
+                              title_css_classes="cursor-pointer"
                               _="on click showAllDatasetsCurrency()">
                 {% for currency in currency_net_worth.values %}
-                  <div class="tw:flex tw:justify-between tw:mt-2">
-                    <div class="tw:flex tw:items-baseline tw:w-full">
-                      <div class="currency-name tw:text-start tw:font-mono tw:text-base-content/60 tw:cursor-pointer"
+                  <div class="flex justify-between mt-2">
+                    <div class="flex items-baseline w-full">
+                      <div class="currency-name text-start font-mono text-base-content/60 cursor-pointer"
                            _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
                         {{ currency.currency.name }}
                       </div>
-                      <div class="dotted-line tw:flex-grow"></div>
+                      <div class="dotted-line flex-grow"></div>
                       <div>
                         <c-amount.display
                             :amount="currency.total_final"
@@ -69,10 +69,10 @@
                     </div>
                   {% endif %}
                   {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
-                    <div class="tw:flex tw:items-baseline tw:w-full">
-                      <div class="account-name tw:text-start tw:font-mono tw:text-base-content/60">
+                    <div class="flex items-baseline w-full">
+                      <div class="account-name text-start font-mono text-base-content/60">
                         <span class="hierarchy-line-icon"></span>{% trans 'Consolidated' %}</div>
-                      <div class="dotted-line tw:flex-grow"></div>
+                      <div class="dotted-line flex-grow"></div>
                       <div class="">
                         <c-amount.display
                             :amount="currency.consolidated.total_final"
@@ -89,48 +89,48 @@
             </div>
           </div>
         </div>
-        <div class="tw:w-full tw:xl:w-7/12">
-          <div role="tablist" class="tw:tabs tw:tabs-bordered tw:w-full" id="myTab">
-            <input type="radio" name="networth_tabs" role="tab" class="tw:tab" aria-label="{% trans 'Evolution' %}" id="tab-evolution" checked="checked" />
-            <div role="tabpanel" class="tw:tab-content tw:p-4" id="evolution-tab-pane">
-              <div class="chart-container tw:relative tw:min-h-[40vh] tw:h-full tw:w-full">
+        <div class="w-full xl:w-7/12">
+          <div role="tablist" class="tabs tabs-bordered w-full" id="myTab">
+            <input type="radio" name="networth_tabs" role="tab" class="tab" aria-label="{% trans 'Evolution' %}" id="tab-evolution" checked="checked" />
+            <div role="tabpanel" class="tab-content p-4" id="evolution-tab-pane">
+              <div class="chart-container relative min-h-[40vh] h-full w-full">
                 <canvas id="currencyBalanceChart"></canvas>
               </div>
             </div>
 
-            <input type="radio" name="networth_tabs" role="tab" class="tw:tab" aria-label="{% trans 'Difference' %}" id="tab-diff" />
-            <div role="tabpanel" class="tw:tab-content tw:p-4" id="diff-tab-pane">
-              <div class="chart-container tw:relative tw:min-h-[40vh] tw:h-full tw:w-full">
+            <input type="radio" name="networth_tabs" role="tab" class="tab" aria-label="{% trans 'Difference' %}" id="tab-diff" />
+            <div role="tabpanel" class="tab-content p-4" id="diff-tab-pane">
+              <div class="chart-container relative min-h-[40vh] h-full w-full">
                 <canvas id="monthlyDifferenceChart"></canvas>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <hr class="tw:border-base-300">
-      <div class="tw:flex tw:flex-wrap tw:gap-x-xl-4 tw:gap-y-3 tw:mt-4">
-        <div class="tw:w-full tw:xl:w-5/12">
-          <div class="tw:grid tw:grid-cols-1 tw:gap-4">
+      <hr class="text-base-content/60">
+      <div class="flex flex-wrap gap-x-xl-4 gap-y-3 mt-4">
+        <div class="w-full xl:w-5/12">
+          <div class="grid grid-cols-1 gap-4">
             <div>
               <c-ui.info-card color="blue" icon="fa-solid fa-wallet" title="{% trans 'By account' %}"
-                              title_css_classes="tw:cursor-pointer"
+                              title_css_classes="cursor-pointer"
                               _="on click showAllDatasetsAccount()">
                 {% regroup account_net_worth.values by account.group as account_data %}
                 {% for data in account_data %}
                   {% if data.grouper %}
-                    <div class="tw:flex tw:justify-between tw:mt-2">
-                      <div class="tw:flex tw:items-baseline tw:w-full">
-                        <div class="tw:text-start tw:font-mono tw:text-base-content/60"><span class="tw:badge tw:badge-primary">
+                    <div class="flex justify-between mt-2">
+                      <div class="flex items-baseline w-full">
+                        <div class="text-start font-mono text-base-content/60"><span class="badge badge-primary">
                         {{ data.grouper }}</span></div>
                       </div>
                     </div>
                     {% for account in data.list %}
-                      <div class="tw:flex tw:justify-between tw:mt-2">
-                        <div class="tw:flex tw:items-baseline tw:w-full">
-                          <div class="account-name tw:text-start tw:font-mono tw:text-base-content/60 tw:cursor-pointer"
+                      <div class="flex justify-between mt-2">
+                        <div class="flex items-baseline w-full">
+                          <div class="account-name text-start font-mono text-base-content/60 cursor-pointer"
                                _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                             <span class="hierarchy-line-icon"></span>{{ account.account.name }}</div>
-                          <div class="dotted-line tw:flex-grow"></div>
+                          <div class="dotted-line flex-grow"></div>
                           <div class="">
                             <c-amount.display
                                 :amount="account.total_final"
@@ -153,13 +153,13 @@
                     {% endfor %}
                   {% else %}
                     {% for account in data.list %}
-                      <div class="tw:flex tw:justify-between tw:mt-2">
-                        <div class="tw:flex tw:items-baseline tw:w-full">
-                          <div class="account-name tw:text-start tw:font-mono tw:text-base-content/60 tw:cursor-pointer"
+                      <div class="flex justify-between mt-2">
+                        <div class="flex items-baseline w-full">
+                          <div class="account-name text-start font-mono text-base-content/60 cursor-pointer"
                                _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                             {{ account.account.name }}
                           </div>
-                          <div class="dotted-line tw:flex-grow"></div>
+                          <div class="dotted-line flex-grow"></div>
                           <div>
                             <c-amount.display
                                 :amount="account.total_final"
@@ -186,8 +186,8 @@
             </div>
           </div>
         </div>
-        <div class="tw:w-full tw:xl:w-7/12">
-          <div class="chart-container tw:relative tw:min-h-[40vh] tw:h-full">
+        <div class="w-full xl:w-7/12">
+          <div class="chart-container relative min-h-[40vh] h-full">
             <canvas id="accountBalanceChart"></canvas>
           </div>
         </div>

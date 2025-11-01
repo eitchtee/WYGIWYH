@@ -7,12 +7,12 @@
        hx-swap="outerHTML">
 {% endif %}
   {% if categories %}
-  <div class="tw:overflow-x-auto">
+  <div class="overflow-x-auto">
     <c-config.search></c-config.search>
-    <table class="tw:table tw:table-hover">
+    <table class="table table-hover">
       <thead>
       <tr>
-        <th scope="col" class="tw:w-auto"></th>
+        <th scope="col" class="w-auto"></th>
         <th scope="col">{% translate 'Name' %}</th>
         <th scope="col">{% translate 'Muted' %}</th>
       </tr>
@@ -20,9 +20,9 @@
       <tbody>
       {% for category in categories %}
         <tr class="category">
-          <td class="tw:w-auto tw:text-center">
-            <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
-              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
+          <td class="w-auto text-center">
+            <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+              <a class="btn btn-secondary btn-sm join-item"
                  role="button"
                  data-bs-toggle="tooltip"
                  hx-swap="innerHTML"
@@ -30,7 +30,7 @@
                  hx-get="{% url 'category_edit' category_id=category.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-error"
+              <a class="btn btn-secondary btn-sm join-item text-error"
                  role="button"
                  data-bs-toggle="tooltip"
                  data-bs-title="{% translate "Delete" %}"
@@ -43,7 +43,7 @@
                  data-confirm-text="{% translate "Yes, delete it!" %}"
                  _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
               {% if not category.owner %}
-              <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-primary"
+              <a class="btn btn-secondary btn-sm join-item text-primary"
                  role="button"
                  data-bs-toggle="tooltip"
                  data-bs-title="{% translate "Take ownership" %}"
@@ -51,7 +51,7 @@
                 <i class="fa-solid fa-crown fa-fw"></i></a>
               {% endif %}
               {% if user == category.owner %}
-                <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-primary"
+                <a class="btn btn-secondary btn-sm join-item text-primary"
                  role="button"
                  hx-target="#generic-offcanvas"
                  hx-swap="innerHTML"
@@ -64,7 +64,7 @@
           </td>
           <td>{{ category.name }}</td>
           <td>
-            {% if category.mute %}<i class="fa-solid fa-check tw:text-success"></i>{% endif %}
+            {% if category.mute %}<i class="fa-solid fa-check text-success"></i>{% endif %}
           </td>
         </tr>
       {% endfor %}

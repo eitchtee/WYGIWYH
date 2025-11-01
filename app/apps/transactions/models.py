@@ -2,28 +2,28 @@ import decimal
 import logging
 from copy import deepcopy
 
+from apps.common.fields.month_year import MonthYearModelField
+from apps.common.functions.decimals import truncate_decimal
+from apps.common.middleware.thread_local import get_current_user
+from apps.common.models import (
+    OwnedObject,
+    OwnedObjectManager,
+    SharedObject,
+    SharedObjectManager,
+)
+from apps.common.templatetags.decimal import drop_trailing_zeros, localize_number
+from apps.currencies.utils.convert import convert
+from apps.transactions.validators import validate_decimal_places, validate_non_negative
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import Q
 from django.dispatch import Signal
+from django.forms import ValidationError
 from django.template.defaultfilters import date
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
-from apps.common.fields.month_year import MonthYearModelField
-from apps.common.functions.decimals import truncate_decimal
-from apps.common.templatetags.decimal import localize_number, drop_trailing_zeros
-from apps.currencies.utils.convert import convert
-from apps.transactions.validators import validate_decimal_places, validate_non_negative
-from apps.common.middleware.thread_local import get_current_user
-from apps.common.models import (
-    SharedObject,
-    SharedObjectManager,
-    OwnedObject,
-    OwnedObjectManager,
-)
 
 logger = logging.getLogger()
 
@@ -381,20 +381,31 @@ class Transaction(OwnedObject):
         db_table = "transactions"
         default_manager_name = "objects"
 
-    def clean_fields(self, *args, **kwargs):
+    def clean(self):
+        super().clean()
+
+        # Only process amount and reference_date if account exists
+        # If account is missing, Django's required field validation will handle it
+        try:
+            account = self.account
+        except Transaction.account.RelatedObjectDoesNotExist:
+            # Account doesn't exist, skip processing that depends on it
+            # Django will add the required field error
+            return
+
+        # Validate and normalize amount
         if isinstance(self.amount, (str, int, float)):
             self.amount = decimal.Decimal(str(self.amount))
 
         self.amount = truncate_decimal(
-            value=self.amount, decimal_places=self.account.currency.decimal_places
+            value=self.amount, decimal_places=account.currency.decimal_places
         )
 
+        # Normalize reference_date
         if self.reference_date:
             self.reference_date = self.reference_date.replace(day=1)
         elif not self.reference_date and self.date:
             self.reference_date = self.date.replace(day=1)
-
-        super().clean_fields(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         # This is not recommended as it will run twice on some cases like form and API saves.

@@ -1,9 +1,9 @@
 {% load i18n %}
-<div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5">
-  <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
       <div>{% translate 'Dollar Cost Average Strategies' %}<span>
-      <a class="tw:no-underline tw:text-2xl tw:p-1 category-action"
+      <a class="no-underline text-2xl p-1 category-action"
          role="button"
          data-bs-toggle="tooltip"
          data-bs-title="{% translate "Add" %}"
@@ -14,23 +14,23 @@
     {% endspaceless %}
   </div>
 
-  <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:lg:grid-cols-3 tw:xl:grid-cols-4 tw:gap-3">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
     {% for strategy in strategies %}
       <div>
-        <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:h-full tw:flex tw:flex-col">
-          <div class="tw:card-header tw:bg-base-200 tw:p-4">
-            <span class="tw:badge tw:badge-secondary tw:rounded-full">{{ strategy.payment_currency.name }}</span> x <span
-              class="tw:badge tw:badge-secondary tw:rounded-full">{{ strategy.target_currency.name }}</span>
+        <div class="card bg-base-100 shadow-xl h-full flex flex-col">
+          <div class="card-header bg-base-200 p-4">
+            <span class="badge badge-secondary rounded-full">{{ strategy.payment_currency.name }}</span> x <span
+              class="badge badge-secondary rounded-full">{{ strategy.target_currency.name }}</span>
           </div>
           <a href="{% url 'dca_strategy_detail_index' strategy_id=strategy.id %}" hx-boost="true"
-             class="tw:no-underline tw:card-body tw:flex-1">
+             class="no-underline card-body flex-1">
             <div class="">
-              <div class="tw:card-title tw:text-xl">{{ strategy.name }}</div>
-              <div class="tw:text-base-content/60">{{ strategy.notes }}</div>
+              <div class="card-title text-xl">{{ strategy.name }}</div>
+              <div class="text-base-content/60">{{ strategy.notes }}</div>
             </div>
           </a>
-          <div class="tw:card-footer tw:bg-base-200 tw:p-4 tw:text-right">
-            <a class="tw:no-underline tw:text-base-content/60 tw:p-1"
+          <div class="card-footer bg-base-200 p-4 text-right">
+            <a class="no-underline text-base-content/60 p-1"
                role="button"
                data-bs-toggle="tooltip"
                data-bs-title="{% translate "Edit" %}"
@@ -38,7 +38,7 @@
                hx-target="#generic-offcanvas">
               <i class="fa-solid fa-pencil fa-fw"></i>
             </a>
-            <a class="tw:text-error tw:no-underline tw:p-1"
+            <a class="text-error no-underline p-1"
                role="button"
                data-bs-toggle="tooltip"
                data-bs-title="{% translate "Delete" %}"
@@ -52,7 +52,7 @@
               <i class="fa-solid fa-trash fa-fw"></i>
             </a>
             {% if not strategy.owner %}
-              <a class="tw:text-primary tw:no-underline tw:p-1"
+              <a class="text-primary no-underline p-1"
                  role="button"
                  data-bs-toggle="tooltip"
                  data-bs-title="{% translate "Take ownership" %}"
@@ -60,7 +60,7 @@
                 <i class="fa-solid fa-crown fa-fw"></i></a>
             {% endif %}
             {% if user == strategy.owner %}
-              <a class="tw:text-primary tw:no-underline tw:p-1"
+              <a class="text-primary no-underline p-1"
                  role="button"
                  hx-target="#generic-offcanvas"
                  data-bs-toggle="tooltip"

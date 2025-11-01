@@ -1,20 +1,5 @@
 from copy import deepcopy
 
-from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
-from crispy_forms.bootstrap import FormActions, AccordionGroup, AppendedText
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    Layout,
-    Row,
-    Column,
-    Field,
-    Div,
-    HTML,
-)
-from django import forms
-from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
-
 from apps.accounts.models import Account
 from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
@@ -26,14 +11,28 @@ from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelect
 from apps.rules.signals import transaction_created, transaction_updated
 from apps.transactions.models import (
+    InstallmentPlan,
+    QuickTransaction,
+    RecurringTransaction,
     Transaction,
     TransactionCategory,
-    TransactionTag,
-    InstallmentPlan,
-    RecurringTransaction,
     TransactionEntity,
-    QuickTransaction,
+    TransactionTag,
 )
+from crispy_bootstrap5.bootstrap5 import BS5Accordion, Switch
+from crispy_forms.bootstrap import AccordionGroup, AppendedText, FormActions
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import (
+    HTML,
+    Column,
+    Div,
+    Field,
+    Layout,
+    Row,
+)
+from django import forms
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 
 class TransactionForm(forms.ModelForm):
@@ -134,20 +133,20 @@ class TransactionForm(forms.ModelForm):
             ),
             Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
             Row(
-                Column("account", css_class="form-group col-md-6 mb-0"),
-                Column("entities", css_class="form-group col-md-6 mb-0"),
+                Column("account", css_class="md:col-span-6 mb-0"),
+                Column("entities", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             Row(
-                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
-                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("date"), css_class="md:col-span-6 mb-0"),
+                Column(Field("reference_date"), css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "description",
             Field("amount", inputmode="decimal"),
             Row(
-                Column("category", css_class="form-group col-md-6 mb-0"),
-                Column("tags", css_class="form-group col-md-6 mb-0"),
+                Column("category", css_class="md:col-span-6 mb-0"),
+                Column("tags", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "notes",
@@ -164,8 +163,8 @@ class TransactionForm(forms.ModelForm):
             Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
             "account",
             Row(
-                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
-                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("date"), css_class="md:col-span-6 mb-0"),
+                Column(Field("reference_date"), css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "description",
@@ -175,8 +174,8 @@ class TransactionForm(forms.ModelForm):
                     _("More"),
                     "entities",
                     Row(
-                        Column("category", css_class="form-group col-md-6 mb-0"),
-                        Column("tags", css_class="form-group col-md-6 mb-0"),
+                        Column("category", css_class="md:col-span-6 mb-0"),
+                        Column("tags", css_class="md:col-span-6 mb-0"),
                         css_class="form-row",
                     ),
                     "notes",
@@ -350,15 +349,15 @@ class QuickTransactionForm(forms.ModelForm):
             "name",
             HTML("<hr />"),
             Row(
-                Column("account", css_class="form-group col-md-6 mb-0"),
-                Column("entities", css_class="form-group col-md-6 mb-0"),
+                Column("account", css_class="md:col-span-6 mb-0"),
+                Column("entities", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "description",
             Field("amount", inputmode="decimal"),
             Row(
-                Column("category", css_class="form-group col-md-6 mb-0"),
-                Column("tags", css_class="form-group col-md-6 mb-0"),
+                Column("category", css_class="md:col-span-6 mb-0"),
+                Column("tags", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "notes",
@@ -481,20 +480,20 @@ class BulkEditTransactionForm(forms.Form):
                 template="transactions/widgets/unselectable_paid_toggle_button.html",
             ),
             Row(
-                Column("account", css_class="form-group col-md-6 mb-0"),
-                Column("entities", css_class="form-group col-md-6 mb-0"),
+                Column("account", css_class="md:col-span-6 mb-0"),
+                Column("entities", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             Row(
-                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
-                Column(Field("reference_date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("date"), css_class="md:col-span-6 mb-0"),
+                Column(Field("reference_date"), css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "description",
             Field("amount", inputmode="decimal"),
             Row(
-                Column("category", css_class="form-group col-md-6 mb-0"),
-                Column("tags", css_class="form-group col-md-6 mb-0"),
+                Column("category", css_class="md:col-span-6 mb-0"),
+                Column("tags", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "notes",
@@ -600,10 +599,10 @@ class TransferForm(forms.Form):
 
         self.helper.layout = Layout(
             Row(
-                Column(Field("date"), css_class="form-group col-md-6 mb-0"),
+                Column(Field("date"), css_class="md:col-span-6 mb-0"),
                 Column(
                     Field("reference_date"),
-                    css_class="form-group col-md-6 mb-0",
+                    css_class="md:col-span-6 mb-0",
                 ),
                 css_class="form-row",
             ),
@@ -612,45 +611,29 @@ class TransferForm(forms.Form):
             Switch("mute"),
             Row(
                 Column(
-                    Row(
-                        Column(
-                            "from_account",
-                            css_class="form-group col-md-6 mb-0",
-                        ),
-                        Column(
-                            Field("from_amount"),
-                            css_class="form-group col-md-6 mb-0",
-                        ),
-                        css_class="form-row",
-                    ),
-                    Row(
-                        Column("from_category", css_class="form-group col-md-6 mb-0"),
-                        Column("from_tags", css_class="form-group col-md-6 mb-0"),
-                        css_class="form-row",
-                    ),
+                    "from_account",
+                    css_class="md:col-span-6",
                 ),
-                css_class="p-1 mx-1 my-3 border rounded-3",
+                Column(
+                    Field("from_amount"),
+                    css_class="md:col-span-6",
+                ),
+                Column("from_category", css_class="md:col-span-6"),
+                Column("from_tags", css_class="md:col-span-6"),
+                css_class="bg-base-200 rounded-box p-4 border-base-content/60 border mb-3",
             ),
             Row(
                 Column(
-                    Row(
-                        Column(
-                            "to_account",
-                            css_class="form-group col-md-6 mb-0",
-                        ),
-                        Column(
-                            Field("to_amount"),
-                            css_class="form-group col-md-6 mb-0",
-                        ),
-                        css_class="form-row",
-                    ),
-                    Row(
-                        Column("to_category", css_class="form-group col-md-6 mb-0"),
-                        Column("to_tags", css_class="form-group col-md-6 mb-0"),
-                        css_class="form-row",
-                    ),
+                    "to_account",
+                    css_class="md:col-span-6 mb-0",
                 ),
-                css_class="p-1 mx-1 my-3 border rounded-3",
+                Column(
+                    Field("to_amount"),
+                    css_class="md:col-span-6 mb-0",
+                ),
+                Column("to_category", css_class="md:col-span-6 mb-0"),
+                Column("to_tags", css_class="md:col-span-6 mb-0"),
+                css_class="bg-base-200 rounded-box p-4 border-base-content/60 border mb-3",
             ),
             FormActions(
                 NoClassSubmit(
@@ -841,8 +824,8 @@ class InstallmentPlanForm(forms.ModelForm):
                 template="transactions/widgets/income_expense_toggle_buttons.html",
             ),
             Row(
-                Column("account", css_class="form-group col-md-6 mb-0"),
-                Column("entities", css_class="form-group col-md-6 mb-0"),
+                Column("account", css_class="md:col-span-6 mb-0"),
+                Column("entities", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "description",
@@ -850,20 +833,20 @@ class InstallmentPlanForm(forms.ModelForm):
             "notes",
             Switch("add_notes_to_transaction"),
             Row(
-                Column("number_of_installments", css_class="form-group col-md-6 mb-0"),
-                Column("installment_start", css_class="form-group col-md-6 mb-0"),
+                Column("number_of_installments", css_class="md:col-span-6 mb-0"),
+                Column("installment_start", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             Row(
-                Column("start_date", css_class="form-group col-md-4 mb-0"),
-                Column("reference_date", css_class="form-group col-md-4 mb-0"),
-                Column("recurrence", css_class="form-group col-md-4 mb-0"),
+                Column("start_date", css_class="md:col-span-4 mb-0"),
+                Column("reference_date", css_class="md:col-span-4 mb-0"),
+                Column("recurrence", css_class="md:col-span-4 mb-0"),
                 css_class="form-row",
             ),
             "installment_amount",
             Row(
-                Column("category", css_class="form-group col-md-6 mb-0"),
-                Column("tags", css_class="form-group col-md-6 mb-0"),
+                Column("category", css_class="md:col-span-6 mb-0"),
+                Column("tags", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
         )
@@ -1103,29 +1086,29 @@ class RecurringTransactionForm(forms.ModelForm):
                 template="transactions/widgets/income_expense_toggle_buttons.html",
             ),
             Row(
-                Column("account", css_class="form-group col-md-6 mb-0"),
-                Column("entities", css_class="form-group col-md-6 mb-0"),
+                Column("account", css_class="md:col-span-6 mb-0"),
+                Column("entities", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "description",
             Switch("add_description_to_transaction"),
             "amount",
             Row(
-                Column("category", css_class="form-group col-md-6 mb-0"),
-                Column("tags", css_class="form-group col-md-6 mb-0"),
+                Column("category", css_class="md:col-span-6 mb-0"),
+                Column("tags", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             "notes",
             Switch("add_notes_to_transaction"),
             Row(
-                Column("start_date", css_class="form-group col-md-6 mb-0"),
-                Column("reference_date", css_class="form-group col-md-6 mb-0"),
+                Column("start_date", css_class="md:col-span-6 mb-0"),
+                Column("reference_date", css_class="md:col-span-6 mb-0"),
                 css_class="form-row",
             ),
             Row(
-                Column("recurrence_interval", css_class="form-group col-md-4 mb-0"),
-                Column("recurrence_type", css_class="form-group col-md-4 mb-0"),
-                Column("end_date", css_class="form-group col-md-4 mb-0"),
+                Column("recurrence_interval", css_class="md:col-span-4 mb-0"),
+                Column("recurrence_type", css_class="md:col-span-4 mb-0"),
+                Column("end_date", css_class="md:col-span-4 mb-0"),
                 css_class="form-row",
             ),
             AppendedText("keep_at_most", _("future transactions")),

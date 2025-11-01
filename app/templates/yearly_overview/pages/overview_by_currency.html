@@ -19,9 +19,9 @@
 
 {% block filter_pills %}
   <input type="hidden" name="currency" value="">
-  <div class="tw:join tw:join-vertical tw:flex-col" id="filter-pills" role="tablist"
+  <div class="join join-vertical flex-col" id="filter-pills" role="tablist"
        hx-indicator="#data-content">
-    <button class="tw:btn tw:btn-outline tw:btn-primary tw:btn-active tw:justify-start tw:join-item"
+    <button class="btn btn-outline btn-primary btn-active justify-start join-item"
             role="tab"
             hx-get="{% url 'yearly_overview_currency_data' year=year %}"
             hx-target="#data-content"
@@ -30,12 +30,12 @@
             hx-swap="innerHTML"
             onclick="document.querySelector('[name=currency]').value = ''"
             _="on click
-               remove .tw:btn-active from <button/> in #filter-pills
-               add .tw:btn-active to me">
+               remove .btn-active from <button/> in #filter-pills
+               add .btn-active to me">
       {% translate 'All' %}
     </button>
     {% for currency in currencies %}
-      <button class="tw:btn tw:btn-outline tw:btn-primary tw:justify-start tw:join-item"
+      <button class="btn btn-outline btn-primary justify-start join-item"
               role="tab"
               hx-get="{% url 'yearly_overview_currency_data' year=year %}"
               hx-target="#data-content"
@@ -44,8 +44,8 @@
               hx-swap="innerHTML"
               onclick="document.querySelector('[name=currency]').value = '{{ currency.id }}'"
               _="on click
-                 remove .tw:btn-active from <button/> in #filter-pills
-                 add .tw:btn-active to me">
+                 remove .btn-active from <button/> in #filter-pills
+                 add .btn-active to me">
         {{ currency.name }}
       </button>
     {% endfor %}

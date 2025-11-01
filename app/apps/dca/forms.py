@@ -1,22 +1,20 @@
-from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
-from crispy_forms.bootstrap import FormActions, AccordionGroup
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, HTML
-from django import forms
-from django.utils.translation import gettext_lazy as _
-
 from apps.accounts.models import Account
-from apps.common.widgets.crispy.submit import NoClassSubmit
-from apps.common.widgets.datepicker import AirDatePickerInput
-from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
-from apps.common.widgets.tom_select import TomSelect
-from apps.dca.models import DCAStrategy, DCAEntry
-from apps.common.widgets.tom_select import TransactionSelect
-from apps.transactions.models import Transaction, TransactionTag, TransactionCategory
 from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
 )
+from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.datepicker import AirDatePickerInput
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
+from apps.common.widgets.tom_select import TomSelect, TransactionSelect
+from apps.dca.models import DCAEntry, DCAStrategy
+from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
+from crispy_bootstrap5.bootstrap5 import BS5Accordion, Switch
+from crispy_forms.bootstrap import AccordionGroup, FormActions
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import HTML, Column, Layout, Row
+from django import forms
+from django.utils.translation import gettext_lazy as _
 
 
 class DCAStrategyForm(forms.ModelForm):
@@ -36,8 +34,8 @@ class DCAStrategyForm(forms.ModelForm):
         self.helper.layout = Layout(
             "name",
             Row(
-                Column("payment_currency", css_class="form-group col-md-6"),
-                Column("target_currency", css_class="form-group col-md-6"),
+                Column("payment_currency", css_class="md:col-span-6"),
+                Column("target_currency", css_class="md:col-span-6"),
             ),
             "notes",
         )
@@ -155,8 +153,8 @@ class DCAEntryForm(forms.ModelForm):
         self.helper.layout = Layout(
             "date",
             Row(
-                Column("amount_paid", css_class="form-group col-md-6"),
-                Column("amount_received", css_class="form-group col-md-6"),
+                Column("amount_paid", css_class="md:col-span-6"),
+                Column("amount_received", css_class="md:col-span-6"),
             ),
             "notes",
             BS5Accordion(
@@ -175,11 +173,9 @@ class DCAEntryForm(forms.ModelForm):
                             Row(
                                 Column(
                                     "from_category",
-                                    css_class="form-group col-md-6 mb-0",
+                                    css_class="md:col-span-6 mb-0",
                                 ),
-                                Column(
-                                    "from_tags", css_class="form-group col-md-6 mb-0"
-                                ),
+                                Column("from_tags", css_class="md:col-span-6 mb-0"),
                                 css_class="form-row",
                             ),
                         ),
@@ -195,10 +191,8 @@ class DCAEntryForm(forms.ModelForm):
                                 css_class="form-row",
                             ),
                             Row(
-                                Column(
-                                    "to_category", css_class="form-group col-md-6 mb-0"
-                                ),
-                                Column("to_tags", css_class="form-group col-md-6 mb-0"),
+                                Column("to_category", css_class="md:col-span-6 mb-0"),
+                                Column("to_tags", css_class="md:col-span-6 mb-0"),
                                 css_class="form-row",
                             ),
                         ),

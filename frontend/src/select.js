@@ -1,4 +1,4 @@
-import 'tom-select/dist/css/tom-select.bootstrap5.min.css';
+// import 'tom-select/dist/css/tom-select.default.min.css';
 
 import TomSelect from "tom-select";
 import * as Popper from "@popperjs/core";
@@ -9,6 +9,7 @@ window.TomSelect = function createDynamicTomSelect(element) {
     const config = {
         plugins: {},
         maxOptions: null,
+        dropdownParent: 'body',
 
         // Extract 'create' option from data attribute
         create: element.dataset.create === 'true',
@@ -30,7 +31,7 @@ window.TomSelect = function createDynamicTomSelect(element) {
                     {
                         name: "sameWidth",
                         enabled: true,
-                        fn: ({state}) => {
+                        fn: ({ state }) => {
                             state.styles.popper.width = `${state.rects.reference.width}px`;
                         },
                         phase: "beforeWrite",
@@ -79,8 +80,8 @@ window.TomSelect = function createDynamicTomSelect(element) {
                 .then(json => {
                     callback(json);
                 }).catch(() => {
-                callback();
-            });
+                    callback();
+                });
         };
     }
 

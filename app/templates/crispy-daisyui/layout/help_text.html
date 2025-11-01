@@ -1,7 +1,7 @@
 {% if field.help_text %}
     {% if help_text_inline %}
-        <span id="{{ field.auto_id }}_helptext" class="tw:text-sm tw:text-base-content/60">{{ field.help_text|safe}}</span>
+        <span id="{{ field.auto_id }}_helptext" class="text-sm text-base-content/60">{{ field.help_text|safe}}</span>
     {% else %}
-        <div {% if field.auto_id %}id="{{ field.auto_id }}_helptext" {% endif %}class="tw:text-sm tw:text-base-content/60 tw:mt-1">{{ field.help_text|safe }}</div>
+        <div {% if field.auto_id %}id="{{ field.auto_id }}_helptext" {% endif %}class="text-sm text-base-content/60 mt-1">{{ field.help_text|safe }}</div>
     {% endif %}
 {% endif %}

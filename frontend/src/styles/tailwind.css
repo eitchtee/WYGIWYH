@@ -1,19 +1,21 @@
-@import "tailwindcss" prefix(tw) source("../../../app/templates/");
+@import "tailwindcss" source("../../../app/templates/");
+@import "./_tom-select.scss";
+@import "./_datepicker.scss";
 
 @plugin "daisyui" {
-  themes: dark --default, light;
+  themes: wygiwyh_dark --default, wygiwyh_light;
   logs: true;
 }
 @plugin "tw-bootstrap-grid";
 
 @plugin "daisyui/theme" {
-  name: "light";
+  name: "wygiwyh_light";
   default: false;
   prefersdark: false;
   color-scheme: "light";
   --color-base-100: oklch(100% 0 0);
   --color-base-200: oklch(98% 0 0);
-  --color-base-300: oklch(95% 0 0);
+  --color-base-300: oklch(96% 0 0);
   --color-base-content: oklch(21% 0.006 285.885);
   --color-primary: oklch(87% 0.169 91.605);
   --color-primary-content: oklch(41% 0.112 45.904);
@@ -36,20 +38,21 @@
   --radius-box: 0.5rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 1px;
+  --border: 2px;
   --depth: 0;
   --noise: 0;
+  --root-bg: oklch(93% 0 0);
 }
 
 
 @plugin "daisyui/theme" {
-  name: "dark";
+  name: "wygiwyh_dark";
   default: true;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(25.33% 0.016 252.42);
-  --color-base-200: oklch(23.26% 0.014 253.1);
-  --color-base-300: oklch(21.15% 0.012 254.09);
+  --color-base-100: oklch(32.33% 0.016 252.42);
+  --color-base-200: oklch(30.26% 0.016 252.42);
+  --color-base-300: oklch(28.15% 0.016 252.42);
   --color-base-content: oklch(97.807% 0.029 256.847);
   --color-primary: oklch(87% 0.169 91.605);
   --color-primary-content: oklch(41% 0.112 45.904);
@@ -72,9 +75,10 @@
   --radius-box: 0.5rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 1px;
+  --border: 2px;
   --depth: 0;
   --noise: 0;
+  --root-bg: oklch(26.33% 0.016 252.42);
 }
 
 
@@ -82,147 +86,171 @@
 @custom-variant hover (&:hover);
 
 
+@theme {
+    --font-mono: "JetBrains Mono Variable", monospace;
+}
+
+
 @layer utilities {
     .transaction:has(input[type="checkbox"]:checked) > div > .transaction-item {
-        background-color: --alpha(var(--color-primary) / 15%);
+        background-color: oklch(from var(--color-primary) l c h / 15%);
+    }
+
+    
+    .bg-root {
+        background-color: var(--root-bg) !important;
+    }
+
+    .fieldset-legend {
+        @apply text-xs;
+        @apply justify-start;
+    }
+
+    .fieldset-legend .asteriskField {
+        @apply text-error;
+    }
+
+    .hr {
+        @apply text-base-content/60;
     }
 }
 
 
 @layer components {
+    /* === Sidebar styles === */
     .sidebar-active {
-        @apply tw:text-primary-content tw:bg-primary;
+        @apply text-primary-content bg-primary;
     }
 
     .sidebar-item:not(.sidebar-active) {
-        @apply tw:text-base-content/80 tw:hover:text-base-content;
+        @apply text-base-content/80 hover:text-base-content;
     }
 
     .sidebar {
-        @apply tw:z-1020 tw:fixed tw:top-0 tw:start-0 tw:h-full tw:transition-all tw:duration-100;
+        @apply z-1020 fixed top-0 start-0 h-full transition-all duration-100;
     }
 
     .sidebar-floating {
         /* Establishes the hover group and sets the collapsed/hover widths for the container */
-        @apply tw:lg:w-16 tw:lg:hover:w-112;
+        @apply lg:w-16 lg:hover:w-112;
     }
 
     .sidebar-floating #sidebar {
         /* Sets the collapsed/hover widths for the inner navigation element */
-        @apply tw:lg:w-16 tw:lg:group-hover:w-104 tw:transition-all tw:duration-100 tw:overflow-hidden;
+        @apply lg:w-16 lg:group-hover:w-104 transition-all duration-100 overflow-hidden;
     }
 
     .sidebar-floating + main {
         /* Adjusts the main content margin to account for the collapsed sidebar */
-        @apply tw:lg:ml-16 tw:transition-all tw:duration-100;
+        @apply lg:ml-16 transition-all duration-100;
     }
 
     .sidebar-floating .sidebar-item span {
         /* Hides the text labels and reveals them only on hover */
-        @apply tw:lg:invisible tw:lg:group-hover:visible;
+        @apply lg:invisible lg:group-hover:visible;
     }
 
     .sidebar-floating .sidebar-invisible {
         /* Hides the text labels and reveals them only on hover */
-        @apply tw:lg:invisible tw:lg:group-hover:visible;
+        @apply lg:invisible lg:group-hover:visible;
     }
 
     .sidebar-floating .sidebar-menu-header {
         /* Hides the menu headers and reveals them only on hover */
-        @apply tw:lg:hidden tw:lg:group-hover:inline;
+        @apply lg:hidden lg:group-hover:inline;
     }
 
     .sidebar-floating #sidebar-toggle-btn .fa-thumbtack-slash {
         /* Hides the 'pin' icon in the floating state */
-        @apply tw:hidden!;
+        @apply hidden!;
     }
 
     .sidebar-floating #sidebar-toggle-btn .fa-thumbtack {
         /* Shows the 'expand' icon in the floating state */
-        @apply tw:inline-block!;
+        @apply inline-block!;
     }
 
     .sidebar-floating .sidebar-title span {
-        @apply tw:lg:invisible tw:lg:group-hover:visible
+        @apply lg:invisible lg:group-hover:visible
     }
 
     .sidebar-submenu-header {
-        @apply tw:flex;
+        @apply flex;
     }
 
     .sidebar-floating .sidebar-submenu-header {
-        @apply tw:lg:hidden tw:lg:group-hover:flex;
+        @apply lg:hidden lg:group-hover:flex;
     }
 
     .sidebar-floating .sidebar-submenu-header h5 {
-        @apply tw:lg:invisible tw:lg:group-hover:visible;
+        @apply lg:invisible lg:group-hover:visible;
     }
 
     .sidebar-floating .sidebar-submenu-header button {
-        @apply tw:lg:hidden tw:lg:group-hover:inline;
+        @apply lg:hidden lg:group-hover:inline;
     }
 
     .sidebar-floating .list-unstyled {
-        @apply tw:group-hover:lg:overflow-y-auto tw:lg:overflow-y-hidden tw:overflow-y-auto tw:overflow-x-hidden;
+        @apply group-hover:lg:overflow-y-auto lg:overflow-y-hidden overflow-y-auto overflow-x-hidden;
     }
 
     .sidebar-floating .sidebar-item {
-        @apply tw:text-wrap tw:lg:text-nowrap ;
+        @apply text-wrap lg:text-nowrap ;
     }
 
 
     /* --- STATE 2: Fixed (Permanently Expanded) --- */
     .sidebar-fixed {
         /* Sets the fixed, expanded width for the container */
-        @apply tw:lg:w-[17%] tw:transition-all tw:duration-100;
+        @apply lg:w-[17%] transition-all duration-100;
     }
 
     .sidebar-fixed #sidebar {
         /* Sets the fixed, expanded width for the inner navigation */
-        @apply tw:lg:w-[17%] tw:transition-all tw:duration-100;
+        @apply lg:w-[17%] transition-all duration-100;
     }
 
     .sidebar-fixed + main {
         /* Adjusts the main content margin to account for the expanded sidebar */
-        @apply tw:lg:ml-[17%] tw:transition-all tw:duration-100;
+        @apply lg:ml-[17%] transition-all duration-100;
 
         /* Using 16vw to account for padding/margins */
     }
 
     .sidebar-fixed .sidebar-item {
-        @apply tw:text-wrap;
+        @apply text-wrap;
     }
 
     .sidebar-fixed .sidebar-item span {
         /* Ensures text labels are always visible */
-        @apply tw:lg:visible;
+        @apply lg:visible;
     }
 
     .sidebar-fixed .sidebar-menu-header {
         /* Ensures menu headers are always visible */
-        @apply tw:lg:inline;
+        @apply lg:inline;
     }
 
     .sidebar-fixed #sidebar-toggle-btn .fa-thumbtack-slash {
         /* Shows the 'pin' icon in the fixed state */
-        @apply tw:inline-block!;
+        @apply inline-block!;
     }
 
     .sidebar-fixed #sidebar-toggle-btn .fa-thumbtack {
         /* Hides the 'expand' icon in the fixed state */
-        @apply tw:hidden!;
+        @apply hidden!;
     }
 
     .sidebar-fixed .sidebar-title span {
-        @apply tw:lg:visible;
+        @apply lg:visible;
     }
 
     .sidebar-fixed .sidebar-submenu-header {
         /* Ensures menu headers are always visible */
-        @apply tw:lg:flex;
+        @apply lg:flex;
     }
 
     .sidebar-fixed .list-unstyled  {
-        @apply tw:overflow-y-auto tw:overflow-x-hidden;
+        @apply overflow-y-auto overflow-x-hidden;
     }
 }

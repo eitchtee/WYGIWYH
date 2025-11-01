@@ -1,50 +1,50 @@
 {% load i18n %}
-<div class="tw:sticky tw:bottom-4 tw:left-0 tw:right-0 tw:z-50 tw:hidden tw:mx-auto tw:w-fit" id="actions-bar"
+<div class="sticky bottom-4 left-0 right-0 z-50 hidden mx-auto w-fit" id="actions-bar"
      _="on change from #transactions-list or htmx:afterSettle from window
         if #actions-bar then
             if no <input[type='checkbox']:checked/> in #transactions-list
               if #actions-bar
                 add .slide-in-bottom-reverse then settle
-                then add .tw:hidden to #actions-bar
+                then add .hidden to #actions-bar
                 then remove .slide-in-bottom-reverse
               end
             else
               if #actions-bar
                 set #selected-count's innerHTML to length of <input[type='checkbox']:checked/> in #transactions-list
-                then remove .tw:hidden from #actions-bar
+                then remove .hidden from #actions-bar
                 then trigger selected_transactions_updated
               end
             end
           end
         end">
-  <div class="tw:card tw:bg-base-300 tw:shadow slide-in-bottom tw:max-w-[90vw] tw:card-border">
-    <div class="tw:card-body tw:flex-row tw:p-2 tw:flex tw:justify-between tw:items-center tw:gap-3 tw:overflow-x-auto">
+  <div class="card bg-base-300 shadow slide-in-bottom max-w-[90vw] card-border">
+    <div class="card-body flex-row p-2 flex justify-between items-center gap-3 overflow-x-auto">
       {% spaceless %}
-        <div class="tw:font-bold tw:text-md tw:ms-2" id="selected-count">0</div>
-        <div class="tw:divider tw:divider-horizontal tw:m-0"></div>
-        <div class="tw:dropdown tw:dropdown-top tw:dropdown-end">
-          <button tabindex="0" role="button" class="tw:btn tw:btn-secondary tw:btn-sm" type="button">
+        <div class="font-bold text-md ms-2" id="selected-count">0</div>
+        <div class="divider divider-horizontal m-0"></div>
+        <div class="dropdown dropdown-top dropdown-end">
+          <button tabindex="0" role="button" class="btn btn-secondary btn-sm" type="button">
             <i class="fa-regular fa-square-check fa-fw"></i>
             <i class="fa-solid fa-chevron-down fa-xs"></i>
           </button>
-          <ul tabindex="0" class="tw:dropdown-content tw:menu tw:bg-base-300 tw:rounded-box tw:z-[1] tw:w-full tw:p-2 tw:shadow tw:fixed!">
+          <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box z-[1] w-full p-2 shadow fixed!">
             <li>
-              <a class="tw:cursor-pointer"
+              <a class="cursor-pointer"
                    _="on click set <#transactions-list .transaction:not([style*='display: none']) input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
-                <i class="fa-regular fa-square-check tw:text-green-400 tw:me-3"></i>{% translate 'Select All' %}
+                <i class="fa-regular fa-square-check text-green-400 me-3"></i>{% translate 'Select All' %}
               </a>
             </li>
             <li>
-              <a class="tw:cursor-pointer"
+              <a class="cursor-pointer"
                    _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur() then trigger change">
-                <i class="fa-regular fa-square tw:text-red-400 tw:me-3"></i>{% translate 'Unselect All' %}
+                <i class="fa-regular fa-square text-red-400 me-3"></i>{% translate 'Unselect All' %}
               </a>
             </li>
           </ul>
         </div>
-        <div class="tw:divider tw:divider-horizontal tw:m-0"></div>
-        <div class="tw:join">
-          <button class="tw:btn tw:btn-secondary tw:join-item tw:btn-sm"
+        <div class="divider divider-horizontal m-0"></div>
+        <div class="join">
+          <button class="btn btn-secondary join-item btn-sm"
                   hx-get="{% url 'transactions_bulk_edit' %}"
                   hx-target="#generic-offcanvas"
                   hx-include=".transaction"
@@ -52,37 +52,37 @@
                   data-bs-title="{% translate 'Edit' %}">
             <i class="fa-solid fa-pencil"></i>
           </button>
-          <div class="tw:dropdown tw:dropdown-top tw:dropdown-end">
-            <button type="button" tabindex="0" role="button" class="tw:join-item tw:btn tw:btn-sm tw:btn-secondary">
+          <div class="dropdown dropdown-top dropdown-end">
+            <button type="button" tabindex="0" role="button" class="join-item btn btn-sm btn-secondary">
               <i class="fa-solid fa-chevron-down fa-xs"></i>
             </button>
 
-            <ul tabindex="0" class="tw:dropdown-content tw:fixed! tw:menu tw:bg-base-300 tw:rounded-box tw:z-[1] tw:w-full tw:p-2 tw:shadow">
+            <ul tabindex="0" class="dropdown-content fixed! menu bg-base-300 rounded-box z-[1] w-full p-2 shadow">
               <li>
-                <a class="tw:cursor-pointer"
+                <a class="cursor-pointer"
                     hx-get="{% url 'transactions_bulk_unpay' %}"
                     hx-include=".transaction">
-                  <i class="fa-regular fa-circle tw:text-red-400 fa-fw tw:me-3"></i>{% translate 'Mark as unpaid' %}
+                  <i class="fa-regular fa-circle text-red-400 fa-fw me-3"></i>{% translate 'Mark as unpaid' %}
                 </a>
               </li>
               <li>
-                <a class="tw:cursor-pointer"
+                <a class="cursor-pointer"
                     hx-get="{% url 'transactions_bulk_pay' %}"
                     hx-include=".transaction">
-                  <i class="fa-regular fa-circle-check tw:text-green-400 fa-fw tw:me-3"></i>{% translate 'Mark as paid' %}
+                  <i class="fa-regular fa-circle-check text-green-400 fa-fw me-3"></i>{% translate 'Mark as paid' %}
                 </a>
               </li>
             </ul>
           </div>
         </div>
-        <button class="tw:btn tw:btn-secondary tw:btn-sm"
+        <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_clone' %}"
                 hx-include=".transaction"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate 'Duplicate' %}">
           <i class="fa-solid fa-clone fa-fw"></i>
         </button>
-        <button class="tw:btn tw:btn-secondary tw:btn-sm"
+        <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_delete' %}"
                 hx-include=".transaction"
                 hx-trigger="confirmed"
@@ -93,10 +93,10 @@
                 data-text="{% translate "You won't be able to revert this!" %}"
                 data-confirm-text="{% translate "Yes, delete them!" %}"
                 _="install prompt_swal">
-          <i class="fa-solid fa-trash tw:text-error"></i>
+          <i class="fa-solid fa-trash text-error"></i>
         </button>
-        <div class="tw:divider tw:divider-horizontal tw:m-0"></div>
-        <div class="tw:join"
+        <div class="divider divider-horizontal m-0"></div>
+        <div class="join"
              _="on selected_transactions_updated from #actions-bar
                   set realTotal to math.bignumber(0)
                   set flatTotal to math.bignumber(0)
@@ -134,7 +134,7 @@
                   put mean.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
                   put flatAmountValues.length.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-count's innerText
                 end">
-          <button class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item" 
+          <button class="btn btn-secondary btn-sm join-item" 
                     _="on click
                       set original_value to #real-total-front's innerText
                       writeText(original_value) on navigator.clipboard
@@ -142,16 +142,16 @@
                       wait 1s
                       put original_value into #real-total-front's innerText
                     end">
-            <i class="fa-solid fa-plus fa-fw tw:me-md-2 tw:text-primary"></i>
-            <span class="tw:hidden tw:md:inline-block" id="real-total-front">0</span>
+            <i class="fa-solid fa-plus fa-fw me-md-2 text-primary"></i>
+            <span class="hidden md:inline-block" id="real-total-front">0</span>
           </button>
-          <div class="tw:dropdown tw:dropdown-end tw:dropdown-top">
-            <button type="button" tabindex="0" role="button" class="tw:join-item tw:btn tw:btn-sm tw:btn-secondary">
+          <div class="dropdown dropdown-end dropdown-top">
+            <button type="button" tabindex="0" role="button" class="join-item btn btn-sm btn-secondary">
               <i class="fa-solid fa-chevron-down fa-xs"></i>
             </button>
 
-            <ul tabindex="0" class="tw:dropdown-content tw:menu tw:bg-base-300 tw:rounded-box tw:z-[1] tw:w-full tw:shadow tw:fixed!">
-              <li class="tw:cursor-pointer"
+            <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box z-[1] w-full shadow fixed!">
+              <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-flat-total's innerText
                         writeText(original_value) on navigator.clipboard
@@ -159,19 +159,19 @@
                         wait 1s
                         put original_value into #calc-menu-flat-total
                       end">
-                <div class="tw:p-0">
+                <div class="p-0">
                   <div>
-                    <div class="tw:text-base-content/60 tw:text-xs tw:font-medium tw:px-3">
+                    <div class="text-base-content/60 text-xs font-medium px-3">
                       {% trans "Flat Total" %}
                     </div>
-                    <div class="tw:px-3"
+                    <div class="px-3"
                         id="calc-menu-flat-total">
                       0
                     </div>
                   </div>
                 </div>
               </li>
-              <li class="tw:cursor-pointer"
+              <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-real-total's innerText
                         writeText(original_value) on navigator.clipboard
@@ -179,19 +179,19 @@
                         wait 1s
                         put original_value into #calc-menu-real-total
                       end">
-                <div class="tw:p-0">
+                <div class="p-0">
                   <div>
-                    <div class="tw:text-base-content/60 tw:text-xs tw:font-medium tw:px-3">
+                    <div class="text-base-content/60 text-xs font-medium px-3">
                       {% trans "Real Total" %}
                     </div>
-                    <div class="tw:px-3"
+                    <div class="px-3"
                         id="calc-menu-real-total">
                       0
                     </div>
                   </div>
                 </div>
               </li>
-              <li class="tw:cursor-pointer"
+              <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-mean's innerText
                         writeText(original_value) on navigator.clipboard
@@ -199,19 +199,19 @@
                         wait 1s
                         put original_value into #calc-menu-mean
                       end">
-                <div class="tw:p-0">
+                <div class="p-0">
                   <div>
-                    <div class="tw:text-base-content/60 tw:text-xs tw:font-medium tw:px-3">
+                    <div class="text-base-content/60 text-xs font-medium px-3">
                       {% trans "Mean" %}
                     </div>
-                    <div class="tw:px-3"
+                    <div class="px-3"
                         id="calc-menu-mean">
                       0
                     </div>
                   </div>
                 </div>
               </li>
-              <li class="tw:cursor-pointer"
+              <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-max's innerText
                         writeText(original_value) on navigator.clipboard
@@ -219,19 +219,19 @@
                         wait 1s
                         put original_value into #calc-menu-max
                       end">
-                <div class="tw:p-0">
+                <div class="p-0">
                   <div>
-                    <div class="tw:text-base-content/60 tw:text-xs tw:font-medium tw:px-3">
+                    <div class="text-base-content/60 text-xs font-medium px-3">
                       {% trans "Max" %}
                     </div>
-                    <div class="tw:px-3"
+                    <div class="px-3"
                         id="calc-menu-max">
                       0
                     </div>
                   </div>
                 </div>
               </li>
-              <li class="tw:cursor-pointer"
+              <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-min's innerText
                         writeText(original_value) on navigator.clipboard
@@ -239,19 +239,19 @@
                         wait 1s
                         put original_value into #calc-menu-min
                       end">
-                <div class="tw:p-0">
+                <div class="p-0">
                   <div>
-                    <div class="tw:text-base-content/60 tw:text-xs tw:font-medium tw:px-3">
+                    <div class="text-base-content/60 text-xs font-medium px-3">
                       {% trans "Min" %}
                     </div>
-                    <div class="tw:px-3"
+                    <div class="px-3"
                         id="calc-menu-min">
                       0
                     </div>
                   </div>
                 </div>
               </li>
-              <li class="tw:cursor-pointer"
+              <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-count's innerText
                         writeText(original_value) on navigator.clipboard
@@ -259,12 +259,12 @@
                         wait 1s
                         put original_value into #calc-menu-count
                       end">
-                <div class="tw:p-0">
+                <div class="p-0">
                   <div>
-                    <div class="tw:text-base-content/60 tw:text-xs tw:font-medium tw:px-3">
+                    <div class="text-base-content/60 text-xs font-medium px-3">
                       {% trans "Count" %}
                     </div>
-                    <div class="tw:px-3"
+                    <div class="px-3"
                         id="calc-menu-count">
                       0
                     </div>

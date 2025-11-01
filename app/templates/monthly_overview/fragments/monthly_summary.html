@@ -1,14 +1,14 @@
 {% load i18n %}
 {% load currency_display %}
-<div class="tw:grid tw:grid-cols-1 tw:gap-4 tw:mt-1 tw:mb-3">
+<div class="grid grid-cols-1 gap-4 mt-1 mb-3">
   {#  Daily Spending#}
   <div>
     <c-ui.info-card color="yellow" icon="fa-solid fa-calendar-day" title="{% trans 'Daily Spending Allowance' %}" help_text={% trans "This is the final total divided by the remaining days in the month" %}>
-      <div class="tw:flex tw:justify-between tw:mt-3">
-          <div class="tw:text-right tw:font-mono">
-            <div class="tw:text-gray-400">{% translate 'today' %}</div>
+      <div class="flex justify-between mt-3">
+          <div class="text-right font-mono">
+            <div class="text-base-content/90">{% translate 'today' %}</div>
           </div>
-          <div class="tw:text-right tw:font-mono">
+          <div class="text-right font-mono">
             {% for currency in daily_spending_allowance.values %}
               <div>
                 <c-amount.display
@@ -37,11 +37,11 @@
 {#  Income#}
   <div>
       <c-ui.info-card color="green" icon="fa-solid fa-arrow-right-to-bracket" title="{% trans 'Income' %}">
-        <div class="tw:flex tw:justify-between tw:mt-3">
-          <div class="tw:text-right tw:font-mono">
-            <div class="tw:text-gray-400">{% translate 'current' %}</div>
+        <div class="flex justify-between mt-3">
+          <div class="text-right font-mono">
+            <div class="text-base-content/90">{% translate 'current' %}</div>
           </div>
-          <div class="tw:text-right tw:font-mono">
+          <div class="text-right font-mono">
             {% for currency in income_current.values %}
               <div>
                 <c-amount.display
@@ -66,12 +66,11 @@
             {% endfor %}
           </div>
         </div>
-        <hr class="tw:my-1">
-        <div class="tw:flex tw:justify-between">
-          <div class="tw:text-right tw:font-mono">
-            <div class="tw:text-gray-400">{% translate 'projected' %}</div>
+        <div class="flex justify-between">
+          <div class="text-right font-mono">
+            <div class="text-base-content/90">{% translate 'projected' %}</div>
           </div>
-          <div class="tw:text-right tw:font-mono">
+          <div class="text-right font-mono">
             {% for currency in income_projected.values %}
               <div>
                 <c-amount.display
@@ -101,11 +100,11 @@
 {#  Expenses#}
   <div>
       <c-ui.info-card color="red" icon="fa-solid fa-arrow-right-from-bracket" title="{% trans 'Expenses' %}">
-        <div class="tw:flex tw:justify-between tw:mt-3">
-          <div class="tw:text-right tw:font-mono">
-            <div class="tw:text-gray-400">{% translate 'current' %}</div>
+        <div class="flex justify-between mt-3">
+          <div class="text-right font-mono">
+            <div class="text-base-content/90">{% translate 'current' %}</div>
           </div>
-          <div class="tw:text-right tw:font-mono">
+          <div class="text-right font-mono">
             {% for currency in expense_current.values %}
               <div>
                 <c-amount.display
@@ -130,12 +129,11 @@
             {% endfor %}
           </div>
         </div>
-        <hr class="tw:my-1">
-        <div class="tw:flex tw:justify-between">
-          <div class="tw:text-right tw:font-mono">
-            <div class="tw:text-gray-400">{% translate 'projected' %}</div>
+        <div class="flex justify-between">
+          <div class="text-right font-mono">
+            <div class="text-base-content/90">{% translate 'projected' %}</div>
           </div>
-          <div class="tw:text-right tw:font-mono">
+          <div class="text-right font-mono">
             {% for currency in expense_projected.values %}
               <div>
                 <c-amount.display
@@ -165,11 +163,11 @@
 {#  Total#}
   <div>
     <c-ui.info-card color="blue" icon="fa-solid fa-scale-balanced" title="{% trans 'Total' %}">
-        <div class="tw:flex tw:justify-between tw:mt-3">
-          <div class="tw:text-right tw:font-mono">
-            <div class="tw:text-gray-400">{% translate 'current' %}</div>
+        <div class="flex justify-between mt-3">
+          <div class="text-right font-mono">
+            <div class="text-base-content/90">{% translate 'current' %}</div>
           </div>
-          <div class="tw:text-right tw:font-mono">
+          <div class="text-right font-mono">
             {% for currency in total_current.values %}
               <div>
                 <c-amount.display
@@ -194,11 +192,11 @@
             {% endfor %}
           </div>
         </div>
-        <div class="tw:flex tw:justify-between tw:mt-3">
-          <div class="tw:text-right tw:font-mono">
-            <div class="tw:text-gray-400">{% translate 'projected' %}</div>
+        <div class="flex justify-between mt-3">
+          <div class="text-right font-mono">
+            <div class="text-base-content/90">{% translate 'projected' %}</div>
           </div>
-          <div class="tw:text-right tw:font-mono">
+          <div class="text-right font-mono">
             {% for currency in total_projected.values %}
               <div>
                 <c-amount.display
@@ -223,9 +221,9 @@
             {% endfor %}
           </div>
         </div>
-        <hr class="tw:my-1">
-        <div class="tw:flex tw:justify-end">
-          <div class="tw:text-right tw:font-mono">
+        <hr class="my-1 hr">
+        <div class="flex justify-end">
+          <div class="text-right font-mono">
             {% for currency in total_final.values %}
               <div>
                 <c-amount.display
@@ -256,7 +254,7 @@
   <div>
     <c-ui.info-card color="yellow" icon="fa-solid fa-percent" title="{% trans 'Distribution' %}">
       {% for p in percentages.values %}
-        <p class="tw:text-gray-400 tw:mb-2 {% if not forloop.first %}tw:mt-3{% endif %}">{{ p.currency.name }}</p>
+        <p class="text-base-content/90 {% if not forloop.first %}mt-3{% endif %}">{{ p.currency.name }}</p>
         <c-ui.percentage-distribution :percentage="p"></c-ui.percentage-distribution>
       {% endfor %}
     </c-ui.info-card>

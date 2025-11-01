@@ -4,14 +4,14 @@
 {% block title %}{% translate 'Unit Price Calculator' %}{% endblock %}
 
 {% block content %}
-  <div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5">
-    <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
+  <div class="container px-md-3 py-3 column-gap-5">
+    <div class="text-3xl font-bold font-mono w-full mb-3">
       <div>{% translate 'Unit Price Calculator' %}</div>
     </div>
-    <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3 tw:hidden" id="card-placeholder">
-      <div class="tw:card-header tw:bg-base-200 tw:p-4 tw:flex tw:flex-row tw:justify-between">
-        <h5 class="title tw:flex-grow"></h5>
-        <button class="tw:btn tw:btn-secondary tw:btn-sm tw:text-error"
+    <div class="card bg-base-100 shadow-xl mb-3 hidden" id="card-placeholder">
+      <div class="card-header bg-base-200 p-4 flex flex-row justify-between">
+        <h5 class="title flex-grow"></h5>
+        <button class="btn btn-secondary btn-sm text-error"
                 role="button"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Delete" %}"
@@ -19,23 +19,23 @@
           <i class="fa-solid fa-trash fa-fw"></i>
         </button>
       </div>
-      <div class="tw:card-body">
-        <div class="tw:grid tw:lg:grid-cols-3 tw:gap-3">
+      <div class="card-body">
+        <div class="grid lg:grid-cols-3 gap-3">
           <div>
             <div>
-              <label for="price" class="tw:label">{% trans 'Item price' %}</label>
-              <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-price" id="price">
+              <label for="price" class="label">{% trans 'Item price' %}</label>
+              <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
             </div>
           </div>
           <div>
             <div>
-              <label for="amount" class="tw:label">{% trans 'Item amount' %}</label>
-              <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-amount" id="amount">
+              <label for="amount" class="label">{% trans 'Item amount' %}</label>
+              <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
             </div>
           </div>
           <div>
-            <label class="tw:label">{% trans 'Unit price' %}</label>
-            <div class="unit-price tw:text-xl" data-amount="0">0</div>
+            <label class="label">{% trans 'Unit price' %}</label>
+            <div class="unit-price text-xl" data-amount="0">0</div>
           </div>
         </div>
       </div>
@@ -92,67 +92,67 @@
                         end
                       end
                     end">
-      <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3">
-        <div class="tw:card-header tw:bg-base-200 tw:p-4">
+      <div class="card bg-base-100 shadow-xl mb-3">
+        <div class="card-header bg-base-200 p-4">
           <h5>{% trans "Item" %} A</h5>
         </div>
-        <div class="tw:card-body">
-          <div class="tw:grid tw:lg:grid-cols-3 tw:gap-3">
+        <div class="card-body">
+          <div class="grid lg:grid-cols-3 gap-3">
             <div>
               <div>
-                <label for="price" class="tw:label">{% trans 'Item price' %}</label>
-                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-price" id="price">
+                <label for="price" class="label">{% trans 'Item price' %}</label>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
               </div>
             </div>
             <div>
               <div>
-                <label for="amount" class="tw:label">{% trans 'Item amount' %}</label>
-                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-amount" id="amount">
+                <label for="amount" class="label">{% trans 'Item amount' %}</label>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
               </div>
             </div>
             <div>
-              <label class="tw:label">{% trans 'Unit price' %}</label>
-              <div class="unit-price tw:text-xl" data-amount="0">0</div>
+              <label class="label">{% trans 'Unit price' %}</label>
+              <div class="unit-price text-xl" data-amount="0">0</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="tw:card tw:bg-base-100 tw:shadow-xl tw:mb-3">
-        <div class="tw:card-header tw:bg-base-200 tw:p-4">
+      <div class="card bg-base-100 shadow-xl mb-3">
+        <div class="card-header bg-base-200 p-4">
           <h5>{% trans "Item" %} B</h5>
         </div>
-        <div class="tw:card-body">
-          <div class="tw:grid tw:lg:grid-cols-3 tw:gap-3">
+        <div class="card-body">
+          <div class="grid lg:grid-cols-3 gap-3">
             <div>
               <div>
-                <label for="price" class="tw:label">{% trans 'Item price' %}</label>
-                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-price" id="price">
+                <label for="price" class="label">{% trans 'Item price' %}</label>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
               </div>
             </div>
             <div>
               <div>
-                <label for="amount" class="tw:label">{% trans 'Item amount' %}</label>
-                <input type="number" inputmode="decimal" class="tw:input tw:input-bordered tw:w-full item-amount" id="amount">
+                <label for="amount" class="label">{% trans 'Item amount' %}</label>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
               </div>
             </div>
             <div>
-              <label class="tw:label">{% trans 'Unit price' %}</label>
-              <div class="unit-price tw:text-xl" data-amount="0">0</div>
+              <label class="label">{% trans 'Unit price' %}</label>
+              <div class="unit-price text-xl" data-amount="0">0</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="tw:grid tw:lg:grid-cols-[2fr_1fr] tw:gap-3 tw:mt-3">
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-3 mt-3">
       <div>
-        <button class="tw:btn tw:btn-outline tw:btn-primary tw:w-full"
+        <button class="btn btn-outline btn-primary w-full"
             _="on click
                 get #card-placeholder
                 set newCard to it.cloneNode(true)
                 remove @id from newCard
                 remove .tw\:hidden from newCard then
-                set itemCount to <#items [class='tw:card'] />'s length
+                set itemCount to <#items [class='card'] />'s length
                 if itemCount < 26
                   set letter to String.fromCharCode(65 + itemCount)
                 else
@@ -166,10 +166,10 @@
     </button>
       </div>
       <div>
-        <button class="tw:btn tw:btn-outline tw:btn-error tw:w-full"
+        <button class="btn btn-outline btn-error w-full"
                 _="on click
                     for el in <.item-price, .item-amount />
-                      set card to the closest .tw:\card to el
+                      set card to the closest .\card to el
                       set el's value to ''
                      end
                      trigger update on #items

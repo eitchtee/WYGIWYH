@@ -1,11 +1,11 @@
 {% if field.is_hidden %}
     {{ field }}
 {% else %}
-    <div id="div_{{ field.auto_id }}" class="tw:mb-3{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    <div id="div_{{ field.auto_id }}" class="{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
 
         {% if field.label %}
-            <fieldset class="tw:fieldset"{% if field.aria_describedby %} aria-describedby="{{ field.aria_describedby }}"{% endif %}>
-            <legend for="{{ field.id_for_label }}" class="tw:fieldset-legend {{ label_class }}{% if field.field.required %} requiredField{% endif %}">
+            <fieldset class="fieldset"{% if field.aria_describedby %} aria-describedby="{{ field.aria_describedby }}"{% endif %}>
+            <legend for="{{ field.id_for_label }}" class="fieldset-legend {{ label_class }}{% if field.field.required %} requiredField{% endif %}">
                 {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
             </legend>
         {% endif %}

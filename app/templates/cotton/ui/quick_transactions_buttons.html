@@ -1,49 +1,49 @@
 {% load i18n %}
-<div class="tw:grid tw:gap-2 tw:grid-cols-1 tw:xl:flex tw:xl:justify-end">
-  <div class="tw:grid tw:gap-2 tw:xl:flex tw:flex-wrap tw:xl:justify-center">
-    <button class="tw:btn tw:btn-sm tw:btn-outline tw:btn-success"
+<div class="grid gap-2 grid-cols-1 xl:flex xl:justify-end">
+  <div class="grid gap-2 xl:flex flex-wrap xl:justify-center">
+    <button class="btn btn-sm btn-outline btn-success"
             hx-get="{% url 'transaction_add' %}"
             hx-target="#generic-offcanvas"
             hx-trigger="click, add_income from:window"
             hx-vals='{"year": {{ year }}, {% if month %}"month": {{ month }},{% endif %} "type": "IN"}'>
-      <i class="fa-solid fa-arrow-right-to-bracket tw:me-2"></i>
+      <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>
       {% translate "Income" %}
     </button>
-    <button class="tw:btn tw:btn-sm tw:btn-outline tw:btn-error"
+    <button class="btn btn-sm btn-outline btn-error"
             hx-get="{% url 'transaction_add' %}"
             hx-target="#generic-offcanvas"
             hx-trigger="click, add_expense from:window"
             hx-vals='{"year": {{ year }}, {% if month %}"month": {{ month }},{% endif %} "type": "EX"}'>
-      <i class="fa-solid fa-arrow-right-from-bracket tw:me-2"></i>
+      <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
       {% translate "Expense" %}
     </button>
-    <button class="tw:btn tw:btn-sm tw:btn-outline tw:btn-warning"
+    <button class="btn btn-sm btn-outline btn-warning"
             hx-get="{% url 'installment_plan_add' %}"
             hx-trigger="click, installment from:window"
             hx-target="#generic-offcanvas">
-      <i class="fa-solid fa-divide tw:me-2"></i>
+      <i class="fa-solid fa-divide me-2"></i>
       {% translate "Installment" %}
     </button>
-    <button class="tw:btn tw:btn-sm tw:btn-outline tw:btn-warning"
+    <button class="btn btn-sm btn-outline btn-warning"
             hx-get="{% url 'recurring_transaction_add' %}"
             hx-trigger="click, balance from:window"
             hx-target="#generic-offcanvas">
-      <i class="fa-solid fa-repeat tw:me-2"></i>
+      <i class="fa-solid fa-repeat me-2"></i>
       {% translate "Recurring" %}
     </button>
-    <button class="tw:btn tw:btn-sm tw:btn-outline tw:btn-info"
+    <button class="btn btn-sm btn-outline btn-info"
             hx-get="{% url 'transactions_transfer' %}"
             hx-target="#generic-offcanvas"
             hx-trigger="click, add_transfer from:window"
             hx-vals='{"year": {{ year }} {% if month %}, "month": {{ month }}{% endif %}}'>
-      <i class="fa-solid fa-money-bill-transfer tw:me-2"></i>
+      <i class="fa-solid fa-money-bill-transfer me-2"></i>
       {% translate "Transfer" %}
     </button>
-    <button class="tw:btn tw:btn-sm tw:btn-outline tw:btn-info"
+    <button class="btn btn-sm btn-outline btn-info"
             hx-get="{% url 'account_reconciliation' %}"
             hx-trigger="click, balance from:window"
             hx-target="#generic-offcanvas">
-      <i class="fa-solid fa-scale-balanced tw:me-2"></i>
+      <i class="fa-solid fa-scale-balanced me-2"></i>
       {% translate "Balance" %}
     </button>
   </div>

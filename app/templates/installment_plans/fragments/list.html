@@ -1,9 +1,9 @@
 {% load i18n %}
-<div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5">
-  <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
     <div>{% translate 'Installment Plans' %}<span>
-      <a class="tw:no-underline tw:text-2xl tw:p-1 category-action"
+      <a class="no-underline text-2xl p-1 category-action"
                 role="button"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Add" %}"
@@ -14,15 +14,15 @@
     {% endspaceless %}
   </div>
 
-  <div class="tw:card tw:bg-base-100 tw:shadow-xl">
-    <div class="tw:card-header tw:bg-base-200 tw:p-4">
-      <div role="tablist" class="tw:tabs tw:tabs-lifted">
-        <button class="tw:tab tw:tab-active" data-bs-toggle="tab" type="button" role="tab" aria-selected="true" hx-get="{% url 'active_installment_plans_list' %}" hx-trigger="load, click" hx-target="#installment-plans-table">{% translate 'All' %}</button>
-        <button class="tw:tab" hx-get="{% url 'finished_installment_plans_list' %}" hx-target="#installment-plans-table" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">{% translate 'Finished' %}</button>
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-header bg-base-200 p-4">
+      <div role="tablist" class="tabs tabs-lifted">
+        <button class="tab tab-active" data-bs-toggle="tab" type="button" role="tab" aria-selected="true" hx-get="{% url 'active_installment_plans_list' %}" hx-trigger="load, click" hx-target="#installment-plans-table">{% translate 'All' %}</button>
+        <button class="tab" hx-get="{% url 'finished_installment_plans_list' %}" hx-target="#installment-plans-table" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">{% translate 'Finished' %}</button>
       </div>
     </div>
 
-    <div class="tw:card-body">
+    <div class="card-body">
       <div id="installment-plans-table"></div>
     </div>
 

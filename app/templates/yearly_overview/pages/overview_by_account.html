@@ -17,9 +17,9 @@
 
 {% block filter_pills %}
   <input type="hidden" name="account" value="">
-  <div class="tw:join tw:join-vertical tw:flex-col" id="filter-pills" role="tablist"
+  <div class="join join-vertical flex-col" id="filter-pills" role="tablist"
        hx-indicator="#data-content">
-    <button class="tw:btn tw:btn-outline tw:btn-primary tw:btn-active tw:justify-start tw:join-item"
+    <button class="btn btn-outline btn-primary btn-active justify-start join-item"
             role="tab"
             hx-get="{% url 'yearly_overview_account_data' year=year %}"
             hx-target="#data-content"
@@ -28,12 +28,12 @@
             hx-swap="innerHTML"
             onclick="document.querySelector('[name=account]').value = ''"
             _="on click
-               remove .tw:btn-active from <button/> in #filter-pills
-               add .tw:btn-active to me">
+               remove .btn-active from <button/> in #filter-pills
+               add .btn-active to me">
       {% translate 'All' %}
     </button>
     {% for account in accounts %}
-      <button class="tw:btn tw:btn-outline tw:btn-primary tw:justify-start tw:join-item"
+      <button class="btn btn-outline btn-primary justify-start join-item"
               role="tab"
               hx-get="{% url 'yearly_overview_account_data' year=year %}"
               hx-target="#data-content"
@@ -42,9 +42,9 @@
               hx-swap="innerHTML"
               onclick="document.querySelector('[name=account]').value = '{{ account.id }}'"
               _="on click
-                 remove .tw:btn-active from <button/> in #filter-pills
-                 add .tw:btn-active to me">
-        {% if account.group.name %}<span class="tw:badge tw:badge-secondary tw:me-2">{{ account.group.name }}</span>{% endif %} {{ account.name }}
+                 remove .btn-active from <button/> in #filter-pills
+                 add .btn-active to me">
+        {% if account.group.name %}<span class="badge badge-secondary me-2">{{ account.group.name }}</span>{% endif %} {{ account.name }}
       </button>
     {% endfor %}
   </div>

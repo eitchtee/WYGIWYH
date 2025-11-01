@@ -1,7 +1,7 @@
 {% if form.non_field_errors %}
-    <div class="tw:alert tw:alert-error">
-        {% if form_error_title %}<h4 class="tw:font-bold">{{ form_error_title }}</h4>{% endif %}
-        <ul class="tw:m-0 tw:list-disc tw:list-inside">
+    <div class="alert alert-error">
+        {% if form_error_title %}<h4 class="font-bold">{{ form_error_title }}</h4>{% endif %}
+        <ul class="m-0 list-disc list-inside">
             {{ form.non_field_errors|unordered_list }}
         </ul>
     </div>

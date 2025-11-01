@@ -1,51 +1,15 @@
-@use "sass:map";
-@import "variables";
-@import "bootstrap/scss/bootstrap-utilities";
+// Bootstrap Utilities and Custom Bootstrap Components
+// This file imports standalone implementations of Bootstrap components
+// and contains Bootstrap-related utilities
 
-// Import all of Bootstrap's CSS
-// @import "bootstrap/scss/bootstrap";
-@import "bootstrap/scss/offcanvas";
-// @import "bootstrap/scss/forms";
-@import "bootstrap/scss/transitions";
-@import "bootstrap/scss/list-group";
-@import "bootstrap/scss/tooltip";
-@import "bootstrap/scss/progress";
-@import "bootstrap/scss/nav";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
+// Standalone component implementations
+@use "offcanvas";
+@use "transitions";
 
-// @import "bootstrap/scss/"
+// Bootstrap utilities (if needed)
+// @import "bootstrap/scss/bootstrap-utilities";
 
-.form-label {
-  font-size: $font-size-base; // Fixes crispy-bootstrap5 legend labels being too big
-  font-weight: bold;
-}
-
-$theme-colors: map.merge($theme-colors,
-    ("primary": $primary ));
-
-.table .col-auto {
-  width: 1%;
-  white-space: nowrap;
-}
-
-.offcanvas-size-xl {
-  --#{$prefix}offcanvas-width: min(95vw, 700px) !important;
-}
-
-.offcanvas-size-xxl {
-  --#{$prefix}offcanvas-width: min(95vw, 90vw) !important;
-}
-
-.offcanvas-size-md {
-  /* add Responsivenes to default offcanvas */
-  --#{$prefix}offcanvas-width: min(95vw, 400px) !important;
-}
-
-.offcanvas-size-sm {
-  --#{$prefix}offcanvas-width: min(95vw, 250px) !important;
-}
-
+// Bootstrap-specific utility classes
 .dropdown-toggle.dropdown-toggle-no-icon::after {
   display: none;
 }

@@ -12,45 +12,37 @@
 {% endblock %}
 
 {% block content %}
-  <div class="tw:container tw:px-md-3 tw:py-3 tw:gap-x-5">
-    <div class="tw:flex tw:flex-wrap tw:mb-4 tw:gap-x-xl-4 tw:gap-y-3">
+  <div class="container px-md-3 py-3 gap-x-5">
+    <div class="flex flex-wrap mb-4 gap-x-xl-4 gap-y-3">
       {#    Date picker#}
-      <div class="tw:w-full tw:xl:w-4/12 tw:flex-row tw:items-center tw:flex">
-        <div class="tw:text-base tw:h-full tw:items-center tw:flex">
+      <div class="w-full xl:w-4/12 flex-row items-center flex">
+        <div class="text-base h-full items-center flex btn btn-ghost">
           <a role="button"
-             class="tw:pe-4 tw:py-2"
              hx-boost="true"
              hx-trigger="click, previous_month from:window"
-             href="{% url 'calendar' month=previous_month year=previous_year %}"><i
-              class="fa-solid fa-chevron-left"></i></a>
+             href="{% url 'calendar' month=previous_month year=previous_year %}">
+              <i class="fa-solid fa-chevron-left"></i>
+            </a>
         </div>
-        <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:text-center"
+        <div class="text-3xl font-bold font-mono w-full text-center btn btn-ghost"
              hx-get="{% url 'month_year_picker' %}"
              hx-target="#generic-offcanvas-left"
              hx-trigger="click, date_picker from:window"
              hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "calendar", "field": "date"}' role="button">
           {{ month|month_name }} {{ year }}
         </div>
-        <div class="tw:text-base tw:mx-2 tw:h-full tw:items-center tw:flex">
+        <div class="text-base h-full items-center flex btn btn-ghost">
           <a role="button"
-             class="tw:ps-3 tw:py-2"
              hx-boost="true"
              hx-trigger="click, next_month from:window"
              href="{% url 'calendar' month=next_month year=next_year %}">
-            <i class="fa-solid fa-chevron-right"></i>
+              <i class="fa-solid fa-chevron-right"></i>
           </a>
         </div>
       </div>
-      {#    Action buttons#}
-      <div class="tw:w-full tw:xl:w-8/12">
-        {#      <c-ui.quick-transactions-buttons#}
-        {#        :year="year"#}
-        {#        :month="month"#}
-        {#      ></c-ui.quick-transactions-buttons>#}
-      </div>
     </div>
-    <div class="tw:flex tw:flex-wrap">
-      <div class="show-loading tw:w-full" hx-get="{% url 'calendar_list' month=month year=year %}"
+    <div class="flex flex-wrap">
+      <div class="show-loading w-full" hx-get="{% url 'calendar_list' month=month year=year %}"
            hx-trigger="load, updated from:window, selective_update from:window, every 10m"></div>
     </div>
   </div>

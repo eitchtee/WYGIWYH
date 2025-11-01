@@ -1,10 +1,10 @@
 {% load hijack %}
 {% load i18n %}
-<div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5">
-  <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
+<div class="container px-md-3 py-3 column-gap-5">
+  <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
       <div>{% translate 'Users' %}<span>
-      <a class="tw:no-underline tw:text-2xl tw:p-1 category-action"
+      <a class="no-underline text-2xl p-1 category-action"
          role="button"
          data-bs-toggle="tooltip"
          data-bs-title="{% translate "Add" %}"
@@ -15,16 +15,16 @@
     {% endspaceless %}
   </div>
 
-  <div class="tw:card tw:bg-base-100 tw:shadow-xl">
-    <div class="tw:card-body">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
       <div id="tags-table">
         {% if users %}
-          <div class="tw:overflow-x-auto">
+          <div class="overflow-x-auto">
             <c-config.search></c-config.search>
-            <table class="tw:table tw:table-hover">
+            <table class="table table-hover">
               <thead>
               <tr>
-                <th scope="col" class="tw:w-auto"></th>
+                <th scope="col" class="w-auto"></th>
                 <th scope="col">{% translate 'Active' %}</th>
                 <th scope="col">{% translate 'Name' %}</th>
                 <th scope="col">{% translate 'Email' %}</th>
@@ -34,9 +34,9 @@
               <tbody>
               {% for user in users %}
                 <tr class="tag">
-                  <td class="tw:w-auto">
-                    <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
-                      <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
+                  <td class="w-auto">
+                    <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                      <a class="btn btn-secondary btn-sm join-item"
                          role="button"
                          hx-swap="innerHTML"
                          data-bs-toggle="tooltip"
@@ -45,7 +45,7 @@
                          hx-target="#generic-offcanvas">
                         <i class="fa-solid fa-pencil fa-fw"></i></a>
                       {% if request.user|can_hijack:user and request.user != user %}
-                        <a class="tw:btn tw:btn-info tw:btn-sm tw:join-item"
+                        <a class="btn btn-info btn-sm join-item"
                            role="button"
                            data-bs-toggle="tooltip"
                            data-bs-title="{% translate "Impersonate" %}"
@@ -61,14 +61,14 @@
                   </td>
                   <td>
                     {% if user.is_active %}
-                      <i class="fa-solid fa-solid fa-check tw:text-success"></i>
+                      <i class="fa-solid fa-solid fa-check text-success"></i>
                     {% endif %}
                   </td>
                   <td>{{ user.first_name }} {{ user.last_name }}</td>
                   <td>{{ user.email }}</td>
                   <td>
                     {% if user.is_superuser %}
-                      <i class="fa-solid fa-solid fa-check tw:text-success"></i>
+                      <i class="fa-solid fa-solid fa-check text-success"></i>
                     {% endif %}
                   </td>
                 </tr>

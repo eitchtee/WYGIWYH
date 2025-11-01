@@ -314,7 +314,7 @@ CACHES = {
     }
 }
 
-DJANGO_VITE_ASSETS_PATH = ROOT_DIR / "frontend" / "build"
+DJANGO_VITE_ASSETS_PATH = STATIC_ROOT
 DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
 DJANGO_VITE_DEV_MODE = DEBUG
 DJANGO_VITE_DEV_SERVER_PORT = 5173
@@ -365,7 +365,6 @@ SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapt
 
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = [
-    "bootstrap5",
     "crispy_forms/pure_text",
     "crispy-daisyui",
 ]

@@ -2,9 +2,9 @@
 
 <div hx-get="{% url 'category_overview' %}" hx-trigger="updated from:window" class="show-loading" hx-swap="outerHTML"
      hx-include="#picker-form, #picker-type, #view-type, #show-tags, #showing, #show-entities">
-  <div class="tw:h-full tw:text-center tw:mb-4">
-    <div class="tw:join" role="group" id="view-type" _="on change trigger updated">
-      <input type="radio" class="tw:join-item tw:btn tw:btn-outline tw:btn-primary tw:rounded-full"
+  <div class="h-full text-center mb-4">
+    <div class="join" role="group" id="view-type" _="on change trigger updated">
+      <input type="radio" class="join-item btn btn-outline btn-primary rounded-full"
              name="view_type"
              id="table-view"
              autocomplete="off"
@@ -13,7 +13,7 @@
              {% if view_type == "table" %}checked{% endif %}>
 
       <input type="radio"
-             class="tw:join-item tw:btn tw:btn-outline tw:btn-primary tw:rounded-full"
+             class="join-item btn btn-outline btn-primary rounded-full"
              name="view_type"
              id="bars-view"
              autocomplete="off"
@@ -22,16 +22,16 @@
              {% if view_type == "bars" %}checked{% endif %}>
     </div>
   </div>
-  <div class="tw:mt-3 tw:mb-1 tw:flex tw:flex-col tw:md:flex-row tw:justify-between">
-    <div class="tw:flex tw:gap-4">
+  <div class="mt-3 mb-1 flex flex-col md:flex-row justify-between">
+    <div class="flex gap-4">
       {% if view_type == 'table' %}
-        <div class="tw:form-control" id="show-tags">
+        <div class="form-control" id="show-tags">
           <input type="hidden" name="show_tags" value="off">
-          <label class="tw:label tw:cursor-pointer tw:gap-2">
-            <input type="checkbox" class="tw:toggle" id="show-tags-switch" name="show_tags"
+          <label class="label cursor-pointer gap-2">
+            <input type="checkbox" class="toggle" id="show-tags-switch" name="show_tags"
                    _="on change trigger updated" {% if show_tags %}checked{% endif %}>
             {% spaceless %}
-              <span class="tw:label-text">
+              <span class="label-text">
                 {% trans 'Tags' %}
               </span>
               <c-ui.help-icon
@@ -40,13 +40,13 @@
             {% endspaceless %}
           </label>
         </div>
-        <div class="tw:form-control" id="show-entities" {% if not show_tags %}style="display: none;"{% endif %}>
+        <div class="form-control" id="show-entities" {% if not show_tags %}style="display: none;"{% endif %}>
           <input type="hidden" name="show_entities" value="off">
-          <label class="tw:label tw:cursor-pointer tw:gap-2">
-            <input type="checkbox" class="tw:toggle" id="show-entities-switch" name="show_entities"
+          <label class="label cursor-pointer gap-2">
+            <input type="checkbox" class="toggle" id="show-entities-switch" name="show_entities"
                    _="on change trigger updated" {% if show_entities %}checked{% endif %}>
             {% spaceless %}
-              <span class="tw:label-text">
+              <span class="label-text">
                 {% trans 'Entities' %}
               </span>
               <c-ui.help-icon
@@ -57,21 +57,21 @@
         </div>
       {% endif %}
     </div>
-    <div class="tw:join" role="group" id="showing" _="on change trigger updated">
-      <input type="radio" class="tw:join-item tw:btn tw:btn-outline tw:btn-primary tw:btn-sm" name="showing" id="showing-projected" autocomplete="off" aria-label="{% trans 'Projected' %}"
+    <div class="join" role="group" id="showing" _="on change trigger updated">
+      <input type="radio" class="join-item btn btn-outline btn-primary btn-sm" name="showing" id="showing-projected" autocomplete="off" aria-label="{% trans 'Projected' %}"
              value="projected" {% if showing == 'projected' %}checked{% endif %}>
 
-      <input type="radio" class="tw:join-item tw:btn tw:btn-outline tw:btn-primary tw:btn-sm" name="showing" id="showing-current" autocomplete="off" value="current" aria-label="{% trans 'Current' %}"
+      <input type="radio" class="join-item btn btn-outline btn-primary btn-sm" name="showing" id="showing-current" autocomplete="off" value="current" aria-label="{% trans 'Current' %}"
              {% if showing == 'current' %}checked{% endif %}>
 
-      <input type="radio" class="tw:join-item tw:btn tw:btn-outline tw:btn-primary tw:btn-sm" name="showing" id="showing-final" autocomplete="off" value="final" aria-label="{% trans 'Final total' %}"
+      <input type="radio" class="join-item btn btn-outline btn-primary btn-sm" name="showing" id="showing-final" autocomplete="off" value="final" aria-label="{% trans 'Final total' %}"
              {% if showing == 'final' %}checked{% endif %}>
     </div>
   </div>
   {% if total_table %}
     {% if view_type == "table" %}
-      <div class="tw:overflow-x-auto">
-        <table class="tw:table tw:table-zebra">
+      <div class="overflow-x-auto">
+        <table class="table table-zebra">
           <thead>
           <tr>
             <th scope="col">{% trans 'Category' %}</th>
@@ -83,7 +83,7 @@
           <tbody>
           {% for category in total_table.values %}
             <!-- Category row -->
-            <tr class="tw:font-semibold">
+            <tr class="font-semibold">
               <th>{% if category.name %}{{ category.name }}{% else %}{% trans 'Uncategorized' %}{% endif %}</th>
               <td> {# income #}
                 {% for currency in category.currencies.values %}
@@ -175,9 +175,9 @@
             {% if show_tags %}
               {% for tag_id, tag in category.tags.items %}
                 {% if tag.name or not tag.name and category.tags.values|length > 1 %}
-                  <tr class="tw:bg-base-200">
-                    <td class="tw:ps-4">
-                      <i class="fa-solid fa-hashtag fa-fw tw:me-2 tw:text-base-content/60"></i>{% if tag.name %}{{ tag.name }}{% else %}{% trans 'Untagged' %}{% endif %}
+                  <tr class="bg-base-200">
+                    <td class="ps-4">
+                      <i class="fa-solid fa-hashtag fa-fw me-2 text-base-content/60"></i>{% if tag.name %}{{ tag.name }}{% else %}{% trans 'Untagged' %}{% endif %}
                     </td>
                     <td>
                       {% for currency in tag.currencies.values %}
@@ -268,9 +268,9 @@
                   {% if show_entities %}
                     {% for entity_id, entity in tag.entities.items %}
                       {% if entity.name or not entity.name and tag.entities.values|length > 1 %}
-                        <tr class="tw:bg-base-300">
-                          <td class="tw:ps-5">
-                            <i class="fa-solid fa-user-group fa-fw tw:me-2 tw:text-base-content/60"></i>{% if entity.name %}{{ entity.name }}{% else %}{% trans 'No entity' %}{% endif %}
+                        <tr class="bg-base-300">
+                          <td class="ps-5">
+                            <i class="fa-solid fa-user-group fa-fw me-2 text-base-content/60"></i>{% if entity.name %}{{ entity.name }}{% else %}{% trans 'No entity' %}{% endif %}
                           </td>
                           <td>
                             {% for currency in entity.currencies.values %}
@@ -371,7 +371,7 @@
 
     {% elif view_type == "bars" %}
       <div>
-        <div class="chart-container tw:relative tw:h-[78vh] tw:w-full" _="init call setupChart() end">
+        <div class="chart-container relative h-[78vh] w-full" _="init call setupChart() end">
           <canvas id="categoryChart"></canvas>
         </div>
       </div>

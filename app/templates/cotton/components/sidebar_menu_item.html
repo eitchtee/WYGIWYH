@@ -1,7 +1,7 @@
 {% load active_link %}
 <li>
   <a href="{% url url %}"
-     class="tw:lg:text-sm tw:flex tw:items-center tw:no-underline tw:p-2 tw:rounded-3xl sidebar-item {% active_link views=active css_class="sidebar-active" %}"
+     class="lg:text-sm flex items-center no-underline p-2 rounded-box sidebar-item {% active_link views=active css_class="sidebar-active" %}"
       {% if tooltip %}
      data-bs-placement="right"
      data-bs-toggle="tooltip"
@@ -9,6 +9,6 @@
       {% endif %}>
     <i class="{{ icon }} fa-fw"></i>
     <span
-        class="tw:ms-3 tw:font-medium tw:lg:group-hover:truncate tw:lg:group-focus:truncate tw:lg:group-hover:text-ellipsis tw:lg:group-focus:text-ellipsis">{{ title }}</span>
+        class="ms-3 font-medium lg:group-hover:truncate lg:group-focus:truncate lg:group-hover:text-ellipsis lg:group-focus:text-ellipsis">{{ title }}</span>
   </a>
 </li>

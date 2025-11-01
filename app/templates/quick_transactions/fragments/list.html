@@ -1,15 +1,15 @@
 {% load i18n %}
-<div class="tw:card tw:bg-base-100 tw:shadow-xl">
-  <div class="tw:card-body">
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body">
     <div id="quick-transactions-table">
       {% if quick_transactions %}
         <c-config.search></c-config.search>
 
-        <div class="tw:overflow-x-auto">
-          <table class="tw:table tw:table-zebra">
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
             <thead>
             <tr>
-              <th scope="col" class="tw:w-auto"></th>
+              <th scope="col" class="w-auto"></th>
               <th scope="col">{% translate 'Name' %}</th>
               <th scope="col">{% translate 'Account' %}</th>
               <th scope="col">{% translate 'Amount' %}</th>
@@ -18,9 +18,9 @@
             <tbody>
             {% for qt in quick_transactions %}
               <tr class="recurring_transaction">
-                <td class="tw:w-auto tw:text-center">
-                  <div class="tw:join" role="group" aria-label="{% translate 'Actions' %}">
-                    <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item"
+                <td class="w-auto text-center">
+                  <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                    <a class="btn btn-secondary btn-sm join-item"
                        role="button"
                        data-bs-toggle="tooltip"
                        data-bs-title="{% translate "Edit" %}"
@@ -28,7 +28,7 @@
                        hx-swap="innerHTML"
                        hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-pencil fa-fw"></i></a>
-                    <a class="tw:btn tw:btn-secondary tw:btn-sm tw:join-item tw:text-error"
+                    <a class="btn btn-secondary btn-sm join-item text-error"
                        role="button"
                        data-bs-toggle="tooltip"
                        data-bs-title="{% translate "Delete" %}"
@@ -44,14 +44,14 @@
                 </td>
                 <td>
                   <div
-                      class="{% if qt.type == 'EX' %}tw:text-red-400{% else %}tw:text-green-400{% endif %}">
+                      class="{% if qt.type == 'EX' %}text-red-400{% else %}text-green-400{% endif %}">
                     {{ qt.name }}
                   </div>
                 </td>
-                <td class="tw:w-auto">
+                <td class="w-auto">
                   {% if qt.account.group %}{{ qt.account.group }} • {% endif %}{{ qt.account }}
                 </td>
-                <td class="tw:w-auto">
+                <td class="w-auto">
                   <c-amount.display
                     :amount="qt.amount"
                     :prefix="qt.account.currency.prefix"

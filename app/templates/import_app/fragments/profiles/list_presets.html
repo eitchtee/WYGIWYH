@@ -6,28 +6,28 @@
 
 {% block body %}
   {% if presets %}
-  <div id="search" class="tw:mb-3">
-    <label class="tw:w-full">
+  <div id="search" class="mb-3">
+    <label class="w-full">
     <input type="search"
-           class="tw:input tw:input-bordered tw:w-full"
+           class="input input-bordered w-full"
            placeholder="{% translate 'Search' %}"
            _="on input or search
                 show < .col /> in <#items/>
                 when its textContent.toLowerCase() contains my value.toLowerCase()"/>
     </label>
   </div>
-  <div class="tw:grid tw:grid-cols-1 tw:gap-4" id="items">
+  <div class="grid grid-cols-1 gap-4" id="items">
   {% for preset in presets %}
-    <a class="tw:no-underline"
+    <a class="no-underline"
        role="button"
        hx-post="{% url 'import_profiles_add' %}"
        hx-vals='{"yaml_config": {{ preset.config }}, "name": "{{ preset.name }}", "version": "{{ preset.schema_version }}", "message": {{ preset.message }}}'
        hx-target="#generic-offcanvas">
 
       <div class="col">
-        <div class="tw:card tw:bg-base-100 tw:shadow-xl">
-          <div class="tw:card-body">
-            <h5 class="tw:card-title">{{ preset.name }}</h5>
+        <div class="card bg-base-100 shadow-xl">
+          <div class="card-body">
+            <h5 class="card-title">{{ preset.name }}</h5>
             <hr>
             <p>{{ preset.description }}</p>
             <p>{% trans 'By' %} {{ preset.authors|join:", " }}</p>

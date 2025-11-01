@@ -3,14 +3,14 @@
 {% load static %}
 {% load i18n %}
 {% load active_link %}
-<nav class="tw:navbar tw:border-b tw:border-base-300 tw:bg-base-200 tw:flex tw:lg:hidden" hx-boost="true">
-  <div class="tw:container tw:mx-auto tw:px-4 tw:flex tw:justify-between tw:items-center tw:w-full">
-    <a class="tw:text-xl tw:font-bold tw:text-primary" href="{% url 'index' %}">
+<nav class="navbar border-b border-base-300 bg-base-200 flex lg:hidden" hx-boost="true">
+  <div class="container mx-auto px-4 flex justify-between items-center w-full">
+    <a class="text-xl font-bold text-primary" href="{% url 'index' %}">
       <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="40" width="40" title="WYGIWYH"/>
     </a>
-    <button class="tw:btn tw:btn-ghost tw:lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+    <button class="btn btn-ghost lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
             aria-controls="sidebar" aria-label={% translate "Toggle navigation" %}>
-      <svg class="tw:w-6 tw:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>

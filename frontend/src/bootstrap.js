@@ -3,7 +3,7 @@ import * as bootstrap from 'bootstrap'; // eslint-disable-line no-unused-vars
 window.bootstrap = bootstrap;
 
 function initiateToasts() {
-    const toastElList = document.querySelectorAll('.toast');
+    const toastElList = document.querySelectorAll('.toasty');
     const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl));  // eslint-disable-line no-undef
 
     for (let i = 0; i < toastList.length; i++) {

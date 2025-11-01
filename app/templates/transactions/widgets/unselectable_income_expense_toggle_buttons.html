@@ -1,10 +1,10 @@
 {% load i18n %}
 {% load crispy_forms_field %}
 
-<div class="tw:form-group tw:mb-3">
-    <div class="tw:join tw:w-full" role="group" aria-label="{{ field.label }}">
+<div class="form-group mb-3">
+    <div class="join w-full" role="group" aria-label="{{ field.label }}">
             <input type="radio"
-                   class="tw:join-item tw:btn tw:btn-neutral {% if field.errors %}tw:input-error{% endif %}"
+                   class="join-item btn btn-neutral {% if field.errors %}input-error{% endif %}"
                    name="{{ field.html_name }}"
                    id="{{ field.html_name }}_none_tr"
                    value=""
@@ -13,7 +13,7 @@
 
         {% for choice in field.field.choices %}
             <input type="radio"
-                   class="tw:join-item tw:btn {% if forloop.first %}tw:btn-success{% elif forloop.last %}tw:btn-error{% else %}tw:btn-primary{% endif %} {% if field.errors %}tw:input-error{% endif %}"
+                   class="join-item btn {% if forloop.first %}btn-success{% elif forloop.last %}btn-error{% else %}btn-primary{% endif %} {% if field.errors %}input-error{% endif %}"
                    name="{{ field.html_name }}"
                    id="{{ field.html_name }}_{{ forloop.counter }}_tr"
                    value="{{ choice.0 }}"
@@ -22,13 +22,13 @@
         {% endfor %}
     </div>
     {% if field.errors %}
-        <div class="tw:text-error tw:text-sm tw:mt-1">
+        <div class="text-error text-sm mt-1">
             {% for error in field.errors %}
                 {{ error }}
             {% endfor %}
         </div>
     {% endif %}
     {% if field.help_text %}
-        <small class="tw:text-base-content/60 tw:text-sm">{{ field.help_text }}</small>
+        <small class="text-base-content/60 text-sm">{{ field.help_text }}</small>
     {% endif %}
 </div>

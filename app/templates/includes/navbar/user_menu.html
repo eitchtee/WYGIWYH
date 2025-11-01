@@ -1,21 +1,21 @@
 {% load settings %}
 {% load i18n %}
-<div class="tw:dropdown tw:dropdown-top tw:dropdown-end">
-  <div tabindex="0" role="button" class="tw:btn tw:btn-secondary tw:btn-sm">
+<div class="dropdown dropdown-top dropdown-end">
+  <div tabindex="0" role="button" class="btn btn-secondary btn-sm">
     <i class="fa-solid fa-cog"></i>
   </div>
-  <ul tabindex="0" class="tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:w-52 tw:p-2 tw:shadow">
+  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
     <li><a
            hx-get="{% url 'user_settings' %}"
            hx-target="#generic-offcanvas"
            role="button">
-      <i class="fa-solid fa-gear tw:me-2 fa-fw"></i>{% translate 'Settings' %}</a></li>
+      <i class="fa-solid fa-gear me-2 fa-fw"></i>{% translate 'Settings' %}</a></li>
     <li><a
            hx-get="{% url 'user_edit' pk=request.user.id %}"
            hx-target="#generic-offcanvas"
            role="button">
-      <i class="fa-solid fa-user tw:me-2 fa-fw"></i>{% translate 'Edit profile' %}</a></li>
-    <hr class="tw:my-1 tw:text-base-content/60">
+      <i class="fa-solid fa-user me-2 fa-fw"></i>{% translate 'Edit profile' %}</a></li>
+    <hr class="my-1 hr">
     {% spaceless %}
     <li>
       <a hx-get="{% url 'toggle_amount_visibility' %}" role="button">
@@ -38,15 +38,15 @@
       </a>
     </li>
     {% endspaceless %}
-    <hr class="tw:my-1 tw:text-base-content/60">
+    <hr class="my-1 hr">
     <li>
       <a hx-get="{% url 'invalidate_cache' %}" role="button">
-        <i class="fa-solid fa-broom tw:me-2 fa-fw"></i>{% translate 'Clear cache' %}
+        <i class="fa-solid fa-broom me-2 fa-fw"></i>{% translate 'Clear cache' %}
       </a>
     </li>
-    <li><a href="{% url 'logout' %}"><i class="fa-solid fa-door-open tw:me-2 fa-fw"></i
+    <li><a href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2 fa-fw"></i
     >{% translate 'Logout' %}</a></li>
-    <hr class="tw:my-1 tw:text-base-content/60">
+    <hr class="my-1 hr">
     <li><a href="https://github.com/eitchtee/WYGIWYH/releases" target="_blank" rel="nofollow">v. {% settings "APP_VERSION" %}</a></li>
   </ul>
 </div>

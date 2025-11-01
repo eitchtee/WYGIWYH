@@ -2,14 +2,14 @@
 {% load i18n %}
 {% load currency_display %}
 
-<div class="tw:grid tw:grid-cols-1 tw:gap-4 tw:mt-1 tw:mb-3">
+<div class="grid grid-cols-1 gap-4 mt-1 mb-3">
   {% for account_id, account in account_data.items %}
-    <div class="tw:w-full">
+    <div class="w-full">
       <c-ui.account_card :account="account" :account_id="account_id"
                          :percentages="account_percentages"></c-ui.account_card>
     </div>
   {% empty %}
-    <div class="tw:w-full">
+    <div class="w-full">
     <c-msg.empty
         title="{% translate "No information to display" %}"></c-msg.empty>
   {% endfor %}

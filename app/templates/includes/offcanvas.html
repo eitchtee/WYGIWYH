@@ -1,4 +1,4 @@
-<div id="persistent-generic-offcanvas" class="offcanvas offcanvas-end offcanvas-size-xl tw:z-1100! tw:bg-base-200! tw:text-base-content!"
+<div id="persistent-generic-offcanvas" class="offcanvas offcanvas-end offcanvas-size-xl z-1100!"
      data-bs-backdrop="static"
      tabindex="-1"
      _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end
@@ -6,7 +6,7 @@
         on force_hide_offcanvas call bootstrap.Offcanvas.getOrCreateInstance(me).hide() end
         on hidden.bs.offcanvas set my innerHTML to '' end">
 </div>
-<div id="persistent-generic-offcanvas-left" class="offcanvas offcanvas-start offcanvas-size-xl tw:z-1100! tw:bg-base-200! tw:text-base-content!"
+<div id="persistent-generic-offcanvas-left" class="offcanvas offcanvas-start offcanvas-size-xl z-1100!"
      data-bs-backdrop="static"
      tabindex="-1"
      _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end
@@ -16,7 +16,7 @@
 </div>
 
 
-<div id="generic-offcanvas" class="offcanvas offcanvas-end offcanvas-size-xl tw:z-1100! tw:bg-base-200! tw:text-base-content!"
+<div id="generic-offcanvas" class="offcanvas offcanvas-end offcanvas-size-xl z-1100!"
      data-bs-backdrop="static"
      tabindex="-1"
      _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end
@@ -24,7 +24,7 @@
         on htmx:beforeOnLoad[detail.boosted] call bootstrap.Offcanvas.getOrCreateInstance(me).hide()
         on hidden.bs.offcanvas set my innerHTML to '' end">
 </div>
-<div id="generic-offcanvas-left" class="offcanvas offcanvas-start offcanvas-size-xl tw:z-1100! tw:bg-base-200! tw:text-base-content!"
+<div id="generic-offcanvas-left" class="offcanvas offcanvas-start offcanvas-size-xl z-1100!"
      data-bs-backdrop="static"
      tabindex="-1"
      _="on htmx:afterSettle call bootstrap.Offcanvas.getOrCreateInstance(me).show() end

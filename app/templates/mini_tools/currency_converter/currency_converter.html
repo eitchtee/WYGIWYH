@@ -7,16 +7,16 @@
 {% block title %}{% translate 'Currency Converter' %}{% endblock %}
 
 {% block content %}
-  <div class="tw:container tw:px-md-3 tw:py-3 tw:column-gap-5"
+  <div class="container px-md-3 py-3 column-gap-5"
        _="install init_tom_select
           install init_datepicker">
-    <div class="tw:text-3xl tw:font-bold tw:font-mono tw:w-full tw:mb-3">
+    <div class="text-3xl font-bold font-mono w-full mb-3">
       <div>{% translate 'Currency Converter' %}</div>
     </div>
-    <div class="tw:grid tw:lg:grid-cols-[2fr_auto_2fr] tw:gap-4">
+    <div class="grid lg:grid-cols-[2fr_auto_2fr] gap-4">
       <div>
         <div>
-          <input class="tw:input tw:input-bordered tw:input-lg tw:w-full tw:mb-3"
+          <input class="input input-bordered input-lg w-full mb-3"
                  type="text"
                  value="1"
                  name="from_value"
@@ -26,7 +26,7 @@
         </div>
         <div>{{ form.from_currency|as_crispy_field }}</div>
       </div>
-      <div class="tw:text-primary tw:flex tw:items-center tw:justify-center tw:my-3 tw:lg:my-0">
+      <div class="text-primary flex items-center justify-center my-3 lg:my-0">
         <i class="fa-solid fa-equals"></i>
       </div>
       <div>
@@ -34,7 +34,7 @@
              hx-trigger="input from:#from_value, input from:#id_from_currency, input from:#id_to_currency, updated"
              hx-include="#from_value, #id_from_currency, #id_to_currency"
              id="result">
-          <input class="tw:input tw:input-bordered tw:input-lg tw:w-full tw:mb-3"
+          <input class="input input-bordered input-lg w-full mb-3"
                  type="text"
                  name="to_value"
                  id="to_value"
@@ -43,8 +43,8 @@
         <div>{{ form.to_currency|as_crispy_field }}</div>
       </div>
     </div>
-    <div class="tw:grid">
-      <div class="tw:cursor-pointer tw:text-primary tw:text-right"
+    <div class="grid">
+      <div class="cursor-pointer text-primary text-right"
            _="on click
                 set from_value to #id_from_currency's value
                 set to_value to #id_to_currency's value
@@ -54,18 +54,18 @@
                 call #id_to_currency.tomselect.sync()
                 trigger updated on #result
               end">
-        <i class="fa-solid fa-rotate tw:me-2"></i><span>{% trans 'Invert' %}</span>
+        <i class="fa-solid fa-rotate me-2"></i><span>{% trans 'Invert' %}</span>
       </div>
     </div>
-    <hr class="tw:my-4">
-    <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:lg:grid-cols-3 tw:gap-4">
+    <hr class="my-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for currency, data in rate_map.items %}
         <div>
           <c-ui.info-card color="yellow" title="{{ currency }}">
             {% for rate in data.rates.values %}
-              <div class="tw:flex tw:justify-between tw:items-baseline tw:mt-2">
-                <div class="tw:text-right tw:font-mono">
-                  <div class="tw:text-base-content/60">
+              <div class="flex justify-between items-baseline mt-2">
+                <div class="text-right font-mono">
+                  <div class="text-base-content/60">
 {#                    <c-amount.display#}
 {#                        :amount="1"#}
 {#                        :prefix="data.prefix"#}
@@ -73,9 +73,9 @@
 {#                        :decimal_places="data.decimal_places"></c-amount.display>#}
                   </div>
                 </div>
-                <div class="dotted-line tw:flex-grow"></div>
+                <div class="dotted-line flex-grow"></div>
                 {% if currency.income_projected != 0 %}
-                  <div class="tw:text-right tw:font-mono tw:text-green-400">
+                  <div class="text-right font-mono text-green-400">
                     <c-amount.display
                         :amount="rate.rate"
                         :prefix="rate.prefix"
@@ -83,7 +83,7 @@
                         :decimal_places="rate.decimal_places"></c-amount.display>
                   </div>
                 {% else %}
-                  <div class="tw:text-right tw:font-mono">-</div>
+                  <div class="text-right font-mono">-</div>
                 {% endif %}
               </div>
             {% endfor %}

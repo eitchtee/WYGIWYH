@@ -2,25 +2,25 @@
 
 {% for widget in field.subwidgets %}
 {% if widget.data.is_initial %}
-<div class="tw:join tw:mb-2 tw:w-full">
-    <span class="tw:btn tw:btn-disabled tw:join-item">{{ widget.data.initial_text }}</span>
-    <div class="tw:input tw:input-bordered tw:join-item tw:flex tw:items-center tw:flex-grow">
-        <span class="tw:break-all tw:flex-grow">
-            <a href="{{ field.value.url }}" class="tw:link">{{ field.value.name }}</a>
+<div class="join mb-2">
+    <span class="btn btn-disabled join-item">{{ widget.data.initial_text }}</span>
+    <div class="input join-item flex items-center flex-grow">
+        <span class="break-all flex-grow">
+            <a href="{{ field.value.url }}" class="link">{{ field.value.name }}</a>
         </span>
         {% if not widget.data.required %}
-        <span class="tw:ml-2">
-            <label class="tw:label tw:cursor-pointer tw:gap-2">
-                <input type="checkbox" name="{{ widget.data.checkbox_name }}" id="{{ widget.data.checkbox_id }}" class="tw:checkbox"{% if field.field.disabled %} disabled{% endif %} >
-                <span class="tw:label-text">{{ widget.data.clear_checkbox_label }}</span>
+        <span class="ml-2">
+            <label class="label cursor-pointer gap-2">
+                <span class="label-text">{{ widget.data.clear_checkbox_label }}</span>
+                <input type="checkbox" name="{{ widget.data.checkbox_name }}" id="{{ widget.data.checkbox_id }}" class="checkbox"{% if field.field.disabled %} disabled{% endif %}>
             </label>
         </span>
         {% endif %}
     </div>
 </div>
 {% endif %}
-<div{% if field.errors %} class="tw:input-error"{%endif%}>
-    <input type="{{ widget.data.type }}" name="{{ widget.data.name }}" class="tw:file-input tw:file-input-bordered tw:w-full{% if widget.data.attrs.class %} {{ widget.data.attrs.class }}{% endif %}{% if field.errors %} tw:input-error{%endif%}"{% if field.field.disabled %} disabled{% endif %}{% for name, value in widget.data.attrs.items %}{% if value is not False and name != 'class' %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
+<div class="fieldset">
+    <input type="{{ widget.data.type }}" name="{{ widget.data.name }}" class="file-input {% if widget.data.attrs.class %} {{ widget.data.attrs.class }}{% endif %}{% if field.errors %} file-input-error{% endif %}"{% if field.field.disabled %} disabled{% endif %}{% for name, value in widget.data.attrs.items %}{% if value is not False and name != 'class' %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
     {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
 </div>
 {% endfor %}

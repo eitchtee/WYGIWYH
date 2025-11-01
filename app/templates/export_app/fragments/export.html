@@ -5,8 +5,8 @@
 {% block title %}{% translate 'Export' %}{% endblock %}
 
 {% block body %}
-  <div class="tw:container tw:p-3">
-    <form hx-post="{% url 'export_form' %}" hx-ext="htmx-download" hx-swap="none" id="export-form" class="show-loading tw:px-1" target="_blank">
+  <div class="container p-3">
+    <form hx-post="{% url 'export_form' %}" hx-ext="htmx-download" hx-swap="none" id="export-form" class="show-loading px-1" target="_blank">
       {% crispy form %}
     </form>
   </div>
