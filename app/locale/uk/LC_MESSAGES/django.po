@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-20 14:08+0000\n"
-"PO-Revision-Date: 2025-10-05 09:17+0000\n"
-"Last-Translator: TestXuser <izime07@proton.me>\n"
+"PO-Revision-Date: 2025-11-01 01:17+0000\n"
+"Last-Translator: mlystopad <mlystopadt@gmail.com>\n"
 "Language-Team: Ukrainian <https://translations.herculino.com/projects/"
 "wygiwyh/app/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14\n"
 
 #: apps/accounts/forms.py:26
 msgid "Group name"
@@ -269,11 +269,11 @@ msgstr "Рахунок успішно видалено"
 
 #: apps/accounts/views/accounts.py:165
 msgid "Account is now tracked"
-msgstr ""
+msgstr "Рахунок теперь відстежується"
 
 #: apps/accounts/views/accounts.py:168
 msgid "Account is now untracked"
-msgstr ""
+msgstr "Рахунок більше не відстежується"
 
 #: apps/accounts/views/balance.py:77
 msgid "Balance reconciliation"
@@ -313,7 +313,7 @@ msgstr "Необхідно вказати або 'date', або 'reference_date'
 
 #: apps/common/admin.py:5
 msgid "Make public"
-msgstr ""
+msgstr "Зробити публічним"
 
 #: apps/common/admin.py:10
 #, fuzzy
@@ -437,23 +437,25 @@ msgstr[2] "%(weeks)s тижнів тому"
 #, python-format
 msgid "in %(years)s year"
 msgid_plural "in %(years)s years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "через %(years)s рік"
+msgstr[1] "через %(years)s роки"
+msgstr[2] "через %(years)s років"
 
 #: apps/common/templatetags/natural.py:51
 #, python-format
 msgid "in %(months)s month"
 msgid_plural "in %(months)s months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(months)s місяць"
+msgstr[1] "через %(months)s місяці"
+msgstr[2] "через %(months)s місяців"
 
 #: apps/common/templatetags/natural.py:56
 #, python-format
 msgid "in %(weeks)s week"
 msgid_plural "in %(weeks)s weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(weeks)s тиждень"
+msgstr[1] "через %(weeks)s тижні"
+msgstr[2] "через %(weeks)s тижнів"
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
@@ -567,7 +569,7 @@ msgstr "Дата і час"
 #: apps/currencies/models.py:78 apps/users/models.py:12
 #: apps/users/models.py:497
 msgid "Auto"
-msgstr ""
+msgstr "Авто"
 
 #: apps/currencies/models.py:82 apps/export_app/forms.py:68
 #: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
@@ -631,23 +633,27 @@ msgstr "Остання успішна вибірка"
 
 #: apps/currencies/models.py:141
 msgid "Target Currencies"
-msgstr ""
+msgstr "Цільові валюти"
 
 #: apps/currencies/models.py:143
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 msgstr ""
+"Оберіть валюти для завантаження курсів обміну. Курси будуть завантажені для "
+"кожної валюти відносно встановленої валюти обміну."
 
 #: apps/currencies/models.py:151
 msgid "Target Accounts"
-msgstr ""
+msgstr "Цільові Рахунки"
 
 #: apps/currencies/models.py:153
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr ""
+"Оберіть рахунки для завантаження курсів обміну. Курси будуть завантажені для "
+"валюти кожного рахунку відносно встановленої валюти обміну."
 
 #: apps/currencies/models.py:160
 #, fuzzy
@@ -658,111 +664,117 @@ msgstr "Обмінний курс"
 #: apps/currencies/models.py:163
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
+"Створіть один курс обміну та оновлюйте його постійно. Це запобігає "
+"засміченню бази даних."
 
 #: apps/currencies/models.py:168
 msgid "Exchange Rate Service"
-msgstr ""
+msgstr "Сервіс Курсів Обміну"
 
 #: apps/currencies/models.py:169
 msgid "Exchange Rate Services"
-msgstr ""
+msgstr "Сервіси Курсів Обміну"
 
 #: apps/currencies/models.py:221
 msgid "'Every X hours' interval type requires a positive integer."
-msgstr ""
+msgstr "Інтервал типу «Кожні X годин» потребує додатнього цілого числа."
 
 #: apps/currencies/models.py:230
 msgid "'Every X hours' interval must be between 1 and 24."
-msgstr ""
+msgstr "Інтервал типу «Кожні X годин» повинен бути між 1 та 24."
 
 #: apps/currencies/models.py:244
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
+"Неправильний формат годин. Використовуйте години, розділені комами (0–23) та/"
+"або діапазони (наприклад, '1-5,8,10-12')."
 
 #: apps/currencies/models.py:255
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
 msgstr ""
+"Неправильний формат. Будь ласка, перевірте вимоги для обраного типу "
+"інтервалу."
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
-msgstr ""
+msgstr "Валюту успішно додано"
 
 #: apps/currencies/views/currencies.py:70
 msgid "Currency updated successfully"
-msgstr ""
+msgstr "Валюту успішно оновлено"
 
 #: apps/currencies/views/currencies.py:96
 msgid "Currency deleted successfully"
-msgstr ""
+msgstr "Валюту успішно видалено"
 
 #: apps/currencies/views/exchange_rates.py:89
 msgid "Exchange rate added successfully"
-msgstr ""
+msgstr "Курс обміну успішно додано"
 
 #: apps/currencies/views/exchange_rates.py:117
 msgid "Exchange rate updated successfully"
-msgstr ""
+msgstr "Курс обміну успішно оновлено"
 
 #: apps/currencies/views/exchange_rates.py:143
 msgid "Exchange rate deleted successfully"
-msgstr ""
+msgstr "Курс обміну успішно видалено"
 
 #: apps/currencies/views/exchange_rates_services.py:50
 msgid "Service added successfully"
-msgstr ""
+msgstr "Сервіс успішно додано"
 
 #: apps/currencies/views/exchange_rates_services.py:79
 msgid "Service updated successfully"
-msgstr ""
+msgstr "Сервіс успішно оновлено"
 
 #: apps/currencies/views/exchange_rates_services.py:106
 msgid "Service deleted successfully"
-msgstr ""
+msgstr "Сервіс успішно видалено"
 
 #: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
-msgstr ""
+msgstr "Сервіси успішно поставлено в чергу"
 
 #: apps/dca/forms.py:65 apps/dca/forms.py:164
 msgid "Create transaction"
-msgstr ""
+msgstr "Створити транзакцію"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:515
 msgid "From Account"
-msgstr ""
+msgstr "З Рахунку"
 
 #: apps/dca/forms.py:76 apps/transactions/forms.py:520
 msgid "To Account"
-msgstr ""
+msgstr "На рахунок"
 
 #: apps/dca/forms.py:116 apps/dca/models.py:171
 msgid "Expense Transaction"
-msgstr ""
+msgstr "Витратна транзакція"
 
 #: apps/dca/forms.py:120 apps/dca/forms.py:130
 msgid "Type to search for a transaction to link to this entry"
-msgstr ""
+msgstr "Введіть для пошуку транзакції, щоб пов’язати її з цим записом"
 
 #: apps/dca/forms.py:126 apps/dca/models.py:179
 msgid "Income Transaction"
-msgstr ""
+msgstr "Дохідна транзакція"
 
 #: apps/dca/forms.py:210
 msgid "Link transaction"
-msgstr ""
+msgstr "Пов’язати транзакцію"
 
 #: apps/dca/forms.py:297 apps/dca/forms.py:298 apps/dca/forms.py:303
 #: apps/dca/forms.py:307
 msgid "You must provide an account."
-msgstr ""
+msgstr "Необхідно вказати рахунок."
 
 #: apps/dca/forms.py:312 apps/transactions/forms.py:690
 msgid "From and To accounts must be different."
-msgstr ""
+msgstr "Рахунки «З» та «На» повинні бути різними."
 
 #: apps/dca/forms.py:326
 #, python-format
@@ -771,11 +783,11 @@ msgstr ""
 
 #: apps/dca/models.py:16
 msgid "Target Currency"
-msgstr ""
+msgstr "Цільова валюта"
 
 #: apps/dca/models.py:22
 msgid "Payment Currency"
-msgstr ""
+msgstr "Валюта платежу"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:184
 #: apps/rules/forms.py:200 apps/rules/models.py:43 apps/rules/models.py:295
@@ -783,7 +795,7 @@ msgstr ""
 #: apps/transactions/models.py:319 apps/transactions/models.py:569
 #: apps/transactions/models.py:770 apps/transactions/models.py:1006
 msgid "Notes"
-msgstr ""
+msgstr "Примітки"
 
 #: apps/dca/models.py:34
 msgid "DCA Strategy"
@@ -795,15 +807,15 @@ msgstr ""
 
 #: apps/dca/models.py:156
 msgid "Strategy"
-msgstr ""
+msgstr "Стратегія"
 
 #: apps/dca/models.py:160 templates/dca/fragments/strategy/details.html:54
 msgid "Amount Paid"
-msgstr ""
+msgstr "Сплачена Сума"
 
 #: apps/dca/models.py:163 templates/dca/fragments/strategy/details.html:53
 msgid "Amount Received"
-msgstr ""
+msgstr "Отримана Сума"
 
 #: apps/dca/models.py:186
 msgid "DCA Entry"
@@ -827,21 +839,21 @@ msgstr ""
 
 #: apps/dca/views.py:238
 msgid "Entry added successfully"
-msgstr ""
+msgstr "Запис успішно додано"
 
 #: apps/dca/views.py:265
 msgid "Entry updated successfully"
-msgstr ""
+msgstr "Запис успішно оновлено"
 
 #: apps/dca/views.py:291
 msgid "Entry deleted successfully"
-msgstr ""
+msgstr "Запис успішно видалено"
 
 #: apps/export_app/forms.py:14 apps/export_app/forms.py:131
 #: templates/includes/navbar.html:150 templates/includes/sidebar.html:255
 #: templates/users/fragments/list.html:6 templates/users/pages/index.html:4
 msgid "Users"
-msgstr ""
+msgstr "Користувачі"
 
 #: apps/export_app/forms.py:32 apps/export_app/forms.py:137
 #: apps/transactions/models.py:380 templates/includes/navbar.html:58
@@ -851,14 +863,14 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:39
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Транзакції"
 
 #: apps/export_app/forms.py:38 apps/export_app/forms.py:134
 #: apps/transactions/filters.py:64 templates/categories/fragments/list.html:5
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:109
 #: templates/includes/sidebar.html:178
 msgid "Categories"
-msgstr ""
+msgstr "Категорії"
 
 #: apps/export_app/forms.py:50 apps/export_app/forms.py:136
 #: apps/rules/forms.py:189 apps/rules/forms.py:199 apps/rules/models.py:46
@@ -881,7 +893,7 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:5
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
-msgstr ""
+msgstr "Регулярні транзакції"
 
 #: apps/export_app/forms.py:62 apps/export_app/forms.py:138
 #: apps/transactions/models.py:583 templates/includes/navbar.html:75
@@ -889,20 +901,20 @@ msgstr ""
 #: templates/installment_plans/fragments/list.html:5
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
-msgstr ""
+msgstr "Плани Розстрочки"
 
 #: apps/export_app/forms.py:74 apps/export_app/forms.py:143
 #: templates/exchange_rates_services/fragments/list.html:6
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/navbar.html:143 templates/includes/sidebar.html:246
 msgid "Automatic Exchange Rates"
-msgstr ""
+msgstr "Автоматичні Курси Обміну"
 
 #: apps/export_app/forms.py:80 templates/includes/navbar.html:135
 #: templates/includes/sidebar.html:226 templates/rules/fragments/list.html:5
 #: templates/rules/pages/index.html:4
 msgid "Rules"
-msgstr ""
+msgstr "Правила"
 
 #: apps/export_app/forms.py:86 templates/cotton/transaction/item.html:58
 msgid "DCA"
@@ -912,24 +924,24 @@ msgstr ""
 #: templates/import_app/fragments/profiles/list.html:5
 #: templates/import_app/pages/profiles_index.html:4
 msgid "Import Profiles"
-msgstr ""
+msgstr "Імпортувати Профілі"
 
 #: apps/export_app/forms.py:119 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:15
 msgid "Export"
-msgstr ""
+msgstr "Експортувати"
 
 #: apps/export_app/forms.py:128
 msgid "Import a ZIP file exported from WYGIWYH"
-msgstr ""
+msgstr "Імпортувати ZIP-файл, експортований із WYGIWYH"
 
 #: apps/export_app/forms.py:129
 msgid "ZIP File"
-msgstr ""
+msgstr "ZIP-Файл"
 
 #: apps/export_app/forms.py:146 apps/rules/models.py:27
 msgid "Transaction rules"
-msgstr ""
+msgstr "Правила транзакцій"
 
 #: apps/export_app/forms.py:148 apps/rules/models.py:68
 msgid "Edit transaction action"
@@ -944,52 +956,54 @@ msgstr ""
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:24
 msgid "Restore"
-msgstr ""
+msgstr "Відновити"
 
 #: apps/export_app/forms.py:196
 msgid "Please upload either a ZIP file or at least one CSV file"
-msgstr ""
+msgstr "Будь ласка, завантажте або ZIP-файл, або принаймні один CSV-файл"
 
 #: apps/export_app/views.py:177
 msgid "You have to select at least one export"
-msgstr ""
+msgstr "Ви повинні обрати принаймні один експорт"
 
 #: apps/export_app/views.py:197
 msgid "Data restored successfully"
-msgstr ""
+msgstr "Дані успішно відновлено"
 
 #: apps/export_app/views.py:209
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
+"Сталася помилка під час відновлення даних. Перевірте логи для отримання "
+"додаткової інформації."
 
 #: apps/import_app/forms.py:49
 msgid "Select a file"
-msgstr ""
+msgstr "Оберіть файл"
 
 #: apps/import_app/forms.py:61
 #: templates/import_app/fragments/profiles/list.html:62
 #: templates/includes/navbar.html:137 templates/includes/sidebar.html:232
 msgid "Import"
-msgstr ""
+msgstr "Імпортувати"
 
 #: apps/import_app/models.py:15
 msgid "YAML Configuration"
-msgstr ""
+msgstr "YAML Конфігурація"
 
 #: apps/import_app/models.py:19
 #: templates/import_app/fragments/profiles/list.html:37
 msgid "Version"
-msgstr ""
+msgstr "Версія"
 
 #: apps/import_app/models.py:30
 #, python-brace-format
 msgid "Version {number}"
-msgstr ""
+msgstr "Версія {number}"
 
 #: apps/import_app/models.py:39
 msgid "Invalid YAML Configuration: "
-msgstr ""
+msgstr "Неправильна YAML Конфігурація: "
 
 #: apps/import_app/models.py:45
 msgid "Queued"
