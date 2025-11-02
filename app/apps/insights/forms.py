@@ -58,8 +58,8 @@ class MonthRangeForm(forms.Form):
 
         self.helper.layout = Layout(
             Row(
-                Column("month_from", css_class="md:col-span-6"),
-                Column("month_to", css_class="md:col-span-6"),
+                Column("month_from"),
+                Column("month_to"),
             ),
         )
 
@@ -81,8 +81,8 @@ class YearRangeForm(forms.Form):
 
         self.helper.layout = Layout(
             Row(
-                Column("year_from", css_class="md:col-span-6"),
-                Column("year_to", css_class="md:col-span-6"),
+                Column("year_from"),
+                Column("year_to"),
             ),
         )
 
@@ -104,8 +104,8 @@ class DateRangeForm(forms.Form):
 
         self.helper.layout = Layout(
             Row(
-                Column("date_from", css_class="md:col-span-6"),
-                Column("date_to", css_class="md:col-span-6"),
+                Column("date_from"),
+                Column("date_to"),
                 css_class="mb-0",
             ),
         )

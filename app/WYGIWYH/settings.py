@@ -318,6 +318,7 @@ DJANGO_VITE_ASSETS_PATH = STATIC_ROOT
 DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
 DJANGO_VITE_DEV_MODE = DEBUG
 DJANGO_VITE_DEV_SERVER_PORT = 5173
+DJANGO_VITE_DEV_SERVER_HOST = "100.118.164.62"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

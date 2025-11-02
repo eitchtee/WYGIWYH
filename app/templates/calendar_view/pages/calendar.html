@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 gap-x-5">
+  <div class="container px-md-3 py-3 gap-x-5 overflow-x-hidden">
     <div class="flex flex-wrap mb-4 gap-x-xl-4 gap-y-3">
       {#    Date picker#}
       <div class="w-full xl:w-4/12 flex-row items-center flex">
@@ -24,7 +24,7 @@
               <i class="fa-solid fa-chevron-left"></i>
             </a>
         </div>
-        <div class="text-3xl font-bold font-mono w-full text-center btn btn-ghost"
+        <div class="text-2xl font-bold btn btn-ghost flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0"
              hx-get="{% url 'month_year_picker' %}"
              hx-target="#generic-offcanvas-left"
              hx-trigger="click, date_picker from:window"

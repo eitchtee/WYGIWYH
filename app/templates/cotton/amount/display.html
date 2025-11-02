@@ -3,7 +3,7 @@
 {% if not divless %}
 <div class="{% if text_end %}text-end{% elif text_start %}text-start{% endif %}">
 {% endif %}
-  <span class="amount{% if color == 'grey' or color == "gray" %} text-base-content/70{% elif color == 'green' %} text-success {% elif color == 'red' %} text-error{% endif %} {{ custom_class }}"
+  <span class="amount{% if color == 'grey' or color == "gray" %} text-base-content/50{% elif color == 'green' %} text-success {% elif color == 'red' %} text-error{% endif %} font-medium {{ custom_class }}"
        data-original-value="{% currency_display amount=amount prefix=prefix suffix=suffix decimal_places=decimal_places %}"
        data-amount="{{ amount|floatformat:"-40u" }}">
   </span><span>{{ slot }}</span>

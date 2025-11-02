@@ -22,7 +22,7 @@
       </a>
     </div>
   </div>
-  <div class="container px-md-3 py-3 gap-x-5" id="yearly-content">
+  <div class="container px-md-3 py-3 gap-x-5 overflow-x-hidden" id="yearly-content">
     <div class="flex flex-wrap mb-4 gap-x-xl-4 gap-y-3">
       {#    Date picker#}
       <div class="w-full xl:w-auto flex-row items-center flex">
@@ -33,7 +33,7 @@
              href="{% block previous_year_url %}{% endblock %}">
             <i class="fa-solid fa-chevron-left"></i></a>
         </div>
-        <div class="text-3xl font-bold font-mono w-full text-center">
+        <div class="text-2xl font-bold btn btn-ghost flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0">
           {{ year }}
         </div>
         <div class="text-base mx-2 h-full items-center flex btn btn-ghost">

@@ -154,8 +154,8 @@ class AccountBalanceForm(forms.Form):
         self.helper.layout = Layout(
             "new_balance",
             Row(
-                Column("category", css_class="md:col-span-6 mb-0"),
-                Column("tags", css_class="md:col-span-6 mb-0"),
+                Column("category"),
+                Column("tags"),
                 css_class="form-row",
             ),
             Field("account_id"),

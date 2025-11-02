@@ -42,7 +42,8 @@ export default defineConfig({
             usePolling: true,
             disableGlobbing: false,
         },
-        origin: 'http://localhost:5173'
+        cors: true,
+        origin: 'http://100.118.164.62:5173'
     },
 
     resolve: {

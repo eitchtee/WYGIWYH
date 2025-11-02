@@ -34,8 +34,8 @@ class DCAStrategyForm(forms.ModelForm):
         self.helper.layout = Layout(
             "name",
             Row(
-                Column("payment_currency", css_class="md:col-span-6"),
-                Column("target_currency", css_class="md:col-span-6"),
+                Column("payment_currency"),
+                Column("target_currency"),
             ),
             "notes",
         )
@@ -153,8 +153,8 @@ class DCAEntryForm(forms.ModelForm):
         self.helper.layout = Layout(
             "date",
             Row(
-                Column("amount_paid", css_class="md:col-span-6"),
-                Column("amount_received", css_class="md:col-span-6"),
+                Column("amount_paid"),
+                Column("amount_received"),
             ),
             "notes",
             BS5Accordion(
@@ -166,17 +166,11 @@ class DCAEntryForm(forms.ModelForm):
                             Row(
                                 Column(
                                     "from_account",
-                                    css_class="form-group",
                                 ),
-                                css_class="form-row",
                             ),
                             Row(
-                                Column(
-                                    "from_category",
-                                    css_class="md:col-span-6 mb-0",
-                                ),
-                                Column("from_tags", css_class="md:col-span-6 mb-0"),
-                                css_class="form-row",
+                                Column("from_category"),
+                                Column("from_tags"),
                             ),
                         ),
                         css_class="p-1 mx-1 my-3 border rounded-3",
@@ -188,12 +182,10 @@ class DCAEntryForm(forms.ModelForm):
                                     "to_account",
                                     css_class="form-group",
                                 ),
-                                css_class="form-row",
                             ),
                             Row(
-                                Column("to_category", css_class="md:col-span-6 mb-0"),
-                                Column("to_tags", css_class="md:col-span-6 mb-0"),
-                                css_class="form-row",
+                                Column("to_category"),
+                                Column("to_tags"),
                             ),
                         ),
                         css_class="p-1 mx-1 my-3 border rounded-3",

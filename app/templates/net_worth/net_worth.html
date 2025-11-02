@@ -31,9 +31,8 @@
     </div>
     <div class="container px-md-3 py-3"
          _="init call initializeAccountChart() then initializeCurrencyChart() then initializeMonthlyDifferenceChart() end">
-      <div class="flex flex-wrap gap-x-xl-4 gap-y-3 mb-4">
-        <div class="w-full xl:w-5/12">
-          <div class="grid grid-cols-1 gap-4">
+      <div class="row gap-y-3">
+        <div class="col lg:col-5">
             <div>
               <c-ui.info-card color="yellow" icon="fa-solid fa-coins" title="{% trans 'By currency' %}"
                               title_css_classes="cursor-pointer"
@@ -41,7 +40,7 @@
                 {% for currency in currency_net_worth.values %}
                   <div class="flex justify-between mt-2">
                     <div class="flex items-baseline w-full">
-                      <div class="currency-name text-start font-mono text-base-content/60 cursor-pointer"
+                      <div class="currency-name text-start font-mono text-base-content cursor-pointer"
                            _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
                         {{ currency.currency.name }}
                       </div>
@@ -87,30 +86,32 @@
                 {% endfor %}
               </c-ui.info-card>
             </div>
-          </div>
         </div>
-        <div class="w-full xl:w-7/12">
-          <div role="tablist" class="tabs tabs-bordered w-full" id="myTab">
-            <input type="radio" name="networth_tabs" role="tab" class="tab" aria-label="{% trans 'Evolution' %}" id="tab-evolution" checked="checked" />
-            <div role="tabpanel" class="tab-content p-4" id="evolution-tab-pane">
-              <div class="chart-container relative min-h-[40vh] h-full w-full">
-                <canvas id="currencyBalanceChart"></canvas>
-              </div>
-            </div>
+        <div class="col lg:col-7">
+          <div class="card bg-base-100">
+            <div class="card-body">
+              <div role="tablist" class="tabs tabs-border w-full" id="myTab">
+                <input type="radio" name="networth_tabs" role="tab" class="tab" aria-label="{% trans 'Evolution' %}" id="tab-evolution" checked="checked" />
+                <div role="tabpanel" class="tab-content p-4" id="evolution-tab-pane">
+                  <div class="chart-container relative min-h-[40vh] h-full w-full">
+                    <canvas id="currencyBalanceChart"></canvas>
+                  </div>
+                </div>
 
-            <input type="radio" name="networth_tabs" role="tab" class="tab" aria-label="{% trans 'Difference' %}" id="tab-diff" />
-            <div role="tabpanel" class="tab-content p-4" id="diff-tab-pane">
-              <div class="chart-container relative min-h-[40vh] h-full w-full">
-                <canvas id="monthlyDifferenceChart"></canvas>
+                <input type="radio" name="networth_tabs" role="tab" class="tab" aria-label="{% trans 'Difference' %}" id="tab-diff" />
+                <div role="tabpanel" class="tab-content p-4" id="diff-tab-pane">
+                  <div class="chart-container relative min-h-[40vh] h-full w-full">
+                    <canvas id="monthlyDifferenceChart"></canvas>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <hr class="text-base-content/60">
-      <div class="flex flex-wrap gap-x-xl-4 gap-y-3 mt-4">
-        <div class="w-full xl:w-5/12">
-          <div class="grid grid-cols-1 gap-4">
+      <hr class="hr my-6">
+      <div class="row gap-y-3">
+        <div class="col lg:col-5">
             <div>
               <c-ui.info-card color="blue" icon="fa-solid fa-wallet" title="{% trans 'By account' %}"
                               title_css_classes="cursor-pointer"
@@ -120,14 +121,14 @@
                   {% if data.grouper %}
                     <div class="flex justify-between mt-2">
                       <div class="flex items-baseline w-full">
-                        <div class="text-start font-mono text-base-content/60"><span class="badge badge-primary">
+                        <div class="text-start font-mono text-base-content"><span class="badge badge-primary">
                         {{ data.grouper }}</span></div>
                       </div>
                     </div>
                     {% for account in data.list %}
                       <div class="flex justify-between mt-2">
                         <div class="flex items-baseline w-full">
-                          <div class="account-name text-start font-mono text-base-content/60 cursor-pointer"
+                          <div class="account-name text-start font-mono text-base-content cursor-pointer"
                                _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                             <span class="hierarchy-line-icon"></span>{{ account.account.name }}</div>
                           <div class="dotted-line flex-grow"></div>
@@ -155,7 +156,7 @@
                     {% for account in data.list %}
                       <div class="flex justify-between mt-2">
                         <div class="flex items-baseline w-full">
-                          <div class="account-name text-start font-mono text-base-content/60 cursor-pointer"
+                          <div class="account-name text-start font-mono text-base-content cursor-pointer"
                                _="on click showOnlyAccountDataset('{{ account.account.name }}')">
                             {{ account.account.name }}
                           </div>
@@ -184,11 +185,12 @@
                 {% endfor %}
               </c-ui.info-card>
             </div>
-          </div>
         </div>
-        <div class="w-full xl:w-7/12">
-          <div class="chart-container relative min-h-[40vh] h-full">
-            <canvas id="accountBalanceChart"></canvas>
+        <div class="col lg:col-7">
+          <div class="chart-container relative min-h-[40vh] h-full card bg-base-100">
+            <div class="card-body">
+              <canvas id="accountBalanceChart"></canvas>
+            </div>
           </div>
         </div>
       </div>

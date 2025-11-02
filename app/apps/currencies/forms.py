@@ -131,8 +131,8 @@ class ExchangeRateServiceForm(forms.ModelForm):
             Switch("singleton"),
             "api_key",
             Row(
-                Column("interval_type", css_class="md:col-span-6"),
-                Column("fetch_interval", css_class="md:col-span-6"),
+                Column("interval_type"),
+                Column("fetch_interval"),
             ),
             "target_currencies",
             "target_accounts",

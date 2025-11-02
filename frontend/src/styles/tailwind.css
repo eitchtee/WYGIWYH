@@ -119,7 +119,7 @@
 @layer components {
     /* === Sidebar styles === */
     .sidebar-active {
-        @apply text-primary-content bg-primary;
+        @apply text-primary-content bg-primary rounded-box;
     }
 
     .sidebar-item:not(.sidebar-active) {
@@ -145,9 +145,28 @@
         @apply lg:ml-16 transition-all duration-100;
     }
 
-    .sidebar-floating .sidebar-item span {
+    .sidebar-floating .sidebar-item {
+        /* Maintains consistent height when collapsed */
+        @apply lg:min-h-[2.3rem];
+    }
+
+    .sidebar-floating .sidebar-item i {
+        /* Centers icon when collapsed by adding auto margins */
+        @apply lg:mx-auto lg:group-hover:mx-0;
+    }
+
+    .sidebar-floating .sidebar-item span,
+    .sidebar-floating .sidebar-item i:not(:first-child) {
         /* Hides the text labels and reveals them only on hover */
         @apply lg:invisible lg:group-hover:visible;
+        /* Position absolute to remove from layout when invisible */
+        @apply lg:absolute lg:group-hover:static;
+    }
+
+    .htmx-swapping .sidebar-floating,
+    .htmx-settling .sidebar-floating {
+        pointer-events: none;
+        @apply lg:w-16!;
     }
 
     .sidebar-floating .sidebar-invisible {

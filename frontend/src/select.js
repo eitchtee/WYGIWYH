@@ -9,7 +9,6 @@ window.TomSelect = function createDynamicTomSelect(element) {
     const config = {
         plugins: {},
         maxOptions: null,
-        dropdownParent: 'body',
 
         // Extract 'create' option from data attribute
         create: element.dataset.create === 'true',
@@ -25,8 +24,12 @@ window.TomSelect = function createDynamicTomSelect(element) {
         },
 
         onInitialize: function () {
+            // Move dropdown to body to escape stacking context issues
+            document.body.appendChild(this.dropdown);
+
             this.popper = Popper.createPopper(this.control, this.dropdown, {
                 placement: "bottom-start",
+                strategy: "fixed",
                 modifiers: [
                     {
                         name: "sameWidth",
@@ -43,6 +46,13 @@ window.TomSelect = function createDynamicTomSelect(element) {
                             fallbackPlacements: ['top-start'],
                         },
                     },
+                    {
+                        name: 'preventOverflow',
+                        options: {
+                            boundary: 'viewport',
+                            padding: 8,
+                        },
+                    },
                 ]
 
             });
@@ -50,6 +60,9 @@ window.TomSelect = function createDynamicTomSelect(element) {
         },
         onDropdownOpen: function () {
             this.popper.update();
+        },
+        onDropdownClose: function () {
+            // Optional: move back to wrapper to keep DOM clean, but not necessary
         }
     };
 

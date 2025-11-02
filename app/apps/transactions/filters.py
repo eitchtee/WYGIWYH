@@ -158,13 +158,13 @@ class TransactionsFilter(django_filters.FilterSet):
             Field("description"),
             Row(Column("date_start"), Column("date_end")),
             Row(
-                Column("reference_date_start", css_class="md:col-span-6 mb-0"),
-                Column("reference_date_end", css_class="md:col-span-6 mb-0"),
+                Column("reference_date_start"),
+                Column("reference_date_end"),
                 css_class="form-row",
             ),
             Row(
-                Column("from_amount", css_class="md:col-span-6 mb-0"),
-                Column("to_amount", css_class="md:col-span-6 mb-0"),
+                Column("from_amount"),
+                Column("to_amount"),
                 css_class="form-row",
             ),
             Field("account", size=1),

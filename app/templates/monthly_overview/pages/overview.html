@@ -12,45 +12,40 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container px-3 md:px-3 py-3 gap-5">
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-x-4 gap-y-3 mb-4">
-      {#    Date picker#}
-      <div class="col-span-1 xl:col-span-4 flex flex-row items-center">
-        <div class="text-base h-full flex items-center btn btn-ghost">
-          <a role="button"
-             hx-boost="true"
-             hx-trigger="click, previous_month from:window"
-             href="{% url 'monthly_overview' month=previous_month year=previous_year %}"><i
-              class="fa-solid fa-chevron-left"></i></a>
-        </div>
-        <div class="text-3xl font-bold btn btn-ghost w-full text-center"
-             hx-get="{% url 'month_year_picker' %}"
-             hx-target="#generic-offcanvas-left"
-             hx-trigger="click, date_picker from:window"
-             hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "monthly_overview", "field": "reference_date"}'
-             role="button">
-          {{ month|month_name }} {{ year }}
-        </div>
-        <div class="text-base h-full flex items-center btn btn-ghost">
-          <a role="button"
-             hx-boost="true"
-             hx-trigger="click, next_month from:window"
-             href="{% url 'monthly_overview' month=next_month year=next_year %}">
-            <i class="fa-solid fa-chevron-right"></i>
-          </a>
+  <div class="container gap-y-3">
+    <div class="row ">
+      <div class="col-12 lg:col-4">
+        {#    Date picker#}
+        <div class="col-span-1 xl:col-span-4 flex flex-row items-center">
+          <div class="text-base h-full flex items-center btn btn-ghost">
+            <a role="button"
+              hx-boost="true"
+              hx-trigger="click, previous_month from:window"
+              href="{% url 'monthly_overview' month=previous_month year=previous_year %}"><i
+                class="fa-solid fa-chevron-left"></i></a>
+          </div>
+          <div class="text-2xl font-bold btn btn-ghost flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0"
+              hx-get="{% url 'month_year_picker' %}"
+              hx-target="#generic-offcanvas-left"
+              hx-trigger="click, date_picker from:window"
+              hx-vals='{"month": {{ month }}, "year": {{ year }}, "for": "monthly_overview", "field": "reference_date"}'
+              role="button">
+            {{ month|month_name }} {{ year }}
+          </div>
+          <div class="text-base h-full flex items-center btn btn-ghost">
+            <a role="button"
+              hx-boost="true"
+              hx-trigger="click, next_month from:window"
+              href="{% url 'monthly_overview' month=next_month year=next_year %}">
+              <i class="fa-solid fa-chevron-right"></i>
+            </a>
+          </div>
         </div>
       </div>
-      {#    Action buttons#}
-      {#      <div class="col-12 col-xl-8">#}
-      {#        <c-ui.quick-transactions-buttons#}
-      {#            :year="year"#}
-      {#            :month="month"#}
-      {#        ></c-ui.quick-transactions-buttons>#}
-      {#      </div>#}
     </div>
     {#  Monthly summary#}
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-x-4 gap-y-3">
-      <div class="col-span-1 xl:col-span-4 lg:order-last! order-first!">
+    <div class="row gap-y-3">
+      <div class="col-12 lg:col-4 lg:order-last! order-first!">
         <div role="tablist" class="tabs tabs-border">
           <input type="radio" name="monthly_summary_tabs" class="tab" aria-label="{% trans 'Summary' %}"
                  role="tab"
@@ -93,7 +88,7 @@
         </div>
 
       </div>
-      <div class="col-span-1 xl:col-span-8 lg:order-first! order-last!">
+      <div class="col-12 lg:col-8 lg:order-first! order-last!">
 
         <div class="my-3">
           {# Hidden select to hold the order value and preserve the original update trigger #}

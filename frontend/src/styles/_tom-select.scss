@@ -195,12 +195,12 @@
 
     /* Dropdown */
     .ts-dropdown {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
-        width: 100%;
+        width: auto;
         z-index: 1100;
-        margin: 0.25rem 0 0;
+        margin: 0;
 
         /* DaisyUI dropdown styling */
         background-color: var(--color-base-100);

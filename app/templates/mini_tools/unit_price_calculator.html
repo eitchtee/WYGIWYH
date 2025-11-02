@@ -15,7 +15,7 @@
                 role="button"
                 data-bs-toggle="tooltip"
                 data-bs-title="{% translate "Delete" %}"
-                _="on click remove the closest .tw\:card to me then trigger update on #items then call bootstrap.Tooltip.getOrCreateInstance(me).dispose()">
+                _="on click remove the closest .card to me then trigger update on #items then call bootstrap.Tooltip.getOrCreateInstance(me).dispose()">
           <i class="fa-solid fa-trash fa-fw"></i>
         </button>
       </div>
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div id="items" _="on input or update
-                      for card in <tw\\:card />
+                      for card in <.card />
                         set price to card.querySelector('.item-price').value
                         set amount to card.querySelector('.item-amount').value
 
@@ -57,15 +57,15 @@
 
                       // Remove existing highlight classes from all unit prices
                       for unitPriceEl in <.unit-price/>
-                        remove .tw\:bg-error from the closest .tw\\:card to unitPriceEl
-                        remove .tw\:bg-error from unitPriceEl's classList
-                        remove .tw\:bg-success from the closest .tw\\:card to unitPriceEl
-                        remove .tw\:bg-success from unitPriceEl's classList
+                        remove .bg-error from the closest .card to unitPriceEl
+                        remove .bg-error from unitPriceEl's classList
+                        remove .bg-success from the closest .card to unitPriceEl
+                        remove .bg-success from unitPriceEl's classList
                       end
 
                       // Get all unit prices and find min/max
-                      set unitPrices to <.tw\:card\:not(#card-placeholder) .unit-price/>
-                      set unitPricesAmounts to <.tw\:card\:not(#card-placeholder) .unit-price/> @data-amount
+                      set unitPrices to <card:not(#card-placeholder) .unit-price/>
+                      set unitPricesAmounts to <.tw:card:not(#card-placeholder) .unit-price/> @data-amount
                       js(unitPricesAmounts)
                         unitPricesAmounts = unitPricesAmounts.filter(element => element !== '0')
                         return Math.min(...unitPricesAmounts)
@@ -81,13 +81,13 @@
                         for unitPriceEl in unitPrices
                           set amount to parseFloat(unitPriceEl.getAttribute('data-amount'))
                           if amount == minAmount
-                            add .tw\:bg-success to the closest .tw\:card to unitPriceEl
-                            add .tw\:bg-opacity-20 to the closest .tw\:card to unitPriceEl
+                            add .bg-success to the closest .card to unitPriceEl
+                            add .bg-opacity-20 to the closest .card to unitPriceEl
                             continue
                           end
                           if amount == maxAmount
-                            add .tw\:bg-error to the closest .tw\:card to unitPriceEl
-                            add .tw\:bg-opacity-20 to the closest .tw\:card to unitPriceEl
+                            add .bg-error to the closest .card to unitPriceEl
+                            add .bg-opacity-20 to the closest .card to unitPriceEl
                           end
                         end
                       end
@@ -151,8 +151,8 @@
                 get #card-placeholder
                 set newCard to it.cloneNode(true)
                 remove @id from newCard
-                remove .tw\:hidden from newCard then
-                set itemCount to <#items [class='card'] />'s length
+                remove .hidden from newCard then
+                set itemCount to <#items[class='card'] />'s length
                 if itemCount < 26
                   set letter to String.fromCharCode(65 + itemCount)
                 else
@@ -169,7 +169,7 @@
         <button class="btn btn-outline btn-error w-full"
                 _="on click
                     for el in <.item-price, .item-amount />
-                      set card to the closest .\card to el
+                      set card to the closest .card to el
                       set el's value to ''
                      end
                      trigger update on #items

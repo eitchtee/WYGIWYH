@@ -7,10 +7,8 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-  <div>
-    <div class="container">
-      <div class="grid h-dvh flex justify-center items-center">
-        <div class="col-span-12 md:col-span-6 xl:col-span-4">
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
           {% settings "DEMO" as demo_mode %}
           {% if demo_mode %}
             <div class="card bg-base-100 shadow-xl mb-3">
@@ -47,7 +45,5 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
   </div>
 {% endblock %}

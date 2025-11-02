@@ -53,7 +53,7 @@ class LoginForm(AuthenticationForm):
         self.helper.layout = Layout(
             "username",
             "password",
-            Submit("Submit", "Login", css_class="btn btn-primary w-100"),
+            Submit("Submit", "Login", css_class="w-full mt-3"),
         )
 
 
@@ -199,8 +199,8 @@ class UserUpdateForm(forms.ModelForm):
         # Define the layout using Crispy Forms, including the new fields
         self.helper.layout = Layout(
             Row(
-                Column("first_name", css_class="md:col-span-6"),
-                Column("last_name", css_class="md:col-span-6"),
+                Column("first_name"),
+                Column("last_name"),
                 css_class="row",
             ),
             Field("email"),
@@ -362,8 +362,8 @@ class UserAddForm(UserCreationForm):
         self.helper.layout = Layout(
             Field("email"),
             Row(
-                Column("first_name", css_class="md:col-span-6"),
-                Column("last_name", css_class="md:col-span-6"),
+                Column("first_name"),
+                Column("last_name"),
                 css_class="row",
             ),
             # UserCreationForm provides 'password1' and 'password2' fields
