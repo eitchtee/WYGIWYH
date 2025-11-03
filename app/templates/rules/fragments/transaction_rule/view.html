@@ -19,8 +19,7 @@
         <div class="card-footer text-end">
           <a class="no-underline text-gray-400 p-1"
              role="button"
-             data-bs-toggle="tooltip"
-             data-bs-title="{% translate "Edit" %}"
+             data-tippy-content="{% translate "Edit" %}"
              hx-get="{% url 'transaction_rule_edit' transaction_rule_id=transaction_rule.id %}"
              hx-target="#generic-offcanvas">
             <i class="fa-solid fa-pencil fa-fw"></i></a>
@@ -49,16 +48,14 @@
             <div class="card-footer text-end">
               <a class="no-underline text-gray-400 p-1"
                  role="button"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate 'Edit' %}"
+                 data-tippy-content="{% translate 'Edit' %}"
                  hx-get="{% url 'transaction_rule_action_edit' transaction_rule_action_id=action.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i>
               </a>
               <a class="text-error no-underline p-1"
                  role="button"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate 'Delete' %}"
+                 data-tippy-content="{% translate 'Delete' %}"
                  hx-delete="{% url 'transaction_rule_action_delete' transaction_rule_action_id=action.id %}"
                  hx-trigger='confirmed'
                  data-bypass-on-ctrl="true"
@@ -84,16 +81,14 @@
             <div class="card-footer text-end">
               <a class="no-underline text-gray-400 p-1"
                  role="button"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate 'Edit' %}"
+                 data-tippy-content="{% translate 'Edit' %}"
                  hx-get="{% url 'update_or_create_transaction_rule_action_edit' pk=action.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i>
               </a>
               <a class="text-error no-underline p-1"
                  role="button"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate 'Delete' %}"
+                 data-tippy-content="{% translate 'Delete' %}"
                  hx-delete="{% url 'update_or_create_transaction_rule_action_delete' pk=action.id %}"
                  hx-trigger='confirmed'
                  data-bypass-on-ctrl="true"

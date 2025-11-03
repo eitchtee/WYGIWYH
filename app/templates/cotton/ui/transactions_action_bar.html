@@ -48,8 +48,7 @@
                   hx-get="{% url 'transactions_bulk_edit' %}"
                   hx-target="#generic-offcanvas"
                   hx-include=".transaction"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate 'Edit' %}">
+                  data-tippy-content="{% translate 'Edit' %}">
             <i class="fa-solid fa-pencil"></i>
           </button>
           <div class="dropdown dropdown-top dropdown-end">
@@ -78,16 +77,14 @@
         <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_clone' %}"
                 hx-include=".transaction"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate 'Duplicate' %}">
+                data-tippy-content="{% translate 'Duplicate' %}">
           <i class="fa-solid fa-clone fa-fw"></i>
         </button>
         <button class="btn btn-secondary btn-sm"
                 hx-get="{% url 'transactions_bulk_delete' %}"
                 hx-include=".transaction"
                 hx-trigger="confirmed"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate 'Delete' %}"
+                data-tippy-content="{% translate 'Delete' %}"
                 data-bypass-on-ctrl="true"
                 data-title="{% translate "Are you sure?" %}"
                 data-text="{% translate "You won't be able to revert this!" %}"

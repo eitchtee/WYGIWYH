@@ -5,8 +5,7 @@
       <div>{% translate 'Rules' %}<span>
       <a class="no-underline text-2xl p-1 category-action"
          role="button"
-         data-bs-toggle="tooltip"
-         data-bs-title="{% translate "Add" %}"
+         data-tippy-content="{% translate "Add" %}"
          hx-get="{% url 'transaction_rule_add' %}"
          hx-target="#generic-offcanvas">
             <i class="fa-solid fa-circle-plus fa-fw"></i></a>
@@ -34,15 +33,13 @@
                 <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                   <a class="btn btn-secondary btn-sm join-item"
                      role="button"
-                     data-bs-toggle="tooltip"
-                     data-bs-title="{% translate "View" %}"
+                     data-tippy-content="{% translate "View" %}"
                      hx-get="{% url 'transaction_rule_view' transaction_rule_id=rule.id %}"
                      hx-target="#persistent-generic-offcanvas-left">
                     <i class="fa-solid fa-eye fa-fw"></i></a>
                   <a class="btn btn-secondary btn-sm join-item text-error"
                      role="button"
-                     data-bs-toggle="tooltip"
-                     data-bs-title="{% translate "Delete" %}"
+                     data-tippy-content="{% translate "Delete" %}"
                      hx-delete="{% url 'transaction_rule_delete' transaction_rule_id=rule.id %}"
                      hx-trigger='confirmed'
                      data-bypass-on-ctrl="true"
@@ -53,8 +50,7 @@
                   {% if not rule.owner %}
                     <a class="btn btn-secondary btn-sm join-item text-warning"
                        role="button"
-                       data-bs-toggle="tooltip"
-                       data-bs-title="{% translate "Take ownership" %}"
+                       data-tippy-content="{% translate "Take ownership" %}"
                        hx-get="{% url 'transaction_rule_take_ownership' transaction_rule_id=rule.id %}">
                       <i class="fa-solid fa-crown fa-fw"></i></a>
                   {% endif %}
@@ -63,8 +59,7 @@
                        role="button"
                        hx-target="#generic-offcanvas"
                        hx-swap="innerHTML"
-                       data-bs-toggle="tooltip"
-                       data-bs-title="{% translate "Share" %}"
+                       data-tippy-content="{% translate "Share" %}"
                        hx-get="{% url 'transaction_rule_share_settings' pk=rule.id %}">
                       <i class="fa-solid fa-share fa-fw"></i></a>
                   {% endif %}
@@ -73,8 +68,7 @@
               <td class="w-auto">
                 <a class="no-underline"
                    role="button"
-                   data-bs-toggle="tooltip"
-                   data-bs-title="
+                   data-tippy-content="
                        {% if rule.active %}{% translate "Deactivate" %}{% else %}{% translate "Activate" %}{% endif %}"
                    hx-get="{% url 'transaction_rule_toggle_activity' transaction_rule_id=rule.id %}">
                   {% if rule.active %}<i class="fa-solid fa-toggle-on text-green-400"></i>{% else %}

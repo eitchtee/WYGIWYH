@@ -18,7 +18,7 @@
         {{ x.grouper }}
         </a>
       </div>
-      <div class="collapse transactions-divider-collapse overflow-visible" id="c-{{ x.grouper|slugify }}-collapse"
+      <div class="collapse transactions-divider-collapse overflow-visible isolation-auto" id="c-{{ x.grouper|slugify }}-collapse"
            _="on shown.bs.collapse sessionStorage.setItem(the closest parent @id, 'true')
               on hidden.bs.collapse sessionStorage.setItem(the closest parent @id, 'false')
               on htmx:afterSettle from #transactions or toggle

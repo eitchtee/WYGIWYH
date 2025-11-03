@@ -24,16 +24,14 @@
               <a class="btn btn-secondary btn-sm join-item"
                  role="button"
                  hx-swap="innerHTML"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate "Edit" %}"
+                 data-tippy-content="{% translate "Edit" %}"
                  hx-get="{% url 'entity_edit' entity_id=entity.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
               <a class="btn btn-secondary btn-sm join-item text-error"
                  role="button"
                  hx-swap="innerHTML"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate "Delete" %}"
+                 data-tippy-content="{% translate "Delete" %}"
                  hx-delete="{% url 'entity_delete' entity_id=entity.id %}"
                  hx-trigger='confirmed'
                  data-bypass-on-ctrl="true"
@@ -44,8 +42,7 @@
               {% if not entity.owner %}
                 <a class="btn btn-secondary btn-sm join-item text-warning"
                    role="button"
-                   data-bs-toggle="tooltip"
-                   data-bs-title="{% translate "Take ownership" %}"
+                   data-tippy-content="{% translate "Take ownership" %}"
                    hx-get="{% url 'entity_take_ownership' entity_id=entity.id %}">
                   <i class="fa-solid fa-crown fa-fw"></i></a>
               {% endif %}
@@ -54,8 +51,7 @@
                    role="button"
                    hx-target="#generic-offcanvas"
                    hx-swap="innerHTML"
-                   data-bs-toggle="tooltip"
-                   data-bs-title="{% translate "Share" %}"
+                   data-tippy-content="{% translate "Share" %}"
                    hx-get="{% url 'entity_share_settings' pk=entity.id %}">
                   <i class="fa-solid fa-share fa-fw"></i></a>
               {% endif %}

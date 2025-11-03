@@ -92,14 +92,12 @@
           <div class="card-footer bg-base-200 p-4 text-base-content/70">
             <a class="no-underline text-info"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Logs" %}"
+               data-tippy-content="{% translate "Logs" %}"
                hx-get="{% url 'import_run_log' profile_id=profile.id run_id=run.id %}"
                hx-target="#generic-offcanvas"><i class="fa-solid fa-file-lines"></i></a>
             <a class="no-underline text-error"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Delete" %}"
+               data-tippy-content="{% translate "Delete" %}"
                hx-delete="{% url 'import_run_delete' profile_id=profile.id run_id=run.id %}"
                hx-trigger='confirmed'
                data-bypass-on-ctrl="true"

@@ -152,9 +152,8 @@
               <a class="dropdown-item"
                  href="{% url 'admin:index' %}"
                  hx-boost="false"
-                 data-bs-placement="right"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate "Only use this if you know what you're doing" %}">
+                 data-tippy-placement="right"
+                 data-tippy-content="{% translate "Only use this if you know what you're doing" %}">
                 {% translate 'Django Admin' %}
               </a>
             </li>
@@ -171,7 +170,7 @@
         {% endif %}
         <li class="nav-item">
           <div class="nav-link lg:text-2xl! cursor-pointer"
-             data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{% trans "Calculator" %}"
+             data-tippy-placement="left" data-tippy-content="{% trans "Calculator" %}"
              _="on click trigger show on #calculator">
             <i class="fa-solid fa-calculator"></i>
             <span class="d-lg-none d-inline">{% trans "Calculator" %}</span>

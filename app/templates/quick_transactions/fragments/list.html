@@ -22,16 +22,14 @@
                   <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                     <a class="btn btn-secondary btn-sm join-item"
                        role="button"
-                       data-bs-toggle="tooltip"
-                       data-bs-title="{% translate "Edit" %}"
+                       data-tippy-content="{% translate "Edit" %}"
                        hx-get="{% url 'quick_transaction_edit' quick_transaction_id=qt.id %}"
                        hx-swap="innerHTML"
                        hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-pencil fa-fw"></i></a>
                     <a class="btn btn-secondary btn-sm join-item text-error"
                        role="button"
-                       data-bs-toggle="tooltip"
-                       data-bs-title="{% translate "Delete" %}"
+                       data-tippy-content="{% translate "Delete" %}"
                        hx-delete="{% url 'quick_transaction_delete' quick_transaction_id=qt.id %}"
                        hx-trigger='confirmed'
                        hx-swap="innerHTML"

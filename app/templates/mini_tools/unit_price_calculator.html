@@ -13,9 +13,8 @@
         <h5 class="title flex-grow"></h5>
         <button class="btn btn-secondary btn-sm text-error"
                 role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Delete" %}"
-                _="on click remove the closest .card to me then trigger update on #items then call bootstrap.Tooltip.getOrCreateInstance(me).dispose()">
+                data-tippy-content="{% translate "Delete" %}"
+                _="on click remove the closest .card to me then trigger update on #items then trigger tooltips on body">
           <i class="fa-solid fa-trash fa-fw"></i>
         </button>
       </div>
@@ -56,16 +55,14 @@
                       then
 
                       // Remove existing highlight classes from all unit prices
-                      for unitPriceEl in <.unit-price/>
-                        remove .bg-error from the closest .card to unitPriceEl
-                        remove .bg-error from unitPriceEl's classList
-                        remove .bg-success from the closest .card to unitPriceEl
-                        remove .bg-success from unitPriceEl's classList
+                      for unitPriceEl in <*.unit-price/>
+                        remove .bg-error\/20 from the closest .card to unitPriceEl
+                        remove .bg-success\/20 from the closest .card to unitPriceEl
                       end
 
                       // Get all unit prices and find min/max
-                      set unitPrices to <card:not(#card-placeholder) .unit-price/>
-                      set unitPricesAmounts to <.tw:card:not(#card-placeholder) .unit-price/> @data-amount
+                      set unitPrices to <.card:not(#card-placeholder) .unit-price/>
+                      set unitPricesAmounts to <.card:not(#card-placeholder) .unit-price/> @data-amount
                       js(unitPricesAmounts)
                         unitPricesAmounts = unitPricesAmounts.filter(element => element !== '0')
                         return Math.min(...unitPricesAmounts)
@@ -81,12 +78,12 @@
                         for unitPriceEl in unitPrices
                           set amount to parseFloat(unitPriceEl.getAttribute('data-amount'))
                           if amount == minAmount
-                            add .bg-success to the closest .card to unitPriceEl
+                            add .bg-success\/20 to the closest .card to unitPriceEl
                             add .bg-opacity-20 to the closest .card to unitPriceEl
                             continue
                           end
                           if amount == maxAmount
-                            add .bg-error to the closest .card to unitPriceEl
+                            add .bg-error\/20 to the closest .card to unitPriceEl
                             add .bg-opacity-20 to the closest .card to unitPriceEl
                           end
                         end
@@ -146,13 +143,13 @@
 
     <div class="grid lg:grid-cols-[2fr_1fr] gap-3 mt-3">
       <div>
-        <button class="btn btn-outline btn-primary w-full"
+        <button class="btn btn-primary w-full"
             _="on click
                 get #card-placeholder
                 set newCard to it.cloneNode(true)
                 remove @id from newCard
                 remove .hidden from newCard then
-                set itemCount to <#items[class='card'] />'s length
+                set itemCount to <#items .card />'s length
                 if itemCount < 26
                   set letter to String.fromCharCode(65 + itemCount)
                 else
@@ -160,13 +157,13 @@
                 end
                 set newCard.querySelector('.title').innerHTML to `{% trans "Item" %} ${letter}`
                 put newCard as HTML at the end of #items
-                trigger tooltips on body
+              trigger tooltips on body
               end">
       {% trans 'Add' %}
     </button>
       </div>
       <div>
-        <button class="btn btn-outline btn-error w-full"
+        <button class="btn btn-error w-full"
                 _="on click
                     for el in <.item-price, .item-amount />
                       set card to the closest .card to el

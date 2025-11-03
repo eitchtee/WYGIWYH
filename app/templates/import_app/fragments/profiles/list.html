@@ -3,8 +3,7 @@
   <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
     <div>{% translate 'Import Profiles' %}<span>
-      <span class="dropdown" data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Add" %}">
+      <span class="dropdown" data-tippy-content="{% translate "Add" %}">
         <a class="no-underline text-2xl p-1" role="button"
                 data-bs-toggle="dropdown"
                 data-bs-title="{% translate "Add" %}" aria-expanded="false">
@@ -42,29 +41,25 @@
               <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                 <a class="btn btn-secondary btn-sm join-item"
                       role="button"
-                      data-bs-toggle="tooltip"
-                      data-bs-title="{% translate "Edit" %}"
+                      data-tippy-content="{% translate "Edit" %}"
                       hx-get="{% url 'import_profile_edit' profile_id=profile.id %}"
                       hx-target="#generic-offcanvas">
                   <i class="fa-solid fa-pencil fa-fw"></i></a>
                   <a class="btn btn-secondary btn-sm join-item text-success"
                         role="button"
-                        data-bs-toggle="tooltip"
-                        data-bs-title="{% translate "Runs" %}"
+                        data-tippy-content="{% translate "Runs" %}"
                         hx-get="{% url 'import_profile_runs_list' profile_id=profile.id %}"
                         hx-target="#persistent-generic-offcanvas-left">
                     <i class="fa-solid fa-person-running fa-fw"></i></a>
                 <a class="btn btn-secondary btn-sm join-item text-primary"
                         role="button"
-                        data-bs-toggle="tooltip"
-                        data-bs-title="{% translate "Import" %}"
+                        data-tippy-content="{% translate "Import" %}"
                         hx-get="{% url 'import_run_add' profile_id=profile.id %}"
                         hx-target="#generic-offcanvas">
                     <i class="fa-solid fa-file-import fa-fw"></i></a>
                 <a class="btn btn-secondary btn-sm join-item text-error"
                         role="button"
-                        data-bs-toggle="tooltip"
-                        data-bs-title="{% translate "Delete" %}"
+                        data-tippy-content="{% translate "Delete" %}"
                         hx-delete="{% url 'import_profile_delete' profile_id=profile.id %}"
                         hx-trigger='confirmed'
                         data-bypass-on-ctrl="true"

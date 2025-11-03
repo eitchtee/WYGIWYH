@@ -6,8 +6,7 @@
       <div>{% translate 'Automatic Exchange Rates' %}<span>
       <a class="no-underline text-2xl p-1 category-action"
          role="button"
-         data-bs-toggle="tooltip"
-         data-bs-title="{% translate "Add" %}"
+         data-tippy-content="{% translate "Add" %}"
          hx-get="{% url 'automatic_exchange_rate_add' %}"
          hx-target="#generic-offcanvas">
             <i class="fa-solid fa-circle-plus fa-fw"></i></a>
@@ -42,15 +41,13 @@
                   <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                     <a class="btn btn-secondary btn-sm join-item"
                        role="button"
-                       data-bs-toggle="tooltip"
-                       data-bs-title="{% translate "Edit" %}"
+                       data-tippy-content="{% translate "Edit" %}"
                        hx-get="{% url 'automatic_exchange_rate_edit' pk=service.id %}"
                        hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-pencil fa-fw"></i></a>
                     <a class="btn btn-secondary btn-sm join-item text-error"
                        role="button"
-                       data-bs-toggle="tooltip"
-                       data-bs-title="{% translate "Delete" %}"
+                       data-tippy-content="{% translate "Delete" %}"
                        hx-delete="{% url 'automatic_exchange_rate_delete' pk=service.id %}"
                        hx-trigger='confirmed'
                        data-bypass-on-ctrl="true"

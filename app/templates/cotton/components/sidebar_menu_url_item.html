@@ -4,9 +4,8 @@
      hx-boost="false"
      class="lg:text-sm flex items-center no-underline p-2 rounded-3xl sidebar-item {% active_link views=active css_class="sidebar-active" %}"
       {% if tooltip %}
-     data-bs-placement="right"
-     data-bs-toggle="tooltip"
-     data-bs-title="{{ tooltip }}"
+     data-tippy-placement="right"
+     data-tippy-content="{{ tooltip }}"
       {% endif %}>
 
     <i class="{{ icon }} fa-fw"></i>

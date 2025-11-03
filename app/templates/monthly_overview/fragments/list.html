@@ -6,7 +6,7 @@
   {% for x in transactions_by_date %}
     <div id="{{ x.grouper|slugify }}" class="transactions-divider"
          _="on htmx:afterSwap from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
-      <div class="mt-3 mb-1 w-full text-base border-b border-b-base-content/30 transactions-divider-title">
+      <div class="mt-3 mb-1 w-full border-b border-b-base-content/30 transactions-divider-title">
         <a class="no-underline inline-block w-full"
            role="button"
            data-bs-toggle="collapse"
@@ -17,7 +17,7 @@
         {{ x.grouper }}
         </a>
       </div>
-      <div class="collapse transactions-divider-collapse overflow-visible" id="c-{{ x.grouper|slugify }}-collapse"
+      <div class="collapse transactions-divider-collapse overflow-visible isolation-auto" id="c-{{ x.grouper|slugify }}-collapse"
            _="on shown.bs.collapse sessionStorage.setItem(the closest parent @id, 'true')
               on hidden.bs.collapse sessionStorage.setItem(the closest parent @id, 'false')
               on htmx:afterSettle from #transactions or toggle

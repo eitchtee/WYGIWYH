@@ -1,10 +1,16 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from 'bootstrap'; // eslint-disable-line no-unused-vars
-window.bootstrap = bootstrap;
+import './js/_tooltip.js';
+import 'bootstrap/js/dist/dropdown';
+import Toast from 'bootstrap/js/dist/toast';
+import 'bootstrap/js/dist/dropdown';
+import 'bootstrap/js/dist/collapse';
+import Offcanvas from 'bootstrap/js/dist/offcanvas';
+
+window.Offcanvas = Offcanvas;
+
 
 function initiateToasts() {
     const toastElList = document.querySelectorAll('.toasty');
-    const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl));  // eslint-disable-line no-undef
+    const toastList = [...toastElList].map(toastEl => new Toast(toastEl));  // eslint-disable-line no-undef
 
     for (let i = 0; i < toastList.length; i++) {
         if (toastList[i].isShown() === false) {

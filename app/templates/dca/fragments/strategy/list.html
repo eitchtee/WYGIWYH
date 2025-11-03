@@ -5,8 +5,7 @@
       <div>{% translate 'Dollar Cost Average Strategies' %}<span>
       <a class="no-underline text-2xl p-1 category-action"
          role="button"
-         data-bs-toggle="tooltip"
-         data-bs-title="{% translate "Add" %}"
+         data-tippy-content="{% translate "Add" %}"
          hx-get="{% url 'dca_strategy_add' %}"
          hx-target="#generic-offcanvas">
             <i class="fa-solid fa-circle-plus fa-fw"></i></a>
@@ -32,16 +31,14 @@
           <div class="card-footer bg-base-200 p-4 text-right">
             <a class="no-underline text-base-content/60 p-1"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Edit" %}"
+               data-tippy-content="{% translate "Edit" %}"
                hx-get="{% url 'dca_strategy_edit' strategy_id=strategy.id %}"
                hx-target="#generic-offcanvas">
               <i class="fa-solid fa-pencil fa-fw"></i>
             </a>
             <a class="text-error no-underline p-1"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Delete" %}"
+               data-tippy-content="{% translate "Delete" %}"
                hx-delete="{% url 'dca_strategy_delete' strategy_id=strategy.id %}"
                hx-trigger='confirmed'
                data-bypass-on-ctrl="true"
@@ -54,8 +51,7 @@
             {% if not strategy.owner %}
               <a class="text-primary no-underline p-1"
                  role="button"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate "Take ownership" %}"
+                 data-tippy-content="{% translate "Take ownership" %}"
                  hx-get="{% url 'dca_strategy_take_ownership' strategy_id=strategy.id %}">
                 <i class="fa-solid fa-crown fa-fw"></i></a>
             {% endif %}
@@ -63,8 +59,7 @@
               <a class="text-primary no-underline p-1"
                  role="button"
                  hx-target="#generic-offcanvas"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate "Share" %}"
+                 data-tippy-content="{% translate "Share" %}"
                  hx-get="{% url 'dca_strategy_share_settings' pk=strategy.id %}">
                 <i class="fa-solid fa-share fa-fw"></i></a>
             {% endif %}

@@ -27,16 +27,14 @@
           <div class="join" role="group" aria-label="{% translate 'Actions' %}">
             <a class="btn btn-secondary btn-sm join-item"
                   role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Edit" %}"
+                  data-tippy-content="{% translate "Edit" %}"
                   hx-get="{% url 'recurring_transaction_edit' recurring_transaction_id=recurring_transaction.id %}"
                   hx-swap="innerHTML"
                   hx-target="#generic-offcanvas">
               <i class="fa-solid fa-pencil fa-fw"></i></a>
             <a class="btn btn-secondary btn-sm join-item"
                   role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Transactions" %}"
+                  data-tippy-content="{% translate "Transactions" %}"
                   hx-get="{% url 'recurring_transaction_transactions' recurring_transaction_id=recurring_transaction.id %}"
                   hx-swap="innerHTML"
                   hx-target="#persistent-generic-offcanvas-left">
@@ -45,8 +43,7 @@
             {% if recurring_transaction.is_paused %}
             <a class="btn btn-secondary btn-sm join-item text-info"
                   role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Unpause" %}"
+                  data-tippy-content="{% translate "Unpause" %}"
                   hx-get="{% url 'recurring_transaction_toggle_pause' recurring_transaction_id=recurring_transaction.id %}"
                   hx-target="#generic-offcanvas"
                   hx-swap="innerHTML"
@@ -59,8 +56,7 @@
             {% else %}
             <a class="btn btn-secondary btn-sm join-item text-info"
                   role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Pause" %}"
+                  data-tippy-content="{% translate "Pause" %}"
                   hx-get="{% url 'recurring_transaction_toggle_pause' recurring_transaction_id=recurring_transaction.id %}"
                   hx-target="#generic-offcanvas"
                   hx-trigger='confirmed'
@@ -74,8 +70,7 @@
             {% endif %}
             <a class="btn btn-secondary btn-sm join-item text-info"
                   role="button"
-                  data-bs-toggle="tooltip"
-                  data-bs-title="{% translate "Finish" %}"
+                  data-tippy-content="{% translate "Finish" %}"
                   hx-get="{% url 'recurring_transaction_finish' recurring_transaction_id=recurring_transaction.id %}"
                   hx-target="#generic-offcanvas"
                   hx-trigger='confirmed'
@@ -89,8 +84,7 @@
             {% endif %}
             <a class="btn btn-secondary btn-sm join-item text-error"
                     role="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{% translate "Delete" %}"
+                    data-tippy-content="{% translate "Delete" %}"
                     hx-delete="{% url 'recurring_transaction_delete' recurring_transaction_id=recurring_transaction.id %}"
                     hx-trigger='confirmed'
                     hx-swap="innerHTML"

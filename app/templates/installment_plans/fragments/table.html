@@ -25,24 +25,21 @@
             <div class="join" role="group" aria-label="{% translate 'Actions' %}">
               <a class="btn btn-secondary btn-sm join-item"
                     role="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{% translate "Edit" %}"
+                    data-tippy-content="{% translate "Edit" %}"
                     hx-get="{% url 'installment_plan_edit' installment_plan_id=installment_plan.id %}"
                     hx-swap="innerHTML"
                     hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
               <a class="btn btn-secondary btn-sm join-item"
                     role="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{% translate "Installments" %}"
+                    data-tippy-content="{% translate "Installments" %}"
                     hx-get="{% url 'installment_plan_transactions' installment_plan_id=installment_plan.id %}"
                     hx-swap="innerHTML"
                     hx-target="#persistent-generic-offcanvas-left">
                 <i class="fa-solid fa-eye fa-fw"></i></a>
               <a class="btn btn-secondary btn-sm join-item text-info"
                     role="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{% translate "Refresh" %}"
+                    data-tippy-content="{% translate "Refresh" %}"
                     hx-get="{% url 'installment_plan_refresh' installment_plan_id=installment_plan.id %}"
                     hx-target="#generic-offcanvas"
                     hx-trigger='confirmed'
@@ -54,8 +51,7 @@
                 <i class="fa-solid fa-arrows-rotate fa-fw"></i></a>
               <a class="btn btn-secondary btn-sm join-item text-error"
                       role="button"
-                      data-bs-toggle="tooltip"
-                      data-bs-title="{% translate "Delete" %}"
+                      data-tippy-content="{% translate "Delete" %}"
                       hx-delete="{% url 'installment_plan_delete' installment_plan_id=installment_plan.id %}"
                       hx-trigger='confirmed'
                       data-bypass-on-ctrl="true"

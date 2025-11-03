@@ -1,20 +1,13 @@
 <script type="text/hyperscript">
-def initTooltips(t)
-  -- Initialize new tooltips
-  for tooltipTriggerEl in <[data-bs-toggle="tooltip"]/> in t
-    call bootstrap.Tooltip.getOrCreateInstance(tooltipTriggerEl)
-  end
-end
-
 init
-  call initTooltips(body)
+  call initiateTooltips()
 end
 
 on htmx:afterSettle
-  call initTooltips(body)
+  call initiateTooltips()
 end
   
 on tooltips
-  call initTooltips(body)
+  call initiateTooltips()
 end
 </script>

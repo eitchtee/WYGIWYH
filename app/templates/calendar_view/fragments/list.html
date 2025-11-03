@@ -39,23 +39,23 @@
           {% for transaction in date.transactions %}
             {% if transaction.is_paid %}
               {% if transaction.type == "IN" and not transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check text-success" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-success" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "IN" and transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check text-success/80" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-success/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and not transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check text-error" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-error" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check text-error/80" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-error/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% endif %}
             {% else %}
               {% if transaction.type == "IN" and not transaction.account.is_asset %}
-                <i class="fa-regular fa-circle text-success" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-success" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "IN" and transaction.account.is_asset %}
-                <i class="fa-regular fa-circle text-success/80" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-success/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and not transaction.account.is_asset %}
-                <i class="fa-regular fa-circle text-error" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-error" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and transaction.account.is_asset %}
-                <i class="fa-regular fa-circle text-error/80" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-error/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% endif %}
             {% endif %}
           {% endfor %}

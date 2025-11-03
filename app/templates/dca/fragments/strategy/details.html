@@ -33,8 +33,7 @@
             <div class="card-title text-xl">{% trans "Entries" %}<span>
                 <a class="no-underline p-1 category-action"
                    role="button"
-                   data-bs-toggle="tooltip"
-                   data-bs-title="{% translate "Add" %}"
+                   data-tippy-content="{% translate "Add" %}"
                    hx-get="{% url 'dca_entry_add' strategy_id=strategy.id %}"
                    hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-circle-plus fa-fw"></i>
@@ -63,16 +62,14 @@
                       <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                         <a class="btn btn-secondary btn-sm join-item"
                            role="button"
-                           data-bs-toggle="tooltip"
-                           data-bs-title="{% translate "Edit" %}"
+                           data-tippy-content="{% translate "Edit" %}"
                            hx-get="{% url 'dca_entry_edit' entry_id=entry.id strategy_id=entry.strategy.id %}"
                            hx-target="#generic-offcanvas"
                            hx-swap="innerHTML">
                           <i class="fa-solid fa-pencil fa-fw"></i></a>
                         <a class="btn btn-secondary btn-sm join-item text-error"
                            role="button"
-                           data-bs-toggle="tooltip"
-                           data-bs-title="{% translate "Delete" %}"
+                           data-tippy-content="{% translate "Delete" %}"
                            hx-delete="{% url 'dca_entry_delete' entry_id=entry.id strategy_id=entry.strategy.id %}"
                            hx-trigger='confirmed'
                            hx-swap="innerHTML"
