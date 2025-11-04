@@ -6,65 +6,69 @@
       {{ currency.currency.name }}
     </h5>
     <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end font-mono">
-        <div class="text-gray-400">{% translate 'projected income' %}</div>
+      <div class="text-end">
+        <div class="text-subtle">{% translate 'projected income' %}</div>
       </div>
-      <div class="dotted-line flex-grow"></div>
+      <div class="dotted-line grow"></div>
       {% if currency.income_projected != 0 %}
-      <div class="text-end font-mono text-green-400">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.income_projected"
             :prefix="currency.currency.prefix"
             :suffix="currency.currency.suffix"
-            :decimal_places="currency.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.currency.decimal_places"
+            color="green"></c-amount.display>
       </div>
       {% else %}
-      <div class="text-end font-mono">-</div>
+      <div class="text-end">-</div>
       {% endif %}
     </div>
     {% if currency.exchanged and currency.exchanged.income_projected %}
-      <div class="text-end font-mono text-gray-500">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.exchanged.income_projected"
             :prefix="currency.exchanged.currency.prefix"
             :suffix="currency.exchanged.currency.suffix"
-            :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.exchanged.currency.decimal_places"
+            color="gray"></c-amount.display>
       </div>
     {% endif %}
     <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end font-mono">
-        <div class="text-gray-400">{% translate 'projected expenses' %}</div>
+      <div class="text-end">
+        <div class="text-subtle">{% translate 'projected expenses' %}</div>
       </div>
-      <div class="dotted-line flex-grow"></div>
+      <div class="dotted-line grow"></div>
       <div>
         {% if currency.expense_projected != 0 %}
-        <div class="text-end font-mono text-red-400">
+        <div class="text-end">
           <c-amount.display
               :amount="currency.expense_projected"
               :prefix="currency.currency.prefix"
               :suffix="currency.currency.suffix"
-              :decimal_places="currency.currency.decimal_places"></c-amount.display>
+              :decimal_places="currency.currency.decimal_places"
+              color="red"></c-amount.display>
         </div>
         {% else %}
-          <div class="text-end font-mono">-</div>
+          <div class="text-end">-</div>
         {% endif %}
       </div>
     </div>
     {% if currency.exchanged and currency.exchanged.expense_projected %}
-      <div class="text-end font-mono text-gray-500">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.exchanged.expense_projected"
             :prefix="currency.exchanged.currency.prefix"
             :suffix="currency.exchanged.currency.suffix"
-            :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.exchanged.currency.decimal_places"
+            color="gray"></c-amount.display>
       </div>
     {% endif %}
     <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end font-mono">
-        <div class="text-gray-400">{% translate 'projected total' %}</div>
+      <div class="text-end">
+        <div class="text-subtle">{% translate 'projected total' %}</div>
       </div>
-      <div class="dotted-line flex-grow"></div>
-      <div class="text-end font-mono">
+      <div class="dotted-linegrow"></div>
+      <div class="text-end">
         <c-amount.display
             :amount="currency.total_projected"
             :prefix="currency.currency.prefix"
@@ -74,73 +78,78 @@
       </div>
     </div>
     {% if currency.exchanged.total_projected and currency.exchanged.total_projected %}
-      <div class="text-end font-mono text-gray-500">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.exchanged.total_projected"
             :prefix="currency.exchanged.currency.prefix"
             :suffix="currency.exchanged.currency.suffix"
-            :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.exchanged.currency.decimal_places"
+            color="gray"></c-amount.display>
       </div>
     {% endif %}
-    <hr class="my-3">
+    <hr class="my-3 hr">
     <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end font-mono">
-        <div class="text-gray-400">{% translate 'current income' %}</div>
+      <div class="text-end">
+        <div class="text-subtle">{% translate 'current income' %}</div>
       </div>
-      <div class="dotted-line flex-grow"></div>
+      <div class="dotted-line grow"></div>
       {% if currency.income_current != 0 %}
-      <div class="text-end font-mono text-green-400">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.income_current"
             :prefix="currency.currency.prefix"
             :suffix="currency.currency.suffix"
-            :decimal_places="currency.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.currency.decimal_places"
+            color="green"></c-amount.display>
       </div>
       {% else %}
-        <div class="text-end font-mono">-</div>
+        <div class="text-end">-</div>
       {% endif %}
     </div>
     {% if currency.exchanged and currency.exchanged.income_current %}
-      <div class="text-end font-mono text-gray-500">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.exchanged.income_current"
             :prefix="currency.exchanged.currency.prefix"
             :suffix="currency.exchanged.currency.suffix"
-            :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.exchanged.currency.decimal_places"
+            color="gray"></c-amount.display>
       </div>
     {% endif %}
     <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end font-mono">
-        <div class="text-gray-400">{% translate 'current expenses' %}</div>
+      <div class="text-end">
+        <div class="text-subtle">{% translate 'current expenses' %}</div>
       </div>
-      <div class="dotted-line flex-grow"></div>
+      <div class="dotted-line grow"></div>
       {% if currency.expense_current != 0 %}
-      <div class="text-end font-mono text-red-400">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.expense_current"
             :prefix="currency.currency.prefix"
             :suffix="currency.currency.suffix"
-            :decimal_places="currency.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.currency.decimal_places"
+            color="red"></c-amount.display>
       </div>
       {% else %}
-        <div class="text-end font-mono">-</div>
+        <div class="text-end">-</div>
       {% endif %}
     </div>
     {% if currency.exchanged and currency.exchanged.expense_current %}
-      <div class="text-end font-mono text-gray-500">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.exchanged.expense_current"
             :prefix="currency.exchanged.currency.prefix"
             :suffix="currency.exchanged.currency.suffix"
-            :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.exchanged.currency.decimal_places"
+            color="gray"></c-amount.display>
       </div>
     {% endif %}
     <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end font-mono">
-        <div class="text-gray-400">{% translate 'current total' %}</div>
+      <div class="text-end">
+        <div class="text-subtle">{% translate 'current total' %}</div>
       </div>
-      <div class="dotted-line flex-grow"></div>
-      <div class="text-end font-mono">
+      <div class="dotted-line grow"></div>
+      <div class="text-end">
         <c-amount.display
             :amount="currency.total_current"
             :prefix="currency.currency.prefix"
@@ -150,22 +159,23 @@
       </div>
     </div>
     {% if currency.exchanged and currency.exchanged.total_current %}
-      <div class="text-end font-mono text-gray-500">
+      <div class="text-end">
         <c-amount.display
             :amount="currency.exchanged.total_current"
             :prefix="currency.exchanged.currency.prefix"
             :suffix="currency.exchanged.currency.suffix"
-            :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+            :decimal_places="currency.exchanged.currency.decimal_places"
+            color="gray"></c-amount.display>
       </div>
     {% endif %}
     <div>
-      <hr class="my-3">
+      <hr class="my-3 hr">
       <div class="flex justify-between items-baseline mt-2">
-        <div class="text-end font-mono">
-          <div class="text-gray-400">{% translate 'final total' %}</div>
+        <div class="text-end">
+          <div class="text-subtle">{% translate 'final total' %}</div>
         </div>
-        <div class="dotted-line flex-grow"></div>
-        <div class="text-end font-mono">
+        <div class="dotted-line grow"></div>
+        <div class="text-end">
           <c-amount.display
               :amount="currency.total_final"
               :prefix="currency.currency.prefix"
@@ -175,12 +185,13 @@
         </div>
       </div>
       {% if currency.exchanged and currency.exchanged.total_final %}
-        <div class="text-end font-mono text-gray-500">
+        <div class="text-end">
           <c-amount.display
               :amount="currency.exchanged.total_final"
               :prefix="currency.exchanged.currency.prefix"
               :suffix="currency.exchanged.currency.suffix"
-              :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+              :decimal_places="currency.exchanged.currency.decimal_places"
+              color="gray"></c-amount.display>
         </div>
       {% endif %}
     </div>

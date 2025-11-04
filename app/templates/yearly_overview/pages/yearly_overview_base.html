@@ -11,18 +11,17 @@
 {% endblock %}
 
 {% block content %}
-  <div class="h-full text-center mb-4 pt-2">
-    <div class="btn-group gap-3" role="group">
-      <a href="{% url 'yearly_overview_currency' year=year %}" class="btn {% if type != 'currency' %}btn-outline btn-primary{% else %}btn-primary{% endif %} rounded-full" hx-boost>
+  <div class="h-full text-center mb-4 pt-2 w-full">
+    <div role="tablist" class="tabs tabs-box mx-auto w-fit">
+      <a href="{% url 'yearly_overview_currency' year=year %}" class="tab {% if type == 'currency' %}tab-active{% endif %}" hx-boost>
         <i class="fa-solid fa-solid fa-coins fa-fw me-2"></i>{% trans 'Currency' %}
       </a>
-
-      <a href="{% url 'yearly_overview_account' year=year %}" class="btn {% if type != 'account' %}btn-outline btn-primary{% else %}btn-primary{% endif %} rounded-full" hx-boost>
+      <a href="{% url 'yearly_overview_account' year=year %}" class="tab {% if type == 'account' %}tab-active{% endif %}" hx-boost>
         <i class="fa-solid fa-wallet fa-fw me-2"></i>{% trans 'Account' %}
       </a>
     </div>
   </div>
-  <div class="container px-md-3 py-3 gap-x-5 overflow-x-hidden" id="yearly-content">
+  <div class="container" id="yearly-content">
     <div class="flex flex-wrap mb-4 gap-x-xl-4 gap-y-3">
       {#    Date picker#}
       <div class="w-full xl:w-auto flex-row items-center flex">
@@ -33,7 +32,7 @@
              href="{% block previous_year_url %}{% endblock %}">
             <i class="fa-solid fa-chevron-left"></i></a>
         </div>
-        <div class="text-2xl font-bold btn btn-ghost flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0">
+        <div class="text-2xl font-bold flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0">
           {{ year }}
         </div>
         <div class="text-base mx-2 h-full items-center flex btn btn-ghost">
@@ -46,48 +45,56 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-wrap">
-      <div class="w-full lg:w-2/12">
-        <input type="hidden" name="month" value="">
-        <div class="flex-col join join-vertical" id="month-pills" role="tablist"
-             hx-indicator="#data-content">
-          <button class="btn btn-outline btn-primary btn-active justify-start join-item"
-                  role="tab"
-                  hx-get="{% block data_url %}{% endblock %}"
-                  hx-target="#data-content"
-                  hx-trigger="click"
-                  hx-include="{% block hx_include %}{% endblock %}"
-                  hx-swap="innerHTML"
-                  onclick="document.querySelector('[name=month]').value = ''"
-                  _="on click
-                       remove .btn-active from <button/> in #month-pills
-                       add .btn-active to me">
-            {% translate 'Year' %}
-          </button>
-          {% for month in months %}
-            <button class="btn btn-outline btn-primary justify-start join-item"
-                    role="tab"
-                    hx-get="{% block month_data_url %}{% endblock %}"
-                    hx-target="#data-content"
-                    hx-trigger="click"
-                    hx-include="{% block month_hx_include %}{% endblock %}"
-                    hx-swap="innerHTML"
-                    onclick="document.querySelector('[name=month]').value = '{{ month }}'"
-                    _="on click
-                       remove .btn-active from <button/> in #month-pills
-                       add .btn-active to me">
-              {{ month|month_name }}
-            </button>
-          {% endfor %}
+    <div class="row gap-y-3">
+      <div class="col-12 xl:col-3">
+        <div class="card bg-base-100 card-border">
+          <div class="card-body">
+            <input type="hidden" name="month" value="">
+            <div class="flex flex-col gap-1 w-full" id="month-pills" role="tablist"
+                hx-indicator="#data-content">
+              <button class="btn btn-ghost btn-active justify-start w-full"
+                      role="tab"
+                      hx-get="{% block data_url %}{% endblock %}"
+                      hx-target="#data-content"
+                      hx-trigger="click"
+                      hx-include="{% block hx_include %}{% endblock %}"
+                      hx-swap="innerHTML"
+                      onclick="document.querySelector('[name=month]').value = ''"
+                      _="on click
+                          remove .btn-active from <button/> in #month-pills
+                          add .btn-active to me">
+                {% translate 'Year' %}
+              </button>
+              {% for month in months %}
+                <button class="btn btn-ghost justify-start w-full"
+                        role="tab"
+                        hx-get="{% block month_data_url %}{% endblock %}"
+                        hx-target="#data-content"
+                        hx-trigger="click"
+                        hx-include="{% block month_hx_include %}{% endblock %}"
+                        hx-swap="innerHTML"
+                        onclick="document.querySelector('[name=month]').value = '{{ month }}'"
+                        _="on click
+                          remove .btn-active from <button/> in #month-pills
+                          add .btn-active to me">
+                  {{ month|month_name }}
+                </button>
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
 
-      <hr class="my-4 block lg:hidden">
-      <div class="w-full lg:w-3/12">
-        {% block filter_pills %}{% endblock %}
+      <div class="col-12 xl:col-3">
+        <div class="card bg-base-100 card-border">
+          <div class="card-body">
+            {% block filter_pills %}{% endblock %}
+          </div>
+        </div>
       </div>
 
-      <div class="w-full lg:w-7/12">
+      <div class="col-12 xl:col-6">
+        <hr class="xl:hidden my-3 hr">
         <div id="data-content"
              class="show-loading"
              hx-get="{% block content_data_url %}{% endblock %}"

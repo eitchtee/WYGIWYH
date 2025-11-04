@@ -17,9 +17,9 @@
 
 {% block filter_pills %}
   <input type="hidden" name="account" value="">
-  <div class="join join-vertical flex-col" id="filter-pills" role="tablist"
+  <div class="flex flex-col w-full gap-1" id="filter-pills" role="tablist"
        hx-indicator="#data-content">
-    <button class="btn btn-outline btn-primary btn-active justify-start join-item"
+    <button class="btn btn-ghost btn-active justify-start w-full"
             role="tab"
             hx-get="{% url 'yearly_overview_account_data' year=year %}"
             hx-target="#data-content"
@@ -33,7 +33,7 @@
       {% translate 'All' %}
     </button>
     {% for account in accounts %}
-      <button class="btn btn-outline btn-primary justify-start join-item"
+      <button class="btn btn-ghost justify-start w-full"
               role="tab"
               hx-get="{% url 'yearly_overview_account_data' year=year %}"
               hx-target="#data-content"
@@ -44,7 +44,7 @@
               _="on click
                  remove .btn-active from <button/> in #filter-pills
                  add .btn-active to me">
-        {% if account.group.name %}<span class="badge badge-secondary me-2">{{ account.group.name }}</span>{% endif %} {{ account.name }}
+        {% if account.group.name %}<span class="badge badge-primary me-2">{{ account.group.name }}</span>{% endif %} {{ account.name }}
       </button>
     {% endfor %}
   </div>

@@ -1,14 +1,3 @@
-// Bootstrap Utilities and Custom Bootstrap Components
-// This file imports standalone implementations of Bootstrap components
-// and contains Bootstrap-related utilities
-
-// Standalone component implementations
 @use "offcanvas";
 @use "dropdown";
 @use "transitions";
-
-
-// Bootstrap-specific utility classes
-.dropdown-toggle.dropdown-toggle-no-icon::after {
-  display: none;
-}

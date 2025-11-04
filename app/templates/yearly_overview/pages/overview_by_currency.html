@@ -19,9 +19,9 @@
 
 {% block filter_pills %}
   <input type="hidden" name="currency" value="">
-  <div class="join join-vertical flex-col" id="filter-pills" role="tablist"
+  <div class="flex flex-col w-full gap-1" id="filter-pills" role="tablist"
        hx-indicator="#data-content">
-    <button class="btn btn-outline btn-primary btn-active justify-start join-item"
+    <button class="btn btn-ghost btn-active justify-start w-full"
             role="tab"
             hx-get="{% url 'yearly_overview_currency_data' year=year %}"
             hx-target="#data-content"
@@ -35,7 +35,7 @@
       {% translate 'All' %}
     </button>
     {% for currency in currencies %}
-      <button class="btn btn-outline btn-primary justify-start join-item"
+      <button class="btn btn-ghost justify-start w-full"
               role="tab"
               hx-get="{% url 'yearly_overview_currency_data' year=year %}"
               hx-target="#data-content"

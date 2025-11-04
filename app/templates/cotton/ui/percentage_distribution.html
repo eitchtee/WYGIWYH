@@ -8,7 +8,7 @@
         {% if percentage.percentages.income_projected > 0 %}rounded-s-full{% endif %}
         {% if percentage.percentages.income_projected > 0 and percentage.percentages.income_current <= 0 and percentage.percentages.expense_projected <= 0 and percentage.percentages.expense_current <= 0 %}rounded-e-full{% endif %}"
         style="width: {{ percentage.percentages.income_projected|floatformat:'2u' }}%"
-        data-tip="{% trans 'Projected Income' %} ({{ percentage.percentages.income_projected|floatformat:2 }}%)"
+        data-tippy-content="{% trans 'Projected Income' %} ({{ percentage.percentages.income_projected|floatformat:2 }}%)"
         role="progressbar"
         aria-label="{% trans 'Projected Income' %} ({{ percentage.percentages.income_projected|floatformat:2 }}%)"
         aria-valuenow="{{ percentage.percentages.income_projected|floatformat:0 }}"
@@ -21,7 +21,7 @@
         {% if percentage.percentages.income_projected <= 0 and percentage.percentages.income_current > 0 %}rounded-s-full{% endif %}
         {% if percentage.percentages.income_current > 0 and percentage.percentages.expense_projected <= 0 and percentage.percentages.expense_current <= 0 %}rounded-e-full{% endif %}"
         style="width: {{ percentage.percentages.income_current|floatformat:'2u' }}%"
-        data-tip="{% trans 'Current Income' %} ({{ percentage.percentages.income_current|floatformat:2 }}%)"
+        data-tippy-content="{% trans 'Current Income' %} ({{ percentage.percentages.income_current|floatformat:2 }}%)"
         role="progressbar"
         aria-label="{% trans 'Current Income' %} ({{ percentage.percentages.income_current|floatformat:2 }}%)"
         aria-valuenow="{{ percentage.percentages.income_current|floatformat:0 }}"
@@ -34,7 +34,7 @@
         {% if percentage.percentages.income_projected <= 0 and percentage.percentages.income_current <= 0 and percentage.percentages.expense_projected > 0 %}rounded-s-full{% endif %}
         {% if percentage.percentages.expense_projected > 0 and percentage.percentages.expense_current <= 0 %}rounded-e-full{% endif %}"
         style="width: {{ percentage.percentages.expense_projected|floatformat:'2u' }}%"
-        data-tip="{% trans 'Projected Expenses' %} ({{ percentage.percentages.expense_projected|floatformat:2 }}%)"
+        data-tippy-content="{% trans 'Projected Expenses' %} ({{ percentage.percentages.expense_projected|floatformat:2 }}%)"
         role="progressbar"
         aria-label="{% trans 'Projected Expenses' %} ({{ percentage.percentages.expense_projected|floatformat:2 }}%)"
         aria-valuenow="{{ percentage.percentages.expense_projected|floatformat:0 }}"
@@ -47,7 +47,7 @@
         {% if percentage.percentages.income_projected <= 0 and percentage.percentages.income_current <= 0 and percentage.percentages.expense_projected <= 0 and percentage.percentages.expense_current > 0 %}rounded-s-full{% endif %}
         {% if percentage.percentages.expense_current > 0 %}rounded-e-full{% endif %}"
         style="width: {{ percentage.percentages.expense_current|floatformat:'2u' }}%"
-        data-tip="{% trans 'Current Expenses' %} ({{ percentage.percentages.expense_current|floatformat:2 }}%)"
+        data-tippy-content="{% trans 'Current Expenses' %} ({{ percentage.percentages.expense_current|floatformat:2 }}%)"
         role="progressbar"
         aria-label="{% trans 'Current Expenses' %} ({{ percentage.percentages.expense_current|floatformat:2 }}%)"
         aria-valuenow="{{ percentage.percentages.expense_current|floatformat:0 }}"

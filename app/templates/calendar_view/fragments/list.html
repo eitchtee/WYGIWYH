@@ -2,8 +2,8 @@
 {% load i18n %}
 
 <div>
-  <div class="hidden lg:grid lg:grid-cols-7 gap-4 lg:gap-0 bg-base-300">
-    <div class="border-l border-t border-b border-base-100 p-2 text-center">
+  <div class="hidden lg:grid lg:grid-cols-7 gap-4 lg:gap-0 bg-base-200">
+    <div class="border-l border-t border-b border-base-300 p-2 text-center">
       {% translate 'MON' %}
     </div>
     <div class="border-t border-b border-base-300 p-2 text-center">
@@ -28,7 +28,7 @@
   <div class="grid grid-cols-1 grid-rows-1 lg:grid-cols-7 lg:grid-rows-6 gap-4 lg:gap-0">
     {% for date in dates %}
       {% if date %}
-      <div class="card bg-base-200 h-full hover:bg-base-300! border-[1px] border-base-content/30  rounded-none card-border {% if not date.transactions %}hidden! lg:flex!{% endif %}{% if today == date.date %} card-border border-2 border-primary{% endif %} cursor-pointer" role="button"
+      <div class="card bg-base-100 h-full hover:bg-base-200! border border-base-content/30  rounded-none {% if not date.transactions %}hidden! lg:flex!{% endif %}{% if today == date.date %} border-2 border-primary{% endif %} cursor-pointer" role="button"
         hx-get="{% url 'calendar_transactions_list' day=date.date.day month=date.date.month year=date.date.year %}"
         hx-target="#persistent-generic-offcanvas-left">
         <div class="card-header border-0 bg-transparent text-end flex justify-between p-2 w-full">
@@ -62,7 +62,7 @@
         </div>
       </div>
       {% else %}
-        <div class="hidden! lg:block! card bg-base-100 h-full rounded-none"></div>
+        <div class="hidden! lg:block! card bg-base-300 h-full rounded-none"></div>
       {% endif %}
     {% endfor %}
   </div>

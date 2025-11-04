@@ -34,12 +34,6 @@
                value="projected"
                {% if type == "projected" %}checked{% endif %} />
       </div>
-      {% comment %} <div class="gap-3" role="group" id="view-type" _="on change trigger updated">
-        <input type="radio" class="btn btn-outline btn-primary rounded-full" name="view_type" aria-label="{% trans "Current" %}" autocomplete="off" value="current" {% if type == "current" %}checked{% endif %} />
-        <i class="fa-solid fa-circle-plus fa-fw"></i>{% trans "Current" %}
-      </input />
-      <input type="radio" class="btn btn-outline btn-primary rounded-full" name="view_type" aria-label="{% trans "Projected" %}" autocomplete="off" value="projected" {% if type == "projected" %}checked{% endif %} />
-      </div> {% endcomment %}
     </div>
     <div class="container px-md-3 py-3"
          _="init call initializeAccountChart() then initializeCurrencyChart() then initializeMonthlyDifferenceChart() end">

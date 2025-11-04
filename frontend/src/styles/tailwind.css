@@ -17,8 +17,8 @@
   --color-base-200: oklch(98% 0 0);
   --color-base-300: oklch(96% 0 0);
   --color-base-content: oklch(21% 0.006 285.885);
-  --color-primary: oklch(87% 0.169 91.605);
-  --color-primary-content: oklch(41% 0.112 45.904);
+  --color-primary: #b07526;
+  --color-primary-content: #fcf2e7;
   --color-secondary: oklch(44% 0.043 257.281);
   --color-secondary-content: oklch(98% 0.003 247.858);
   --color-accent: oklch(70% 0.01 56.259);
@@ -27,12 +27,12 @@
   --color-neutral-content: oklch(92% 0.004 286.32);
   --color-info: oklch(74% 0.16 232.661);
   --color-info-content: oklch(29% 0.066 243.157);
-  --color-success: oklch(76% 0.177 163.223);
-  --color-success-content: oklch(37% 0.077 168.94);
-  --color-warning: oklch(82% 0.189 84.429);
-  --color-warning-content: oklch(41% 0.112 45.904);
-  --color-error: oklch(71% 0.194 13.428);
-  --color-error-content: oklch(27% 0.105 12.094);
+  --color-success: #4b8f45;
+  --color-success-content: #ebf6ea;
+  --color-warning: #b07526;
+  --color-warning-content: #fcf2e7;
+  --color-error: #b44041;
+  --color-error-content: #ffeae8;
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
   --radius-box: 0.5rem;
@@ -113,10 +113,51 @@
     .hr {
         @apply text-base-content/60;
     }
+
+    .card.card-border-base-100 {
+            border: var(--border) solid var(--color-base-100);
+    }
+
+    .card.card-border-base-200 {
+            border: var(--border) solid var(--color-base-200);
+    }
+
+    .card.card-border {
+            border: var(--border) solid var(--color-base-200);
+    }
+
+    .card.card-border-base-300 {
+            border: var(--border) solid var(--color-base-300);
+    }
+
+    .text-income {
+        @apply text-success;
+    }
+
+    .text-expense {
+        @apply text-error;
+    }
+
+    .text-exchange-rate {
+        @apply text-base-content/60;
+    }
+
+    .text-subtle {
+        @apply text-base-content/80;
+    }
 }
 
 
 @layer components {
+    .fab {
+    @layer daisyui.component {
+        > :nth-child(n+7) {
+            transition-delay: 150ms;
+        }
+
+  }
+}
+
     /* === Sidebar styles === */
     .sidebar-active {
         @apply text-primary-content bg-primary rounded-box;
