@@ -10,14 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const rollupInputs = {
-    autosize: resolve(__dirname, 'src/autosize.js'),
-    charts: resolve(__dirname, 'src/charts.js'),
-    datepicker: resolve(__dirname, 'src/datepicker.js'),
-    bootstrap: resolve(__dirname, 'src/bootstrap.js'),
-    htmx: resolve(__dirname, 'src/htmx.js'),
-    select: resolve(__dirname, 'src/select.js'),
-    style: resolve(__dirname, 'src/style.js'),
-    sweetalert2: resolve(__dirname, 'src/sweetalert2.js'),
+    main: resolve(__dirname, 'src/main.js'),
 };
 
 
@@ -42,6 +35,7 @@ export default defineConfig({
             usePolling: true,
             disableGlobbing: false,
         },
+        hmr: false,
         cors: true,
         origin: 'http://100.118.164.62:5173'
     },

@@ -6,8 +6,8 @@
 
 {% block content %}
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 md:col-3">
+    <div class="row gy-3">
+      <div class="col-12 md:col-3 gy-3">
         <div class="flex flex-col gap-3">
           <div class="card bg-base-100 card-borderS">
             <div class="card-body">
@@ -73,22 +73,22 @@
                     remove .btn-active from <.insights-list button/>
                     add .btn-active to event.target
                     set event.target's @aria-selected to 'true'">
-              <button class="btn btn-ghost justify-start"
+              <button class="btn btn-ghost justify-start text-start"
                       type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                       hx-get="{% url 'insights_sankey_by_account' %}">
                       {% trans 'Account Flow' %}
               </button>
-              <button class="btn btn-ghost justify-start"  data-bs-target="#v-pills-content"
+              <button class="btn btn-ghost justify-start text-start"  data-bs-target="#v-pills-content"
                       type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                       hx-get="{% url 'insights_sankey_by_currency' %}"
                       >{% trans 'Currency Flow' %}
               </button>
-              <button class="btn btn-ghost justify-start"  data-bs-target="#v-pills-content"
+              <button class="btn btn-ghost justify-start text-start"  data-bs-target="#v-pills-content"
                       type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                       hx-get="{% url 'category_explorer_index' %}">
                       {% trans 'Category Explorer' %}
               </button>
-              <button class="btn btn-ghost justify-start"  data-bs-target="#v-pills-content"
+              <button class="btn btn-ghost justify-start text-start"  data-bs-target="#v-pills-content"
                       type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                       hx-get="{% url 'category_overview' %}"
                       >{% trans 'Categories Overview' %}
@@ -106,17 +106,17 @@
                     remove .btn-active from <.insights-list button/>
                     add .btn-active to event.target
                     set event.target's @aria-selected to 'true'">
-                    <button class="btn btn-ghost justify-start"  data-bs-target="#v-pills-content"
+                    <button class="btn btn-ghost justify-start text-start"  data-bs-target="#v-pills-content"
                             type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                             hx-get="{% url 'insights_late_transactions' %}">
                             {% trans 'Late Transactions' %}
                     </button>
-                    <button class="btn btn-ghost justify-start"  data-bs-target="#v-pills-content"
+                    <button class="btn btn-ghost justify-start text-start"  data-bs-target="#v-pills-content"
                             type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                             hx-get="{% url 'insights_latest_transactions' %}">
                             {% trans 'Latest Transactions' %}
                     </button>
-                    <button class="btn btn-ghost justify-start"  data-bs-target="#v-pills-content"
+                    <button class="btn btn-ghost justify-start text-start"  data-bs-target="#v-pills-content"
                             type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
                             hx-get="{% url 'insights_emergency_fund' %}">
                             {% trans 'Emergency Fund' %}
@@ -126,7 +126,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 md:col-9">
+      <div class="col-12 md:col-9 gy-3">
         <div id="tab-content" class="show-loading"></div>
       </div>
     </div>

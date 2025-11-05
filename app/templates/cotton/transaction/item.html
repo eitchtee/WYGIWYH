@@ -1,7 +1,7 @@
 {% load markdown %}
 {% load i18n %}
 <div
-    class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction relative group-hover/transaction:z-50 hover:z-50">
+    class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction relative">
   <div class="flex my-1">
     {% if not disable_selection or not dummy %}
       <label class="px-3 flex! items-center justify-center">
@@ -16,7 +16,7 @@
       <div class="flex flex-wrap font-mono text-sm items-center">
         <div class="lg:w-auto w-full flex items-center text-2xl lg:text-xl lg:text-center text-center p-0 cursor-pointer">
           {% if not transaction.deleted %}
-            <a class="no-underline p-3 text-gray-500!"
+            <a class="no-underline p-3 text-base-content/50"
                title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}"
                role="button"
                 {% if not dummy %}
@@ -27,7 +27,7 @@
                   class="fa-regular fa-circle"></i>{% endif %}
             </a>
           {% else %}
-            <div class="no-underline p-3 text-gray-500!"
+            <div class="no-underline p-3 text-base-content/50"
                  title="{% if transaction.is_paid %}{% trans 'Paid' %}{% else %}{% trans 'Projected' %}{% endif %}">
               {% if transaction.is_paid %}<i class="fa-regular fa-circle-check"></i>{% else %}<i
                   class="fa-regular fa-circle"></i>{% endif %}
@@ -138,16 +138,16 @@
           <div class="z-1000">
             {#      Item actions#}
             <div
-                class="card transaction-actions absolute! left-1/2 -translate-x-1/2 -translate-y-1/2 top-0 invisible group-hover/transaction:visible! flex flex-row bg-base-300">
+                class="card card-border-base-100 transaction-actions absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-0 invisible group-hover/transaction:visible flex flex-row bg-base-200">
               <div class="card-body p-1 shadow-lg flex flex-row gap-1">
                 {% if not transaction.deleted %}
-                  <a class="btn btn-neutral btn-sm transaction-action"
+                  <a class="btn btn-soft btn-sm transaction-action"
                       role="button"
                       hx-get="{% url 'transaction_edit' transaction_id=transaction.id %}"
                       hx-target="#generic-offcanvas" hx-swap="innerHTML"
                       data-tippy-content="{% translate "Edit" %}">
                     <i class="fa-solid fa-pencil fa-fw"></i></a>
-                  <a class="btn btn-neutral btn-sm transaction-action"
+                  <a class="btn btn-error btn-soft btn-sm transaction-action"
                       role="button"
                       hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
                       hx-trigger='confirmed'
@@ -156,32 +156,32 @@
                       data-title="{% translate "Are you sure?" %}"
                       data-text="{% translate "You won't be able to revert this!" %}"
                       data-confirm-text="{% translate "Yes, delete it!" %}"
-                      _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-error"></i>
+                      _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i>
                   </a>
-                    <button class="btn btn-neutral btn-sm transaction-action" data-bs-toggle="dropdown" data-bs-container="body" aria-expanded="false">
+                    <button class="btn btn-soft btn-sm transaction-action" data-bs-toggle="dropdown" data-bs-container="body" aria-expanded="false">
                       <i class="fa-solid fa-ellipsis fa-fw"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start menu w-max relative">
                       <div class="absolute inset-[0rem_-3rem_-3rem_-3rem] pointer-events-auto -z-10"></div>
                       {% if transaction.account.is_untracked_by %}
-                        <li>
-                          <a class="disabled flex items-center" aria-disabled="true">
+                        <li class="menu-disabled" aria-disabled="true">
+                          <a class="flex items-center">
                             <i class="fa-solid fa-eye fa-fw mr-2"></i>
                             <div>
                               {% translate 'Show on summaries' %}
                               <div
-                                  class="block text-gray-500 text-xs font-medium">{% translate 'Controlled by account' %}</div>
+                                  class="block text-base-content/60 text-xs font-medium">{% translate 'Controlled by account' %}</div>
                             </div>
                           </a>
                         </li>
                       {% elif transaction.category.mute %}
-                        <li>
-                          <a class="disabled flex items-center" aria-disabled="true">
+                        <li class="menu-disabled" aria-disabled="true">
+                          <a class="flex items-center">
                             <i class="fa-solid fa-eye fa-fw mr-2"></i>
                             <div>
                               {% translate 'Show on summaries' %}
                               <div
-                                  class="block text-gray-500 text-xs font-medium">{% translate 'Controlled by category' %}</div>
+                                  class="block text-base-content/60 text-xs font-medium">{% translate 'Controlled by category' %}</div>
                             </div>
                           </a>
                         </li>
@@ -218,13 +218,13 @@
                     </ul>
                 {% else %}
                   <div class="tooltip" data-tippy-content="{% translate "Restore" %}">
-                    <a class="btn btn-secondary btn-sm transaction-action"
+                    <a class="btn btn-success btn-soft btn-sm transaction-action"
                        role="button"
                        hx-get="{% url 'transaction_undelete' transaction_id=transaction.id %}"><i
                         class="fa-solid fa-trash-arrow-up"></i></a>
                   </div>
                   <div class="tooltip" data-tippy-content="{% translate "Delete" %}">
-                    <a class="btn btn-secondary btn-sm transaction-action"
+                    <a class="btn btn-error btn-soft btn-sm transaction-action"
                        role="button"
                        hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"
                        hx-trigger='confirmed'

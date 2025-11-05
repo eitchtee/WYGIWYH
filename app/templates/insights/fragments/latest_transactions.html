@@ -1,7 +1,7 @@
 {% load i18n %}
 
 
-<div hx-get="{% url 'insights_late_transactions' %}" hx-trigger="updated from:window" class="show-loading"
+<div hx-get="{% url 'insights_latest_transactions' %}" hx-trigger="updated from:window" class="show-loading"
      id="transactions-list" hx-swap="outerHTML">
   {% if transactions %}
     {% for transaction in transactions %}

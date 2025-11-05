@@ -17,22 +17,31 @@
        class="show-loading"
        hx-get=""
        hx-target="body">
-    <div class="h-full text-center mb-4 pt-2 w-full">
+    <div class="h-full text-center mb-4 w-full">
       <div class="tabs tabs-box mx-auto w-fit"
            id="view-type"
            _="on change trigger updated">
-        <input type="radio"
-               name="view_type"
-               class="tab"
-               aria-label="{% trans "Current" %}"
-               value="current"
-               {% if type == "current" %}checked{% endif %} />
-        <input type="radio"
-               name="view_type"
-               class="tab"
-               aria-label="{% trans "Projected" %}"
-               value="projected"
-               {% if type == "projected" %}checked{% endif %} />
+
+        <label class="tab">
+          <input type="radio"
+                name="view_type"
+                class="tab"
+                aria-label="{% trans "Current" %}"
+                value="current"
+                {% if type == "current" %}checked{% endif %} />
+            <i class="fa-solid fa-sack-dollar fa-fw me-2"></i>
+            {% trans "Current" %}
+        </label>
+        <label class="tab">
+          <input type="radio"
+                  name="view_type"
+                  class="tab"
+                  aria-label="{% trans "Projected" %}"
+                  value="projected"
+                  {% if type == "projected" %}checked{% endif %} />
+            <i class="fa-solid fa-rocket fa-fw me-2"></i>
+            {% trans "Projected" %}
+        </label>
       </div>
     </div>
     <div class="container px-md-3 py-3"
@@ -45,10 +54,10 @@
               {% for currency in currency_net_worth.values %}
                 <li>
                   {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
-                    <a class="cursor-pointer flex justify-between items-center w-full"
+                    <a class="cursor-pointer select-auto flex justify-between items-center w-full"
                        _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
-                      <span class="currency-name text-start font-mono flex-shrink text-ellipsis">{{ currency.currency.name }}</span>
-                      <span class="text-end flex-shrink-0">
+                      <span class="currency-name text-start font-mono shrink text-ellipsis">{{ currency.currency.name }}</span>
+                      <span class="text-end shrink-0">
                         <div>
                           <c-amount.display :amount="currency.total_final" :prefix="currency.currency.prefix" :suffix="currency.currency.suffix" :decimal_places="currency.currency.decimal_places" color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}" text-end></c-amount.display>
                         </div>
@@ -61,19 +70,19 @@
                     </a>
                     <ul>
                       <li>
-                        <a class="text-base-content/60">
-                          <span class="text-start font-mono flex-shrink">{% trans "Consolidated" %}</span>
-                          <span class="text-end flex-shrink-0">
+                        <a class="text-base-content/60 select-auto">
+                          <span class="text-start shrink">{% trans "Consolidated" %}</span>
+                          <span class="text-end shrink-0">
                             <c-amount.display :amount="currency.consolidated.total_final" :prefix="currency.consolidated.currency.prefix" :suffix="currency.consolidated.currency.suffix" :decimal_places="currency.consolidated.currency.decimal_places" color="{% if currency.consolidated.total_final > 0 %}green{% elif currency.consolidated.total_final < 0 %}red{% endif %}" text-end></c-amount.display>
                           </span>
                         </a>
                       </li>
                     </ul>
                   {% else %}
-                    <a class="cursor-pointer flex justify-between items-center w-full"
+                    <a class="cursor-pointer select-auto flex justify-between items-center w-full"
                        _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
-                      <span class="currency-name text-start font-mono flex-shrink">{{ currency.currency.name }}</span>
-                      <span class="text-end flex-shrink-0">
+                      <span class="currency-name text-start font-mono shrink">{{ currency.currency.name }}</span>
+                      <span class="text-end shrink-0">
                         <div>
                           <c-amount.display :amount="currency.total_final" :prefix="currency.currency.prefix" :suffix="currency.currency.suffix" :decimal_places="currency.currency.decimal_places" color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}" text-end></c-amount.display>
                         </div>
@@ -134,16 +143,16 @@
                 {% if data.grouper %}
                   <li>
                     <details open>
-                      <summary class="font-mono">
+                      <summary class="select-auto">
                         <span class="badge badge-primary">{{ data.grouper }}</span>
                       </summary>
                       <ul>
                         {% for account in data.list %}
                           <li>
-                            <a class="cursor-pointer flex justify-between items-center w-full"
+                            <a class="cursor-pointer select-auto flex justify-between items-center w-full"
                                _="on click showOnlyAccountDataset('{{ account.account.name }}')">
-                              <span class="account-name text-start font-mono flex-shrink text-ellipsis">{{ account.account.name }}</span>
-                              <span class="text-end flex-shrink-0">
+                              <span class="account-name text-start font-mono shrink text-ellipsis">{{ account.account.name }}</span>
+                              <span class="text-end shrink-0">
                                 <div>
                                   <c-amount.display :amount="account.total_final" :prefix="account.currency.prefix" :suffix="account.currency.suffix" :decimal_places="account.currency.decimal_places" color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
                                 </div>
@@ -162,10 +171,10 @@
                 {% else %}
                   {% for account in data.list %}
                     <li>
-                      <a class="cursor-pointer flex justify-between items-center w-full"
+                      <a class="cursor-pointer flex select-auto justify-between items-center w-full"
                          _="on click showOnlyAccountDataset('{{ account.account.name }}')">
-                        <span class="account-name text-start font-mono flex-shrink">{{ account.account.name }}</span>
-                        <span class="text-end flex-shrink-0">
+                        <span class="account-name text-start font-mono shrink">{{ account.account.name }}</span>
+                        <span class="text-end shrink-0">
                           <div>
                             <c-amount.display :amount="account.total_final" :prefix="account.currency.prefix" :suffix="account.currency.suffix" :decimal_places="account.currency.decimal_places" color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
                           </div>

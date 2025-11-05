@@ -2,204 +2,165 @@
 {% load i18n %}
 <div class="card bg-base-100 shadow-md card-border border-base-300">
   <div class="card-body">
-    {% if account.account.group %}
-      <div class="text-sm mb-2">
-        <span class="badge badge-primary">{{ account.account.group }}</span>
-      </div>
-    {% endif %}
-    <h5 class="card-title">
-      {{ account.account.name }}
+    <h5 class="card-title mb-4">
+      {% if account.account.group %}<span class="badge badge-primary badge-outline">{{ account.account.group }}</span>{% endif %} {{ account.account.name }}
     </h5>
-    <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end ">
-        <div class="text-subtle">{% translate 'projected income' %}</div>
+    <div class="card-data-section">
+      <div class="card-data-row">
+        <span class="card-data-label">{% translate 'projected income' %}</span>
+        <div class="card-data-values">
+          {% if account.income_projected != 0 %}
+            <c-amount.display
+                :amount="account.income_projected"
+                :prefix="account.currency.prefix"
+                :suffix="account.currency.suffix"
+                :decimal_places="account.currency.decimal_places"
+                color="green"></c-amount.display>
+            {% if account.exchanged and account.exchanged.income_projected %}
+              <c-amount.display
+                  :amount="account.exchanged.income_projected"
+                  :prefix="account.exchanged.currency.prefix"
+                  :suffix="account.exchanged.currency.suffix"
+                  :decimal_places="account.exchanged.currency.decimal_places"
+                  color="gray"></c-amount.display>
+            {% endif %}
+          {% else %}
+            <span class="font-semibold">-</span>
+          {% endif %}
+        </div>
       </div>
-      <div class="dotted-line grow"></div>
-      {% if account.income_projected != 0 %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.income_projected"
-            :prefix="account.currency.prefix"
-            :suffix="account.currency.suffix"
-            :decimal_places="account.currency.decimal_places"
-            color="green"></c-amount.display>
+      <div class="card-data-row">
+        <span class="card-data-label">{% translate 'projected expenses' %}</span>
+        <div class="card-data-values">
+          {% if account.expense_projected != 0 %}
+            <c-amount.display
+                :amount="account.expense_projected"
+                :prefix="account.currency.prefix"
+                :suffix="account.currency.suffix"
+                :decimal_places="account.currency.decimal_places"
+                color="red"></c-amount.display>
+            {% if account.exchanged and account.exchanged.expense_projected %}
+              <c-amount.display
+                  :amount="account.exchanged.expense_projected"
+                  :prefix="account.exchanged.currency.prefix"
+                  :suffix="account.exchanged.currency.suffix"
+                  :decimal_places="account.exchanged.currency.decimal_places"
+                  color="gray"></c-amount.display>
+            {% endif %}
+          {% else %}
+            <span class="font-semibold">-</span>
+          {% endif %}
+        </div>
       </div>
-      {% else %}
-        <div class="text-end ">-</div>
-      {% endif %}
-    </div>
-    {% if account.exchanged and account.exchanged.income_projected %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.exchanged.income_projected"
-            :prefix="account.exchanged.currency.prefix"
-            :suffix="account.exchanged.currency.suffix"
-            :decimal_places="account.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-      </div>
-    {% endif %}
-    <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end ">
-        <div class="text-subtle">{% translate 'projected expenses' %}</div>
-      </div>
-      <div class="dotted-line grow"></div>
-      <div>
-        {% if account.expense_projected != 0 %}
-        <div class="text-end">
+      <div class="card-data-row">
+        <span class="card-data-label">{% translate 'projected total' %}</span>
+        <div class="card-data-values">
           <c-amount.display
-              :amount="account.expense_projected"
+              :amount="account.total_projected"
               :prefix="account.currency.prefix"
               :suffix="account.currency.suffix"
               :decimal_places="account.currency.decimal_places"
-              color="red"></c-amount.display>
+              color="{% if account.total_projected > 0 %}green{% elif account.total_projected < 0 %}red{% endif %}"></c-amount.display>
+          {% if account.exchanged.total_projected and account.exchanged.total_projected %}
+            <c-amount.display
+                :amount="account.exchanged.total_projected"
+                :prefix="account.exchanged.currency.prefix"
+                :suffix="account.exchanged.currency.suffix"
+                :decimal_places="account.exchanged.currency.decimal_places"
+                color="gray"></c-amount.display>
+          {% endif %}
         </div>
-        {% else %}
-          <div class="text-end ">-</div>
-        {% endif %}
       </div>
     </div>
-    {% if account.exchanged and account.exchanged.expense_projected %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.exchanged.expense_projected"
-            :prefix="account.exchanged.currency.prefix"
-            :suffix="account.exchanged.currency.suffix"
-            :decimal_places="account.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-      </div>
-    {% endif %}
-    <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end ">
-        <div class="text-subtle">{% translate 'projected total' %}</div>
-      </div>
-      <div class="dotted-line grow"></div>
-      <div
-          class="text-end ">
-        <c-amount.display
-            :amount="account.total_projected"
-            :prefix="account.currency.prefix"
-            :suffix="account.currency.suffix"
-            :decimal_places="account.currency.decimal_places"
-            color="{% if account.total_projected > 0 %}green{% elif account.total_projected < 0 %}red{% endif %}"></c-amount.display>
-      </div>
-    </div>
-    {% if account.exchanged.total_projected and account.exchanged.total_projected %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.exchanged.total_projected"
-            :prefix="account.exchanged.currency.prefix"
-            :suffix="account.exchanged.currency.suffix"
-            :decimal_places="account.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-      </div>
-    {% endif %}
-    <hr class="my-3">
-    <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end ">
-        <div class="text-subtle">{% translate 'current income' %}</div>
-      </div>
-      <div class="dotted-line grow"></div>
-      {% if account.income_current != 0 %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.income_current"
-            :prefix="account.currency.prefix"
-            :suffix="account.currency.suffix"
-            :decimal_places="account.currency.decimal_places"
-            color="green"></c-amount.display>
-      </div>
-      {% else %}
-        <div class="text-end ">-</div>
-      {% endif %}
-    </div>
-    {% if account.exchanged and account.exchanged.income_current %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.exchanged.income_current"
-            :prefix="account.exchanged.currency.prefix"
-            :suffix="account.exchanged.currency.suffix"
-            :decimal_places="account.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-      </div>
-    {% endif %}
-    <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end ">
-        <div class="text-subtle">{% translate 'current expenses' %}</div>
-      </div>
-      <div class="dotted-line"></div>
-      {% if account.expense_current != 0 %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.expense_current"
-            :prefix="account.currency.prefix"
-            :suffix="account.currency.suffix"
-            :decimal_places="account.currency.decimal_places"
-            color="red"></c-amount.display>
-      </div>
-      {% else %}
-        <div class="text-end ">-</div>
-      {% endif %}
-    </div>
-    {% if account.exchanged and account.exchanged.expense_current %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.exchanged.expense_current"
-            :prefix="account.exchanged.currency.prefix"
-            :suffix="account.exchanged.currency.suffix"
-            :decimal_places="account.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-      </div>
-    {% endif %}
-    <div class="flex justify-between items-baseline mt-2">
-      <div class="text-end ">
-        <div class="text-subtle">{% translate 'current total' %}</div>
-      </div>
-      <div class="dotted-linegrow"></div>
-      <div class="text-end ">
-        <c-amount.display
-            :amount="account.total_current"
-            :prefix="account.currency.prefix"
-            :suffix="account.currency.suffix"
-            :decimal_places="account.currency.decimal_places"
-            color="{% if account.total_current > 0 %}green{% elif account.total_current < 0 %}red{% endif %}"></c-amount.display>
-      </div>
-    </div>
-    {% if account.exchanged and account.exchanged.total_current %}
-      <div class="text-end">
-        <c-amount.display
-            :amount="account.exchanged.total_current"
-            :prefix="account.exchanged.currency.prefix"
-            :suffix="account.exchanged.currency.suffix"
-            :decimal_places="account.exchanged.currency.decimal_places"
-            color="gray"></c-amount.display>
-      </div>
-    {% endif %}
-    <div>
-      <hr class="my-3">
-      <div class="flex justify-between items-baseline mt-2">
-        <div class="text-end ">
-          <div class="text-subtle">{% translate 'final total' %}</div>
+    <hr class="card-data-divider" />
+    <div class="card-data-section">
+      <div class="card-data-row">
+        <span class="card-data-label">{% translate 'current income' %}</span>
+        <div class="card-data-values">
+          {% if account.income_current != 0 %}
+            <c-amount.display
+                :amount="account.income_current"
+                :prefix="account.currency.prefix"
+                :suffix="account.currency.suffix"
+                :decimal_places="account.currency.decimal_places"
+                color="green"></c-amount.display>
+            {% if account.exchanged and account.exchanged.income_current %}
+              <c-amount.display
+                  :amount="account.exchanged.income_current"
+                  :prefix="account.exchanged.currency.prefix"
+                  :suffix="account.exchanged.currency.suffix"
+                  :decimal_places="account.exchanged.currency.decimal_places"
+                  color="gray"></c-amount.display>
+            {% endif %}
+          {% else %}
+            <span class="font-semibold">-</span>
+          {% endif %}
         </div>
-        <div class="dotted-line grow"></div>
-        <div class="text-end ">
+      </div>
+      <div class="card-data-row">
+        <span class="card-data-label">{% translate 'current expenses' %}</span>
+        <div class="card-data-values">
+          {% if account.expense_current != 0 %}
+            <c-amount.display
+                :amount="account.expense_current"
+                :prefix="account.currency.prefix"
+                :suffix="account.currency.suffix"
+                :decimal_places="account.currency.decimal_places"
+                color="red"></c-amount.display>
+            {% if account.exchanged and account.exchanged.expense_current %}
+              <c-amount.display
+                  :amount="account.exchanged.expense_current"
+                  :prefix="account.exchanged.currency.prefix"
+                  :suffix="account.exchanged.currency.suffix"
+                  :decimal_places="account.exchanged.currency.decimal_places"
+                  color="gray"></c-amount.display>
+            {% endif %}
+          {% else %}
+            <span class="font-semibold">-</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="card-data-row">
+        <span class="card-data-label">{% translate 'current total' %}</span>
+        <div class="card-data-values">
+          <c-amount.display
+              :amount="account.total_current"
+              :prefix="account.currency.prefix"
+              :suffix="account.currency.suffix"
+              :decimal_places="account.currency.decimal_places"
+              color="{% if account.total_current > 0 %}green{% elif account.total_current < 0 %}red{% endif %}"></c-amount.display>
+          {% if account.exchanged and account.exchanged.total_current %}
+            <c-amount.display
+                :amount="account.exchanged.total_current"
+                :prefix="account.exchanged.currency.prefix"
+                :suffix="account.exchanged.currency.suffix"
+                :decimal_places="account.exchanged.currency.decimal_places"
+                color="gray"></c-amount.display>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <hr class="card-data-divider" />
+    <div class="card-data-section">
+      <div class="card-data-row">
+        <span class="card-data-label">{% translate 'final total' %}</span>
+        <div class="card-data-values">
           <c-amount.display
               :amount="account.total_final"
               :prefix="account.currency.prefix"
               :suffix="account.currency.suffix"
               :decimal_places="account.currency.decimal_places"
               color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
+          {% if account.exchanged and account.exchanged.total_final %}
+            <c-amount.display
+                :amount="account.exchanged.total_final"
+                :prefix="account.exchanged.currency.prefix"
+                :suffix="account.exchanged.currency.suffix"
+                :decimal_places="account.exchanged.currency.decimal_places"
+                color="gray"></c-amount.display>
+          {% endif %}
         </div>
       </div>
-      {% if account.exchanged and account.exchanged.total_final %}
-        <div class="text-end">
-          <c-amount.display
-              :amount="account.exchanged.total_final"
-              :prefix="account.exchanged.currency.prefix"
-              :suffix="account.exchanged.currency.suffix"
-              :decimal_places="account.exchanged.currency.decimal_places"
-              color="gray"></c-amount.display>
-        </div>
-      {% endif %}
     </div>
     {% with p=percentages|get_dict_item:account_id %}
       <div class="my-3">

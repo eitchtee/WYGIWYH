@@ -11,13 +11,22 @@
       set elements to <.amount/> in me
       for el in elements
         set el.textContent to el.dataset.originalValue
+        set el.innerHTML to `<span>${el.dataset.originalSign}</span><span>${el.dataset.originalPrefix}</span><span>${el.dataset.originalAmount}</span><span>${el.dataset.originalSuffix}</span>`
       end
     end
 
-    on click[target matches .amount] if I include #settings-hide-amounts
-      if event.target do not matches .revealed then set event.target.textContent to event.target.dataset.originalValue
-      else set event.target.textContent to '•••••••••••' end
-      then toggle .revealed on event.target
+    on click[target matches .amount or target.parentNode matches .amount] if I include #settings-hide-amounts
+      if event.target matches .amount
+        set el to event.target
+      else
+        set el to event.target.parentNode
+      end
+
+      if el do not matches .revealed
+        then set el.innerHTML to `<span>${el.dataset.originalSign}</span><span>${el.dataset.originalPrefix}</span><span>${el.dataset.originalAmount}</span><span>${el.dataset.originalSuffix}</span>`
+      else
+        set el.textContent to '•••••••••••' end
+      then toggle .revealed on el
     end
   end
 </script>

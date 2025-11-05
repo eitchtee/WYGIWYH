@@ -3,56 +3,58 @@
 <div hx-get="{% url 'category_overview' %}" hx-trigger="updated from:window" class="show-loading" hx-swap="outerHTML"
      hx-include="#picker-form, #picker-type, #view-type, #show-tags, #showing, #show-entities">
   <div class="h-full text-center mb-4">
-    <div class="join" role="group" id="view-type" _="on change trigger updated">
-      <input type="radio" class="join-item btn btn-outline btn-primary rounded-full"
-             name="view_type"
-             id="table-view"
-             autocomplete="off"
-             value="table"
-             aria-label="{% trans 'Table' %}"
-             {% if view_type == "table" %}checked{% endif %}>
-
-      <input type="radio"
-             class="join-item btn btn-outline btn-primary rounded-full"
-             name="view_type"
-             id="bars-view"
-             autocomplete="off"
-             value="bars"
-             aria-label="{% trans 'Bars' %}"
-             {% if view_type == "bars" %}checked{% endif %}>
+    <div class="tabs tabs-box mx-auto w-fit" role="group" id="view-type" _="on change trigger updated">
+      <label class="tab">
+        <input type="radio"
+              name="view_type"
+              id="table-view"
+              autocomplete="off"
+              value="table"
+              aria-label="{% trans 'Table' %}"
+              {% if view_type == "table" %}checked{% endif %}>
+              <i class="fa-solid fa-table fa-fw me-2"></i>
+              {% trans 'Table' %}
+      </label>
+      <label class="tab">
+        <input type="radio"
+              name="view_type"
+              id="bars-view"
+              autocomplete="off"
+              value="bars"
+              aria-label="{% trans 'Bars' %}"
+              {% if view_type == "bars" %}checked{% endif %}>
+              <i class="fa-solid fa-chart-bar fa-fw me-2"></i>
+              {% trans 'Bars' %}
+      </label>
     </div>
   </div>
-  <div class="mt-3 mb-1 flex flex-col md:flex-row justify-between">
+  <div class="my-3 flex flex-col gap-3 md:flex-row justify-between">
     <div class="flex gap-4">
       {% if view_type == 'table' %}
-        <div class="form-control" id="show-tags">
-          <input type="hidden" name="show_tags" value="off">
-          <label class="label cursor-pointer gap-2">
-            <input type="checkbox" class="toggle" id="show-tags-switch" name="show_tags"
+        <div id="show-tags">
+          <label class="label">
+            <input type="hidden" name="show_tags" value="off">
+            <input type="checkbox" class="toggle toggle-primary toggle-sm" id="show-tags-switch" name="show_tags"
                    _="on change trigger updated" {% if show_tags %}checked{% endif %}>
-            {% spaceless %}
-              <span class="label-text">
+            <span>
                 {% trans 'Tags' %}
-              </span>
-              <c-ui.help-icon
-                  content="{% trans 'Transaction amounts associated with multiple tags will be counted once for each tag' %}"
-                  icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
-            {% endspaceless %}
+            </span>
+            <c-ui.help-icon
+                content="{% trans 'Transaction amounts associated with multiple tags will be counted once for each tag' %}"
+                icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
           </label>
         </div>
-        <div class="form-control" id="show-entities" {% if not show_tags %}style="display: none;"{% endif %}>
-          <input type="hidden" name="show_entities" value="off">
-          <label class="label cursor-pointer gap-2">
-            <input type="checkbox" class="toggle" id="show-entities-switch" name="show_entities"
+        <div id="show-entities" class="{% if not show_tags %}hidden{% endif %}">
+          <label class="label">
+            <input type="hidden" name="show_entities" value="off">
+            <input type="checkbox" class="toggle toggle-primary toggle-sm" id="show-entities-switch" name="show_entities"
                    _="on change trigger updated" {% if show_entities %}checked{% endif %}>
-            {% spaceless %}
-              <span class="label-text">
+            <span>
                 {% trans 'Entities' %}
-              </span>
-              <c-ui.help-icon
-                  content="{% trans 'Transaction amounts associated with multiple tags and entities will be counted once for each tag' %}"
-                  icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
-            {% endspaceless %}
+            </span>
+            <c-ui.help-icon
+                content="{% trans 'Transaction amounts associated with multiple tags will be counted once for each tag' %}"
+                icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
           </label>
         </div>
       {% endif %}
@@ -70,8 +72,10 @@
   </div>
   {% if total_table %}
     {% if view_type == "table" %}
-      <div class="overflow-x-auto">
-        <table class="table table-zebra">
+      <div class="card bg-base-100 card-border">
+        <c-config.search></c-config.search>
+        <div class="overflow-x-auto">
+        <table class="table">
           <thead>
           <tr>
             <th scope="col">{% trans 'Category' %}</th>
@@ -176,7 +180,7 @@
               {% for tag_id, tag in category.tags.items %}
                 {% if tag.name or not tag.name and category.tags.values|length > 1 %}
                   <tr class="bg-base-200">
-                    <td class="ps-4">
+                    <td class="ps-6">
                       <i class="fa-solid fa-hashtag fa-fw me-2 text-base-content/60"></i>{% if tag.name %}{{ tag.name }}{% else %}{% trans 'Untagged' %}{% endif %}
                     </td>
                     <td>
@@ -269,7 +273,7 @@
                     {% for entity_id, entity in tag.entities.items %}
                       {% if entity.name or not entity.name and tag.entities.values|length > 1 %}
                         <tr class="bg-base-300">
-                          <td class="ps-5">
+                          <td class="ps-10">
                             <i class="fa-solid fa-user-group fa-fw me-2 text-base-content/60"></i>{% if entity.name %}{{ entity.name }}{% else %}{% trans 'No entity' %}{% endif %}
                           </td>
                           <td>
@@ -366,13 +370,16 @@
           {% endfor %}
           </tbody>
         </table>
+        </div>
       </div>
 
 
     {% elif view_type == "bars" %}
-      <div>
-        <div class="chart-container relative h-[78vh] w-full" _="init call setupChart() end">
-          <canvas id="categoryChart"></canvas>
+      <div class="card bg-base-100 card-border">
+        <div class="card-body">
+          <div class="chart-container relative h-[75vh] w-full" _="init call setupChart() end">
+            <canvas id="categoryChart"></canvas>
+          </div>
         </div>
       </div>
 

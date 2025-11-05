@@ -47,7 +47,7 @@
          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
       {% include 'includes/mobile_navbar.html' %}
       {% include 'includes/sidebar.html' %}
-      <main class="my-4 px-3">
+      <main class="my-8 px-3">
         {% settings "DEMO" as demo_mode %}
         {% if demo_mode %}
           <div class="px-3 m-0" id="demo-mode-alert" hx-preserve>

@@ -80,7 +80,7 @@
                 data-tippy-content="{% translate 'Duplicate' %}">
           <i class="fa-solid fa-clone fa-fw"></i>
         </button>
-        <button class="btn btn-secondary btn-sm"
+        <button class="btn btn-error btn-sm"
                 hx-get="{% url 'transactions_bulk_delete' %}"
                 hx-include=".transaction"
                 hx-trigger="confirmed"
@@ -90,7 +90,7 @@
                 data-text="{% translate "You won't be able to revert this!" %}"
                 data-confirm-text="{% translate "Yes, delete them!" %}"
                 _="install prompt_swal">
-          <i class="fa-solid fa-trash text-error"></i>
+          <i class="fa-solid fa-trash"></i>
         </button>
         <div class="divider divider-horizontal m-0"></div>
         <div class="join"
@@ -139,7 +139,7 @@
                       wait 1s
                       put original_value into #real-total-front's innerText
                     end">
-            <i class="fa-solid fa-plus fa-fw me-md-2 text-primary"></i>
+            <i class="fa-solid fa-plus fa-fw me-md-2"></i>
             <span class="hidden md:inline-block" id="real-total-front">0</span>
           </button>
           <div class="dropdown dropdown-end dropdown-top">
@@ -147,7 +147,7 @@
               <i class="fa-solid fa-chevron-down fa-xs"></i>
             </button>
 
-            <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box z-[1] w-full shadow fixed!">
+            <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box w-full shadow fixed! flex flex-col gap-1">
               <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-flat-total's innerText
@@ -156,13 +156,12 @@
                         wait 1s
                         put original_value into #calc-menu-flat-total
                       end">
-                <div class="p-0">
+                <div class="py-1 px-3">
                   <div>
-                    <div class="text-base-content/60 text-xs font-medium px-3">
+                    <div class="text-base-content/60 text-xs font-medium">
                       {% trans "Flat Total" %}
                     </div>
-                    <div class="px-3"
-                        id="calc-menu-flat-total">
+                    <div id="calc-menu-flat-total">
                       0
                     </div>
                   </div>
@@ -176,13 +175,12 @@
                         wait 1s
                         put original_value into #calc-menu-real-total
                       end">
-                <div class="p-0">
+                <div class="py-1 px-3">
                   <div>
-                    <div class="text-base-content/60 text-xs font-medium px-3">
+                    <div class="text-base-content/60 text-xs font-medium">
                       {% trans "Real Total" %}
                     </div>
-                    <div class="px-3"
-                        id="calc-menu-real-total">
+                    <div id="calc-menu-real-total">
                       0
                     </div>
                   </div>
@@ -196,13 +194,12 @@
                         wait 1s
                         put original_value into #calc-menu-mean
                       end">
-                <div class="p-0">
+                <div class="p-1 px-3">
                   <div>
-                    <div class="text-base-content/60 text-xs font-medium px-3">
+                    <div class="text-base-content/60 text-xs font-medium">
                       {% trans "Mean" %}
                     </div>
-                    <div class="px-3"
-                        id="calc-menu-mean">
+                    <div id="calc-menu-mean">
                       0
                     </div>
                   </div>
@@ -216,13 +213,12 @@
                         wait 1s
                         put original_value into #calc-menu-max
                       end">
-                <div class="p-0">
+                <div class="py-1 px-3">
                   <div>
-                    <div class="text-base-content/60 text-xs font-medium px-3">
+                    <div class="text-base-content/60 text-xs font-medium">
                       {% trans "Max" %}
                     </div>
-                    <div class="px-3"
-                        id="calc-menu-max">
+                    <div id="calc-menu-max">
                       0
                     </div>
                   </div>
@@ -236,13 +232,12 @@
                         wait 1s
                         put original_value into #calc-menu-min
                       end">
-                <div class="p-0">
+                <div class="py-1 px-3">
                   <div>
-                    <div class="text-base-content/60 text-xs font-medium px-3">
+                    <div class="text-base-content/60 text-xs font-medium">
                       {% trans "Min" %}
                     </div>
-                    <div class="px-3"
-                        id="calc-menu-min">
+                    <div id="calc-menu-min">
                       0
                     </div>
                   </div>
@@ -256,13 +251,12 @@
                         wait 1s
                         put original_value into #calc-menu-count
                       end">
-                <div class="p-0">
+                <div class="py-1 px-3">
                   <div>
-                    <div class="text-base-content/60 text-xs font-medium px-3">
+                    <div class="text-base-content/60 text-xs font-medium">
                       {% trans "Count" %}
                     </div>
-                    <div class="px-3"
-                        id="calc-menu-count">
+                    <div id="calc-menu-count">
                       0
                     </div>
                   </div>

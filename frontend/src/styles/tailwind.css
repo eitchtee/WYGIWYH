@@ -139,24 +139,46 @@
     }
 
     .text-exchange-rate {
-        @apply text-base-content/60;
+        @apply text-base-content/60 text-xs;
     }
 
     .text-subtle {
         @apply text-base-content/80;
+    }
+
+    /* Card Data Display Styles */
+    .card-data-section {
+        @apply space-y-1;
+    }
+
+    .card-data-row {
+        @apply flex justify-between py-1 px-3 rounded-lg transition-colors duration-150 hover:bg-base-200/50 items-center;
+    }
+
+    .card-data-label {
+        @apply text-base-content/80; /* .text-subtle */
+        @apply text-sm font-medium;
+    }
+
+    .card-data-values {
+        @apply flex flex-col items-end gap-0.5;
+    }
+
+    .card-data-divider {
+        @apply text-base-content/60; /* .hr */
+        @apply my-3;
     }
 }
 
 
 @layer components {
     .fab {
-    @layer daisyui.component {
-        > :nth-child(n+7) {
-            transition-delay: 150ms;
+        @layer daisyui.component {
+            > :nth-child(n+7) {
+                transition-delay: 150ms;
+            }
         }
-
-  }
-}
+    }
 
     /* === Sidebar styles === */
     .sidebar-active {
@@ -173,7 +195,7 @@
 
     .sidebar-floating {
         /* Establishes the hover group and sets the collapsed/hover widths for the container */
-        @apply lg:w-16 lg:hover:w-112;
+        @apply lg:w-16 lg:hover:w-md;
     }
 
     .sidebar-floating #sidebar {

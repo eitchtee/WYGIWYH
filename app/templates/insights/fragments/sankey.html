@@ -7,7 +7,7 @@
   <div class="show-loading" hx-get="{% url 'insights_sankey_by_currency' %}" hx-trigger="updated from:window"
        hx-swap="outerHTML" hx-include="#picker-form, #picker-type">
 {% endif %}
-<div class="chart-container relative min-h-[85vh] max-h-[85vh] h-full w-full"
+<div class="card bg-base-100 card-border chart-container relative min-h-[85vh] max-h-[85vh] h-full w-full"
      id="sankeyContainer"
      _="init call setupSankeyChart() end">
   <canvas id="sankeyChart"></canvas>
@@ -15,7 +15,14 @@
 </div>
 
 <script>
+    var style = getComputedStyle(document.body);
+    var incomeColor = style.getPropertyValue('--color-success');
+    var expenseColor = style.getPropertyValue('--color-error');
+    var primaryColor = style.getPropertyValue('--color-primary');
+    var contentColor = style.getPropertyValue('--color-base-content');
+    console.log('Sankey colors:', incomeColor, expenseColor, primaryColor, contentColor);
     var data = {{ sankey_data|safe }};
+    console.log(convertColorToRgba(incomeColor))
 
     function setupSankeyChart(chartId = 'sankeyChart') {
         function formatCurrency(value, currency) {
@@ -35,11 +42,11 @@
         const colors = {};
         data.nodes.forEach(node => {
             if (node.id.startsWith('income_')) {
-                colors[node.id] = '#4dde80';  // Green for income
+                colors[node.id] = convertColorToRgba(incomeColor);  // Green for income
             } else if (node.id.startsWith('expense_')) {
-                colors[node.id] = '#f87171';  // Red for expenses
+                colors[node.id] = convertColorToRgba(expenseColor);  // Red for expenses
             } else {
-                colors[node.id] = '#fbb700';  // Primary for others
+                colors[node.id] = convertColorToRgba(primaryColor);  // Primary for others
             }
         });
 
@@ -63,7 +70,7 @@
                 colorMode: 'gradient',
                 alpha: 0.5,
                 size: 'max',
-                color: "white",
+                color: contentColor,
                 nodePadding: 30,
                 priority: data.nodes.reduce((acc, node) => {
                     acc[node.id] = node.priority;

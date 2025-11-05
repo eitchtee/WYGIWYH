@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="h-full text-center mb-4 pt-2 w-full">
+  <div class="h-full text-center mb-4 w-full">
     <div role="tablist" class="tabs tabs-box mx-auto w-fit">
       <a href="{% url 'yearly_overview_currency' year=year %}" class="tab {% if type == 'currency' %}tab-active{% endif %}" hx-boost>
         <i class="fa-solid fa-solid fa-coins fa-fw me-2"></i>{% trans 'Currency' %}
