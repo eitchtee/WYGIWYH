@@ -5,7 +5,7 @@
 @use "sass:map";
 
 // Variables
-$offcanvas-z-index: 1045 !default;
+$offcanvas-z-index: 1090 !default;
 $offcanvas-backdrop-z-index: 1040 !default;
 $offcanvas-width: 400px !default;
 $offcanvas-height: 30vh !default;
@@ -67,8 +67,8 @@ $breakpoints: (
     --offcanvas-padding-y: #{$offcanvas-padding};
     --offcanvas-color: var(--color-base-content);
     --offcanvas-bg: var(--color-base-300);
-    --offcanvas-border-width: 1px;
-    --offcanvas-border-color: var(--color-base-300);
+    --offcanvas-border-width: var(--border);
+    --offcanvas-border-color: var(--color-base-100);
     --offcanvas-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     --offcanvas-transition: transform #{$offcanvas-transition-duration} ease-in-out;
     --offcanvas-title-line-height: 1.5;

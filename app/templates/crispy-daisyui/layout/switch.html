@@ -3,15 +3,19 @@
 {% if field.is_hidden %}
     {{ field }}
 {% else %}
-    <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="form-control{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
-        <label class="label cursor-pointer justify-start gap-2">
-            <span class="label-text">{{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}</span>
+    <{% if tag %}{{ tag }}{% else %}fieldset{% endif %} id="div_{{ field.auto_id }}" class="fieldset mt-2 {% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+        <label class="label flex flex-row gap-3">
+            <div>
             {% if field.errors %}
-                {% crispy_field field 'class' 'toggle toggle-error' 'role' 'switch' %}
+                {% crispy_field field 'class' 'toggle toggle-error toggle-sm' %}
             {% else %}
-                {% crispy_field field 'class' 'toggle' 'role' 'switch' %}
+                {% crispy_field field 'class' 'toggle toggle-sm' %}
             {% endif %}
+            </div>
+            <div>
+            {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+            {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
+            </div>
         </label>
-        {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
-    </{% if tag %}{{ tag }}{% else %}div{% endif %}>
+    </{% if tag %}{{ tag }}{% else %}fieldset{% endif %}>
 {% endif %}

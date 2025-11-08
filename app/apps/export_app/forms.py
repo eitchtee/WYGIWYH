@@ -1,10 +1,9 @@
+from apps.common.widgets.crispy.submit import NoClassSubmit
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, HTML
+from crispy_forms.layout import HTML, Layout
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
-from apps.common.widgets.crispy.submit import NoClassSubmit
 
 
 class ExportForm(forms.Form):
@@ -115,9 +114,7 @@ class ExportForm(forms.Form):
             "dca",
             "import_profiles",
             FormActions(
-                NoClassSubmit(
-                    "submit", _("Export"), css_class="btn btn-outline-primary w-100"
-                ),
+                NoClassSubmit("submit", _("Export"), css_class="btn btn-primary"),
             ),
         )
 
@@ -181,9 +178,7 @@ class RestoreForm(forms.Form):
             "dca_entries",
             "import_profiles",
             FormActions(
-                NoClassSubmit(
-                    "submit", _("Restore"), css_class="btn btn-outline-primary w-100"
-                ),
+                NoClassSubmit("submit", _("Restore"), css_class="btn btn-primary"),
             ),
         )
 

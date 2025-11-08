@@ -5,12 +5,45 @@
 {% block title %}{% translate 'Transactions' %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 column-gap-5 overflow-x-hidden">
-    <div class="flex flex-wrap gap-x-xl-4 gap-y-3">
-      <div class="w-full xl:w-8/12 order-2 xl:order-1">
-        <div class="mb-3">
+  <div class="container gap-y-3">
+    <div class="row gap-y-3">
+      <div class="col-12 lg:col-4 lg:order-last! order-first!">
+        <div role="tablist" class="tabs tabs-border">
+          <input type="radio" name="all-transactions-summary" class="tab" aria-label="{% trans 'Currencies' %}"
+                 role="tab"
+                 {% if summary_tab == 'currency' %}checked="checked"{% endif %}
+                 _="on click fetch {% url 'transaction_all_summary_select' selected='currency' %}"
+                 aria-controls="currency-tab-pane" />
+          <div class="tab-content" id="currency-tab-pane" role="tabpanel">
+            <div id="currency-summary"
+                 hx-get="{% url 'transaction_all_currency_summary' %}"
+                 class="show-loading"
+                 hx-trigger="load, selective_update from:window, updated from:window, change from:#filter, submit from:#filter, search from:#filter"
+                 hx-include="#filter">
+            </div>
+          </div>
+
+          <input type="radio" name="all-transactions-summary" class="tab" aria-label="{% trans 'Accounts' %}"
+                 role="tab"
+                 {% if summary_tab == 'account' %}checked="checked"{% endif %}
+                 _="on click fetch {% url 'transaction_all_summary_select' selected='account' %}"
+                 aria-controls="account-tab-pane" />
+          <div class="tab-content" id="account-tab-pane" role="tabpanel">
+            <div id="account-summary"
+                 hx-get="{% url 'transaction_all_account_summary' %}"
+                 class="show-loading"
+                 hx-trigger="load, selective_update from:window, updated from:window, change from:#filter, submit from:#filter, search from:#filter"
+                 hx-include="#filter">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-12 lg:col-8 lg:order-first! order-last!">
+
+        <div>
           {# Hidden select to hold the order value and preserve the original update trigger #}
-          <select name="order" id="order" class="hidden" _="on change trigger updated on window">
+          <select name="order" id="order" class="d-none" _="on change trigger updated on window">
             <option value="default" {% if order == 'default' %}selected{% endif %}>{% translate 'Default' %}</option>
             <option value="older" {% if order == 'older' %}selected{% endif %}>{% translate 'Oldest first' %}</option>
             <option value="newer" {% if order == 'newer' %}selected{% endif %}>{% translate 'Newest first' %}</option>
@@ -19,7 +52,7 @@
           {# Main control bar with filter, search, and ordering #}
           <div class="join w-full">
 
-            <button class="btn btn-secondary join-item" type="button"
+            <button class="btn btn-secondary join-item relative" type="button"
                     data-bs-toggle="collapse" data-bs-target="#collapse-filter"
                     aria-expanded="false" aria-controls="collapse-filter" id="filter-button" hx-preserve
                     title="{% translate 'Filter transactions' %}">
@@ -27,10 +60,10 @@
             </button>
 
             {# Search box #}
-            <label for="quick-search" class="join-item flex-grow">
+            <label for="quick-search" class="hidden">
             </label>
             <input type="search"
-                   class="input input-bordered join-item flex-grow"
+                   class="input input-bordered join-item flex-1"
                    placeholder="{% translate 'Search' %}"
                    hx-preserve
                    id="quick-search"
@@ -46,34 +79,33 @@
 
             {# Order by icon dropdown #}
             <div class="dropdown dropdown-end">
-              <button class="btn btn-secondary join-item" type="button"
-                      tabindex="0" role="button"
+              <button tabindex="0" class="btn btn-secondary join-item" type="button"
                       title="{% translate 'Order by' %}">
                 <i class="fa-solid fa-sort fa-fw"></i>
               </button>
-              <ul class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow" tabindex="0">
+              <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box z-1 w-62 p-2 shadow-md mt-1">
                 <li>
-                  <button class="{% if order == 'default' %}active{% endif %}" type="button"
-                          _="on click remove .active from <button/> in the closest <ul/>
-                             then add .active to me
+                  <button class="{% if order == 'default' %}menu-active{% endif %}" type="button"
+                          _="on click remove .menu-active from <li > button/> in the closest <ul/>
+                             then add .menu-active to me
                              then set the value of #order to 'default'
                              then trigger change on #order">
                     {% translate 'Default' %}
                   </button>
                 </li>
                 <li>
-                  <button class="{% if order == 'older' %}active{% endif %}" type="button"
-                          _="on click remove .active from <button/> in the closest <ul/>
-                             then add .active to me
+                  <button class="{% if order == 'older' %}menu-active{% endif %}" type="button"
+                          _="on click remove .menu-active from <li > button/> in the closest <ul/>
+                             then add .menu-active to me
                              then set the value of #order to 'older'
                              then trigger change on #order">
                     {% translate 'Oldest first' %}
                   </button>
                 </li>
                 <li>
-                  <button class="{% if order == 'newer' %}active{% endif %}" type="button"
-                          _="on click remove .active from <button/> in the closest <ul/>
-                             then add .active to me
+                  <button class="{% if order == 'newer' %}menu-active{% endif %}" type="button"
+                          _="on click remove .menu-active from <li > button/> in the closest <ul/>
+                             then add .menu-active to me
                              then set the value of #order to 'newer'
                              then trigger change on #order">
                     {% translate 'Newest first' %}
@@ -84,9 +116,9 @@
           </div>
 
           {# Filter transactions form #}
-          <div class="collapse" id="collapse-filter" hx-preserve>
-            <div class="card card-body bg-base-100 shadow-xl">
-              <div class="text-end">
+          <div class="bs collapse overflow-visible" id="collapse-filter" hx-preserve>
+            <div class="card card-body bg-base-200 mt-2">
+              <div class="text-right">
                 <button class="btn btn-outline btn-error btn-sm w-fit"
                         _="on click call #filter.reset() then trigger change on #filter">{% translate 'Clear' %}</button>
               </div>
@@ -98,44 +130,18 @@
                 {% crispy filter.form %}
               </form>
 
-              <div class="text-end">
+              <div class="text-right">
                 <button class="btn btn-outline btn-error btn-sm w-fit"
                         _="on click call #filter.reset() then trigger change on #filter">{% translate 'Clear' %}</button>
               </div>
             </div>
           </div>
         </div>
+        {#      Transactions list#}
         <div id="transactions"
              class="show-loading"
              hx-get="{% url 'transactions_all_list' %}"
              hx-trigger="load, updated from:window" hx-include="#filter, #page, #order">
-        </div>
-      </div>
-      <div class="w-full xl:w-4/12 order-1 xl:order-2">
-        <div role="tablist" class="tabs tabs-lifted">
-          <input type="radio" name="all-transactions-summary" role="tab" class="tab" aria-label="{% trans 'Currencies' %}"
-                 {% if summary_tab == 'currency' %}checked="checked"{% endif %}
-                 _="on change fetch {% url 'transaction_all_summary_select' selected='currency' %}" />
-          <div role="tabpanel" class="tab-content border-base-300 rounded-box p-6">
-            <div id="currency-summary"
-                 hx-get="{% url 'transaction_all_currency_summary' %}"
-                 class="show-loading"
-                 hx-trigger="load, selective_update from:window, updated from:window, change from:#filter, submit from:#filter, search from:#filter"
-                 hx-include="#filter">
-            </div>
-          </div>
-
-          <input type="radio" name="all-transactions-summary" role="tab" class="tab" aria-label="{% trans 'Accounts' %}"
-                 {% if summary_tab == 'account' %}checked="checked"{% endif %}
-                 _="on change fetch {% url 'transaction_all_summary_select' selected='account' %}" />
-          <div role="tabpanel" class="tab-content border-base-300 rounded-box p-6">
-            <div id="account-summary"
-                 hx-get="{% url 'transaction_all_account_summary' %}"
-                 class="show-loading"
-                 hx-trigger="load, selective_update from:window, updated from:window, change from:#filter, submit from:#filter, search from:#filter"
-                 hx-include="#filter">
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -14,7 +14,8 @@ function initiateTooltips() {
     }
 
     tippy('[data-tippy-content]', {
-        theme: theme
+        theme: theme,
+        zIndex: 1050,
     });
 }
 

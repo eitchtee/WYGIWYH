@@ -23,7 +23,7 @@
         <div class="font-bold text-md ms-2" id="selected-count">0</div>
         <div class="divider divider-horizontal m-0"></div>
         <div class="dropdown dropdown-top dropdown-end">
-          <button tabindex="0" role="button" class="btn btn-secondary btn-sm" type="button">
+          <button tabindex="0" role="button" class="btn btn-secondary btn-soft btn-sm" type="button">
             <i class="fa-regular fa-square-check fa-fw"></i>
             <i class="fa-solid fa-chevron-down fa-xs"></i>
           </button>
@@ -44,7 +44,7 @@
         </div>
         <div class="divider divider-horizontal m-0"></div>
         <div class="join">
-          <button class="btn btn-secondary join-item btn-sm"
+          <button class="btn btn-secondary btn-soft join-item btn-sm"
                   hx-get="{% url 'transactions_bulk_edit' %}"
                   hx-target="#generic-offcanvas"
                   hx-include=".transaction"

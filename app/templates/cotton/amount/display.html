@@ -5,7 +5,15 @@
 {% if not divless %}
 <div class="{% if text_end %}text-end{% elif text_start %}text-start{% endif %}">
 {% endif %}
-  <span class="amount{% if color == 'grey' or color == "gray" %} text-exchange-rate{% elif color == 'green' %} text-income {% elif color == 'red' %} text-expense{% endif %} font-medium {{ custom_class }}"
+  <span class="amount
+                {% if color == 'grey' or color == "gray" %} text-exchange-rate 
+                {% elif color == 'green' %} text-income {% elif color == 'red' %} text-expense 
+                {% elif color == 'auto' %} 
+                {% if amount > 0 %} text-income 
+                {% elif amount < 0 %} text-expense 
+                {% else %} text-base-content {% endif %} 
+                {% endif %} 
+              font-medium {{ custom_class }}"
        data-original-sign="{{ formatted_amount.sign }}"
        data-original-prefix="{{ formatted_amount.prefix }}"
        data-original-amount="{{ formatted_amount.amount }}"

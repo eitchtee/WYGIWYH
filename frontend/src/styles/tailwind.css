@@ -96,7 +96,7 @@
         background-color: oklch(from var(--color-primary) l c h / 15%);
     }
 
-    
+
     .bg-root {
         background-color: var(--root-bg) !important;
     }
@@ -208,22 +208,9 @@
         @apply lg:ml-16 transition-all duration-100;
     }
 
-    .sidebar-floating .sidebar-item {
-        /* Maintains consistent height when collapsed */
-        @apply lg:min-h-[2.3rem];
-    }
-
-    .sidebar-floating .sidebar-item i {
-        /* Centers icon when collapsed by adding auto margins */
-        @apply lg:mx-auto lg:group-hover:mx-0;
-    }
-
-    .sidebar-floating .sidebar-item span,
-    .sidebar-floating .sidebar-item i:not(:first-child) {
+    .sidebar-floating .sidebar-item span {
         /* Hides the text labels and reveals them only on hover */
         @apply lg:invisible lg:group-hover:visible;
-        /* Position absolute to remove from layout when invisible */
-        @apply lg:absolute lg:group-hover:static;
     }
 
     .htmx-swapping .sidebar-floating,
@@ -280,8 +267,6 @@
         @apply text-wrap lg:text-nowrap ;
     }
 
-
-    /* --- STATE 2: Fixed (Permanently Expanded) --- */
     .sidebar-fixed {
         /* Sets the fixed, expanded width for the container */
         @apply lg:w-[17%] transition-all duration-100;

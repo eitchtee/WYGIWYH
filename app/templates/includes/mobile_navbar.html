@@ -3,10 +3,10 @@
 {% load static %}
 {% load i18n %}
 {% load active_link %}
-<nav class="navbar border-b border-base-300 bg-base-200 flex lg:hidden" hx-boost="true">
+<nav class="navbar border-b-2 border-base-100 bg-base-200 flex lg:hidden shadow-lg" hx-boost="true">
   <div class="container mx-auto px-4 flex justify-between items-center w-full">
     <a class="text-xl font-bold text-primary" href="{% url 'index' %}">
-      <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="40" width="40" title="WYGIWYH"/>
+      <div class="logo mobile"></div>
     </a>
     <button class="btn btn-ghost lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
             aria-controls="sidebar" aria-label={% translate "Toggle navigation" %}>

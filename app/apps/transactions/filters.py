@@ -160,12 +160,10 @@ class TransactionsFilter(django_filters.FilterSet):
             Row(
                 Column("reference_date_start"),
                 Column("reference_date_end"),
-                css_class="form-row",
             ),
             Row(
                 Column("from_amount"),
                 Column("to_amount"),
-                css_class="form-row",
             ),
             Field("account", size=1),
             Field("currency", size=1),

@@ -1,26 +1,25 @@
+from apps.common.decorators.demo import disabled_on_demo
+from apps.common.decorators.htmx import only_htmx
+from apps.common.decorators.user import htmx_login_required, is_superuser
+from apps.users.forms import (
+    LoginForm,
+    UserAddForm,
+    UserSettingsForm,
+    UserUpdateForm,
+)
+from apps.users.models import UserSettings
 from django.contrib import messages
-from django.contrib.auth import logout, get_user_model
+from django.contrib.auth import get_user_model, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
     LoginView,
 )
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
-
-from apps.common.decorators.htmx import only_htmx
-from apps.common.decorators.user import is_superuser, htmx_login_required
-from apps.users.forms import (
-    LoginForm,
-    UserSettingsForm,
-    UserUpdateForm,
-    UserAddForm,
-)
-from apps.users.models import UserSettings
-from apps.common.decorators.demo import disabled_on_demo
 
 
 def logout_view(request):
@@ -118,6 +117,7 @@ def update_settings(request):
 
 @only_htmx
 @htmx_login_required
+@require_http_methods(["GET"])
 def toggle_sidebar_status(request):
     if not request.session.get("sidebar_status"):
         request.session["sidebar_status"] = "floating"
@@ -128,6 +128,24 @@ def toggle_sidebar_status(request):
         request.session["sidebar_status"] = "floating"
     else:
         request.session["sidebar_status"] = "fixed"
+
+    return HttpResponse(
+        status=204,
+    )
+
+
+@htmx_login_required
+@require_http_methods(["GET"])
+def toggle_theme(request):
+    if not request.session.get("theme"):
+        request.session["theme"] = "wygiwyh_dark"
+
+    if request.session["theme"] == "wygiwyh_dark":
+        request.session["theme"] = "wygiwyh_light"
+    elif request.session["theme"] == "wygiwyh_light":
+        request.session["theme"] = "wygiwyh_dark"
+    else:
+        request.session["theme"] = "wygiwyh_dark"
 
     return HttpResponse(
         status=204,

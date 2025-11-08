@@ -38,7 +38,7 @@ htmx.defineExtension('htmx-download', {
                 const mimetype = headers['content-type'] || 'application/octet-stream';
 
                 // Create Blob
-                const blob = new Blob([xhr.response], {type: mimetype});
+                const blob = new Blob([xhr.response], { type: mimetype });
                 const url = URL.createObjectURL(blob);
 
                 // Trigger download

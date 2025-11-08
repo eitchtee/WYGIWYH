@@ -24,14 +24,14 @@ $transition-collapse-width: width 0.35s ease !default;
     }
 }
 
-// Collapse transitions
-.collapse {
+// // Collapse transitions
+.bs.collapse {
     &:not(.show) {
         display: none;
     }
 }
 
-.collapsing {
+.bs.collapsing {
     height: 0;
     overflow: hidden;
     transition: $transition-collapse;

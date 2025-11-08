@@ -12,10 +12,10 @@
       hx-boost="true"
       hx-swap="transition:true"
       data-bs-scroll="true"
-      class="offcanvas-lg offcanvas-start lg:flex flex-col fixed top-0 left-0 h-full bg-base-300! shadow-sm z-[1045]">
-    <div data-theme="wygiwyh_dark" class="hidden lg:flex items-center justify-between pr-4 border-b border-base-content/10 sidebar-submenu-header bg-base-300">
-      <a href="{% url 'index' %}" class="m-0 hidden lg:flex justify-start p-3 no-underline sidebar-title">
-        <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
+      class="offcanvas-lg offcanvas-start lg:flex flex-col fixed top-0 left-0 h-full bg-base-300! border-e-2 border-base-100 lg:group-hover:shadow-[5px_0px_10px_-2px_rgba(0,0,0,0.2)] z-1045">
+    <div class="hidden lg:flex items-center justify-between border-b border-base-content/10 sidebar-submenu-header">
+      <a href="{% url 'index' %}" class="m-0 hidden lg:flex justify-start p-4 no-underline sidebar-title">
+         <div class="logo"></div>
         <span class="text-2xl font-bold ml-3">WYGIWYH</span>
       </a>
 
@@ -37,13 +37,12 @@
 
     <div class="lg:hidden flex justify-between items-center p-4 text-base-content">
       <a href="{% url 'index' %}" class="flex justify-start no-underline">
-        <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="30" width="30" title="WYGIWYH"/>
+        <div class="logo"></div>
         <span class="text-2xl font-bold ml-3">WYGIWYH</span>
       </a>
       <button type="button" class="btn btn-ghost btn-sm btn-circle" data-bs-target="#sidebar" data-bs-dismiss="offcanvas"
               aria-label={% translate 'Close' %}><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <hr class="m-0 hr">
 
     <ul class="list-none p-3 flex flex-col gap-1 whitespace-nowrap lg:group-hover:animate-[disable-pointer-events] overflow-y-auto overflow-x-hidden"
         style="animation-duration: 100ms">
@@ -143,7 +142,7 @@
            data-bs-target="#collapsible-panel"
            aria-expanded="false"
            aria-controls="collapsible-panel"
-           class="sidebar-item text-wrap lg:text-nowrap lg:text-sm flex items-center no-underline p-2 cursor-pointer sidebar-item {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
+           class="lg:text-sm flex items-center no-underline ps-3 p-2 rounded-box sidebar-item cursor-pointer {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
         <i class="fa-solid fa-toolbox fa-fw"></i>
         <span class="ml-3 font-medium lg:group-hover:truncate lg:group-focus:truncate lg:group-hover:text-ellipsis lg:group-focus:text-ellipsis">
           {% translate 'Management' %}
@@ -154,7 +153,7 @@
 
     <div class="mt-auto p-2 w-full">
       <div id="collapsible-panel"
-           class="p-0 collapse absolute bottom-0 left-0 w-full z-30 max-h-dvh {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="show" %}">
+           class="bs collapse p-0 absolute bottom-0 left-0 w-full z-30 max-h-dvh {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="show" %}">
         <div class="h-dvh bg-base-300 flex flex-col">
           <div
               class="justify-between items-center p-4 border-b border-base-content/10 sidebar-submenu-header text-base-content">
@@ -171,7 +170,7 @@
             </button>
           </div>
 
-          <ul class="list-none p-3 flex flex-col gap-2 lg:group-hover:animate-[disable-pointer-events] flex-1 overflow-y-auto overflow-x-hidden"
+          <ul class="list-none p-3 flex flex-col gap-1 whitespace-nowrap lg:group-hover:animate-[disable-pointer-events] overflow-y-auto overflow-x-hidden"
               style="animation-duration: 100ms">
             <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
             <c-components.sidebar-menu-item
@@ -270,10 +269,10 @@
       {% get_update_check as update_check %}
       {% if update_check.update_available %}
         <div class="my-3">
-          <a class="px-3 badge badge-primary no-underline cursor-pointer w-full !text-xs"
+          <a class="btn btn-primary btn-soft btn-sm w-full sidebar-item"
              href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i
-              class="fa-solid fa-circle-exclamation fa-fw mr-2"></i><span
-              class="lg:invisible lg:group-hover:visible">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
+              class="fa-solid fa-circle-exclamation fa-fw lg:group-hover:me-2"></i><span
+              class="lg:hidden lg:group-hover:block">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
         </div>
       {% endif %}
 
@@ -286,19 +285,23 @@
     </div>
 
     <div>
-      <hr class="my-1 border-base-300">
+      <hr class="hr my-1">
       <div
-          class="ps-4 pe-2 py-2 flex items-center no-underline justify-between">
+          class="ps-6 pe-2 py-2 flex items-center no-underline justify-between">
 
         <div class="flex items-center" style="min-width: 0;">
-          <i class="fa-solid fa-circle-user text-base-content/60"></i>
+          <i class="fa-solid fa-circle-user text-subtle"></i>
 
-          <strong class="mx-2 text-base-content/60 truncate sidebar-invisible">
-            {{ user.email }}
+          <strong class="mx-2 text-subtle truncate sidebar-invisible">
+            {% if user.first_name and user.last_name %}
+              {{ user.first_name }} {{ user.last_name }}
+            {% else %}
+              {{ user.email }}
+            {% endif %}
           </strong>
         </div>
 
-        <div class="sidebar-invisible">
+        <div class="sidebar-invisible flex flex-row gap-2">
           {% include 'includes/navbar/user_menu.html' %}
         </div>
 

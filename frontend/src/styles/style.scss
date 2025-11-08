@@ -79,3 +79,29 @@ select {
 div:where(.swal2-container) {
   z-index: 1100 !important;
 }
+
+.logo {
+  /* Set the background-color to DaisyUI CSS variable */
+  background-color: var(--color-primary);
+
+  /* Use SVG file as the mask */
+  mask-image: url('/static/img/logo-icon.svg');
+  -webkit-mask-image: url('/static/img/logo-icon.svg');
+
+  /* Set mask properties to size it correctly */
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+
+  /* Give the element a size */
+  width: 30px;
+  height: 30px;
+
+  &.mobile {
+    width: 40px;
+    height: 40px;
+  }
+}

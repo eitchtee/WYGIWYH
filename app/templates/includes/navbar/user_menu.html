@@ -1,10 +1,28 @@
 {% load settings %}
 {% load i18n %}
+<label class="swap swap-rotate btn btn-secondary btn-sm" data-tippy-content="{% translate 'Toggle theme' %}">
+    <input type="checkbox"
+            _="on load
+                if <html/>'s @data-theme is 'wygiwyh_dark' set my.checked to true end
+              end
+              on change
+                if my.checked set <html/>'s @data-theme to 'wygiwyh_dark'
+                else set <html/>'s @data-theme to 'wygiwyh_light'
+                then fetch {% url 'toggle_theme' %}
+                end
+              end"
+    />
+
+    <i class="fa-regular fa-sun swap-off"></i>
+
+    <i class="fa-regular fa-moon swap-on"></i>
+    </label>
+
 <div class="dropdown dropdown-top dropdown-end">
   <div tabindex="0" role="button" class="btn btn-secondary btn-sm">
     <i class="fa-solid fa-cog"></i>
   </div>
-  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow">
     <li><a
            hx-get="{% url 'user_settings' %}"
            hx-target="#generic-offcanvas"

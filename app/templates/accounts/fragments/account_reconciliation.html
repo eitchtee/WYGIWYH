@@ -11,17 +11,23 @@
         {{ form.management_form }}
         <div class="space-y-2" id="balanceAccordionFlush">
         {% for form in form.forms %}
-          <details class="collapse collapse-arrow bg-base-100 border-base-300 border overflow-visible show">
-            <summary class="collapse-title font-medium text-sm">
-              {% if form.account_group %}<span class="badge badge-primary me-2">{{ form.account_group.name }}</span>{% endif %}{{ form.account_name }}
-            </summary>
-            <div class="collapse-content">
+          <div class="collapse collapse-arrow bg-base-100 border-base-300 border overflow-visible">
+            <input type="checkbox" />
+            <div class="collapse-title font-medium text-sm">
+              {% if form.account_group %}<span class="badge badge-primary badge-outline me-2">{{ form.account_group.name }}</span>{% endif %}{{ form.account_name }}
+            </div>
+            <div class="collapse-content bg-base-200">
               <div class="fieldset">
                 <span class="fieldset-legend">{% translate 'Current balance' %}</span>
                 <div data-amount="{{ form.current_balance|floatformat:"-40u" }}"
                   data-decimal-places="{{ form.currency_decimal_places }}"
                   id="amount-{{ forloop.counter0 }}" class="text-base">
-                  {% currency_display amount=form.current_balance prefix=form.currency_prefix suffix=form.currency_suffix decimal_places=form.currency_decimal_places %}
+                  <c-amount.display
+                    :amount="form.current_balance"
+                    :prefix="form.currency_prefix"
+                    :suffix="form.currency_suffix"
+                    :decimal_places="form.currency_decimal_places"
+                    color="auto"></c-amount.display>
                 </div>
               </div>
               <div>
@@ -52,7 +58,7 @@
                         put '-' into me">-</div>
               </div>
             </div>
-          </details>
+          </div>
         {% endfor %}
         </div>
         <div class="mt-3">
