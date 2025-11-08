@@ -1,7 +1,7 @@
 {% load active_link %}
 <li>
   <a href="{% url url %}"
-     class="lg:text-sm flex items-center no-underline ps-3 p-2 rounded-box sidebar-item {% active_link views=active css_class="sidebar-active" %}"
+     class="text-xs flex items-center no-underline ps-3 p-2 rounded-box sidebar-item {% active_link views=active css_class="sidebar-active" %}"
       {% if tooltip %}
      data-tippy-placement="right"
      data-tippy-content="{{ tooltip }}"
