@@ -26,8 +26,8 @@
           <table class="table table-hover">
             <thead>
             <tr>
-              <th scope="col" class="w-auto"></th>
-              <th scope="col" class="w-auto"></th>
+              <th scope="col" class="table-col-auto"></th>
+              <th scope="col" class="table-col-auto"></th>
               <th scope="col" class="w-auto">{% translate 'Name' %}</th>
               <th scope="col">{% translate 'Service' %}</th>
               <th scope="col">{% translate 'Targeting' %}</th>
@@ -37,7 +37,7 @@
             <tbody>
             {% for service in services %}
               <tr class="services">
-                <td class="w-auto">
+                <td class="table-col-auto">
                   <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                     <a class="btn btn-secondary btn-sm join-item"
                        role="button"
@@ -45,7 +45,7 @@
                        hx-get="{% url 'automatic_exchange_rate_edit' pk=service.id %}"
                        hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-pencil fa-fw"></i></a>
-                    <a class="btn btn-secondary btn-sm join-item text-error"
+                    <a class="btn btn-error btn-sm join-item"
                        role="button"
                        data-tippy-content="{% translate "Delete" %}"
                        hx-delete="{% url 'automatic_exchange_rate_delete' pk=service.id %}"
@@ -57,9 +57,9 @@
                        _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
                   </div>
                 </td>
-                <td class="w-auto">{% if service.is_active %}<i class="fa-solid fa-circle text-success"></i>{% else %}
+                <td class="table-col-auto">{% if service.is_active %}<i class="fa-solid fa-circle text-success"></i>{% else %}
                   <i class="fa-solid fa-circle text-error"></i>{% endif %}</td>
-                <td class="w-auto">{{ service.name }}</td>
+                <td class="table-col-auto">{{ service.name }}</td>
                 <td>{{ service.get_service_type_display }}</td>
                 <td>{{ service.target_currencies.count }} {% trans 'currencies' %}, {{ service.target_accounts.count }} {% trans 'accounts' %}</td>
                 <td>{{ service.last_fetch|date:"SHORT_DATETIME_FORMAT" }}</td>

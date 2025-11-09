@@ -12,7 +12,7 @@
     <table class="table table-hover">
       <thead>
       <tr>
-        <th scope="col" class="w-auto"></th>
+        <th scope="col" class="table-col-auto"></th>
         <th scope="col">{% translate 'Name' %}</th>
         <th scope="col">{% translate 'Muted' %}</th>
       </tr>
@@ -20,7 +20,7 @@
       <tbody>
       {% for category in categories %}
         <tr class="category">
-          <td class="w-auto text-center">
+          <td class="table-col-auto text-center">
             <div class="join" role="group" aria-label="{% translate 'Actions' %}">
               <a class="btn btn-secondary btn-sm join-item"
                  role="button"
@@ -29,7 +29,7 @@
                  hx-get="{% url 'category_edit' category_id=category.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm join-item text-error"
+              <a class="btn btn-error btn-sm join-item"
                  role="button"
                  data-tippy-content="{% translate "Delete" %}"
                  hx-delete="{% url 'category_delete' category_id=category.id %}"

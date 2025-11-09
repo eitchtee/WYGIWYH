@@ -127,36 +127,37 @@
                          when its textContent.toLowerCase() contains my value.toLowerCase()">
 
             {# Order by icon dropdown #}
-            <div class="dropdown dropdown-end">
-              <button tabindex="0" class="btn btn-secondary join-item" type="button"
+            <div>
+              <button class="btn btn-secondary join-item" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false"
                       title="{% translate 'Order by' %}">
                 <i class="fa-solid fa-sort fa-fw"></i>
               </button>
-              <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box z-1 w-62 p-2 shadow-md mt-1">
+              <ul class="dropdown-menu dropdown-menu-end menu w-max relative">
                 <li>
                   <button class="{% if order == 'default' %}menu-active{% endif %}" type="button"
                           _="on click remove .menu-active from <li > button/> in the closest <ul/>
-                           then add .menu-active to me
-                           then set the value of #order to 'default'
-                           then trigger change on #order">
+                            then add .menu-active to me
+                            then set the value of #order to 'default'
+                            then trigger change on #order">
                     {% translate 'Default' %}
                   </button>
                 </li>
                 <li>
                   <button class="{% if order == 'older' %}menu-active{% endif %}" type="button"
                           _="on click remove .menu-active from <li > button/> in the closest <ul/>
-                           then add .menu-active to me
-                           then set the value of #order to 'older'
-                           then trigger change on #order">
+                            then add .menu-active to me
+                            then set the value of #order to 'older'
+                            then trigger change on #order">
                     {% translate 'Oldest first' %}
                   </button>
                 </li>
                 <li>
                   <button class="{% if order == 'newer' %}menu-active{% endif %}" type="button"
                           _="on click remove .menu-active from <li > button/> in the closest <ul/>
-                           then add .menu-active to me
-                           then set the value of #order to 'newer'
-                           then trigger change on #order">
+                            then add .menu-active to me
+                            then set the value of #order to 'newer'
+                            then trigger change on #order">
                     {% translate 'Newest first' %}
                   </button>
                 </li>

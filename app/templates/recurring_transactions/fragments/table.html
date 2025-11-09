@@ -14,7 +14,7 @@
     <table class="table table-zebra">
     <thead>
       <tr>
-        <th scope="col" class="w-auto"></th>
+        <th scope="col" class="table-col-auto"></th>
         <th scope="col">{% translate 'Name' %}</th>
         <th scope="col">{% translate 'Account' %}</th>
         <th scope="col">{% translate 'Amount' %}</th>
@@ -23,7 +23,7 @@
     <tbody>
       {% for recurring_transaction in recurring_transactions %}
       <tr class="recurring_transaction">
-        <td class="w-auto text-center">
+        <td class="table-col-auto text-center">
           <div class="join" role="group" aria-label="{% translate 'Actions' %}">
             <a class="btn btn-secondary btn-sm join-item"
                   role="button"
@@ -41,7 +41,7 @@
               <i class="fa-solid fa-eye fa-fw"></i></a>
             {% if status != 'finished' %}
             {% if recurring_transaction.is_paused %}
-            <a class="btn btn-secondary btn-sm join-item text-info"
+            <a class="btn btn-secondary btn-sm join-item"
                   role="button"
                   data-tippy-content="{% translate "Unpause" %}"
                   hx-get="{% url 'recurring_transaction_toggle_pause' recurring_transaction_id=recurring_transaction.id %}"
@@ -54,7 +54,7 @@
                   data-confirm-text="{% translate "Yes, unpause it!" %}"
                   _="install prompt_swal"><i class="fa-solid fa-play fa-fw"></i></a>
             {% else %}
-            <a class="btn btn-secondary btn-sm join-item text-info"
+            <a class="btn btn-secondary btn-sm join-item"
                   role="button"
                   data-tippy-content="{% translate "Pause" %}"
                   hx-get="{% url 'recurring_transaction_toggle_pause' recurring_transaction_id=recurring_transaction.id %}"
@@ -68,7 +68,7 @@
                   _="install prompt_swal">
               <i class="fa-solid fa-pause fa-fw"></i></a>
             {% endif %}
-            <a class="btn btn-secondary btn-sm join-item text-info"
+            <a class="btn btn-secondary btn-sm join-item"
                   role="button"
                   data-tippy-content="{% translate "Finish" %}"
                   hx-get="{% url 'recurring_transaction_finish' recurring_transaction_id=recurring_transaction.id %}"
@@ -82,7 +82,7 @@
                   _="install prompt_swal">
               <i class="fa-solid fa-flag-checkered fa-fw"></i></a>
             {% endif %}
-            <a class="btn btn-secondary btn-sm join-item text-error"
+            <a class="btn btn-error btn-sm join-item"
                     role="button"
                     data-tippy-content="{% translate "Delete" %}"
                     hx-delete="{% url 'recurring_transaction_delete' recurring_transaction_id=recurring_transaction.id %}"
@@ -96,7 +96,7 @@
           </div>
         </td>
         <td>
-          <div class="{% if recurring_transaction.type == 'EX' %}text-red-400{% else %}text-green-400{% endif %}">
+          <div class="{% if recurring_transaction.type == 'EX' %}text-error{% else %}text-success{% endif %}">
             {{ recurring_transaction.description }}
           </div>
           <div class="text-sm text-base-content/60">{{ recurring_transaction.notes|linebreaksbr }}</div>

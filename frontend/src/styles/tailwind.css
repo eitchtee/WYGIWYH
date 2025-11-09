@@ -168,6 +168,10 @@
         @apply text-base-content/60; /* .hr */
         @apply my-3;
     }
+
+    .table-col-auto {
+        @apply w-1;
+    }
 }
 
 
@@ -244,19 +248,31 @@
     }
 
     .sidebar-submenu-header {
-        @apply flex;
+        @apply flex justify-between;
+    }
+
+    .sidebar-submenu-title {
+        @apply flex items-center;
     }
 
     .sidebar-floating .sidebar-submenu-header {
-        @apply lg:hidden lg:group-hover:flex;
+        @apply lg:justify-center lg:group-hover:justify-between;
     }
 
-    .sidebar-floating .sidebar-submenu-header h5 {
-        @apply lg:invisible lg:group-hover:visible;
+    .sidebar-floating .sidebar-submenu-title {
+        @apply lg:h-8;
+    }
+
+    .sidebar-floating .sidebar-submenu-title i {
+        @apply lg:me-0 lg:group-hover:me-2;
+    }
+
+    .sidebar-floating .sidebar-submenu-title h5 {
+        @apply lg:invisible lg:w-0 lg:h-0 lg:overflow-hidden lg:group-hover:visible lg:group-hover:w-auto lg:group-hover:h-auto;
     }
 
     .sidebar-floating .sidebar-submenu-header button {
-        @apply lg:hidden lg:group-hover:inline;
+        @apply lg:hidden! lg:group-hover:flex!;
     }
 
     .sidebar-floating .list-unstyled {
@@ -267,6 +283,10 @@
         @apply text-wrap lg:text-nowrap ;
     }
 
+    .sidebar-floating .sidebar-item-list {
+        @apply overflow-y-auto lg:overflow-y-hidden lg:group-hover:overflow-y-auto overflow-x-hidden;
+    }
+
     .sidebar-fixed {
         /* Sets the fixed, expanded width for the container */
         @apply lg:w-[17%] transition-all duration-100;
@@ -275,6 +295,10 @@
     .sidebar-fixed #sidebar {
         /* Sets the fixed, expanded width for the inner navigation */
         @apply lg:w-[17%] transition-all duration-100;
+    }
+
+    .sidebar-fixed .sidebar-item-list {
+        @apply overflow-y-auto overflow-x-hidden;
     }
 
     .sidebar-fixed + main {
@@ -314,7 +338,19 @@
 
     .sidebar-fixed .sidebar-submenu-header {
         /* Ensures menu headers are always visible */
-        @apply lg:flex;
+        @apply lg:flex lg:justify-between;
+    }
+
+    .sidebar-fixed .sidebar-submenu-title i {
+        @apply me-2!;
+    }
+
+    .sidebar-fixed .sidebar-submenu-title h5 {
+        @apply lg:block;
+    }
+
+    .sidebar-fixed .sidebar-submenu-header button {
+        @apply lg:inline;
     }
 
     .sidebar-fixed .list-unstyled  {

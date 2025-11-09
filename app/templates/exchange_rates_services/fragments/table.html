@@ -6,7 +6,7 @@
     <table class="table table-hover whitespace-nowrap">
       <thead>
         <tr>
-          <th scope="col" class="w-auto"></th>
+          <th scope="col" class="table-col-auto"></th>
           <th scope="col">{% translate 'Date' %}</th>
           <th scope="col">{% translate 'Pairing' %}</th>
           <th scope="col">{% translate 'Rate' %}</th>
@@ -15,7 +15,7 @@
       <tbody>
         {% for exchange_rate in page_obj %}
         <tr class="exchange-rate">
-          <td class="w-auto">
+          <td class="table-col-auto">
             <div class="join" role="group" aria-label="{% translate 'Actions' %}">
               <a class="btn btn-secondary btn-sm join-item"
                     role="button"
@@ -24,7 +24,7 @@
                     hx-target="#generic-offcanvas"
                     hx-swap="innerHTML">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm join-item text-error"
+              <a class="btn btn-error btn-sm join-item"
                       role="button"
                       data-tippy-content="{% translate "Delete" %}"
                       hx-delete="{% url 'exchange_rate_delete' pk=exchange_rate.id %}"

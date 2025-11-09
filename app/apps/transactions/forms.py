@@ -337,7 +337,7 @@ class QuickTransactionForm(forms.ModelForm):
             ),
             Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
             "name",
-            HTML("<hr />"),
+            HTML('<hr class="hr my-3" />'),
             Row(
                 Column("account"),
                 Column("entities"),
@@ -365,11 +365,8 @@ class QuickTransactionForm(forms.ModelForm):
         else:
             self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()
             self.helper.layout.append(
-                Div(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary"
-                    ),
-                    css_class="d-grid gap-2",
+                FormActions(
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 

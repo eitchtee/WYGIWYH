@@ -1,29 +1,29 @@
 {% load i18n %}
+<c-ui.fab-single-action
+        url="{% url 'recurring_transaction_add' %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
 <div class="container px-md-3 py-3 column-gap-5">
   <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-    <div>{% translate 'Recurring Transactions' %}<span>
-      <a class="no-underline text-2xl p-1 category-action"
-                role="button"
-                data-tippy-content="{% translate "Add" %}"
-                hx-get="{% url 'recurring_transaction_add' %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
-    </span></div>
+    <div>{% translate 'Recurring Transactions' %}</div>
     {% endspaceless %}
   </div>
 
   <div class="card bg-base-100 shadow-xl">
     <div class="card-header bg-base-200 p-4">
-      <div role="tablist" class="tabs tabs-lifted">
-        <button class="tab tab-active" data-bs-toggle="tab" type="button" role="tab" aria-selected="true" hx-get="{% url 'active_recurring_transaction_list' %}" hx-trigger="load, click" hx-target="#recurring-transactions-table">{% translate 'Active' %}</button>
-        <button class="tab" hx-get="{% url 'paused_recurring_transaction_list' %}" hx-target="#recurring-transactions-table" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">{% translate 'Paused' %}</button>
-        <button class="tab" hx-get="{% url 'finished_recurring_transaction_list' %}" hx-target="#recurring-transactions-table" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">{% translate 'Finished' %}</button>
+      <div role="tablist" class="tabs tabs-border">
+        <input type="radio" name="installment_plan_tabs" class="tab" aria-label="{% translate 'Active' %}" checked="checked"
+               hx-get="{% url 'active_recurring_transaction_list' %}" hx-trigger="load, click" hx-target="#recurring-transactions-table" hx-indicator="#recurring-transactions-table" />
+        <input type="radio" name="installment_plan_tabs" class="tab" aria-label="{% translate 'Paused' %}"
+               hx-get="{% url 'paused_recurring_transaction_list' %}" hx-trigger="click" hx-target="#recurring-transactions-table" hx-indicator="#recurring-transactions-table" />
+        <input type="radio" name="installment_plan_tabs" class="tab" aria-label="{% translate 'Finished' %}"
+               hx-get="{% url 'finished_recurring_transaction_list' %}" hx-trigger="click" hx-target="#recurring-transactions-table" />
       </div>
     </div>
 
     <div class="card-body">
-      <div id="recurring-transactions-table"></div>
+      <div id="recurring-transactions-table" class="show-loading"></div>
     </div>
 
   </div>

@@ -23,9 +23,10 @@ window.TomSelect = function createDynamicTomSelect(element) {
             },
         },
 
-        onInitialize: function () {
+        onDropdownOpen: function () {
             // Move dropdown to body to escape stacking context issues
             document.body.appendChild(this.dropdown);
+
 
             this.popper = Popper.createPopper(this.control, this.dropdown, {
                 placement: "bottom-start",
@@ -58,11 +59,9 @@ window.TomSelect = function createDynamicTomSelect(element) {
             });
 
         },
-        onDropdownOpen: function () {
-            this.popper.update();
-        },
         onDropdownClose: function () {
-            // Optional: move back to wrapper to keep DOM clean, but not necessary
+            this.popper.destroy();
+            this.dropdown.remove();
         }
     };
 

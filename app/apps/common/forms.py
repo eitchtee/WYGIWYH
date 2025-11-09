@@ -38,6 +38,7 @@ class SharedObjectForm(forms.Form):
         choices=SharedObject.Visibility.choices,
         required=True,
         label=_("Visibility"),
+        widget=TomSelect(clear_button=False),
         help_text=_(
             "Private: Only shown for the owner and shared users. Only editable by the owner."
             "<br/>"
@@ -47,9 +48,6 @@ class SharedObjectForm(forms.Form):
 
     class Meta:
         fields = ["visibility", "shared_with_users"]
-        widgets = {
-            "visibility": TomSelect(clear_button=False),
-        }
 
     def __init__(self, *args, **kwargs):
         # Get the current user to filter available sharing options
@@ -72,7 +70,7 @@ class SharedObjectForm(forms.Form):
         self.helper.layout = Layout(
             Field("owner"),
             Field("visibility"),
-            HTML("<hr>"),
+            HTML('<hr class="hr my-3">'),
             Field("shared_with_users"),
             FormActions(
                 NoClassSubmit("submit", _("Save"), css_class="btn btn-primary"),

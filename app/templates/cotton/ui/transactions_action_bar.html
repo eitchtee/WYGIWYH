@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="sticky bottom-4 left-0 right-0 z-50 hidden mx-auto w-fit" id="actions-bar"
+<div class="sticky bottom-4 left-0 right-0 z-1000 hidden mx-auto w-fit" id="actions-bar"
      _="on change from #transactions-list or htmx:afterSettle from window
         if #actions-bar then
             if no <input[type='checkbox']:checked/> in #transactions-list
@@ -22,41 +22,43 @@
       {% spaceless %}
         <div class="font-bold text-md ms-2" id="selected-count">0</div>
         <div class="divider divider-horizontal m-0"></div>
-        <div class="dropdown dropdown-top dropdown-end">
-          <button tabindex="0" role="button" class="btn btn-secondary btn-soft btn-sm" type="button">
+        <div>
+          <button role="button" class="btn btn-secondary btn-sm" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-square-check fa-fw"></i>
             <i class="fa-solid fa-chevron-down fa-xs"></i>
           </button>
-          <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box z-[1] w-full p-2 shadow fixed!">
+          <ul class="dropdown-menu menu">
             <li>
               <a class="cursor-pointer"
                    _="on click set <#transactions-list .transaction:not([style*='display: none']) input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
-                <i class="fa-regular fa-square-check text-green-400 me-3"></i>{% translate 'Select All' %}
+                <i class="fa-regular fa-square-check text-success me-3"></i>{% translate 'Select All' %}
               </a>
             </li>
             <li>
               <a class="cursor-pointer"
                    _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur() then trigger change">
-                <i class="fa-regular fa-square text-red-400 me-3"></i>{% translate 'Unselect All' %}
+                <i class="fa-regular fa-square text-error me-3"></i>{% translate 'Unselect All' %}
               </a>
             </li>
           </ul>
         </div>
         <div class="divider divider-horizontal m-0"></div>
         <div class="join">
-          <button class="btn btn-secondary btn-soft join-item btn-sm"
+          <button class="btn btn-secondary join-item btn-sm"
                   hx-get="{% url 'transactions_bulk_edit' %}"
                   hx-target="#generic-offcanvas"
                   hx-include=".transaction"
                   data-tippy-content="{% translate 'Edit' %}">
             <i class="fa-solid fa-pencil"></i>
           </button>
-          <div class="dropdown dropdown-top dropdown-end">
-            <button type="button" tabindex="0" role="button" class="join-item btn btn-sm btn-secondary">
+          <div>
+            <button type="button" role="button" class="join-item btn btn-sm btn-secondary"
+                    data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-solid fa-chevron-down fa-xs"></i>
             </button>
 
-            <ul tabindex="0" class="dropdown-content fixed! menu bg-base-300 rounded-box z-[1] w-full p-2 shadow">
+            <ul class="dropdown-menu menu">
               <li>
                 <a class="cursor-pointer"
                     hx-get="{% url 'transactions_bulk_unpay' %}"
@@ -142,12 +144,16 @@
             <i class="fa-solid fa-plus fa-fw me-md-2"></i>
             <span class="hidden md:inline-block" id="real-total-front">0</span>
           </button>
-          <div class="dropdown dropdown-end dropdown-top">
-            <button type="button" tabindex="0" role="button" class="join-item btn btn-sm btn-secondary">
+          <div>
+            <button class="join-item btn btn-sm btn-secondary"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    aria-expanded="false">
               <i class="fa-solid fa-chevron-down fa-xs"></i>
             </button>
 
-            <ul tabindex="0" class="dropdown-content menu bg-base-300 rounded-box w-full shadow fixed! flex flex-col gap-1">
+            <ul class="dropdown-menu dropdown-menu-end menu">
               <li class="cursor-pointer"
                   _="on click
                         set original_value to #calc-menu-flat-total's innerText

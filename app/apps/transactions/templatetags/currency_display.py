@@ -22,10 +22,13 @@ def _format_string(prefix, amount, decimal_places, suffix):
 
 
 @register.simple_tag(name="currency_display")
-def currency_display(amount, prefix, suffix, decimal_places):
+def currency_display(amount, prefix, suffix, decimal_places, string=False):
     sign, prefix, amount, suffix = _format_string(
         prefix, amount, decimal_places, suffix
     )
+
+    if string:
+        return f"{sign}{prefix}{amount}{suffix}"
 
     return {
         "sign": sign,

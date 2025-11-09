@@ -12,14 +12,14 @@
     <table class="table table-hover">
       <thead>
       <tr>
-        <th scope="col" class="w-auto"></th>
+        <th scope="col" class="table-col-auto"></th>
         <th scope="col">{% translate 'Name' %}</th>
       </tr>
       </thead>
       <tbody>
       {% for tag in tags %}
         <tr class="tag">
-          <td class="w-auto">
+          <td class="table-col-auto">
             <div class="join" role="group" aria-label="{% translate 'Actions' %}">
               <a class="btn btn-secondary btn-sm join-item"
                  role="button"
@@ -28,7 +28,7 @@
                  hx-get="{% url 'tag_edit' tag_id=tag.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm join-item text-error"
+              <a class="btn btn-error btn-sm join-item"
                  role="button"
                  hx-swap="innerHTML"
                  data-tippy-content="{% translate "Delete" %}"

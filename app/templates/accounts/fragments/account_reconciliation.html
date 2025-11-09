@@ -11,7 +11,7 @@
         {{ form.management_form }}
         <div class="space-y-2" id="balanceAccordionFlush">
         {% for form in form.forms %}
-          <div class="collapse collapse-arrow bg-base-100 border-base-300 border overflow-visible">
+          <div class="collapse collapse-arrow bg-base-100 border-base-300 border-2">
             <input type="checkbox" />
             <div class="collapse-title font-medium text-sm">
               {% if form.account_group %}<span class="badge badge-primary badge-outline me-2">{{ form.account_group.name }}</span>{% endif %}{{ form.account_name }}

@@ -1,4 +1,4 @@
-from django.forms import widgets, SelectMultiple
+from django.forms import SelectMultiple, widgets
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -17,7 +17,7 @@ class TomSelect(widgets.Select):
         checkboxes=False,
         group_by=None,
         *args,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(attrs, *args, **kwargs)
         self.remove_button = remove_button

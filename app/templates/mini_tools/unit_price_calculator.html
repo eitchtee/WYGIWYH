@@ -8,10 +8,10 @@
     <div class="text-3xl font-bold font-mono w-full mb-3">
       <div>{% translate 'Unit Price Calculator' %}</div>
     </div>
-    <div class="card bg-base-100 shadow-xl mb-3 hidden" id="card-placeholder">
-      <div class="card-header bg-base-200 p-4 flex flex-row justify-between">
-        <h5 class="title flex-grow"></h5>
-        <button class="btn btn-secondary btn-sm text-error"
+    <div class="card bg-base-100 shadow mb-3 hidden" id="card-placeholder">
+      <div class="card-header bg-base-200 p-4 flex flex-row justify-between rounded-box">
+        <h5 class="title grow"></h5>
+        <button class="btn btn-error btn-sm"
                 role="button"
                 data-tippy-content="{% translate "Delete" %}"
                 _="on click remove the closest .card to me then trigger update on #items then trigger tooltips on body">
@@ -21,21 +21,23 @@
       <div class="card-body">
         <div class="grid lg:grid-cols-3 gap-3">
           <div>
-            <div>
-              <label for="price" class="label">{% trans 'Item price' %}</label>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">{% trans 'Item price' %}</legend>
               <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
-            </div>
+            </fieldset>
           </div>
           <div>
-            <div>
-              <label for="amount" class="label">{% trans 'Item amount' %}</label>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">{% trans 'Item amount' %}</legend>
               <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
-            </div>
+            </fieldset>
           </div>
           <div>
-            <label class="label">{% trans 'Unit price' %}</label>
-            <div class="unit-price text-xl" data-amount="0">0</div>
-          </div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Unit price' %}</legend>
+                <div class="unit-price text-xl" data-amount="0">0</div>
+              </fieldset>
+            </div>
         </div>
       </div>
     </div>
@@ -89,59 +91,63 @@
                         end
                       end
                     end">
-      <div class="card bg-base-100 shadow-xl mb-3">
-        <div class="card-header bg-base-200 p-4">
+      <div class="card bg-base-100 shadow mb-3">
+        <div class="card-header bg-base-200 p-4 flex flex-row justify-between rounded-box">
           <h5>{% trans "Item" %} A</h5>
         </div>
         <div class="card-body">
           <div class="grid lg:grid-cols-3 gap-3">
             <div>
-              <div>
-                <label for="price" class="label">{% trans 'Item price' %}</label>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item price' %}</legend>
                 <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
-              </div>
+              </fieldset>
             </div>
             <div>
-              <div>
-                <label for="amount" class="label">{% trans 'Item amount' %}</label>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item amount' %}</legend>
                 <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
-              </div>
+              </fieldset>
             </div>
             <div>
-              <label class="label">{% trans 'Unit price' %}</label>
-              <div class="unit-price text-xl" data-amount="0">0</div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Unit price' %}</legend>
+                <div class="unit-price text-xl" data-amount="0">0</div>
+              </fieldset>
             </div>
           </div>
         </div>
       </div>
-      <div class="card bg-base-100 shadow-xl mb-3">
-        <div class="card-header bg-base-200 p-4">
+      <div class="card bg-base-100 shadow mb-3">
+        <div class="card-header bg-base-200 p-4 flex flex-row justify-between rounded-box">
           <h5>{% trans "Item" %} B</h5>
         </div>
         <div class="card-body">
           <div class="grid lg:grid-cols-3 gap-3">
             <div>
-              <div>
-                <label for="price" class="label">{% trans 'Item price' %}</label>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item price' %}</legend>
                 <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
-              </div>
+              </fieldset>
             </div>
             <div>
-              <div>
-                <label for="amount" class="label">{% trans 'Item amount' %}</label>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item amount' %}</legend>
                 <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
-              </div>
+              </fieldset>
             </div>
             <div>
-              <label class="label">{% trans 'Unit price' %}</label>
-              <div class="unit-price text-xl" data-amount="0">0</div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Unit price' %}</legend>
+                <div class="unit-price text-xl" data-amount="0">0</div>
+              </fieldset>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="grid lg:grid-cols-[2fr_1fr] gap-3 mt-3">
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-3 mt-6">
       <div>
         <button class="btn btn-primary w-full"
             _="on click

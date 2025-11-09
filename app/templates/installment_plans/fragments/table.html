@@ -12,7 +12,7 @@
     <table class="table table-zebra">
       <thead>
         <tr>
-          <th scope="col" class="w-auto"></th>
+          <th scope="col" class="table-col-auto"></th>
           <th scope="col">{% translate 'Name' %}</th>
           <th scope="col">{% translate 'Account' %}</th>
           <th scope="col">{% translate 'Amount' %}</th>
@@ -21,7 +21,7 @@
       <tbody>
         {% for installment_plan in installment_plans %}
         <tr class="installment-plan">
-          <td class="w-auto text-center">
+          <td class="table-col-auto text-center">
             <div class="join" role="group" aria-label="{% translate 'Actions' %}">
               <a class="btn btn-secondary btn-sm join-item"
                     role="button"
@@ -37,7 +37,7 @@
                     hx-swap="innerHTML"
                     hx-target="#persistent-generic-offcanvas-left">
                 <i class="fa-solid fa-eye fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm join-item text-info"
+              <a class="btn btn-secondary btn-sm join-item"
                     role="button"
                     data-tippy-content="{% translate "Refresh" %}"
                     hx-get="{% url 'installment_plan_refresh' installment_plan_id=installment_plan.id %}"
@@ -49,7 +49,7 @@
                     data-confirm-text="{% translate "Yes, refresh it!" %}"
                     _="install prompt_swal">
                 <i class="fa-solid fa-arrows-rotate fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm join-item text-error"
+              <a class="btn btn-error btn-sm join-item"
                       role="button"
                       data-tippy-content="{% translate "Delete" %}"
                       hx-delete="{% url 'installment_plan_delete' installment_plan_id=installment_plan.id %}"
@@ -62,7 +62,7 @@
             </div>
           </td>
           <td>
-            <div class="{% if installment_plan.type == 'EX' %}text-red-400{% else %}text-green-400{% endif %}">
+            <div class="{% if installment_plan.type == 'EX' %}text-error{% else %}text-success{% endif %}">
               {{ installment_plan.description }}
             </div>
             <div class="text-sm text-base-content/60">{{ installment_plan.notes|linebreaksbr }}</div>

@@ -9,7 +9,7 @@
           <table class="table table-zebra">
             <thead>
             <tr>
-              <th scope="col" class="w-auto"></th>
+              <th scope="col" class="table-col-auto"></th>
               <th scope="col">{% translate 'Name' %}</th>
               <th scope="col">{% translate 'Account' %}</th>
               <th scope="col">{% translate 'Amount' %}</th>
@@ -18,7 +18,7 @@
             <tbody>
             {% for qt in quick_transactions %}
               <tr class="recurring_transaction">
-                <td class="w-auto text-center">
+                <td class="table-col-auto text-center">
                   <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                     <a class="btn btn-secondary btn-sm join-item"
                        role="button"
@@ -27,7 +27,7 @@
                        hx-swap="innerHTML"
                        hx-target="#generic-offcanvas">
                       <i class="fa-solid fa-pencil fa-fw"></i></a>
-                    <a class="btn btn-secondary btn-sm join-item text-error"
+                    <a class="btn btn-error btn-sm join-item"
                        role="button"
                        data-tippy-content="{% translate "Delete" %}"
                        hx-delete="{% url 'quick_transaction_delete' quick_transaction_id=qt.id %}"
@@ -42,14 +42,14 @@
                 </td>
                 <td>
                   <div
-                      class="{% if qt.type == 'EX' %}text-red-400{% else %}text-green-400{% endif %}">
+                      class="{% if qt.type == 'EX' %}text-error{% else %}text-success{% endif %}">
                     {{ qt.name }}
                   </div>
                 </td>
-                <td class="w-auto">
+                <td>
                   {% if qt.account.group %}{{ qt.account.group }} • {% endif %}{{ qt.account }}
                 </td>
-                <td class="w-auto">
+                <td>
                   <c-amount.display
                     :amount="qt.amount"
                     :prefix="qt.account.currency.prefix"

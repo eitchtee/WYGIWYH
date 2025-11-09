@@ -1,53 +1,50 @@
 {% load currency_display %}
 {% load i18n %}
-<div class="container-fluid px-md-3 py-3 column-gap-5">
-  <div class="lg:flex justify-between mb-3 w-full">
-    <div class="text-3xl font-bold font-mono flex items-center">
-      {{ strategy.name }}
-    </div>
-    <div class="text-sm lg:text-right mt-2 lg:mt-0">
-      <div class="mb-2">
-        <span class="badge badge-secondary rounded-full">{{ strategy.payment_currency.name }}</span> x <span class="badge badge-secondary rounded-full">{{ strategy.target_currency.name }}</span>
+<c-ui.fab-single-action
+        url="{% url 'dca_entry_add' strategy_id=strategy.id %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container-fluid">
+  <div class="row">
+    <div class="lg:flex justify-between mb-3 w-full">
+      <div class="text-3xl font-bold font-mono flex items-center">
+        {{ strategy.name }}
       </div>
-      <div>
-        {% if strategy.current_price %}
-          <c-amount.display
-              :amount="strategy.current_price.0"
-              :prefix="strategy.payment_currency.prefix"
-              :suffix="strategy.payment_currency.suffix"
-              :decimal_places="strategy.payment_currency.decimal_places">
-           • {{ strategy.current_price.1|date:"SHORT_DATETIME_FORMAT" }}
-          </c-amount.display>
-          {% else %}
-          <div class="text-red-400">{% trans "No exchange rate available" %}</div>
-          {% endif %}
+      <div class="text-sm lg:text-right mt-2 lg:mt-0">
+        <div class="mb-2">
+          <span class="badge badge-secondary rounded-full">{{ strategy.payment_currency.name }}</span> x <span class="badge badge-secondary rounded-full">{{ strategy.target_currency.name }}</span>
+        </div>
+        <div>
+          {% if strategy.current_price %}
+            <c-amount.display
+                :amount="strategy.current_price.0"
+                :prefix="strategy.payment_currency.prefix"
+                :suffix="strategy.payment_currency.suffix"
+                :decimal_places="strategy.payment_currency.decimal_places">
+            • {{ strategy.current_price.1|date:"SHORT_DATETIME_FORMAT" }}
+            </c-amount.display>
+            {% else %}
+            <div class="text-error">{% trans "No exchange rate available" %}</div>
+            {% endif %}
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="grid lg:grid-cols-2 gap-3">
-    <div>
-      <div class="card bg-base-100 shadow-xl">
-        <div class="card-body">
+  <div class="row g-3">
+    <div class="col-12 lg:col-6">
+      <div class="card bg-base-100 shadow">
+        <div class="card-body overflow-x-auto">
           {% spaceless %}
-            <div class="card-title text-xl">{% trans "Entries" %}<span>
-                <a class="no-underline p-1 category-action"
-                   role="button"
-                   data-tippy-content="{% translate "Add" %}"
-                   hx-get="{% url 'dca_entry_add' strategy_id=strategy.id %}"
-                   hx-target="#generic-offcanvas">
-                      <i class="fa-solid fa-circle-plus fa-fw"></i>
-                </a>
-              </span>
-            </div>
+            <div class="card-title text-xl">{% trans "Entries" %}</div>
           {% endspaceless %}
 
           {% if entries %}
             <div class="overflow-x-auto">
-              <table class="table table-hover whitespace-nowrap">
+              <table class="table table-zebra">
                 <thead>
                 <tr>
-                  <th></th>
+                  <th class="table-col-auto"></th>
                   <th>{% trans "Date" %}</th>
                   <th>{% trans "Amount Received" %}</th>
                   <th>{% trans "Amount Paid" %}</th>
@@ -58,7 +55,7 @@
                 <tbody>
                 {% for entry in entries %}
                   <tr>
-                    <td class="w-auto">
+                    <td class="table-col-auto">
                       <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                         <a class="btn btn-secondary btn-sm join-item"
                            role="button"
@@ -67,7 +64,7 @@
                            hx-target="#generic-offcanvas"
                            hx-swap="innerHTML">
                           <i class="fa-solid fa-pencil fa-fw"></i></a>
-                        <a class="btn btn-secondary btn-sm join-item text-error"
+                        <a class="btn btn-error btn-sm join-item"
                            role="button"
                            data-tippy-content="{% translate "Delete" %}"
                            hx-delete="{% url 'dca_entry_delete' entry_id=entry.id strategy_id=entry.strategy.id %}"
@@ -88,7 +85,7 @@
                           :suffix="entry.strategy.target_currency.suffix"
                           :decimal_places="entry.strategy.target_currency.decimal_places"></c-amount.display>
                     </td>
-                    <td title="{% currency_display amount=entry.entry_price prefix=entry.strategy.payment_currency.prefix suffix=entry.strategy.payment_currency.suffix decimal_places=entry.strategy.payment_currency.decimal_places %}">
+                    <td title="{% currency_display amount=entry.entry_price prefix=entry.strategy.payment_currency.prefix suffix=entry.strategy.payment_currency.suffix decimal_places=entry.strategy.payment_currency.decimal_places string=True %}">
                       <c-amount.display
                           :amount="entry.amount_paid"
                           :prefix="entry.strategy.payment_currency.prefix"
@@ -105,10 +102,10 @@
                     <td>
                       {% if entry.profit_loss_percentage > 0 %}
                         <span class="badge badge-success"><i
-                            class="fa-solid fa-up-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
+                            class="fa-solid fa-up-long"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
                       {% elif entry.profit_loss_percentage < 0 %}
                         <span class="badge badge-error"><i
-                            class="fa-solid fa-down-long me-2"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
+                            class="fa-solid fa-down-long"></i>{{ entry.profit_loss_percentage|floatformat:"2g" }}%</span>
                       {% endif %}
                     </td>
                   </tr>
@@ -124,10 +121,10 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="col-12 lg:col-6">
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         <div>
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100 shadow h-full">
             <div class="card-body">
               <h5 class="card-title">{% trans "Total Invested" %}</h5>
               <div class="text-base-content">
@@ -141,7 +138,7 @@
           </div>
         </div>
         <div>
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100 shadow h-full">
             <div class="card-body">
               <h5 class="card-title">{% trans "Total Received" %}</h5>
               <div class="text-base-content">
@@ -155,7 +152,7 @@
           </div>
         </div>
         <div>
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100 shadow h-full">
             <div class="card-body">
               <h5 class="card-title">{% trans "Current Total Value" %}</h5>
               <div class="text-base-content">
@@ -169,7 +166,7 @@
           </div>
         </div>
         <div>
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100 shadow h-full">
             <div class="card-body">
               <h5 class="card-title">{% trans "Average Entry Price" %}</h5>
               <div class="text-base-content">
@@ -183,11 +180,11 @@
           </div>
         </div>
         <div>
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100 shadow h-full">
             <div class="card-body">
               <h5 class="card-title">{% trans "Total P/L" %}</h5>
               <div
-                  class="text-base-content {% if strategy.total_profit_loss >= 0 %}text-green-400{% else %}text-red-400{% endif %}">
+                  class="text-base-content {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-error{% endif %}">
                 <c-amount.display
                     :amount="strategy.total_profit_loss"
                     :prefix="strategy.payment_currency.prefix"
@@ -199,11 +196,11 @@
           </div>
         </div>
         <div>
-          <div class="card bg-base-100 shadow-xl h-full">
+          <div class="card bg-base-100 shadow h-full">
             <div class="card-body">
               <h5 class="card-title">{% trans "Total % P/L" %}</h5>
               <div
-                  class="text-base-content {% if strategy.total_profit_loss >= 0 %}text-green-400{% else %}text-red-400{% endif %}">
+                  class="text-base-content {% if strategy.total_profit_loss >= 0 %}text-success{% else %}text-error{% endif %}">
                 {{ strategy.total_profit_loss_percentage|floatformat:2 }}%
               </div>
             </div>
@@ -216,71 +213,70 @@
               set perfomancectx to #performanceChart.getContext('2d')
               js(perfomancectx)
                 new Chart(perfomancectx, {
-    type: 'line',
-    data: {
-        labels: [{% for entry in entries_data %}'{{ entry.entry.date|date:"SHORT_DATE_FORMAT" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
-        datasets: [{
-            label: '{% trans "P/L %" %}',
-            data: [{% for entry in entries_data %}{{ entry.profit_loss_percentage|floatformat:"-40u" }}{% if not forloop.last %}, {% endif %}{% endfor %}],
-            stepped: true,
-            segment: {
-                borderColor: ctx => {
-                    const gradient = ctx.chart.ctx.createLinearGradient(ctx.p0.x, 0, ctx.p1.x, 0);
-                    
-                    if (ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y >= 0) {
-                        // Both positive - solid green
-                        gradient.addColorStop(0, 'rgb(75, 192, 75)');
-                        gradient.addColorStop(1, 'rgb(75, 192, 75)');
-                    } else if (ctx.p0.parsed.y < 0 && ctx.p1.parsed.y < 0) {
-                        // Both negative - solid red
-                        gradient.addColorStop(0, 'rgb(255, 99, 132)');
-                        gradient.addColorStop(1, 'rgb(255, 99, 132)');
-                    } else if (ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y < 0) {
-                        // Positive to negative - green to red
-                        gradient.addColorStop(0, 'rgb(75, 192, 75)');
-                        gradient.addColorStop(1, 'rgb(255, 99, 132)');
-                    } else {
-                        // Negative to positive - red to green
-                        gradient.addColorStop(0, 'rgb(255, 99, 132)');
-                        gradient.addColorStop(1, 'rgb(75, 192, 75)');
-                    }
-                    
-                    return gradient;
-                }
-            },
-            fill: false,
-            borderWidth: 2
-        }]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: false
-            },
-            x: {
-                ticks: {
-                    display: false
-                }
-            }
-        },
-        plugins: {
-            tooltip: {
-                mode: 'index',
-                intersect: false
-            },
-            legend: {
-                display: false,
-            },
-            title: {
-                display: false,
-            }
-        }
-    }
-})
-              end
-            ">
-          <div class="card bg-base-100 shadow-xl">
+                  type: 'line',
+                  data: {
+                      labels: [{% for entry in entries_data %}'{{ entry.entry.date|date:"SHORT_DATE_FORMAT" }}'{% if not forloop.last %}, {% endif %}{% endfor %}],
+                      datasets: [{
+                          label: '{% trans "P/L %" %}',
+                          data: [{% for entry in entries_data %}{{ entry.profit_loss_percentage|floatformat:"-40u" }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+                          stepped: true,
+                          segment: {
+                              borderColor: ctx => {
+                                  const gradient = ctx.chart.ctx.createLinearGradient(ctx.p0.x, 0, ctx.p1.x, 0);
+                                  
+                                  if (ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y >= 0) {
+                                      // Both positive - solid green
+                                      gradient.addColorStop(0, 'rgb(75, 192, 75)');
+                                      gradient.addColorStop(1, 'rgb(75, 192, 75)');
+                                  } else if (ctx.p0.parsed.y < 0 && ctx.p1.parsed.y < 0) {
+                                      // Both negative - solid red
+                                      gradient.addColorStop(0, 'rgb(255, 99, 132)');
+                                      gradient.addColorStop(1, 'rgb(255, 99, 132)');
+                                  } else if (ctx.p0.parsed.y >= 0 && ctx.p1.parsed.y < 0) {
+                                      // Positive to negative - green to red
+                                      gradient.addColorStop(0, 'rgb(75, 192, 75)');
+                                      gradient.addColorStop(1, 'rgb(255, 99, 132)');
+                                  } else {
+                                      // Negative to positive - red to green
+                                      gradient.addColorStop(0, 'rgb(255, 99, 132)');
+                                      gradient.addColorStop(1, 'rgb(75, 192, 75)');
+                                  }
+                                  
+                                  return gradient;
+                              }
+                          },
+                          fill: false,
+                          borderWidth: 2
+                      }]
+                  },
+                  options: {
+                      responsive: true,
+                      scales: {
+                          y: {
+                              beginAtZero: false
+                          },
+                          x: {
+                              ticks: {
+                                  display: false
+                              }
+                          }
+                      },
+                      plugins: {
+                          tooltip: {
+                              mode: 'index',
+                              intersect: false
+                          },
+                          legend: {
+                              display: false,
+                          },
+                          title: {
+                              display: false,
+                          }
+                      }
+                  }
+              })
+            end">
+          <div class="card bg-base-100 shadow">
             <div class="card-body">
               <h5 class="card-title">{% trans "Performance Over Time" %}</h5>
               <canvas id="performanceChart"></canvas>
@@ -295,96 +291,95 @@
               set priceData to {{ price_comparison_data|safe }}
               js(pricectx, priceData)
                 new Chart(pricectx, {
-    type: 'bar',
-    data: {
-        labels: priceData.labels,
-        datasets: [
-            {
-                label: '{% trans "Entry Price" %}',
-                data: priceData.entry_prices,
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1,
-                yAxisID: 'y'
-            },
-            {
-                label: '{% trans "Current Price" %}',
-                data: priceData.current_prices,
-                backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-                yAxisID: 'y'
-            },
-            {
-                label: '{% trans "Amount Bought" %}',
-                data: priceData.amounts_bought,
-                type: 'line',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 2,
-                fill: false,
-                yAxisID: 'y1',
-                tension: 0.1
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        },
-        scales: {
-            x: {
-                grid: {
-                    display: false
-                },
-                title: {
-                    display: false,
-                }
-            },
-            y: {
-                type: 'linear',
-                display: true,
-                position: 'left',
-                beginAtZero: true,
-                title: {
-                    display: false,
-                },
-                ticks: {
-                    display: false,
-                    format: { maximumFractionDigits: 40, minimumFractionDigits: 1 }
-                }
-            },
-            y1: {
-                type: 'linear',
-                display: true,
-                position: 'right',
-                beginAtZero: true,
-                grid: {
-                    drawOnChartArea: false
-                },
-                title: {
-                    display: false,
-                },
-                ticks: {
-                    display: false,
-                    format: { maximumFractionDigits: 40, minimumFractionDigits: 1 }
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                position: 'top'
-            },
-            title: {
-                display: false,
-            }
-        }
-    }
-})
-              end
-            ">
-          <div class="card bg-base-100 shadow-xl">
+                            type: 'bar',
+                            data: {
+                                labels: priceData.labels,
+                                datasets: [
+                                    {
+                                        label: '{% trans "Entry Price" %}',
+                                        data: priceData.entry_prices,
+                                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1,
+                                        yAxisID: 'y'
+                                    },
+                                    {
+                                        label: '{% trans "Current Price" %}',
+                                        data: priceData.current_prices,
+                                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        borderWidth: 1,
+                                        yAxisID: 'y'
+                                    },
+                                    {
+                                        label: '{% trans "Amount Bought" %}',
+                                        data: priceData.amounts_bought,
+                                        type: 'line',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 2,
+                                        fill: false,
+                                        yAxisID: 'y1',
+                                        tension: 0.1
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                interaction: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                scales: {
+                                    x: {
+                                        grid: {
+                                            display: false
+                                        },
+                                        title: {
+                                            display: false,
+                                        }
+                                    },
+                                    y: {
+                                        type: 'linear',
+                                        display: true,
+                                        position: 'left',
+                                        beginAtZero: true,
+                                        title: {
+                                            display: false,
+                                        },
+                                        ticks: {
+                                            display: false,
+                                            format: { maximumFractionDigits: 40, minimumFractionDigits: 1 }
+                                        }
+                                    },
+                                    y1: {
+                                        type: 'linear',
+                                        display: true,
+                                        position: 'right',
+                                        beginAtZero: true,
+                                        grid: {
+                                            drawOnChartArea: false
+                                        },
+                                        title: {
+                                            display: false,
+                                        },
+                                        ticks: {
+                                            display: false,
+                                            format: { maximumFractionDigits: 40, minimumFractionDigits: 1 }
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    },
+                                    title: {
+                                        display: false,
+                                    }
+                                }
+                            }
+                        })
+            end">
+          <div class="card bg-base-100 shadow">
             <div class="card-body">
               <h5 class="card-title">{% trans "Entry Price vs Current Price" %}</h5>
               <canvas id="priceChart"></canvas>
@@ -447,7 +442,7 @@
 })
               end
             ">
-          <div class="card bg-base-100 shadow-xl">
+          <div class="card bg-base-100 shadow">
             <div class="card-body">
               <h5 class="card-title">{% trans "Investment Frequency" %}</h5>
               <p class="text-base-content/60">

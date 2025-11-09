@@ -20,7 +20,7 @@
       <table class="table table-hover whitespace-nowrap">
         <thead>
           <tr>
-            <th scope="col" class="w-auto"></th>
+            <th scope="col" class="table-col-auto"></th>
             <th scope="col">{% translate 'Name' %}</th>
             <th scope="col">{% translate 'Group' %}</th>
             <th scope="col">{% translate 'Currency' %}</th>
@@ -32,7 +32,7 @@
         <tbody>
           {% for account in accounts %}
           <tr class="account">
-            <td class="w-auto">
+            <td class="table-col-auto">
               <div class="join" role="group" aria-label="{% translate 'Actions' %}">
                 <a class="btn btn-secondary btn-sm join-item"
                       role="button"
@@ -40,7 +40,7 @@
                       hx-get="{% url 'account_edit' pk=account.id %}"
                       hx-target="#generic-offcanvas">
                   <i class="fa-solid fa-pencil fa-fw"></i></a>
-                <a class="btn btn-secondary btn-sm join-item text-error"
+                <a class="btn btn-error btn-sm join-item"
                         role="button"
                         data-tippy-content="{% translate "Delete" %}"
                         hx-delete="{% url 'account_delete' pk=account.id %}"
