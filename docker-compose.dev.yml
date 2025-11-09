@@ -15,7 +15,7 @@ services:
       - ./frontend/:/usr/src/frontend:z
       - wygiwyh_temp:/usr/src/app/temp/
     ports:
-      - "${OUTBOUND_PORT}:8000"
+      - "${OUTBOUND_PORT:-8000}:${INTERNAL_PORT:-8000}"
     env_file:
       - .env
     depends_on:
