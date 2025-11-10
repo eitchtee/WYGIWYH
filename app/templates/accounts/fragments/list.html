@@ -1,95 +1,96 @@
 {% load i18n %}
+<c-ui.fab-single-action
+        url="{% url 'account_add' %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
 <div class="container px-md-3 py-3 column-gap-5">
   <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-    <div>{% translate 'Accounts' %}<span>
-      <a class="no-underline text-2xl p-1 category-action"
-                role="button"
-                data-tippy-content="{% translate "Add" %}"
-                hx-get="{% url 'account_add' %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
-    </span></div>
+      <div>{% translate 'Accounts' %}</div>
     {% endspaceless %}
   </div>
 
   <div class="card bg-base-100 shadow-xl">
-    <div class="card-body overflow-x-auto">
+    <div class="card-body">
       {% if accounts %}
-      <c-config.search></c-config.search>
-      <table class="table table-hover whitespace-nowrap">
-        <thead>
-          <tr>
-            <th scope="col" class="table-col-auto"></th>
-            <th scope="col">{% translate 'Name' %}</th>
-            <th scope="col">{% translate 'Group' %}</th>
-            <th scope="col">{% translate 'Currency' %}</th>
-            <th scope="col">{% translate 'Exchange Currency' %}</th>
-            <th scope="col">{% translate 'Is Asset' %}</th>
-            <th scope="col">{% translate 'Archived' %}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for account in accounts %}
-          <tr class="account">
-            <td class="table-col-auto">
-              <div class="join" role="group" aria-label="{% translate 'Actions' %}">
-                <a class="btn btn-secondary btn-sm join-item"
-                      role="button"
-                      data-tippy-content="{% translate "Edit" %}"
-                      hx-get="{% url 'account_edit' pk=account.id %}"
-                      hx-target="#generic-offcanvas">
-                  <i class="fa-solid fa-pencil fa-fw"></i></a>
-                <a class="btn btn-error btn-sm join-item"
-                        role="button"
-                        data-tippy-content="{% translate "Delete" %}"
-                        hx-delete="{% url 'account_delete' pk=account.id %}"
-                        hx-trigger='confirmed'
-                        data-bypass-on-ctrl="true"
-                        data-title="{% translate "Are you sure?" %}"
-                        data-text="{% translate "You won't be able to revert this!" %}"
-                        data-confirm-text="{% translate "Yes, delete it!" %}"
-                        _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
-                {% if not account.owner %}
-                <a class="btn btn-secondary btn-sm join-item text-primary"
-                 role="button"
-                 data-tippy-content="{% translate "Take ownership" %}"
-                 hx-get="{% url 'account_take_ownership' pk=account.id %}">
-                <i class="fa-solid fa-crown fa-fw"></i></a>
-                {% endif %}
-                {% if user == account.owner %}
-                <a class="btn btn-secondary btn-sm join-item text-primary"
-                 role="button"
-                 hx-target="#generic-offcanvas"
-                 hx-swap="innerHTML"
-                 data-tippy-content="{% translate "Share" %}"
-                 hx-get="{% url 'account_share_settings' pk=account.id %}">
-                <i class="fa-solid fa-share fa-fw"></i></a>
-                {% endif %}
-                <a class="btn btn-secondary btn-sm join-item"
-                   role="button"
-                   hx-get="{% url 'account_toggle_untracked' pk=account.id %}"
-                   data-tippy-content="{% if account.is_untracked_by %}{% translate "Track" %}{% else %}{% translate "Untrack" %}{% endif %}">
-                  {% if account.is_untracked_by %}
-                    <i class="fa-solid fa-eye fa-fw"></i>
-                  {% else %}
-                    <i class="fa-solid fa-eye-slash fa-fw"></i>
-                  {% endif %}
-                </a>
-              </div>
-            </td>
-            <td>{{ account.name }}</td>
-            <td>{{ account.group.name }}</td>
-            <td>{{ account.currency }}</td>
-            <td>{% if account.exchange_currency %}{{ account.exchange_currency }}{% else %}-{% endif %}</td>
-            <td>{% if account.is_asset %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
-            <td>{% if account.is_archived %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        <c-config.search></c-config.search>
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <thead>
+            <tr>
+              <th scope="col" class="table-col-auto"></th>
+              <th scope="col">{% translate 'Name' %}</th>
+              <th scope="col">{% translate 'Group' %}</th>
+              <th scope="col">{% translate 'Currency' %}</th>
+              <th scope="col">{% translate 'Exchange Currency' %}</th>
+              <th scope="col">{% translate 'Is Asset' %}</th>
+              <th scope="col">{% translate 'Archived' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for account in accounts %}
+              <tr class="account">
+                <td class="table-col-auto">
+                  <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                    <a class="btn btn-secondary btn-sm join-item"
+                       role="button"
+                       data-tippy-content="{% translate "Edit" %}"
+                       hx-get="{% url 'account_edit' pk=account.id %}"
+                       hx-target="#generic-offcanvas">
+                      <i class="fa-solid fa-pencil fa-fw"></i></a>
+                    {% if not account.owner %}
+                      <a class="btn btn-secondary btn-sm join-item"
+                         role="button"
+                         data-tippy-content="{% translate "Take ownership" %}"
+                         hx-get="{% url 'account_take_ownership' pk=account.id %}">
+                        <i class="fa-solid fa-crown fa-fw"></i></a>
+                    {% endif %}
+                    {% if user == account.owner %}
+                      <a class="btn btn-secondary btn-sm join-item"
+                         role="button"
+                         hx-target="#generic-offcanvas"
+                         hx-swap="innerHTML"
+                         data-tippy-content="{% translate "Share" %}"
+                         hx-get="{% url 'account_share_settings' pk=account.id %}">
+                        <i class="fa-solid fa-share fa-fw"></i></a>
+                    {% endif %}
+                    <a class="btn btn-secondary btn-sm join-item"
+                       role="button"
+                       hx-get="{% url 'account_toggle_untracked' pk=account.id %}"
+                       data-tippy-content="
+
+                           {% if account.is_untracked_by %}{% translate "Track" %}{% else %}{% translate "Untrack" %}{% endif %}">
+                      {% if account.is_untracked_by %}
+                        <i class="fa-solid fa-eye fa-fw"></i>
+                      {% else %}
+                        <i class="fa-solid fa-eye-slash fa-fw"></i>
+                      {% endif %}
+                    </a>
+                    <a class="btn btn-error btn-sm join-item"
+                       role="button"
+                       data-tippy-content="{% translate "Delete" %}"
+                       hx-delete="{% url 'account_delete' pk=account.id %}"
+                       hx-trigger='confirmed'
+                       data-bypass-on-ctrl="true"
+                       data-title="{% translate "Are you sure?" %}"
+                       data-text="{% translate "You won't be able to revert this!" %}"
+                       data-confirm-text="{% translate "Yes, delete it!" %}"
+                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+                  </div>
+                </td>
+                <td>{{ account.name }}</td>
+                <td>{{ account.group.name }}</td>
+                <td>{{ account.currency }}</td>
+                <td>{% if account.exchange_currency %}{{ account.exchange_currency }}{% else %}-{% endif %}</td>
+                <td>{% if account.is_asset %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
+                <td>{% if account.is_archived %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
       {% else %}
-      <c-msg.empty title="{% translate "No accounts" %}" remove-padding></c-msg.empty>
+        <c-msg.empty title="{% translate "No accounts" %}" remove-padding></c-msg.empty>
       {% endif %}
     </div>
   </div>

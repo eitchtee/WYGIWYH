@@ -37,9 +37,9 @@
                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
             </div>
           </td>
-          <td class="w-1/4">{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
-          <td class="w-1/4"><span class="badge badge-secondary rounded-full">{{ exchange_rate.from_currency.name }}</span> x <span class="badge badge-secondary rounded-full">{{ exchange_rate.to_currency.name }}</span></td>
-          <td class="w-1/4">1 {{ exchange_rate.from_currency.name }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places%}</td>
+          <td>{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
+          <td><span class="badge badge-secondary rounded-full">{{ exchange_rate.from_currency.name }}</span> x <span class="badge badge-secondary rounded-full">{{ exchange_rate.to_currency.name }}</span></td>
+          <td>1 {{ exchange_rate.from_currency.name }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places string=True %}</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -3,6 +3,7 @@
     init
       set selects to <select/> in me
       for x in selects
+        remove .select from x
         js(it)
           TomSelect(it)
         end

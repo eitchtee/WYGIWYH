@@ -7,61 +7,63 @@
        hx-swap="outerHTML">
 {% endif %}
 {% if tags %}
-  <div class="overflow-x-auto">
+  <div>
     <c-config.search></c-config.search>
-    <table class="table table-hover">
-      <thead>
-      <tr>
-        <th scope="col" class="table-col-auto"></th>
-        <th scope="col">{% translate 'Name' %}</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for tag in tags %}
-        <tr class="tag">
-          <td class="table-col-auto">
-            <div class="join" role="group" aria-label="{% translate 'Actions' %}">
-              <a class="btn btn-secondary btn-sm join-item"
-                 role="button"
-                 hx-swap="innerHTML"
-                 data-tippy-content="{% translate "Edit" %}"
-                 hx-get="{% url 'tag_edit' tag_id=tag.id %}"
-                 hx-target="#generic-offcanvas">
-                <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="btn btn-error btn-sm join-item"
-                 role="button"
-                 hx-swap="innerHTML"
-                 data-tippy-content="{% translate "Delete" %}"
-                 hx-delete="{% url 'tag_delete' tag_id=tag.id %}"
-                 hx-trigger='confirmed'
-                 data-bypass-on-ctrl="true"
-                 data-title="{% translate "Are you sure?" %}"
-                 data-text="{% translate "You won't be able to revert this!" %}"
-                 data-confirm-text="{% translate "Yes, delete it!" %}"
-                 _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
-              {% if not tag.owner %}
-                <a class="btn btn-secondary btn-sm join-item text-warning"
-                   role="button"
-                   data-tippy-content="{% translate "Take ownership" %}"
-                   hx-get="{% url 'tag_take_ownership' tag_id=tag.id %}">
-                  <i class="fa-solid fa-crown fa-fw"></i></a>
-              {% endif %}
-              {% if user == tag.owner %}
-                <a class="btn btn-secondary btn-sm join-item text-primary"
-                   role="button"
-                   hx-target="#generic-offcanvas"
-                   hx-swap="innerHTML"
-                   data-tippy-content="{% translate "Share" %}"
-                   hx-get="{% url 'tag_share_settings' pk=tag.id %}">
-                  <i class="fa-solid fa-share fa-fw"></i></a>
-              {% endif %}
-            </div>
-          </td>
-          <td>{{ tag.name }}</td>
+    <div class="overflow-x-auto">
+      <table class="table table-zebra">
+        <thead>
+        <tr>
+          <th scope="col" class="table-col-auto"></th>
+          <th scope="col">{% translate 'Name' %}</th>
         </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+          <tr class="tag">
+            <td class="table-col-auto">
+              <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                <a class="btn btn-secondary btn-sm join-item"
+                   role="button"
+                   hx-swap="innerHTML"
+                   data-tippy-content="{% translate "Edit" %}"
+                   hx-get="{% url 'tag_edit' tag_id=tag.id %}"
+                   hx-target="#generic-offcanvas">
+                  <i class="fa-solid fa-pencil fa-fw"></i></a>
+                {% if not tag.owner %}
+                  <a class="btn btn-secondary btn-sm join-item"
+                     role="button"
+                     data-tippy-content="{% translate "Take ownership" %}"
+                     hx-get="{% url 'tag_take_ownership' tag_id=tag.id %}">
+                    <i class="fa-solid fa-crown fa-fw"></i></a>
+                {% endif %}
+                {% if user == tag.owner %}
+                  <a class="btn btn-secondary btn-sm join-item"
+                     role="button"
+                     hx-target="#generic-offcanvas"
+                     hx-swap="innerHTML"
+                     data-tippy-content="{% translate "Share" %}"
+                     hx-get="{% url 'tag_share_settings' pk=tag.id %}">
+                    <i class="fa-solid fa-share fa-fw"></i></a>
+                {% endif %}
+                <a class="btn btn-error btn-sm join-item"
+                   role="button"
+                   hx-swap="innerHTML"
+                   data-tippy-content="{% translate "Delete" %}"
+                   hx-delete="{% url 'tag_delete' tag_id=tag.id %}"
+                   hx-trigger='confirmed'
+                   data-bypass-on-ctrl="true"
+                   data-title="{% translate "Are you sure?" %}"
+                   data-text="{% translate "You won't be able to revert this!" %}"
+                   data-confirm-text="{% translate "Yes, delete it!" %}"
+                   _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+              </div>
+            </td>
+            <td>{{ tag.name }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 {% else %}
   <c-msg.empty title="{% translate "No tags" %}" remove-padding></c-msg.empty>

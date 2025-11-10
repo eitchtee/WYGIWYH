@@ -20,7 +20,7 @@
 </div>
 {% endif %}
 <div class="fieldset">
-    <input type="{{ widget.data.type }}" name="{{ widget.data.name }}" class="file-input {% if widget.data.attrs.class %} {{ widget.data.attrs.class }}{% endif %}{% if field.errors %} file-input-error{% endif %}"{% if field.field.disabled %} disabled{% endif %}{% for name, value in widget.data.attrs.items %}{% if value is not False and name != 'class' %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
+    <input type="{{ widget.data.type }}" name="{{ widget.data.name }}" class="file-input w-full {% if widget.data.attrs.class %} {{ widget.data.attrs.class }}{% endif %}{% if field.errors %} file-input-error{% endif %}"{% if field.field.disabled %} disabled{% endif %}{% for name, value in widget.data.attrs.items %}{% if value is not False and name != 'class' %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
     {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
 </div>
 {% endfor %}

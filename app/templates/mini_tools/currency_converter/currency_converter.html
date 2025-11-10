@@ -7,7 +7,7 @@
 {% block title %}{% translate 'Currency Converter' %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 column-gap-5"
+  <div class="container"
        _="install init_tom_select
           install init_datepicker">
     <div class="text-3xl font-bold font-mono w-full mb-3">
@@ -57,39 +57,32 @@
         <i class="fa-solid fa-rotate me-2"></i><span>{% trans 'Invert' %}</span>
       </div>
     </div>
-    <hr class="my-4">
+    <hr class="hr my-4">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for currency, data in rate_map.items %}
         <div>
           <c-ui.info-card color="yellow" title="{{ currency }}">
-            {% for rate in data.rates.values %}
-              <div class="flex justify-between items-baseline mt-2">
-                <div class="text-right font-mono">
-                  <div class="text-base-content/60">
-{#                    <c-amount.display#}
-{#                        :amount="1"#}
-{#                        :prefix="data.prefix"#}
-{#                        :suffix="data.suffix"#}
-{#                        :decimal_places="data.decimal_places"></c-amount.display>#}
+            <div class="card-data-section">
+              {% for rate_currency, rate in data.rates.items %}
+                <div class="card-data-row">
+                  <span class="card-data-label">{{ rate_currency }}</span>
+                  <div class="card-data-values">
+                    {% if rate.rate %}
+                      <c-amount.display
+                          :amount="rate.rate"
+                          :prefix="rate.prefix"
+                          :suffix="rate.suffix"
+                          :decimal_places="rate.decimal_places"></c-amount.display>
+                    {% else %}
+                      <span class="font-semibold">-</span>
+                    {% endif %}
                   </div>
                 </div>
-                <div class="dotted-line flex-grow"></div>
-                {% if currency.income_projected != 0 %}
-                  <div class="text-right font-mono text-green-400">
-                    <c-amount.display
-                        :amount="rate.rate"
-                        :prefix="rate.prefix"
-                        :suffix="rate.suffix"
-                        :decimal_places="rate.decimal_places"></c-amount.display>
-                  </div>
-                {% else %}
-                  <div class="text-right font-mono">-</div>
-                {% endif %}
-              </div>
-            {% endfor %}
+              {% endfor %}
+            </div>
           </c-ui.info-card>
-        </div>
-      {% endfor %}
-    </div>
+         </div>
+       {% endfor %}
+     </div>
   </div>
 {% endblock %}

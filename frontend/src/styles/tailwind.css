@@ -148,7 +148,7 @@
 
     /* Card Data Display Styles */
     .card-data-section {
-        @apply space-y-1;
+        @apply space-y-2;
     }
 
     .card-data-row {
@@ -176,6 +176,20 @@
 
 
 @layer components {
+    .card {
+        @apply bg-base-100;
+    }
+
+    .card .card-header {
+        @apply bg-base-200;
+        @apply p-2;
+    }
+
+    .card .card-footer {
+        @apply bg-base-200;
+        @apply p-2;
+    }
+
     .fab {
         @layer daisyui.component {
             > :nth-child(n+7) {

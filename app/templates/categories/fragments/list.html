@@ -1,27 +1,29 @@
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
+<c-ui.fab-single-action
+        url="{% url 'category_add' %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container">
   <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-    <div>{% translate 'Categories' %}<span>
-      <a class="no-underline text-2xl p-1 category-action"
-                role="button"
-                data-tippy-content="{% translate "Add" %}"
-                hx-get="{% url 'category_add' %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
-    </span></div>
+      <div>{% translate 'Categories' %}</div>
     {% endspaceless %}
   </div>
 
   <div class="card bg-base-100 shadow-xl">
-    <div class="card-header bg-base-200 p-4">
-      <div role="tablist" class="tabs tabs-lifted">
-        <button class="tab tab-active" data-bs-toggle="tab" type="button" role="tab" aria-selected="true" hx-get="{% url 'categories_table_active' %}" hx-trigger="load, click" hx-target="#categories-table">{% translate 'Active' %}</button>
-        <button class="tab" hx-get="{% url 'categories_table_archived' %}" hx-target="#categories-table" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">{% translate 'Archived' %}</button>
+    <div class="card-header bg-base-200 p-4 rounded-box">
+      <div role="tablist" class="tabs tabs-border">
+        <input type="radio" name="installment_plan_tabs" class="tab" aria-label="{% translate 'Active' %}"
+               checked="checked"
+               hx-get="{% url 'categories_table_active' %}" hx-trigger="load, click" hx-target="#categories-table"
+               hx-indicator="#categories-table"/>
+        <input type="radio" name="installment_plan_tabs" class="tab" aria-label="{% translate 'Archived' %}"
+               hx-get="{% url 'categories_table_archived' %}" hx-trigger="click" hx-target="#categories-table"
+               hx-indicator="#categories-table"/>
       </div>
     </div>
     <div class="card-body">
-      <div id="categories-table"></div>
+      <div id="categories-table" class="show-loading"></div>
     </div>
   </div>
 </div>

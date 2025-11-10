@@ -8,16 +8,16 @@
   <div hx-get="{% url 'transaction_rule_view' transaction_rule_id=transaction_rule.id %}"
        hx-trigger="updated from:window" hx-target="closest .offcanvas" class="show-loading">
     <div class="text-2xl">{{ transaction_rule.name }}</div>
-    <div class="text-base text-gray-400">{{ transaction_rule.description }}</div>
-    <hr>
+    <div class="text-subtle">{{ transaction_rule.description }}</div>
+    <hr class="hr my-3">
     <div class="my-3">
       <div class="text-xl mb-2">{% translate 'If transaction...' %}</div>
-      <div class="card bg-base-100 shadow-xl">
+      <div class="card card-border shadow">
         <div class="card-body">
           {{ transaction_rule.trigger }}
         </div>
         <div class="card-footer text-end">
-          <a class="no-underline text-gray-400 p-1"
+          <a class="btn btn-ghost btn-xs"
              role="button"
              data-tippy-content="{% translate "Edit" %}"
              hx-get="{% url 'transaction_rule_edit' transaction_rule_id=transaction_rule.id %}"
@@ -29,10 +29,11 @@
 
     <div class="my-3">
       <div class="text-xl mb-2">{% translate 'Then...' %}</div>
+      <div class="row g-3">
       {% for action in all_actions %}
         {% if action.action_type == "edit_transaction" %}
-          <div class="card bg-base-100 shadow-xl mb-3">
-            <div class="card-header bg-base-200 p-4">
+          <div class="card bg-base-100 card-border shadow">
+            <div class="card-header">
               <div>
                 {% if action.order != 0 %}<span class="badge badge-secondary">{{ action.order }}</span>{% endif %}
                 <span class="badge badge-primary">{% trans 'Edit transaction' %}</span>
@@ -46,14 +47,14 @@
               <div class="bg-base-200 rounded-3xl mt-3 p-2">{{ action.value }}</div>
             </div>
             <div class="card-footer text-end">
-              <a class="no-underline text-gray-400 p-1"
+              <a class="btn btn-ghost btn-xs"
                  role="button"
                  data-tippy-content="{% translate 'Edit' %}"
                  hx-get="{% url 'transaction_rule_action_edit' transaction_rule_action_id=action.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i>
               </a>
-              <a class="text-error no-underline p-1"
+              <a class="btn btn-ghost btn-xs text-error"
                  role="button"
                  data-tippy-content="{% translate 'Delete' %}"
                  hx-delete="{% url 'transaction_rule_action_delete' transaction_rule_action_id=action.id %}"
@@ -68,8 +69,8 @@
             </div>
           </div>
         {% elif action.action_type == "update_or_create_transaction" %}
-          <div class="card bg-base-100 shadow-xl mb-3">
-            <div class="card-header bg-base-200 p-4">
+          <div class="card shadow">
+            <div class="card-header">
               <div>
                 {% if action.order != 0 %}<span class="badge badge-secondary">{{ action.order }}</span>{% endif %}
                 <span class="badge badge-primary">{% trans 'Update or create transaction' %}</span>
@@ -79,14 +80,14 @@
               <div>{% trans 'Edit to view' %}</div>
             </div>
             <div class="card-footer text-end">
-              <a class="no-underline text-gray-400 p-1"
+              <a class="btn btn-ghost btn-xs"
                  role="button"
                  data-tippy-content="{% translate 'Edit' %}"
                  hx-get="{% url 'update_or_create_transaction_rule_action_edit' pk=action.id %}"
                  hx-target="#generic-offcanvas">
                 <i class="fa-solid fa-pencil fa-fw"></i>
               </a>
-              <a class="text-error no-underline p-1"
+              <a class="btn btn-ghost btn-xs text-error"
                  role="button"
                  data-tippy-content="{% translate 'Delete' %}"
                  hx-delete="{% url 'update_or_create_transaction_rule_action_delete' pk=action.id %}"
@@ -102,16 +103,17 @@
           </div>
         {% endif %}
       {% empty %}
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow">
           <div class="card-body">
             {% translate 'This rule has no actions' %}
           </div>
         </div>
       {% endfor %}
-      <hr>
+      </div>
+      <hr class="hr my-5">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
         <div class="dropdown">
-          <button class="btn btn-outline btn-primary no-underline w-full" type="button" data-bs-toggle="dropdown"
+          <button class="btn btn-secondary w-full" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
             <i class="fa-solid fa-flask-vial me-2"></i>{% translate 'Test' %}
           </button>
@@ -134,7 +136,7 @@
           </ul>
         </div>
         <div class="dropdown">
-          <button class="btn btn-outline btn-primary no-underline w-full" type="button" data-bs-toggle="dropdown"
+          <button class="btn btn-primary w-full" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
             <i class="fa-solid fa-circle-plus me-2"></i>{% translate 'Add new' %}
           </button>
