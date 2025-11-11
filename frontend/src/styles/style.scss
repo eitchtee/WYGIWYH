@@ -1,10 +1,9 @@
 @use "variables";
 @use "font-awesome";
 @use "bootstrap";
-// @use "datepicker";
-// @use "tom-select";
+@use "datepicker";
+@use "tom-select";
 @use "animations";
-@use "scrollbar";
 
 .sticky-sidebar {
   position: sticky;
@@ -104,4 +103,8 @@ div:where(.swal2-container) {
     width: 40px;
     height: 40px;
   }
+}
+
+[x-cloak] {
+  display: none !important;
 }

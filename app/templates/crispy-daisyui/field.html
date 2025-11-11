@@ -1,4 +1,5 @@
 {% load crispy_forms_field %}
+{% load crispy_extra %}
 
 {% if field.is_hidden %}
     {{ field }}
@@ -39,7 +40,7 @@
                         {% include 'crispy-daisyui/layout/field_file.html' %}
                     {% elif field|is_select %}
                         {% if field.errors %}
-                            {% crispy_field field 'class' 'select-error input-error w-full' %}
+                            {% crispy_field field 'class' 'select-error w-full' %}
                         {% else %}
                             {% crispy_field field 'class' '' %}
                         {% endif %}
@@ -49,6 +50,18 @@
                         {% else %}
                             {% crispy_field field 'class' 'checkbox w-full' %}
                         {% endif %}
+                    {% elif field|is_input %}
+                        {% if field.errors %}
+                            {% crispy_field field 'class' 'input input-error w-full' %}
+                        {% else %}
+                            {% crispy_field field 'class' 'input w-full' %}
+                    {% endif %}
+                    {% elif field|is_textarea %}
+                        {% if field.errors %}
+                            {% crispy_field field 'class' 'textarea textarea-error w-full' %}
+                        {% else %}
+                            {% crispy_field field 'class' 'textarea w-full' %}
+                    {% endif %}
                     {% elif field.errors %}
                         {% crispy_field field 'class' 'input input-error w-full' %}
                     {% else %}

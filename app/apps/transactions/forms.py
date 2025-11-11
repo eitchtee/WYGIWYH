@@ -20,8 +20,7 @@ from apps.transactions.models import (
     TransactionEntity,
     TransactionTag,
 )
-from crispy_bootstrap5.bootstrap5 import BS5Accordion
-from crispy_forms.bootstrap import AccordionGroup, AppendedText, FormActions
+from crispy_forms.bootstrap import AccordionGroup, AppendedText, FormActions, Accordion
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
@@ -166,7 +165,7 @@ class TransactionForm(forms.ModelForm):
             ),
             "description",
             Field("amount", inputmode="decimal"),
-            BS5Accordion(
+            Accordion(
                 AccordionGroup(
                     _("More"),
                     "entities",

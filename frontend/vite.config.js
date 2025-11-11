@@ -44,10 +44,6 @@ export default defineConfig({
         extensions: ['.js', '.json', '.scss', '.css'],
     },
 
-    optimizeDeps: {
-        include: ['air-datepicker', 'autosize', 'javascript-natural-sort'],
-    },
-
     build: {
         outDir: resolve(__dirname, 'build'),
         assetsDir: '',

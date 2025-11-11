@@ -2,6 +2,8 @@ import _hyperscript from 'hyperscript.org/dist/_hyperscript.min';
 import './_htmx.js';
 import Alpine from "alpinejs";
 import mask from '@alpinejs/mask';
+import collapse from '@alpinejs/collapse'
+import Autosize from '@marcreichel/alpine-autosize';
 import {create, all} from 'mathjs';
 
 window.Alpine = Alpine;
@@ -15,8 +17,14 @@ window.math = create(all, {
 });
 
 Alpine.plugin(mask);
+Alpine.plugin(collapse);
+Alpine.plugin(Autosize);
 Alpine.start();
 _hyperscript.browserInit();
+
+document.body.addEventListener('htmx:afterSettle', function (evt) {
+    Alpine.initTree(evt.detail.elt);
+});
 
 
 const successAudio = new Audio("/static/sounds/success.mp3");

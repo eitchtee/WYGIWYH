@@ -9,7 +9,7 @@
         hx-indicator="#dry-run-deleted-result, closest form" class="show-loading" novalidate>
     {% crispy form %}
   </form>
-  <hr>
+  <hr class="hr my-3">
   <div id="dry-run-deleted-result" class="show-loading">
     {% include 'rules/fragments/transaction_rule/dry_run/visual.html' with logs=logs results=results %}
   </div>

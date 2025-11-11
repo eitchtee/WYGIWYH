@@ -4,26 +4,20 @@
 {% block title %}{% translate 'Export and Restore' %}{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="row d-flex flex-row align-items-center justify-content-center my-5">
-      <div class="text-center w-auto mb-3">
-        <button class="btn btn-outline-success d-flex flex-column align-items-center justify-content-center p-3"
-                style="width: 100px; height: 100px;"
-                hx-get="{% url 'export_form' %}"
-                hx-target="#generic-offcanvas">
-          <i class="fa-solid fa-download mb-1"></i>
-          <span>{% trans 'Export' %}</span>
-        </button>
-      </div>
-      <div class="text-center w-auto mb-3">
-        <button class="btn btn-outline-primary d-flex flex-column align-items-center justify-content-center p-3"
-                style="width: 100px; height: 100px;"
-                hx-get="{% url 'restore_form' %}"
-                hx-target="#generic-offcanvas">
-          <i class="fa-solid fa-upload mb-1"></i>
-          <span>{% trans 'Restore' %}</span>
-        </button>
-      </div>
+  <div class="flex items-center justify-center min-h-[90dvh]">
+    <div class="flex gap-4">
+      <button class="btn btn-error btn-square w-24 h-24 flex flex-col items-center justify-center"
+              hx-get="{% url 'export_form' %}"
+              hx-target="#generic-offcanvas">
+        <i class="fa-solid fa-download mb-1"></i>
+        <span class="text-sm">{% trans 'Export' %}</span>
+      </button>
+      <button class="btn btn-success btn-square w-24 h-24 flex flex-col items-center justify-center"
+              hx-get="{% url 'restore_form' %}"
+              hx-target="#generic-offcanvas">
+        <i class="fa-solid fa-upload mb-1"></i>
+        <span class="text-sm">{% trans 'Restore' %}</span>
+      </button>
     </div>
   </div>
 {% endblock %}

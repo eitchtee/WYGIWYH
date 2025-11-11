@@ -1,23 +1,20 @@
 {% load currency_display %}
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
+<c-ui.fab-single-action
+        url="{% url 'automatic_exchange_rate_add' %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container">
   <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-      <div>{% translate 'Automatic Exchange Rates' %}<span>
-      <a class="no-underline text-2xl p-1 category-action"
-         role="button"
-         data-tippy-content="{% translate "Add" %}"
-         hx-get="{% url 'automatic_exchange_rate_add' %}"
-         hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
-    </span></div>
+      <div>{% translate 'Automatic Exchange Rates' %}</div>
     {% endspaceless %}
   </div>
 
   <div class="card bg-base-100 shadow-xl">
-    <div class="card-header bg-base-200 p-4 text-base-content/70">
+    <div class="card-header rounded-box">
       <button type="button" hx-get="{% url 'automatic_exchange_rate_force_fetch' %}"
-              class="btn btn-outline btn-primary btn-sm">{% trans 'Fetch all' %}</button>
+              class="btn btn-primary btn-sm">{% trans 'Fetch all' %}</button>
     </div>
     <div class="card-body">
       {% if services %}

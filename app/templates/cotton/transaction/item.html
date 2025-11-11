@@ -1,7 +1,7 @@
 {% load markdown %}
 {% load i18n %}
 <div
-    class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction relative">
+    class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction">
   <div class="flex my-1">
     {% if not disable_selection or not dummy %}
       <label class="px-3 flex! items-center justify-center">
@@ -161,7 +161,7 @@
                     <button class="btn btn-soft btn-sm transaction-action" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="fa-solid fa-ellipsis fa-fw"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start menu w-max relative">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start menu">
                       <div class="absolute inset-[0rem_-3rem_-3rem_-3rem] pointer-events-auto -z-10"></div>
                       {% if transaction.account.is_untracked_by %}
                         <li class="menu-disabled" aria-disabled="true">

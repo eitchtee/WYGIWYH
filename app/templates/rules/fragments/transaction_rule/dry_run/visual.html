@@ -1,97 +1,97 @@
 {% load i18n %}
-<div class="card bg-base-100 shadow-xl max-h-full overflow-auto overflow-x-auto">
-  <div class="card-header bg-base-200 p-4">
-    <div role="tablist" class="tabs tabs-lifted">
-      <button class="tab tab-active" id="visual-tab" data-bs-toggle="tab" data-bs-target="#visual-tab-pane"
-              type="button" role="tab" aria-controls="visual-tab-pane"
-              aria-selected="true">{% translate 'Visual' %}</button>
-      <button class="tab" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs-tab-pane" type="button"
-              role="tab" aria-controls="logs-tab-pane" aria-selected="false">{% translate 'Logs' %}</button>
-    </div>
+<div class="card" x-data="{ selectedTab: 'visual' }">
+  <div  role="tablist" class="card-header tabs tabs-border">
+      <input type="radio" name="test-tab" class="tab" aria-label="{% translate 'Visual' %}"
+             x-on:click="selectedTab = 'visual'"
+             x-bind:checked="selectedTab === 'visual'"/>
+      <input type="radio" name="test-tab" class="tab" aria-label="{% translate 'Logs' %}"
+             x-on:click="selectedTab = 'logs'"
+             x-bind:checked="selectedTab === 'logs'"/>
   </div>
   <div class="card-body">
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="visual-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-           tabindex="0">
-        {% if not results %}
-          {% translate 'Run a test to see...' %}
-        {% else %}
-          {% for result in results %}
+    <div role="tabpanel" aria-labelledby="home-tab"
+         tabindex="0" x-cloak x-show="selectedTab === 'visual'">
+      {% if not results %}
+        {% translate 'Run a test to see...' %}
+      {% else %}
+        {% for result in results %}
 
-            {% if result.type == 'header' %}
-              <div class="my-3">
-                <h6 class="text-center mb-3">
-                  <span class="badge badge-secondary">
+          {% if result.type == 'header' %}
+            <div class="my-3">
+              <h6 class="text-center mb-3">
+                  <span class="badge badge-primary">
                   {% if result.header_type == "edit_transaction" %}
                     {% translate 'Edit transaction' %}
                   {% elif result.header_type == "update_or_create_transaction" %}
                     {% translate 'Update or create transaction' %}
                   {% endif %}
                   </span>
-                </h6>
-              </div>
-            {% endif %}
+              </h6>
+            </div>
+          {% endif %}
 
 
-            {% if result.type == 'triggering_transaction' %}
-              <div class="mt-4">
-                <h6 class="text-center mb-3"><span class="badge badge-secondary">{% translate 'Start' %}</span></h6>
-                <c-transaction.item :transaction="result.transaction" :dummy="True"
-                                    :disable-selection="True"></c-transaction.item>
-              </div>
-            {% endif %}
+          {% if result.type == 'triggering_transaction' %}
+            <div class="mt-4">
+              <h6 class="text-center mb-3"><span class="badge badge-primary">{% translate 'Start' %}</span></h6>
+              <c-transaction.item :transaction="result.transaction" :dummy="True"
+                                  :disable-selection="True"></c-transaction.item>
+            </div>
+          {% endif %}
 
-            {% if result.type == 'edit_transaction' %}
+          {% if result.type == 'edit_transaction' %}
+            <div>
               <div>
-                <div>
-                  {% translate 'Set' %} <span
-                    class="badge badge-secondary">{{ result.field }}</span> {% translate 'to' %}
-                  <span class="badge badge-secondary">{{ result.new_value }}</span>
-                </div>
-                <c-transaction.item :transaction="result.transaction" :dummy="True"
+                {% translate 'Set' %} <span
+                  class="badge badge-secondary">{{ result.field }}</span> {% translate 'to' %}
+                <span class="badge badge-secondary">{{ result.new_value }}</span>
+              </div>
+              <c-transaction.item :transaction="result.transaction" :dummy="True"
+                                  :disable-selection="True"></c-transaction.item>
+            </div>
+          {% endif %}
+
+          {% if result.type == 'update_or_create_transaction' %}
+            <div>
+              <div class="alert alert-info" role="alert">
+                {% translate 'Search' %}: {{ result.query }}
+              </div>
+              {% if result.start_transaction %}
+                <c-transaction.item :transaction="result.start_transaction" :dummy="True"
                                     :disable-selection="True"></c-transaction.item>
-              </div>
-            {% endif %}
-
-            {% if result.type == 'update_or_create_transaction' %}
-              <div>
-                <div class="alert alert-info" role="alert">
-                  {% translate 'Search' %}: {{ result.query }}
+              {% else %}
+                <div class="alert alert-error" role="alert">
+                  {% translate 'No transaction found, a new one will be created' %}
                 </div>
-                {% if result.start_transaction %}
-                  <c-transaction.item :transaction="result.start_transaction" :dummy="True"
-                                      :disable-selection="True"></c-transaction.item>
-                {% else %}
-                  <div class="alert alert-error" role="alert">
-                    {% translate 'No transaction found, a new one will be created' %}
-                  </div>
-                {% endif %}
-                <div class="text-center text-3xl my-2"><i class="fa-solid fa-arrow-down"></i></div>
-                <c-transaction.item :transaction="result.end_transaction" :dummy="True"
-                                    :disable-selection="True"></c-transaction.item>
-              </div>
-            {% endif %}
+              {% endif %}
+              <div class="text-center text-3xl my-2"><i class="fa-solid fa-arrow-down"></i></div>
+              <c-transaction.item :transaction="result.end_transaction" :dummy="True"
+                                  :disable-selection="True"></c-transaction.item>
+            </div>
+          {% endif %}
 
-            {% if result.type == 'error' %}
-              <div>
-                <div class="alert alert-{% if result.level == 'error' %}error{% elif result.level == 'warning' %}warning{% else %}info{% endif %}" role="alert">
-                  {{ result.error }}
-                </div>
+          {% if result.type == 'error' %}
+            <div>
+              <div
+                  class="alert alert-{% if result.level == 'error' %}error{% elif result.level == 'warning' %}warning{% else %}info{% endif %}"
+                  role="alert">
+                {{ result.error }}
               </div>
-            {% endif %}
+            </div>
+          {% endif %}
 
-          {% endfor %}
-        {% endif %}
-      </div>
-      <div class="tab-pane fade" id="logs-tab-pane" role="tabpanel" aria-labelledby="logs-tab" tabindex="0">
-        {% if not logs %}
-          {% translate 'Run a test to see...' %}
-        {% else %}
-          <pre>
-              {{ logs|linebreaks }}
-            </pre>
-        {% endif %}
-      </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div role="tabpanel" aria-labelledby="logs-tab" tabindex="0"
+         x-cloak x-show="selectedTab === 'logs'">
+      {% if not logs %}
+        {% translate 'Run a test to see...' %}
+      {% else %}
+        <pre class="overflow-x-auto">
+          {{ logs|linebreaks }}
+        </pre>
+      {% endif %}
     </div>
   </div>
 </div>

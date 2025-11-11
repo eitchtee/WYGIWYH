@@ -12,7 +12,7 @@
                 </legend>
             {% endif %}
 
-            <label class="input w-full {% if input_size %} {{ input_size }}{% endif %}{% if field.errors %} input-error{% endif %}">
+            <label class="{% if input_size %} {{ input_size }}{% endif %}{% if field.errors %} input-error{% endif %}">
                 {# prepend #}
                 {% if crispy_prepended_text %}
                     {{ crispy_prepended_text }}

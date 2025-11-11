@@ -1,6 +1,4 @@
 @import "tailwindcss" source("../../../app/templates/");
-@import "./_tom-select.scss";
-@import "./_datepicker.scss";
 
 @plugin "daisyui" {
   themes: wygiwyh_dark --default, wygiwyh_light;
@@ -68,8 +66,8 @@
   --color-success-content: oklch(37% 0.077 168.94);
   --color-warning: oklch(82% 0.189 84.429);
   --color-warning-content: oklch(41% 0.112 45.904);
-  --color-error: oklch(71% 0.194 13.428);
-  --color-error-content: oklch(27% 0.105 12.094);
+  --color-error: oklch(70.4% 0.191 22.216);
+  --color-error-content: oklch(25.8% 0.092 26.042);
   --radius-selector: 0.5rem;
   --radius-field: 0.5rem;
   --radius-box: 0.5rem;
@@ -92,6 +90,10 @@
 
 
 @layer utilities {
+    .textarea {
+        min-height: unset;
+    }
+
     .transaction:has(input[type="checkbox"]:checked) > div > .transaction-item {
         background-color: oklch(from var(--color-primary) l c h / 15%);
     }
@@ -223,7 +225,7 @@
 
     .sidebar-floating + main {
         /* Adjusts the main content margin to account for the collapsed sidebar */
-        @apply lg:ml-16 transition-all duration-100;
+        @apply lg:ml-16;
     }
 
     .sidebar-floating .sidebar-item span {
@@ -317,7 +319,7 @@
 
     .sidebar-fixed + main {
         /* Adjusts the main content margin to account for the expanded sidebar */
-        @apply lg:ml-[17%] transition-all duration-100;
+        @apply lg:ml-[17%];
 
         /* Using 16vw to account for padding/margins */
     }

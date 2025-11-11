@@ -13,6 +13,7 @@ window.TomSelect = function createDynamicTomSelect(element) {
         // Extract 'create' option from data attribute
         create: element.dataset.create === 'true',
         copyClassesToDropdown: true,
+        loadingClass: "ts-loading",
         allowEmptyOption: element.dataset.allowEmptyOption === 'true',
         render: {
             no_results: function () {
@@ -23,19 +24,14 @@ window.TomSelect = function createDynamicTomSelect(element) {
             },
         },
 
-        onDropdownOpen: function () {
-            // Move dropdown to body to escape stacking context issues
-            document.body.appendChild(this.dropdown);
-
-
+        onInitialize: function () {
             this.popper = Popper.createPopper(this.control, this.dropdown, {
                 placement: "bottom-start",
-                strategy: "fixed",
                 modifiers: [
                     {
                         name: "sameWidth",
                         enabled: true,
-                        fn: ({ state }) => {
+                        fn: ({state}) => {
                             state.styles.popper.width = `${state.rects.reference.width}px`;
                         },
                         phase: "beforeWrite",
@@ -47,21 +43,13 @@ window.TomSelect = function createDynamicTomSelect(element) {
                             fallbackPlacements: ['top-start'],
                         },
                     },
-                    {
-                        name: 'preventOverflow',
-                        options: {
-                            boundary: 'viewport',
-                            padding: 8,
-                        },
-                    },
                 ]
 
             });
 
         },
-        onDropdownClose: function () {
-            this.popper.destroy();
-            this.dropdown.remove();
+        onDropdownOpen: function () {
+            this.popper.update();
         }
     };
 

@@ -6,9 +6,8 @@
   <div class="join join-vertical w-full" id="emergency-fund-accordion">
     {% for id, data in data.items %}
       {% if data.average %}
-        <div class="collapse collapse-arrow join-item bg-base-100 border-base-200 border">
-          <input type="checkbox" />
-          <div class="collapse-title text-base font-medium">
+        <c-ui.components.collapse>
+          <c-slot name="title">
             <span>
               <span class="text-subtle">{% trans "You've spent an average of" %}</span>
               <c-amount.display
@@ -22,8 +21,8 @@
               <span class="text-3xl">{{ data.months }}</span>
               <span class="text-subtle">{% trans 'months without any income.' %}</span>
             </span>
-          </div>
-          <div class="collapse-content bg-base-200">
+          </c-slot>
+          <c-slot name="content">
             <div class="flex justify-between items-baseline mt-2">
               <div class="text-end font-mono">
                 <div class="text-subtle">{% translate 'average expenses' %}</div>
@@ -61,8 +60,8 @@
                 <span>{{ data.months }}</span>
               </div>
             </div>
-          </div>
-        </div>
+          </c-slot>
+        </c-ui.components.collapse>
       {% endif %}
     {% endfor %}
   </div>

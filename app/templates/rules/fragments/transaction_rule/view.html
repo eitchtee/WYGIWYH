@@ -29,7 +29,7 @@
 
     <div class="my-3">
       <div class="text-xl mb-2">{% translate 'Then...' %}</div>
-      <div class="row g-3">
+      <div class="flex flex-col gap-3">
       {% for action in all_actions %}
         {% if action.action_type == "edit_transaction" %}
           <div class="card bg-base-100 card-border shadow">
@@ -69,7 +69,7 @@
             </div>
           </div>
         {% elif action.action_type == "update_or_create_transaction" %}
-          <div class="card shadow">
+          <div class="card bg-base-100 card-border shadow">
             <div class="card-header">
               <div>
                 {% if action.order != 0 %}<span class="badge badge-secondary">{{ action.order }}</span>{% endif %}
@@ -103,7 +103,7 @@
           </div>
         {% endif %}
       {% empty %}
-        <div class="card shadow">
+        <div class="bg-base-100 card-border shadow">
           <div class="card-body">
             {% translate 'This rule has no actions' %}
           </div>
@@ -117,7 +117,7 @@
                   aria-expanded="false">
             <i class="fa-solid fa-flask-vial me-2"></i>{% translate 'Test' %}
           </button>
-          <ul class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+          <ul class="dropdown-menu menu">
             {% if transaction_rule.on_create %}
               <li><a role="link" href="#"
                      hx-get="{% url 'transaction_rule_dry_run_created' pk=transaction_rule.id %}"
@@ -140,7 +140,7 @@
                   aria-expanded="false">
             <i class="fa-solid fa-circle-plus me-2"></i>{% translate 'Add new' %}
           </button>
-          <ul class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+          <ul class="dropdown-menu menu">
             <li><a role="link" href="#"
                    hx-get="{% url 'transaction_rule_action_add' transaction_rule_id=transaction_rule.id %}"
                    hx-target="#generic-offcanvas">{% trans 'Edit Transaction' %}</a></li>

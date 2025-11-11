@@ -11,7 +11,7 @@ $dropdown-padding-y: 0.5rem !default;
 $dropdown-spacer: 0.125rem !default;
 $dropdown-font-size: 1rem !default;
 $dropdown-border-radius: 0.375rem !default;
-$dropdown-border-width: 1px !default;
+$dropdown-border-width: 2px !default;
 $dropdown-inner-border-radius: calc(#{$dropdown-border-radius} - #{$dropdown-border-width}) !default;
 $dropdown-divider-margin-y: 0.5rem !default;
 $dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !default;
@@ -191,7 +191,7 @@ $breakpoints: (
     --dropdown-font-size: #{$dropdown-font-size};
     --dropdown-color: var(--color-base-content);
     --dropdown-bg: var(--color-base-300);
-    --dropdown-border-color: var(--color-base-300);
+    --dropdown-border-color: var(--color-base-100);
     --dropdown-border-radius: #{$dropdown-border-radius};
     --dropdown-border-width: #{$dropdown-border-width};
     --dropdown-inner-border-radius: #{$dropdown-inner-border-radius};
@@ -214,6 +214,8 @@ $breakpoints: (
     z-index: var(--dropdown-z-index);
     display: none; // none by default, but block on "open" of the menu
     min-width: var(--dropdown-min-width);
+    max-width: calc(100dvw - 1rem); // Prevent overflow on small screens
+    width: max-content;
     padding: var(--dropdown-padding-y) var(--dropdown-padding-x);
     margin: 0; // Override default margin of ul
     color: var(--dropdown-color);

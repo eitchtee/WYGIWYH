@@ -1,9 +1,10 @@
-<div class="collapse collapse-arrow bg-base-100 border border-base-300{% if div.css_class %} {{div.css_class}}{% endif %}">
-    <input type="radio" name="{{ div.data_parent }}" {% if div.active %}checked="checked"{% endif %} />
-    <div class="collapse-title font-semibold">
-        {{ div.name }}
-    </div>
-    <div class="collapse-content">
-        {{ fields|safe }}
-    </div>
-</div>
+<c-ui.components.collapse
+  title_class="join-item"
+  :active="div.active">
+  <c-slot name="title">
+    {{ div.name }}
+  </c-slot>
+  <c-slot name="content">
+    {{ fields|safe }}
+  </c-slot>
+</c-ui.components.collapse>

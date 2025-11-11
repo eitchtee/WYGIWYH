@@ -9,41 +9,46 @@
 {% block content %}
   <div class="min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
-          {% settings "DEMO" as demo_mode %}
-          {% if demo_mode %}
-            <div class="card bg-base-100 shadow-xl mb-3">
-              <div class="card-body">
-                <h1 class="text-lg card-title text-center mb-4">{% trans "Welcome to WYGIWYH's demo!" %}</h1>
-                <p>{% trans 'Use the credentials below to login' %}:</p>
-                <p>{% trans 'E-mail' %}: <span class="badge badge-secondary select-all">demo@demo.com</span></p>
-                <p>{% trans 'Password' %}: <span class="badge badge-secondary select-all">wygiwyhdemo</span></p>
-              </div>
-            </div>
-          {% endif %}
-          <div class="card bg-base-100 shadow-2xl">
-            <div class="card-body">
-              <h1 class="text-2xl card-title text-center mb-4">Login</h1>
-              {% crispy form %}
-
-              {% get_providers as socialaccount_providers %}
-              {% if socialaccount_providers %}
-                <div class="mt-3">
-                  <hr class="hr">
-                  <ul class="socialaccount_providers list-none">
-                    {% for provider in socialaccount_providers %}
-                      <li class="mt-2">
-                        <a title="{{ provider.name }}"
-                           class="btn btn-outline btn-primary w-full socialaccount_provider {{ provider.id }}"
-                           href="{% provider_login_url provider %}">
-                          {% translate 'Login with' %} {{ provider.name }}
-                        </a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              {% endif %}
-            </div>
+      {% settings "DEMO" as demo_mode %}
+      {% if demo_mode %}
+        <div class="card bg-base-100 shadow-xl mb-3">
+          <div class="card-body">
+            <h1 class="text-lg card-title text-center mb-4">{% trans "Welcome to WYGIWYH's demo!" %}</h1>
+            <p>{% trans 'Use the credentials below to login' %}:</p>
+            <p>{% trans 'E-mail' %}: <span class="badge badge-secondary select-all">demo@demo.com</span></p>
+            <p>{% trans 'Password' %}: <span class="badge badge-secondary select-all">wygiwyhdemo</span></p>
           </div>
         </div>
+      {% endif %}
+      <div class="card bg-base-100 shadow-2xl">
+        <div class="card-body">
+          <h1 class="text-2xl card-title text-center mb-4">Login</h1>
+          {% crispy form %}
+
+          {% get_providers as socialaccount_providers %}
+          {% if socialaccount_providers %}
+            <hr class="hr my-3">
+            <ul class="socialaccount_providers list-none flex flex-col gap-3">
+              {% for provider in socialaccount_providers %}
+                <li>
+                  <a title="{{ provider.name }}"
+                     class="btn btn-outline btn-primary w-full socialaccount_provider {{ provider.id }}"
+                     href="{% provider_login_url provider %}">
+                    {% translate 'Login with' %} {{ provider.name }}
+                  </a>
+                </li>
+                <li>
+                  <a title="{{ provider.name }}"
+                     class="btn btn-outline btn-primary w-full socialaccount_provider {{ provider.id }}"
+                     href="{% provider_login_url provider %}">
+                    {% translate 'Login with' %} {{ provider.name }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}

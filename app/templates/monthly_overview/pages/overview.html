@@ -133,7 +133,7 @@
                       title="{% translate 'Order by' %}">
                 <i class="fa-solid fa-sort fa-fw"></i>
               </button>
-              <ul class="dropdown-menu dropdown-menu-end menu w-max relative">
+              <ul class="dropdown-menu dropdown-menu-end menu">
                 <li>
                   <button class="{% if order == 'default' %}menu-active{% endif %}" type="button"
                           _="on click remove .menu-active from <li > button/> in the closest <ul/>
@@ -166,7 +166,7 @@
           </div>
 
           {# Filter transactions form #}
-          <div class="bs collapse overflow-visible" id="collapse-filter" hx-preserve>
+          <div class="bs collapse z-1" id="collapse-filter" hx-preserve>
             <div class="card card-body bg-base-200 mt-2">
               <div class="text-right">
                 <button class="btn btn-outline btn-error btn-sm w-fit"

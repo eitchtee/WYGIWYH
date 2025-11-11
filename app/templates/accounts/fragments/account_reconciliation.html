@@ -9,14 +9,13 @@
     <form hx-post="{% url 'account_reconciliation' %}">
         {% csrf_token %}
         {{ form.management_form }}
-        <div class="space-y-2" id="balanceAccordionFlush">
+        <div class="join join-vertical w-full" id="balanceAccordionFlush">
         {% for form in form.forms %}
-          <div class="collapse collapse-arrow bg-base-100 border-base-300 border-2">
-            <input type="checkbox" />
-            <div class="collapse-title font-medium text-sm">
+          <c-ui.components.collapse>
+            <c-slot name="title">
               {% if form.account_group %}<span class="badge badge-primary badge-outline me-2">{{ form.account_group.name }}</span>{% endif %}{{ form.account_name }}
-            </div>
-            <div class="collapse-content bg-base-200">
+            </c-slot>
+            <c-slot name="content">
               <div class="fieldset">
                 <span class="fieldset-legend">{% translate 'Current balance' %}</span>
                 <div data-amount="{{ form.current_balance|floatformat:"-40u" }}"
@@ -54,11 +53,10 @@
                             }
                           ).format(diff)
                         then set formatted_string to `${prefix}${format_new_amount}${suffix}`
-                        then put formatted_string into me if diff else
-                        put '-' into me">-</div>
+                        then put formatted_string into me if diff else put '-' into me">-</div>
               </div>
-            </div>
-          </div>
+            </c-slot>
+          </c-ui.components.collapse>
         {% endfor %}
         </div>
         <div class="mt-3">

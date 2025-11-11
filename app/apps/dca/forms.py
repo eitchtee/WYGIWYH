@@ -10,8 +10,7 @@ from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelect, TransactionSelect
 from apps.dca.models import DCAEntry, DCAStrategy
 from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
-from crispy_bootstrap5.bootstrap5 import BS5Accordion
-from crispy_forms.bootstrap import AccordionGroup, FormActions
+from crispy_forms.bootstrap import AccordionGroup, FormActions, Accordion
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Column, Layout, Row
 from django import forms
@@ -154,7 +153,7 @@ class DCAEntryForm(forms.ModelForm):
                 Column("amount_received"),
             ),
             "notes",
-            BS5Accordion(
+            Accordion(
                 AccordionGroup(
                     _("Create transaction"),
                     Switch("create_transaction"),

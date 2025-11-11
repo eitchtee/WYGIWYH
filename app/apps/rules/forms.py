@@ -9,8 +9,7 @@ from apps.rules.models import (
 )
 from apps.transactions.forms import BulkEditTransactionForm
 from apps.transactions.models import Transaction
-from crispy_bootstrap5.bootstrap5 import BS5Accordion
-from crispy_forms.bootstrap import AccordionGroup, FormActions
+from crispy_forms.bootstrap import AccordionGroup, FormActions, Accordion
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Column, Field, Layout, Row
 from django import forms
@@ -208,7 +207,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             "order",
-            BS5Accordion(
+            Accordion(
                 AccordionGroup(
                     _("Search Criteria"),
                     Field("filter", rows=1),
@@ -219,7 +218,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
                         ),
                         Column(
                             Field("search_type", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
@@ -229,7 +228,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
                         ),
                         Column(
                             Field("search_is_paid", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
@@ -239,7 +238,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
                         ),
                         Column(
                             Field("search_mute", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
@@ -249,7 +248,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
                         ),
                         Column(
                             Field("search_account", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
@@ -259,7 +258,7 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
                         ),
                         Column(
                             Field("search_entities", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
@@ -482,7 +481,7 @@ class DryRunUpdatedTransactionForm(BulkEditTransactionForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper.layout.insert(0, "transaction")
-        self.helper.layout.insert(1, HTML("<hr/>"))
+        self.helper.layout.insert(1, HTML('<hr class="hr my-3" />'))
 
         # Change submit button
         self.helper.layout[-1] = FormActions(

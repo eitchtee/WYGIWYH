@@ -1,24 +1,24 @@
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
+<c-components.fab>
+  <c-components.fab_menu_button
+            color="primary"
+            hx_target="#generic-offcanvas"
+            url="{% url 'import_profiles_add' %}"
+            icon="fa-solid fa-plus"
+            title="{% trans 'New' %}"></c-components.fab_menu_button>
+
+  <c-components.fab_menu_button
+            color="primary"
+            hx_target="#persistent-generic-offcanvas-left"
+            url="{% url 'import_presets_list' %}"
+            icon="fa-solid fa-file-code"
+            title="{% trans 'From preset' %}"></c-components.fab_menu_button>
+</c-components.fab>
+
+<div class="container">
   <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-    <div>{% translate 'Import Profiles' %}<span>
-      <span class="dropdown" data-tippy-content="{% translate "Add" %}">
-        <a class="no-underline text-2xl p-1" role="button"
-                data-bs-toggle="dropdown"
-                data-bs-title="{% translate "Add" %}" aria-expanded="false">
-          <i class="fa-solid fa-circle-plus fa-fw"></i>
-        </a>
-        <ul class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-          <li><a role="button"
-                 hx-get="{% url 'import_profiles_add' %}"
-                 hx-target="#generic-offcanvas">{% trans 'New' %}</a></li>
-          <li><a role="button"
-                 hx-get="{% url 'import_presets_list' %}"
-                 hx-target="#persistent-generic-offcanvas-left">{% trans 'From preset' %}</a></li>
-        </ul>
-      </span>
-    </span></div>
+    <div>{% translate 'Import Profiles' %}</div>
     {% endspaceless %}
   </div>
 
@@ -26,58 +26,60 @@
     <div class="card-body overflow-x-auto">
       {% if profiles %}
       <c-config.search></c-config.search>
-      <table class="table table-hover whitespace-nowrap">
-        <thead>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra">
+          <thead>
           <tr>
             <th scope="col" class="table-col-auto"></th>
             <th scope="col">{% translate 'Name' %}</th>
             <th scope="col">{% translate 'Version' %}</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {% for profile in profiles %}
-          <tr class="profile">
-            <td class="table-col-auto">
-              <div class="join" role="group" aria-label="{% translate 'Actions' %}">
-                <a class="btn btn-secondary btn-sm join-item"
-                      role="button"
-                      data-tippy-content="{% translate "Edit" %}"
-                      hx-get="{% url 'import_profile_edit' profile_id=profile.id %}"
-                      hx-target="#generic-offcanvas">
-                  <i class="fa-solid fa-pencil fa-fw"></i></a>
-                  <a class="btn btn-secondary btn-sm join-item text-success"
-                        role="button"
-                        data-tippy-content="{% translate "Runs" %}"
-                        hx-get="{% url 'import_profile_runs_list' profile_id=profile.id %}"
-                        hx-target="#persistent-generic-offcanvas-left">
+            <tr class="profile">
+              <td class="table-col-auto">
+                <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                  <a class="btn btn-secondary btn-sm join-item"
+                     role="button"
+                     data-tippy-content="{% translate "Edit" %}"
+                     hx-get="{% url 'import_profile_edit' profile_id=profile.id %}"
+                     hx-target="#generic-offcanvas">
+                    <i class="fa-solid fa-pencil fa-fw"></i></a>
+                  <a class="btn btn-secondary btn-sm join-item"
+                     role="button"
+                     data-tippy-content="{% translate "Runs" %}"
+                     hx-get="{% url 'import_profile_runs_list' profile_id=profile.id %}"
+                     hx-target="#persistent-generic-offcanvas-left">
                     <i class="fa-solid fa-person-running fa-fw"></i></a>
-                <a class="btn btn-secondary btn-sm join-item text-primary"
-                        role="button"
-                        data-tippy-content="{% translate "Import" %}"
-                        hx-get="{% url 'import_run_add' profile_id=profile.id %}"
-                        hx-target="#generic-offcanvas">
+                  <a class="btn btn-secondary btn-sm join-item"
+                     role="button"
+                     data-tippy-content="{% translate "Import" %}"
+                     hx-get="{% url 'import_run_add' profile_id=profile.id %}"
+                     hx-target="#generic-offcanvas">
                     <i class="fa-solid fa-file-import fa-fw"></i></a>
-                <a class="btn btn-error btn-sm join-item"
-                        role="button"
-                        data-tippy-content="{% translate "Delete" %}"
-                        hx-delete="{% url 'import_profile_delete' profile_id=profile.id %}"
-                        hx-trigger='confirmed'
-                        data-bypass-on-ctrl="true"
-                        data-title="{% translate "Are you sure?" %}"
-                        data-text="{% translate "You won't be able to revert this!" %}"
-                        data-confirm-text="{% translate "Yes, delete it!" %}"
-                        _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
-              </div>
-            </td>
-            <td>{{ profile.name }}</td>
-            <td>{{ profile.get_version_display }}</td>
-          </tr>
+                  <a class="btn btn-error btn-sm join-item"
+                     role="button"
+                     data-tippy-content="{% translate "Delete" %}"
+                     hx-delete="{% url 'import_profile_delete' profile_id=profile.id %}"
+                     hx-trigger='confirmed'
+                     data-bypass-on-ctrl="true"
+                     data-title="{% translate "Are you sure?" %}"
+                     data-text="{% translate "You won't be able to revert this!" %}"
+                     data-confirm-text="{% translate "Yes, delete it!" %}"
+                     _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+                </div>
+              </td>
+              <td>{{ profile.name }}</td>
+              <td>{{ profile.get_version_display }}</td>
+            </tr>
           {% endfor %}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
       {% else %}
-      <c-msg.empty title="{% translate "No import profiles" %}" remove-padding></c-msg.empty>
+        <c-msg.empty title="{% translate "No import profiles" %}" remove-padding></c-msg.empty>
       {% endif %}
+      </div>
     </div>
   </div>
 </div>

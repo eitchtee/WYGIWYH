@@ -14,7 +14,7 @@
     <div class="grid grid-cols-1 gap-4">
     {% for run in runs %}
       <div class="col">
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card bg-base-100 shadow">
           <div class="card-header bg-base-200 p-4 text-sm {% if run.status == run.Status.QUEUED %}text-base-content{% elif run.status == run.Status.PROCESSING %}text-warning{% elif run.status == run.Status.FINISHED %}text-success{% else %}text-error{% endif %}">
             <span><i class="fa-solid {% if run.status == run.Status.QUEUED %}fa-hourglass-half{% elif run.status == run.Status.PROCESSING %}fa-spinner{% elif run.status == run.Status.FINISHED %}fa-check{% else %}fa-xmark{% endif %} fa-fw me-2"></i>{{ run.get_status_display }}</span>
           </div>
