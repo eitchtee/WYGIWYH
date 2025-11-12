@@ -45,6 +45,7 @@ export default defineConfig({
     },
 
     build: {
+        sourcemap: false,
         outDir: resolve(__dirname, 'build'),
         assetsDir: '',
         manifest: 'manifest.json',
