@@ -145,7 +145,7 @@ def toggle_theme(request):
     elif request.session["theme"] == "wygiwyh_light":
         request.session["theme"] = "wygiwyh_dark"
     else:
-        request.session["theme"] = "wygiwyh_dark"
+        request.session["theme"] = "wygiwyh_light"
 
     return HttpResponse(
         status=204,

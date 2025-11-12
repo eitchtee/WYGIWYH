@@ -1,14 +1,15 @@
 {% load settings %}
 {% load i18n %}
-<label class="swap swap-rotate btn btn-secondary btn-sm" data-tippy-content="{% translate 'Toggle theme' %}">
+<label class="swap swap-rotate btn btn-secondary btn-sm"
+       data-tippy-content="{% translate 'Toggle theme' %}">
     <input type="checkbox"
+           hx-get="{% url 'toggle_theme' %}"
             _="on load
                 if <html/>'s @data-theme is 'wygiwyh_dark' set my.checked to true end
               end
               on change
                 if my.checked set <html/>'s @data-theme to 'wygiwyh_dark'
                 else set <html/>'s @data-theme to 'wygiwyh_light'
-                then fetch {% url 'toggle_theme' %}
                 end
               end"
     />
