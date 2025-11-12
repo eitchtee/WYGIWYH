@@ -49,7 +49,7 @@ export default defineConfig({
         assetsDir: '',
         manifest: 'manifest.json',
         emptyOutDir: true,
-        target: 'es2015',
+        target: 'es2017',
         rollupOptions: {
             input: rollupInputs,
             output: {
