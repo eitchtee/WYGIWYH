@@ -1,8 +1,7 @@
 {% load django_vite %}
 
 {% vite_hmr_client %}
-
-{% vite_asset 'main.js' defer=True %}
+{% vite_asset 'main.js' defer="defer" %}
 
 {% include 'includes/scripts/hyperscript/init_tom_select.html' %}
 {% include 'includes/scripts/hyperscript/init_date_picker.html' %}
@@ -13,7 +12,7 @@
 {% include 'includes/scripts/hyperscript/swal.html' %}
 {% include 'includes/scripts/hyperscript/autosize.html' %}
 
-<script>
+<script defer>
 let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 if (!tz) {
     tz = "UTC"

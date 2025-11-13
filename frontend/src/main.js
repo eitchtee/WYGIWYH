@@ -1,3 +1,5 @@
+import 'vite/modulepreload-polyfill';
+
 import './js/bootstrap.js';
 import './js/datepicker.js';
 import './js/htmx.js';
