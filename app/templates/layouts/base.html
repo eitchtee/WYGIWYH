@@ -23,7 +23,7 @@
     {% block extra_js_head %}{% endblock %}
   </head>
   <body class="font-mono">
-    <div _="install hide_amounts install htmx_error_handler
+    <div _="install htmx_error_handler
             {% block body_hyperscript %}{% endblock %}"
          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
       {% include 'includes/mobile_navbar.html' %}
