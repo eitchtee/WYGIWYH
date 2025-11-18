@@ -17,13 +17,13 @@
       <div class="col-12 lg:col-4">
         {#    Date picker#}
         <div class="flex flex-row items-center">
-          <div class="text-base h-full flex items-center btn btn-ghost">
-            <a role="button"
-              hx-boost="true"
-              hx-trigger="click, previous_month from:window"
-              href="{% url 'monthly_overview' month=previous_month year=previous_year %}"><i
-                class="fa-solid fa-chevron-left"></i></a>
-          </div>
+          <a role="button"
+             class="btn btn-ghost"
+            hx-boost="true"
+            hx-trigger="click, previous_month from:window"
+            href="{% url 'monthly_overview' month=previous_month year=previous_year %}">
+            <i class="fa-solid fa-chevron-left"></i>
+          </a>
           <div class="text-2xl font-bold btn btn-ghost flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0"
               hx-get="{% url 'month_year_picker' %}"
               hx-target="#generic-offcanvas-left"
@@ -32,14 +32,13 @@
               role="button">
             {{ month|month_name }} {{ year }}
           </div>
-          <div class="text-base h-full flex items-center btn btn-ghost">
-            <a role="button"
-              hx-boost="true"
-              hx-trigger="click, next_month from:window"
-              href="{% url 'monthly_overview' month=next_month year=next_year %}">
-              <i class="fa-solid fa-chevron-right"></i>
-            </a>
-          </div>
+          <a role="button"
+             class="btn btn-ghost"
+            hx-boost="true"
+            hx-trigger="click, next_month from:window"
+            href="{% url 'monthly_overview' month=next_month year=next_year %}">
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
         </div>
       </div>
     </div>

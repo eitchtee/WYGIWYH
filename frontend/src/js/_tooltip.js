@@ -16,7 +16,7 @@ function initiateTooltips() {
     delegate(document.body, {
         target: '[data-tippy-content]',
         theme: theme,
-        zIndex: 1100,
+        zIndex: 1089,
         content(reference) {
             return reference.getAttribute('data-tippy-content');
         },

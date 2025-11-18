@@ -269,18 +269,19 @@
       </div>
       {% get_update_check as update_check %}
       {% if update_check.update_available %}
-        <div class="my-3">
-          <a class="btn btn-primary btn-soft btn-sm w-full sidebar-item"
-             href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank"><i
-              class="fa-solid fa-circle-exclamation fa-fw lg:group-hover:me-2"></i><span
-              class="lg:hidden lg:group-hover:block">v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
+        <div class="my-3 sidebar-item">
+          <a class="btn btn-primary btn-soft btn-sm w-full !block content-center"
+             href="https://github.com/eitchtee/WYGIWYH/releases/latest" target="_blank">
+            <i class="fa-solid fa-circle-exclamation fa-fw lg:group-hover:me-2"></i>
+            <span>v.{{ update_check.latest_version }} {% translate 'is available' %}!</span></a>
         </div>
       {% endif %}
 
-      <div class="btn-group w-full sidebar-item" role="group">
-        <button type="button" class="btn btn-secondary btn-sm w-full" data-tippy-content="{% trans "Calculator" %}"
+      <div class="w-full sidebar-item" role="group">
+        <button type="button" class="btn btn-secondary btn-sm w-full !block content-center"
                 _="on click trigger show on #calculator">
-          <i class="fa-solid fa-calculator fa-fw"></i>
+          <i class="fa-solid fa-calculator fa-fw lg:group-hover:me-2"></i>
+          <span>{% trans "Calculator" %}</span>
         </button>
       </div>
     </div>

@@ -3,7 +3,8 @@
 {% load month_name %}
 {% load static %}
 
-{% block title %}{% translate 'Yearly Overview' %} :: {% block overview_type_title %}{% endblock %} :: {{ year }}{% endblock %}
+{% block title %}{% translate 'Yearly Overview' %} ::
+  {% block overview_type_title %}{% endblock %} :: {{ year }}{% endblock %}
 
 {% block body_hyperscript %}
   on keyup[code is 'ArrowLeft' and target.nodeName is 'BODY'] from body trigger 'previous_year' end
@@ -13,31 +14,33 @@
 {% block content %}
   <div class="h-full text-center mb-4 w-full">
     <div role="tablist" class="tabs tabs-box mx-auto w-fit">
-      <a href="{% url 'yearly_overview_currency' year=year %}" class="tab {% if type == 'currency' %}tab-active{% endif %}" hx-boost>
+      <a href="{% url 'yearly_overview_currency' year=year %}"
+         class="tab {% if type == 'currency' %}tab-active{% endif %}" hx-boost>
         <i class="fa-solid fa-solid fa-coins fa-fw me-2"></i>{% trans 'Currency' %}
       </a>
-      <a href="{% url 'yearly_overview_account' year=year %}" class="tab {% if type == 'account' %}tab-active{% endif %}" hx-boost>
+      <a href="{% url 'yearly_overview_account' year=year %}"
+         class="tab {% if type == 'account' %}tab-active{% endif %}" hx-boost>
         <i class="fa-solid fa-wallet fa-fw me-2"></i>{% trans 'Account' %}
       </a>
     </div>
   </div>
   <div class="container" id="yearly-content">
-    <div class="flex flex-wrap mb-4 gap-x-xl-4 gap-y-3">
-      {#    Date picker#}
-      <div class="w-full xl:w-auto flex-row items-center flex">
-        <div class="text-base h-full items-center flex btn btn-ghost">
+    <div class="row mt-7 mb-5">
+      {#    Date picker #}
+      <div class="col-12 lg:col-3">
+        <div class="flex flex-row items-center">
           <a role="button"
              hx-boost="true"
+             class="btn btn-ghost"
              hx-trigger="click, previous_year from:window"
              href="{% block previous_year_url %}{% endblock %}">
             <i class="fa-solid fa-chevron-left"></i></a>
-        </div>
-        <div class="text-2xl font-bold flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0">
-          {{ year }}
-        </div>
-        <div class="text-base mx-2 h-full items-center flex btn btn-ghost">
+          <div class="text-2xl font-bold flex-1 text-center whitespace-normal flex-wrap h-auto min-w-0">
+            {{ year }}
+          </div>
           <a role="button"
              hx-boost="true"
+             class="btn btn-ghost"
              hx-trigger="click, next_year from:window"
              href="{% block next_year_url %}{% endblock %}">
             <i class="fa-solid fa-chevron-right"></i>
@@ -51,7 +54,7 @@
           <div class="card-body">
             <input type="hidden" name="month" value="">
             <div class="flex flex-col gap-1 w-full" id="month-pills" role="tablist"
-                hx-indicator="#data-content">
+                 hx-indicator="#data-content">
               <button class="btn btn-ghost btn-active justify-start w-full"
                       role="tab"
                       hx-get="{% block data_url %}{% endblock %}"
@@ -93,8 +96,9 @@
         </div>
       </div>
 
+      <hr class="xl:hidden hr">
+
       <div class="col-12 xl:col-6">
-        <hr class="xl:hidden my-3 hr">
         <div id="data-content"
              class="show-loading"
              hx-get="{% block content_data_url %}{% endblock %}"

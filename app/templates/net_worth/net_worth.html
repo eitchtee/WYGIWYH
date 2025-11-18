@@ -70,7 +70,7 @@
                     </a>
                     <ul>
                       <li>
-                        <a class="text-base-content/60 select-auto">
+                        <a class="text-base-content/60 select-auto flex justify-between items-center w-full">
                           <span class="text-start shrink">{% trans "Consolidated" %}</span>
                           <span class="text-end shrink-0">
                             <c-amount.display :amount="currency.consolidated.total_final" :prefix="currency.consolidated.currency.prefix" :suffix="currency.consolidated.currency.suffix" :decimal_places="currency.consolidated.currency.decimal_places" color="{% if currency.consolidated.total_final > 0 %}green{% elif currency.consolidated.total_final < 0 %}red{% endif %}" text-end></c-amount.display>
@@ -112,7 +112,7 @@
                        id="tab-evolution"
                        checked="checked" />
                 <div role="tabpanel" class="tab-content p-4" id="evolution-tab-pane">
-                  <div class="chart-container relative min-h-[40vh] h-full w-full">
+                  <div class="chart-container relative min-h-[80vh] md:min-h-[40vh] h-full w-full">
                     <canvas id="currencyBalanceChart"></canvas>
                   </div>
                 </div>
@@ -123,7 +123,7 @@
                        aria-label="{% trans 'Difference' %}"
                        id="tab-diff" />
                 <div role="tabpanel" class="tab-content p-4" id="diff-tab-pane">
-                  <div class="chart-container relative min-h-[40vh] h-full w-full">
+                  <div class="chart-container relative min-h-[80vh] md:min-h-[40vh] h-full w-full">
                     <canvas id="monthlyDifferenceChart"></canvas>
                   </div>
                 </div>
@@ -194,7 +194,7 @@
           </div>
         </div>
         <div class="col lg:col-7">
-          <div class="chart-container relative min-h-[40vh] h-full card bg-base-100">
+          <div class="chart-container relative min-h-[80vh] md:min-h-[40vh] h-full card bg-base-100">
             <div class="card-body">
               <canvas id="accountBalanceChart"></canvas>
             </div>
