@@ -1,7 +1,6 @@
-// import 'tom-select/dist/css/tom-select.default.min.css';
-
 import TomSelect from "tom-select";
 import * as Popper from "@popperjs/core";
+import '../styles/_tom-select.scss'
 
 
 window.TomSelect = function createDynamicTomSelect(element) {

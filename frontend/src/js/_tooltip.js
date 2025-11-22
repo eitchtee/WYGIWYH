@@ -1,21 +1,11 @@
-import { delegate } from 'tippy.js';
+import {delegate} from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
-import 'tippy.js/themes/light-border.css';
-
+import '../styles/_toasts.scss'
 
 function initiateTooltips() {
-    const currentDataTheme = document.documentElement.getAttribute('data-theme') || '';
-    let theme;
-
-    if (currentDataTheme.endsWith('_dark')) {
-        theme = 'light-border';
-    } else if (currentDataTheme.endsWith('_light')) {
-        theme = 'dark';
-    }
-
     delegate(document.body, {
         target: '[data-tippy-content]',
-        theme: theme,
+        theme: "wygiwyh",
         zIndex: 1089,
         content(reference) {
             return reference.getAttribute('data-tippy-content');

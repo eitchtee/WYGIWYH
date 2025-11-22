@@ -1,5 +1,6 @@
 import AirDatepicker from 'air-datepicker';
 import {createPopper} from '@popperjs/core';
+import '../styles/_datepicker.scss'
 
 // --- Static Locale Imports ---
 // We import all locales statically to ensure Vite transforms them correctly.
