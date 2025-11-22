@@ -1,0 +1,32 @@
+{% load crispy_forms_filters %}
+{% load l10n %}
+
+<div {% if field_class %}class="{{ field_class }}"{% endif %}{% if flat_attrs %} {{ flat_attrs }}{% endif %}>
+
+    {% for group, options, index in field|optgroups %}
+    {% if group %}<strong class="font-bold mb-2 block">{{ group }}</strong>{% endif %}
+    {% for option in options %}
+      <label class="label cursor-pointer{% if inline_class %} inline-flex{% endif %}">
+        <span class="label-text">{{ option.label|unlocalize }}</span>
+        <input type="{{option.type}}" class="{% if option.type == 'radio' %}radio{% else %}checkbox{% endif %}{% if field.errors %} {% if option.type == 'radio' %}radio{% else %}checkbox{% endif %}-error{% endif %}"  name="{{ field.html_name }}" value="{{ option.value|unlocalize }}" {% include "crispy-daisyui/layout/attrs.html" with widget=option %}>
+      </label>
+        {% if field.errors and forloop.last and not inline_class and forloop.parentloop.last %}
+            {% include 'crispy-daisyui/layout/field_errors_block.html' %}
+        {% endif %}
+    {% endfor %}
+    {% endfor %}
+
+</div>
+{% if field.errors and inline_class %}
+    {% if field.errors.field_id %}
+        {# Django 5.2+ #}
+        <label id="{{field.errors.field_id}}_error" for="{{ field.auto_id }}" class="label">
+    {% else %}
+        <label id="{{field.auto_id}}_error" for="{{ field.auto_id }}" class="label">
+    {% endif %}
+        {% for error in field.errors %}
+            <span id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="label-text-alt text-error">{{ error }}</span>
+        {% endfor %}
+    </label>
+{% endif %}
+{% include 'crispy-daisyui/layout/help_text.html' %}

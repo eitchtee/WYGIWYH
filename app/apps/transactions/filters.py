@@ -1,11 +1,4 @@
 import django_filters
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Row, Column
-from django import forms
-from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
-from django_filters import Filter
-
 from apps.accounts.models import Account
 from apps.common.fields.month_year import MonthYearFormField
 from apps.common.widgets.datepicker import AirDatePickerInput
@@ -15,9 +8,15 @@ from apps.currencies.models import Currency
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
-    TransactionTag,
     TransactionEntity,
+    TransactionTag,
 )
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Column, Field, Layout, Row
+from django import forms
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
+from django_filters import Filter
 
 SITUACAO_CHOICES = (
     ("1", _("Paid")),
@@ -159,14 +158,12 @@ class TransactionsFilter(django_filters.FilterSet):
             Field("description"),
             Row(Column("date_start"), Column("date_end")),
             Row(
-                Column("reference_date_start", css_class="form-group col-md-6 mb-0"),
-                Column("reference_date_end", css_class="form-group col-md-6 mb-0"),
-                css_class="form-row",
+                Column("reference_date_start"),
+                Column("reference_date_end"),
             ),
             Row(
-                Column("from_amount", css_class="form-group col-md-6 mb-0"),
-                Column("to_amount", css_class="form-group col-md-6 mb-0"),
-                css_class="form-row",
+                Column("from_amount"),
+                Column("to_amount"),
             ),
             Field("account", size=1),
             Field("currency", size=1),

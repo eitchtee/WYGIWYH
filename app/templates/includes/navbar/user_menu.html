@@ -1,24 +1,43 @@
 {% load settings %}
 {% load i18n %}
-<div class="dropdown">
-  <div class="btn btn-secondary btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+<label class="swap swap-rotate btn btn-secondary btn-sm"
+       data-tippy-content="{% translate 'Toggle theme' %}">
+    <input type="checkbox"
+           hx-get="{% url 'toggle_theme' %}"
+            _="on load
+                if <html/>'s @data-theme is 'wygiwyh_dark' set my.checked to true end
+              end
+              on change
+                if my.checked set <html/>'s @data-theme to 'wygiwyh_dark'
+                else set <html/>'s @data-theme to 'wygiwyh_light'
+                end
+              end"
+    />
+
+    <i class="fa-regular fa-sun swap-off"></i>
+
+    <i class="fa-regular fa-moon swap-on"></i>
+    </label>
+
+<div class="dropdown dropdown-top dropdown-end">
+  <div role="button" class="btn btn-secondary btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="fa-solid fa-cog"></i>
   </div>
-  <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
-    <li><a class="dropdown-item"
+  <ul class="dropdown-menu menu">
+    <li><a
            hx-get="{% url 'user_settings' %}"
            hx-target="#generic-offcanvas"
            role="button">
       <i class="fa-solid fa-gear me-2 fa-fw"></i>{% translate 'Settings' %}</a></li>
-    <li><a class="dropdown-item"
+    <li><a
            hx-get="{% url 'user_edit' pk=request.user.id %}"
            hx-target="#generic-offcanvas"
            role="button">
       <i class="fa-solid fa-user me-2 fa-fw"></i>{% translate 'Edit profile' %}</a></li>
-    <li><hr class="dropdown-divider"></li>
+    <hr class="my-1 hr">
     {% spaceless %}
     <li>
-      <a class="dropdown-item" hx-get="{% url 'toggle_amount_visibility' %}" role="button">
+      <a hx-get="{% url 'toggle_amount_visibility' %}" role="button">
         {% if user.settings.hide_amounts %}
         {% include 'users/generic/show_amounts.html' %}
         {% else %}
@@ -29,7 +48,7 @@
     {% endspaceless %}
     {% spaceless %}
     <li>
-      <a class="dropdown-item" hx-get="{% url 'toggle_sound_playing' %}" role="button">
+      <a hx-get="{% url 'toggle_sound_playing' %}" role="button">
         {% if user.settings.mute_sounds %}
         {% include 'users/generic/play_sounds.html' %}
         {% else %}
@@ -38,15 +57,15 @@
       </a>
     </li>
     {% endspaceless %}
-    <li><hr class="dropdown-divider"></li>
+    <hr class="my-1 hr">
     <li>
-      <a class="dropdown-item" hx-get="{% url 'invalidate_cache' %}" role="button">
+      <a hx-get="{% url 'invalidate_cache' %}" role="button">
         <i class="fa-solid fa-broom me-2 fa-fw"></i>{% translate 'Clear cache' %}
       </a>
     </li>
-    <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2 fa-fw"></i
+    <li><a href="{% url 'logout' %}"><i class="fa-solid fa-door-open me-2 fa-fw"></i
     >{% translate 'Logout' %}</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="https://github.com/eitchtee/WYGIWYH/releases" target="_blank" rel="nofollow">v. {% settings "APP_VERSION" %}</a></li>
+    <hr class="my-1 hr">
+    <li><a href="https://github.com/eitchtee/WYGIWYH/releases" target="_blank" rel="nofollow">v. {% settings "APP_VERSION" %}</a></li>
   </ul>
 </div>

@@ -564,7 +564,7 @@ def dry_run_rule_updated(request, pk):
 
                     response = render(
                         request,
-                        "rules/fragments/transaction_rule/dry_run/created.html",
+                        "rules/fragments/transaction_rule/dry_run/updated.html",
                         {"form": form, "rule": rule, "logs": logs, "results": results},
                     )
 

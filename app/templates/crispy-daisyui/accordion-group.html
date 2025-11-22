@@ -1,0 +1,10 @@
+<c-ui.components.collapse
+  title_class="join-item"
+  :active="div.active">
+  <c-slot name="title">
+    {{ div.name }}
+  </c-slot>
+  <c-slot name="content">
+    {{ fields|safe }}
+  </c-slot>
+</c-ui.components.collapse>

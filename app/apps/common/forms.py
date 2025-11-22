@@ -1,14 +1,13 @@
-from crispy_forms.bootstrap import FormActions
-from django import forms
-from django.contrib.auth import get_user_model
-from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit, Div, HTML
-
-from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
 from apps.common.models import SharedObject
 from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
+from crispy_forms.bootstrap import FormActions
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import HTML, Div, Field, Layout, Submit
+from django import forms
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -39,6 +38,7 @@ class SharedObjectForm(forms.Form):
         choices=SharedObject.Visibility.choices,
         required=True,
         label=_("Visibility"),
+        widget=TomSelect(clear_button=False),
         help_text=_(
             "Private: Only shown for the owner and shared users. Only editable by the owner."
             "<br/>"
@@ -48,9 +48,6 @@ class SharedObjectForm(forms.Form):
 
     class Meta:
         fields = ["visibility", "shared_with_users"]
-        widgets = {
-            "visibility": TomSelect(clear_button=False),
-        }
 
     def __init__(self, *args, **kwargs):
         # Get the current user to filter available sharing options
@@ -73,12 +70,10 @@ class SharedObjectForm(forms.Form):
         self.helper.layout = Layout(
             Field("owner"),
             Field("visibility"),
-            HTML("<hr>"),
+            HTML('<hr class="hr my-3">'),
             Field("shared_with_users"),
             FormActions(
-                NoClassSubmit(
-                    "submit", _("Save"), css_class="btn btn-outline-primary w-100"
-                ),
+                NoClassSubmit("submit", _("Save"), css_class="btn btn-primary"),
             ),
         )
 

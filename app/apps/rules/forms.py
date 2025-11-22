@@ -1,19 +1,20 @@
-from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
-from crispy_forms.bootstrap import FormActions, AccordionGroup
+from apps.common.fields.forms.dynamic_select import DynamicModelChoiceField
+from apps.common.widgets.crispy.daisyui import Switch
+from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.tom_select import TomSelect, TransactionSelect
+from apps.rules.models import (
+    TransactionRule,
+    TransactionRuleAction,
+    UpdateOrCreateTransactionRuleAction,
+)
+from apps.transactions.forms import BulkEditTransactionForm
+from apps.transactions.models import Transaction
+from crispy_forms.bootstrap import AccordionGroup, FormActions, Accordion
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Row, Column, HTML
+from crispy_forms.layout import HTML, Column, Field, Layout, Row
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
-from apps.common.widgets.crispy.submit import NoClassSubmit
-from apps.common.widgets.crispy.submit import NoClassSubmit
-from apps.common.widgets.tom_select import TomSelect, TransactionSelect
-from apps.rules.models import TransactionRule, UpdateOrCreateTransactionRuleAction
-from apps.rules.models import TransactionRuleAction
-from apps.common.fields.forms.dynamic_select import DynamicModelChoiceField
-from apps.transactions.forms import BulkEditTransactionForm
-from apps.transactions.models import Transaction
 
 
 class TransactionRuleForm(forms.ModelForm):
@@ -53,17 +54,13 @@ class TransactionRuleForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 
@@ -97,17 +94,13 @@ class TransactionRuleActionForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 
@@ -214,148 +207,148 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             "order",
-            BS5Accordion(
+            Accordion(
                 AccordionGroup(
                     _("Search Criteria"),
                     Field("filter", rows=1),
                     Row(
                         Column(
                             Field("search_type_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_type", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_is_paid_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_is_paid", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_mute_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_mute", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_account_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_account", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_entities_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_entities", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_date_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_date", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_reference_date_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_reference_date", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_description_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_description", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_amount_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_amount", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_category_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_category", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_tags_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_tags", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_notes_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_notes", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_internal_note_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_internal_note", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     Row(
                         Column(
                             Field("search_internal_id_operator"),
-                            css_class="form-group col-md-4",
+                            css_class="col-span-12 md:col-span-4",
                         ),
                         Column(
                             Field("search_internal_id", rows=1),
-                            css_class="form-group col-md-8",
+                            css_class="col-span-12 md:col-span-8",
                         ),
                     ),
                     active=True,
@@ -386,17 +379,13 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 
@@ -427,9 +416,7 @@ class DryRunCreatedTransacion(forms.Form):
         self.helper.layout = Layout(
             "transaction",
             FormActions(
-                NoClassSubmit(
-                    "submit", _("Test"), css_class="btn btn-outline-primary w-100"
-                ),
+                NoClassSubmit("submit", _("Test"), css_class="btn btn-primary"),
             ),
         )
 
@@ -464,9 +451,7 @@ class DryRunDeletedTransacion(forms.Form):
         self.helper.layout = Layout(
             "transaction",
             FormActions(
-                NoClassSubmit(
-                    "submit", _("Test"), css_class="btn btn-outline-primary w-100"
-                ),
+                NoClassSubmit("submit", _("Test"), css_class="btn btn-primary"),
             ),
         )
 
@@ -496,13 +481,11 @@ class DryRunUpdatedTransactionForm(BulkEditTransactionForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper.layout.insert(0, "transaction")
-        self.helper.layout.insert(1, HTML("<hr/>"))
+        self.helper.layout.insert(1, HTML('<hr class="hr my-3" />'))
 
         # Change submit button
         self.helper.layout[-1] = FormActions(
-            NoClassSubmit(
-                "submit", _("Test"), css_class="btn btn-outline-primary w-100"
-            )
+            NoClassSubmit("submit", _("Test"), css_class="btn btn-primary")
         )
 
         if self.data.get("transaction"):

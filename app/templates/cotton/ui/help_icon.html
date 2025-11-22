@@ -1,8 +1,6 @@
 {% spaceless %}
 {% load i18n %}
-<span class="tw:text-xs text-white-50 mx-1"
-      data-bs-toggle="tooltip"
-      data-bs-title="{{ content }}">
+<span class="text-xs text-base-content/50 mx-1" data-tippy-content="{{ content }}">
   <i class="{% if not icon %}fa-solid fa-circle-question{% else %}{{ icon }}{% endif %} fa-fw"></i>
 </span>
 {% endspaceless %}

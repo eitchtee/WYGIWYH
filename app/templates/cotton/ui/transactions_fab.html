@@ -10,7 +10,7 @@
             title="{% translate "Income" %}"></c-components.fab_menu_button>
 
   <c-components.fab_menu_button
-            color="danger"
+            color="error"
             hx_target="#generic-offcanvas"
             hx_trigger="click, add_income from:window"
             hx_vals='{"year": {{ year }}, {% if month %}"month": {{ month }},{% endif %} "type": "EX"}'

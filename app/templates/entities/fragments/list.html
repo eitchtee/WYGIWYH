@@ -1,32 +1,29 @@
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+<c-ui.fab-single-action
+        url="{% url 'entity_add' %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container">
+  <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-    <div>{% translate 'Entities' %}<span>
-      <a class="text-decoration-none tw:text-2xl p-1 category-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Add" %}"
-                hx-get="{% url 'entity_add' %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
-    </span></div>
+    <div>{% translate 'Entities' %}</div>
     {% endspaceless %}
   </div>
 
-  <div class="card">
-    <div class="card-header">
-      <ul class="nav nav-pills card-header-pills" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" data-bs-toggle="tab" type="button" role="tab" aria-selected="true" hx-get="{% url 'entities_table_active' %}" hx-trigger="load, click" hx-target="#entities-table">{% translate 'Active' %}</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" hx-get="{% url 'entities_table_archived' %}" hx-target="#entities-table" data-bs-toggle="tab" type="button" role="tab" aria-selected="false">{% translate 'Archived' %}</button>
-        </li>
-      </ul>
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-header bg-base-200 p-4 rounded-box">
+      <div role="tablist" class="tabs tabs-border">
+        <input type="radio" name="installment_plan_tabs" class="tab" aria-label="{% translate 'Active' %}"
+               checked="checked"
+               hx-get="{% url 'entities_table_active' %}" hx-trigger="load, click" hx-target="#entities-table"
+               hx-indicator="#entities-table"/>
+        <input type="radio" name="installment_plan_tabs" class="tab" aria-label="{% translate 'Archived' %}"
+               hx-get="{% url 'entities_table_archived' %}" hx-trigger="click" hx-target="#entities-table"
+               hx-indicator="#entities-table"/>
+      </div>
     </div>
     <div class="card-body">
-      <div id="entities-table"></div>
+      <div id="entities-table" class="show-loading"></div>
     </div>
   </div>
 </div>

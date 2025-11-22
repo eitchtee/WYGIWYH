@@ -1,35 +1,43 @@
+from apps.common.middleware.thread_local import get_current_user
+from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.users.models import UserSettings
 from crispy_forms.bootstrap import (
     FormActions,
 )
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, Field, Div, HTML
+from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row, Submit
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import (
-    UsernameField,
     AuthenticationForm,
     UserCreationForm,
+    UsernameField,
 )
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
-
-from apps.common.widgets.crispy.submit import NoClassSubmit
-from apps.users.models import UserSettings
-from apps.common.middleware.thread_local import get_current_user
 
 
 class LoginForm(AuthenticationForm):
     username = UsernameField(
         label=_("E-mail"),
         widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": "E-mail", "name": "email"}
+            attrs={
+                "class": "input",
+                "placeholder": _("E-mail"),
+                "name": "email",
+                "autocomplete": "email",
+            }
         ),
     )
     password = forms.CharField(
         label=_("Password"),
         strip=False,
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": "Senha"}
+            attrs={
+                "class": "input",
+                "placeholder": _("Password"),
+                "autocomplete": "current-password",
+            }
         ),
     )
 
@@ -45,7 +53,7 @@ class LoginForm(AuthenticationForm):
         self.helper.layout = Layout(
             "username",
             "password",
-            Submit("Submit", "Login", css_class="btn btn-primary w-100"),
+            Submit("Submit", "Login", css_class="w-full mt-3"),
         )
 
 
@@ -138,9 +146,7 @@ class UserSettingsForm(forms.ModelForm):
             HTML("<hr />"),
             "volume",
             FormActions(
-                NoClassSubmit(
-                    "submit", _("Save"), css_class="btn btn-outline-primary w-100"
-                ),
+                NoClassSubmit("submit", _("Save"), css_class="btn btn-primary"),
             ),
         )
 
@@ -191,8 +197,8 @@ class UserUpdateForm(forms.ModelForm):
         # Define the layout using Crispy Forms, including the new fields
         self.helper.layout = Layout(
             Row(
-                Column("first_name", css_class="form-group col-md-6"),
-                Column("last_name", css_class="form-group col-md-6"),
+                Column("first_name"),
+                Column("last_name"),
                 css_class="row",
             ),
             Field("email"),
@@ -213,17 +219,13 @@ class UserUpdateForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 
@@ -354,8 +356,8 @@ class UserAddForm(UserCreationForm):
         self.helper.layout = Layout(
             Field("email"),
             Row(
-                Column("first_name", css_class="form-group col-md-6"),
-                Column("last_name", css_class="form-group col-md-6"),
+                Column("first_name"),
+                Column("last_name"),
                 css_class="row",
             ),
             # UserCreationForm provides 'password1' and 'password2' fields
@@ -375,17 +377,13 @@ class UserAddForm(UserCreationForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 

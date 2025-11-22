@@ -1,4 +1,22 @@
-@import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
-@import "@fortawesome/fontawesome-free/css/solid.min.css";
-@import "@fortawesome/fontawesome-free/css/regular.min.css";
-@import "@fortawesome/fontawesome-free/css/brands.min.css";
+@use "@fortawesome/fontawesome-free/css/fontawesome.css"; // Core FontAwesome styles
+@use "@fortawesome/fontawesome-free/css/solid.css"; // Solid icons (fas)
+@use "@fortawesome/fontawesome-free/css/regular.css"; // Regular icons (far)
+
+
+// Override FontAwesome's .fab class to avoid conflict with DaisyUI
+// This removes the FontAwesome Brand icons styling from .fab, allowing DaisyUI to style it
+.fab {
+    font-family: unset;
+    font-weight: unset;
+    -moz-osx-font-smoothing: unset;
+    -webkit-font-smoothing: unset;
+    display: revert-layer;
+    font-style: unset;
+    font-variant: unset;
+    line-height: unset;
+    text-rendering: unset;
+}
+
+.fab::before {
+    content: unset;
+}

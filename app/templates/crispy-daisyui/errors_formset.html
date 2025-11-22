@@ -1,0 +1,8 @@
+{% if formset.non_form_errors %}
+    <div class="alert alert-error">
+        {% if formset_error_title %}<h4 class="font-bold">{{ formset_error_title }}</h4>{% endif %}
+        <ul class="m-0 list-inside">
+            {{ formset.non_form_errors|unordered_list }}
+        </ul>
+    </div>
+{% endif %}

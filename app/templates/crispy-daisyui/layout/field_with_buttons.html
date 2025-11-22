@@ -1,0 +1,39 @@
+{% load crispy_forms_field %}
+
+<div{% if div.css_id %} id="{{ div.css_id }}"{% endif %} class="{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}{% if div.css_class %} {{ div.css_class }}{% endif %}" {{ div.flat_attrs }}>
+    {% if field.label and form_show_labels %}
+        <label for="{{ field.id_for_label }}" class="label {{ label_class }}{% if field.field.required %} requiredField{% endif %}">
+            <span class="label-text">{{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}</span>
+        </label>
+    {% endif %}
+
+    <div{% if field_class %} class="{{ field_class }}"{% endif %}>
+        <div class="join {% if input_size %} {{ input_size }}{% endif %}">
+            {% if field|is_select %}
+                {% if field.errors %}
+                    {% crispy_field field 'class' 'select-error join-item flex-grow' %}
+                {% else %}
+                    {% crispy_field field 'class' 'join-item flex-grow' %}
+                {% endif %}
+            {% else %}
+                {% if field.errors %}
+                    {% crispy_field field 'class' 'input input-bordered input-error join-item flex-grow' %}
+                {% else %}
+                    {% crispy_field field 'class' 'input input-bordered join-item flex-grow' %}
+                {% endif %}
+            {% endif %}
+            {{ buttons|safe }}
+        </div>
+        {% if field.errors.field_id %}
+            {# Django 5.2+ #}
+            <div id="{{field.errors.field_id}}_error" class="text-error text-sm mt-1">
+        {% else %}
+            <div id="{{field.auto_id}}_error" class="text-error text-sm mt-1">
+        {% endif %}
+            {% for error in field.errors %}
+                <p id="error_{{ forloop.counter }}_{{ field.auto_id }}"><small><strong>{{ error }}</strong></small></p>
+            {% endfor %}
+        </div>
+        {% include 'crispy-daisyui/layout/help_text.html' %}
+    </div>
+</div>

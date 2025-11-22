@@ -2,67 +2,67 @@
 {% load i18n %}
 
 <div>
-  <div class="tw:hidden tw:lg:grid tw:lg:grid-cols-7 tw:gap-4 tw:lg:gap-0">
-    <div class="border-start border-top border-bottom p-2 text-center">
+  <div class="hidden lg:grid lg:grid-cols-7 gap-4 lg:gap-0 bg-base-200">
+    <div class="border-l border-t border-b border-base-300 p-2 text-center">
       {% translate 'MON' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="border-t border-b border-base-300 p-2 text-center">
       {% translate 'TUE' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="border-t border-b border-base-300 p-2 text-center">
       {% translate 'WED' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="border-t border-b border-base-300 p-2 text-center">
       {% translate 'THU' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="border-t border-b border-base-300 p-2 text-center">
       {% translate 'FRI' %}
     </div>
-    <div class="border-top border-bottom p-2 text-center">
+    <div class="border-t border-b border-base-300 p-2 text-center">
       {% translate 'SAT' %}
     </div>
-    <div class="border-end border-top border-bottom p-2 text-center">
+    <div class="border-r border-t border-b border-base-300 p-2 text-center">
       {% translate 'SUN' %}
     </div>
   </div>
-  <div class="tw:grid tw:grid-cols-1 tw:grid-rows-1 tw:lg:grid-cols-7 tw:lg:grid-rows-6 tw:gap-4 tw:lg:gap-0">
+  <div class="grid grid-cols-1 grid-rows-1 lg:grid-cols-7 lg:grid-rows-6 gap-4 lg:gap-0">
     {% for date in dates %}
       {% if date %}
-      <div class="card h-100 tw:hover:bg-zinc-900! rounded-0{% if not date.transactions %} tw:hidden! tw:lg:flex!{% endif %}{% if today == date.date %} tw:border-yellow-300 border-primary{% endif %} " role="button"
+      <div class="card bg-base-100 h-full hover:bg-base-200! border border-base-content/30  rounded-none {% if not date.transactions %}hidden! lg:flex!{% endif %}{% if today == date.date %} border-2 border-primary{% endif %} cursor-pointer" role="button"
         hx-get="{% url 'calendar_transactions_list' day=date.date.day month=date.date.month year=date.date.year %}"
         hx-target="#persistent-generic-offcanvas-left">
-        <div class="card-header border-0 bg-transparent text-end tw:flex justify-content-between p-2 w-100">
-          <div class="tw:lg:hidden text-start w-100">{{ date.date|date:"l"|lower }}</div>
-          <div class="text-end w-100">{{ date.day }}</div>
+        <div class="card-header border-0 bg-transparent text-end flex justify-between p-2 w-full">
+          <div class="lg:hidden text-start w-full">{{ date.date|date:"l"|lower }}</div>
+          <div class="text-end w-full">{{ date.day }}</div>
         </div>
-        <div class="card-body p-2">
+        <div class="card-body p-2 flex flex-row flex-wrap gap-1">
           {% for transaction in date.transactions %}
             {% if transaction.is_paid %}
               {% if transaction.type == "IN" and not transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw:text-green-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-success" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "IN" and transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw:text-green-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-success/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and not transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw:text-red-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-error" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and transaction.account.is_asset %}
-                <i class="fa-solid fa-circle-check tw:text-red-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-solid fa-circle-check text-error/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% endif %}
             {% else %}
               {% if transaction.type == "IN" and not transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw:text-green-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-success" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "IN" and transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw:text-green-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-success/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Income' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and not transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw:text-red-400" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-error" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% elif transaction.type == "EX" and transaction.account.is_asset %}
-                <i class="fa-regular fa-circle tw:text-red-300" data-bs-toggle="tooltip" data-bs-title="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
+                <i class="fa-regular fa-circle text-error/80" data-tippy-content="{% if transaction.description %}{{ transaction.description }}{% else %}{% trans 'Expense' %}{% endif %}"></i>
               {% endif %}
             {% endif %}
           {% endfor %}
         </div>
       </div>
       {% else %}
-        <div class="tw:hidden! tw:lg:block! card h-100 rounded-0"></div>
+        <div class="hidden! lg:block! card bg-base-300 h-full rounded-none"></div>
       {% endif %}
     {% endfor %}
   </div>

@@ -1,43 +1,43 @@
 {% extends "layouts/base.html" %}
 {% load i18n %}
-{% load webpack_loader %}
 
 {% block title %}{% translate 'Unit Price Calculator' %}{% endblock %}
 
 {% block content %}
   <div class="container px-md-3 py-3 column-gap-5">
-    <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+    <div class="text-3xl font-bold font-mono w-full mb-3">
       <div>{% translate 'Unit Price Calculator' %}</div>
     </div>
-    <div class="card mb-3 d-none" id="card-placeholder">
-      <div class="card-header d-flex flex-row justify-content-between">
-        <h5 class="title flex-grow-1"></h5>
-        <button class="btn btn-secondary btn-sm text-danger"
+    <div class="card bg-base-100 shadow mb-3 hidden" id="card-placeholder">
+      <div class="card-header bg-base-200 p-4 flex flex-row justify-between rounded-box">
+        <h5 class="title grow"></h5>
+        <button class="btn btn-error btn-sm"
                 role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Delete" %}"
-                _="on click remove the closest .card to me then trigger update on #items then call bootstrap.Tooltip.getOrCreateInstance(me).dispose()">
+                data-tippy-content="{% translate "Delete" %}"
+                _="on click remove the closest .card to me then trigger update on #items then trigger tooltips on body">
           <i class="fa-solid fa-trash fa-fw"></i>
         </button>
       </div>
       <div class="card-body">
-        <div class="row gy-3">
-          <div class="col-lg">
-            <div>
-              <label for="price" class="form-label">{% trans 'Item price' %}</label>
-              <input type="number" inputmode="decimal" class="form-control item-price" id="price">
+        <div class="grid lg:grid-cols-3 gap-3">
+          <div>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">{% trans 'Item price' %}</legend>
+              <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
+            </fieldset>
+          </div>
+          <div>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">{% trans 'Item amount' %}</legend>
+              <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
+            </fieldset>
+          </div>
+          <div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Unit price' %}</legend>
+                <div class="unit-price text-xl" data-amount="0">0</div>
+              </fieldset>
             </div>
-          </div>
-          <div class="col-lg">
-            <div>
-              <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
-              <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
-            </div>
-          </div>
-          <div class="col-lg">
-            <label class="form-label">{% trans 'Unit price' %}</label>
-            <div class="unit-price tw:text-xl" data-amount="0">0</div>
-          </div>
         </div>
       </div>
     </div>
@@ -57,9 +57,9 @@
                       then
 
                       // Remove existing highlight classes from all unit prices
-                      for unitPriceEl in <.unit-price/>
-                        remove .bg-danger-subtle from the closest .card to unitPriceEl
-                        remove .bg-success-subtle from the closest .card to unitPriceEl
+                      for unitPriceEl in <*.unit-price/>
+                        remove .bg-error\/20 from the closest .card to unitPriceEl
+                        remove .bg-success\/20 from the closest .card to unitPriceEl
                       end
 
                       // Get all unit prices and find min/max
@@ -80,76 +80,82 @@
                         for unitPriceEl in unitPrices
                           set amount to parseFloat(unitPriceEl.getAttribute('data-amount'))
                           if amount == minAmount
-                            add .bg-success-subtle to the closest .card to unitPriceEl
+                            add .bg-success\/20 to the closest .card to unitPriceEl
+                            add .bg-opacity-20 to the closest .card to unitPriceEl
                             continue
                           end
                           if amount == maxAmount
-                            add .bg-danger-subtle to the closest .card to unitPriceEl
+                            add .bg-error\/20 to the closest .card to unitPriceEl
+                            add .bg-opacity-20 to the closest .card to unitPriceEl
                           end
                         end
                       end
                     end">
-      <div class="card mb-3">
-        <div class="card-header">
+      <div class="card bg-base-100 shadow mb-3">
+        <div class="card-header bg-base-200 p-4 flex flex-row justify-between rounded-box">
           <h5>{% trans "Item" %} A</h5>
         </div>
         <div class="card-body">
-          <div class="row gy-3">
-            <div class="col-lg">
-              <div>
-                <label for="price" class="form-label">{% trans 'Item price' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-price" id="price">
-              </div>
+          <div class="grid lg:grid-cols-3 gap-3">
+            <div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item price' %}</legend>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
+              </fieldset>
             </div>
-            <div class="col-lg">
-              <div>
-                <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
-              </div>
+            <div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item amount' %}</legend>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
+              </fieldset>
             </div>
-            <div class="col-lg">
-              <label class="form-label">{% trans 'Unit price' %}</label>
-              <div class="unit-price tw:text-xl" data-amount="0">0</div>
+            <div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Unit price' %}</legend>
+                <div class="unit-price text-xl" data-amount="0">0</div>
+              </fieldset>
             </div>
           </div>
         </div>
       </div>
-      <div class="card mb-3">
-        <div class="card-header">
+      <div class="card bg-base-100 shadow mb-3">
+        <div class="card-header bg-base-200 p-4 flex flex-row justify-between rounded-box">
           <h5>{% trans "Item" %} B</h5>
         </div>
         <div class="card-body">
-          <div class="row gy-3">
-            <div class="col-lg">
-              <div>
-                <label for="price" class="form-label">{% trans 'Item price' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-price" id="price">
-              </div>
+          <div class="grid lg:grid-cols-3 gap-3">
+            <div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item price' %}</legend>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-price" id="price">
+              </fieldset>
             </div>
-            <div class="col-lg">
-              <div>
-                <label for="amount" class="form-label">{% trans 'Item amount' %}</label>
-                <input type="number" inputmode="decimal" class="form-control item-amount" id="amount">
-              </div>
+            <div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Item amount' %}</legend>
+                <input type="number" inputmode="decimal" class="input input-bordered w-full item-amount" id="amount">
+              </fieldset>
             </div>
-            <div class="col-lg">
-              <label class="form-label">{% trans 'Unit price' %}</label>
-              <div class="unit-price tw:text-xl" data-amount="0">0</div>
+            <div>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% trans 'Unit price' %}</legend>
+                <div class="unit-price text-xl" data-amount="0">0</div>
+              </fieldset>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row mt-3">
-      <div class="col-lg-8">
-        <button class="btn btn-outline-primary w-100"
+    <div class="grid lg:grid-cols-[2fr_1fr] gap-3 mt-6">
+      <div>
+        <button class="btn btn-primary w-full"
             _="on click
                 get #card-placeholder
                 set newCard to it.cloneNode(true)
                 remove @id from newCard
-                remove .d-none from newCard then
-                set itemCount to <#items .card/>'s length
+                remove .hidden from newCard then
+                set itemCount to <#items .card />'s length
                 if itemCount < 26
                   set letter to String.fromCharCode(65 + itemCount)
                 else
@@ -157,13 +163,13 @@
                 end
                 set newCard.querySelector('.title').innerHTML to `{% trans "Item" %} ${letter}`
                 put newCard as HTML at the end of #items
-                trigger tooltips on body
+              trigger tooltips on body
               end">
       {% trans 'Add' %}
     </button>
       </div>
-      <div class="col-lg-4 mt-3 mt-lg-0">
-        <button class="btn btn-outline-danger w-100"
+      <div>
+        <button class="btn btn-error w-full"
                 _="on click
                     for el in <.item-price, .item-amount />
                       set card to the closest .card to el

@@ -1,10 +1,23 @@
 {% load currency_display %}
 
+{% currency_display amount=amount prefix=prefix suffix=suffix decimal_places=decimal_places as formatted_amount %}
+
 {% if not divless %}
 <div class="{% if text_end %}text-end{% elif text_start %}text-start{% endif %}">
 {% endif %}
-  <span class="amount{% if color == 'grey' or color == "gray" %} tw:text-gray-500{% elif color == 'green' %} tw:text-green-400{% elif color == 'red' %} tw:text-red-400{% endif %} {{ custom_class }}"
-       data-original-value="{% currency_display amount=amount prefix=prefix suffix=suffix decimal_places=decimal_places %}"
+  <span class="amount
+                {% if color == 'grey' or color == "gray" %} text-exchange-rate 
+                {% elif color == 'green' %} text-income {% elif color == 'red' %} text-expense 
+                {% elif color == 'auto' %} 
+                {% if amount > 0 %} text-income 
+                {% elif amount < 0 %} text-expense 
+                {% else %} text-base-content {% endif %} 
+                {% endif %} 
+              font-medium {{ custom_class }}"
+       data-original-sign="{{ formatted_amount.sign }}"
+       data-original-prefix="{{ formatted_amount.prefix }}"
+       data-original-amount="{{ formatted_amount.amount }}"
+       data-original-suffix="{{ formatted_amount.suffix }}"
        data-amount="{{ amount|floatformat:"-40u" }}">
   </span><span>{{ slot }}</span>
 {% if not divless %}

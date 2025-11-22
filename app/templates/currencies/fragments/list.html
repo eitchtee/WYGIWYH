@@ -1,48 +1,43 @@
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+<c-ui.fab-single-action
+        url="{% url 'currency_add' %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container">
+  <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-    <div>{% translate 'Currencies' %}<span>
-      <a class="text-decoration-none tw:text-2xl p-1 category-action"
-                role="button"
-                data-bs-toggle="tooltip"
-                data-bs-title="{% translate "Add" %}"
-                hx-get="{% url 'currency_add' %}"
-                hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
-    </span></div>
+    <div>{% translate 'Currencies' %}</div>
     {% endspaceless %}
   </div>
 
-  <div class="card">
-    <div class="card-body table-responsive">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body overflow-x-auto">
       {% if currencies %}
       <c-config.search></c-config.search>
-      <table class="table table-hover">
+      <div class="overflow-x-auto">
+        <table class="table table-zebra">
         <thead>
           <tr>
-            <th scope="col" class="col-auto"></th>
-            <th scope="col" class="col-auto">{% translate 'Code' %}</th>
-            <th scope="col" class="col">{% translate 'Name' %}</th>
-            <th scope="col" class="col">{% translate 'Archived' %}</th>
+            <th scope="col" class="table-col-auto"></th>
+            <th scope="col" class="table-col-auto">{% translate 'Code' %}</th>
+            <th scope="col">{% translate 'Name' %}</th>
+            <th scope="col">{% translate 'Archived' %}</th>
           </tr>
         </thead>
         <tbody>
           {% for currency in currencies %}
           <tr class="currency">
-            <td class="col-auto">
-              <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-                <a class="btn btn-secondary btn-sm"
+            <td class="table-col-auto">
+              <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                <a class="btn btn-secondary btn-sm join-item"
                       role="button"
-                      data-bs-toggle="tooltip"
-                      data-bs-title="{% translate "Edit" %}"
+                      data-tippy-content="{% translate "Edit" %}"
                       hx-get="{% url 'currency_edit' pk=currency.id %}"
                       hx-target="#generic-offcanvas">
                   <i class="fa-solid fa-pencil fa-fw"></i></a>
-                <a class="btn btn-secondary btn-sm text-danger"
+                <a class="btn btn-error btn-sm join-item"
                         role="button"
-                        data-bs-toggle="tooltip"
-                        data-bs-title="{% translate "Delete" %}"
+                        data-tippy-content="{% translate "Delete" %}"
                         hx-delete="{% url 'currency_delete' pk=currency.id %}"
                         hx-trigger='confirmed'
                         data-bypass-on-ctrl="true"
@@ -52,13 +47,14 @@
                         _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
               </div>
             </td>
-            <td class="col-auto">{{ currency.code }}</td>
-            <td class="col">{{ currency.name }}</td>
-            <td class="col">{% if currency.is_archived %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
+            <td class="table-col-auto">{{ currency.code }}</td>
+            <td>{{ currency.name }}</td>
+            <td>{% if currency.is_archived %}<i class="fa-solid fa-solid fa-check text-success"></i>{% endif %}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
+      </div>
       {% else %}
       <c-msg.empty title="{% translate "No currencies" %}" remove-padding></c-msg.empty>
       {% endif %}

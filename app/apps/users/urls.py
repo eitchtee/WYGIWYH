@@ -18,9 +18,14 @@ urlpatterns = [
         name="toggle_sound_playing",
     ),
     path(
-        "user/toggle-sidebar/",
+        "user/session/toggle-sidebar/",
         views.toggle_sidebar_status,
         name="toggle_sidebar_status",
+    ),
+    path(
+        "user/session/toggle-theme/",
+        views.toggle_theme,
+        name="toggle_theme",
     ),
     path(
         "user/settings/",

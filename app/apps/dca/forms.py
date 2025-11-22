@@ -1,22 +1,20 @@
-from crispy_bootstrap5.bootstrap5 import Switch, BS5Accordion
-from crispy_forms.bootstrap import FormActions, AccordionGroup
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, HTML
-from django import forms
-from django.utils.translation import gettext_lazy as _
-
 from apps.accounts.models import Account
-from apps.common.widgets.crispy.submit import NoClassSubmit
-from apps.common.widgets.datepicker import AirDatePickerInput
-from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
-from apps.common.widgets.tom_select import TomSelect
-from apps.dca.models import DCAStrategy, DCAEntry
-from apps.common.widgets.tom_select import TransactionSelect
-from apps.transactions.models import Transaction, TransactionTag, TransactionCategory
 from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
 )
+from apps.common.widgets.crispy.daisyui import Switch
+from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.common.widgets.datepicker import AirDatePickerInput
+from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
+from apps.common.widgets.tom_select import TomSelect, TransactionSelect
+from apps.dca.models import DCAEntry, DCAStrategy
+from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
+from crispy_forms.bootstrap import AccordionGroup, FormActions, Accordion
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import HTML, Column, Layout, Row
+from django import forms
+from django.utils.translation import gettext_lazy as _
 
 
 class DCAStrategyForm(forms.ModelForm):
@@ -36,8 +34,8 @@ class DCAStrategyForm(forms.ModelForm):
         self.helper.layout = Layout(
             "name",
             Row(
-                Column("payment_currency", css_class="form-group col-md-6"),
-                Column("target_currency", css_class="form-group col-md-6"),
+                Column("payment_currency"),
+                Column("target_currency"),
             ),
             "notes",
         )
@@ -45,17 +43,13 @@ class DCAStrategyForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 
@@ -155,11 +149,11 @@ class DCAEntryForm(forms.ModelForm):
         self.helper.layout = Layout(
             "date",
             Row(
-                Column("amount_paid", css_class="form-group col-md-6"),
-                Column("amount_received", css_class="form-group col-md-6"),
+                Column("amount_paid"),
+                Column("amount_received"),
             ),
             "notes",
-            BS5Accordion(
+            Accordion(
                 AccordionGroup(
                     _("Create transaction"),
                     Switch("create_transaction"),
@@ -168,19 +162,11 @@ class DCAEntryForm(forms.ModelForm):
                             Row(
                                 Column(
                                     "from_account",
-                                    css_class="form-group",
                                 ),
-                                css_class="form-row",
                             ),
                             Row(
-                                Column(
-                                    "from_category",
-                                    css_class="form-group col-md-6 mb-0",
-                                ),
-                                Column(
-                                    "from_tags", css_class="form-group col-md-6 mb-0"
-                                ),
-                                css_class="form-row",
+                                Column("from_category"),
+                                Column("from_tags"),
                             ),
                         ),
                         css_class="p-1 mx-1 my-3 border rounded-3",
@@ -192,14 +178,10 @@ class DCAEntryForm(forms.ModelForm):
                                     "to_account",
                                     css_class="form-group",
                                 ),
-                                css_class="form-row",
                             ),
                             Row(
-                                Column(
-                                    "to_category", css_class="form-group col-md-6 mb-0"
-                                ),
-                                Column("to_tags", css_class="form-group col-md-6 mb-0"),
-                                css_class="form-row",
+                                Column("to_category"),
+                                Column("to_tags"),
                             ),
                         ),
                         css_class="p-1 mx-1 my-3 border rounded-3",
@@ -220,17 +202,13 @@ class DCAEntryForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 

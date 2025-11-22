@@ -1,38 +1,38 @@
-<div class="card mb-2 transaction-item">
-    <div class="card-body p-2 tw:flex tw:items-center tw:gap-3" data-bs-toggle="collapse" data-bs-target="#{{ transaction.id }}" role="button" aria-expanded="false" aria-controls="{{ transaction.id }}">
+<div class="card bg-base-100 shadow-xl mb-2 transaction-item">
+    <div class="card-body p-2 flex items-center gap-3" data-bs-toggle="collapse" data-bs-target="#{{ transaction.id }}" role="button" aria-expanded="false" aria-controls="{{ transaction.id }}">
         <!-- Main visible content -->
-        <div class="tw:flex flex-lg-row flex-column tw:lg:items-center tw:w-full tw:gap-3">
+        <div class="flex flex-col lg:flex-row lg:items-center w-full gap-3">
             <!-- Type indicator -->
-            <div class="tw:w-8">
+            <div class="w-8">
                 {% if transaction.type == 'IN' %}
-                    <span class="badge bg-success">↑</span>
+                    <span class="badge badge-success">↑</span>
                 {% else %}
-                    <span class="badge bg-danger">↓</span>
+                    <span class="badge badge-error">↓</span>
                 {% endif %}
             </div>
 
             <!-- Payment status -->
-            <div class="tw:w-8">
+            <div class="w-8">
                 {% if transaction.is_paid %}
-                    <span class="badge bg-success">✓</span>
+                    <span class="badge badge-success">✓</span>
                 {% else %}
-                    <span class="badge bg-warning">○</span>
+                    <span class="badge badge-warning">○</span>
                 {% endif %}
             </div>
 
             <!-- Description -->
-            <div class="tw:flex-grow">
-                <span class="tw:font-medium">{{ transaction.description }}</span>
+            <div class="flex-grow">
+                <span class="font-medium">{{ transaction.description }}</span>
             </div>
 
             <!-- Amount -->
-            <div class="tw:text-right tw:whitespace-nowrap">
-                <span class="{% if transaction.type == 'IN' %}tw:text-green-400{% else %}tw:text-red-400{% endif %}">
+            <div class="text-right whitespace-nowrap">
+                <span class="{% if transaction.type == 'IN' %}text-green-400{% else %}text-red-400{% endif %}">
                     {{ transaction.amount }}
                 </span>
                 {% if transaction.exchanged_amount %}
                     <br>
-                    <small class="text-muted">
+                    <small class="text-base-content/60">
                         {{ transaction.exchanged_amount.prefix }}{{ transaction.exchanged_amount.amount }}{{ transaction.exchanged_amount.suffix }}
                     </small>
                 {% endif %}
@@ -43,48 +43,48 @@
     <!-- Expandable details -->
     <div class="collapse" id="{{ transaction.id }}">
       <div class="card-body p-3 transaction-details">
-        <div class="row">
-            <div class="col-md-6">
-                <dl class="row">
-                    <dt class="col-sm-4">Date</dt>
-                    <dd class="col-sm-8">{{ transaction.date|date:"Y-m-d" }}</dd>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <div>
+                <dl class="grid grid-cols-3">
+                    <dt class="col-span-1">Date</dt>
+                    <dd class="col-span-2">{{ transaction.date|date:"Y-m-d" }}</dd>
 
-                    <dt class="col-sm-4">Reference Date</dt>
-                    <dd class="col-sm-8">{{ transaction.reference_date|date:"Y-m" }}</dd>
+                    <dt class="col-span-1">Reference Date</dt>
+                    <dd class="col-span-2">{{ transaction.reference_date|date:"Y-m" }}</dd>
 
-                    <dt class="col-sm-4">Account</dt>
-                    <dd class="col-sm-8">{{ transaction.account.name }}</dd>
+                    <dt class="col-span-1">Account</dt>
+                    <dd class="col-span-2">{{ transaction.account.name }}</dd>
 
-                    <dt class="col-sm-4">Category</dt>
-                    <dd class="col-sm-8">{{ transaction.category|default:"-" }}</dd>
+                    <dt class="col-span-1">Category</dt>
+                    <dd class="col-span-2">{{ transaction.category|default:"-" }}</dd>
                 </dl>
             </div>
-            <div class="col-md-6">
-                <dl class="row">
+            <div>
+                <dl class="grid grid-cols-3">
                     {% if transaction.tags.exists %}
-                        <dt class="col-sm-4">Tags</dt>
-                        <dd class="col-sm-8">
+                        <dt class="col-span-1">Tags</dt>
+                        <dd class="col-span-2">
                             {% for tag in transaction.tags.all %}
-                                <span class="badge bg-secondary">{{ tag.name }}</span>
+                                <span class="badge badge-secondary">{{ tag.name }}</span>
                             {% endfor %}
                         </dd>
                     {% endif %}
 
                     {% if transaction.installment_plan %}
-                        <dt class="col-sm-4">Installment</dt>
-                        <dd class="col-sm-8">
+                        <dt class="col-span-1">Installment</dt>
+                        <dd class="col-span-2">
                             {{ transaction.installment_id }} of {{ transaction.installment_plan.total_installments }}
                         </dd>
                     {% endif %}
 
                     {% if transaction.recurring_transaction %}
-                        <dt class="col-sm-4">Recurring</dt>
-                        <dd class="col-sm-8">Yes</dd>
+                        <dt class="col-span-1">Recurring</dt>
+                        <dd class="col-span-2">Yes</dd>
                     {% endif %}
 
                     {% if transaction.notes %}
-                        <dt class="col-sm-4">Notes</dt>
-                        <dd class="col-sm-8">{{ transaction.notes }}</dd>
+                        <dt class="col-span-1">Notes</dt>
+                        <dd class="col-span-2">{{ transaction.notes }}</dd>
                     {% endif %}
                 </dl>
             </div>

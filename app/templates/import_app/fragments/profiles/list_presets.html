@@ -7,25 +7,25 @@
 {% block body %}
   {% if presets %}
   <div id="search" class="mb-3">
-    <label class="w-100">
+    <label class="w-full">
     <input type="search"
-           class="form-control"
+           class="input input-bordered w-full"
            placeholder="{% translate 'Search' %}"
            _="on input or search
                 show < .col /> in <#items/>
                 when its textContent.toLowerCase() contains my value.toLowerCase()"/>
     </label>
   </div>
-  <div class="row row-cols-1 g-4" id="items">
+  <div class="grid grid-cols-1 gap-4" id="items">
   {% for preset in presets %}
-    <a class="text-decoration-none"
+    <a class="no-underline"
        role="button"
        hx-post="{% url 'import_profiles_add' %}"
        hx-vals='{"yaml_config": {{ preset.config }}, "name": "{{ preset.name }}", "version": "{{ preset.schema_version }}", "message": {{ preset.message }}}'
        hx-target="#generic-offcanvas">
 
       <div class="col">
-        <div class="card">
+        <div class="card bg-base-100 shadow">
           <div class="card-body">
             <h5 class="card-title">{{ preset.name }}</h5>
             <hr>

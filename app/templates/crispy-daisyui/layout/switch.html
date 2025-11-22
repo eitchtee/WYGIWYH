@@ -1,0 +1,17 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    <{% if tag %}{{ tag }}{% else %}fieldset{% endif %} id="div_{{ field.auto_id }}" class="fieldset mt-2 {% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+        <label class="label">
+            {% if field.errors %}
+                {% crispy_field field 'class' 'toggle toggle-error toggle-sm' %}
+            {% else %}
+                {% crispy_field field 'class' 'toggle toggle-sm' %}
+            {% endif %}
+            {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+            {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
+        </label>
+    </{% if tag %}{{ tag }}{% else %}fieldset{% endif %}>
+{% endif %}

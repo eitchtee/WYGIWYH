@@ -1,37 +1,45 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-<form _="install init_tom_select
-         on change trigger updated
-         init trigger updated" id="category-form">
-  {% crispy category_form %}
-</form>
-
-<div class="row row-cols-1 row-cols-lg-2 gx-3 gy-3">
-  <div class="col">
-    <div class="card h-100">
-      <div class="card-header">
-        {% trans "Income/Expense by Account" %}
-      </div>
-      <div class="card-body">
-        <div id="account-card" class="show-loading" hx-get="{% url 'category_sum_by_account' %}"
-             hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card h-100">
-      <div class="card-header">
-        {% trans "Income/Expense by Currency" %}
-      </div>
-      <div class="card-body">
-        <div id="currency-card" class="show-loading" hx-get="{% url 'category_sum_by_currency' %}"
-             hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
+<div class="flex flex-col gap-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <form _="install init_tom_select
+                  on change trigger updated
+                  init trigger updated" id="category-form">
+            {% crispy category_form %}
+          </form>
         </div>
       </div>
     </div>
   </div>
 
-
+  <div class="row g-3">
+    <div class="col-12 lg:col-6">
+        <div class="card bg-base-100 card-border shadow h-full">
+          <div class="card-header bg-base-200 p-4 font-semibold rounded-box shadow">
+            {% trans "Income/Expense by Account" %}
+          </div>
+          <div class="card-body">
+            <div id="account-card" class="show-loading" hx-get="{% url 'category_sum_by_account' %}"
+                hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6">
+        <div class="card bg-base-100 card-border shadow h-full">
+          <div class="card-header bg-base-200 p-4 font-semibold rounded-box shadow">
+            {% trans "Income/Expense by Currency" %}
+          </div>
+          <div class="card-body">
+            <div id="currency-card" class="show-loading" hx-get="{% url 'category_sum_by_currency' %}"
+                hx-trigger="updated from:window" hx-include="#category-form, #picker-form, #picker-type">
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>

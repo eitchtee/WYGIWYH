@@ -1,14 +1,14 @@
 {% load tools %}
 {% load i18n %}
 {% load currency_display %}
-<div class="row row-cols-1 g-4 mt-1 mb-3">
+<div class="grid grid-cols-1 gap-4 mt-1 mb-3">
   {% for currency_id, currency in currency_data.items %}
-    <div class="col">
+    <div>
       <c-ui.currency_card :currency="currency" :currency_id="currency_id"
                           :percentages="currency_percentages"></c-ui.currency_card>
     </div>
   {% empty %}
-    <div class="col">
+    <div>
       <c-msg.empty
           title="{% translate "No information to display" %}"></c-msg.empty>
     </div>

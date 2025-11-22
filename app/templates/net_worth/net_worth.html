@@ -4,209 +4,243 @@
 {% load i18n %}
 {% load month_name %}
 {% load static %}
-{% load webpack_loader %}
-
-{% block title %}{% if type == "current" %}{% translate 'Current Net Worth' %}{% else %}{% translate 'Projected Net Worth' %}{% endif %}{% endblock %}
-
+{% block title %}
+  {% if type == "current" %}
+    {% translate "Current Net Worth" %}
+  {% else %}
+    {% translate "Projected Net Worth" %}
+  {% endif %}
+{% endblock title %}
 {% block content %}
-  <div hx-trigger="every 60m, updated from:window" hx-include="#view-type" class="show-loading" hx-get=""
+  <div hx-trigger="every 60m, updated from:window"
+       hx-include="#view-type"
+       class="show-loading"
+       hx-get=""
        hx-target="body">
-    <div class="h-100 text-center mb-4 pt-2">
-      <div class="btn-group gap-3" role="group" id="view-type" _="on change trigger updated">
-        <input type="radio" class="btn-check"
-               name="view_type"
-               id="current-view"
-               autocomplete="off"
-               value="current"
-               {% if type == "current" %}checked{% endif %}>
-        <label class="btn btn-outline-primary rounded-5" for="current-view"><i
-            class="fa-solid fa-sack-dollar fa-fw me-2"></i>{% trans 'Current' %}</label>
+    <div class="h-full text-center mb-4 w-full">
+      <div class="tabs tabs-box mx-auto w-fit"
+           id="view-type"
+           _="on change trigger updated">
 
-        <input type="radio"
-               class="btn-check"
-               name="view_type"
-               id="projected-view"
-               autocomplete="off"
-               value="projected"
-               {% if type == "projected" %}checked{% endif %}>
-        <label class="btn btn-outline-primary rounded-5" for="projected-view"><i
-            class="fa-solid fa-rocket fa-fw me-2"></i>{% trans 'Projected' %}</label>
+        <label class="tab">
+          <input type="radio"
+                 name="view_type"
+                 class="tab"
+                 aria-label="{% trans "Current" %}"
+                 value="current"
+                 {% if type == "current" %}checked{% endif %}/>
+          <i class="fa-solid fa-sack-dollar fa-fw me-2"></i>
+          {% trans "Current" %}
+        </label>
+        <label class="tab">
+          <input type="radio"
+                 name="view_type"
+                 class="tab"
+                 aria-label="{% trans "Projected" %}"
+                 value="projected"
+                 {% if type == "projected" %}checked{% endif %}/>
+          <i class="fa-solid fa-rocket fa-fw me-2"></i>
+          {% trans "Projected" %}
+        </label>
       </div>
     </div>
     <div class="container px-md-3 py-3"
          _="init call initializeAccountChart() then initializeCurrencyChart() then initializeMonthlyDifferenceChart() end">
-      <div class="row gx-xl-4 gy-3 mb-4">
-        <div class="col-12 col-xl-5">
-          <div class="row row-cols-1 g-4">
-            <div class="col">
-              <c-ui.info-card color="yellow" icon="fa-solid fa-coins" title="{% trans 'By currency' %}"
-                              title_css_classes="tw:cursor-pointer"
-                              _="on click showAllDatasetsCurrency()">
+      <div class="row gap-y-3">
+        <div class="col lg:col-5">
+          <div>
+            <c-ui.info-card color="yellow" icon="fa-solid fa-coins" title="{% trans "By currency" %}"
+                            title_css_classes="cursor-pointer" _="on click showAllDatasetsCurrency()">
+              <ul class="menu bg-base-100 w-full rounded-box">
                 {% for currency in currency_net_worth.values %}
-                  <div class="d-flex justify-content-between mt-2">
-                    <div class="d-flex align-items-baseline w-100">
-                      <div class="currency-name text-start font-monospace tw:text-gray-300 tw:cursor-pointer"
-                           _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
-                        {{ currency.currency.name }}
-                      </div>
-                      <div class="dotted-line flex-grow-1"></div>
-                      <div>
-                        <c-amount.display
-                            :amount="currency.total_final"
-                            :prefix="currency.currency.prefix"
-                            :suffix="currency.currency.suffix"
-                            :decimal_places="currency.currency.decimal_places"
-                            color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
-                            text-end></c-amount.display>
-                      </div>
-                    </div>
-                  </div>
-                  {% if currency.exchanged and currency.exchanged.total_final %}
-                    <div>
-                      <c-amount.display
-                          :amount="currency.exchanged.total_final"
-                          :prefix="currency.exchanged.currency.prefix"
-                          :suffix="currency.exchanged.currency.suffix"
-                          :decimal_places="currency.exchanged.currency.decimal_places"
-                          text-end
-                          color="grey"></c-amount.display>
-                    </div>
-                  {% endif %}
-                  {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
-                    <div class="d-flex align-items-baseline w-100">
-                      <div class="account-name text-start font-monospace tw:text-gray-300">
-                        <span class="hierarchy-line-icon"></span>{% trans 'Consolidated' %}</div>
-                      <div class="dotted-line flex-grow-1"></div>
-                      <div class="">
-                        <c-amount.display
-                            :amount="currency.consolidated.total_final"
-                            :prefix="currency.consolidated.currency.prefix"
-                            :suffix="currency.consolidated.currency.suffix"
-                            :decimal_places="currency.consolidated.currency.decimal_places"
-                            color="{% if currency.consolidated.total_final > 0 %}green{% elif currency.consolidated.total_final < 0 %}red{% endif %}"
-                            text-end></c-amount.display>
-                      </div>
-                    </div>
-                  {% endif %}
+                  <li>
+                    {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
+                      <a class="cursor-pointer select-auto flex justify-between items-center w-full"
+                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
+                        <span
+                            class="currency-name text-start font-mono shrink text-ellipsis">{{ currency.currency.name }}</span>
+                        <span class="text-end shrink-0">
+                        <div>
+                          <c-amount.display :amount="currency.total_final" :prefix="currency.currency.prefix"
+                                            :suffix="currency.currency.suffix"
+                                            :decimal_places="currency.currency.decimal_places"
+                                            color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
+                                            text-end></c-amount.display>
+                        </div>
+                          {% if currency.exchanged and currency.exchanged.total_final %}
+                            <div>
+                            <c-amount.display :amount="currency.exchanged.total_final"
+                                              :prefix="currency.exchanged.currency.prefix"
+                                              :suffix="currency.exchanged.currency.suffix"
+                                              :decimal_places="currency.exchanged.currency.decimal_places" text-end
+                                              color="grey"></c-amount.display>
+                          </div>
+                          {% endif %}
+                      </span>
+                      </a>
+                      <ul>
+                        <li>
+                          <a class="text-base-content/60 select-auto flex justify-between items-center w-full">
+                            <span class="text-start shrink">{% trans "Consolidated" %}</span>
+                            <span class="text-end shrink-0">
+                            <c-amount.display :amount="currency.consolidated.total_final"
+                                              :prefix="currency.consolidated.currency.prefix"
+                                              :suffix="currency.consolidated.currency.suffix"
+                                              :decimal_places="currency.consolidated.currency.decimal_places"
+                                              color="{% if currency.consolidated.total_final > 0 %}green{% elif currency.consolidated.total_final < 0 %}red{% endif %}"
+                                              text-end></c-amount.display>
+                          </span>
+                          </a>
+                        </li>
+                      </ul>
+                    {% else %}
+                      <a class="cursor-pointer select-auto flex justify-between items-center w-full"
+                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
+                        <span class="currency-name text-start font-mono shrink">{{ currency.currency.name }}</span>
+                        <span class="text-end shrink-0">
+                        <div>
+                          <c-amount.display :amount="currency.total_final" :prefix="currency.currency.prefix"
+                                            :suffix="currency.currency.suffix"
+                                            :decimal_places="currency.currency.decimal_places"
+                                            color="{% if currency.total_final > 0 %}green{% elif currency.total_final < 0 %}red{% endif %}"
+                                            text-end></c-amount.display>
+                        </div>
+                          {% if currency.exchanged and currency.exchanged.total_final %}
+                            <div>
+                            <c-amount.display :amount="currency.exchanged.total_final"
+                                              :prefix="currency.exchanged.currency.prefix"
+                                              :suffix="currency.exchanged.currency.suffix"
+                                              :decimal_places="currency.exchanged.currency.decimal_places" text-end
+                                              color="grey"></c-amount.display>
+                          </div>
+                          {% endif %}
+                      </span>
+                      </a>
+                    {% endif %}
+                  </li>
                 {% endfor %}
-              </c-ui.info-card>
-            </div>
+              </ul>
+            </c-ui.info-card>
           </div>
         </div>
-        <div class="col-12 col-xl-7">
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="evolution-tab" data-bs-toggle="tab"
-                      data-bs-target="#evolution-tab-pane" type="button" role="tab" aria-controls="evolution-tab-pane"
-                      aria-selected="true">{% trans 'Evolution' %}</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="diff-tab" data-bs-toggle="tab" data-bs-target="#diff-tab-pane" type="button"
-                      role="tab" aria-controls="diff-tab-pane" aria-selected="false">{% trans 'Difference' %}</button>
-            </li>
-          </ul>
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="evolution-tab-pane" role="tabpanel"
-                 aria-labelledby="evolution-tab" tabindex="0">
-              <div class="chart-container position-relative tw:min-h-[40vh] tw:h-full tw:w-full">
-                <canvas id="currencyBalanceChart"></canvas>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="diff-tab-pane" role="tabpanel" aria-labelledby="diff-tab" tabindex="0">
-              <div class="chart-container position-relative tw:min-h-[40vh] tw:h-full tw:w-full">
-                <canvas id="monthlyDifferenceChart"></canvas>
+        <div class="col lg:col-7">
+          <div class="card bg-base-100">
+            <div class="card-body">
+              <div role="tablist" class="tabs tabs-border w-full" id="myTab">
+                <input type="radio"
+                       name="networth_tabs"
+                       role="tab"
+                       class="tab"
+                       aria-label="{% trans 'Evolution' %}"
+                       id="tab-evolution"
+                       checked="checked"/>
+                <div role="tabpanel" class="tab-content p-4" id="evolution-tab-pane">
+                  <div class="chart-container relative min-h-[80vh] md:min-h-[40vh] h-full w-full">
+                    <canvas id="currencyBalanceChart"></canvas>
+                  </div>
+                </div>
+                <input type="radio"
+                       name="networth_tabs"
+                       role="tab"
+                       class="tab"
+                       aria-label="{% trans 'Difference' %}"
+                       id="tab-diff"/>
+                <div role="tabpanel" class="tab-content p-4" id="diff-tab-pane">
+                  <div class="chart-container relative min-h-[80vh] md:min-h-[40vh] h-full w-full">
+                    <canvas id="monthlyDifferenceChart"></canvas>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <hr>
-      <div class="row gx-xl-4 gy-3 mt-4">
-        <div class="col-12 col-xl-5">
-          <div class="row row-cols-1 g-4">
-            <div class="col">
-              <c-ui.info-card color="blue" icon="fa-solid fa-wallet" title="{% trans 'By account' %}"
-                              title_css_classes="tw:cursor-pointer"
-                              _="on click showAllDatasetsAccount()">
+      <hr class="hr my-6"/>
+      <div class="row gap-y-3">
+        <div class="col lg:col-5">
+          <div>
+            <c-ui.info-card color="blue" icon="fa-solid fa-wallet" title="{% trans "By account" %}"
+                            title_css_classes="cursor-pointer" _="on click showAllDatasetsAccount()">
+              <ul class="menu bg-base-100 w-full rounded-box">
                 {% regroup account_net_worth.values by account.group as account_data %}
                 {% for data in account_data %}
                   {% if data.grouper %}
-                    <div class="d-flex justify-content-between mt-2">
-                      <div class="d-flex align-items-baseline w-100">
-                        <div class="text-start font-monospace tw:text-gray-300"><span class="badge text-bg-primary">
-                        {{ data.grouper }}</span></div>
-                      </div>
-                    </div>
-                    {% for account in data.list %}
-                      <div class="d-flex justify-content-between mt-2">
-                        <div class="d-flex align-items-baseline w-100">
-                          <div class="account-name text-start font-monospace tw:text-gray-300 tw:cursor-pointer"
-                               _="on click showOnlyAccountDataset('{{ account.account.name }}')">
-                            <span class="hierarchy-line-icon"></span>{{ account.account.name }}</div>
-                          <div class="dotted-line flex-grow-1"></div>
-                          <div class="">
-                            <c-amount.display
-                                :amount="account.total_final"
-                                :prefix="account.currency.prefix"
-                                :suffix="account.currency.suffix"
-                                :decimal_places="account.currency.decimal_places"
-                                color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
-                          </div>
-                        </div>
-                      </div>
-                      {% if account.exchanged and account.exchanged.total_final %}
-                        <c-amount.display
-                            :amount="account.exchanged.total_final"
-                            :prefix="account.exchanged.currency.prefix"
-                            :suffix="account.exchanged.currency.suffix"
-                            :decimal_places="account.exchanged.currency.decimal_places"
-                            color="grey"
-                            text-end></c-amount.display>
-                      {% endif %}
-                    {% endfor %}
+                    <li>
+                      <details open>
+                        <summary class="select-auto">
+                          <span class="badge badge-primary">{{ data.grouper }}</span>
+                        </summary>
+                        <ul>
+                          {% for account in data.list %}
+                            <li>
+                              <a class="cursor-pointer select-auto flex justify-between items-center w-full"
+                                 _="on click showOnlyAccountDataset('{{ account.account.name }}')">
+                                <span
+                                    class="account-name text-start font-mono shrink text-ellipsis">{{ account.account.name }}</span>
+                                <span class="text-end shrink-0">
+                                <div>
+                                  <c-amount.display :amount="account.total_final" :prefix="account.currency.prefix"
+                                                    :suffix="account.currency.suffix"
+                                                    :decimal_places="account.currency.decimal_places"
+                                                    color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
+                                </div>
+                                  {% if account.exchanged and account.exchanged.total_final %}
+                                    <div>
+                                    <c-amount.display :amount="account.exchanged.total_final"
+                                                      :prefix="account.exchanged.currency.prefix"
+                                                      :suffix="account.exchanged.currency.suffix"
+                                                      :decimal_places="account.exchanged.currency.decimal_places"
+                                                      color="grey" text-end></c-amount.display>
+                                  </div>
+                                  {% endif %}
+                              </span>
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </details>
+                    </li>
                   {% else %}
                     {% for account in data.list %}
-                      <div class="d-flex justify-content-between mt-2">
-                        <div class="d-flex align-items-baseline w-100">
-                          <div class="account-name text-start font-monospace tw:text-gray-300 tw:cursor-pointer"
-                               _="on click showOnlyAccountDataset('{{ account.account.name }}')">
-                            {{ account.account.name }}
-                          </div>
-                          <div class="dotted-line flex-grow-1"></div>
+                      <li>
+                        <a class="cursor-pointer flex select-auto justify-between items-center w-full"
+                           _="on click showOnlyAccountDataset('{{ account.account.name }}')">
+                          <span class="account-name text-start font-mono shrink">{{ account.account.name }}</span>
+                          <span class="text-end shrink-0">
                           <div>
-                            <c-amount.display
-                                :amount="account.total_final"
-                                :prefix="account.currency.prefix"
-                                :suffix="account.currency.suffix"
-                                :decimal_places="account.currency.decimal_places"
-                                color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
+                            <c-amount.display :amount="account.total_final" :prefix="account.currency.prefix"
+                                              :suffix="account.currency.suffix"
+                                              :decimal_places="account.currency.decimal_places"
+                                              color="{% if account.total_final > 0 %}green{% elif account.total_final < 0 %}red{% endif %}"></c-amount.display>
                           </div>
-                        </div>
-                      </div>
-                      {% if account.exchanged and account.exchanged.total_final %}
-                        <c-amount.display
-                            :amount="account.exchanged.total_final"
-                            :prefix="account.exchanged.currency.prefix"
-                            :suffix="account.exchanged.currency.suffix"
-                            :decimal_places="account.exchanged.currency.decimal_places"
-                            color="grey"
-                            text-end></c-amount.display>
-                      {% endif %}
+                            {% if account.exchanged and account.exchanged.total_final %}
+                              <div>
+                              <c-amount.display :amount="account.exchanged.total_final"
+                                                :prefix="account.exchanged.currency.prefix"
+                                                :suffix="account.exchanged.currency.suffix"
+                                                :decimal_places="account.exchanged.currency.decimal_places" color="grey"
+                                                text-end></c-amount.display>
+                            </div>
+                            {% endif %}
+                        </span>
+                        </a>
+                      </li>
                     {% endfor %}
                   {% endif %}
                 {% endfor %}
-              </c-ui.info-card>
-            </div>
+              </ul>
+            </c-ui.info-card>
           </div>
         </div>
-        <div class="col-12 col-xl-7">
-          <div class="chart-container position-relative tw:min-h-[40vh] tw:h-full">
-            <canvas id="accountBalanceChart"></canvas>
+        <div class="col lg:col-7">
+          <div class="chart-container relative min-h-[80vh] md:min-h-[40vh] h-full card bg-base-100">
+            <div class="card-body">
+              <canvas id="accountBalanceChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
     <script>
         var currencyChart;
 
@@ -254,6 +288,7 @@
                                 display: true,
                                 grid: {
                                     drawOnChartArea: i === 0,
+                                    drawTicks: false,
                                 },
                                 ticks: {
                                     display: false,
@@ -269,7 +304,6 @@
             });
         }
     </script>
-
     <script id="accountBalanceChartScript">
         var accountChart;
 
@@ -319,6 +353,7 @@
                                 position: i % 2 === 0 ? 'left' : 'right',
                                 grid: {
                                     drawOnChartArea: i === 0,
+                                    drawTicks: false,
                                 },
                                 ticks: {
                                     display: false,
@@ -334,7 +369,6 @@
             });
         }
     </script>
-
     <script id="monthlyDifferenceChartScript">
         var monthlyDifferenceChart;
 
@@ -372,17 +406,39 @@
                         },
                         y: {
                             stacked: true,
+                            border: {
+                                display: true,
+                            },
+                            grid: {
+                                drawTicks: false,
+                            },
                             ticks: {
                                 display: false,
-                                format: {maximumFractionDigits: 40, minimumFractionDigits: 0}
+                                format: {
+                                    maximumFractionDigits: 40,
+                                    minimumFractionDigits: 0
+                                }
                             },
+                        },
+                        y1: {
+                            position: 'right',
+                            display: true,
+                            grid: {
+                                drawOnChartArea: false,
+                                drawTicks: false,
+                            },
+                            border: {
+                                display: true,
+                            },
+                            ticks: {
+                                display: false,
+                            }
                         }
                     }
                 }
             });
         }
     </script>
-
     <script type="text/hyperscript">
       def showOnlyAccountDataset(datasetName)
         for dataset in accountChart.data.datasets
@@ -427,4 +483,4 @@
     </script>
   </div>
   <c-ui.transactions_fab></c-ui.transactions_fab>
-{% endblock %}
+{% endblock content %}
