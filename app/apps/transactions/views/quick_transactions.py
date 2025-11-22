@@ -137,6 +137,7 @@ def quick_transaction_add_as_transaction(request, quick_transaction_id):
             "category",
             "tags",
             "entities",
+            "internal_id",
         ],
     )
 
@@ -206,6 +207,7 @@ def quick_transaction_add_as_quick_transaction(request, transaction_id):
             "recurring_transaction",
             "deleted",
             "deleted_at",
+            "internal_id",
         ],
     )
 
