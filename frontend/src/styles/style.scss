@@ -16,30 +16,9 @@ select {
 }
 
 ::selection {
-  color: variables.$gray-800;
-  background-color: variables.$primary;
+  color: var(--color-primary-content);
+  background-color: var(--color-primary);
 }
-
-.dotted-line {
-  border-bottom: 2px dotted variables.$gray-700;
-  margin: 0 5px;
-  position: relative;
-}
-
-.hierarchy-line-icon {
-  width: 8px;
-  height: 10px;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiPjxwYXRoIHN0cm9rZT0iIzlCOUI5QiIgc3Ryb2tlLWRhc2hhcnJheT0iNCIgZD0iTS41IDQuNWgxMiIvPjxwYXRoIHN0cm9rZT0iIzk3OTc5NyIgZD0iTS41IDQuNXYtNCIvPjwvZz48L3N2Zz4=");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top;
-  display: inline-block;
-  margin-left: 15px;
-  margin-right: 7px;
-  margin-top: 4px;
-  padding: 0 8px !important;
-}
-
 
 .offline {
   text-align: center;
@@ -74,7 +53,7 @@ select {
 }
 
 div:where(.swal2-container) {
-  z-index: 1100 !important;
+  z-index: 1101 !important;
 }
 
 .logo {
