@@ -55,8 +55,8 @@ window.TomSelect = function createDynamicTomSelect(element) {
 
     if (element.dataset.checkboxes === 'true') {
         config.plugins.checkbox_options = {
-            'checkedClassNames': ['ts-checked'],
-            'uncheckedClassNames': ['ts-unchecked'],
+            'checkedClassNames': ['ts-checked', "checkbox", "checkbox-xs"],
+            'uncheckedClassNames': ['ts-checked', "checkbox", "checkbox-xs"],
         };
     }
 

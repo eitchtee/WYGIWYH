@@ -1,5 +1,5 @@
 {% load formats %}
-<div class="hidden w-[60vw] lg:w-[30vw] xl:w-[20vw] fixed shadow rounded-3xl bg-base-100 border-base-300 border border-solid text-center align-middle z-[2000] touch-none select-none"
+<div class="hidden w-[60vw] lg:w-[30vw] xl:w-[20vw] fixed shadow rounded-3xl bg-base-300 border-base-100 border border-solid text-center align-middle z-[2000] touch-none select-none"
      id="calculator"
      hx-preserve
      _="
@@ -48,7 +48,7 @@
           end">
 
       <div id="calculator-handle"
-           class="absolute bg-secondary rounded-t-lg cursor-move flex items-center justify-center top-[-20px] left-[3px] w-[2em] h-[20px]">
+           class="absolute bg-secondary text-secondary-content rounded-t-lg cursor-move flex items-center justify-center top-[-20px] left-[6px] w-[2em] h-[20px]">
         <i class="fa-solid fa-grip"></i>
       </div>
 
@@ -91,13 +91,13 @@
               end"
              placeholder="2 + 2">
       <div class="hidden" id="calculator-result-container">
-        <div class="flex flex-row p-2 justify-between">
-          <div class="text-base-content/40">=</div>
+        <div class="flex flex-row py-3 px-5 justify-between">
+          <div class="text-subtle">=</div>
           <div id="calculator-result" class="select-all"></div>
         </div>
       </div>
-      <div class="absolute cursor-pointer top-0 left-full start-100 -translate-x-1/2 -translate-y-1/2 p-0 bg-primary text-primary-content border border-base-100 rounded-full flex items-center justify-center w-5 h-5"
+      <div class="btn btn-error btn-circle absolute cursor-pointer top-0 left-full start-100 -translate-x-1/2 -translate-y-1/2 p-0 flex items-center justify-center w-5 h-5"
             _="on click trigger show on #calculator">
-        <i class="fa-solid fa-xmark flex items-center justify-center w-full h-full"></i>
+        <i class="fa-solid fa-xmark flex items-center justify-center w-full h-full content-center text-xs"></i>
       </div>
     </div>
