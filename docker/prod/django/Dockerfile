@@ -64,3 +64,5 @@ RUN chown -R app:app /usr/src/app && \
 USER app
 
 RUN python manage.py compilemessages --settings "WYGIWYH.settings"
+
+CMD ["/start-single"]

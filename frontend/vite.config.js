@@ -37,7 +37,7 @@ export default defineConfig({
         },
         hmr: false,
         cors: true,
-        origin: 'http://100.118.164.62:5173'
+        origin: 'http://localhost:5173'
     },
 
     resolve: {

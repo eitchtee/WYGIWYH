@@ -1,12 +1,11 @@
 services:
   web:
-    image: wygiwhy_prod:latest
+    image: eitchtee/wygiwyh:latest
     container_name: ${SERVER_NAME}
-    command: /start-single
     ports:
       - "${OUTBOUND_PORT}:8000"
     env_file:
-      - .prod.env
+      - .env
     depends_on:
       - db
     restart: unless-stopped
@@ -21,6 +20,3 @@ services:
       - POSTGRES_USER=${SQL_USER}
       - POSTGRES_PASSWORD=${SQL_PASSWORD}
       - POSTGRES_DB=${SQL_DATABASE}
-
-    env_file:
-      - .prod.env
