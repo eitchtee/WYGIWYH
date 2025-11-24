@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
 
 FROM node:lts-alpine AS vite_build
 WORKDIR /usr/src/frontend
