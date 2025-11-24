@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bookworm AS python-build-stage
+FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS python-build-stage
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
 
-FROM node:lts-alpine AS webpack_build
+FROM node:lts-alpine AS vite_build
 WORKDIR /usr/src/frontend
 
 COPY ./frontend/package.json ./frontend/package-lock.json* ./
@@ -22,12 +22,12 @@ COPY ./app/templates /usr/src/app/templates
 
 RUN npm run build
 
-FROM python:3.11-slim-bookworm AS python-run-stage
+FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS python-run-stage
 
 ARG VERSION=dev
 ENV APP_VERSION=$VERSION
 
-COPY --from=webpack_build /usr/src/frontend/build /usr/src/frontend/build
+COPY --from=vite_build /usr/src/frontend/build /usr/src/frontend/build
 
 WORKDIR /usr/src/app
 
@@ -39,12 +39,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Install python dependencies from wheels
 COPY --from=python-build-stage /usr/src/app/wheels /wheels/
-RUN --mount=type=cache,target=/root/.cache/apt \
+RUN --mount=type=cache,target=/var/cache/apt \
     apt-get update && \
     apt-get install --no-install-recommends -y gettext supervisor && \
     rm -rf /var/lib/apt/lists/* && \
-    pip install --upgrade pip && \
-    pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
+    uv pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
     rm -rf /wheels/
 
 COPY --chown=app:app ./docker/prod/django/start /start
