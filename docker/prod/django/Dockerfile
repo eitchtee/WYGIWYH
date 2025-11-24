@@ -11,12 +11,16 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 FROM node:lts-alpine AS webpack_build
 WORKDIR /usr/src/frontend
+
+COPY ./frontend/package.json ./frontend/package-lock.json* ./
+
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci || npm install
+
 COPY ./frontend .
 COPY ./app/templates /usr/src/app/templates
-RUN --mount=type=cache,target=/root/.npm \
-    rm -rf node_modules package-lock.json && \
-    npm install --verbose && \
-    npm run build
+
+RUN npm run build
 
 FROM python:3.11-slim-bookworm AS python-run-stage
 
@@ -33,6 +37,7 @@ RUN addgroup --system app && \
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
+# Install python dependencies from wheels
 COPY --from=python-build-stage /usr/src/app/wheels /wheels/
 RUN --mount=type=cache,target=/root/.cache/apt \
     apt-get update && \
@@ -47,6 +52,7 @@ COPY --chown=app:app ./docker/prod/procrastinate/start /start-procrastinate
 COPY --chown=app:app ./docker/prod/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY --chown=app:app ./docker/prod/supervisord/supervisord.conf /etc/supervisord.conf
 COPY --chown=app:app ./docker/prod/supervisord/start /start-single
+
 RUN sed -i 's/\r$//g' /start && \
     chmod +x /start && \
     sed -i 's/\r$//g' /start-procrastinate && \
