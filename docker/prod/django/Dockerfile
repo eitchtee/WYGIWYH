@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS python-build-stage
+FROM python:3.11-slim-bookworm AS python-build-stage
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
@@ -22,7 +22,7 @@ COPY ./app/templates /usr/src/app/templates
 
 RUN npm run build
 
-FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS python-run-stage
+FROM python:3.11-slim-bookworm AS python-run-stage
 
 ARG VERSION=dev
 ENV APP_VERSION=$VERSION
@@ -39,12 +39,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Install python dependencies from wheels
 COPY --from=python-build-stage /usr/src/app/wheels /wheels/
-RUN --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,target=/root/.cache/apt \
     apt-get update && \
     apt-get install --no-install-recommends -y gettext supervisor && \
     rm -rf /var/lib/apt/lists/* && \
-    uv pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
-    rm -rf /wheels/
+    pip install --upgrade pip && \
+    pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
+    rm -rf /wheels/ \
 
 COPY --chown=app:app ./docker/prod/django/start /start
 COPY --chown=app:app ./docker/prod/procrastinate/start /start-procrastinate
