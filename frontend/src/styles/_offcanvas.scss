@@ -1,0 +1,326 @@
+// Offcanvas component - Standalone implementation
+// Decoupled from Bootstrap 5, integrated with DaisyUI colors
+
+@use "sass:list";
+@use "sass:map";
+
+// Variables
+$offcanvas-z-index: 1090 !default;
+$offcanvas-backdrop-z-index: 1040 !default;
+$offcanvas-width: 400px !default;
+$offcanvas-height: 30vh !default;
+$offcanvas-padding: 1rem !default;
+$offcanvas-transition-duration: 0.3s !default;
+$offcanvas-backdrop-opacity: 0.5 !default;
+
+// Breakpoints
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px) !default;
+
+// Mixins
+@mixin media-breakpoint-up($name) {
+    $min: map.get($breakpoints, $name
+    );
+
+@if $min and $min >0 {
+    @media (min-width: $min) {
+        @content;
+    }
+}
+
+@else {
+    @content;
+}
+}
+
+@mixin media-breakpoint-down($name) {
+    $breakpoint-names: map.keys($breakpoints);
+    $n: list.index($breakpoint-names, $name);
+
+    @if $n and $n < list.length($breakpoint-names) {
+        $next: list.nth($breakpoint-names, $n + 1);
+        $max: map.get($breakpoints, $next);
+
+        @if $max {
+            @media (max-width: calc($max - 0.02px)) {
+                @content;
+            }
+        }
+    }
+
+    @else {
+        @content;
+    }
+}
+
+// Base offcanvas CSS variables
+%offcanvas-css-vars {
+    --offcanvas-z-index: #{$offcanvas-z-index};
+    --offcanvas-width: #{$offcanvas-width};
+    --offcanvas-height: #{$offcanvas-height};
+    --offcanvas-padding-x: #{$offcanvas-padding};
+    --offcanvas-padding-y: #{$offcanvas-padding};
+    --offcanvas-color: var(--color-base-content);
+    --offcanvas-bg: var(--root-bg);
+    --offcanvas-border-width: var(--border);
+    --offcanvas-border-color: var(--color-base-100);
+    --offcanvas-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --offcanvas-transition: transform #{$offcanvas-transition-duration} ease-in-out;
+    --offcanvas-title-line-height: 1.5;
+}
+
+// Apply CSS variables to all breakpoint classes
+@each $breakpoint in map.keys($breakpoints) {
+    $breakpoint-names: map.keys($breakpoints);
+    $n: list.index($breakpoint-names, $breakpoint);
+    $next: null;
+    $infix: "";
+
+    @if $n < list.length($breakpoint-names) {
+        $next: list.nth($breakpoint-names, $n + 1);
+        $infix: "-#{$next}";
+    }
+
+    .offcanvas#{$infix} {
+        @extend %offcanvas-css-vars;
+    }
+}
+
+// Generate offcanvas classes for each breakpoint
+@each $breakpoint in map.keys($breakpoints) {
+    $breakpoint-names: map.keys($breakpoints);
+    $n: list.index($breakpoint-names, $breakpoint);
+    $next: null;
+    $infix: "";
+
+    @if $n < list.length($breakpoint-names) {
+        $next: list.nth($breakpoint-names, $n + 1);
+        $infix: "-#{$next}";
+    }
+
+    .offcanvas#{$infix} {
+        @if $next {
+            @include media-breakpoint-down($breakpoint) {
+                position: fixed;
+                bottom: 0;
+                z-index: var(--offcanvas-z-index);
+                display: flex;
+                flex-direction: column;
+                max-width: 100%;
+                color: var(--offcanvas-color);
+                visibility: hidden;
+                background-color: var(--offcanvas-bg);
+                background-clip: padding-box;
+                outline: 0;
+                box-shadow: var(--offcanvas-box-shadow);
+                transition: var(--offcanvas-transition);
+
+                @media (prefers-reduced-motion: reduce) {
+                    transition: none;
+                }
+
+                &.offcanvas-start {
+                    top: 0;
+                    left: 0;
+                    width: var(--offcanvas-width);
+                    border-right: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                    transform: translateX(-100%);
+                }
+
+                &.offcanvas-end {
+                    top: 0;
+                    right: 0;
+                    width: var(--offcanvas-width);
+                    border-left: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                    transform: translateX(100%);
+                }
+
+                &.offcanvas-top {
+                    top: 0;
+                    right: 0;
+                    left: 0;
+                    height: var(--offcanvas-height);
+                    max-height: 100%;
+                    border-bottom: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                    transform: translateY(-100%);
+                }
+
+                &.offcanvas-bottom {
+                    right: 0;
+                    left: 0;
+                    height: var(--offcanvas-height);
+                    max-height: 100%;
+                    border-top: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                    transform: translateY(100%);
+                }
+
+                &.showing,
+                &.show:not(.hiding) {
+                    transform: none;
+                }
+
+                &.showing,
+                &.hiding,
+                &.show {
+                    visibility: visible;
+                }
+            }
+
+            @if $infix !="" {
+                @include media-breakpoint-up($next) {
+                    --offcanvas-height: auto;
+                    --offcanvas-border-width: 0;
+                    background-color: transparent !important;
+
+                    .offcanvas-header {
+                        display: none;
+                    }
+
+                    .offcanvas-body {
+                        display: flex;
+                        flex-grow: 0;
+                        padding: 0;
+                        overflow-y: visible;
+                        background-color: transparent !important;
+                    }
+                }
+            }
+        }
+
+        @else {
+            // For the last breakpoint (no infix)
+            position: fixed;
+            bottom: 0;
+            z-index: var(--offcanvas-z-index);
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            color: var(--offcanvas-color);
+            visibility: hidden;
+            background-color: var(--offcanvas-bg);
+            background-clip: padding-box;
+            outline: 0;
+            box-shadow: var(--offcanvas-box-shadow);
+            transition: var(--offcanvas-transition);
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
+
+            &.offcanvas-start {
+                top: 0;
+                left: 0;
+                width: var(--offcanvas-width);
+                border-right: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                transform: translateX(-100%);
+            }
+
+            &.offcanvas-end {
+                top: 0;
+                right: 0;
+                width: var(--offcanvas-width);
+                border-left: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                transform: translateX(100%);
+            }
+
+            &.offcanvas-top {
+                top: 0;
+                right: 0;
+                left: 0;
+                height: var(--offcanvas-height);
+                max-height: 100%;
+                border-bottom: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                transform: translateY(-100%);
+            }
+
+            &.offcanvas-bottom {
+                right: 0;
+                left: 0;
+                height: var(--offcanvas-height);
+                max-height: 100%;
+                border-top: var(--offcanvas-border-width) solid var(--offcanvas-border-color);
+                transform: translateY(100%);
+            }
+
+            &.showing,
+            &.show:not(.hiding) {
+                transform: none;
+            }
+
+            &.showing,
+            &.hiding,
+            &.show {
+                visibility: visible;
+            }
+        }
+    }
+}
+
+// Offcanvas backdrop
+.offcanvas-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $offcanvas-backdrop-z-index;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-neutral, #000);
+
+    &.fade {
+        opacity: 0;
+    }
+
+    &.show {
+        opacity: $offcanvas-backdrop-opacity;
+    }
+}
+
+// Offcanvas header
+.offcanvas-header {
+    display: flex;
+    align-items: center;
+    padding: var(--offcanvas-padding-y) var(--offcanvas-padding-x);
+
+    .btn-close {
+        padding: calc(var(--offcanvas-padding-y) * 0.5) calc(var(--offcanvas-padding-x) * 0.5);
+        margin-top: calc(-0.5 * var(--offcanvas-padding-y));
+        margin-right: calc(-0.5 * var(--offcanvas-padding-x));
+        margin-bottom: calc(-0.5 * var(--offcanvas-padding-y));
+        margin-left: auto;
+    }
+}
+
+// Offcanvas title
+.offcanvas-title {
+    margin-bottom: 0;
+    line-height: var(--offcanvas-title-line-height);
+}
+
+// Offcanvas body
+.offcanvas-body {
+    flex-grow: 1;
+    padding: var(--offcanvas-padding-y) var(--offcanvas-padding-x);
+    overflow-y: auto;
+}
+
+// Custom size modifiers (from existing bootstrap.scss)
+.offcanvas-size-xl {
+    --offcanvas-width: min(95vw, 700px);
+}
+
+.offcanvas-size-xxl {
+    --offcanvas-width: min(95vw, 90vw);
+}
+
+.offcanvas-size-md {
+    --offcanvas-width: min(95vw, 400px);
+}
+
+.offcanvas-size-sm {
+    --offcanvas-width: min(95vw, 250px);
+}

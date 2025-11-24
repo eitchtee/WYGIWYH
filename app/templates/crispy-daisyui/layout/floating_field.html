@@ -1,0 +1,20 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    <{% if tag %}{{ tag }}{% else %}div{% endif %} id="div_{{ field.auto_id }}" class="fieldset{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+    
+    <label class="input input-bordered flex items-center gap-2{% if field.errors %} input-error{% endif %}" {% if field.id_for_label %}for="{{ field.id_for_label }}"{% endif %}>
+        <span class="label-text">{{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}</span>
+        {% if field|is_select %}
+            {% crispy_field field 'class' 'grow' %}
+        {% else %}
+            {% crispy_field field 'class' 'grow' %}
+        {% endif %}
+    </label>
+
+    {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
+
+    </{% if tag %}{{ tag }}{% else %}div{% endif %}>
+{% endif %}

@@ -1,33 +1,14 @@
-<div class="tw:min-h-16">
-<div
-    id="fab-wrapper"
-    class="tw:fixed tw:bottom-5 tw:right-5 tw:ml-auto tw:w-max tw:flex tw:flex-col tw:items-end mt-5 tw:z-20">
-  <div
-      id="menu"
-      class="tw:flex tw:flex-col tw:items-end tw:space-y-6 tw:transition-all tw:duration-300 tw:ease-in-out tw:opacity-0 tw:invisible tw:hidden tw:mb-2">
+{% load i18n%}
 
-    {{ slot }}
+<div class="fab">
+  <div tabindex="0" role="button" class="btn btn-lg btn-circle btn-primary">
+    <i class="fa-solid fa-plus text-2xl fa-fw"></i>
   </div>
 
-  <button
-      class="btn btn-primary rounded-circle p-0 tw:w-12 tw:h-12 tw:flex tw:items-center tw:justify-center tw:shadow-lg tw:hover:shadow-xl tw:focus:shadow-xl tw:transition-all tw:duration-300 tw:ease-in-out"
-      _="
-          on click or focusout
-             if #menu.classList.contains('tw:invisible') and event.type === 'click'
-               add .{'tw:rotate-45'} to #fab-icon
-               remove .{'tw:invisible'} from #menu
-               remove .{'tw:hidden'} from #menu
-               remove .{'tw:opacity-0'} from #menu
-             else
-               wait 0.2s
-               remove .{'tw:rotate-45'} from #fab-icon
-               add .{'tw:invisible'} to #menu
-               add .{'tw:hidden'} to #menu
-               add .{'tw:opacity-0'} to #menu
-             end
-          "
-  >
-    <i id="fab-icon" class="fa-solid fa-plus tw:text-3xl tw:transition-transform tw:duration-300 tw:ease-in-out"></i>
-  </button>
-</div>
+  <div class="fab-close">
+    {% trans 'Close' %} <span class="btn btn-circle btn-lg btn-error"><i class="fa-solid fa-xmark text-2xl fa-fw"></i></span>
+  </div>
+
+  {{ slot }}
+  
 </div>

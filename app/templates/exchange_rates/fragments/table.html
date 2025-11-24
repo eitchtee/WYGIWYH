@@ -2,33 +2,31 @@
 {% load i18n %}
 <div class="card-body show-loading" hx-get="{% url 'exchange_rates_list_pair' %}" hx-trigger="updated from:window" hx-swap="outerHTML" hx-vals='{"page": "{{ page_obj.number }}", "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'>
   {% if page_obj %}
-  <div class="table-responsive">
-    <table class="table table-hover text-nowrap">
+  <div class="overflow-x-auto">
+    <table class="table table-hover whitespace-nowrap">
       <thead>
         <tr>
-          <th scope="col" class="col-auto"></th>
-          <th scope="col" class="col">{% translate 'Date' %}</th>
-          <th scope="col" class="col">{% translate 'Pairing' %}</th>
-          <th scope="col" class="col">{% translate 'Rate' %}</th>
+          <th scope="col" class="table-col-auto"></th>
+          <th scope="col">{% translate 'Date' %}</th>
+          <th scope="col">{% translate 'Pairing' %}</th>
+          <th scope="col">{% translate 'Rate' %}</th>
         </tr>
       </thead>
       <tbody>
         {% for exchange_rate in page_obj %}
         <tr class="exchange-rate">
-          <td class="col-auto">
-            <div class="btn-group" role="group" aria-label="{% translate 'Actions' %}">
-              <a class="btn btn-secondary btn-sm"
+          <td class="table-col-auto">
+            <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+              <a class="btn btn-secondary btn-sm join-item"
                     role="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-title="{% translate "Edit" %}"
+                    data-tippy-content="{% translate "Edit" %}"
                     hx-get="{% url 'exchange_rate_edit' pk=exchange_rate.id %}"
                     hx-target="#generic-offcanvas"
                     hx-swap="innerHTML">
                 <i class="fa-solid fa-pencil fa-fw"></i></a>
-              <a class="btn btn-secondary btn-sm text-danger"
+              <a class="btn btn-error btn-sm join-item"
                       role="button"
-                      data-bs-toggle="tooltip"
-                      data-bs-title="{% translate "Delete" %}"
+                      data-tippy-content="{% translate "Delete" %}"
                       hx-delete="{% url 'exchange_rate_delete' pk=exchange_rate.id %}"
                       hx-trigger='confirmed'
                       hx-swap="innerHTML"
@@ -39,9 +37,9 @@
                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
             </div>
           </td>
-          <td class="col-3">{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
-          <td class="col-3"><span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.from_currency.name }}</span> x <span class="badge rounded-pill text-bg-secondary">{{ exchange_rate.to_currency.name }}</span></td>
-          <td class="col-3">1 {{ exchange_rate.from_currency.name }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places%}</td>
+          <td>{{ exchange_rate.date|date:"SHORT_DATETIME_FORMAT" }}</td>
+          <td><span class="badge badge-secondary rounded-full">{{ exchange_rate.from_currency.name }}</span> x <span class="badge badge-secondary rounded-full">{{ exchange_rate.to_currency.name }}</span></td>
+          <td>1 {{ exchange_rate.from_currency.name }} ≅ {% currency_display amount=exchange_rate.rate prefix=exchange_rate.to_currency.prefix suffix=exchange_rate.to_currency.suffix decimal_places=exchange_rate.to_currency.decimal_places string=True %}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -56,9 +54,8 @@
     <input value="{{ page_obj.number }}" name="page" type="hidden" id="page">
 
     <nav aria-label="{% translate 'Page navigation' %}">
-    <ul class="pagination justify-content-center mt-5">
-      <li class="page-item">
-        <a class="page-link tw:cursor-pointer {% if not page_obj.has_previous %}disabled{% endif %}"
+    <div class="join flex justify-center mt-5">
+      <button class="join-item btn btn-sm {% if not page_obj.has_previous %}btn-disabled{% endif %}"
            hx-get="{% if page_obj.has_previous %}{% url 'exchange_rates_list_pair' %}{% endif %}"
            hx-vals='{"page": 1, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
            hx-include="#filter, #order"
@@ -66,8 +63,7 @@
            aria-label="Primeira página"
            hx-swap="show:top">
           <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
+        </button>
       {% for page_number in page_obj.paginator.page_range %}
               {% comment %}
                   This conditional allows us to display up to 3 pages before and after the current page
@@ -78,44 +74,35 @@
               {% endcomment %}
               {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
                   {% if page_obj.number == page_number %}
-                      <li class="page-item active">
-                          <a class="page-link tw:cursor-pointer">
-                              {{ page_number }}
-                          </a>
-                      </li>
+                      <button class="join-item btn btn-sm btn-active">
+                          {{ page_number }}
+                      </button>
                   {% else %}
-                      <li class="page-item">
-                          <a class="page-link tw:cursor-pointer"
+                      <button class="join-item btn btn-sm"
                              hx-get="{% url 'exchange_rates_list_pair' %}"
                              hx-vals='{"page": {{ page_number }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
                              hx-target="#exchange-rates-table"
                              hx-swap="show:top">
-                              {{ page_number }}
-                          </a>
-                      </li>
+                          {{ page_number }}
+                      </button>
                   {% endif %}
               {% endif %}
       {% endfor %}
       {% if page_obj.number|add:3 < page_obj.paginator.num_pages %}
-        <li class="page-item">
-          <a class="page-link disabled"
+        <button class="join-item btn btn-sm btn-disabled"
              aria-label="...">
             <span aria-hidden="true">...</span>
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link tw:cursor-pointer"
+          </button>
+        <button class="join-item btn btn-sm"
              hx-get="{% url 'exchange_rates_list_pair' %}" hx-target="#exchange-rates-table"
              hx-vals='{"page": {{ page_obj.paginator.num_pages }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
              hx-include="#filter, #order"
              hx-swap="show:top"
              aria-label="Última página">
             <span aria-hidden="true">{{ page_obj.paginator.num_pages }}</span>
-          </a>
-        </li>
+          </button>
       {% endif %}
-      <li class="page-item">
-        <a class="page-link {% if not page_obj.has_next %}disabled{% endif %} tw:cursor-pointer"
+      <button class="join-item btn btn-sm {% if not page_obj.has_next %}btn-disabled{% endif %}"
            hx-get="{% if page_obj.has_next %}{% url 'exchange_rates_list_pair' %}{% endif %}"
            hx-vals='{"page": {{ page_obj.paginator.num_pages }}, "from": "{{ from_currency|default_if_none:"" }}", "to": "{{ to_currency|default_if_none:"" }}"}'
            hx-include="#filter, #order"
@@ -123,9 +110,8 @@
            hx-target="#exchange-rates-table"
            aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
+        </button>
+    </div>
   </nav>
   </div>
   {% endif %}

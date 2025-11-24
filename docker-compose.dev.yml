@@ -9,7 +9,6 @@ services:
       dockerfile: ./docker/dev/django/Dockerfile
     image: wygiwyh_dev_server
     container_name: wygiwyh_dev_server
-    command: /start-supervisor
     volumes:
       - ./app/:/usr/src/app/:z
       - ./frontend/:/usr/src/frontend:z
@@ -20,13 +19,13 @@ services:
       - .env
     depends_on:
       - db
-      - webpack
+      - vite
     restart: unless-stopped
 
-  webpack:
+  vite:
     build:
       context: .
-      dockerfile: ./docker/dev/webpack/Dockerfile
+      dockerfile: ./docker/dev/vite/Dockerfile
     image: wygiwyh_dev_node
     container_name: wygiwyh_dev_node
     volumes:
@@ -34,9 +33,8 @@ services:
       - ./app/:/usr/src/app/
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
       - /usr/src/frontend/node_modules
-    command: npm run watch
     ports:
-      - '${WEBPACK_OUTBOUND_PORT}:9091'
+      - '${WEBPACK_OUTBOUND_PORT}:5173'
     environment:
       - WATCHPACK_POLLING=true
     restart: unless-stopped
@@ -53,13 +51,3 @@ services:
     ports:
       - '${SQL_PORT}:5432'
     restart: unless-stopped
-
-#  procrastinate:
-#    <<: *django
-#    image: wygiwyh_dev_procrastinate
-#    container_name: wygiwyh_dev_procrastinate
-#    depends_on:
-#      - db
-#    ports: [ ]
-#    command: /start-procrastinate
-#    restart: unless-stopped

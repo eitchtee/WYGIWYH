@@ -1,4 +1,4 @@
 {% load i18n %}
 <i class="fa-solid fa-volume-low me-2 fa-fw"></i>{% translate 'Play sounds' %}
-<span id="settings-mute-sound" class="d-inline tw:invisible"></span>
+<span id="settings-mute-sound" class="inline invisible"></span>
 {{ user.settings.volume|json_script:"volume" }}

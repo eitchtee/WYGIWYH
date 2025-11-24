@@ -1,3 +1,5 @@
+from apps.common.widgets.crispy.submit import NoClassSubmit
+from apps.import_app.models import ImportProfile
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
@@ -5,9 +7,6 @@ from crispy_forms.layout import (
 )
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
-from apps.import_app.models import ImportProfile
-from apps.common.widgets.crispy.submit import NoClassSubmit
 
 
 class ImportProfileForm(forms.ModelForm):
@@ -30,17 +29,13 @@ class ImportProfileForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Update"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Update"), css_class="btn btn-primary"),
                 ),
             )
         else:
             self.helper.layout.append(
                 FormActions(
-                    NoClassSubmit(
-                        "submit", _("Add"), css_class="btn btn-outline-primary w-100"
-                    ),
+                    NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
 
@@ -57,8 +52,6 @@ class ImportRunFileUploadForm(forms.Form):
         self.helper.layout = Layout(
             "file",
             FormActions(
-                NoClassSubmit(
-                    "submit", _("Import"), css_class="btn btn-outline-primary w-100"
-                ),
+                NoClassSubmit("submit", _("Import"), css_class="btn btn-primary"),
             ),
         )

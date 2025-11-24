@@ -1,15 +1,14 @@
 import datetime
 
-from django.forms import widgets
-from django.utils import formats, translation, dates
-from django.utils.translation import gettext_lazy as _
-
+from apps.common.functions.format import get_format
 from apps.common.utils.django import (
-    django_to_python_datetime,
     django_to_airdatepicker_datetime,
     django_to_airdatepicker_datetime_separated,
+    django_to_python_datetime,
 )
-from apps.common.functions.format import get_format
+from django.forms import widgets
+from django.utils import dates, formats, translation
+from django.utils.translation import gettext_lazy as _
 
 
 class AirDatePickerInput(widgets.DateInput):
@@ -51,6 +50,8 @@ class AirDatePickerInput(widgets.DateInput):
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
+
+        attrs["class"] = attrs.get("class", "") + " input"
 
         attrs["data-now-button-txt"] = _("Today")
         attrs["data-auto-close"] = str(self.auto_close).lower()

@@ -2,7 +2,6 @@ services:
   web:
     image: eitchtee/wygiwyh:latest
     container_name: ${SERVER_NAME}
-    command: /start-single
     ports:
       - "${OUTBOUND_PORT:-8000}:${INTERNAL_PORT:-8000}"
     env_file:

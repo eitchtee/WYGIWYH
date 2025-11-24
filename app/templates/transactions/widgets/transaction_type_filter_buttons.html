@@ -1,6 +1,6 @@
 {% load crispy_forms_field %}
 
-<div class="btn-group w-100 mb-3"
+<div class="join w-full flex mb-3"
      role="group"
      aria-label="{{ field.label }}"
      _="on click
@@ -10,14 +10,11 @@
         end">
     {% for choice in field.field.choices %}
         <input type="checkbox"
-               class="btn-check"
+               class="join-item btn btn-secondary btn-outline grow"
                name="{{ field.html_name }}"
                id="{{ field.html_name }}_{{ forloop.counter }}"
                value="{{ choice.0 }}"
+               aria-label="{{ choice.1 }}"
                {% if choice.0 in field.value %}checked{% endif %}>
-        <label class="btn btn-outline-dark w-100"
-               for="{{ field.html_name }}_{{ forloop.counter }}">
-            {{ choice.1 }}
-        </label>
     {% endfor %}
 </div>

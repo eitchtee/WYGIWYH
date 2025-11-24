@@ -1,0 +1,56 @@
+// Transitions - Standalone implementation
+// Decoupled from Bootstrap 5
+
+// Variables
+$enable-transitions: true !default;
+$enable-reduced-motion: true !default;
+
+$transition-fade: opacity 0.15s linear !default;
+$transition-collapse: height 0.35s ease !default;
+$transition-collapse-width: width 0.35s ease !default;
+
+// Fade transition
+.fade {
+    transition: $transition-fade;
+
+    @if $enable-reduced-motion {
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+    }
+
+    &:not(.show) {
+        opacity: 0;
+    }
+}
+
+// // Collapse transitions
+.bs.collapse {
+    &:not(.show) {
+        display: none;
+    }
+}
+
+.bs.collapsing {
+    height: 0;
+    overflow: hidden;
+    transition: $transition-collapse;
+
+    @if $enable-reduced-motion {
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+    }
+
+    &.collapse-horizontal {
+        width: 0;
+        height: auto;
+        transition: $transition-collapse-width;
+
+        @if $enable-reduced-motion {
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 {% load i18n %}
-<div class="d-grid gap-2 d-xl-flex justify-content-xl-end">
-  <div class="d-grid gap-2 d-xl-flex flex-wrap justify-content-xl-center">
-    <button class="btn btn-sm btn-outline-success"
+<div class="grid gap-2 grid-cols-1 xl:flex xl:justify-end">
+  <div class="grid gap-2 xl:flex flex-wrap xl:justify-center">
+    <button class="btn btn-sm btn-outline btn-success"
             hx-get="{% url 'transaction_add' %}"
             hx-target="#generic-offcanvas"
             hx-trigger="click, add_income from:window"
@@ -9,7 +9,7 @@
       <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>
       {% translate "Income" %}
     </button>
-    <button class="btn btn-sm btn-outline-danger"
+    <button class="btn btn-sm btn-outline btn-error"
             hx-get="{% url 'transaction_add' %}"
             hx-target="#generic-offcanvas"
             hx-trigger="click, add_expense from:window"
@@ -17,21 +17,21 @@
       <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
       {% translate "Expense" %}
     </button>
-    <button class="btn btn-sm btn-outline-warning"
+    <button class="btn btn-sm btn-outline btn-warning"
             hx-get="{% url 'installment_plan_add' %}"
             hx-trigger="click, installment from:window"
             hx-target="#generic-offcanvas">
       <i class="fa-solid fa-divide me-2"></i>
       {% translate "Installment" %}
     </button>
-    <button class="btn btn-sm btn-outline-warning"
+    <button class="btn btn-sm btn-outline btn-warning"
             hx-get="{% url 'recurring_transaction_add' %}"
             hx-trigger="click, balance from:window"
             hx-target="#generic-offcanvas">
       <i class="fa-solid fa-repeat me-2"></i>
       {% translate "Recurring" %}
     </button>
-    <button class="btn btn-sm btn-outline-info"
+    <button class="btn btn-sm btn-outline btn-info"
             hx-get="{% url 'transactions_transfer' %}"
             hx-target="#generic-offcanvas"
             hx-trigger="click, add_transfer from:window"
@@ -39,7 +39,7 @@
       <i class="fa-solid fa-money-bill-transfer me-2"></i>
       {% translate "Transfer" %}
     </button>
-    <button class="btn btn-sm btn-outline-info"
+    <button class="btn btn-sm btn-outline btn-info"
             hx-get="{% url 'account_reconciliation' %}"
             hx-trigger="click, balance from:window"
             hx-target="#generic-offcanvas">

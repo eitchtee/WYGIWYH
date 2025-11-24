@@ -3,21 +3,20 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% load i18n %}
-{% load webpack_loader %}
 
 {% block title %}{% translate 'Currency Converter' %}{% endblock %}
 
 {% block content %}
-  <div class="container px-md-3 py-3 column-gap-5"
+  <div class="container"
        _="install init_tom_select
           install init_datepicker">
-    <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+    <div class="text-3xl font-bold font-mono w-full mb-3">
       <div>{% translate 'Currency Converter' %}</div>
     </div>
-    <div class="row">
-      <div class="col-12 col-lg-5">
+    <div class="grid lg:grid-cols-[2fr_auto_2fr] gap-4">
+      <div>
         <div>
-          <input class="form-control form-control-lg mb-3"
+          <input class="input input-bordered input-lg w-full mb-3"
                  type="text"
                  value="1"
                  name="from_value"
@@ -27,15 +26,15 @@
         </div>
         <div>{{ form.from_currency|as_crispy_field }}</div>
       </div>
-      <div class="col text-primary tw:flex tw:items-center tw:justify-center my-3 my-lg-0">
+      <div class="text-primary flex items-center justify-center my-3 lg:my-0">
         <i class="fa-solid fa-equals"></i>
       </div>
-      <div class="col-12 col-lg-5">
+      <div>
         <div hx-get="{% url 'currency_converter_convert' %}"
              hx-trigger="input from:#from_value, input from:#id_from_currency, input from:#id_to_currency, updated"
              hx-include="#from_value, #id_from_currency, #id_to_currency"
              id="result">
-          <input class="form-control form-control-lg mb-3"
+          <input class="input input-bordered input-lg w-full mb-3"
                  type="text"
                  name="to_value"
                  id="to_value"
@@ -44,8 +43,8 @@
         <div>{{ form.to_currency|as_crispy_field }}</div>
       </div>
     </div>
-    <div class="row">
-      <div class="tw:cursor-pointer text-primary text-end"
+    <div class="grid">
+      <div class="cursor-pointer text-primary text-right"
            _="on click
                 set from_value to #id_from_currency's value
                 set to_value to #id_to_currency's value
@@ -58,39 +57,32 @@
         <i class="fa-solid fa-rotate me-2"></i><span>{% trans 'Invert' %}</span>
       </div>
     </div>
-    <hr>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <hr class="hr my-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for currency, data in rate_map.items %}
-        <div class="col">
+        <div>
           <c-ui.info-card color="yellow" title="{{ currency }}">
-            {% for rate in data.rates.values %}
-              <div class="d-flex justify-content-between align-items-baseline mt-2">
-                <div class="text-end font-monospace">
-                  <div class="tw:text-gray-400">
-{#                    <c-amount.display#}
-{#                        :amount="1"#}
-{#                        :prefix="data.prefix"#}
-{#                        :suffix="data.suffix"#}
-{#                        :decimal_places="data.decimal_places"></c-amount.display>#}
+            <div class="card-data-section">
+              {% for rate_currency, rate in data.rates.items %}
+                <div class="card-data-row">
+                  <span class="card-data-label">{{ rate_currency }}</span>
+                  <div class="card-data-values">
+                    {% if rate.rate %}
+                      <c-amount.display
+                          :amount="rate.rate"
+                          :prefix="rate.prefix"
+                          :suffix="rate.suffix"
+                          :decimal_places="rate.decimal_places"></c-amount.display>
+                    {% else %}
+                      <span class="font-semibold">-</span>
+                    {% endif %}
                   </div>
                 </div>
-                <div class="dotted-line flex-grow-1"></div>
-                {% if currency.income_projected != 0 %}
-                  <div class="text-end font-monospace tw:text-green-400">
-                    <c-amount.display
-                        :amount="rate.rate"
-                        :prefix="rate.prefix"
-                        :suffix="rate.suffix"
-                        :decimal_places="rate.decimal_places"></c-amount.display>
-                  </div>
-                {% else %}
-                  <div class="text-end font-monospace">-</div>
-                {% endif %}
-              </div>
-            {% endfor %}
+              {% endfor %}
+            </div>
           </c-ui.info-card>
-        </div>
-      {% endfor %}
-    </div>
+         </div>
+       {% endfor %}
+     </div>
   </div>
 {% endblock %}

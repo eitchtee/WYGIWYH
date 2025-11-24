@@ -1,13 +1,13 @@
 {% load tools %}
 {% load i18n %}
-<div class="row row-cols-1 g-4 mb-3">
+<div class="grid grid-cols-1 gap-4 mb-3">
   {% for account_id, account in totals.items %}
-    <div class="col">
+    <div>
       <c-ui.account_card :account="account" :account_id="account_id"
                          :percentages="percentages"></c-ui.account_card>
     </div>
   {% empty %}
-    <div class="col">
+    <div>
       <c-msg.empty
           title="{% translate "No information to display" %}"></c-msg.empty>
     </div>

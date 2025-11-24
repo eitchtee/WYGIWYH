@@ -1,28 +1,25 @@
 {% load crispy_forms_field %}
 
 <div class="form-group mb-3">
-    <div class="btn-group w-100" role="group" aria-label="{{ field.label }}">
+    <div class="join w-full" role="group" aria-label="{{ field.label }}">
         {% for choice in field.field.choices %}
             <input type="radio"
-                   class="btn-check"
+                   class="join-item btn {% if forloop.first %}btn-success{% elif forloop.last %}btn-error{% else %}btn-primary{% endif %} {% if field.errors %}input-error{% endif %} btn-outline w-1/2"
                    name="{{ field.html_name }}"
                    id="{{ field.html_name }}_{{ forloop.counter }}_tr"
                    value="{{ choice.0 }}"
+                   aria-label="{{ choice.1 }}"
                    {% if choice.0 == field.value %}checked{% endif %}>
-            <label class="btn {% if forloop.first %}btn-outline-success{% elif forloop.last %}btn-outline-danger{% else %}btn-outline-primary{% endif %} {% if field.errors %}is-invalid{% endif %} w-100"
-                   for="{{ field.html_name }}_{{ forloop.counter }}_tr">
-                {{ choice.1 }}
-            </label>
         {% endfor %}
     </div>
     {% if field.errors %}
-        <div class="invalid-feedback d-block">
+        <div class="text-error text-sm mt-1">
             {% for error in field.errors %}
                 {{ error }}
             {% endfor %}
         </div>
     {% endif %}
     {% if field.help_text %}
-        <small class="form-text text-muted">{{ field.help_text }}</small>
+        <small class="text-base-content/60 text-sm">{{ field.help_text }}</small>
     {% endif %}
 </div>

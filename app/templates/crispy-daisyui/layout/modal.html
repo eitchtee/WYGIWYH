@@ -1,0 +1,11 @@
+<div id="{{ modal.css_id }}" class="modal {{ modal.css_class }}" {{ modal.flat_attrs }}>
+    <div class="modal-box" role="document">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
+        </form>
+        <h3 class="font-bold text-lg {{ modal.title_class }}" id="{{ modal.title_id }}-label">{{ modal.title }}</h3>
+        <div class="py-4">
+            {{ fields }}
+        </div>
+    </div>
+</div>

@@ -3,14 +3,16 @@
 {% load static %}
 {% load i18n %}
 {% load active_link %}
-<nav class="navbar border-bottom bg-body-tertiary d-flex d-lg-none" hx-boost="true">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary font-base" href="{% url 'index' %}">
-      <img src="{% static 'img/logo-icon.svg' %}" alt="WYGIWYH Logo" height="40" width="40" title="WYGIWYH"/>
+<nav class="navbar border-b-2 border-base-100 bg-base-200 flex lg:hidden shadow-lg" hx-boost="true">
+  <div class="container flex justify-between items-center w-full">
+    <a class="text-xl font-bold text-primary" href="{% url 'index' %}">
+      <div class="logo mobile"></div>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+    <button class="btn btn-ghost lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
             aria-controls="sidebar" aria-label={% translate "Toggle navigation" %}>
-      <span class="navbar-toggler-icon"></span>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
     </button>
   </div>
 </nav>

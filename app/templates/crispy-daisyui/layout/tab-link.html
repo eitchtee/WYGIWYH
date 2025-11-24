@@ -1,0 +1,1 @@
+<input type="radio" name="{{ link.css_id }}_tabs" role="tab" class="tab{% if 'active' in link.css_class %} tab-active{% endif %}" aria-label="{{ link.name|capfirst }}{% if tab.errors %}!{% endif %}" {% if 'active' in link.css_class %}checked="checked"{% endif %} />

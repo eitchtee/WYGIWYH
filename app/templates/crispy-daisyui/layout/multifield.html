@@ -1,0 +1,27 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+
+    {% if field.label %}
+        <label for="{{ field.id_for_label }}" class="label{% if labelclass %} {{ labelclass }}{% endif %}">
+    {% endif %}
+
+    {% if field|is_checkbox %}
+        {% crispy_field field %}
+    {% endif %}
+
+    {% if field.label %}
+        <span class="label-text">{{ field.label }}</span>
+    {% endif %}
+
+    {% if not field|is_checkbox %}
+        {% crispy_field field %}
+    {% endif %}
+
+    {% if field.label %}
+        </label>
+    {% endif %}
+
+{% endif %}

@@ -1,56 +1,401 @@
-@import "tom-select/dist/css/tom-select.bootstrap5.min.css";
-@import "variables";
+.ts-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  min-height: var(--size, calc(var(--size-field, 0.25rem) * 10));
+  padding: 0.5rem 0.75rem;
+  gap: 0.375rem;
 
-/* FIX BOOTSTRAP STYLING FOR TOM SELECT */
-.ts-dropdown,
-.ts-control,
-.ts-control input {
-  color: var(--bs-body-color);
+  /* DaisyUI input styling */
+  border: var(--border, 1px) solid;
+  border-color: var(--input-color, color-mix(in oklab, var(--color-base-content) 20%, transparent));
+  border-radius: var(--radius-field, 0.5rem);
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  cursor: text;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
-.ts-wrapper.plugin-remove_button .item .remove {
-  color: $red;
+/* Control input field */
+.ts-control > input {
+  flex: 1 1 auto;
+  min-width: 7rem;
+  display: inline-flex !important;
+  padding: 0 !important;
+  padding-right: 1.25rem !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  max-width: 100% !important;
+
+  border: 0 none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+
+  font-size: 0.875rem !important;
+  line-height: inherit !important;
+  color: inherit;
+  text-indent: 0 !important;
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
-.plugin-clear_button .clear-button {
-  color: $red;
-  right: 60px;
+.ts-control > input::-ms-clear {
+  display: none;
 }
 
-.ts-wrapper.multi .ts-control > div.active {
-  background: $primary;
-  color: $body-color;
-  border: 0 solid #0000;
+.ts-control > input:focus {
+  outline: none !important;
 }
 
+.has-items .ts-control > input {
+  margin: 0 0.25rem !important;
+}
+
+/* Focus states - DaisyUI style */
+.ts-control:focus-within,
+.ts-control:focus,
 .focus .ts-control {
-  color: $input-focus-color;
-  background-color: $input-focus-bg;
-  border-color: $input-focus-border-color;
-  outline: 0;
+  --input-color: var(--color-base-content);
+  border-color: var(--input-color);
+  box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth, 0) * 10%), transparent) inset;
+  outline: 2px solid var(--input-color);
+  outline-offset: 2px;
+  isolation: isolate;
+  z-index: 2;
+}
 
-  @if $enable-shadows {
-    @include box-shadow($input-box-shadow, $input-focus-box-shadow);
-  } @else {
-    // Avoid using mixin so we can pass custom focus shadow properly
-    box-shadow: $input-focus-box-shadow;
+/* Disabled state */
+.disabled .ts-control,
+.disabled .ts-control * {
+  cursor: not-allowed !important;
+  border-color: var(--color-base-200);
+  background-color: var(--color-base-200);
+  color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+  opacity: 1;
+  box-shadow: none;
+}
+
+/* Multi-select items (badges) */
+.ts-wrapper.multi .ts-control > div:not(.clear-button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 0.25rem 0.25rem 0;
+  padding: 0.25rem 0.75rem;
+  gap: 0.25rem;
+
+  /* DaisyUI badge styling */
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-content);
+  border-radius: var(--radius-field, 0.5rem);
+  border: 0 solid transparent;
+
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition: all 0.2s;
+}
+
+/* Active multi-select item */
+.ts-wrapper.multi .ts-control > div.active:not(.clear-button) {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+  border: 0 solid transparent;
+  opacity: 0.9;
+}
+
+/* Disabled multi-select items */
+.ts-wrapper.multi.disabled .ts-control > div:not(.clear-button),
+.ts-wrapper.multi.disabled .ts-control > div.active:not(.clear-button) {
+  background-color: var(--color-base-200);
+  color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+  border: 0 solid transparent;
+  cursor: not-allowed;
+}
+
+/* Remove button on items */
+.ts-wrapper.plugin-remove_button .item {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 0 !important;
+}
+
+.ts-wrapper.plugin-remove_button .item .remove {
+  display: inline-block;
+  padding: 0 0.375rem;
+  margin-left: 0.375rem;
+  border: none;
+  border-left: 1px solid color-mix(in oklab, var(--color-primary-content) 30%, transparent);
+  border-radius: 0 var(--radius-field, 0.5rem) var(--radius-field, 0.5rem) 0;
+
+  color: var(--color-error);
+  font-size: 1.125rem;
+  line-height: 1;
+  text-decoration: none;
+  vertical-align: middle;
+
+  opacity: 0.7;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.ts-wrapper.plugin-remove_button .item .remove:hover {
+  opacity: 1;
+  background-color: color-mix(in oklab, var(--color-error) 10%, transparent);
+}
+
+.ts-wrapper.plugin-remove_button.disabled .item .remove:hover {
+  background: none;
+  cursor: not-allowed;
+}
+
+/* RTL support for remove button */
+.ts-control.rtl .ts-wrapper.plugin-remove_button .item {
+  padding-left: 0 !important;
+  padding-right: initial;
+}
+
+.ts-control.rtl .ts-wrapper.plugin-remove_button .item .remove {
+  border-left: none;
+  border-right: 1px solid color-mix(in oklab, var(--color-primary-content) 30%, transparent);
+  border-radius: var(--radius-field, 0.5rem) 0 0 var(--radius-field, 0.5rem);
+  margin-left: 0;
+  margin-right: 0.375rem;
+}
+
+/* Dropdown */
+.ts-dropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  z-index: 1100;
+  margin: 0;
+
+  /* DaisyUI dropdown styling */
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+  border: var(--border, 1px) solid var(--color-base-300);
+  border-radius: var(--radius-box, 0.5rem);
+
+  /* DaisyUI shadow */
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / calc(var(--depth, 0) * 0.1)),
+  0 8px 10px -6px rgb(0 0 0 / calc(var(--depth, 0) * 0.1));
+
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Dropdown content scrolling */
+.ts-dropdown-content {
+  max-height: 40dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Dropdown options */
+.ts-dropdown .option,
+.ts-dropdown .optgroup-header,
+.ts-dropdown .no-results,
+.ts-dropdown .create {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.ts-dropdown [data-selectable].option {
+  cursor: pointer;
+  opacity: 1;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.ts-dropdown [data-selectable].option:first-child {
+  border-top-left-radius: var(--radius-box, 0.5rem);
+  border-top-right-radius: var(--radius-box, 0.5rem);
+}
+
+.ts-dropdown [data-selectable].option:last-child {
+  border-bottom-left-radius: var(--radius-box, 0.5rem);
+  border-bottom-right-radius: var(--radius-box, 0.5rem);
+}
+
+/* Disabled options */
+.ts-dropdown .option,
+.ts-dropdown [data-disabled],
+.ts-dropdown [data-disabled] [data-selectable].option {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Hover and active states */
+.ts-dropdown [data-selectable].option:hover,
+.ts-dropdown .option:hover,
+.ts-dropdown .create:hover,
+.ts-dropdown .active {
+  background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  color: var(--color-base-content);
+}
+
+.ts-dropdown .active.create {
+  color: var(--color-base-content);
+}
+
+/* Optgroup styling */
+.ts-dropdown .optgroup-header {
+  color: var(--color-base-content);
+  background-color: var(--color-base-200);
+  font-weight: 600;
+  cursor: default;
+  padding: 0.5rem 0.75rem;
+}
+
+.ts-dropdown .optgroup:first-child .optgroup-header {
+  border-top: 0 none;
+}
+
+/* Create option */
+.ts-dropdown .create {
+  color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+}
+
+/* Highlight in search */
+.ts-dropdown [data-selectable] .highlight {
+  background-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+  border-radius: 2px;
+}
+
+/* Loading spinner */
+.ts-dropdown .spinner {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 0.5rem 0.75rem;
+}
+
+.ts-dropdown .spinner::after {
+  content: " ";
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.1875rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  border-color: var(--color-primary) transparent var(--color-primary) transparent;
+  animation: ts-spin 1.2s linear infinite;
+}
+
+@keyframes ts-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-.focus.ts-wrapper {
-  border-color: $form-select-focus-border-color;
-  outline: 0;
-
-  @if $enable-shadows {
-    @include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
-  } @else {
-    // Avoid using mixin so we can pass custom focus shadow properly
-    box-shadow: $form-select-focus-box-shadow;
-  }
+/* Single select dropdown arrow */
+.ts-wrapper .ts-control {
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25em 1.25em;
 }
 
-.ts-control > .clear-button {
-  color: $red !important;
+/* Dark theme arrow */
+[data-theme="dark"] .ts-wrapper .ts-control {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23a6adba' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+}
+
+/* Clear button plugin */
+.plugin-clear_button {
+  --ts-pr-clear-button: 1em;
+}
+
+.plugin-clear_button .clear-button {
+  position: absolute;
+  top: 50%;
+  right: calc(0.75rem - 6px);
+  transform: translateY(-50%);
+
+  color: var(--color-error);
+  background: transparent !important;
+  border: none;
+  cursor: pointer;
+
+  opacity: 0;
+  margin-right: 0 !important;
+  transition: opacity 0.3s;
+}
+
+.plugin-clear_button .clear-button {
+  right: 2rem;
+}
+
+.plugin-clear_button.focus.has-items .clear-button,
+.plugin-clear_button:not(.disabled):hover.has-items .clear-button {
+  opacity: 0.7;
+}
+
+.plugin-clear_button .clear-button:hover {
+  opacity: 1 !important;
+}
+
+/* Full width control */
+.full .ts-control {
+  background-color: var(--color-base-100);
+}
+
+/* Input hidden state */
+.input-hidden .ts-control > input {
+  opacity: 0;
+  position: absolute;
+  left: -10000px;
+}
+
+/* RTL support */
+.ts-control.rtl {
+  text-align: right;
+}
+
+.ts-control.rtl .ts-control > input {
+  margin: 0 0.25rem 0 -0.125rem !important;
+}
+
+/* Wrapper positioning */
+.ts-wrapper {
+  position: relative;
+  display: block;
+}
+
+.ts-wrapper.single .ts-control,
+.ts-wrapper.single .ts-control input {
+  cursor: pointer;
+}
+
+/* Hidden accessibility */
+.ts-hidden-accessible {
+  position: absolute;
+  left: -10000px;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+
+.tomselect-checkbox {
+  margin-right: 0.5rem;
 }

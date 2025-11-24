@@ -1,47 +1,41 @@
 {% load i18n %}
-<div class="container px-md-3 py-3 column-gap-5">
-  <div class="tw:text-3xl fw-bold font-monospace tw:w-full mb-3">
+<c-ui.fab-single-action
+        url="{% url 'dca_strategy_add' %}"
+        hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container">
+  <div class="text-3xl font-bold font-mono w-full mb-3">
     {% spaceless %}
-      <div>{% translate 'Dollar Cost Average Strategies' %}<span>
-      <a class="text-decoration-none tw:text-2xl p-1 category-action"
-         role="button"
-         data-bs-toggle="tooltip"
-         data-bs-title="{% translate "Add" %}"
-         hx-get="{% url 'dca_strategy_add' %}"
-         hx-target="#generic-offcanvas">
-            <i class="fa-solid fa-circle-plus fa-fw"></i></a>
-    </span></div>
+      <div>{% translate 'Dollar Cost Average Strategies' %}</div>
     {% endspaceless %}
   </div>
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 gy-3 gx-3">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
     {% for strategy in strategies %}
-      <div class="col">
-        <div class="card h-100">
-          <div class="card-header">
-            <span class="badge rounded-pill text-bg-secondary">{{ strategy.payment_currency.name }}</span> x <span
-              class="badge rounded-pill text-bg-secondary">{{ strategy.target_currency.name }}</span>
+      <div>
+        <div class="card bg-base-100 card-border shadow h-full flex flex-col">
+          <div class="card-header bg-base-200 p-4">
+            <span class="badge badge-secondary rounded-full">{{ strategy.payment_currency.name }}</span> x <span
+              class="badge badge-secondary rounded-full">{{ strategy.target_currency.name }}</span>
           </div>
           <a href="{% url 'dca_strategy_detail_index' strategy_id=strategy.id %}" hx-boost="true"
-             class="text-decoration-none card-body">
+             class="no-underline card-body flex-1">
             <div class="">
-              <div class="card-title tw:text-xl">{{ strategy.name }}</div>
-              <div class="card-text tw:text-gray-400">{{ strategy.notes }}</div>
+              <div class="card-title text-xl">{{ strategy.name }}</div>
+              <div class="text-base-content/60">{{ strategy.notes }}</div>
             </div>
           </a>
-          <div class="card-footer text-end">
-            <a class="text-decoration-none tw:text-gray-400 p-1"
+          <div class="card-footer bg-base-200 p-4 text-right cursor-pointer">
+            <a class="no-underline text-base-content/60 p-1"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Edit" %}"
+               data-tippy-content="{% translate "Edit" %}"
                hx-get="{% url 'dca_strategy_edit' strategy_id=strategy.id %}"
                hx-target="#generic-offcanvas">
               <i class="fa-solid fa-pencil fa-fw"></i>
             </a>
-            <a class="text-danger text-decoration-none p-1"
+            <a class="text-error no-underline p-1 cursor-pointer"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Delete" %}"
+               data-tippy-content="{% translate "Delete" %}"
                hx-delete="{% url 'dca_strategy_delete' strategy_id=strategy.id %}"
                hx-trigger='confirmed'
                data-bypass-on-ctrl="true"
@@ -52,19 +46,17 @@
               <i class="fa-solid fa-trash fa-fw"></i>
             </a>
             {% if not strategy.owner %}
-              <a class="text-primary text-decoration-none p-1"
+              <a class="text-primary no-underline p-1 cursor-pointer"
                  role="button"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate "Take ownership" %}"
+                 data-tippy-content="{% translate "Take ownership" %}"
                  hx-get="{% url 'dca_strategy_take_ownership' strategy_id=strategy.id %}">
                 <i class="fa-solid fa-crown fa-fw"></i></a>
             {% endif %}
             {% if user == strategy.owner %}
-              <a class="text-primary text-decoration-none p-1"
+              <a class="text-primary no-underline p-1 cursor-pointer"
                  role="button"
                  hx-target="#generic-offcanvas"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="{% translate "Share" %}"
+                 data-tippy-content="{% translate "Share" %}"
                  hx-get="{% url 'dca_strategy_share_settings' pk=strategy.id %}">
                 <i class="fa-solid fa-share fa-fw"></i></a>
             {% endif %}

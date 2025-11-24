@@ -1,18 +1,16 @@
 {% load i18n %}
 {% load crispy_forms_field %}
 
-<div class="form-group mb-3">
-    <div class="btn-group w-100" role="group" aria-label="{{ field.label }}">
-        <input type="radio" class="btn-check" name="{{ field.name }}" id="{{ field.id_for_label }}_false" 
-               value="false" {% if not field.value %}checked{% endif %}>
-        <label class="btn btn-outline-primary w-50" for="{{ field.id_for_label }}_false">{% trans 'Projected' %}</label>
+<div class="mb-3">
+    <div class="join w-full " role="group" aria-label="{{ field.label }}">
+        <input type="radio" class="join-item btn btn-warning btn-outline w-1/2" name="{{ field.name }}" id="{{ field.id_for_label }}_false" 
+               value="false" aria-label="{% trans 'Projected' %}" {% if not field.value %}checked{% endif %}>
 
-        <input type="radio" class="btn-check" name="{{ field.name }}" id="{{ field.id_for_label }}_true" 
-               value="true" {% if field.value %}checked{% endif %}>
-        <label class="btn btn-outline-success w-50" for="{{ field.id_for_label }}_true">{% trans 'Paid' %}</label>
+        <input type="radio" class="join-item btn btn-success btn-outline w-1/2" name="{{ field.name }}" id="{{ field.id_for_label }}_true" 
+               value="true" aria-label="{% trans 'Paid' %}" {% if field.value %}checked{% endif %}>
     </div>
 
     {% if field.help_text %}
-        <div class="help-text">{{ field.help_text|safe }}</div>
+        <div class="text-base-content/60 text-sm mt-1">{{ field.help_text|safe }}</div>
     {% endif %}
 </div>

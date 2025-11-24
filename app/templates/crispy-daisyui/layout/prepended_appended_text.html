@@ -1,0 +1,52 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    <div id="div_{{ field.auto_id }}" class="{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if form_group_wrapper_class %} {{ form_group_wrapper_class }}{% endif %}{% if form_show_errors and field.errors %} has-error{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+
+        <fieldset class="fieldset{% if field_class %} {{ field_class }}{% endif %}">
+            {% if field.label and form_show_labels %}
+                <legend class="fieldset-legend{{ label_class }}{% if field.field.required %} requiredField{% endif %}">
+                    {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+                </legend>
+            {% endif %}
+
+            <label class="{% if input_size %} {{ input_size }}{% endif %}{% if field.errors %} input-error{% endif %}">
+                {# prepend #}
+                {% if crispy_prepended_text %}
+                    {{ crispy_prepended_text }}
+                {% endif %}
+
+                {# input #}
+                {% if field|is_select %}
+                    {% if field.errors %}
+                        {% crispy_field field 'class' 'select-error grow' %}
+                    {% else %}
+                        {% crispy_field field 'class' 'grow' %}
+                    {% endif %}
+                {% else %}
+                    {% crispy_field field 'class' 'grow' %}
+                {% endif %}
+                
+                {# append #}
+                {% if crispy_appended_text %}
+                    {{ crispy_appended_text }}
+                {% endif %}
+            </label>
+
+            {# help text as label paragraph #}
+            {% if not help_text_inline %}
+                {% include 'crispy-daisyui/layout/help_text.html' %}
+            {% endif %}
+
+            {# errors #}
+            {% if error_text_inline %}
+                {% include 'crispy-daisyui/layout/field_errors.html' %}
+            {% else %}
+                {% include 'crispy-daisyui/layout/field_errors_block.html' %}
+            {% endif %}
+        </fieldset>
+
+    </div>
+{% endif %}

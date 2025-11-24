@@ -11,24 +11,24 @@
        class="show-loading"
        hx-swap="show:none scroll:none">
     {% if runs %}
-    <div class="row row-cols-1 g-4">
+    <div class="grid grid-cols-1 gap-4">
     {% for run in runs %}
       <div class="col">
-        <div class="card">
-          <div class="card-header tw:text-sm {% if run.status == run.Status.QUEUED %}text-body{% elif run.status == run.Status.PROCESSING %}text-warning{% elif run.status == run.Status.FINISHED %}text-success{% else %}text-danger{% endif %}">
+        <div class="card bg-base-100 shadow">
+          <div class="card-header bg-base-200 p-4 text-sm {% if run.status == run.Status.QUEUED %}text-base-content{% elif run.status == run.Status.PROCESSING %}text-warning{% elif run.status == run.Status.FINISHED %}text-success{% else %}text-error{% endif %}">
             <span><i class="fa-solid {% if run.status == run.Status.QUEUED %}fa-hourglass-half{% elif run.status == run.Status.PROCESSING %}fa-spinner{% elif run.status == run.Status.FINISHED %}fa-check{% else %}fa-xmark{% endif %} fa-fw me-2"></i>{{ run.get_status_display }}</span>
           </div>
           <div class="card-body">
-            <h5 class="card-title"><i class="fa-solid fa-hashtag me-1 tw:text-xs tw:text-gray-400"></i>{{ run.id }}<span class="tw:text-xs tw:text-gray-400 ms-1">({{ run.file_name }})</span></h5>
+            <h5 class="card-title"><i class="fa-solid fa-hashtag me-1 text-xs text-gray-400"></i>{{ run.id }}<span class="text-xs text-gray-400 ms-1">({{ run.file_name }})</span></h5>
             <hr>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 w-100 g-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-4">
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="flex flex-row">
+                  <div class="flex flex-col">
+                    <div class="text-base-content/70 text-xs font-medium">
                       {% trans 'Total Items' %}
                     </div>
-                    <div class="tw:text-sm">
+                    <div class="text-sm">
                       {{ run.total_rows }}
                     </div>
                   </div>
@@ -36,12 +36,12 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="flex flex-row">
+                  <div class="flex flex-col">
+                    <div class="text-base-content/70 text-xs font-medium">
                       {% trans 'Processed Items' %}
                     </div>
-                    <div class="tw:text-sm">
+                    <div class="text-sm">
                       {{ run.processed_rows }}
                     </div>
                   </div>
@@ -49,12 +49,12 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="flex flex-row">
+                  <div class="flex flex-col">
+                    <div class="text-base-content/70 text-xs font-medium">
                       {% trans 'Skipped Items' %}
                     </div>
-                    <div class="tw:text-sm">
+                    <div class="text-sm">
                       {{ run.skipped_rows }}
                     </div>
                   </div>
@@ -62,12 +62,12 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="flex flex-row">
+                  <div class="flex flex-col">
+                    <div class="text-base-content/70 text-xs font-medium">
                       {% trans 'Failed Items' %}
                     </div>
-                    <div class="tw:text-sm">
+                    <div class="text-sm">
                       {{ run.failed_rows }}
                     </div>
                   </div>
@@ -75,12 +75,12 @@
               </div>
 
               <div class="col">
-                <div class="d-flex flex-row">
-                  <div class="d-flex flex-column">
-                    <div class="text-body-secondary tw:text-xs tw:font-medium">
+                <div class="flex flex-row">
+                  <div class="flex flex-col">
+                    <div class="text-base-content/70 text-xs font-medium">
                       {% trans 'Successful Items' %}
                     </div>
-                    <div class="tw:text-sm">
+                    <div class="text-sm">
                       {{ run.successful_rows }}
                     </div>
                   </div>
@@ -89,17 +89,15 @@
 
             </div>
           </div>
-          <div class="card-footer text-body-secondary">
-            <a class="text-decoration-none text-info"
+          <div class="card-footer bg-base-200 p-4 text-base-content/70">
+            <a class="no-underline text-info"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Logs" %}"
+               data-tippy-content="{% translate "Logs" %}"
                hx-get="{% url 'import_run_log' profile_id=profile.id run_id=run.id %}"
                hx-target="#generic-offcanvas"><i class="fa-solid fa-file-lines"></i></a>
-            <a class="text-decoration-none text-danger"
+            <a class="no-underline text-error"
                role="button"
-               data-bs-toggle="tooltip"
-               data-bs-title="{% translate "Delete" %}"
+               data-tippy-content="{% translate "Delete" %}"
                hx-delete="{% url 'import_run_delete' profile_id=profile.id run_id=run.id %}"
                hx-trigger='confirmed'
                data-bypass-on-ctrl="true"

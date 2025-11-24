@@ -3,60 +3,54 @@
 {% load formats %}
 {% load i18n %}
 {% load title %}
-{% load webpack_loader %}
-<!doctype html>
-<html lang="en" data-bs-theme="dark">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>
-    {% filter site_title %}
-      {% block title %}
-      {% endblock title %}
-    {% endfilter %}
-  </title>
-
-  {% include 'includes/head/favicons.html' %}
-  {% progressive_web_app_meta %}
-
-  {% include 'includes/styles.html' %}
-  {% block extra_styles %}{% endblock %}
-
-  {% include 'includes/scripts.html' %}
-
-  {% block extra_js_head %}{% endblock %}
-</head>
-<body class="font-monospace">
-<div _="install hide_amounts
-        install htmx_error_handler
-        {% block body_hyperscript %}{% endblock %}"
-     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-
-  {% include 'includes/mobile_navbar.html' %}
-  {% include 'includes/sidebar.html' %}
-
-  <main class="tw:p-4">
-    {% settings "DEMO" as demo_mode %}
-    {% if demo_mode %}
-    <div class="px-3 m-0" id="demo-mode-alert" hx-preserve>
-      <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
-        <strong>{% trans 'This is a demo!' %}</strong> {% trans 'Any data you add here will be wiped in 24hrs or less' %}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+<!DOCTYPE html>
+<html lang="en"
+      data-theme="{% if request.session.theme == 'wygiwyh_light' %}wygiwyh_light{% else %}wygiwyh_dark{% endif %}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {% filter site_title %}
+        {% block title %}
+        {% endblock title %}
+      {% endfilter %}
+    </title>
+    {% include 'includes/head/favicons.html' %}
+    {% progressive_web_app_meta %}
+    {#  {% include 'includes/styles.html' %}#}
+    {% block extra_styles %}{% endblock %}
+    {% include 'includes/scripts.html' %}
+    {% block extra_js_head %}{% endblock %}
+  </head>
+  <body class="font-mono">
+    <div _="install htmx_error_handler
+            {% block body_hyperscript %}{% endblock %}"
+         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+      {% include 'includes/mobile_navbar.html' %}
+      {% include 'includes/sidebar.html' %}
+      <main class="my-8 px-3">
+        {% settings "DEMO" as demo_mode %}
+        {% if demo_mode %}
+          <div class="px-3 m-0" id="demo-mode-alert" hx-preserve>
+            <div class="alert alert-warning my-3" role="alert">
+              <strong>{% trans "This is a demo!" %}</strong> {% trans "Any data you add here will be wiped in 24hrs or less" %}
+              <button type="button"
+                      class="btn btn-sm btn-ghost absolute right-2 top-2"
+                      onclick="this.parentElement.style.display='none'"
+                      aria-label="Close">✕</button>
+            </div>
+          </div>
+        {% endif %}
+        <div id="content">
+          {% block content %}
+          {% endblock content %}
+        </div>
+        {% include "includes/offcanvas.html" %}
+        {% include "includes/toasts.html" %}
+      </main>
     </div>
-    {% endif %}
-
-    <div id="content">
-      {% block content %}{% endblock %}
-    </div>
-
-    {% include 'includes/offcanvas.html' %}
-    {% include 'includes/toasts.html' %}
-  </main>
-</div>
-
-{% include 'includes/tools/calculator.html' %}
-
-{% block extra_js_body %}{% endblock %}
-</body>
+    {% include "includes/tools/calculator.html" %}
+    {% block extra_js_body %}
+    {% endblock extra_js_body %}
+  </body>
 </html>

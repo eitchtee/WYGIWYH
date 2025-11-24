@@ -1,11 +1,8 @@
-@import "variables";
-@import "font-awesome";
-@import "bootstrap";
-@import "datepicker";
-@import "tom-select";
-@import "animations";
-@import "scrollbar";
-@import "./tailwind.css";
+@use "variables";
+@use "font-awesome";
+@use "bootstrap";
+@use "animations";
+
 
 .sticky-sidebar {
   position: sticky;
@@ -13,45 +10,15 @@
 }
 
 // Somewhat prevents flickering when replacing with Tom-select
-select[multiple] {
+select[multiple],
+select {
   visibility: hidden;
-}
-
-.ts-dropdown-content {
-  max-height: 50vh;
-}
-
-.font-base {
-  font-family: $font-family-base;
+  display: none;
 }
 
 ::selection {
-  color: $gray-800;
-  background-color: $primary;
-}
-
-.dotted-line {
-  border-bottom: 2px dotted $gray-700;
-  margin: 0 5px;
-  position: relative;
-}
-
-.hierarchy-line-icon {
-  width: 8px;
-  height: 10px;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiPjxwYXRoIHN0cm9rZT0iIzlCOUI5QiIgc3Ryb2tlLWRhc2hhcnJheT0iNCIgZD0iTS41IDQuNWgxMiIvPjxwYXRoIHN0cm9rZT0iIzk3OTc5NyIgZD0iTS41IDQuNXYtNCIvPjwvZz48L3N2Zz4=");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top;
-  display: inline-block;
-  margin-left: 15px;
-  margin-right: 7px;
-  margin-top: 4px;
-  padding: 0 8px !important;
-}
-
-.transaction:has(input[type="checkbox"]:checked) > div > .transaction-item {
-  background-color: $primary-bg-subtle-dark;
+  color: var(--color-primary-content);
+  background-color: var(--color-primary);
 }
 
 .offline {
@@ -87,5 +54,35 @@ select[multiple] {
 }
 
 div:where(.swal2-container) {
-  z-index: 1100 !important;
+  z-index: 1101 !important;
+}
+
+.logo {
+  /* Set the background-color to DaisyUI CSS variable */
+  background-color: var(--color-primary);
+
+  /* Use SVG file as the mask */
+  mask-image: url('/static/img/logo-icon.svg');
+  -webkit-mask-image: url('/static/img/logo-icon.svg');
+
+  /* Set mask properties to size it correctly */
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+
+  /* Give the element a size */
+  width: 30px;
+  height: 30px;
+
+  &.mobile {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+[x-cloak] {
+  display: none !important;
 }

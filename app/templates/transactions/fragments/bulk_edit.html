@@ -5,7 +5,8 @@
 {% block title %}{% translate 'Bulk Editing' %}{% endblock %}
 
 {% block body %}
-<p>{% trans 'Editing' %} {{ transactions|length }} {% trans 'transactions' %}</p>
+<p>{% trans 'Editing' %} {{ transactions|length }} {% trans 'transactions' %}
+<hr class="hr my-3" />
 <div class="editing-transactions">
   {% for transaction in transactions %}
     <input type="hidden" name="transactions" value="{{ transaction.id }}"/>

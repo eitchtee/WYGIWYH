@@ -41,3 +41,5 @@ RUN sed -i 's/\r$//g' /start && \
     chmod +x /start-supervisor
 
 COPY ./app .
+
+CMD ["/start-supervisor"]

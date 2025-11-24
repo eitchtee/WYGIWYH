@@ -1,4 +1,9 @@
 <script type="text/hyperscript">
+  init
+    for elem in <.textarea/>
+      autosize(elem)
+    end
+  end
   on htmx:afterSettle
     for elem in <.textarea/>
       autosize(elem)
