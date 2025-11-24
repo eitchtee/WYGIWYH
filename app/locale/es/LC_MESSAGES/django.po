@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-20 14:08+0000\n"
+"POT-Creation-Date: 2025-11-24 02:56+0000\n"
 "PO-Revision-Date: 2025-10-27 14:17+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -19,110 +19,94 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.13.3\n"
 
-#: apps/accounts/forms.py:26
+#: apps/accounts/forms.py:24
 msgid "Group name"
 msgstr "Nombre del Grupo"
 
-#: apps/accounts/forms.py:42 apps/accounts/forms.py:112
-#: apps/currencies/forms.py:55 apps/currencies/forms.py:93
-#: apps/currencies/forms.py:146 apps/dca/forms.py:49 apps/dca/forms.py:224
-#: apps/import_app/forms.py:34 apps/rules/forms.py:57 apps/rules/forms.py:101
-#: apps/rules/forms.py:390 apps/transactions/forms.py:206
-#: apps/transactions/forms.py:376 apps/transactions/forms.py:503
-#: apps/transactions/forms.py:878 apps/transactions/forms.py:921
-#: apps/transactions/forms.py:953 apps/transactions/forms.py:988
-#: apps/transactions/forms.py:1142 apps/users/forms.py:217
-#: apps/users/forms.py:379
+#: apps/accounts/forms.py:39 apps/accounts/forms.py:105
+#: apps/currencies/forms.py:53 apps/currencies/forms.py:87
+#: apps/currencies/forms.py:136 apps/dca/forms.py:46 apps/dca/forms.py:205
+#: apps/import_app/forms.py:32 apps/rules/forms.py:57 apps/rules/forms.py:97
+#: apps/rules/forms.py:382 apps/transactions/forms.py:197
+#: apps/transactions/forms.py:361 apps/transactions/forms.py:480
+#: apps/transactions/forms.py:821 apps/transactions/forms.py:860
+#: apps/transactions/forms.py:888 apps/transactions/forms.py:919
+#: apps/transactions/forms.py:1065 apps/users/forms.py:222
+#: apps/users/forms.py:380
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
-#: templates/rules/fragments/transaction_rule/view.html:132
+#: templates/rules/fragments/transaction_rule/view.html:129
 msgid "Update"
 msgstr "Actualizar"
 
-#: apps/accounts/forms.py:50 apps/accounts/forms.py:120
-#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:63
-#: apps/currencies/forms.py:101 apps/currencies/forms.py:154
-#: apps/dca/forms.py:57 apps/dca/forms.py:232 apps/import_app/forms.py:42
-#: apps/rules/forms.py:65 apps/rules/forms.py:109 apps/rules/forms.py:398
-#: apps/transactions/forms.py:191 apps/transactions/forms.py:215
-#: apps/transactions/forms.py:385 apps/transactions/forms.py:886
-#: apps/transactions/forms.py:929 apps/transactions/forms.py:961
-#: apps/transactions/forms.py:996 apps/transactions/forms.py:1150
-#: apps/users/forms.py:225 apps/users/forms.py:387
-#: templates/account_groups/fragments/list.html:9
-#: templates/accounts/fragments/list.html:9
-#: templates/categories/fragments/list.html:9
-#: templates/currencies/fragments/list.html:9
-#: templates/dca/fragments/strategy/details.html:37
-#: templates/dca/fragments/strategy/list.html:9
-#: templates/entities/fragments/list.html:9
-#: templates/exchange_rates/fragments/list.html:10
-#: templates/exchange_rates_services/fragments/list.html:10
-#: templates/import_app/fragments/profiles/list.html:7
-#: templates/import_app/fragments/profiles/list.html:10
-#: templates/installment_plans/fragments/list.html:9
-#: templates/mini_tools/unit_price_calculator.html:162
-#: templates/quick_transactions/pages/index.html:15
-#: templates/recurring_transactions/fragments/list.html:9
-#: templates/rules/fragments/list.html:9 templates/tags/fragments/list.html:9
-#: templates/users/fragments/list.html:10
+#: apps/accounts/forms.py:45 apps/accounts/forms.py:111
+#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:59
+#: apps/currencies/forms.py:93 apps/currencies/forms.py:142
+#: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
+#: apps/rules/forms.py:63 apps/rules/forms.py:103 apps/rules/forms.py:388
+#: apps/transactions/forms.py:184 apps/transactions/forms.py:204
+#: apps/transactions/forms.py:368 apps/transactions/forms.py:827
+#: apps/transactions/forms.py:866 apps/transactions/forms.py:894
+#: apps/transactions/forms.py:925 apps/transactions/forms.py:1071
+#: apps/users/forms.py:228 apps/users/forms.py:386
+#: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "Agregar"
 
-#: apps/accounts/forms.py:59 templates/accounts/fragments/list.html:26
+#: apps/accounts/forms.py:53 templates/accounts/fragments/list.html:23
 msgid "Group"
 msgstr "Grupo"
 
-#: apps/accounts/forms.py:129
+#: apps/accounts/forms.py:119
 msgid "New balance"
 msgstr "Nuevo balance"
 
-#: apps/accounts/forms.py:135 apps/dca/forms.py:85 apps/dca/forms.py:92
-#: apps/insights/forms.py:118 apps/rules/forms.py:185 apps/rules/forms.py:201
+#: apps/accounts/forms.py:125 apps/dca/forms.py:79 apps/dca/forms.py:86
+#: apps/insights/forms.py:117 apps/rules/forms.py:178 apps/rules/forms.py:194
 #: apps/rules/models.py:44 apps/rules/models.py:311
-#: apps/transactions/forms.py:44 apps/transactions/forms.py:263
-#: apps/transactions/forms.py:438 apps/transactions/forms.py:540
-#: apps/transactions/forms.py:547 apps/transactions/forms.py:759
-#: apps/transactions/forms.py:1020 apps/transactions/models.py:323
-#: apps/transactions/models.py:560 apps/transactions/models.py:760
-#: apps/transactions/models.py:1010
-#: templates/insights/fragments/category_overview/index.html:78
-#: templates/insights/fragments/category_overview/index.html:530
+#: apps/transactions/forms.py:43 apps/transactions/forms.py:251
+#: apps/transactions/forms.py:419 apps/transactions/forms.py:516
+#: apps/transactions/forms.py:523 apps/transactions/forms.py:707
+#: apps/transactions/forms.py:948 apps/transactions/models.py:323
+#: apps/transactions/models.py:571 apps/transactions/models.py:771
+#: apps/transactions/models.py:1021
+#: templates/insights/fragments/category_overview/index.html:86
+#: templates/insights/fragments/category_overview/index.html:542
 msgid "Category"
 msgstr "Categoría"
 
-#: apps/accounts/forms.py:142 apps/dca/forms.py:101 apps/dca/forms.py:109
-#: apps/export_app/forms.py:44 apps/export_app/forms.py:135
-#: apps/rules/forms.py:188 apps/rules/forms.py:198 apps/rules/models.py:45
-#: apps/rules/models.py:315 apps/transactions/filters.py:69
-#: apps/transactions/forms.py:52 apps/transactions/forms.py:271
-#: apps/transactions/forms.py:446 apps/transactions/forms.py:556
-#: apps/transactions/forms.py:564 apps/transactions/forms.py:752
-#: apps/transactions/forms.py:1013 apps/transactions/models.py:329
-#: apps/transactions/models.py:562 apps/transactions/models.py:764
-#: apps/transactions/models.py:1016 templates/includes/navbar.html:111
+#: apps/accounts/forms.py:132 apps/dca/forms.py:95 apps/dca/forms.py:103
+#: apps/export_app/forms.py:43 apps/export_app/forms.py:132
+#: apps/rules/forms.py:181 apps/rules/forms.py:191 apps/rules/models.py:45
+#: apps/rules/models.py:315 apps/transactions/filters.py:68
+#: apps/transactions/forms.py:51 apps/transactions/forms.py:259
+#: apps/transactions/forms.py:427 apps/transactions/forms.py:532
+#: apps/transactions/forms.py:540 apps/transactions/forms.py:700
+#: apps/transactions/forms.py:941 apps/transactions/models.py:329
+#: apps/transactions/models.py:573 apps/transactions/models.py:775
+#: apps/transactions/models.py:1027 templates/includes/navbar.html:111
 #: templates/includes/sidebar.html:184
-#: templates/insights/fragments/category_overview/index.html:36
-#: templates/tags/fragments/list.html:5 templates/tags/pages/index.html:4
+#: templates/insights/fragments/category_overview/index.html:40
+#: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Etiquetas"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
 #: apps/transactions/models.py:215 apps/transactions/models.py:240
-#: apps/transactions/models.py:264 apps/transactions/models.py:978
-#: templates/account_groups/fragments/list.html:25
-#: templates/accounts/fragments/list.html:25
-#: templates/categories/fragments/table.html:16
-#: templates/currencies/fragments/list.html:26
-#: templates/entities/fragments/table.html:16
-#: templates/exchange_rates_services/fragments/list.html:32
-#: templates/import_app/fragments/profiles/list.html:36
+#: apps/transactions/models.py:264 apps/transactions/models.py:989
+#: templates/account_groups/fragments/list.html:22
+#: templates/accounts/fragments/list.html:22
+#: templates/categories/fragments/table.html:17
+#: templates/currencies/fragments/list.html:23
+#: templates/entities/fragments/table.html:17
+#: templates/exchange_rates_services/fragments/list.html:28
+#: templates/import_app/fragments/profiles/list.html:34
 #: templates/installment_plans/fragments/table.html:16
 #: templates/quick_transactions/fragments/list.html:13
 #: templates/recurring_transactions/fragments/table.html:18
-#: templates/rules/fragments/list.html:27
-#: templates/tags/fragments/table.html:16
-#: templates/users/fragments/list.html:29
+#: templates/rules/fragments/list.html:24
+#: templates/tags/fragments/table.html:17
+#: templates/users/fragments/list.html:26
 msgid "Name"
 msgstr "Nombre"
 
@@ -130,21 +114,20 @@ msgstr "Nombre"
 msgid "Account Group"
 msgstr "Grupo de Cuenta"
 
-#: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:5
+#: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:9
 #: templates/account_groups/pages/index.html:4
 #: templates/includes/navbar.html:121 templates/includes/sidebar.html:204
 msgid "Account Groups"
 msgstr "Grupos de Cuentas"
 
 #: apps/accounts/models.py:39 apps/currencies/models.py:44
-#: templates/accounts/fragments/list.html:27
-#: templates/yearly_overview/pages/overview_by_account.html:18
-#: templates/yearly_overview/pages/overview_by_currency.html:20
+#: templates/accounts/fragments/list.html:24
+#: templates/yearly_overview/pages/yearly_overview_base.html:19
 msgid "Currency"
 msgstr "Moneda"
 
 #: apps/accounts/models.py:45 apps/currencies/models.py:27
-#: templates/accounts/fragments/list.html:28
+#: templates/accounts/fragments/list.html:25
 msgid "Exchange Currency"
 msgstr "Moneda de Cambio"
 
@@ -163,11 +146,11 @@ msgstr ""
 "Las cuentas de activos computan para su patrimonio neto, pero no para su mes."
 
 #: apps/accounts/models.py:62 apps/currencies/models.py:37
-#: templates/accounts/fragments/list.html:30
-#: templates/categories/fragments/list.html:24
-#: templates/currencies/fragments/list.html:27
-#: templates/entities/fragments/list.html:24
-#: templates/tags/fragments/list.html:24
+#: templates/accounts/fragments/list.html:27
+#: templates/categories/fragments/list.html:20
+#: templates/currencies/fragments/list.html:24
+#: templates/entities/fragments/list.html:20
+#: templates/tags/fragments/list.html:20
 msgid "Archived"
 msgstr "Archivado"
 
@@ -175,30 +158,28 @@ msgstr "Archivado"
 msgid "Archived accounts don't show up nor count towards your net worth"
 msgstr "Las cuentas archivadas no aparecen ni cuentan para su patrimonio neto"
 
-#: apps/accounts/models.py:75 apps/rules/forms.py:177 apps/rules/forms.py:191
+#: apps/accounts/models.py:75 apps/rules/forms.py:170 apps/rules/forms.py:184
 #: apps/rules/models.py:35 apps/rules/models.py:267
-#: apps/transactions/forms.py:64 apps/transactions/forms.py:283
-#: apps/transactions/forms.py:405 apps/transactions/forms.py:744
-#: apps/transactions/forms.py:1005 apps/transactions/models.py:295
-#: apps/transactions/models.py:520 apps/transactions/models.py:742
-#: apps/transactions/models.py:984
+#: apps/transactions/forms.py:63 apps/transactions/forms.py:271
+#: apps/transactions/forms.py:386 apps/transactions/forms.py:692
+#: apps/transactions/forms.py:933 apps/transactions/models.py:295
+#: apps/transactions/models.py:531 apps/transactions/models.py:753
+#: apps/transactions/models.py:995
 #: templates/installment_plans/fragments/table.html:17
 #: templates/quick_transactions/fragments/list.html:14
 #: templates/recurring_transactions/fragments/table.html:19
-#: templates/yearly_overview/pages/overview_by_account.html:22
-#: templates/yearly_overview/pages/overview_by_currency.html:24
+#: templates/yearly_overview/pages/yearly_overview_base.html:23
 msgid "Account"
 msgstr "Cuenta"
 
-#: apps/accounts/models.py:76 apps/export_app/forms.py:20
-#: apps/export_app/forms.py:132 apps/transactions/filters.py:53
-#: templates/accounts/fragments/list.html:5
+#: apps/accounts/models.py:76 apps/export_app/forms.py:19
+#: apps/export_app/forms.py:129 apps/transactions/filters.py:52
+#: templates/accounts/fragments/list.html:9
 #: templates/accounts/pages/index.html:4 templates/includes/navbar.html:117
 #: templates/includes/navbar.html:119 templates/includes/sidebar.html:196
 #: templates/includes/sidebar.html:198
-#: templates/monthly_overview/pages/overview.html:94
-#: templates/transactions/fragments/summary.html:12
-#: templates/transactions/pages/transactions.html:137
+#: templates/monthly_overview/pages/overview.html:75
+#: templates/transactions/pages/transactions.html:26
 msgid "Accounts"
 msgstr "Cuentas"
 
@@ -317,7 +298,7 @@ msgstr "Hacer público"
 msgid "Make private"
 msgstr "Hacer privado"
 
-#: apps/common/admin.py:20 apps/common/forms.py:35 apps/common/models.py:51
+#: apps/common/admin.py:20 apps/common/forms.py:34 apps/common/models.py:51
 msgid "Shared with users"
 msgstr "Compartido con los usuarios"
 
@@ -339,11 +320,11 @@ msgstr "Formato de fecha no válido. Usa YYYY-MM o YYYY-MM-DD."
 msgid "Invalid date format. Use YYYY-MM."
 msgstr "Formato de fecha no válido. Usa YYYY-MM."
 
-#: apps/common/forms.py:25 apps/common/models.py:39
+#: apps/common/forms.py:24 apps/common/models.py:39
 msgid "Owner"
 msgstr "Dueño"
 
-#: apps/common/forms.py:28
+#: apps/common/forms.py:27
 msgid ""
 "The owner of this object, if empty all users can see, edit and take "
 "ownership."
@@ -351,11 +332,11 @@ msgstr ""
 "El propietario de este objeto; si está vacío, todos los usuarios pueden ver, "
 "editar y asumir la propiedad."
 
-#: apps/common/forms.py:36
+#: apps/common/forms.py:35
 msgid "Select users to share this object with"
 msgstr "Selecciona los usuarios con los que compartir este objeto"
 
-#: apps/common/forms.py:41 apps/common/models.py:45
+#: apps/common/forms.py:40 apps/common/models.py:45
 msgid "Visibility"
 msgstr "Visibilidad"
 
@@ -368,11 +349,11 @@ msgstr ""
 "compartido. Solo el propietario puede editarlo.<br/>Público: Visible para "
 "todos los usuarios. Solo el propietario puede editarlo."
 
-#: apps/common/forms.py:80 apps/users/forms.py:142
+#: apps/common/forms.py:76 apps/users/forms.py:149
 msgid "Save"
 msgstr "Guardar"
 
-#: apps/common/forms.py:95
+#: apps/common/forms.py:90
 msgid "You cannot share this item with its owner."
 msgstr "No puede compartir este item con su propietario."
 
@@ -467,13 +448,13 @@ msgstr "Información"
 msgid "Cache cleared successfully"
 msgstr "Caché limpiada con éxito"
 
-#: apps/common/widgets/datepicker.py:55 apps/common/widgets/datepicker.py:208
-#: apps/common/widgets/datepicker.py:266
-#: templates/common/fragments/month_year_picker.html:53
+#: apps/common/widgets/datepicker.py:56 apps/common/widgets/datepicker.py:209
+#: apps/common/widgets/datepicker.py:267
+#: templates/common/fragments/month_year_picker.html:37
 msgid "Today"
 msgstr "Hoy"
 
-#: apps/common/widgets/datepicker.py:141
+#: apps/common/widgets/datepicker.py:142
 msgid "Now"
 msgstr "Ahora"
 
@@ -482,11 +463,11 @@ msgid "Remove"
 msgstr "Remover"
 
 #: apps/common/widgets/tom_select.py:15
-#: templates/mini_tools/unit_price_calculator.html:174
-#: templates/monthly_overview/pages/overview.html:215
-#: templates/monthly_overview/pages/overview.html:227
-#: templates/transactions/pages/transactions.html:89
-#: templates/transactions/pages/transactions.html:101
+#: templates/mini_tools/unit_price_calculator.html:180
+#: templates/monthly_overview/pages/overview.html:172
+#: templates/monthly_overview/pages/overview.html:184
+#: templates/transactions/pages/transactions.html:125
+#: templates/transactions/pages/transactions.html:137
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -494,21 +475,21 @@ msgstr "Limpiar"
 msgid "No results..."
 msgstr "No hay resultados..."
 
-#: apps/currencies/forms.py:17 apps/currencies/models.py:22
+#: apps/currencies/forms.py:16 apps/currencies/models.py:22
 msgid "Prefix"
 msgstr "Prefijo"
 
-#: apps/currencies/forms.py:18 apps/currencies/models.py:23
+#: apps/currencies/forms.py:17 apps/currencies/models.py:23
 msgid "Suffix"
 msgstr "Sufijo"
 
-#: apps/currencies/forms.py:71 apps/dca/models.py:158 apps/rules/forms.py:180
-#: apps/rules/forms.py:194 apps/rules/models.py:38 apps/rules/models.py:279
-#: apps/transactions/forms.py:68 apps/transactions/forms.py:410
-#: apps/transactions/forms.py:568 apps/transactions/models.py:305
-#: templates/dca/fragments/strategy/details.html:52
+#: apps/currencies/forms.py:66 apps/dca/models.py:158 apps/rules/forms.py:173
+#: apps/rules/forms.py:187 apps/rules/models.py:38 apps/rules/models.py:279
+#: apps/transactions/forms.py:67 apps/transactions/forms.py:391
+#: apps/transactions/forms.py:544 apps/transactions/models.py:305
+#: templates/dca/fragments/strategy/details.html:49
 #: templates/exchange_rates/fragments/table.html:10
-#: templates/exchange_rates_services/fragments/table.html:10
+#: templates/exchange_rates_services/fragments/table.html:11
 msgid "Date"
 msgstr "Fecha"
 
@@ -524,15 +505,14 @@ msgstr "Nombre de la Moneda"
 msgid "Decimal Places"
 msgstr "Cantidad de decimales"
 
-#: apps/currencies/models.py:45 apps/export_app/forms.py:26
-#: apps/export_app/forms.py:133 apps/transactions/filters.py:60
-#: templates/currencies/fragments/list.html:5
+#: apps/currencies/models.py:45 apps/export_app/forms.py:25
+#: apps/export_app/forms.py:130 apps/transactions/filters.py:59
+#: templates/currencies/fragments/list.html:9
 #: templates/currencies/pages/index.html:4 templates/includes/navbar.html:125
 #: templates/includes/navbar.html:127 templates/includes/sidebar.html:210
 #: templates/includes/sidebar.html:212
-#: templates/monthly_overview/pages/overview.html:81
-#: templates/transactions/fragments/summary.html:8
-#: templates/transactions/pages/transactions.html:124
+#: templates/monthly_overview/pages/overview.html:62
+#: templates/transactions/pages/transactions.html:12
 msgid "Currencies"
 msgstr "Monedas"
 
@@ -561,8 +541,8 @@ msgstr "Fecha y Hora"
 msgid "Auto"
 msgstr "Automático"
 
-#: apps/currencies/models.py:82 apps/export_app/forms.py:68
-#: apps/export_app/forms.py:145 templates/exchange_rates/fragments/list.html:6
+#: apps/currencies/models.py:82 apps/export_app/forms.py:67
+#: apps/export_app/forms.py:142 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/navbar.html:129 templates/includes/sidebar.html:218
 msgid "Exchange Rates"
@@ -594,10 +574,11 @@ msgstr "Tipo de Servicio"
 
 #: apps/currencies/models.py:118 apps/transactions/models.py:219
 #: apps/transactions/models.py:243 apps/transactions/models.py:267
-#: templates/categories/fragments/list.html:21
-#: templates/entities/fragments/list.html:21
-#: templates/recurring_transactions/fragments/list.html:21
-#: templates/tags/fragments/list.html:21 templates/users/fragments/list.html:28
+#: templates/categories/fragments/list.html:16
+#: templates/entities/fragments/list.html:16
+#: templates/installment_plans/fragments/list.html:16
+#: templates/recurring_transactions/fragments/list.html:16
+#: templates/tags/fragments/list.html:16 templates/users/fragments/list.html:25
 msgid "Active"
 msgstr "Activo"
 
@@ -729,44 +710,44 @@ msgstr "Servicio borrado con éxito"
 msgid "Services queued successfully"
 msgstr "Servicios agregados a la cola con éxito"
 
-#: apps/dca/forms.py:65 apps/dca/forms.py:164
+#: apps/dca/forms.py:59 apps/dca/forms.py:158
 msgid "Create transaction"
 msgstr "Crear transacción"
 
-#: apps/dca/forms.py:70 apps/transactions/forms.py:515
+#: apps/dca/forms.py:64 apps/transactions/forms.py:491
 msgid "From Account"
 msgstr "Cuenta de Origen"
 
-#: apps/dca/forms.py:76 apps/transactions/forms.py:520
+#: apps/dca/forms.py:70 apps/transactions/forms.py:496
 msgid "To Account"
 msgstr "Cuenta de Destino"
 
-#: apps/dca/forms.py:116 apps/dca/models.py:171
+#: apps/dca/forms.py:110 apps/dca/models.py:171
 msgid "Expense Transaction"
 msgstr "Transacción de Gasto"
 
-#: apps/dca/forms.py:120 apps/dca/forms.py:130
+#: apps/dca/forms.py:114 apps/dca/forms.py:124
 msgid "Type to search for a transaction to link to this entry"
 msgstr "Escribe para buscar una transacción"
 
-#: apps/dca/forms.py:126 apps/dca/models.py:179
+#: apps/dca/forms.py:120 apps/dca/models.py:179
 msgid "Income Transaction"
 msgstr "Transacción de Ingreso"
 
-#: apps/dca/forms.py:210
+#: apps/dca/forms.py:192
 msgid "Link transaction"
 msgstr "Enlazar transacción"
 
-#: apps/dca/forms.py:297 apps/dca/forms.py:298 apps/dca/forms.py:303
-#: apps/dca/forms.py:307
+#: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
+#: apps/dca/forms.py:285
 msgid "You must provide an account."
 msgstr "Debes proporcionar una cuenta."
 
-#: apps/dca/forms.py:312 apps/transactions/forms.py:690
+#: apps/dca/forms.py:290 apps/transactions/forms.py:638
 msgid "From and To accounts must be different."
 msgstr "Las cuentas de origen y destino deben ser diferentes."
 
-#: apps/dca/forms.py:326
+#: apps/dca/forms.py:304
 #, python-format
 msgid "DCA for %(strategy_name)s"
 msgstr "DCA para %(strategy_name)s"
@@ -779,11 +760,11 @@ msgstr "Moneda objetivo"
 msgid "Payment Currency"
 msgstr "Moneda de pago"
 
-#: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:184
-#: apps/rules/forms.py:200 apps/rules/models.py:43 apps/rules/models.py:295
-#: apps/transactions/forms.py:432 apps/transactions/forms.py:584
-#: apps/transactions/models.py:319 apps/transactions/models.py:569
-#: apps/transactions/models.py:770 apps/transactions/models.py:1006
+#: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:177
+#: apps/rules/forms.py:193 apps/rules/models.py:43 apps/rules/models.py:295
+#: apps/transactions/forms.py:413 apps/transactions/forms.py:560
+#: apps/transactions/models.py:319 apps/transactions/models.py:580
+#: apps/transactions/models.py:781 apps/transactions/models.py:1017
 msgid "Notes"
 msgstr "Notas"
 
@@ -791,7 +772,7 @@ msgstr "Notas"
 msgid "DCA Strategy"
 msgstr "Estrategia DCA"
 
-#: apps/dca/models.py:35 apps/export_app/forms.py:153
+#: apps/dca/models.py:35 apps/export_app/forms.py:150
 msgid "DCA Strategies"
 msgstr "Estrategias DCA"
 
@@ -799,11 +780,11 @@ msgstr "Estrategias DCA"
 msgid "Strategy"
 msgstr "Estrategia"
 
-#: apps/dca/models.py:160 templates/dca/fragments/strategy/details.html:54
+#: apps/dca/models.py:160 templates/dca/fragments/strategy/details.html:51
 msgid "Amount Paid"
 msgstr "Monto Pagado"
 
-#: apps/dca/models.py:163 templates/dca/fragments/strategy/details.html:53
+#: apps/dca/models.py:163 templates/dca/fragments/strategy/details.html:50
 msgid "Amount Received"
 msgstr "Monto Recibido"
 
@@ -811,7 +792,7 @@ msgstr "Monto Recibido"
 msgid "DCA Entry"
 msgstr "Entrada DCA"
 
-#: apps/dca/models.py:187 apps/export_app/forms.py:154
+#: apps/dca/models.py:187 apps/export_app/forms.py:151
 msgid "DCA Entries"
 msgstr "Entradas DCA"
 
@@ -839,116 +820,116 @@ msgstr "Entrada actualizada con éxito"
 msgid "Entry deleted successfully"
 msgstr "Entrada eliminada con éxito"
 
-#: apps/export_app/forms.py:14 apps/export_app/forms.py:131
+#: apps/export_app/forms.py:13 apps/export_app/forms.py:128
 #: templates/includes/navbar.html:150 templates/includes/sidebar.html:255
-#: templates/users/fragments/list.html:6 templates/users/pages/index.html:4
+#: templates/users/fragments/list.html:10 templates/users/pages/index.html:4
 msgid "Users"
 msgstr "Usuarios"
 
-#: apps/export_app/forms.py:32 apps/export_app/forms.py:137
+#: apps/export_app/forms.py:31 apps/export_app/forms.py:134
 #: apps/transactions/models.py:380 templates/includes/navbar.html:58
-#: templates/includes/navbar.html:107 templates/includes/sidebar.html:83
+#: templates/includes/navbar.html:107 templates/includes/sidebar.html:81
 #: templates/includes/sidebar.html:176
 #: templates/recurring_transactions/fragments/list_transactions.html:5
-#: templates/recurring_transactions/fragments/table.html:39
+#: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
 msgstr "Transacciones"
 
-#: apps/export_app/forms.py:38 apps/export_app/forms.py:134
-#: apps/transactions/filters.py:64 templates/categories/fragments/list.html:5
+#: apps/export_app/forms.py:37 apps/export_app/forms.py:131
+#: apps/transactions/filters.py:63 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/navbar.html:109
 #: templates/includes/sidebar.html:178
 msgid "Categories"
 msgstr "Categorías"
 
-#: apps/export_app/forms.py:50 apps/export_app/forms.py:136
-#: apps/rules/forms.py:189 apps/rules/forms.py:199 apps/rules/models.py:46
-#: apps/rules/models.py:307 apps/transactions/filters.py:74
-#: apps/transactions/forms.py:60 apps/transactions/forms.py:279
-#: apps/transactions/forms.py:454 apps/transactions/forms.py:767
-#: apps/transactions/forms.py:1028 apps/transactions/models.py:278
-#: apps/transactions/models.py:334 apps/transactions/models.py:565
-#: apps/transactions/models.py:767 apps/transactions/models.py:1021
-#: templates/entities/fragments/list.html:5
+#: apps/export_app/forms.py:49 apps/export_app/forms.py:133
+#: apps/rules/forms.py:182 apps/rules/forms.py:192 apps/rules/models.py:46
+#: apps/rules/models.py:307 apps/transactions/filters.py:73
+#: apps/transactions/forms.py:59 apps/transactions/forms.py:267
+#: apps/transactions/forms.py:435 apps/transactions/forms.py:715
+#: apps/transactions/forms.py:956 apps/transactions/models.py:278
+#: apps/transactions/models.py:334 apps/transactions/models.py:576
+#: apps/transactions/models.py:778 apps/transactions/models.py:1032
+#: templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/navbar.html:113
 #: templates/includes/sidebar.html:190
-#: templates/insights/fragments/category_overview/index.html:49
+#: templates/insights/fragments/category_overview/index.html:54
 msgid "Entities"
 msgstr "Entidades"
 
-#: apps/export_app/forms.py:56 apps/export_app/forms.py:140
-#: apps/transactions/models.py:807 templates/includes/navbar.html:77
-#: templates/includes/sidebar.html:112
-#: templates/recurring_transactions/fragments/list.html:5
+#: apps/export_app/forms.py:55 apps/export_app/forms.py:137
+#: apps/transactions/models.py:818 templates/includes/navbar.html:77
+#: templates/includes/sidebar.html:110
+#: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
 msgstr "Transacciones Recurrentes"
 
-#: apps/export_app/forms.py:62 apps/export_app/forms.py:138
-#: apps/transactions/models.py:583 templates/includes/navbar.html:75
-#: templates/includes/sidebar.html:106
-#: templates/installment_plans/fragments/list.html:5
+#: apps/export_app/forms.py:61 apps/export_app/forms.py:135
+#: apps/transactions/models.py:594 templates/includes/navbar.html:75
+#: templates/includes/sidebar.html:104
+#: templates/installment_plans/fragments/list.html:9
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
 msgstr "Planes de Cuotas"
 
-#: apps/export_app/forms.py:74 apps/export_app/forms.py:143
-#: templates/exchange_rates_services/fragments/list.html:6
+#: apps/export_app/forms.py:73 apps/export_app/forms.py:140
+#: templates/exchange_rates_services/fragments/list.html:10
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/navbar.html:143 templates/includes/sidebar.html:246
 msgid "Automatic Exchange Rates"
 msgstr "Tasas de Cambio Automáticas"
 
-#: apps/export_app/forms.py:80 templates/includes/navbar.html:135
-#: templates/includes/sidebar.html:226 templates/rules/fragments/list.html:5
+#: apps/export_app/forms.py:79 templates/includes/navbar.html:135
+#: templates/includes/sidebar.html:226 templates/rules/fragments/list.html:9
 #: templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Reglas"
 
-#: apps/export_app/forms.py:86 templates/cotton/transaction/item.html:58
+#: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:57
 msgid "DCA"
 msgstr "DCA"
 
-#: apps/export_app/forms.py:92 apps/export_app/forms.py:155
-#: templates/import_app/fragments/profiles/list.html:5
+#: apps/export_app/forms.py:91 apps/export_app/forms.py:152
+#: templates/import_app/fragments/profiles/list.html:21
 #: templates/import_app/pages/profiles_index.html:4
 msgid "Import Profiles"
 msgstr "Perfiles de Importación"
 
-#: apps/export_app/forms.py:119 templates/export_app/fragments/export.html:5
-#: templates/export_app/pages/index.html:15
+#: apps/export_app/forms.py:117 templates/export_app/fragments/export.html:5
+#: templates/export_app/pages/index.html:13
 msgid "Export"
 msgstr "Exportar"
 
-#: apps/export_app/forms.py:128
+#: apps/export_app/forms.py:125
 msgid "Import a ZIP file exported from WYGIWYH"
 msgstr "Importa un archivo ZIP exportado desde WYGIWYH"
 
-#: apps/export_app/forms.py:129
+#: apps/export_app/forms.py:126
 msgid "ZIP File"
 msgstr "Archivo ZIP"
 
-#: apps/export_app/forms.py:146 apps/rules/models.py:27
+#: apps/export_app/forms.py:143 apps/rules/models.py:27
 msgid "Transaction rules"
 msgstr "Reglas de transacción"
 
-#: apps/export_app/forms.py:148 apps/rules/models.py:68
+#: apps/export_app/forms.py:145 apps/rules/models.py:68
 msgid "Edit transaction action"
 msgstr "Editar acción de transacción"
 
-#: apps/export_app/forms.py:151 apps/rules/models.py:327
+#: apps/export_app/forms.py:148 apps/rules/models.py:327
 msgid "Update or create transaction actions"
 msgstr "Actualizar o crear acciones de transacción"
 
-#: apps/export_app/forms.py:185 templates/cotton/transaction/item.html:234
-#: templates/cotton/ui/deleted_transactions_action_bar.html:47
+#: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:224
+#: templates/cotton/ui/deleted_transactions_action_bar.html:50
 #: templates/export_app/fragments/restore.html:5
-#: templates/export_app/pages/index.html:24
+#: templates/export_app/pages/index.html:19
 msgid "Restore"
 msgstr "Restaurar"
 
-#: apps/export_app/forms.py:196
+#: apps/export_app/forms.py:191
 msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr "Por favor, sube un archivo ZIP o al menos un archivo CSV"
 
@@ -966,12 +947,12 @@ msgid ""
 msgstr ""
 "Hubo un error al restaurar tus datos. Revisa los registros para más detalles."
 
-#: apps/import_app/forms.py:49
+#: apps/import_app/forms.py:44
 msgid "Select a file"
 msgstr "Selecciona un archivo"
 
-#: apps/import_app/forms.py:61
-#: templates/import_app/fragments/profiles/list.html:62
+#: apps/import_app/forms.py:55
+#: templates/import_app/fragments/profiles/list.html:57
 #: templates/includes/navbar.html:137 templates/includes/sidebar.html:232
 msgid "Import"
 msgstr "Importar"
@@ -981,7 +962,7 @@ msgid "YAML Configuration"
 msgstr "Configuración YAML"
 
 #: apps/import_app/models.py:19
-#: templates/import_app/fragments/profiles/list.html:37
+#: templates/import_app/fragments/profiles/list.html:35
 msgid "Version"
 msgstr "Versión"
 
@@ -1007,8 +988,8 @@ msgid "Failed"
 msgstr "Fallido"
 
 #: apps/import_app/models.py:48
-#: templates/installment_plans/fragments/list.html:24
-#: templates/recurring_transactions/fragments/list.html:27
+#: templates/installment_plans/fragments/list.html:19
+#: templates/recurring_transactions/fragments/list.html:20
 msgid "Finished"
 msgstr "Finalizado"
 
@@ -1040,18 +1021,18 @@ msgstr "Tarea de importación agregada a la cola con éxito"
 msgid "Run deleted successfully"
 msgstr "Tarea de importación eliminada con éxito"
 
-#: apps/insights/forms.py:119 apps/insights/utils/sankey.py:36
-#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:189
-#: templates/insights/fragments/category_overview/index.html:88
-#: templates/insights/fragments/category_overview/index.html:395
-#: templates/insights/fragments/category_overview/index.html:424
+#: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
+#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:186
+#: templates/insights/fragments/category_overview/index.html:96
+#: templates/insights/fragments/category_overview/index.html:407
+#: templates/insights/fragments/category_overview/index.html:436
 msgid "Uncategorized"
 msgstr "Sin categoría"
 
 #: apps/insights/utils/category_explorer.py:66
 #: apps/insights/utils/category_explorer.py:145
-#: templates/cotton/ui/percentage_distribution.html:10
-#: templates/cotton/ui/percentage_distribution.html:14
+#: templates/cotton/ui/percentage_distribution.html:24
+#: templates/cotton/ui/percentage_distribution.html:26
 #: templates/insights/fragments/category_explorer/charts/account.html:72
 #: templates/insights/fragments/category_explorer/charts/currency.html:72
 msgid "Current Income"
@@ -1059,8 +1040,8 @@ msgstr "Ingreso Actual"
 
 #: apps/insights/utils/category_explorer.py:70
 #: apps/insights/utils/category_explorer.py:149
-#: templates/cotton/ui/percentage_distribution.html:24
-#: templates/cotton/ui/percentage_distribution.html:28
+#: templates/cotton/ui/percentage_distribution.html:50
+#: templates/cotton/ui/percentage_distribution.html:52
 #: templates/insights/fragments/category_explorer/charts/account.html:66
 #: templates/insights/fragments/category_explorer/charts/currency.html:66
 msgid "Current Expenses"
@@ -1068,8 +1049,8 @@ msgstr "Gastos Actuales"
 
 #: apps/insights/utils/category_explorer.py:74
 #: apps/insights/utils/category_explorer.py:153
-#: templates/cotton/ui/percentage_distribution.html:3
-#: templates/cotton/ui/percentage_distribution.html:7
+#: templates/cotton/ui/percentage_distribution.html:11
+#: templates/cotton/ui/percentage_distribution.html:13
 #: templates/insights/fragments/category_explorer/charts/account.html:78
 #: templates/insights/fragments/category_explorer/charts/currency.html:78
 msgid "Projected Income"
@@ -1077,8 +1058,8 @@ msgstr "Ingreso Proyectado"
 
 #: apps/insights/utils/category_explorer.py:78
 #: apps/insights/utils/category_explorer.py:157
-#: templates/cotton/ui/percentage_distribution.html:17
-#: templates/cotton/ui/percentage_distribution.html:21
+#: templates/cotton/ui/percentage_distribution.html:37
+#: templates/cotton/ui/percentage_distribution.html:39
 #: templates/insights/fragments/category_explorer/charts/account.html:60
 #: templates/insights/fragments/category_explorer/charts/currency.html:60
 msgid "Projected Expenses"
@@ -1089,132 +1070,133 @@ msgstr "Gastos Proyectados"
 msgid "Saved"
 msgstr "Guardado"
 
-#: apps/rules/forms.py:25
+#: apps/rules/forms.py:26
 msgid "Run on creation"
 msgstr "Ejecutar al crear"
 
-#: apps/rules/forms.py:26
+#: apps/rules/forms.py:27
 msgid "Run on update"
 msgstr "Ejecutar al editar"
 
-#: apps/rules/forms.py:27
+#: apps/rules/forms.py:28
 msgid "Run on delete"
 msgstr "Ejecutar al borrar"
 
-#: apps/rules/forms.py:28
+#: apps/rules/forms.py:29
 msgid "If..."
 msgstr "Si..."
 
-#: apps/rules/forms.py:76
+#: apps/rules/forms.py:73
 msgid "Set field"
 msgstr "Establecer campo"
 
-#: apps/rules/forms.py:77 templates/insights/fragments/sankey.html:94
+#: apps/rules/forms.py:74 templates/insights/fragments/sankey.html:101
 msgid "To"
 msgstr "A"
 
-#: apps/rules/forms.py:78 apps/rules/forms.py:162 apps/rules/models.py:20
+#: apps/rules/forms.py:75 apps/rules/forms.py:155 apps/rules/models.py:20
 #: apps/rules/models.py:62 apps/rules/models.py:323
-#: templates/rules/fragments/list.html:26
+#: templates/rules/fragments/list.html:23
 msgid "Order"
 msgstr "Orden"
 
-#: apps/rules/forms.py:129
+#: apps/rules/forms.py:122
 msgid "A value for this field already exists in the rule."
 msgstr "Ya existe un valor para este campo en la regla."
 
-#: apps/rules/forms.py:163 apps/rules/forms.py:164 apps/rules/forms.py:165
-#: apps/rules/forms.py:166 apps/rules/forms.py:167 apps/rules/forms.py:168
-#: apps/rules/forms.py:169 apps/rules/forms.py:170 apps/rules/forms.py:171
-#: apps/rules/forms.py:172 apps/rules/forms.py:173 apps/rules/forms.py:174
-#: apps/rules/forms.py:175 apps/rules/forms.py:176
+#: apps/rules/forms.py:156 apps/rules/forms.py:157 apps/rules/forms.py:158
+#: apps/rules/forms.py:159 apps/rules/forms.py:160 apps/rules/forms.py:161
+#: apps/rules/forms.py:162 apps/rules/forms.py:163 apps/rules/forms.py:164
+#: apps/rules/forms.py:165 apps/rules/forms.py:166 apps/rules/forms.py:167
+#: apps/rules/forms.py:168 apps/rules/forms.py:169
 msgid "Operator"
 msgstr "Operador"
 
-#: apps/rules/forms.py:178 apps/rules/forms.py:192 apps/rules/models.py:36
-#: apps/rules/models.py:271 apps/transactions/forms.py:396
-#: apps/transactions/models.py:302 apps/transactions/models.py:525
-#: apps/transactions/models.py:748 apps/transactions/models.py:991
+#: apps/rules/forms.py:171 apps/rules/forms.py:185 apps/rules/models.py:36
+#: apps/rules/models.py:271 apps/transactions/forms.py:377
+#: apps/transactions/models.py:302 apps/transactions/models.py:536
+#: apps/transactions/models.py:759 apps/transactions/models.py:1002
 msgid "Type"
 msgstr "Tipo"
 
-#: apps/rules/forms.py:179 apps/rules/forms.py:193 apps/rules/models.py:37
-#: apps/rules/models.py:275 apps/transactions/filters.py:23
-#: apps/transactions/forms.py:400 apps/transactions/models.py:304
-#: apps/transactions/models.py:993 templates/cotton/transaction/item.html:21
-#: templates/cotton/transaction/item.html:32
-#: templates/transactions/widgets/paid_toggle_button.html:12
-#: templates/transactions/widgets/unselectable_paid_toggle_button.html:16
+#: apps/rules/forms.py:172 apps/rules/forms.py:186 apps/rules/models.py:37
+#: apps/rules/models.py:275 apps/transactions/filters.py:22
+#: apps/transactions/forms.py:381 apps/transactions/models.py:304
+#: apps/transactions/models.py:1004 templates/cotton/transaction/item.html:20
+#: templates/cotton/transaction/item.html:31
+#: templates/transactions/widgets/paid_toggle_button.html:10
+#: templates/transactions/widgets/unselectable_paid_toggle_button.html:13
 msgid "Paid"
 msgstr "Pagado"
 
-#: apps/rules/forms.py:181 apps/rules/forms.py:195 apps/rules/models.py:39
-#: apps/rules/models.py:283 apps/transactions/forms.py:72
-#: apps/transactions/forms.py:416 apps/transactions/forms.py:571
-#: apps/transactions/forms.py:773 apps/transactions/models.py:306
-#: apps/transactions/models.py:543 apps/transactions/models.py:772
+#: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:39
+#: apps/rules/models.py:283 apps/transactions/forms.py:71
+#: apps/transactions/forms.py:397 apps/transactions/forms.py:547
+#: apps/transactions/forms.py:721 apps/transactions/models.py:306
+#: apps/transactions/models.py:554 apps/transactions/models.py:783
 msgid "Reference Date"
 msgstr "Fecha de Referencia"
 
-#: apps/rules/forms.py:182 apps/rules/forms.py:196 apps/rules/models.py:41
-#: apps/rules/models.py:287 apps/transactions/forms.py:423
-#: apps/transactions/models.py:312 apps/transactions/models.py:753
-#: apps/transactions/models.py:999 templates/insights/fragments/sankey.html:95
+#: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:41
+#: apps/rules/models.py:287 apps/transactions/forms.py:404
+#: apps/transactions/models.py:312 apps/transactions/models.py:764
+#: apps/transactions/models.py:1010
+#: templates/insights/fragments/sankey.html:102
 #: templates/installment_plans/fragments/table.html:18
 #: templates/quick_transactions/fragments/list.html:15
 #: templates/recurring_transactions/fragments/table.html:20
 msgid "Amount"
 msgstr "Monto"
 
-#: apps/rules/forms.py:183 apps/rules/forms.py:197 apps/rules/models.py:14
+#: apps/rules/forms.py:176 apps/rules/forms.py:190 apps/rules/models.py:14
 #: apps/rules/models.py:42 apps/rules/models.py:291
-#: apps/transactions/forms.py:427 apps/transactions/forms.py:575
-#: apps/transactions/models.py:317 apps/transactions/models.py:527
-#: apps/transactions/models.py:756 apps/transactions/models.py:1004
+#: apps/transactions/forms.py:408 apps/transactions/forms.py:551
+#: apps/transactions/models.py:317 apps/transactions/models.py:538
+#: apps/transactions/models.py:767 apps/transactions/models.py:1015
 msgid "Description"
 msgstr "Descripción"
 
-#: apps/rules/forms.py:186 apps/rules/forms.py:202 apps/rules/models.py:47
+#: apps/rules/forms.py:179 apps/rules/forms.py:195 apps/rules/models.py:47
 #: apps/rules/models.py:299 apps/transactions/models.py:356
-#: apps/transactions/models.py:1026
+#: apps/transactions/models.py:1037
 msgid "Internal Note"
 msgstr "Nota Interna"
 
-#: apps/rules/forms.py:187 apps/rules/forms.py:203 apps/rules/models.py:48
+#: apps/rules/forms.py:180 apps/rules/forms.py:196 apps/rules/models.py:48
 #: apps/rules/models.py:303 apps/transactions/models.py:358
-#: apps/transactions/models.py:1028
+#: apps/transactions/models.py:1039
 msgid "Internal ID"
 msgstr "ID Interno"
 
-#: apps/rules/forms.py:190 apps/rules/forms.py:204 apps/rules/models.py:40
-#: apps/rules/models.py:319 apps/transactions/forms.py:588
+#: apps/rules/forms.py:183 apps/rules/forms.py:197 apps/rules/models.py:40
+#: apps/rules/models.py:319 apps/transactions/forms.py:564
 #: apps/transactions/models.py:216 apps/transactions/models.py:307
-#: apps/transactions/models.py:994
+#: apps/transactions/models.py:1005
 msgid "Mute"
 msgstr "Silenciar"
 
-#: apps/rules/forms.py:219
+#: apps/rules/forms.py:212
 msgid "Search Criteria"
 msgstr "Criterio de Búsqueda"
 
-#: apps/rules/forms.py:364
+#: apps/rules/forms.py:357
 msgid "Set Values"
 msgstr "Establecer Valores"
 
-#: apps/rules/forms.py:415 apps/rules/forms.py:452 apps/rules/forms.py:489
+#: apps/rules/forms.py:404 apps/rules/forms.py:439 apps/rules/forms.py:474
 #: apps/transactions/models.py:379
 msgid "Transaction"
 msgstr "Transacción"
 
-#: apps/rules/forms.py:419 apps/rules/forms.py:456 apps/rules/forms.py:493
+#: apps/rules/forms.py:408 apps/rules/forms.py:443 apps/rules/forms.py:478
 msgid "Type to search for a transaction"
 msgstr "Escribe para buscar una transacción y vincularla a esta entrada"
 
-#: apps/rules/forms.py:431 apps/rules/forms.py:468 apps/rules/forms.py:504
+#: apps/rules/forms.py:419 apps/rules/forms.py:454 apps/rules/forms.py:488
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
 #: templates/rules/fragments/transaction_rule/dry_run/deleted.html:5
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
-#: templates/rules/fragments/transaction_rule/view.html:121
+#: templates/rules/fragments/transaction_rule/view.html:118
 msgid "Test"
 msgstr "Prueba"
 
@@ -1338,118 +1320,118 @@ msgstr "Acción de Actualizar o Crear Transacción actualizada con éxito"
 msgid "Update or Create Transaction action deleted successfully"
 msgstr "Acción de Actualizar o Crear Transacción eliminada con éxito"
 
-#: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:21
-#: templates/cotton/transaction/item.html:32 templates/includes/navbar.html:47
-#: templates/insights/fragments/category_overview/index.html:61
-#: templates/net_worth/net_worth.html:33
-#: templates/transactions/widgets/paid_toggle_button.html:8
-#: templates/transactions/widgets/unselectable_paid_toggle_button.html:12
+#: apps/transactions/filters.py:23 templates/cotton/transaction/item.html:20
+#: templates/cotton/transaction/item.html:31 templates/includes/navbar.html:47
+#: templates/insights/fragments/category_overview/index.html:65
+#: templates/net_worth/net_worth.html:39 templates/net_worth/net_worth.html:43
+#: templates/transactions/widgets/paid_toggle_button.html:7
+#: templates/transactions/widgets/unselectable_paid_toggle_button.html:10
 msgid "Projected"
 msgstr "Proyectado"
 
-#: apps/transactions/filters.py:41
+#: apps/transactions/filters.py:40
 msgid "Content"
 msgstr "Contenido"
 
-#: apps/transactions/filters.py:47
+#: apps/transactions/filters.py:46
 msgid "Transaction Type"
 msgstr "Tipo de Transacción"
 
-#: apps/transactions/filters.py:85
+#: apps/transactions/filters.py:84
 msgid "Date from"
 msgstr "Desde la fecha"
 
-#: apps/transactions/filters.py:90 apps/transactions/filters.py:100
+#: apps/transactions/filters.py:89 apps/transactions/filters.py:99
 msgid "Until"
 msgstr "Hasta"
 
-#: apps/transactions/filters.py:95
+#: apps/transactions/filters.py:94
 msgid "Reference date from"
 msgstr "Desde la fecha de referencia"
 
-#: apps/transactions/filters.py:105
+#: apps/transactions/filters.py:104
 msgid "Amount min"
 msgstr "Monto mínimo"
 
-#: apps/transactions/filters.py:110
+#: apps/transactions/filters.py:109
 msgid "Amount max"
 msgstr "Monto máximo"
 
-#: apps/transactions/filters.py:188
+#: apps/transactions/filters.py:185
 msgid "Categorized"
 msgstr "Con Categoría"
 
-#: apps/transactions/filters.py:195
+#: apps/transactions/filters.py:192
 msgid "Tagged"
 msgstr "Etiquetado"
 
-#: apps/transactions/filters.py:195
-#: templates/insights/fragments/category_overview/index.html:181
+#: apps/transactions/filters.py:192
+#: templates/insights/fragments/category_overview/index.html:189
 msgid "Untagged"
 msgstr "Sin etiqueta"
 
-#: apps/transactions/filters.py:201
+#: apps/transactions/filters.py:198
 msgid "Any entity"
 msgstr "Cualquier entidad"
 
-#: apps/transactions/filters.py:202
-#: templates/insights/fragments/category_overview/index.html:274
+#: apps/transactions/filters.py:199
+#: templates/insights/fragments/category_overview/index.html:282
 msgid "No entity"
 msgstr "Ninguna entidad"
 
-#: apps/transactions/forms.py:175
+#: apps/transactions/forms.py:170
 msgid "More"
 msgstr "Más"
 
-#: apps/transactions/forms.py:219
+#: apps/transactions/forms.py:207
 msgid "Save and add similar"
 msgstr "Guardar y añadir similar"
 
-#: apps/transactions/forms.py:224
+#: apps/transactions/forms.py:212
 msgid "Save and add another"
 msgstr "Guardar y añadir otro"
 
-#: apps/transactions/forms.py:307 apps/transactions/forms.py:591
+#: apps/transactions/forms.py:295 apps/transactions/forms.py:567
 msgid "Muted transactions won't be displayed on monthly summaries"
 msgstr ""
 "Las transacciones silenciadas no se mostrarán en los resúmenes mensuales"
 
-#: apps/transactions/forms.py:527
+#: apps/transactions/forms.py:503
 msgid "From Amount"
 msgstr "Monto de Origen"
 
-#: apps/transactions/forms.py:532
+#: apps/transactions/forms.py:508
 msgid "To Amount"
 msgstr "Monto de Destino"
 
-#: apps/transactions/forms.py:657
+#: apps/transactions/forms.py:606
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
 msgstr "Transferir"
 
-#: apps/transactions/forms.py:907
+#: apps/transactions/forms.py:847
 msgid "Tag name"
 msgstr "Nombre de etiqueta"
 
-#: apps/transactions/forms.py:939
+#: apps/transactions/forms.py:875
 msgid "Entity name"
 msgstr "Nombre de Entidad"
 
-#: apps/transactions/forms.py:971
+#: apps/transactions/forms.py:903
 msgid "Category name"
 msgstr "Nombre de Categoría"
 
-#: apps/transactions/forms.py:973
+#: apps/transactions/forms.py:905
 msgid "Muted categories won't be displayed on monthly summaries"
 msgstr ""
 "Las categorías silenciadas no serán mostradas en los resúmenes mensuales"
 
-#: apps/transactions/forms.py:1131
+#: apps/transactions/forms.py:1055
 msgid "future transactions"
 msgstr "transacciones futuras"
 
-#: apps/transactions/forms.py:1161
+#: apps/transactions/forms.py:1081
 msgid "End date should be after the start date"
 msgstr "La fecha de fin debe ser posterior a la fecha de inicio"
 
@@ -1492,34 +1474,34 @@ msgstr ""
 msgid "Entity"
 msgstr "Entidad"
 
-#: apps/transactions/models.py:289 apps/transactions/models.py:971
+#: apps/transactions/models.py:289 apps/transactions/models.py:982
 #: templates/calendar_view/fragments/list.html:42
 #: templates/calendar_view/fragments/list.html:44
 #: templates/calendar_view/fragments/list.html:52
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
 #: templates/cotton/ui/transactions_fab.html:10
-#: templates/insights/fragments/category_overview/index.html:79
+#: templates/insights/fragments/category_overview/index.html:87
 #: templates/monthly_overview/fragments/monthly_summary.html:39
 msgid "Income"
 msgstr "Ingreso"
 
-#: apps/transactions/models.py:290 apps/transactions/models.py:972
+#: apps/transactions/models.py:290 apps/transactions/models.py:983
 #: templates/calendar_view/fragments/list.html:46
 #: templates/calendar_view/fragments/list.html:48
 #: templates/calendar_view/fragments/list.html:56
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
 #: templates/cotton/ui/transactions_fab.html:19
-#: templates/insights/fragments/category_overview/index.html:80
+#: templates/insights/fragments/category_overview/index.html:88
 msgid "Expense"
 msgstr "Gasto"
 
-#: apps/transactions/models.py:345 apps/transactions/models.py:582
+#: apps/transactions/models.py:345 apps/transactions/models.py:593
 msgid "Installment Plan"
 msgstr "Plan de Cuotas"
 
-#: apps/transactions/models.py:354 apps/transactions/models.py:806
+#: apps/transactions/models.py:354 apps/transactions/models.py:817
 msgid "Recurring Transaction"
 msgstr "Transacción Recurrente"
 
@@ -1531,125 +1513,125 @@ msgstr "Eliminado"
 msgid "Deleted At"
 msgstr "Eliminado en"
 
-#: apps/transactions/models.py:462 templates/tags/fragments/table.html:71
+#: apps/transactions/models.py:473 templates/tags/fragments/table.html:69
 msgid "No tags"
 msgstr "Sin etiquetas"
 
-#: apps/transactions/models.py:464
+#: apps/transactions/models.py:475
 msgid "No category"
 msgstr "Sin categoría"
 
-#: apps/transactions/models.py:466
+#: apps/transactions/models.py:477
 msgid "No description"
 msgstr "Sin descripción"
 
-#: apps/transactions/models.py:514 templates/includes/sidebar.html:59
+#: apps/transactions/models.py:525 templates/includes/sidebar.html:57
 msgid "Yearly"
 msgstr "Anual"
 
-#: apps/transactions/models.py:515 apps/users/models.py:464
-#: templates/includes/navbar.html:27 templates/includes/sidebar.html:53
+#: apps/transactions/models.py:526 apps/users/models.py:464
+#: templates/includes/navbar.html:27 templates/includes/sidebar.html:51
 msgid "Monthly"
 msgstr "Mensual"
 
-#: apps/transactions/models.py:516
+#: apps/transactions/models.py:527
 msgid "Weekly"
 msgstr "Semanal"
 
-#: apps/transactions/models.py:517
+#: apps/transactions/models.py:528
 msgid "Daily"
 msgstr "Diario"
 
-#: apps/transactions/models.py:530
+#: apps/transactions/models.py:541
 msgid "Number of Installments"
 msgstr "Cantidad de cuotas"
 
-#: apps/transactions/models.py:535
+#: apps/transactions/models.py:546
 msgid "Installment Start"
 msgstr "Cuota de Inicio"
 
-#: apps/transactions/models.py:536
+#: apps/transactions/models.py:547
 msgid "The installment number to start counting from"
 msgstr "El número de la cuota desde la cual comenzar a contar"
 
-#: apps/transactions/models.py:541 apps/transactions/models.py:776
+#: apps/transactions/models.py:552 apps/transactions/models.py:787
 msgid "Start Date"
 msgstr "Fecha de Inicio"
 
-#: apps/transactions/models.py:545 apps/transactions/models.py:777
+#: apps/transactions/models.py:556 apps/transactions/models.py:788
 msgid "End Date"
 msgstr "Fecha de Fin"
 
-#: apps/transactions/models.py:550
+#: apps/transactions/models.py:561
 msgid "Recurrence"
 msgstr "Recurrencia"
 
-#: apps/transactions/models.py:553
+#: apps/transactions/models.py:564
 msgid "Installment Amount"
 msgstr "Monto de la Cuota"
 
-#: apps/transactions/models.py:572 apps/transactions/models.py:796
+#: apps/transactions/models.py:583 apps/transactions/models.py:807
 msgid "Add description to transactions"
 msgstr "Agregar descripción a las transacciones"
 
-#: apps/transactions/models.py:575 apps/transactions/models.py:799
+#: apps/transactions/models.py:586 apps/transactions/models.py:810
 msgid "Add notes to transactions"
 msgstr "Agregar notas a las transacciones"
 
-#: apps/transactions/models.py:735
+#: apps/transactions/models.py:746
 msgid "day(s)"
 msgstr "día(s)"
 
-#: apps/transactions/models.py:736
+#: apps/transactions/models.py:747
 msgid "week(s)"
 msgstr "semana(s)"
 
-#: apps/transactions/models.py:737
+#: apps/transactions/models.py:748
 msgid "month(s)"
 msgstr "mes(es)"
 
-#: apps/transactions/models.py:738
+#: apps/transactions/models.py:749
 msgid "year(s)"
 msgstr "año(s)"
 
-#: apps/transactions/models.py:740
-#: templates/recurring_transactions/fragments/list.html:24
+#: apps/transactions/models.py:751
+#: templates/recurring_transactions/fragments/list.html:18
 msgid "Paused"
 msgstr "Pausado"
 
-#: apps/transactions/models.py:779
+#: apps/transactions/models.py:790
 msgid "Recurrence Type"
 msgstr "Tipo de Recurrencia"
 
-#: apps/transactions/models.py:782
+#: apps/transactions/models.py:793
 msgid "Recurrence Interval"
 msgstr "Intervalo de Recurrencia"
 
-#: apps/transactions/models.py:785
+#: apps/transactions/models.py:796
 msgid "Keep at most"
 msgstr "Mantener como máximo"
 
-#: apps/transactions/models.py:789
+#: apps/transactions/models.py:800
 msgid "Last Generated Date"
 msgstr "Última Fecha Generada"
 
-#: apps/transactions/models.py:792
+#: apps/transactions/models.py:803
 msgid "Last Generated Reference Date"
 msgstr "Última Fecha de Referencia Generada"
 
-#: apps/transactions/models.py:1038
-#: apps/transactions/views/quick_transactions.py:177
-#: apps/transactions/views/quick_transactions.py:186
-#: apps/transactions/views/quick_transactions.py:188
-#: apps/transactions/views/quick_transactions.py:190
+#: apps/transactions/models.py:1049
+#: apps/transactions/views/quick_transactions.py:178
+#: apps/transactions/views/quick_transactions.py:187
+#: apps/transactions/views/quick_transactions.py:189
+#: apps/transactions/views/quick_transactions.py:191
 #: templates/cotton/ui/transactions_fab.html:59
 msgid "Quick Transaction"
 msgstr "Transacción Rápida"
 
-#: apps/transactions/models.py:1039 templates/includes/navbar.html:73
-#: templates/includes/sidebar.html:100
+#: apps/transactions/models.py:1050 templates/includes/navbar.html:73
+#: templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
-#: templates/quick_transactions/pages/index.html:11
+#: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
 msgstr "Transacciones Rápidas"
 
@@ -1739,11 +1721,11 @@ msgid "Installment Plan deleted successfully"
 msgstr "Plan de cuotas eliminado con éxito"
 
 #: apps/transactions/views/quick_transactions.py:45
-#: apps/transactions/views/quick_transactions.py:222 apps/users/views.py:170
+#: apps/transactions/views/quick_transactions.py:224 apps/users/views.py:188
 msgid "Item added successfully"
 msgstr "Ítem agregado con éxito"
 
-#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:202
+#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:220
 msgid "Item updated successfully"
 msgstr "Ítem actualizado con éxito"
 
@@ -1751,7 +1733,7 @@ msgstr "Ítem actualizado con éxito"
 msgid "Item deleted successfully"
 msgstr "Ítem eliminado con éxito"
 
-#: apps/transactions/views/quick_transactions.py:155
+#: apps/transactions/views/quick_transactions.py:156
 #: apps/transactions/views/transactions.py:53
 #: apps/transactions/views/transactions.py:149
 msgid "Transaction added successfully"
@@ -1840,44 +1822,44 @@ msgstr "Permisos"
 msgid "Important dates"
 msgstr "Fechas Importantes"
 
-#: apps/users/forms.py:23 apps/users/models.py:451
-#: templates/users/login.html:20
+#: apps/users/forms.py:22 apps/users/forms.py:26 apps/users/models.py:451
+#: templates/users/login.html:18
 msgid "E-mail"
 msgstr "Correo Electrónico"
 
-#: apps/users/forms.py:29 templates/users/login.html:21
+#: apps/users/forms.py:33 apps/users/forms.py:38 templates/users/login.html:19
 msgid "Password"
 msgstr "Contraseña"
 
-#: apps/users/forms.py:37
+#: apps/users/forms.py:45
 msgid "Invalid e-mail or password"
 msgstr "Correo o contraseña no válidos"
 
-#: apps/users/forms.py:38
+#: apps/users/forms.py:46
 msgid "This account is deactivated"
 msgstr "Esta cuenta está desactivada"
 
-#: apps/users/forms.py:54 apps/users/forms.py:67 apps/users/forms.py:89
-#: templates/monthly_overview/pages/overview.html:140
-#: templates/monthly_overview/pages/overview.html:186
-#: templates/transactions/pages/transactions.html:14
-#: templates/transactions/pages/transactions.html:60
+#: apps/users/forms.py:62 apps/users/forms.py:75 apps/users/forms.py:97
+#: templates/monthly_overview/pages/overview.html:95
+#: templates/monthly_overview/pages/overview.html:142
+#: templates/transactions/pages/transactions.html:47
+#: templates/transactions/pages/transactions.html:95
 msgid "Default"
 msgstr "Por Defecto"
 
-#: apps/users/forms.py:97 apps/users/models.py:484
+#: apps/users/forms.py:105 apps/users/models.py:484
 msgid "Date Format"
 msgstr "Formato de Fecha"
 
-#: apps/users/forms.py:102 apps/users/models.py:489
+#: apps/users/forms.py:110 apps/users/models.py:489
 msgid "Datetime Format"
 msgstr "Formato de Fecha y Hora"
 
-#: apps/users/forms.py:108 apps/users/models.py:492
+#: apps/users/forms.py:116 apps/users/models.py:492
 msgid "Number Format"
 msgstr "Formato de Número"
 
-#: apps/users/forms.py:148
+#: apps/users/forms.py:154
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1888,19 +1870,19 @@ msgstr ""
 "y las fechas\n"
 "Ayude a traducir WYGIWYH a su idioma en %(translation_link)s"
 
-#: apps/users/forms.py:157
+#: apps/users/forms.py:163
 msgid "New Password"
 msgstr "Nueva Contraseña"
 
-#: apps/users/forms.py:160
+#: apps/users/forms.py:166
 msgid "Leave blank to keep the current password."
 msgstr "Deje en blanco para mantener la contraseña actual."
 
-#: apps/users/forms.py:163
+#: apps/users/forms.py:169
 msgid "Confirm New Password"
 msgstr "Confirmar nueva contraseña"
 
-#: apps/users/forms.py:175 apps/users/forms.py:336
+#: apps/users/forms.py:181 apps/users/forms.py:338
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -1908,7 +1890,7 @@ msgstr ""
 "Establece si este usuario debe ser tratado como activo. Desmarque esta "
 "opción en lugar de borrar cuentas."
 
-#: apps/users/forms.py:178 apps/users/forms.py:339
+#: apps/users/forms.py:184 apps/users/forms.py:341
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
@@ -1916,36 +1898,36 @@ msgstr ""
 "Establece que este usuario tiene todos los permisos sin asignárselos "
 "expresamente."
 
-#: apps/users/forms.py:249
+#: apps/users/forms.py:251
 msgid "This email address is already in use by another account."
 msgstr "Esta dirección de correo es usada por otra cuenta."
 
-#: apps/users/forms.py:257
+#: apps/users/forms.py:259
 msgid "The two password fields didn't match."
 msgstr "Los dos campos de contraseñas no coinciden."
 
-#: apps/users/forms.py:259
+#: apps/users/forms.py:261
 msgid "Please confirm your new password."
 msgstr "Por favor, confirme su nueva contraseña."
 
-#: apps/users/forms.py:261
+#: apps/users/forms.py:263
 msgid "Please enter the new password first."
 msgstr "Por favor, introduzca su nueva contraseña."
 
-#: apps/users/forms.py:281
+#: apps/users/forms.py:283
 msgid "You cannot deactivate your own account using this form."
 msgstr "No puede desactivar su propia cuenta usando este formulario."
 
-#: apps/users/forms.py:294
+#: apps/users/forms.py:296
 msgid "Cannot remove status from the last superuser."
 msgstr "No se puede eliminar el estado del último superusuario."
 
-#: apps/users/forms.py:300
+#: apps/users/forms.py:302
 msgid "You cannot remove your own superuser status using this form."
 msgstr ""
 "No puedes eliminar tu propio estado de superusuario usando este formulario."
 
-#: apps/users/forms.py:397
+#: apps/users/forms.py:395
 msgid "A user with this email address already exists."
 msgstr "Ya existe un usuario con este correo."
 
@@ -1961,7 +1943,7 @@ msgstr "Anual por cuenta"
 msgid "Current Net Worth"
 msgstr "Patrimonio Neto Actual"
 
-#: apps/users/models.py:468 templates/net_worth/net_worth.html:9
+#: apps/users/models.py:468 templates/net_worth/net_worth.html:11
 msgid "Projected Net Worth"
 msgstr "Patrimonio Neto Proyectado"
 
@@ -1970,7 +1952,7 @@ msgid "All Transactions"
 msgstr "Todas las Transacciones"
 
 #: apps/users/models.py:470 templates/includes/navbar.html:33
-#: templates/includes/sidebar.html:65
+#: templates/includes/sidebar.html:63
 msgid "Calendar"
 msgstr "Calendario"
 
@@ -1990,23 +1972,23 @@ msgstr "Zona Horaria"
 msgid "Start page"
 msgstr "Página de Inicio"
 
-#: apps/users/views.py:68
+#: apps/users/views.py:67
 msgid "Transaction amounts are now hidden"
 msgstr "Los montos de las transacciones ahora están ocultos"
 
-#: apps/users/views.py:71
+#: apps/users/views.py:70
 msgid "Transaction amounts are now displayed"
 msgstr "Los montos de las transacciones ahora son visibles"
 
-#: apps/users/views.py:89
+#: apps/users/views.py:88
 msgid "Sounds are now muted"
 msgstr "Los sonidos ahora están silenciados"
 
-#: apps/users/views.py:92
+#: apps/users/views.py:91
 msgid "Sounds will now play"
 msgstr "Los sonidos se han activado"
 
-#: apps/users/views.py:108
+#: apps/users/views.py:107
 msgid "Your settings have been updated"
 msgstr "Tus ajustes han sido actualizados"
 
@@ -2018,175 +2000,175 @@ msgstr "Agregar grupo de cuentas"
 msgid "Edit account group"
 msgstr "Editar grupo de cuentas"
 
-#: templates/account_groups/fragments/list.html:32
-#: templates/accounts/fragments/list.html:37
-#: templates/categories/fragments/table.html:24
-#: templates/currencies/fragments/list.html:34
-#: templates/dca/fragments/strategy/details.html:63
-#: templates/entities/fragments/table.html:23
+#: templates/account_groups/fragments/list.html:29
+#: templates/accounts/fragments/list.html:34
+#: templates/categories/fragments/table.html:25
+#: templates/currencies/fragments/list.html:31
+#: templates/dca/fragments/strategy/details.html:60
+#: templates/entities/fragments/table.html:24
 #: templates/exchange_rates/fragments/table.html:19
-#: templates/exchange_rates_services/fragments/list.html:42
-#: templates/exchange_rates_services/fragments/table.html:19
-#: templates/import_app/fragments/profiles/list.html:44
+#: templates/exchange_rates_services/fragments/list.html:38
+#: templates/exchange_rates_services/fragments/table.html:20
+#: templates/import_app/fragments/profiles/list.html:42
 #: templates/installment_plans/fragments/table.html:25
 #: templates/quick_transactions/fragments/list.html:22
 #: templates/recurring_transactions/fragments/table.html:27
-#: templates/rules/fragments/list.html:34
-#: templates/tags/fragments/table.html:23
-#: templates/users/fragments/list.html:38
+#: templates/rules/fragments/list.html:31
+#: templates/tags/fragments/table.html:24
+#: templates/users/fragments/list.html:35
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/account_groups/fragments/list.html:36
-#: templates/accounts/fragments/list.html:41
+#: templates/account_groups/fragments/list.html:32
+#: templates/accounts/fragments/list.html:37
 #: templates/categories/fragments/table.html:29
 #: templates/cotton/transaction/item.html:152
 #: templates/cotton/ui/transactions_action_bar.html:52
-#: templates/currencies/fragments/list.html:38
-#: templates/dca/fragments/strategy/details.html:67
-#: templates/dca/fragments/strategy/list.html:36
+#: templates/currencies/fragments/list.html:34
+#: templates/dca/fragments/strategy/details.html:63
+#: templates/dca/fragments/strategy/list.html:31
 #: templates/entities/fragments/table.html:28
-#: templates/exchange_rates/fragments/table.html:23
-#: templates/exchange_rates_services/fragments/list.html:46
+#: templates/exchange_rates/fragments/table.html:22
+#: templates/exchange_rates_services/fragments/list.html:41
 #: templates/exchange_rates_services/fragments/table.html:23
-#: templates/import_app/fragments/profiles/list.html:48
-#: templates/installment_plans/fragments/table.html:29
-#: templates/quick_transactions/fragments/list.html:26
-#: templates/recurring_transactions/fragments/table.html:31
-#: templates/rules/fragments/transaction_rule/view.html:23
-#: templates/rules/fragments/transaction_rule/view.html:53
-#: templates/rules/fragments/transaction_rule/view.html:88
+#: templates/import_app/fragments/profiles/list.html:45
+#: templates/installment_plans/fragments/table.html:28
+#: templates/quick_transactions/fragments/list.html:25
+#: templates/recurring_transactions/fragments/table.html:30
+#: templates/rules/fragments/transaction_rule/view.html:22
+#: templates/rules/fragments/transaction_rule/view.html:52
+#: templates/rules/fragments/transaction_rule/view.html:85
 #: templates/tags/fragments/table.html:28
-#: templates/users/fragments/list.html:43
+#: templates/users/fragments/list.html:39
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/account_groups/fragments/list.html:43
-#: templates/accounts/fragments/list.html:48
+#: templates/account_groups/fragments/list.html:39
+#: templates/accounts/fragments/list.html:44
 #: templates/categories/fragments/table.html:36
-#: templates/cotton/transaction/item.html:159
-#: templates/cotton/transaction/item.html:240
-#: templates/cotton/ui/deleted_transactions_action_bar.html:55
-#: templates/cotton/ui/transactions_action_bar.html:90
-#: templates/currencies/fragments/list.html:45
-#: templates/dca/fragments/strategy/details.html:75
-#: templates/dca/fragments/strategy/list.html:44
-#: templates/entities/fragments/table.html:36
-#: templates/exchange_rates/fragments/table.html:31
-#: templates/exchange_rates_services/fragments/list.html:53
-#: templates/exchange_rates_services/fragments/table.html:31
-#: templates/import_app/fragments/profiles/list.html:69
-#: templates/import_app/fragments/runs/list.html:102
-#: templates/installment_plans/fragments/table.html:58
-#: templates/mini_tools/unit_price_calculator.html:18
-#: templates/quick_transactions/fragments/list.html:34
-#: templates/recurring_transactions/fragments/table.html:93
-#: templates/rules/fragments/list.html:45
-#: templates/rules/fragments/transaction_rule/dry_run/deleted.html:5
-#: templates/rules/fragments/transaction_rule/view.html:61
-#: templates/rules/fragments/transaction_rule/view.html:96
-#: templates/rules/fragments/transaction_rule/view.html:137
-#: templates/tags/fragments/table.html:36
-msgid "Delete"
-msgstr "Borrar"
-
-#: templates/account_groups/fragments/list.html:47
-#: templates/accounts/fragments/list.html:52
-#: templates/categories/fragments/table.html:41
-#: templates/cotton/transaction/item.html:163
-#: templates/cotton/transaction/item.html:244
-#: templates/cotton/ui/deleted_transactions_action_bar.html:57
-#: templates/cotton/ui/transactions_action_bar.html:92
-#: templates/currencies/fragments/list.html:49
-#: templates/dca/fragments/strategy/details.html:80
-#: templates/dca/fragments/strategy/list.html:48
-#: templates/entities/fragments/table.html:40
-#: templates/exchange_rates/fragments/table.html:36
-#: templates/exchange_rates_services/fragments/list.html:57
-#: templates/exchange_rates_services/fragments/table.html:36
-#: templates/import_app/fragments/profiles/list.html:73
-#: templates/import_app/fragments/runs/list.html:106
-#: templates/installment_plans/fragments/table.html:50
-#: templates/installment_plans/fragments/table.html:62
-#: templates/quick_transactions/fragments/list.html:39
-#: templates/recurring_transactions/fragments/table.html:55
-#: templates/recurring_transactions/fragments/table.html:69
-#: templates/recurring_transactions/fragments/table.html:84
-#: templates/recurring_transactions/fragments/table.html:98
-#: templates/rules/fragments/list.html:49
-#: templates/rules/fragments/transaction_rule/view.html:65
-#: templates/rules/fragments/transaction_rule/view.html:100
-#: templates/tags/fragments/table.html:40
-msgid "Are you sure?"
-msgstr "¿Estás seguro?"
-
-#: templates/account_groups/fragments/list.html:48
-#: templates/accounts/fragments/list.html:53
-#: templates/categories/fragments/table.html:42
-#: templates/cotton/transaction/item.html:164
-#: templates/cotton/transaction/item.html:245
-#: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:93
-#: templates/currencies/fragments/list.html:50
-#: templates/dca/fragments/strategy/details.html:81
-#: templates/dca/fragments/strategy/list.html:49
-#: templates/entities/fragments/table.html:41
-#: templates/exchange_rates/fragments/table.html:37
-#: templates/exchange_rates_services/fragments/list.html:58
-#: templates/exchange_rates_services/fragments/table.html:37
-#: templates/import_app/fragments/profiles/list.html:74
-#: templates/rules/fragments/list.html:50
-#: templates/rules/fragments/transaction_rule/view.html:66
-#: templates/rules/fragments/transaction_rule/view.html:101
-#: templates/tags/fragments/table.html:41
-msgid "You won't be able to revert this!"
-msgstr "¡No podrás revertir esto!"
-
-#: templates/account_groups/fragments/list.html:49
-#: templates/accounts/fragments/list.html:54
-#: templates/categories/fragments/table.html:43
-#: templates/cotton/transaction/item.html:165
-#: templates/cotton/transaction/item.html:246
-#: templates/currencies/fragments/list.html:51
-#: templates/dca/fragments/strategy/details.html:82
-#: templates/dca/fragments/strategy/list.html:50
-#: templates/entities/fragments/table.html:42
-#: templates/exchange_rates/fragments/table.html:38
-#: templates/exchange_rates_services/fragments/list.html:59
-#: templates/exchange_rates_services/fragments/table.html:38
-#: templates/import_app/fragments/profiles/list.html:75
-#: templates/import_app/fragments/runs/list.html:108
-#: templates/installment_plans/fragments/table.html:64
-#: templates/quick_transactions/fragments/list.html:41
-#: templates/recurring_transactions/fragments/table.html:100
-#: templates/rules/fragments/list.html:51
-#: templates/rules/fragments/transaction_rule/view.html:67
-#: templates/rules/fragments/transaction_rule/view.html:102
-#: templates/tags/fragments/table.html:42
-msgid "Yes, delete it!"
-msgstr "¡Sí, bórralo!"
-
-#: templates/account_groups/fragments/list.html:55
-#: templates/accounts/fragments/list.html:60
-#: templates/categories/fragments/table.html:49
-#: templates/dca/fragments/strategy/list.html:58
-#: templates/entities/fragments/table.html:48
-#: templates/rules/fragments/list.html:57
-#: templates/tags/fragments/table.html:48
+#: templates/dca/fragments/strategy/list.html:51
+#: templates/entities/fragments/table.html:35
+#: templates/rules/fragments/list.html:41
+#: templates/tags/fragments/table.html:35
 msgid "Take ownership"
 msgstr "Tomar propiedad"
 
-#: templates/account_groups/fragments/list.html:65
-#: templates/accounts/fragments/list.html:70
-#: templates/categories/fragments/table.html:59
-#: templates/dca/fragments/strategy/list.html:67
-#: templates/entities/fragments/table.html:58
-#: templates/rules/fragments/list.html:67
-#: templates/tags/fragments/table.html:58
+#: templates/account_groups/fragments/list.html:48
+#: templates/accounts/fragments/list.html:53
+#: templates/categories/fragments/table.html:45
+#: templates/dca/fragments/strategy/list.html:59
+#: templates/entities/fragments/table.html:44
+#: templates/rules/fragments/list.html:50
+#: templates/tags/fragments/table.html:44
 msgid "Share"
 msgstr "Compartir"
 
-#: templates/account_groups/fragments/list.html:77
+#: templates/account_groups/fragments/list.html:54
+#: templates/accounts/fragments/list.html:71
+#: templates/categories/fragments/table.html:51
+#: templates/cotton/transaction/item.html:158
+#: templates/cotton/transaction/item.html:230
+#: templates/cotton/ui/deleted_transactions_action_bar.html:57
+#: templates/cotton/ui/transactions_action_bar.html:89
+#: templates/currencies/fragments/list.html:40
+#: templates/dca/fragments/strategy/details.html:70
+#: templates/dca/fragments/strategy/list.html:38
+#: templates/entities/fragments/table.html:51
+#: templates/exchange_rates/fragments/table.html:29
+#: templates/exchange_rates_services/fragments/list.html:47
+#: templates/exchange_rates_services/fragments/table.html:30
+#: templates/import_app/fragments/profiles/list.html:63
+#: templates/import_app/fragments/runs/list.html:100
+#: templates/installment_plans/fragments/table.html:54
+#: templates/mini_tools/unit_price_calculator.html:16
+#: templates/quick_transactions/fragments/list.html:32
+#: templates/recurring_transactions/fragments/table.html:87
+#: templates/rules/fragments/list.html:56
+#: templates/rules/fragments/transaction_rule/dry_run/deleted.html:5
+#: templates/rules/fragments/transaction_rule/view.html:59
+#: templates/rules/fragments/transaction_rule/view.html:92
+#: templates/rules/fragments/transaction_rule/view.html:134
+#: templates/tags/fragments/table.html:51
+msgid "Delete"
+msgstr "Borrar"
+
+#: templates/account_groups/fragments/list.html:58
+#: templates/accounts/fragments/list.html:75
+#: templates/categories/fragments/table.html:56
+#: templates/cotton/transaction/item.html:160
+#: templates/cotton/transaction/item.html:236
+#: templates/cotton/ui/deleted_transactions_action_bar.html:59
+#: templates/cotton/ui/transactions_action_bar.html:91
+#: templates/currencies/fragments/list.html:44
+#: templates/dca/fragments/strategy/details.html:75
+#: templates/dca/fragments/strategy/list.html:42
+#: templates/entities/fragments/table.html:55
+#: templates/exchange_rates/fragments/table.html:34
+#: templates/exchange_rates_services/fragments/list.html:51
+#: templates/exchange_rates_services/fragments/table.html:35
+#: templates/import_app/fragments/profiles/list.html:67
+#: templates/import_app/fragments/runs/list.html:104
+#: templates/installment_plans/fragments/table.html:47
+#: templates/installment_plans/fragments/table.html:58
+#: templates/quick_transactions/fragments/list.html:37
+#: templates/recurring_transactions/fragments/table.html:52
+#: templates/recurring_transactions/fragments/table.html:65
+#: templates/recurring_transactions/fragments/table.html:79
+#: templates/recurring_transactions/fragments/table.html:92
+#: templates/rules/fragments/list.html:60
+#: templates/rules/fragments/transaction_rule/view.html:63
+#: templates/rules/fragments/transaction_rule/view.html:96
+#: templates/tags/fragments/table.html:55
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: templates/account_groups/fragments/list.html:59
+#: templates/accounts/fragments/list.html:76
+#: templates/categories/fragments/table.html:57
+#: templates/cotton/transaction/item.html:161
+#: templates/cotton/transaction/item.html:237
+#: templates/cotton/ui/deleted_transactions_action_bar.html:60
+#: templates/cotton/ui/transactions_action_bar.html:92
+#: templates/currencies/fragments/list.html:45
+#: templates/dca/fragments/strategy/details.html:76
+#: templates/dca/fragments/strategy/list.html:43
+#: templates/entities/fragments/table.html:56
+#: templates/exchange_rates/fragments/table.html:35
+#: templates/exchange_rates_services/fragments/list.html:52
+#: templates/exchange_rates_services/fragments/table.html:36
+#: templates/import_app/fragments/profiles/list.html:68
+#: templates/rules/fragments/list.html:61
+#: templates/rules/fragments/transaction_rule/view.html:64
+#: templates/rules/fragments/transaction_rule/view.html:97
+#: templates/tags/fragments/table.html:56
+msgid "You won't be able to revert this!"
+msgstr "¡No podrás revertir esto!"
+
+#: templates/account_groups/fragments/list.html:60
+#: templates/accounts/fragments/list.html:77
+#: templates/categories/fragments/table.html:58
+#: templates/cotton/transaction/item.html:162
+#: templates/cotton/transaction/item.html:238
+#: templates/currencies/fragments/list.html:46
+#: templates/dca/fragments/strategy/details.html:77
+#: templates/dca/fragments/strategy/list.html:44
+#: templates/entities/fragments/table.html:57
+#: templates/exchange_rates/fragments/table.html:36
+#: templates/exchange_rates_services/fragments/list.html:53
+#: templates/exchange_rates_services/fragments/table.html:37
+#: templates/import_app/fragments/profiles/list.html:69
+#: templates/import_app/fragments/runs/list.html:106
+#: templates/installment_plans/fragments/table.html:60
+#: templates/quick_transactions/fragments/list.html:39
+#: templates/recurring_transactions/fragments/table.html:94
+#: templates/rules/fragments/list.html:62
+#: templates/rules/fragments/transaction_rule/view.html:65
+#: templates/rules/fragments/transaction_rule/view.html:98
+#: templates/tags/fragments/table.html:57
+msgid "Yes, delete it!"
+msgstr "¡Sí, bórralo!"
+
+#: templates/account_groups/fragments/list.html:71
 msgid "No account groups"
 msgstr "No hay grupos de cuentas"
 
@@ -2203,17 +2185,17 @@ msgstr "Configuración de uso compartido"
 msgid "Account Reconciliation"
 msgstr "Conciliación de Cuentas"
 
-#: templates/accounts/fragments/account_reconciliation.html:26
+#: templates/accounts/fragments/account_reconciliation.html:20
 msgid "Current balance"
 msgstr "Saldo actual"
 
-#: templates/accounts/fragments/account_reconciliation.html:39
-#: templates/net_worth/net_worth.html:105
-#: templates/net_worth/net_worth.html:362
+#: templates/accounts/fragments/account_reconciliation.html:36
+#: templates/net_worth/net_worth.html:146
+#: templates/net_worth/net_worth.html:396
 msgid "Difference"
 msgstr "Diferencia"
 
-#: templates/accounts/fragments/account_reconciliation.html:70
+#: templates/accounts/fragments/account_reconciliation.html:64
 msgid "Reconcile balances"
 msgstr "Conciliar saldos"
 
@@ -2225,19 +2207,19 @@ msgstr "Agregar cuenta"
 msgid "Edit account"
 msgstr "Editar cuenta"
 
-#: templates/accounts/fragments/list.html:29
+#: templates/accounts/fragments/list.html:26
 msgid "Is Asset"
 msgstr "Es un Activo"
 
-#: templates/accounts/fragments/list.html:78
+#: templates/accounts/fragments/list.html:62
 msgid "Track"
 msgstr "Seguir"
 
-#: templates/accounts/fragments/list.html:78
+#: templates/accounts/fragments/list.html:62
 msgid "Untrack"
 msgstr "Dejar de seguir"
 
-#: templates/accounts/fragments/list.html:98
+#: templates/accounts/fragments/list.html:93
 msgid "No accounts"
 msgstr "Sin cuentas"
 
@@ -2277,8 +2259,8 @@ msgstr "Transacciones en"
 msgid "No transactions on this date"
 msgstr "No hay transacciones en esta fecha"
 
-#: templates/calendar_view/pages/calendar.html:8
-#: templates/monthly_overview/pages/overview.html:8
+#: templates/calendar_view/pages/calendar.html:7
+#: templates/monthly_overview/pages/overview.html:7
 msgid "Monthly Overview"
 msgstr "Resumen Mensual"
 
@@ -2290,12 +2272,12 @@ msgstr "Agregar categoría"
 msgid "Edit category"
 msgstr "Editar categoría"
 
-#: templates/categories/fragments/table.html:17
+#: templates/categories/fragments/table.html:18
 msgid "Muted"
 msgstr "Silenciado"
 
-#: templates/categories/fragments/table.html:75
-#: templates/insights/fragments/category_overview/index.html:540
+#: templates/categories/fragments/table.html:73
+#: templates/insights/fragments/category_overview/index.html:552
 msgid "No categories"
 msgstr "Sin categorías"
 
@@ -2303,16 +2285,17 @@ msgstr "Sin categorías"
 msgid "Pick a month"
 msgstr "Selecciona un mes"
 
-#: templates/common/fragments/toasts.html:15 templates/extends/offcanvas.html:5
-#: templates/includes/sidebar.html:45
+#: templates/common/fragments/toasts.html:20
+#: templates/cotton/components/fab.html:9 templates/extends/offcanvas.html:4
+#: templates/includes/sidebar.html:44 templates/includes/sidebar.html:165
 msgid "Close"
 msgstr "Cerrar"
 
 #: templates/cotton/config/search.html:6
 #: templates/import_app/fragments/profiles/list_presets.html:13
-#: templates/monthly_overview/pages/overview.html:160
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:63
-#: templates/transactions/pages/transactions.html:34
+#: templates/monthly_overview/pages/overview.html:115
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:57
+#: templates/transactions/pages/transactions.html:67
 msgid "Search"
 msgstr "Buscar"
 
@@ -2320,147 +2303,147 @@ msgstr "Buscar"
 msgid "Select"
 msgstr "Seleccionar"
 
-#: templates/cotton/transaction/item.html:178
-#: templates/cotton/transaction/item.html:189
-#: templates/cotton/transaction/item.html:199
+#: templates/cotton/transaction/item.html:175
+#: templates/cotton/transaction/item.html:186
+#: templates/cotton/transaction/item.html:196
 msgid "Show on summaries"
 msgstr "Mostrar en los resúmenes"
 
-#: templates/cotton/transaction/item.html:180
+#: templates/cotton/transaction/item.html:177
 msgid "Controlled by account"
 msgstr "Controlado por cuenta"
 
-#: templates/cotton/transaction/item.html:191
+#: templates/cotton/transaction/item.html:188
 msgid "Controlled by category"
 msgstr "Controlado por categoría"
 
-#: templates/cotton/transaction/item.html:204
+#: templates/cotton/transaction/item.html:201
 msgid "Hide from summaries"
 msgstr "Ocultar de los resúmenes"
 
-#: templates/cotton/transaction/item.html:208
+#: templates/cotton/transaction/item.html:205
 msgid "Add as quick transaction"
 msgstr "Agregar como transacción rápida"
 
-#: templates/cotton/transaction/item.html:215
+#: templates/cotton/transaction/item.html:210
 msgid "Move to previous month"
 msgstr "Mover al mes anterior"
 
-#: templates/cotton/transaction/item.html:219
+#: templates/cotton/transaction/item.html:214
 msgid "Move to next month"
 msgstr "Mover al mes siguiente"
 
-#: templates/cotton/transaction/item.html:222
+#: templates/cotton/transaction/item.html:217
 msgid "Move to today"
 msgstr "Mover a hoy"
 
-#: templates/cotton/transaction/item.html:228
+#: templates/cotton/transaction/item.html:221
 #: templates/cotton/ui/transactions_action_bar.html:82
 msgid "Duplicate"
 msgstr "Duplicado"
 
-#: templates/cotton/ui/account_card.html:15
+#: templates/cotton/ui/account_card.html:10
 #: templates/cotton/ui/currency_card.html:10
 msgid "projected income"
 msgstr "ingresos proyectados"
 
-#: templates/cotton/ui/account_card.html:41
-#: templates/cotton/ui/currency_card.html:36
+#: templates/cotton/ui/account_card.html:33
+#: templates/cotton/ui/currency_card.html:33
 msgid "projected expenses"
 msgstr "gastos proyectados"
 
-#: templates/cotton/ui/account_card.html:69
-#: templates/cotton/ui/currency_card.html:64
+#: templates/cotton/ui/account_card.html:56
+#: templates/cotton/ui/currency_card.html:56
 msgid "projected total"
 msgstr "total proyectado"
 
-#: templates/cotton/ui/account_card.html:94
-#: templates/cotton/ui/currency_card.html:88
+#: templates/cotton/ui/account_card.html:78
+#: templates/cotton/ui/currency_card.html:78
 msgid "current income"
 msgstr "ingresos actuales"
 
-#: templates/cotton/ui/account_card.html:120
-#: templates/cotton/ui/currency_card.html:114
+#: templates/cotton/ui/account_card.html:101
+#: templates/cotton/ui/currency_card.html:101
 msgid "current expenses"
 msgstr "gastos actuales"
 
-#: templates/cotton/ui/account_card.html:146
-#: templates/cotton/ui/currency_card.html:140
+#: templates/cotton/ui/account_card.html:124
+#: templates/cotton/ui/currency_card.html:124
 msgid "current total"
 msgstr "total actual"
 
-#: templates/cotton/ui/account_card.html:171
-#: templates/cotton/ui/currency_card.html:165
+#: templates/cotton/ui/account_card.html:146
+#: templates/cotton/ui/currency_card.html:146
 msgid "final total"
 msgstr "total final"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:31
-#: templates/cotton/ui/transactions_action_bar.html:34
+#: templates/cotton/ui/deleted_transactions_action_bar.html:35
+#: templates/cotton/ui/transactions_action_bar.html:35
 msgid "Select All"
 msgstr "Seleccionar Todo"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:37
-#: templates/cotton/ui/transactions_action_bar.html:40
+#: templates/cotton/ui/deleted_transactions_action_bar.html:41
+#: templates/cotton/ui/transactions_action_bar.html:41
 msgid "Unselect All"
 msgstr "Deseleccionar Todo"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:59
-#: templates/cotton/ui/transactions_action_bar.html:94
+#: templates/cotton/ui/deleted_transactions_action_bar.html:61
+#: templates/cotton/ui/transactions_action_bar.html:93
 msgid "Yes, delete them!"
 msgstr "Sí, ¡eliminalos!"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:105
+#: templates/cotton/ui/deleted_transactions_action_bar.html:108
 #: templates/cotton/ui/deleted_transactions_action_bar.html:129
-#: templates/cotton/ui/deleted_transactions_action_bar.html:149
-#: templates/cotton/ui/deleted_transactions_action_bar.html:169
-#: templates/cotton/ui/deleted_transactions_action_bar.html:189
-#: templates/cotton/ui/deleted_transactions_action_bar.html:209
-#: templates/cotton/ui/deleted_transactions_action_bar.html:229
+#: templates/cotton/ui/deleted_transactions_action_bar.html:148
+#: templates/cotton/ui/deleted_transactions_action_bar.html:167
+#: templates/cotton/ui/deleted_transactions_action_bar.html:186
+#: templates/cotton/ui/deleted_transactions_action_bar.html:205
+#: templates/cotton/ui/deleted_transactions_action_bar.html:224
 #: templates/cotton/ui/transactions_action_bar.html:140
-#: templates/cotton/ui/transactions_action_bar.html:165
-#: templates/cotton/ui/transactions_action_bar.html:185
-#: templates/cotton/ui/transactions_action_bar.html:205
-#: templates/cotton/ui/transactions_action_bar.html:225
-#: templates/cotton/ui/transactions_action_bar.html:245
-#: templates/cotton/ui/transactions_action_bar.html:265
+#: templates/cotton/ui/transactions_action_bar.html:161
+#: templates/cotton/ui/transactions_action_bar.html:180
+#: templates/cotton/ui/transactions_action_bar.html:199
+#: templates/cotton/ui/transactions_action_bar.html:218
+#: templates/cotton/ui/transactions_action_bar.html:237
+#: templates/cotton/ui/transactions_action_bar.html:256
 msgid "copied!"
 msgstr "Copiado!"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:114
-#: templates/cotton/ui/transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:150
-msgid "Toggle Dropdown"
-msgstr "Alternar menú desplegable"
-
-#: templates/cotton/ui/deleted_transactions_action_bar.html:122
-#: templates/cotton/ui/transactions_action_bar.html:158
+#: templates/cotton/ui/deleted_transactions_action_bar.html:136
+#: templates/cotton/ui/transactions_action_bar.html:168
 msgid "Flat Total"
 msgstr "Total Fijo"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:142
-#: templates/cotton/ui/transactions_action_bar.html:178
+#: templates/cotton/ui/deleted_transactions_action_bar.html:155
+#: templates/cotton/ui/transactions_action_bar.html:187
 msgid "Real Total"
 msgstr "Total Real"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:162
-#: templates/cotton/ui/transactions_action_bar.html:198
+#: templates/cotton/ui/deleted_transactions_action_bar.html:174
+#: templates/cotton/ui/transactions_action_bar.html:206
 msgid "Mean"
 msgstr "Promedio"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:182
-#: templates/cotton/ui/transactions_action_bar.html:218
+#: templates/cotton/ui/deleted_transactions_action_bar.html:193
+#: templates/cotton/ui/transactions_action_bar.html:225
 msgid "Max"
 msgstr "Máximo"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:202
-#: templates/cotton/ui/transactions_action_bar.html:238
+#: templates/cotton/ui/deleted_transactions_action_bar.html:212
+#: templates/cotton/ui/transactions_action_bar.html:244
 msgid "Min"
 msgstr "Mínimo"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:222
-#: templates/cotton/ui/transactions_action_bar.html:258
+#: templates/cotton/ui/deleted_transactions_action_bar.html:231
+#: templates/cotton/ui/transactions_action_bar.html:263
 msgid "Count"
 msgstr "Conteo"
+
+#: templates/cotton/ui/percentage_distribution.html:4
+#, fuzzy
+#| msgid "Income/Expense by Account"
+msgid "Income and Expense Percentages"
+msgstr "Ingreso/Gasto por Cuenta"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:25
 #: templates/cotton/ui/transactions_fab.html:27
@@ -2493,11 +2476,11 @@ msgstr "Agregar moneda"
 msgid "Edit currency"
 msgstr "Editar moneda"
 
-#: templates/currencies/fragments/list.html:25
+#: templates/currencies/fragments/list.html:22
 msgid "Code"
 msgstr "Código"
 
-#: templates/currencies/fragments/list.html:63
+#: templates/currencies/fragments/list.html:59
 msgid "No currencies"
 msgstr "No hay monedas"
 
@@ -2513,91 +2496,91 @@ msgstr "Editar entrada DCA"
 msgid "Add DCA strategy"
 msgstr "Agregar estrategia DCA"
 
-#: templates/dca/fragments/strategy/details.html:22
+#: templates/dca/fragments/strategy/details.html:28
 msgid "No exchange rate available"
 msgstr "No hay tasas de cambio disponibles"
 
-#: templates/dca/fragments/strategy/details.html:33
+#: templates/dca/fragments/strategy/details.html:40
 msgid "Entries"
 msgstr "Entradas"
 
-#: templates/dca/fragments/strategy/details.html:55
+#: templates/dca/fragments/strategy/details.html:52
 msgid "Current Value"
 msgstr "Valor Actual"
 
-#: templates/dca/fragments/strategy/details.html:56
+#: templates/dca/fragments/strategy/details.html:53
 msgid "P/L"
 msgstr "P/L"
 
-#: templates/dca/fragments/strategy/details.html:124
+#: templates/dca/fragments/strategy/details.html:119
 msgid "No entries for this DCA"
 msgstr "Sin entradas para este DCA"
 
-#: templates/dca/fragments/strategy/details.html:125
+#: templates/dca/fragments/strategy/details.html:120
 #: templates/monthly_overview/fragments/list.html:47
 #: templates/transactions/fragments/list_all.html:47
 msgid "Try adding one"
 msgstr "Prueba agregar una"
 
-#: templates/dca/fragments/strategy/details.html:135
+#: templates/dca/fragments/strategy/details.html:130
 msgid "Total Invested"
 msgstr "Total Invertido"
 
-#: templates/dca/fragments/strategy/details.html:149
+#: templates/dca/fragments/strategy/details.html:144
 msgid "Total Received"
 msgstr "Total Recibido"
 
-#: templates/dca/fragments/strategy/details.html:163
+#: templates/dca/fragments/strategy/details.html:158
 msgid "Current Total Value"
 msgstr "Valor Total Actual"
 
-#: templates/dca/fragments/strategy/details.html:177
+#: templates/dca/fragments/strategy/details.html:172
 msgid "Average Entry Price"
 msgstr "Precio Promedio de Entrada"
 
-#: templates/dca/fragments/strategy/details.html:191
+#: templates/dca/fragments/strategy/details.html:186
 msgid "Total P/L"
 msgstr "Total P/L"
 
-#: templates/dca/fragments/strategy/details.html:207
+#: templates/dca/fragments/strategy/details.html:202
 #, python-format
 msgid "Total %% P/L"
 msgstr "Total %% P/L"
 
-#: templates/dca/fragments/strategy/details.html:226
+#: templates/dca/fragments/strategy/details.html:220
 #, python-format
 msgid "P/L %%"
 msgstr "P/L %%"
 
-#: templates/dca/fragments/strategy/details.html:288
+#: templates/dca/fragments/strategy/details.html:283
 msgid "Performance Over Time"
 msgstr "Rendimiento a lo Largo del Tiempo"
 
-#: templates/dca/fragments/strategy/details.html:306
+#: templates/dca/fragments/strategy/details.html:299
 msgid "Entry Price"
 msgstr "Precio de Entrada"
 
-#: templates/dca/fragments/strategy/details.html:314
+#: templates/dca/fragments/strategy/details.html:307
 msgid "Current Price"
 msgstr "Precio Actual"
 
-#: templates/dca/fragments/strategy/details.html:322
+#: templates/dca/fragments/strategy/details.html:315
 msgid "Amount Bought"
 msgstr "Cantidad Comprada"
 
-#: templates/dca/fragments/strategy/details.html:392
+#: templates/dca/fragments/strategy/details.html:384
 msgid "Entry Price vs Current Price"
 msgstr "Precio de Entrada vs Precio Actual"
 
-#: templates/dca/fragments/strategy/details.html:408
+#: templates/dca/fragments/strategy/details.html:398
 msgid "Days Between Investments"
 msgstr "Días entre Inversiones"
 
-#: templates/dca/fragments/strategy/details.html:455
+#: templates/dca/fragments/strategy/details.html:444
 msgid "Investment Frequency"
 msgstr "Frecuencia de Inversión"
 
-#: templates/dca/fragments/strategy/details.html:457
+#: templates/dca/fragments/strategy/details.html:446
 msgid "The straighter the blue line, the more consistent your DCA strategy is."
 msgstr ""
 "Cuanto más recta sea la línea azul, más consistente será tu estrategia DCA."
@@ -2606,7 +2589,7 @@ msgstr ""
 msgid "Edit DCA strategy"
 msgstr "Editar estrategia DCA"
 
-#: templates/dca/fragments/strategy/list.html:5
+#: templates/dca/fragments/strategy/list.html:9
 #: templates/dca/pages/strategy_index.html:4
 msgid "Dollar Cost Average Strategies"
 msgstr "Estrategias de Promedio de Costo en Dólares (DCA)"
@@ -2623,7 +2606,7 @@ msgstr "Agregar entidad"
 msgid "Edit entity"
 msgstr "Editar entidad"
 
-#: templates/entities/fragments/table.html:71
+#: templates/entities/fragments/table.html:69
 msgid "No entities"
 msgstr "No hay entidades"
 
@@ -2637,60 +2620,59 @@ msgstr "Agregar tasa de cambio"
 msgid "Edit exchange rate"
 msgstr "Editar tasa de cambio"
 
-#: templates/exchange_rates/fragments/list.html:25
-#: templates/includes/navbar.html:62 templates/includes/sidebar.html:85
-#: templates/installment_plans/fragments/list.html:21
-#: templates/yearly_overview/pages/overview_by_account.html:105
-#: templates/yearly_overview/pages/overview_by_currency.html:107
+#: templates/exchange_rates/fragments/list.html:17
+#: templates/includes/navbar.html:62 templates/includes/sidebar.html:83
+#: templates/yearly_overview/pages/overview_by_account.html:33
+#: templates/yearly_overview/pages/overview_by_currency.html:35
 msgid "All"
 msgstr "Todos"
 
 #: templates/exchange_rates/fragments/table.html:11
-#: templates/exchange_rates_services/fragments/table.html:11
+#: templates/exchange_rates_services/fragments/table.html:12
 msgid "Pairing"
 msgstr "Emparejando"
 
 #: templates/exchange_rates/fragments/table.html:12
-#: templates/exchange_rates_services/fragments/table.html:12
+#: templates/exchange_rates_services/fragments/table.html:13
 msgid "Rate"
 msgstr "Tasa"
 
-#: templates/exchange_rates/fragments/table.html:51
-#: templates/exchange_rates_services/fragments/table.html:51
+#: templates/exchange_rates/fragments/table.html:49
+#: templates/exchange_rates_services/fragments/table.html:50
 msgid "No exchange rates"
 msgstr "No hay tasas de cambio"
 
-#: templates/exchange_rates/fragments/table.html:58
-#: templates/exchange_rates_services/fragments/table.html:58
-#: templates/transactions/fragments/list_all.html:54
+#: templates/exchange_rates/fragments/table.html:56
+#: templates/exchange_rates_services/fragments/table.html:57
+#: templates/transactions/fragments/list_all.html:57
 msgid "Page navigation"
 msgstr "Navegación entre páginas"
 
-#: templates/exchange_rates_services/fragments/list.html:21
+#: templates/exchange_rates_services/fragments/list.html:17
 msgid "Fetch all"
 msgstr "Obtener todo"
 
-#: templates/exchange_rates_services/fragments/list.html:33
+#: templates/exchange_rates_services/fragments/list.html:29
 msgid "Service"
 msgstr "Servicio"
 
-#: templates/exchange_rates_services/fragments/list.html:34
+#: templates/exchange_rates_services/fragments/list.html:30
 msgid "Targeting"
 msgstr "Dirigido a"
 
-#: templates/exchange_rates_services/fragments/list.html:35
+#: templates/exchange_rates_services/fragments/list.html:31
 msgid "Last fetch"
 msgstr "Última sincronización"
 
-#: templates/exchange_rates_services/fragments/list.html:67
+#: templates/exchange_rates_services/fragments/list.html:61
 msgid "currencies"
 msgstr "monedas"
 
-#: templates/exchange_rates_services/fragments/list.html:67
+#: templates/exchange_rates_services/fragments/list.html:61
 msgid "accounts"
 msgstr "cuentas"
 
-#: templates/exchange_rates_services/fragments/list.html:75
+#: templates/exchange_rates_services/fragments/list.html:69
 msgid "No services configured"
 msgstr "No hay servicios configurados"
 
@@ -2711,19 +2693,19 @@ msgstr "Un mensaje del autor"
 msgid "Edit import profile"
 msgstr "Editar perfil de importación"
 
-#: templates/import_app/fragments/profiles/list.html:17
+#: templates/import_app/fragments/profiles/list.html:8
 msgid "New"
 msgstr "Nuevo"
 
-#: templates/import_app/fragments/profiles/list.html:21
+#: templates/import_app/fragments/profiles/list.html:15
 msgid "From preset"
 msgstr "Desde plantilla"
 
-#: templates/import_app/fragments/profiles/list.html:55
+#: templates/import_app/fragments/profiles/list.html:51
 msgid "Runs"
 msgstr "Ejecuciones"
 
-#: templates/import_app/fragments/profiles/list.html:86
+#: templates/import_app/fragments/profiles/list.html:80
 msgid "No import profiles"
 msgstr "No hay perfiles de importación"
 
@@ -2767,18 +2749,18 @@ msgstr "Ítems Fallidos"
 msgid "Successful Items"
 msgstr "Ítems con Éxito"
 
-#: templates/import_app/fragments/runs/list.html:96
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:12
+#: templates/import_app/fragments/runs/list.html:95
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:7
 msgid "Logs"
 msgstr "Registros"
 
-#: templates/import_app/fragments/runs/list.html:107
+#: templates/import_app/fragments/runs/list.html:105
 msgid "You won't be able to revert this! All imported items will be kept."
 msgstr ""
 "¡No podrás revertir esta acción!. Todos los elementos importados se "
 "conservarán."
 
-#: templates/import_app/fragments/runs/list.html:116
+#: templates/import_app/fragments/runs/list.html:114
 msgid "No runs yet"
 msgstr "Aún no hay ejecuciones"
 
@@ -2794,47 +2776,47 @@ msgstr "Alternar navegación"
 msgid "Overview"
 msgstr "Visión General"
 
-#: templates/includes/navbar.html:41 templates/includes/sidebar.html:77
+#: templates/includes/navbar.html:41 templates/includes/sidebar.html:75
 msgid "Net Worth"
 msgstr "Patrimonio Neto"
 
 #: templates/includes/navbar.html:45
-#: templates/insights/fragments/category_overview/index.html:65
-#: templates/net_worth/net_worth.html:23
+#: templates/insights/fragments/category_overview/index.html:69
+#: templates/net_worth/net_worth.html:29 templates/net_worth/net_worth.html:33
 msgid "Current"
 msgstr "Actual"
 
-#: templates/includes/navbar.html:51 templates/includes/sidebar.html:71
+#: templates/includes/navbar.html:51 templates/includes/sidebar.html:69
 #: templates/insights/pages/index.html:5
 msgid "Insights"
 msgstr "Análisis"
 
-#: templates/includes/navbar.html:67 templates/includes/sidebar.html:93
+#: templates/includes/navbar.html:67 templates/includes/sidebar.html:91
 msgid "Trash Can"
 msgstr "Papelera de Reciclaje"
 
-#: templates/includes/navbar.html:85 templates/includes/sidebar.html:118
+#: templates/includes/navbar.html:85 templates/includes/sidebar.html:116
 msgid "Tools"
 msgstr "Herramientas"
 
-#: templates/includes/navbar.html:89 templates/includes/sidebar.html:120
+#: templates/includes/navbar.html:89 templates/includes/sidebar.html:118
 msgid "Dollar Cost Average Tracker"
 msgstr "Seguimiento de Promedio de Costo en Dólares (DCA)"
 
-#: templates/includes/navbar.html:92 templates/includes/sidebar.html:126
-#: templates/mini_tools/unit_price_calculator.html:5
-#: templates/mini_tools/unit_price_calculator.html:10
+#: templates/includes/navbar.html:92 templates/includes/sidebar.html:124
+#: templates/mini_tools/unit_price_calculator.html:4
+#: templates/mini_tools/unit_price_calculator.html:9
 msgid "Unit Price Calculator"
 msgstr "Calculadora de Precio Unitario"
 
-#: templates/includes/navbar.html:95 templates/includes/sidebar.html:132
-#: templates/mini_tools/currency_converter/currency_converter.html:8
-#: templates/mini_tools/currency_converter/currency_converter.html:15
+#: templates/includes/navbar.html:95 templates/includes/sidebar.html:130
+#: templates/mini_tools/currency_converter/currency_converter.html:7
+#: templates/mini_tools/currency_converter/currency_converter.html:14
 msgid "Currency Converter"
 msgstr "Conversor de Monedas"
 
-#: templates/includes/navbar.html:104 templates/includes/sidebar.html:150
-#: templates/includes/sidebar.html:163
+#: templates/includes/navbar.html:104 templates/includes/sidebar.html:146
+#: templates/includes/sidebar.html:161
 msgid "Management"
 msgstr "Administración"
 
@@ -2846,36 +2828,40 @@ msgstr "Automatización"
 msgid "Admin"
 msgstr "Administrador"
 
-#: templates/includes/navbar.html:157 templates/includes/sidebar.html:262
+#: templates/includes/navbar.html:156 templates/includes/sidebar.html:262
 msgid "Only use this if you know what you're doing"
 msgstr "Usa esto sólo si sabes lo que estás haciendo"
 
-#: templates/includes/navbar.html:158 templates/includes/sidebar.html:261
+#: templates/includes/navbar.html:157 templates/includes/sidebar.html:261
 msgid "Django Admin"
 msgstr "Administrador de Django"
 
-#: templates/includes/navbar.html:169 templates/includes/sidebar.html:276
+#: templates/includes/navbar.html:168 templates/includes/sidebar.html:276
 msgid "is available"
 msgstr "está disponible"
 
-#: templates/includes/navbar.html:174 templates/includes/navbar.html:177
-#: templates/includes/sidebar.html:282
+#: templates/includes/navbar.html:173 templates/includes/navbar.html:176
+#: templates/includes/sidebar.html:284
 msgid "Calculator"
 msgstr "Calculadora"
 
-#: templates/includes/navbar/user_menu.html:12
+#: templates/includes/navbar/user_menu.html:4
+msgid "Toggle theme"
+msgstr ""
+
+#: templates/includes/navbar/user_menu.html:31
 msgid "Settings"
 msgstr "Ajustes"
 
-#: templates/includes/navbar/user_menu.html:17
+#: templates/includes/navbar/user_menu.html:36
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: templates/includes/navbar/user_menu.html:44
+#: templates/includes/navbar/user_menu.html:63
 msgid "Clear cache"
 msgstr "Limpiar Caché"
 
-#: templates/includes/navbar/user_menu.html:48
+#: templates/includes/navbar/user_menu.html:67
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
@@ -2911,30 +2897,33 @@ msgstr "Confirmar"
 #: templates/monthly_overview/fragments/monthly_currency_summary.html:13
 #: templates/transactions/fragments/all_account_summary.html:14
 #: templates/transactions/fragments/all_currency_summary.html:13
+#: templates/transactions/fragments/summary.html:13
 #: templates/transactions/fragments/summary.html:27
-#: templates/transactions/fragments/summary.html:42
 #: templates/yearly_overview/fragments/account_data.html:12
 #: templates/yearly_overview/fragments/currency_data.html:12
 msgid "No information to display"
 msgstr "No hay información para mostrar"
 
-#: templates/insights/fragments/category_explorer/index.html:14
+#: templates/insights/fragments/category_explorer/index.html:23
 msgid "Income/Expense by Account"
 msgstr "Ingreso/Gasto por Cuenta"
 
-#: templates/insights/fragments/category_explorer/index.html:26
+#: templates/insights/fragments/category_explorer/index.html:35
 msgid "Income/Expense by Currency"
 msgstr "Ingreso/Gasto por Moneda"
 
-#: templates/insights/fragments/category_overview/index.html:14
+#: templates/insights/fragments/category_overview/index.html:13
+#: templates/insights/fragments/category_overview/index.html:16
 msgid "Table"
 msgstr "Tabla"
 
 #: templates/insights/fragments/category_overview/index.html:24
+#: templates/insights/fragments/category_overview/index.html:27
 msgid "Bars"
 msgstr "Barras"
 
-#: templates/insights/fragments/category_overview/index.html:39
+#: templates/insights/fragments/category_overview/index.html:43
+#: templates/insights/fragments/category_overview/index.html:57
 msgid ""
 "Transaction amounts associated with multiple tags will be counted once for "
 "each tag"
@@ -2942,48 +2931,40 @@ msgstr ""
 "Los montos de las transacciones asociados con varias etiquetas se contarán "
 "una vez por cada etiqueta"
 
-#: templates/insights/fragments/category_overview/index.html:52
-msgid ""
-"Transaction amounts associated with multiple tags and entities will be "
-"counted once for each tag"
-msgstr ""
-"Los montos de las transacciones asociados con varias etiquetas y entidades "
-"se contarán una vez por cada etiqueta"
-
-#: templates/insights/fragments/category_overview/index.html:69
+#: templates/insights/fragments/category_overview/index.html:73
 msgid "Final total"
 msgstr "Total final"
 
-#: templates/insights/fragments/category_overview/index.html:81
-#: templates/monthly_overview/fragments/monthly_summary.html:167
+#: templates/insights/fragments/category_overview/index.html:89
+#: templates/monthly_overview/fragments/monthly_summary.html:165
 msgid "Total"
 msgstr "Total"
 
-#: templates/insights/fragments/category_overview/index.html:517
+#: templates/insights/fragments/category_overview/index.html:529
 msgid "Final Total"
 msgstr "Total Final"
 
-#: templates/insights/fragments/emergency_fund.html:15
+#: templates/insights/fragments/emergency_fund.html:12
 msgid "You've spent an average of"
 msgstr "Tú has gastado un promedio de"
 
-#: templates/insights/fragments/emergency_fund.html:23
+#: templates/insights/fragments/emergency_fund.html:20
 msgid "on the last 12 months, at this rate you could go by"
 msgstr "En los últimos 12 meses, a este ritmo podrías continuar durante"
 
-#: templates/insights/fragments/emergency_fund.html:25
+#: templates/insights/fragments/emergency_fund.html:22
 msgid "months without any income."
 msgstr "meses sin ningún ingreso."
 
-#: templates/insights/fragments/emergency_fund.html:34
+#: templates/insights/fragments/emergency_fund.html:28
 msgid "average expenses"
 msgstr "promedio de gastos"
 
-#: templates/insights/fragments/emergency_fund.html:48
+#: templates/insights/fragments/emergency_fund.html:42
 msgid "liquid total"
 msgstr "total líquido"
 
-#: templates/insights/fragments/emergency_fund.html:62
+#: templates/insights/fragments/emergency_fund.html:56
 msgid "months left"
 msgstr "meses restantes"
 
@@ -2999,11 +2980,11 @@ msgstr "No hay transacciones atrasadas"
 msgid "No recent transactions"
 msgstr "No hay transacciones recientes"
 
-#: templates/insights/fragments/sankey.html:93
+#: templates/insights/fragments/sankey.html:100
 msgid "From"
 msgstr "Desde"
 
-#: templates/insights/fragments/sankey.html:96
+#: templates/insights/fragments/sankey.html:103
 msgid "Percentage"
 msgstr "Porcentaje"
 
@@ -3011,41 +2992,40 @@ msgstr "Porcentaje"
 msgid "Month"
 msgstr "Mes"
 
-#: templates/insights/pages/index.html:40
-#: templates/yearly_overview/pages/overview_by_account.html:73
-#: templates/yearly_overview/pages/overview_by_currency.html:75
+#: templates/insights/pages/index.html:39
+#: templates/yearly_overview/pages/yearly_overview_base.html:69
 msgid "Year"
 msgstr "Año"
 
-#: templates/insights/pages/index.html:45
+#: templates/insights/pages/index.html:41
 msgid "Month Range"
 msgstr "Rango de Mes"
 
-#: templates/insights/pages/index.html:50
+#: templates/insights/pages/index.html:43
 msgid "Year Range"
 msgstr "Rango de Año"
 
-#: templates/insights/pages/index.html:55
+#: templates/insights/pages/index.html:45
 msgid "Date Range"
 msgstr "Rango de Fecha"
 
-#: templates/insights/pages/index.html:83
+#: templates/insights/pages/index.html:79
 msgid "Account Flow"
 msgstr "Flujo de Cuenta"
 
-#: templates/insights/pages/index.html:90
+#: templates/insights/pages/index.html:84
 msgid "Currency Flow"
 msgstr "Flujo de Moneda"
 
-#: templates/insights/pages/index.html:97
+#: templates/insights/pages/index.html:89
 msgid "Category Explorer"
 msgstr "Explorador de Categorías"
 
-#: templates/insights/pages/index.html:104
+#: templates/insights/pages/index.html:94
 msgid "Categories Overview"
 msgstr "Resumen de Categorías"
 
-#: templates/insights/pages/index.html:111
+#: templates/insights/pages/index.html:112
 msgid "Late Transactions"
 msgstr "Transacciones Atrasadas"
 
@@ -3053,7 +3033,7 @@ msgstr "Transacciones Atrasadas"
 msgid "Latest Transactions"
 msgstr "Últimas Transacciones"
 
-#: templates/insights/pages/index.html:123
+#: templates/insights/pages/index.html:122
 msgid "Emergency Fund"
 msgstr "Fondo de Emergencia"
 
@@ -3066,15 +3046,15 @@ msgid "Edit installment plan"
 msgstr "Editar plan de cuotas"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
-#: templates/installment_plans/fragments/table.html:37
+#: templates/installment_plans/fragments/table.html:35
 msgid "Installments"
 msgstr "Cuotas"
 
-#: templates/installment_plans/fragments/table.html:45
+#: templates/installment_plans/fragments/table.html:42
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: templates/installment_plans/fragments/table.html:51
+#: templates/installment_plans/fragments/table.html:48
 msgid ""
 "This will update all transactions associated with this plan and recreate "
 "missing ones"
@@ -3082,51 +3062,51 @@ msgstr ""
 "Esto actualizará todas las transacciones asociadas con este plan y volverá a "
 "crear las faltantes"
 
-#: templates/installment_plans/fragments/table.html:52
+#: templates/installment_plans/fragments/table.html:49
 msgid "Yes, refresh it!"
 msgstr "¡Sí, actualízalo!"
 
-#: templates/installment_plans/fragments/table.html:63
+#: templates/installment_plans/fragments/table.html:59
 msgid "This will delete the plan and all transactions associated with it"
 msgstr "Esto eliminará el plan y todas las transacciones asociadas con él"
 
-#: templates/installment_plans/fragments/table.html:91
+#: templates/installment_plans/fragments/table.html:87
 msgid "No installment plans"
 msgstr "Sin planes de cuotas"
 
-#: templates/layouts/base.html:43
+#: templates/layouts/base.html:36
 msgid "This is a demo!"
 msgstr "¡Esto es una demostración!"
 
-#: templates/layouts/base.html:43
+#: templates/layouts/base.html:36
 msgid "Any data you add here will be wiped in 24hrs or less"
 msgstr "Los datos que agregues aquí serán borrados en 24 horas o menos"
 
-#: templates/mini_tools/currency_converter/currency_converter.html:58
+#: templates/mini_tools/currency_converter/currency_converter.html:57
 msgid "Invert"
 msgstr "Intercambiar"
 
-#: templates/mini_tools/unit_price_calculator.html:27
-#: templates/mini_tools/unit_price_calculator.html:100
-#: templates/mini_tools/unit_price_calculator.html:125
+#: templates/mini_tools/unit_price_calculator.html:25
+#: templates/mini_tools/unit_price_calculator.html:102
+#: templates/mini_tools/unit_price_calculator.html:129
 msgid "Item price"
 msgstr "Precio de los ítems"
 
-#: templates/mini_tools/unit_price_calculator.html:33
-#: templates/mini_tools/unit_price_calculator.html:106
-#: templates/mini_tools/unit_price_calculator.html:131
+#: templates/mini_tools/unit_price_calculator.html:31
+#: templates/mini_tools/unit_price_calculator.html:108
+#: templates/mini_tools/unit_price_calculator.html:135
 msgid "Item amount"
 msgstr "Cantidad de ítems"
 
-#: templates/mini_tools/unit_price_calculator.html:38
-#: templates/mini_tools/unit_price_calculator.html:111
-#: templates/mini_tools/unit_price_calculator.html:136
+#: templates/mini_tools/unit_price_calculator.html:37
+#: templates/mini_tools/unit_price_calculator.html:114
+#: templates/mini_tools/unit_price_calculator.html:141
 msgid "Unit price"
 msgstr "Precio unitario"
 
-#: templates/mini_tools/unit_price_calculator.html:94
-#: templates/mini_tools/unit_price_calculator.html:119
-#: templates/mini_tools/unit_price_calculator.html:158
+#: templates/mini_tools/unit_price_calculator.html:96
+#: templates/mini_tools/unit_price_calculator.html:123
+#: templates/mini_tools/unit_price_calculator.html:164
 msgid "Item"
 msgstr "Ítem"
 
@@ -3143,76 +3123,76 @@ msgid "This is the final total divided by the remaining days in the month"
 msgstr "Este es el total final dividido por los días restantes del mes"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:42
-#: templates/monthly_overview/fragments/monthly_summary.html:106
-#: templates/monthly_overview/fragments/monthly_summary.html:170
+#: templates/monthly_overview/fragments/monthly_summary.html:105
+#: templates/monthly_overview/fragments/monthly_summary.html:168
 msgid "current"
 msgstr "actual"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:72
-#: templates/monthly_overview/fragments/monthly_summary.html:136
-#: templates/monthly_overview/fragments/monthly_summary.html:199
+#: templates/monthly_overview/fragments/monthly_summary.html:71
+#: templates/monthly_overview/fragments/monthly_summary.html:134
+#: templates/monthly_overview/fragments/monthly_summary.html:197
 msgid "projected"
 msgstr "proyectado"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:103
+#: templates/monthly_overview/fragments/monthly_summary.html:102
 msgid "Expenses"
 msgstr "Gastos"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:257
+#: templates/monthly_overview/fragments/monthly_summary.html:255
 msgid "Distribution"
 msgstr "Distribución"
 
-#: templates/monthly_overview/pages/overview.html:68
+#: templates/monthly_overview/pages/overview.html:49
 msgid "Summary"
 msgstr "Resumen"
 
-#: templates/monthly_overview/pages/overview.html:141
-#: templates/monthly_overview/pages/overview.html:195
-#: templates/transactions/pages/transactions.html:15
-#: templates/transactions/pages/transactions.html:69
+#: templates/monthly_overview/pages/overview.html:96
+#: templates/monthly_overview/pages/overview.html:151
+#: templates/transactions/pages/transactions.html:48
+#: templates/transactions/pages/transactions.html:104
 msgid "Oldest first"
 msgstr "Lo más antiguo primero"
 
-#: templates/monthly_overview/pages/overview.html:142
-#: templates/monthly_overview/pages/overview.html:204
-#: templates/transactions/pages/transactions.html:16
-#: templates/transactions/pages/transactions.html:78
+#: templates/monthly_overview/pages/overview.html:97
+#: templates/monthly_overview/pages/overview.html:160
+#: templates/transactions/pages/transactions.html:49
+#: templates/transactions/pages/transactions.html:113
 msgid "Newest first"
 msgstr "Lo más nuevo primero"
 
-#: templates/monthly_overview/pages/overview.html:151
-#: templates/transactions/pages/transactions.html:25
+#: templates/monthly_overview/pages/overview.html:106
+#: templates/transactions/pages/transactions.html:58
 msgid "Filter transactions"
 msgstr "Filtrar transacciones"
 
-#: templates/monthly_overview/pages/overview.html:176
-#: templates/transactions/pages/transactions.html:50
+#: templates/monthly_overview/pages/overview.html:132
+#: templates/transactions/pages/transactions.html:85
 msgid "Order by"
 msgstr "Ordenar por"
 
-#: templates/net_worth/net_worth.html:42
-#: templates/yearly_overview/pages/overview_by_currency.html:9
+#: templates/net_worth/net_worth.html:52
+#: templates/yearly_overview/pages/overview_by_currency.html:6
 msgid "By currency"
 msgstr "Por moneda"
 
-#: templates/net_worth/net_worth.html:78
+#: templates/net_worth/net_worth.html:84
 msgid "Consolidated"
 msgstr "Consolidado"
 
-#: templates/net_worth/net_worth.html:101
+#: templates/net_worth/net_worth.html:134
 msgid "Evolution"
 msgstr "Evolución"
 
-#: templates/net_worth/net_worth.html:128
-#: templates/yearly_overview/pages/overview_by_account.html:7
+#: templates/net_worth/net_worth.html:162
+#: templates/yearly_overview/pages/overview_by_account.html:4
 msgid "By account"
 msgstr "Por cuenta"
 
-#: templates/net_worth/net_worth.html:236
+#: templates/net_worth/net_worth.html:270
 msgid "Evolution by currency"
 msgstr "Evolución por moneda"
 
-#: templates/net_worth/net_worth.html:300
+#: templates/net_worth/net_worth.html:334
 msgid "Evolution by account"
 msgstr "Evolución por cuenta"
 
@@ -3221,8 +3201,8 @@ msgstr "Evolución por cuenta"
 msgid "Add quick transaction"
 msgstr "Agregar transacción rápida"
 
-#: templates/quick_transactions/fragments/create_menu.html:13
-#: templates/quick_transactions/fragments/list.html:68
+#: templates/quick_transactions/fragments/create_menu.html:17
+#: templates/quick_transactions/fragments/list.html:66
 msgid "Nothing to see here..."
 msgstr "No hay nada que ver aquí..."
 
@@ -3230,7 +3210,7 @@ msgstr "No hay nada que ver aquí..."
 msgid "Edit quick transaction"
 msgstr "Editar transacción rápida"
 
-#: templates/quick_transactions/fragments/list.html:40
+#: templates/quick_transactions/fragments/list.html:38
 msgid "This will delete this item"
 msgstr "Esto eliminará este elemento"
 
@@ -3242,36 +3222,36 @@ msgstr "Agregar transacción recurrente"
 msgid "Edit recurring transaction"
 msgstr "Editar transacción recurrente"
 
-#: templates/recurring_transactions/fragments/table.html:49
+#: templates/recurring_transactions/fragments/table.html:46
 msgid "Unpause"
 msgstr "Reanudar"
 
-#: templates/recurring_transactions/fragments/table.html:56
+#: templates/recurring_transactions/fragments/table.html:53
 msgid "This will start creating new transactions until you pause it"
 msgstr "Esto comenzará a crear nuevas transacciones hasta que lo pauses"
 
-#: templates/recurring_transactions/fragments/table.html:57
+#: templates/recurring_transactions/fragments/table.html:54
 msgid "Yes, unpause it!"
 msgstr "¡Sí, reanuadalo!"
 
-#: templates/recurring_transactions/fragments/table.html:63
+#: templates/recurring_transactions/fragments/table.html:59
 msgid "Pause"
 msgstr "Pausa"
 
-#: templates/recurring_transactions/fragments/table.html:70
+#: templates/recurring_transactions/fragments/table.html:66
 msgid "This will stop the creation of new transactions until you unpause it"
 msgstr ""
 "Esto detendrá la creación de nuevas transacciones hasta que lo reanudes"
 
-#: templates/recurring_transactions/fragments/table.html:71
+#: templates/recurring_transactions/fragments/table.html:67
 msgid "Yes, pause it!"
 msgstr "¡Sí, ponlo en pausa!"
 
-#: templates/recurring_transactions/fragments/table.html:78
+#: templates/recurring_transactions/fragments/table.html:73
 msgid "Finish"
 msgstr "Finalizar"
 
-#: templates/recurring_transactions/fragments/table.html:85
+#: templates/recurring_transactions/fragments/table.html:80
 msgid ""
 "This will stop the creation of new transactions and delete any unpaid "
 "transactions after today"
@@ -3279,32 +3259,32 @@ msgstr ""
 "Esto detendrá la creación de nuevas transacciones y eliminará cualquier "
 "transacción no pagada después de hoy"
 
-#: templates/recurring_transactions/fragments/table.html:86
+#: templates/recurring_transactions/fragments/table.html:81
 msgid "Yes, finish it!"
 msgstr "Sí, ¡termínalo!"
 
-#: templates/recurring_transactions/fragments/table.html:99
+#: templates/recurring_transactions/fragments/table.html:93
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
 "Esto eliminará la recurrencia y todas las transacciones asociadas con ella"
 
-#: templates/recurring_transactions/fragments/table.html:127
+#: templates/recurring_transactions/fragments/table.html:121
 msgid "No recurring transactions"
 msgstr "Sin transacciones recurrentes"
 
-#: templates/rules/fragments/list.html:38
+#: templates/rules/fragments/list.html:34
 msgid "View"
 msgstr "Ver"
 
-#: templates/rules/fragments/list.html:78
+#: templates/rules/fragments/list.html:70
 msgid "Deactivate"
 msgstr "Desactivar"
 
-#: templates/rules/fragments/list.html:78
+#: templates/rules/fragments/list.html:70
 msgid "Activate"
 msgstr "Activar"
 
-#: templates/rules/fragments/list.html:96
+#: templates/rules/fragments/list.html:89
 msgid "No rules"
 msgstr "Sin reglas"
 
@@ -3313,46 +3293,46 @@ msgid "Add transaction rule"
 msgstr "Agregar regla de transacción"
 
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
-#: templates/rules/fragments/transaction_rule/view.html:127
+#: templates/rules/fragments/transaction_rule/view.html:124
 msgid "Create"
 msgstr "Crear"
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:8
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:4
 msgid "Visual"
 msgstr "Visual"
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:21
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:92
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:15
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:89
 msgid "Run a test to see..."
 msgstr "Ejecuta una prueba para ver..."
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:30
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:24
 #: templates/rules/fragments/transaction_rule/view.html:39
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
 msgid "Edit transaction"
 msgstr "Editar transacción"
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:32
-#: templates/rules/fragments/transaction_rule/view.html:78
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:26
+#: templates/rules/fragments/transaction_rule/view.html:76
 msgid "Update or create transaction"
 msgstr "Actualizar o crear transacción"
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:42
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:36
 msgid "Start"
 msgstr "Fecha de inicio"
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:51
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:45
 #: templates/rules/fragments/transaction_rule/view.html:44
 msgid "Set"
 msgstr "Establecer"
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:52
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:46
 #: templates/rules/fragments/transaction_rule/view.html:45
 msgid "to"
 msgstr "a"
 
-#: templates/rules/fragments/transaction_rule/dry_run/visual.html:70
+#: templates/rules/fragments/transaction_rule/dry_run/visual.html:64
 msgid "No transaction found, a new one will be created"
 msgstr "No se encontró ninguna transacción; se creará una nueva"
 
@@ -3378,27 +3358,27 @@ msgstr "Regla de Transacción"
 msgid "If transaction..."
 msgstr "Si la transacción..."
 
-#: templates/rules/fragments/transaction_rule/view.html:32
+#: templates/rules/fragments/transaction_rule/view.html:31
 msgid "Then..."
 msgstr "Entonces..."
 
-#: templates/rules/fragments/transaction_rule/view.html:82
+#: templates/rules/fragments/transaction_rule/view.html:80
 msgid "Edit to view"
 msgstr "Editar para ver"
 
-#: templates/rules/fragments/transaction_rule/view.html:112
+#: templates/rules/fragments/transaction_rule/view.html:108
 msgid "This rule has no actions"
 msgstr "Esta regla no tiene acciones"
 
-#: templates/rules/fragments/transaction_rule/view.html:144
+#: templates/rules/fragments/transaction_rule/view.html:141
 msgid "Add new"
 msgstr "Agregar nuevo"
 
-#: templates/rules/fragments/transaction_rule/view.html:149
+#: templates/rules/fragments/transaction_rule/view.html:146
 msgid "Edit Transaction"
 msgstr "Editar Transacción"
 
-#: templates/rules/fragments/transaction_rule/view.html:152
+#: templates/rules/fragments/transaction_rule/view.html:149
 msgid "Update or Create Transaction"
 msgstr "Actualizar o Crear Transacción"
 
@@ -3448,8 +3428,8 @@ msgstr "No hay transacciones eliminadas para mostrar"
 msgid "Deleted transactions"
 msgstr "Transacciones eliminadas"
 
-#: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:14
-#: templates/transactions/widgets/unselectable_paid_toggle_button.html:8
+#: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:11
+#: templates/transactions/widgets/unselectable_paid_toggle_button.html:7
 msgid "Unchanged"
 msgstr "Sin cambios"
 
@@ -3461,19 +3441,19 @@ msgstr "Agregar usuario"
 msgid "Edit user"
 msgstr "Editar usuario"
 
-#: templates/users/fragments/list.html:30
+#: templates/users/fragments/list.html:27
 msgid "Email"
 msgstr "Correo Electrónico"
 
-#: templates/users/fragments/list.html:31
+#: templates/users/fragments/list.html:28
 msgid "Superuser"
 msgstr "Superusuario"
 
-#: templates/users/fragments/list.html:51
+#: templates/users/fragments/list.html:46
 msgid "Impersonate"
 msgstr "Suplantar"
 
-#: templates/users/fragments/list.html:80
+#: templates/users/fragments/list.html:76
 msgid "No users"
 msgstr "Sin usuarios"
 
@@ -3493,22 +3473,31 @@ msgstr "Reproducir sonidos"
 msgid "Show amounts"
 msgstr "Mostrar cantidades"
 
-#: templates/users/login.html:18
+#: templates/users/login.html:16
 msgid "Welcome to WYGIWYH's demo!"
 msgstr "¡Bienvenido a la demo de WYGIWYH!"
 
-#: templates/users/login.html:19
+#: templates/users/login.html:17
 msgid "Use the credentials below to login"
 msgstr "Usa las credenciales que aparecen a continuación para iniciar sesión"
 
-#: templates/users/login.html:40
+#: templates/users/login.html:37
 msgid "Login with"
 msgstr "Iniciar sesión con"
 
-#: templates/yearly_overview/pages/overview_by_account.html:7
-#: templates/yearly_overview/pages/overview_by_currency.html:9
+#: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "Resumen Anual"
+
+#~ msgid "Toggle Dropdown"
+#~ msgstr "Alternar menú desplegable"
+
+#~ msgid ""
+#~ "Transaction amounts associated with multiple tags and entities will be "
+#~ "counted once for each tag"
+#~ msgstr ""
+#~ "Los montos de las transacciones asociados con varias etiquetas y "
+#~ "entidades se contarán una vez por cada etiqueta"
 
 #, fuzzy
 #~ msgid "Automatic"
