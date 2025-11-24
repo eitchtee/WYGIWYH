@@ -3,11 +3,15 @@ FROM python:3.11-slim-bookworm AS python-build-stage
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
     libpq-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Install uv for faster package resolution
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 COPY ./requirements.txt .
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip wheel --wheel-dir /usr/src/app/wheels -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --system --compile-bytecode -r requirements.txt
 
 FROM node:lts-alpine AS vite_build
 WORKDIR /usr/src/frontend
@@ -29,6 +33,10 @@ ENV APP_VERSION=$VERSION
 
 COPY --from=vite_build /usr/src/frontend/build /usr/src/frontend/build
 
+# Copy Python packages from build stage
+COPY --from=python-build-stage /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=python-build-stage /usr/local/bin /usr/local/bin
+
 WORKDIR /usr/src/app
 
 RUN addgroup --system app && \
@@ -37,15 +45,11 @@ RUN addgroup --system app && \
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# Install python dependencies from wheels
-COPY --from=python-build-stage /usr/src/app/wheels /wheels/
+# Install runtime dependencies
 RUN --mount=type=cache,target=/root/.cache/apt \
     apt-get update && \
-    apt-get install --no-install-recommends -y gettext supervisor && \
-    rm -rf /var/lib/apt/lists/* && \
-    pip install --upgrade pip && \
-    pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* && \
-    rm -rf /wheels/ \
+    apt-get install --no-install-recommends -y gettext supervisor libpq5 && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --chown=app:app ./docker/prod/django/start /start
 COPY --chown=app:app ./docker/prod/procrastinate/start /start-procrastinate
