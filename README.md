@@ -13,6 +13,7 @@
   <a href="#key-features">Features</a> •
   <a href="#how-to-use">Usage</a> •
   <a href="#how-it-works">How</a> •
+  <a href="#mcp-server">MCP Server</a> •
   <a href="#help-us-translate-wygiwyh">Translate</a> •
   <a href="#caveats-and-warnings">Caveats and Warnings</a> •
   <a href="#built-with">Built with</a>
@@ -126,6 +127,7 @@ To create the first user, open the container's console using Unraid's UI, by cli
 
 | variable                      | type        | default                           | explanation                                                                                                                                                                                                                              |
 |-------------------------------|-------------|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| INTERNAL_PORT                 | int         | 8000                              | The port on which the app listens on. Defaults to 8000 if not set.                                                                                                                                       |
 | DJANGO_ALLOWED_HOSTS          | string      | localhost 127.0.0.1               | A list of space separated domains and IPs representing the host/domain names that WYGIWYH site can serve. [Click here](https://docs.djangoproject.com/en/5.1/ref/settings/#allowed-hosts) for more details                               |
 | HTTPS_ENABLED                 | true\|false | false                             | Whether to use secure cookies. If this is set to true, the cookie will be marked as “secure”, which means browsers may ensure that the cookie is only sent under an HTTPS connection                                                     |
 | URL                           | string      | http://localhost http://127.0.0.1 | A list of space separated domains and IPs (with the protocol) representing the trusted origins for unsafe requests (e.g. POST). [Click here](https://docs.djangoproject.com/en/5.1/ref/settings/#csrf-trusted-origins ) for more details |
@@ -181,6 +183,10 @@ Check out our [Wiki](https://github.com/eitchtee/WYGIWYH/wiki) for more informat
 
 > [!NOTE]
 > Login with your github account
+
+# MCP Server
+
+[IZIme07](https://github.com/IZIme07) has kindly created an MCP Server for WYGIWYH that you can self-host. [Check it out at MCP-WYGIWYH](https://github.com/ReNewator/MCP-WYGIWYH)!
 
 # Caveats and Warnings
 
