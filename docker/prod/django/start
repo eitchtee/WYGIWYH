@@ -4,6 +4,9 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+# Set INTERNAL_PORT with default value of 8000
+INTERNAL_PORT=${INTERNAL_PORT:-8000}
+
 # Remove flag file if it exists from previous run
 rm -f /tmp/migrations_complete
 
@@ -15,4 +18,4 @@ touch /tmp/migrations_complete
 
 python manage.py setup_users
 
-exec gunicorn WYGIWYH.wsgi:application --bind 0.0.0.0:8000 --timeout 600
+exec gunicorn WYGIWYH.wsgi:application --bind 0.0.0.0:$INTERNAL_PORT --timeout 600
