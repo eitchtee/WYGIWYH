@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="sticky bottom-4 left-0 right-0 z-50 hidden mx-auto w-fit" id="actions-bar"
+<div class="sticky bottom-4 left-0 right-0 z-1000 hidden mx-auto w-fit" id="actions-bar"
      _="on change from #transactions-list or htmx:afterSettle from window
         if #actions-bar then
             if no <input[type='checkbox']:checked/> in #transactions-list
@@ -10,31 +10,35 @@
               end
             else
               if #actions-bar
-                remove .hidden from #actions-bar
+                set #selected-count's innerHTML to length of <input[type='checkbox']:checked/> in #transactions-list
+                then remove .hidden from #actions-bar
                 then trigger selected_transactions_updated
               end
             end
           end
         end">
-  <div class="card bg-base-100 shadow slide-in-bottom">
-    <div class="card-body p-2 flex justify-between items-center gap-3">
+  <div class="card bg-base-300 shadow slide-in-bottom max-w-[90vw] card-border">
+    <div class="card-body flex-row p-2 flex justify-between items-center gap-3 overflow-x-auto">
       {% spaceless %}
-        <div class="dropdown">
-          <button tabindex="0" role="button" class="btn btn-secondary btn-sm" type="button">
+        <div class="font-bold text-md ms-2" id="selected-count">0</div>
+        <div class="divider divider-horizontal m-0"></div>
+        <div>
+          <button role="button" class="btn btn-secondary btn-sm" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-square-check fa-fw"></i>
             <i class="fa-solid fa-chevron-down fa-xs"></i>
           </button>
-          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+          <ul class="dropdown-menu menu">
             <li>
               <a class="cursor-pointer"
-                   _="on click set <#transactions-list input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
-                <i class="fa-regular fa-square-check text-green-400 me-3"></i>{% translate 'Select All' %}
+                   _="on click set <#transactions-list .transaction:not([style*='display: none']) input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
+                <i class="fa-regular fa-square-check text-success me-3"></i>{% translate 'Select All' %}
               </a>
             </li>
             <li>
               <a class="cursor-pointer"
                    _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur() then trigger change">
-                <i class="fa-regular fa-square text-red-400 me-3"></i>{% translate 'Unselect All' %}
+                <i class="fa-regular fa-square text-error me-3"></i>{% translate 'Unselect All' %}
               </a>
             </li>
           </ul>
@@ -59,7 +63,7 @@
           <i class="fa-solid fa-trash text-error"></i>
         </button>
         <div class="divider divider-horizontal m-0"></div>
-        <div class="dropdown dropdown-end"
+        <div class="join"
              _="on selected_transactions_updated from #actions-bar
                   set realTotal to math.bignumber(0)
                   set flatTotal to math.bignumber(0)
@@ -97,142 +101,143 @@
                   put mean.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-mean's innerText
                   put flatAmountValues.length.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 40}) into #calc-menu-count's innerText
                 end">
-          <button class="btn btn-secondary btn-sm" _="on click
+          <button class="btn btn-secondary btn-sm join-item"
+                    _="on click
                       set original_value to #real-total-front's innerText
                       writeText(original_value) on navigator.clipboard
                       put '{% translate "copied!" %}' into #real-total-front's innerText
                       wait 1s
                       put original_value into #real-total-front's innerText
                     end">
-            <i class="fa-solid fa-plus fa-fw me-md-2 text-primary"></i>
+            <i class="fa-solid fa-plus fa-fw me-md-2"></i>
             <span class="hidden md:inline-block" id="real-total-front">0</span>
           </button>
-          <button type="button" tabindex="0" role="button" class="btn btn-sm btn-secondary">
-            <i class="fa-solid fa-chevron-down fa-xs"></i>
-          </button>
+          <div>
+            <button class="join-item btn btn-sm btn-secondary"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    aria-expanded="false">
+              <i class="fa-solid fa-chevron-down fa-xs"></i>
+            </button>
 
-          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 shadow">
-            <li>
-              <div class="p-0">
-                <div>
-                  <div class="text-base-content/60 text-xs font-medium px-3">
-                    {% trans "Flat Total" %}
+            <ul class="dropdown-menu dropdown-menu-end menu">
+              <li class="cursor-pointer"
+                  _="on click
+                        set original_value to #calc-menu-flat-total's innerText
+                        writeText(original_value) on navigator.clipboard
+                        put '{% translate "copied!" %}' into #calc-menu-flat-total
+                        wait 1s
+                        put original_value into #calc-menu-flat-total
+                      end">
+                <div class="py-1 px-3">
+                  <div>
+                    <div class="text-base-content/60 text-xs font-medium">
+                      {% trans "Flat Total" %}
+                    </div>
+                    <div id="calc-menu-flat-total">
+                      0
+                    </div>
                   </div>
-                  <a class="px-3 cursor-pointer"
-                       id="calc-menu-flat-total"
-                       _="on click
-                            set original_value to my innerText
-                            writeText(my innerText) on navigator.clipboard
-                            put '{% translate "copied!" %}' into me
-                            wait 1s
-                            put original_value into me
-                          end">
-                    0
-                  </a>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="p-0">
-                <div>
-                  <div class="text-base-content/60 text-xs font-medium px-3">
-                    {% trans "Real Total" %}
+              </li>
+              <li class="cursor-pointer"
+                  _="on click
+                        set original_value to #calc-menu-real-total's innerText
+                        writeText(original_value) on navigator.clipboard
+                        put '{% translate "copied!" %}' into #calc-menu-real-total
+                        wait 1s
+                        put original_value into #calc-menu-real-total
+                      end">
+                <div class="py-1 px-3">
+                  <div>
+                    <div class="text-base-content/60 text-xs font-medium">
+                      {% trans "Real Total" %}
+                    </div>
+                    <div id="calc-menu-real-total">
+                      0
+                    </div>
                   </div>
-                  <a class="px-3 cursor-pointer"
-                       id="calc-menu-real-total"
-                       _="on click
-                            set original_value to my innerText
-                            writeText(my innerText) on navigator.clipboard
-                            put '{% translate "copied!" %}' into me
-                            wait 1s
-                            put original_value into me
-                          end">
-                    0
-                  </a>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="p-0">
-                <div>
-                  <div class="text-base-content/60 text-xs font-medium px-3">
-                    {% trans "Mean" %}
+              </li>
+              <li class="cursor-pointer"
+                  _="on click
+                        set original_value to #calc-menu-mean's innerText
+                        writeText(original_value) on navigator.clipboard
+                        put '{% translate "copied!" %}' into #calc-menu-mean
+                        wait 1s
+                        put original_value into #calc-menu-mean
+                      end">
+                <div class="p-1 px-3">
+                  <div>
+                    <div class="text-base-content/60 text-xs font-medium">
+                      {% trans "Mean" %}
+                    </div>
+                    <div id="calc-menu-mean">
+                      0
+                    </div>
                   </div>
-                  <a class="px-3 cursor-pointer"
-                       id="calc-menu-mean"
-                       _="on click
-                            set original_value to my innerText
-                            writeText(my innerText) on navigator.clipboard
-                            put '{% translate "copied!" %}' into me
-                            wait 1s
-                            put original_value into me
-                          end">
-                    0
-                  </a>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="p-0">
-                <div>
-                  <div class="text-base-content/60 text-xs font-medium px-3">
-                    {% trans "Max" %}
+              </li>
+              <li class="cursor-pointer"
+                  _="on click
+                        set original_value to #calc-menu-max's innerText
+                        writeText(original_value) on navigator.clipboard
+                        put '{% translate "copied!" %}' into #calc-menu-max
+                        wait 1s
+                        put original_value into #calc-menu-max
+                      end">
+                <div class="py-1 px-3">
+                  <div>
+                    <div class="text-base-content/60 text-xs font-medium">
+                      {% trans "Max" %}
+                    </div>
+                    <div id="calc-menu-max">
+                      0
+                    </div>
                   </div>
-                  <a class="px-3 cursor-pointer"
-                       id="calc-menu-max"
-                       _="on click
-                            set original_value to my innerText
-                            writeText(my innerText) on navigator.clipboard
-                            put '{% translate "copied!" %}' into me
-                            wait 1s
-                            put original_value into me
-                          end">
-                    0
-                  </a>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="p-0">
-                <div>
-                  <div class="text-base-content/60 text-xs font-medium px-3">
-                    {% trans "Min" %}
+              </li>
+              <li class="cursor-pointer"
+                  _="on click
+                        set original_value to #calc-menu-min's innerText
+                        writeText(original_value) on navigator.clipboard
+                        put '{% translate "copied!" %}' into #calc-menu-min
+                        wait 1s
+                        put original_value into #calc-menu-min
+                      end">
+                <div class="py-1 px-3">
+                  <div>
+                    <div class="text-base-content/60 text-xs font-medium">
+                      {% trans "Min" %}
+                    </div>
+                    <div id="calc-menu-min">
+                      0
+                    </div>
                   </div>
-                  <a class="px-3 cursor-pointer"
-                       id="calc-menu-min"
-                       _="on click
-                            set original_value to my innerText
-                            writeText(my innerText) on navigator.clipboard
-                            put '{% translate "copied!" %}' into me
-                            wait 1s
-                            put original_value into me
-                          end">
-                    0
-                  </a>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="p-0">
-                <div>
-                  <div class="text-base-content/60 text-xs font-medium px-3">
-                    {% trans "Count" %}
+              </li>
+              <li class="cursor-pointer"
+                  _="on click
+                        set original_value to #calc-menu-count's innerText
+                        writeText(original_value) on navigator.clipboard
+                        put '{% translate "copied!" %}' into #calc-menu-count
+                        wait 1s
+                        put original_value into #calc-menu-count
+                      end">
+                <div class="py-1 px-3">
+                  <div>
+                    <div class="text-base-content/60 text-xs font-medium">
+                      {% trans "Count" %}
+                    </div>
+                    <div id="calc-menu-count">
+                      0
+                    </div>
                   </div>
-                  <a class="px-3 cursor-pointer"
-                       id="calc-menu-count"
-                       _="on click
-                            set original_value to my innerText
-                            writeText(my innerText) on navigator.clipboard
-                            put '{% translate "copied!" %}' into me
-                            wait 1s
-                            put original_value into me
-                          end">
-                    0
-                  </a>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       {% endspaceless %}
     </div>

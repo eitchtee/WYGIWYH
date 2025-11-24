@@ -221,7 +221,7 @@
                     <a class="btn btn-success btn-soft btn-sm transaction-action"
                        role="button"
                        hx-get="{% url 'transaction_undelete' transaction_id=transaction.id %}"><i
-                        class="fa-solid fa-trash-arrow-up"></i></a>
+                        class="fa-solid fa-trash-arrow-up fa-fw"></i></a>
                   </div>
                   <div class="tooltip" data-tippy-content="{% translate "Delete" %}">
                     <a class="btn btn-error btn-soft btn-sm transaction-action"
@@ -232,7 +232,7 @@
                        data-title="{% translate "Are you sure?" %}"
                        data-text="{% translate "You won't be able to revert this!" %}"
                        data-confirm-text="{% translate "Yes, delete it!" %}"
-                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw text-red-500"></i>
+                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i>
                     </a>
                   </div>
                 {% endif %}
