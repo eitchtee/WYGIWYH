@@ -408,6 +408,10 @@ class Transaction(OwnedObject):
             self.reference_date = self.date.replace(day=1)
 
     def save(self, *args, **kwargs):
+        # This is here so Django validation doesn't trigger an error before clean() is ran
+        if not self.reference_date and self.date:
+            self.reference_date = self.date.replace(day=1)
+
         # This is not recommended as it will run twice on some cases like form and API saves.
         # We only do this here because we forgot to independently call it on multiple places.
         self.full_clean()
