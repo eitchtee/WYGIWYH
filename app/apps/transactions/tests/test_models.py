@@ -1,9 +1,7 @@
 import datetime
 from decimal import Decimal
-from datetime import date, timedelta
 
 from django.test import TestCase
-from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 from apps.transactions.models import (
