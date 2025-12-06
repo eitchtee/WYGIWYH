@@ -475,10 +475,26 @@ class ImportService:
     def _coerce_type(
         self, value: str, mapping: version_1.ColumnMapping
     ) -> Union[str, int, bool, Decimal, datetime, list, None]:
+        coerce_to = mapping.coerce_to
+
+        # Handle detection methods that don't require a source value
+        if coerce_to == "transaction_type" and isinstance(
+            mapping, version_1.TransactionTypeMapping
+        ):
+            if mapping.detection_method == "always_income":
+                return Transaction.Type.INCOME
+            elif mapping.detection_method == "always_expense":
+                return Transaction.Type.EXPENSE
+        elif coerce_to == "is_paid" and isinstance(
+            mapping, version_1.TransactionIsPaidMapping
+        ):
+            if mapping.detection_method == "always_paid":
+                return True
+            elif mapping.detection_method == "always_unpaid":
+                return False
+
         if not value:
             return None
-
-        coerce_to = mapping.coerce_to
 
         return self._coerce_single_type(value, coerce_to, mapping)
 
