@@ -142,26 +142,95 @@ def transaction_simple_add(request):
         year=year,
     ).date()
 
+    # Build initial data from query parameters
+    initial_data = {
+        "date": expected_date,
+        "type": transaction_type,
+    }
+
+    # Handle date param (ISO format: YYYY-MM-DD) - overrides expected_date
+    date_param = request.GET.get("date")
+    if date_param:
+        try:
+            initial_data["date"] = datetime.datetime.strptime(date_param, "%Y-%m-%d").date()
+        except ValueError:
+            pass
+
+    # Handle reference_date param (ISO format: YYYY-MM-DD)
+    reference_date_param = request.GET.get("reference_date")
+    if reference_date_param:
+        try:
+            initial_data["reference_date"] = datetime.datetime.strptime(reference_date_param, "%Y-%m-%d").date()
+        except ValueError:
+            pass
+
+    # Handle account param (by ID or name)
+    account_param = request.GET.get("account")
+    if account_param:
+        try:
+            initial_data["account"] = int(account_param)
+        except (ValueError, TypeError):
+            # Try to find by name
+            from apps.accounts.models import Account
+            account = Account.objects.filter(name__iexact=account_param, is_archived=False).first()
+            if account:
+                initial_data["account"] = account.pk
+
+    # Handle is_paid param (boolean)
+    is_paid = request.GET.get("is_paid")
+    if is_paid is not None:
+        initial_data["is_paid"] = is_paid.lower() in ("true", "1", "yes")
+
+    # Handle amount param (decimal)
+    amount = request.GET.get("amount")
+    if amount:
+        try:
+            initial_data["amount"] = amount
+        except (ValueError, TypeError):
+            pass
+
+    # Handle description param (string)
+    description = request.GET.get("description")
+    if description:
+        initial_data["description"] = description
+
+    # Handle notes param (string)
+    notes = request.GET.get("notes")
+    if notes:
+        initial_data["notes"] = notes
+
+    # Handle category param (by ID or name)
+    category_param = request.GET.get("category")
+    if category_param:
+        try:
+            initial_data["category"] = int(category_param)
+        except (ValueError, TypeError):
+            # Try to find by name
+            from apps.transactions.models import TransactionCategory
+            category = TransactionCategory.objects.filter(name__iexact=category_param, active=True).first()
+            if category:
+                initial_data["category"] = category.pk
+
+    # Handle tags param (comma-separated names)
+    tags = request.GET.get("tags")
+    if tags:
+        initial_data["tags"] = [t.strip() for t in tags.split(",") if t.strip()]
+
+    # Handle entities param (comma-separated names)
+    entities = request.GET.get("entities")
+    if entities:
+        initial_data["entities"] = [e.strip() for e in entities.split(",") if e.strip()]
+
     if request.method == "POST":
         form = TransactionForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, _("Transaction added successfully"))
-
-        form = TransactionForm(
-            initial={
-                "date": expected_date,
-                "type": transaction_type,
-            },
-        )
+            # Only reset form after successful save
+            form = TransactionForm(initial=initial_data)
 
     else:
-        form = TransactionForm(
-            initial={
-                "date": expected_date,
-                "type": transaction_type,
-            },
-        )
+        form = TransactionForm(initial=initial_data)
 
     return render(
         request,
