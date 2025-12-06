@@ -319,9 +319,9 @@ CACHES = {
 
 DJANGO_VITE_ASSETS_PATH = STATIC_ROOT
 DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
-DJANGO_VITE_DEV_MODE = DEBUG
-DJANGO_VITE_DEV_SERVER_PORT = 5173
-DJANGO_VITE_DEV_SERVER_HOST = "localhost"
+DJANGO_VITE_DEV_MODE = os.getenv("DJANGO_VITE_DEV_MODE", "false").lower() == "true"
+DJANGO_VITE_DEV_SERVER_PORT = int(os.getenv("DJANGO_VITE_DEV_SERVER_PORT", "5173"))
+DJANGO_VITE_DEV_SERVER_HOST = os.getenv("DJANGO_VITE_DEV_SERVER_HOST", "localhost")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

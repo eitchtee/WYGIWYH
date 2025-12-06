@@ -29,7 +29,7 @@ export default defineConfig({
 
     server: {
         host: '0.0.0.0',
-        port: 5173,
+        port: parseInt(process.env.VITE_DEV_SERVER_PORT || '5173'),
         open: false,
         watch: {
             usePolling: true,
@@ -37,7 +37,7 @@ export default defineConfig({
         },
         hmr: false,
         cors: true,
-        origin: 'http://localhost:5173'
+        origin: `http://${process.env.VITE_DEV_SERVER_HOST || 'localhost'}:${process.env.VITE_DEV_SERVER_PORT || '5173'}`
     },
 
     resolve: {
