@@ -11,23 +11,13 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.forms import AccountBalanceFormSet
 from apps.accounts.models import Account, Transaction
+from apps.accounts.services import get_account_balance
 from apps.common.decorators.htmx import only_htmx
 
 
 @only_htmx
 @login_required
 def account_reconciliation(request):
-    def get_account_balance(account):
-        income = Transaction.objects.filter(
-            account=account, type=Transaction.Type.INCOME, is_paid=True
-        ).aggregate(total=models.Sum("amount"))["total"] or Decimal("0")
-
-        expense = Transaction.objects.filter(
-            account=account, type=Transaction.Type.EXPENSE, is_paid=True
-        ).aggregate(total=models.Sum("amount"))["total"] or Decimal("0")
-
-        return income - expense
-
     initial_data = [
         {
             "account_id": account.id,

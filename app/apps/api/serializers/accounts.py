@@ -67,3 +67,12 @@ class AccountSerializer(serializers.ModelSerializer):
             setattr(instance, attr, value)
         instance.save()
         return instance
+
+
+class AccountBalanceSerializer(serializers.Serializer):
+    """Serializer for account balance response."""
+
+    current_balance = serializers.DecimalField(max_digits=20, decimal_places=10)
+    projected_balance = serializers.DecimalField(max_digits=20, decimal_places=10)
+    currency = CurrencySerializer()
+
