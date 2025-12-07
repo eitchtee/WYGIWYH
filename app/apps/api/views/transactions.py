@@ -32,7 +32,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
         transaction_created.send(sender=instance)
 
     def perform_update(self, serializer):
-        old_data = deepcopy(Transaction.objects.get(pk=serializer.data["pk"]))
+        old_data = deepcopy(self.get_object())
         instance = serializer.save()
         transaction_updated.send(sender=instance, old_data=old_data)
 
