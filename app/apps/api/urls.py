@@ -16,7 +16,11 @@ router.register(r"currencies", views.CurrencyViewSet)
 router.register(r"exchange-rates", views.ExchangeRateViewSet)
 router.register(r"dca/strategies", views.DCAStrategyViewSet)
 router.register(r"dca/entries", views.DCAEntryViewSet)
+router.register(r"import/profiles", views.ImportProfileViewSet, basename="import-profiles")
+router.register(r"import/runs", views.ImportRunViewSet, basename="import-runs")
+router.register(r"import/import", views.ImportViewSet, basename="import-import")
 
 urlpatterns = [
     path("", include(router.urls)),
 ]
+
