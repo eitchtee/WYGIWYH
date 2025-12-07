@@ -10,15 +10,19 @@ from apps.transactions.models import (
 
 @extend_schema_field(
     {
-        "oneOf": [{"type": "string"}, {"type": "integer"}],
-        "description": "TransactionCategory ID or name. If the name doesn't exist, a new one will be created",
+        "oneOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}],
+        "description": "TransactionCategory ID or name. If the name doesn't exist, a new one will be created. Can be null if no category is assigned.",
     }
 )
 class TransactionCategoryField(serializers.Field):
     def to_representation(self, value):
+        if value is None:
+            return None
         return {"id": value.id, "name": value.name}
 
     def to_internal_value(self, data):
+        if data is None:
+            return None
         if isinstance(data, int):
             try:
                 return TransactionCategory.objects.get(pk=data)
