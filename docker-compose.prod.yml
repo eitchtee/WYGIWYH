@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   db:
-    image: postgres:15
+    image: postgres:15-bookworm
     container_name: ${DB_NAME}
     restart: unless-stopped
     volumes:
