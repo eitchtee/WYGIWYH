@@ -74,7 +74,9 @@ def index(request):
 def sankey_by_account(request):
     # Get filtered transactions
 
-    transactions = get_transactions(request, include_untracked_accounts=True)
+    transactions = get_transactions(
+        request, include_untracked_accounts=True, include_silent=True
+    )
 
     # Generate Sankey data
     sankey_data = generate_sankey_data_by_account(transactions)
@@ -91,7 +93,9 @@ def sankey_by_account(request):
 @require_http_methods(["GET"])
 def sankey_by_currency(request):
     # Get filtered transactions
-    transactions = get_transactions(request)
+    transactions = get_transactions(
+        request, include_silent=True, include_untracked_accounts=True
+    )
 
     # Generate Sankey data
     sankey_data = generate_sankey_data_by_currency(transactions)
