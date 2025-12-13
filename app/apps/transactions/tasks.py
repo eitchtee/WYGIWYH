@@ -13,7 +13,9 @@ logger = logging.getLogger(__name__)
 
 
 @app.periodic(cron="0 0 * * *")
-@app.task(name="generate_recurring_transactions")
+@app.task(
+    lock="generate_recurring_transactions", name="generate_recurring_transactions"
+)
 def generate_recurring_transactions(timestamp=None):
     try:
         RecurringTransaction.generate_upcoming_transactions()
@@ -26,7 +28,7 @@ def generate_recurring_transactions(timestamp=None):
 
 
 @app.periodic(cron="10 1 * * *")
-@app.task(name="cleanup_deleted_transactions")
+@app.task(lock="cleanup_deleted_transactions", name="cleanup_deleted_transactions")
 def cleanup_deleted_transactions(timestamp=None):
     if settings.ENABLE_SOFT_DELETE and settings.KEEP_DELETED_TRANSACTIONS_FOR == 0:
         return "KEEP_DELETED_TRANSACTIONS_FOR is 0, no cleanup performed."

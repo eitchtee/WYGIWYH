@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 @app.periodic(cron="0 * * * *")  # Run every hour
-@app.task(name="automatic_fetch_exchange_rates")
+@app.task(lock="automatic_fetch_exchange_rates", name="automatic_fetch_exchange_rates")
 def automatic_fetch_exchange_rates(timestamp=None):
     """Fetch exchange rates for all due services"""
     fetcher = ExchangeRateFetcher()
@@ -19,7 +19,7 @@ def automatic_fetch_exchange_rates(timestamp=None):
         logger.error(e, exc_info=True)
 
 
-@app.task(name="manual_fetch_exchange_rates")
+@app.task(lock="manual_fetch_exchange_rates", name="manual_fetch_exchange_rates")
 def manual_fetch_exchange_rates(timestamp=None):
     """Fetch exchange rates for all due services"""
     fetcher = ExchangeRateFetcher()
