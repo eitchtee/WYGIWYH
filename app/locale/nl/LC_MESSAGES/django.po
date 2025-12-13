@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-07 16:45+0000\n"
+"POT-Creation-Date: 2025-12-13 19:44+0000\n"
 "PO-Revision-Date: 2025-11-25 05:20+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -925,7 +925,7 @@ msgid "Update or create transaction actions"
 msgstr "Bewerk of maak verrichtingsregel acties"
 
 #: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:224
-#: templates/cotton/ui/deleted_transactions_action_bar.html:50
+#: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
 msgid "Restore"
@@ -2023,7 +2023,7 @@ msgstr "Acties"
 #: templates/accounts/fragments/list.html:37
 #: templates/categories/fragments/table.html:29
 #: templates/cotton/transaction/item.html:152
-#: templates/cotton/ui/transactions_action_bar.html:52
+#: templates/cotton/ui/transactions_action_bar.html:54
 #: templates/currencies/fragments/list.html:34
 #: templates/dca/fragments/strategy/details.html:63
 #: templates/dca/fragments/strategy/list.html:31
@@ -2069,7 +2069,7 @@ msgstr "Deel"
 #: templates/cotton/transaction/item.html:158
 #: templates/cotton/transaction/item.html:230
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
-#: templates/cotton/ui/transactions_action_bar.html:89
+#: templates/cotton/ui/transactions_action_bar.html:82
 #: templates/currencies/fragments/list.html:40
 #: templates/dca/fragments/strategy/details.html:70
 #: templates/dca/fragments/strategy/list.html:38
@@ -2097,8 +2097,6 @@ msgstr "Verwijderen"
 #: templates/categories/fragments/table.html:56
 #: templates/cotton/transaction/item.html:160
 #: templates/cotton/transaction/item.html:236
-#: templates/cotton/ui/deleted_transactions_action_bar.html:59
-#: templates/cotton/ui/transactions_action_bar.html:91
 #: templates/currencies/fragments/list.html:44
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:42
@@ -2127,8 +2125,6 @@ msgstr "Weet je het zeker?"
 #: templates/categories/fragments/table.html:57
 #: templates/cotton/transaction/item.html:161
 #: templates/cotton/transaction/item.html:237
-#: templates/cotton/ui/deleted_transactions_action_bar.html:60
-#: templates/cotton/ui/transactions_action_bar.html:92
 #: templates/currencies/fragments/list.html:45
 #: templates/dca/fragments/strategy/details.html:76
 #: templates/dca/fragments/strategy/list.html:43
@@ -2338,7 +2334,7 @@ msgid "Move to today"
 msgstr "Ga naar vandaag"
 
 #: templates/cotton/transaction/item.html:221
-#: templates/cotton/ui/transactions_action_bar.html:82
+#: templates/cotton/ui/transactions_action_bar.html:78
 msgid "Duplicate"
 msgstr "Dupliceren"
 
@@ -2377,65 +2373,89 @@ msgstr "huidige totaal"
 msgid "final total"
 msgstr "eindtotaal"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:35
-#: templates/cotton/ui/transactions_action_bar.html:35
+#: templates/cotton/ui/deleted_transactions_action_bar.html:34
+#: templates/cotton/ui/transactions_action_bar.html:34
 msgid "Select All"
 msgstr "Alles selecteren"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:41
-#: templates/cotton/ui/transactions_action_bar.html:41
+#: templates/cotton/ui/deleted_transactions_action_bar.html:40
+#: templates/cotton/ui/transactions_action_bar.html:40
 msgid "Unselect All"
 msgstr "Alles deselecteren"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:61
-#: templates/cotton/ui/transactions_action_bar.html:93
-msgid "Yes, delete them!"
+#: templates/cotton/ui/deleted_transactions_action_bar.html:46
+#, fuzzy
+#| msgid "Description"
+msgid "Invert election"
+msgstr "Beschrijving"
+
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
+#, fuzzy
+#| msgid "Are you sure?"
+msgid " Are you sure?"
+msgstr "Weet je het zeker?"
+
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
+#, fuzzy
+#| msgid "You won't be able to revert this!"
+msgid " You won't be able to revert this!"
+msgstr "Je kunt dit niet meer terugdraaien!"
+
+#: templates/cotton/ui/deleted_transactions_action_bar.html:59
+#: templates/cotton/ui/transactions_action_bar.html:84
+#, fuzzy
+#| msgid "Yes, delete them!"
+msgid " Yes, delete them!"
 msgstr "Ja, verwijder ze!"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:108
-#: templates/cotton/ui/deleted_transactions_action_bar.html:129
-#: templates/cotton/ui/deleted_transactions_action_bar.html:148
-#: templates/cotton/ui/deleted_transactions_action_bar.html:167
-#: templates/cotton/ui/deleted_transactions_action_bar.html:186
-#: templates/cotton/ui/deleted_transactions_action_bar.html:205
-#: templates/cotton/ui/deleted_transactions_action_bar.html:224
-#: templates/cotton/ui/transactions_action_bar.html:140
-#: templates/cotton/ui/transactions_action_bar.html:161
-#: templates/cotton/ui/transactions_action_bar.html:180
-#: templates/cotton/ui/transactions_action_bar.html:199
-#: templates/cotton/ui/transactions_action_bar.html:218
-#: templates/cotton/ui/transactions_action_bar.html:237
-#: templates/cotton/ui/transactions_action_bar.html:256
-msgid "copied!"
+#: templates/cotton/ui/deleted_transactions_action_bar.html:103
+#: templates/cotton/ui/deleted_transactions_action_bar.html:118
+#: templates/cotton/ui/deleted_transactions_action_bar.html:134
+#: templates/cotton/ui/deleted_transactions_action_bar.html:150
+#: templates/cotton/ui/deleted_transactions_action_bar.html:166
+#: templates/cotton/ui/deleted_transactions_action_bar.html:182
+#: templates/cotton/ui/deleted_transactions_action_bar.html:198
+#: templates/cotton/ui/transactions_action_bar.html:128
+#: templates/cotton/ui/transactions_action_bar.html:143
+#: templates/cotton/ui/transactions_action_bar.html:159
+#: templates/cotton/ui/transactions_action_bar.html:175
+#: templates/cotton/ui/transactions_action_bar.html:191
+#: templates/cotton/ui/transactions_action_bar.html:207
+#: templates/cotton/ui/transactions_action_bar.html:223
+#, fuzzy
+#| msgid "copied!"
+msgid " copied!"
 msgstr "gekopieerd!"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:136
-#: templates/cotton/ui/transactions_action_bar.html:168
+#: templates/cotton/ui/deleted_transactions_action_bar.html:123
+#: templates/cotton/ui/transactions_action_bar.html:148
 msgid "Flat Total"
 msgstr "Vast Totaal"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:155
-#: templates/cotton/ui/transactions_action_bar.html:187
+#: templates/cotton/ui/deleted_transactions_action_bar.html:139
+#: templates/cotton/ui/transactions_action_bar.html:164
 msgid "Real Total"
 msgstr "Werkelijk Totaal"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:174
-#: templates/cotton/ui/transactions_action_bar.html:206
+#: templates/cotton/ui/deleted_transactions_action_bar.html:155
+#: templates/cotton/ui/transactions_action_bar.html:180
 msgid "Mean"
 msgstr "Gemiddelde"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:193
-#: templates/cotton/ui/transactions_action_bar.html:225
+#: templates/cotton/ui/deleted_transactions_action_bar.html:171
+#: templates/cotton/ui/transactions_action_bar.html:196
 msgid "Max"
 msgstr "Maximaal"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:212
-#: templates/cotton/ui/transactions_action_bar.html:244
+#: templates/cotton/ui/deleted_transactions_action_bar.html:187
+#: templates/cotton/ui/transactions_action_bar.html:212
 msgid "Min"
 msgstr "Minimaal"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:231
-#: templates/cotton/ui/transactions_action_bar.html:263
+#: templates/cotton/ui/deleted_transactions_action_bar.html:203
+#: templates/cotton/ui/transactions_action_bar.html:228
 msgid "Count"
 msgstr "Rekenen"
 
@@ -2458,11 +2478,15 @@ msgstr "Terugkerende"
 msgid "Balance"
 msgstr "Saldo"
 
+#: templates/cotton/ui/transactions_action_bar.html:46
+msgid "Invert selection"
+msgstr ""
+
 #: templates/cotton/ui/transactions_action_bar.html:66
 msgid "Mark as unpaid"
 msgstr "Markeren als niet betaald"
 
-#: templates/cotton/ui/transactions_action_bar.html:73
+#: templates/cotton/ui/transactions_action_bar.html:71
 msgid "Mark as paid"
 msgstr "Markeren als betaald"
 
@@ -3678,11 +3702,6 @@ msgstr "Jaaroverzicht"
 #~| msgid "Amount"
 #~ msgid "Set Amount"
 #~ msgstr "Bedrag"
-
-#, fuzzy
-#~| msgid "Description"
-#~ msgid "Set Description"
-#~ msgstr "Beschrijving"
 
 #, fuzzy
 #~| msgid "Notes"
