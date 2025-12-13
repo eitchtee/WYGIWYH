@@ -248,6 +248,32 @@
   }
 }
 
+/**
+ * ----------------------------------------
+ * animation slide-in-bottom-short
+ * A variant with smaller translateY for elements at bottom of viewport
+ * ----------------------------------------
+ */
+@keyframes slide-in-bottom-short {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-bottom-short {
+  animation: slide-in-bottom-short 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.slide-in-bottom-short-reverse {
+  animation: slide-in-bottom-short 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) reverse both;
+}
+
 @keyframes disable-pointer-events {
 
   0%,

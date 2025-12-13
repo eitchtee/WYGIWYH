@@ -3,9 +3,9 @@
         if #actions-bar then
             if no <input[type='checkbox']:checked/> in #transactions-list
               if #actions-bar
-                add .slide-in-bottom-reverse then settle
+                add .slide-in-bottom-short-reverse then settle
                 then add .hidden to #actions-bar
-                then remove .slide-in-bottom-reverse
+                then remove .slide-in-bottom-short-reverse
               end
             else
               if #actions-bar
@@ -16,7 +16,7 @@
             end
           end
         end">
-  <div class="card bg-base-300 shadow slide-in-bottom max-w-[90vw] card-border">
+  <div class="card bg-base-300 shadow slide-in-bottom-short max-w-[90vw] card-border mt-5">
     <div class="card-body flex-row p-2 flex justify-between items-center gap-3 overflow-x-auto">
       {% spaceless %}
       <div class="font-bold text-md ms-2" id="selected-count">0</div>
