@@ -17,7 +17,12 @@ logger = logging.getLogger(__name__)
 
 
 @app.periodic(cron="0 4 * * *")
-@app.task(queueing_lock="remove_old_jobs", pass_context=True, name="remove_old_jobs")
+@app.task(
+    lock="remove_old_jobs",
+    queueing_lock="remove_old_jobs",
+    pass_context=True,
+    name="remove_old_jobs",
+)
 async def remove_old_jobs(context, timestamp):
     try:
         return await builtin_tasks.remove_old_jobs(
@@ -36,7 +41,11 @@ async def remove_old_jobs(context, timestamp):
 
 
 @app.periodic(cron="0 6 1 * *")
-@app.task(queueing_lock="remove_expired_sessions", name="remove_expired_sessions")
+@app.task(
+    lock="remove_expired_sessions",
+    queueing_lock="remove_expired_sessions",
+    name="remove_expired_sessions",
+)
 async def remove_expired_sessions(timestamp=None):
     """Cleanup expired sessions by using Django management command."""
     try:
@@ -49,7 +58,7 @@ async def remove_expired_sessions(timestamp=None):
 
 
 @app.periodic(cron="0 8 * * *")
-@app.task(name="reset_demo_data")
+@app.task(lock="reset_demo_data", name="reset_demo_data")
 def reset_demo_data(timestamp=None):
     """
     Wipes the database and loads fresh demo data if DEMO mode is active.
@@ -86,9 +95,7 @@ def reset_demo_data(timestamp=None):
 
 
 @app.periodic(cron="0 */12 * * *")  # Every 12 hours
-@app.task(
-    name="check_for_updates",
-)
+@app.task(lock="check_for_updates", name="check_for_updates")
 def check_for_updates(timestamp=None):
     if not settings.CHECK_FOR_UPDATES:
         return "CHECK_FOR_UPDATES is disabled"
