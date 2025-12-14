@@ -137,13 +137,13 @@ class UserSettingsForm(forms.ModelForm):
         self.helper.layout = Layout(
             "language",
             "timezone",
-            HTML("<hr />"),
+            HTML('<hr class="hr my-3" />'),
             "date_format",
             "datetime_format",
             "number_format",
-            HTML("<hr />"),
+            HTML('<hr class="hr my-3" />'),
             "start_page",
-            HTML("<hr />"),
+            HTML('<hr class="hr my-3" />'),
             "volume",
             FormActions(
                 NoClassSubmit("submit", _("Save"), css_class="btn btn-primary"),
