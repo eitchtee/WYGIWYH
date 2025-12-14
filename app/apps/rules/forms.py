@@ -1,3 +1,4 @@
+from crispy_forms.bootstrap import Alert
 from apps.common.fields.forms.dynamic_select import DynamicModelChoiceField
 from apps.common.widgets.crispy.daisyui import Switch
 from apps.common.widgets.crispy.submit import NoClassSubmit
@@ -36,7 +37,6 @@ class TransactionRuleForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        # TO-DO: Add helper with available commands
         self.helper.layout = Layout(
             Switch("active"),
             "name",
@@ -49,6 +49,9 @@ class TransactionRuleForm(forms.ModelForm):
             Switch("sequenced"),
             "description",
             "trigger",
+            Alert(
+                _("You can add actions to this rule in the next screen."), dismiss=True
+            ),
         )
 
         if self.instance and self.instance.pk:
