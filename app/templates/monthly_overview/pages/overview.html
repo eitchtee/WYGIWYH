@@ -89,7 +89,7 @@
       </div>
       <div class="col-12 lg:col-8 lg:order-first! order-last!">
 
-        <div class="my-3">
+        <div class="my-3" x-data="{ filterOpen: false }" hx-preserve id="filter-container">
           {# Hidden select to hold the order value and preserve the original update trigger #}
           <select name="order" id="order" class="d-none" _="on change trigger updated on window">
             <option value="default" {% if order == 'default' %}selected{% endif %}>{% translate 'Default' %}</option>
@@ -101,8 +101,8 @@
           <div class="join w-full">
 
             <button class="btn btn-secondary join-item relative" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#collapse-filter"
-                    aria-expanded="false" aria-controls="collapse-filter" id="filter-button" hx-preserve
+                    @click="filterOpen = !filterOpen"
+                    :aria-expanded="filterOpen" id="filter-button"
                     title="{% translate 'Filter transactions' %}">
               <i class="fa-solid fa-filter fa-fw"></i>
             </button>
@@ -113,7 +113,6 @@
             <input type="search"
                    class="input input-bordered join-item flex-1"
                    placeholder="{% translate 'Search' %}"
-                   hx-preserve
                    id="quick-search"
                    _="on input or search or htmx:afterSwap from window
                          if my value is empty
@@ -165,7 +164,7 @@
           </div>
 
           {# Filter transactions form #}
-          <div class="bs collapse z-1" id="collapse-filter" hx-preserve>
+          <div class="z-1" x-show="filterOpen" x-collapse>
             <div class="card card-body bg-base-200 mt-2">
               <div class="text-right">
                 <button class="btn btn-outline btn-error btn-sm w-fit"

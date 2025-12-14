@@ -2,7 +2,6 @@ import './_tooltip.js';
 import 'bootstrap/js/dist/dropdown';
 import Toast from 'bootstrap/js/dist/toast';
 import 'bootstrap/js/dist/dropdown';
-import 'bootstrap/js/dist/collapse';
 import Offcanvas from 'bootstrap/js/dist/offcanvas';
 
 window.Offcanvas = Offcanvas;
