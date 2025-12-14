@@ -10,9 +10,9 @@ behavior htmx_error_handler
         icon: 'warning',
         timer: 60000,
         customClass: {
-          confirmButton: 'btn btn-warning' -- Optional: different button style
+          confirmButton: 'btn btn-warning'
         },
-        buttonsStyling: true
+        buttonsStyling: false
       })
     else
       call Swal.fire({
@@ -23,7 +23,7 @@ behavior htmx_error_handler
         customClass: {
           confirmButton: 'btn btn-primary'
         },
-        buttonsStyling: true
+        buttonsStyling: false
       })
     end
     then log event

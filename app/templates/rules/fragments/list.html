@@ -64,13 +64,13 @@
                   </div>
                 </td>
                 <td class="table-col-auto">
-                  <a class="no-underline"
+                  <a class="no-underline cursor-pointer"
                      role="button"
                      data-tippy-content="
                        {% if rule.active %}{% translate "Deactivate" %}{% else %}{% translate "Activate" %}{% endif %}"
                      hx-get="{% url 'transaction_rule_toggle_activity' transaction_rule_id=rule.id %}">
-                    {% if rule.active %}<i class="fa-solid fa-toggle-on text-green-400"></i>{% else %}
-                      <i class="fa-solid fa-toggle-off text-red-400"></i>{% endif %}
+                    {% if rule.active %}<i class="fa-solid fa-toggle-on text-success"></i>{% else %}
+                      <i class="fa-solid fa-toggle-off text-error"></i>{% endif %}
                   </a>
                 </td>
                 <td class="table-col-auto text-center">
