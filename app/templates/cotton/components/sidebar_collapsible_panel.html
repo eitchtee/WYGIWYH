@@ -1,0 +1,39 @@
+{% load active_link %}
+{% load i18n %}
+<c-vars id="collapsible-panel" />
+
+<li>
+  <div role="button"
+       _="on click toggle .hidden on #{{ id }} then toggle .slide-in-left on #{{ id }}"
+       class="text-xs flex items-center no-underline ps-3 p-2 rounded-box sidebar-item cursor-pointer {% active_link views=active css_class='sidebar-active' %}">
+    <i class="{{ icon }} fa-fw"></i>
+    <span class="ml-3 font-medium lg:group-hover:truncate lg:group-focus:truncate lg:group-hover:text-ellipsis lg:group-focus:text-ellipsis">
+      {{ title }}
+    </span>
+    <i class="fa-solid fa-chevron-right fa-fw ml-auto pe-2"></i>
+  </div>
+</li>
+
+<div id="{{ id }}"
+     class="p-0 absolute bottom-0 left-0 w-full z-30 max-h-dvh {% active_link views=active css_class='slide-in-left' inactive_class='hidden' %}">
+  <div class="h-dvh bg-base-300 flex flex-col">
+    <div class="items-center p-4 border-b border-base-content/10 sidebar-submenu-header text-base-content">
+      <div class="flex items-center sidebar-submenu-title">
+        <i class="{{ icon }} fa-fw lg:group-hover:me-2 me-2 lg:me-0"></i>
+        <h5 class="text-lg font-semibold text-base-content m-0">
+          {{ title }}
+        </h5>
+      </div>
+
+      <button type="button" class="btn btn-ghost btn-sm btn-circle" aria-label="{% trans 'Close' %}"
+              _="on click remove .slide-in-left from #{{ id }} then add .slide-out-left to #{{ id }} then wait 150ms then add .hidden to #{{ id }} then remove .slide-out-left from #{{ id }}">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <ul class="sidebar-item-list list-none p-3 flex flex-col gap-1 whitespace-nowrap lg:group-hover:animate-[disable-pointer-events] overflow-y-auto lg:overflow-y-hidden lg:hover:overflow-y-auto overflow-x-hidden"
+        style="animation-duration: 100ms">
+      {{ slot }}
+    </ul>
+  </div>
+</div>

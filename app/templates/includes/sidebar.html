@@ -135,138 +135,105 @@
 
       <c-components.sidebar-menu-header title=""></c-components.sidebar-menu-header>
 
-      <div role="button"
-           data-bs-toggle="collapse"
-           data-bs-target="#collapsible-panel"
-           aria-expanded="false"
-           aria-controls="collapsible-panel"
-           class="text-xs flex items-center no-underline ps-3 p-2 rounded-box sidebar-item cursor-pointer {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="sidebar-active" %}">
-        <i class="fa-solid fa-toolbox fa-fw"></i>
-        <span class="ml-3 font-medium lg:group-hover:truncate lg:group-focus:truncate lg:group-hover:text-ellipsis lg:group-focus:text-ellipsis">
-          {% translate 'Management' %}
-        </span>
-        <i class="fa-solid fa-chevron-right fa-fw ml-auto pe-2"></i>
-      </div>
+      <c-components.sidebar-collapsible-panel
+          title="{% translate 'Management' %}"
+          icon="fa-solid fa-toolbox"
+          active="tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index">
+        <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Categories' %}"
+            url='categories_index'
+            active="categories_index"
+            icon="fa-solid fa-icons">
+        </c-components.sidebar-menu-item>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Tags' %}"
+            url='tags_index'
+            active="tags_index"
+            icon="fa-solid fa-hashtag">
+        </c-components.sidebar-menu-item>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Entities' %}"
+            url='entities_index'
+            active="entities_index"
+            icon="fa-solid fa-user-group">
+        </c-components.sidebar-menu-item>
+
+        <c-components.sidebar-menu-header title="{% translate 'Accounts' %}"></c-components.sidebar-menu-header>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Accounts' %}"
+            url='accounts_index'
+            active="accounts_index"
+            icon="fa-solid fa-wallet">
+        </c-components.sidebar-menu-item>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Account Groups' %}"
+            url='account_groups_index'
+            active="account_groups_index"
+            icon="fa-solid fa-wallet">
+        </c-components.sidebar-menu-item>
+
+        <c-components.sidebar-menu-header title="{% translate 'Currencies' %}"></c-components.sidebar-menu-header>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Currencies' %}"
+            url='currencies_index'
+            active="currencies_index"
+            icon="fa-solid fa-coins">
+        </c-components.sidebar-menu-item>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Exchange Rates' %}"
+            url='exchange_rates_index'
+            active="exchange_rates_index"
+            icon="fa-solid fa-right-left">
+        </c-components.sidebar-menu-item>
+
+        <c-components.sidebar-menu-header title="{% translate 'Automation' %}"></c-components.sidebar-menu-header>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Rules' %}"
+            url='rules_index'
+            active="rules_index"
+            icon="fa-solid fa-pen-ruler">
+        </c-components.sidebar-menu-item>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Import' %}"
+            url='import_profiles_index'
+            active="import_profiles_index"
+            icon="fa-solid fa-file-import">
+        </c-components.sidebar-menu-item>
+        {% if user.is_superuser %}
+          <c-components.sidebar-menu-item
+              title="{% translate 'Export and Restore' %}"
+              url='export_index'
+              active="export_index"
+              icon="fa-solid fa-file-export">
+          </c-components.sidebar-menu-item>
+        {% endif %}
+        <c-components.sidebar-menu-item
+            title="{% translate 'Automatic Exchange Rates' %}"
+            url='automatic_exchange_rates_index'
+            active="automatic_exchange_rates_index"
+            icon="fa-solid fa-right-left">
+        </c-components.sidebar-menu-item>
+
+        {% if user.is_superuser %}
+          <c-components.sidebar-menu-header title="{% translate 'Admin' %}"></c-components.sidebar-menu-header>
+          <c-components.sidebar-menu-item
+              title="{% translate 'Users' %}"
+              url='users_index'
+              active="users_index"
+              icon="fa-solid fa-users">
+          </c-components.sidebar-menu-item>
+          <c-components.sidebar-menu-url-item
+              title="{% translate 'Django Admin' %}"
+              tooltip="{% translate "Only use this if you know what you're doing" %}"
+              url='/admin/'
+              icon="fa-solid fa-screwdriver-wrench">
+          </c-components.sidebar-menu-url-item>
+        {% endif %}
+      </c-components.sidebar-collapsible-panel>
     </ul>
 
     <div class="mt-auto p-2 w-full">
-      <div id="collapsible-panel"
-           class="bs collapse p-0 absolute bottom-0 left-0 w-full z-30 max-h-dvh {% active_link views='tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index' css_class="show" %}">
-        <div class="h-dvh bg-base-300 flex flex-col">
-          <div
-              class="items-center p-4 border-b border-base-content/10 sidebar-submenu-header text-base-content">
-            <div class="flex items-center sidebar-submenu-title">
-              <i class="fa-solid fa-toolbox fa-fw lg:group-hover:me-2 me-2 lg:me-0"></i>
-              <h5 class="text-lg font-semibold text-base-content m-0">
-                {% trans 'Management' %}
-              </h5>
-            </div>
-
-            <button type="button" class="btn btn-ghost btn-sm btn-circle" aria-label="{% trans 'Close' %}"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapsible-panel"
-                    aria-expanded="true"
-                    aria-controls="collapsible-panel">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-
-          <ul class="sidebar-item-list list-none p-3 flex flex-col gap-1 whitespace-nowrap lg:group-hover:animate-[disable-pointer-events] overflow-y-auto lg:overflow-y-hidden lg:hover:overflow-y-auto overflow-x-hidden"
-              style="animation-duration: 100ms">
-            <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Categories' %}"
-                url='categories_index'
-                active="categories_index"
-                icon="fa-solid fa-icons">
-            </c-components.sidebar-menu-item>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Tags' %}"
-                url='tags_index'
-                active="tags_index"
-                icon="fa-solid fa-hashtag">
-            </c-components.sidebar-menu-item>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Entities' %}"
-                url='entities_index'
-                active="entities_index"
-                icon="fa-solid fa-user-group">
-            </c-components.sidebar-menu-item>
-
-            <c-components.sidebar-menu-header title="{% translate 'Accounts' %}"></c-components.sidebar-menu-header>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Accounts' %}"
-                url='accounts_index'
-                active="accounts_index"
-                icon="fa-solid fa-wallet">
-            </c-components.sidebar-menu-item>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Account Groups' %}"
-                url='account_groups_index'
-                active="account_groups_index"
-                icon="fa-solid fa-wallet">
-            </c-components.sidebar-menu-item>
-
-            <c-components.sidebar-menu-header title="{% translate 'Currencies' %}"></c-components.sidebar-menu-header>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Currencies' %}"
-                url='currencies_index'
-                active="currencies_index"
-                icon="fa-solid fa-coins">
-            </c-components.sidebar-menu-item>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Exchange Rates' %}"
-                url='exchange_rates_index'
-                active="exchange_rates_index"
-                icon="fa-solid fa-right-left">
-            </c-components.sidebar-menu-item>
-
-            <c-components.sidebar-menu-header title="{% translate 'Automation' %}"></c-components.sidebar-menu-header>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Rules' %}"
-                url='rules_index'
-                active="rules_index"
-                icon="fa-solid fa-pen-ruler">
-            </c-components.sidebar-menu-item>
-            <c-components.sidebar-menu-item
-                title="{% translate 'Import' %}"
-                url='import_profiles_index'
-                active="import_profiles_index"
-                icon="fa-solid fa-file-import">
-            </c-components.sidebar-menu-item>
-            {% if user.is_superuser %}
-              <c-components.sidebar-menu-item
-                  title="{% translate 'Export and Restore' %}"
-                  url='export_index'
-                  active="export_index"
-                  icon="fa-solid fa-file-export">
-              </c-components.sidebar-menu-item>
-            {% endif %}
-            <c-components.sidebar-menu-item
-                title="{% translate 'Automatic Exchange Rates' %}"
-                url='automatic_exchange_rates_index'
-                active="automatic_exchange_rates_index"
-                icon="fa-solid fa-right-left">
-            </c-components.sidebar-menu-item>
-
-            {% if user.is_superuser %}
-              <c-components.sidebar-menu-header title="{% translate 'Admin' %}"></c-components.sidebar-menu-header>
-              <c-components.sidebar-menu-item
-                  title="{% translate 'Users' %}"
-                  url='users_index'
-                  active="users_index"
-                  icon="fa-solid fa-users">
-              </c-components.sidebar-menu-item>
-              <c-components.sidebar-menu-url-item
-                  title="{% translate 'Django Admin' %}"
-                  tooltip="{% translate "Only use this if you know what you're doing" %}"
-                  url='/admin/'
-                  icon="fa-solid fa-screwdriver-wrench">
-              </c-components.sidebar-menu-url-item>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
       {% get_update_check as update_check %}
       {% if update_check.update_available %}
         <div class="my-3 sidebar-item">

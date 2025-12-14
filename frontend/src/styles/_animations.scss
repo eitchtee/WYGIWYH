@@ -56,6 +56,22 @@
   animation: slide-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.slide-out-left {
+  animation: slide-out-left 0.15s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
 // HTMX Loading
 @keyframes spin {
   0% {

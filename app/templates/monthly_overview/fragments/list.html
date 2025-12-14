@@ -5,33 +5,19 @@
 <div id="transactions-list">
   {% for x in transactions_by_date %}
     <div id="{{ x.grouper|slugify }}" class="transactions-divider"
-         _="on htmx:afterSwap from #transactions if sessionStorage.getItem(my id) is null then sessionStorage.setItem(my id, 'true')">
+         x-data="{ open: sessionStorage.getItem('{{ x.grouper|slugify }}') !== 'false' }"
+         x-init="if (sessionStorage.getItem('{{ x.grouper|slugify }}') === null) sessionStorage.setItem('{{ x.grouper|slugify }}', 'true')">
       <div class="mt-3 mb-1 w-full border-b border-b-base-content/30 transactions-divider-title cursor-pointer">
         <a class="no-underline inline-block w-full"
            role="button"
-           data-bs-toggle="collapse"
-           data-bs-target="#c-{{ x.grouper|slugify }}-collapse"
-           id="c-{{ x.grouper|slugify }}-collapsible"
-           aria-expanded="false"
-           aria-controls="c-{{ x.grouper|slugify }}-collapse">
+           @click="open = !open; sessionStorage.setItem('{{ x.grouper|slugify }}', open)"
+           :aria-expanded="open">
         {{ x.grouper }}
         </a>
       </div>
-      <div class="bs collapse transactions-divider-collapse overflow-visible isolation-auto" id="c-{{ x.grouper|slugify }}-collapse"
-           _="on shown.bs.collapse sessionStorage.setItem(the closest parent @id, 'true')
-              on hidden.bs.collapse sessionStorage.setItem(the closest parent @id, 'false')
-              on htmx:afterSettle from #transactions or toggle
-                set state to sessionStorage.getItem(the closest parent @id)
-                if state is 'true' or state is null
-                  add .show to me
-                  set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to true
-                else
-                  remove .show from me
-                  set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to false
-                end
-              on show
-                add .show to me
-                set @aria-expanded of #c-{{ x.grouper|slugify }}-collapsible to true">
+      <div class="transactions-divider-collapse overflow-visible isolation-auto"
+           x-show="open"
+           x-collapse>
         <div class="flex flex-col">
         {% for transaction in x.list %}
           <c-transaction.item

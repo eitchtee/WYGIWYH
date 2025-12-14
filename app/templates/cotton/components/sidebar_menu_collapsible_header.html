@@ -1,12 +1,14 @@
-<li class="lg:hidden lg:group-hover:block">
-  <div class="flex items-center" data-bs-toggle="collapse" href="#{{ title|slugify }}" role="button"
-       aria-expanded="false" aria-controls="{{ title|slugify }}">
+<li class="lg:hidden lg:group-hover:block" x-data="{ open: false }">
+  <div class="flex items-center" @click="open = !open" role="button"
+       :aria-expanded="open">
     <span
         class="text-base-content/60 text-sm font-bold uppercase lg:hidden lg:group-hover:inline me-2">{{ title }}</span>
     <hr class="flex-grow"/>
-    <i class="fas fa-chevron-down text-base-content/60 lg:before:hidden lg:group-hover:before:inline ml-2 lg:ml-0 lg:group-hover:ml-2"></i>
+    <i class="fas fa-chevron-down text-base-content/60 lg:before:hidden lg:group-hover:before:inline ml-2 lg:ml-0 lg:group-hover:ml-2"
+       :class="{ 'rotate-180': open }"
+       style="transition: transform 0.2s ease"></i>
+  </div>
+  <div x-show="open" x-collapse>
+    {{ slot }}
   </div>
 </li>
-<div class="collapse lg:hidden lg:group-hover:block" id="{{ title|slugify }}">
-  {{ slot }}
-</div>

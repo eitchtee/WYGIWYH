@@ -309,13 +309,15 @@
     }
 
     .sidebar-fixed {
-        /* Sets the fixed, expanded width for the container */
-        @apply lg:w-[17%] transition-all duration-100;
+        /* Sets the fixed, expanded width for the container.
+           Using fixed rem width instead of percentage to prevent width inconsistencies
+           caused by scrollbar presence affecting viewport width calculations. */
+        @apply lg:w-80 transition-all duration-100;
     }
 
     .sidebar-fixed #sidebar {
         /* Sets the fixed, expanded width for the inner navigation */
-        @apply lg:w-[17%] transition-all duration-100;
+        @apply lg:w-80 transition-all duration-100;
     }
 
     .sidebar-fixed .sidebar-item-list {
@@ -324,9 +326,7 @@
 
     .sidebar-fixed + main {
         /* Adjusts the main content margin to account for the expanded sidebar */
-        @apply lg:ml-[17%];
-
-        /* Using 16vw to account for padding/margins */
+        @apply lg:ml-80;
     }
 
     .sidebar-fixed .sidebar-item {
