@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 19:47+0000\n"
+"POT-Creation-Date: 2025-12-14 14:08+0000\n"
 "PO-Revision-Date: 2025-11-24 03:20+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -83,8 +83,7 @@ msgstr "Categoria"
 #: apps/transactions/forms.py:540 apps/transactions/forms.py:700
 #: apps/transactions/forms.py:941 apps/transactions/models.py:329
 #: apps/transactions/models.py:577 apps/transactions/models.py:779
-#: apps/transactions/models.py:1031 templates/includes/navbar.html:111
-#: templates/includes/sidebar.html:184
+#: apps/transactions/models.py:1031 templates/includes/sidebar.html:150
 #: templates/insights/fragments/category_overview/index.html:40
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
 msgid "Tags"
@@ -116,7 +115,7 @@ msgstr "Grupo da Conta"
 
 #: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:9
 #: templates/account_groups/pages/index.html:4
-#: templates/includes/navbar.html:121 templates/includes/sidebar.html:204
+#: templates/includes/sidebar.html:170
 msgid "Account Groups"
 msgstr "Grupos da Conta"
 
@@ -177,9 +176,8 @@ msgstr "Conta"
 #: apps/accounts/models.py:76 apps/export_app/forms.py:19
 #: apps/export_app/forms.py:129 apps/transactions/filters.py:52
 #: templates/accounts/fragments/list.html:9
-#: templates/accounts/pages/index.html:4 templates/includes/navbar.html:117
-#: templates/includes/navbar.html:119 templates/includes/sidebar.html:196
-#: templates/includes/sidebar.html:198
+#: templates/accounts/pages/index.html:4 templates/includes/sidebar.html:162
+#: templates/includes/sidebar.html:164
 #: templates/monthly_overview/pages/overview.html:75
 #: templates/transactions/pages/transactions.html:26
 msgid "Accounts"
@@ -464,10 +462,10 @@ msgstr "Remover"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:180
-#: templates/monthly_overview/pages/overview.html:172
-#: templates/monthly_overview/pages/overview.html:184
-#: templates/transactions/pages/transactions.html:125
-#: templates/transactions/pages/transactions.html:137
+#: templates/monthly_overview/pages/overview.html:171
+#: templates/monthly_overview/pages/overview.html:183
+#: templates/transactions/pages/transactions.html:124
+#: templates/transactions/pages/transactions.html:136
 msgid "Clear"
 msgstr "Limpar"
 
@@ -508,9 +506,8 @@ msgstr "Casas Decimais"
 #: apps/currencies/models.py:45 apps/export_app/forms.py:25
 #: apps/export_app/forms.py:130 apps/transactions/filters.py:59
 #: templates/currencies/fragments/list.html:9
-#: templates/currencies/pages/index.html:4 templates/includes/navbar.html:125
-#: templates/includes/navbar.html:127 templates/includes/sidebar.html:210
-#: templates/includes/sidebar.html:212
+#: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:176
+#: templates/includes/sidebar.html:178
 #: templates/monthly_overview/pages/overview.html:62
 #: templates/transactions/pages/transactions.html:12
 msgid "Currencies"
@@ -544,7 +541,7 @@ msgstr "Automático"
 #: apps/currencies/models.py:82 apps/export_app/forms.py:67
 #: apps/export_app/forms.py:142 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
-#: templates/includes/navbar.html:129 templates/includes/sidebar.html:218
+#: templates/includes/sidebar.html:184
 msgid "Exchange Rates"
 msgstr "Taxas de Câmbio"
 
@@ -821,15 +818,14 @@ msgid "Entry deleted successfully"
 msgstr "Entrada apagada com sucesso"
 
 #: apps/export_app/forms.py:13 apps/export_app/forms.py:128
-#: templates/includes/navbar.html:150 templates/includes/sidebar.html:255
-#: templates/users/fragments/list.html:10 templates/users/pages/index.html:4
+#: templates/includes/sidebar.html:221 templates/users/fragments/list.html:10
+#: templates/users/pages/index.html:4
 msgid "Users"
 msgstr "Usuários"
 
 #: apps/export_app/forms.py:31 apps/export_app/forms.py:134
-#: apps/transactions/models.py:380 templates/includes/navbar.html:58
-#: templates/includes/navbar.html:107 templates/includes/sidebar.html:81
-#: templates/includes/sidebar.html:176
+#: apps/transactions/models.py:380 templates/includes/sidebar.html:81
+#: templates/includes/sidebar.html:142
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
@@ -838,8 +834,7 @@ msgstr "Transações"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/transactions/filters.py:63 templates/categories/fragments/list.html:9
-#: templates/categories/pages/index.html:4 templates/includes/navbar.html:109
-#: templates/includes/sidebar.html:178
+#: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
 msgid "Categories"
 msgstr "Categorias"
 
@@ -852,23 +847,20 @@ msgstr "Categorias"
 #: apps/transactions/models.py:334 apps/transactions/models.py:580
 #: apps/transactions/models.py:782 apps/transactions/models.py:1036
 #: templates/entities/fragments/list.html:9
-#: templates/entities/pages/index.html:4 templates/includes/navbar.html:113
-#: templates/includes/sidebar.html:190
+#: templates/entities/pages/index.html:4 templates/includes/sidebar.html:156
 #: templates/insights/fragments/category_overview/index.html:54
 msgid "Entities"
 msgstr "Entidades"
 
 #: apps/export_app/forms.py:55 apps/export_app/forms.py:137
-#: apps/transactions/models.py:822 templates/includes/navbar.html:77
-#: templates/includes/sidebar.html:110
+#: apps/transactions/models.py:822 templates/includes/sidebar.html:110
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
 msgstr "Transações Recorrentes"
 
 #: apps/export_app/forms.py:61 apps/export_app/forms.py:135
-#: apps/transactions/models.py:598 templates/includes/navbar.html:75
-#: templates/includes/sidebar.html:104
+#: apps/transactions/models.py:598 templates/includes/sidebar.html:104
 #: templates/installment_plans/fragments/list.html:9
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
@@ -877,13 +869,12 @@ msgstr "Parcelamentos"
 #: apps/export_app/forms.py:73 apps/export_app/forms.py:140
 #: templates/exchange_rates_services/fragments/list.html:10
 #: templates/exchange_rates_services/pages/index.html:4
-#: templates/includes/navbar.html:143 templates/includes/sidebar.html:246
+#: templates/includes/sidebar.html:212
 msgid "Automatic Exchange Rates"
 msgstr "Taxas de Câmbio Automáticas"
 
-#: apps/export_app/forms.py:79 templates/includes/navbar.html:135
-#: templates/includes/sidebar.html:226 templates/rules/fragments/list.html:9
-#: templates/rules/pages/index.html:4
+#: apps/export_app/forms.py:79 templates/includes/sidebar.html:192
+#: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Regras"
 
@@ -954,7 +945,7 @@ msgstr "Selecione um arquivo"
 
 #: apps/import_app/forms.py:55
 #: templates/import_app/fragments/profiles/list.html:57
-#: templates/includes/navbar.html:137 templates/includes/sidebar.html:232
+#: templates/includes/sidebar.html:198
 msgid "Import"
 msgstr "Importar"
 
@@ -1322,7 +1313,7 @@ msgid "Update or Create Transaction action deleted successfully"
 msgstr "Ação Atualizar ou Criar Transação apagada com sucesso"
 
 #: apps/transactions/filters.py:23 templates/cotton/transaction/item.html:20
-#: templates/cotton/transaction/item.html:31 templates/includes/navbar.html:47
+#: templates/cotton/transaction/item.html:31
 #: templates/insights/fragments/category_overview/index.html:65
 #: templates/net_worth/net_worth.html:39 templates/net_worth/net_worth.html:43
 #: templates/transactions/widgets/paid_toggle_button.html:7
@@ -1528,7 +1519,7 @@ msgid "Yearly"
 msgstr "Anual"
 
 #: apps/transactions/models.py:530 apps/users/models.py:464
-#: templates/includes/navbar.html:27 templates/includes/sidebar.html:51
+#: templates/includes/sidebar.html:51
 msgid "Monthly"
 msgstr "Mensal"
 
@@ -1626,8 +1617,7 @@ msgstr "Última data de referência gerada"
 msgid "Quick Transaction"
 msgstr "Transação Rápida"
 
-#: apps/transactions/models.py:1054 templates/includes/navbar.html:73
-#: templates/includes/sidebar.html:98
+#: apps/transactions/models.py:1054 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
@@ -1839,9 +1829,9 @@ msgstr "Essa conta está desativada"
 
 #: apps/users/forms.py:62 apps/users/forms.py:75 apps/users/forms.py:97
 #: templates/monthly_overview/pages/overview.html:95
-#: templates/monthly_overview/pages/overview.html:142
+#: templates/monthly_overview/pages/overview.html:141
 #: templates/transactions/pages/transactions.html:47
-#: templates/transactions/pages/transactions.html:95
+#: templates/transactions/pages/transactions.html:94
 msgid "Default"
 msgstr "Padrão"
 
@@ -1930,11 +1920,11 @@ msgstr ""
 msgid "A user with this email address already exists."
 msgstr "Já existe um usuário com esse endereço de e-mail."
 
-#: apps/users/models.py:465 templates/includes/navbar.html:29
+#: apps/users/models.py:465
 msgid "Yearly by currency"
 msgstr "Anual por moeda"
 
-#: apps/users/models.py:466 templates/includes/navbar.html:31
+#: apps/users/models.py:466
 msgid "Yearly by account"
 msgstr "Anual por conta"
 
@@ -1950,8 +1940,7 @@ msgstr "Patrimônio Previsto"
 msgid "All Transactions"
 msgstr "Todas as transações"
 
-#: apps/users/models.py:470 templates/includes/navbar.html:33
-#: templates/includes/sidebar.html:63
+#: apps/users/models.py:470 templates/includes/sidebar.html:63
 msgid "Calendar"
 msgstr "Calendário"
 
@@ -2281,8 +2270,9 @@ msgid "Pick a month"
 msgstr "Escolha um mês"
 
 #: templates/common/fragments/toasts.html:20
-#: templates/cotton/components/fab.html:9 templates/extends/offcanvas.html:4
-#: templates/includes/sidebar.html:44 templates/includes/sidebar.html:165
+#: templates/cotton/components/fab.html:9
+#: templates/cotton/components/sidebar_collapsible_panel.html:28
+#: templates/extends/offcanvas.html:4 templates/includes/sidebar.html:44
 msgid "Close"
 msgstr "Fechar"
 
@@ -2538,8 +2528,8 @@ msgid "No entries for this DCA"
 msgstr "Nenhuma entrada neste CMP"
 
 #: templates/dca/fragments/strategy/details.html:120
-#: templates/monthly_overview/fragments/list.html:47
-#: templates/transactions/fragments/list_all.html:47
+#: templates/monthly_overview/fragments/list.html:33
+#: templates/transactions/fragments/list_all.html:33
 msgid "Try adding one"
 msgstr "Tente adicionar uma"
 
@@ -2642,7 +2632,7 @@ msgid "Edit exchange rate"
 msgstr "Editar taxa de câmbio"
 
 #: templates/exchange_rates/fragments/list.html:17
-#: templates/includes/navbar.html:62 templates/includes/sidebar.html:83
+#: templates/includes/sidebar.html:83
 #: templates/yearly_overview/pages/overview_by_account.html:33
 #: templates/yearly_overview/pages/overview_by_currency.html:35
 msgid "All"
@@ -2665,7 +2655,7 @@ msgstr "Nenhuma taxa de câmbio"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
-#: templates/transactions/fragments/list_all.html:57
+#: templates/transactions/fragments/list_all.html:43
 msgid "Page navigation"
 msgstr "Navegação por página"
 
@@ -2697,8 +2687,7 @@ msgstr "contas"
 msgid "No services configured"
 msgstr "Nenhum serviço configurado"
 
-#: templates/export_app/pages/index.html:4 templates/includes/navbar.html:140
-#: templates/includes/sidebar.html:239
+#: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:205
 msgid "Export and Restore"
 msgstr "Exportar e Restaurar"
 
@@ -2789,82 +2778,9 @@ msgstr "Nenhuma importação ainda"
 msgid "Logs for"
 msgstr "Logs para"
 
-#: templates/includes/mobile_navbar.html:12 templates/includes/navbar.html:12
+#: templates/includes/mobile_navbar.html:12
 msgid "Toggle navigation"
 msgstr "Alternar navegação"
-
-#: templates/includes/navbar.html:23
-msgid "Overview"
-msgstr "Visão Geral"
-
-#: templates/includes/navbar.html:41 templates/includes/sidebar.html:75
-msgid "Net Worth"
-msgstr "Patrimônio"
-
-#: templates/includes/navbar.html:45
-#: templates/insights/fragments/category_overview/index.html:69
-#: templates/net_worth/net_worth.html:29 templates/net_worth/net_worth.html:33
-msgid "Current"
-msgstr "Atual"
-
-#: templates/includes/navbar.html:51 templates/includes/sidebar.html:69
-#: templates/insights/pages/index.html:5
-msgid "Insights"
-msgstr "Insights"
-
-#: templates/includes/navbar.html:67 templates/includes/sidebar.html:91
-msgid "Trash Can"
-msgstr "Lixeira"
-
-#: templates/includes/navbar.html:85 templates/includes/sidebar.html:116
-msgid "Tools"
-msgstr "Ferramentas"
-
-#: templates/includes/navbar.html:89 templates/includes/sidebar.html:118
-msgid "Dollar Cost Average Tracker"
-msgstr "Rastreador de Custo Médio Ponderado"
-
-#: templates/includes/navbar.html:92 templates/includes/sidebar.html:124
-#: templates/mini_tools/unit_price_calculator.html:4
-#: templates/mini_tools/unit_price_calculator.html:9
-msgid "Unit Price Calculator"
-msgstr "Calculadora de preço unitário"
-
-#: templates/includes/navbar.html:95 templates/includes/sidebar.html:130
-#: templates/mini_tools/currency_converter/currency_converter.html:7
-#: templates/mini_tools/currency_converter/currency_converter.html:14
-msgid "Currency Converter"
-msgstr "Conversor de Moeda"
-
-#: templates/includes/navbar.html:104 templates/includes/sidebar.html:146
-#: templates/includes/sidebar.html:161
-msgid "Management"
-msgstr "Gerenciar"
-
-#: templates/includes/navbar.html:133 templates/includes/sidebar.html:224
-msgid "Automation"
-msgstr "Automação"
-
-#: templates/includes/navbar.html:148 templates/includes/sidebar.html:253
-msgid "Admin"
-msgstr "Admin"
-
-#: templates/includes/navbar.html:156 templates/includes/sidebar.html:262
-msgid "Only use this if you know what you're doing"
-msgstr "Só use isso se você souber o que está fazendo"
-
-#: templates/includes/navbar.html:157 templates/includes/sidebar.html:261
-msgid "Django Admin"
-msgstr "Django Admin"
-
-#: templates/includes/navbar.html:168 templates/includes/sidebar.html:276
-msgid "is available"
-msgstr "está disponível"
-
-#: templates/includes/navbar.html:173 templates/includes/navbar.html:176
-#: templates/includes/sidebar.html:284
-msgid "Calculator"
-msgstr "Calculadora"
 
 #: templates/includes/navbar/user_menu.html:4
 msgid "Toggle theme"
@@ -2913,6 +2829,66 @@ msgstr "Cancelar"
 msgid "Confirm"
 msgstr "Confirmar"
 
+#: templates/includes/sidebar.html:69 templates/insights/pages/index.html:5
+msgid "Insights"
+msgstr "Insights"
+
+#: templates/includes/sidebar.html:75
+msgid "Net Worth"
+msgstr "Patrimônio"
+
+#: templates/includes/sidebar.html:91
+msgid "Trash Can"
+msgstr "Lixeira"
+
+#: templates/includes/sidebar.html:116
+msgid "Tools"
+msgstr "Ferramentas"
+
+#: templates/includes/sidebar.html:118
+msgid "Dollar Cost Average Tracker"
+msgstr "Rastreador de Custo Médio Ponderado"
+
+#: templates/includes/sidebar.html:124
+#: templates/mini_tools/unit_price_calculator.html:4
+#: templates/mini_tools/unit_price_calculator.html:9
+msgid "Unit Price Calculator"
+msgstr "Calculadora de preço unitário"
+
+#: templates/includes/sidebar.html:130
+#: templates/mini_tools/currency_converter/currency_converter.html:7
+#: templates/mini_tools/currency_converter/currency_converter.html:14
+msgid "Currency Converter"
+msgstr "Conversor de Moeda"
+
+#: templates/includes/sidebar.html:139
+msgid "Management"
+msgstr "Gerenciar"
+
+#: templates/includes/sidebar.html:190
+msgid "Automation"
+msgstr "Automação"
+
+#: templates/includes/sidebar.html:219
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/includes/sidebar.html:227
+msgid "Django Admin"
+msgstr "Django Admin"
+
+#: templates/includes/sidebar.html:228
+msgid "Only use this if you know what you're doing"
+msgstr "Só use isso se você souber o que está fazendo"
+
+#: templates/includes/sidebar.html:243
+msgid "is available"
+msgstr "está disponível"
+
+#: templates/includes/sidebar.html:251
+msgid "Calculator"
+msgstr "Calculadora"
+
 #: templates/insights/fragments/category_explorer/charts/account.html:100
 #: templates/insights/fragments/category_explorer/charts/currency.html:92
 #: templates/monthly_overview/fragments/monthly_account_summary.html:14
@@ -2952,6 +2928,11 @@ msgid ""
 msgstr ""
 "Os valores das transações associadas a várias tags serão contados uma vez "
 "para cada tag"
+
+#: templates/insights/fragments/category_overview/index.html:69
+#: templates/net_worth/net_worth.html:29 templates/net_worth/net_worth.html:33
+msgid "Current"
+msgstr "Atual"
 
 #: templates/insights/fragments/category_overview/index.html:73
 msgid "Final total"
@@ -3133,7 +3114,7 @@ msgstr "Preço unitário"
 msgid "Item"
 msgstr "Item"
 
-#: templates/monthly_overview/fragments/list.html:46
+#: templates/monthly_overview/fragments/list.html:32
 msgid "No transactions this month"
 msgstr "Nenhuma transação neste mês"
 
@@ -3170,16 +3151,16 @@ msgid "Summary"
 msgstr "Resumo"
 
 #: templates/monthly_overview/pages/overview.html:96
-#: templates/monthly_overview/pages/overview.html:151
+#: templates/monthly_overview/pages/overview.html:150
 #: templates/transactions/pages/transactions.html:48
-#: templates/transactions/pages/transactions.html:104
+#: templates/transactions/pages/transactions.html:103
 msgid "Oldest first"
 msgstr "Mais antigas primeiro"
 
 #: templates/monthly_overview/pages/overview.html:97
-#: templates/monthly_overview/pages/overview.html:160
+#: templates/monthly_overview/pages/overview.html:159
 #: templates/transactions/pages/transactions.html:49
-#: templates/transactions/pages/transactions.html:113
+#: templates/transactions/pages/transactions.html:112
 msgid "Newest first"
 msgstr "Mais novas primeiro"
 
@@ -3188,8 +3169,8 @@ msgstr "Mais novas primeiro"
 msgid "Filter transactions"
 msgstr "Filtrar transações"
 
-#: templates/monthly_overview/pages/overview.html:132
-#: templates/transactions/pages/transactions.html:85
+#: templates/monthly_overview/pages/overview.html:131
+#: templates/transactions/pages/transactions.html:84
 msgid "Order by"
 msgstr "Ordernar por"
 
@@ -3433,7 +3414,7 @@ msgstr "Editando"
 msgid "transactions"
 msgstr "transações"
 
-#: templates/transactions/fragments/list_all.html:46
+#: templates/transactions/fragments/list_all.html:32
 msgid "No transactions found"
 msgstr "Nenhuma transação encontrada"
 
@@ -3510,6 +3491,9 @@ msgstr "Login com"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "Visão Anual"
+
+#~ msgid "Overview"
+#~ msgstr "Visão Geral"
 
 #~ msgid "Toggle Dropdown"
 #~ msgstr "Alternar menu suspenso"
