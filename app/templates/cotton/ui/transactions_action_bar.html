@@ -80,8 +80,8 @@
       </button>
       <button class="btn btn-error btn-sm" hx-get="{% url 'transactions_bulk_delete' %}" hx-include=".transaction"
         hx-trigger="confirmed" data-tippy-content="{% translate 'Delete' %}" data-bypass-on-ctrl="true"
-        data-title="{% translate " Are you sure?" %}" data-text="{% translate " You won't be able to revert this!" %}"
-        data-confirm-text="{% translate " Yes, delete them!" %}" _="install prompt_swal">
+        data-title="{% translate "Are you sure?" %}" data-text="{% translate "You won't be able to revert this!" %}"
+        data-confirm-text="{% translate "Yes, delete them!" %}" _="install prompt_swal">
         <i class="fa-solid fa-trash"></i>
       </button>
       <div class="divider divider-horizontal m-0"></div>
@@ -125,7 +125,7 @@
         <button class="btn btn-secondary btn-sm join-item" _="on click
                       set original_value to #real-total-front's innerText
                       writeText(original_value) on navigator.clipboard
-                      put '{% translate " copied!" %}' into #real-total-front's innerText wait 1s put original_value
+                      put '{% translate "copied!" %}' into #real-total-front's innerText wait 1s put original_value
           into #real-total-front's innerText end">
           <i class="fa-solid fa-plus fa-fw me-md-2"></i>
           <span class="hidden md:inline-block" id="real-total-front">0</span>
@@ -140,7 +140,7 @@
             <li class="cursor-pointer" _="on click
                         set original_value to #calc-menu-flat-total's innerText
                         writeText(original_value) on navigator.clipboard
-                        put '{% translate " copied!" %}' into #calc-menu-flat-total wait 1s put original_value into
+                        put '{% translate "copied!" %}' into #calc-menu-flat-total wait 1s put original_value into
               #calc-menu-flat-total end">
               <div class="py-1 px-3">
                 <div>
@@ -156,7 +156,7 @@
             <li class="cursor-pointer" _="on click
                         set original_value to #calc-menu-real-total's innerText
                         writeText(original_value) on navigator.clipboard
-                        put '{% translate " copied!" %}' into #calc-menu-real-total wait 1s put original_value into
+                        put '{% translate "copied!" %}' into #calc-menu-real-total wait 1s put original_value into
               #calc-menu-real-total end">
               <div class="py-1 px-3">
                 <div>
@@ -172,7 +172,7 @@
             <li class="cursor-pointer" _="on click
                         set original_value to #calc-menu-mean's innerText
                         writeText(original_value) on navigator.clipboard
-                        put '{% translate " copied!" %}' into #calc-menu-mean wait 1s put original_value into
+                        put '{% translate "copied!" %}' into #calc-menu-mean wait 1s put original_value into
               #calc-menu-mean end">
               <div class="p-1 px-3">
                 <div>
@@ -188,7 +188,7 @@
             <li class="cursor-pointer" _="on click
                         set original_value to #calc-menu-max's innerText
                         writeText(original_value) on navigator.clipboard
-                        put '{% translate " copied!" %}' into #calc-menu-max wait 1s put original_value into
+                        put '{% translate "copied!" %}' into #calc-menu-max wait 1s put original_value into
               #calc-menu-max end">
               <div class="py-1 px-3">
                 <div>
@@ -204,7 +204,7 @@
             <li class="cursor-pointer" _="on click
                         set original_value to #calc-menu-min's innerText
                         writeText(original_value) on navigator.clipboard
-                        put '{% translate " copied!" %}' into #calc-menu-min wait 1s put original_value into
+                        put '{% translate "copied!" %}' into #calc-menu-min wait 1s put original_value into
               #calc-menu-min end">
               <div class="py-1 px-3">
                 <div>
@@ -220,7 +220,7 @@
             <li class="cursor-pointer" _="on click
                         set original_value to #calc-menu-count's innerText
                         writeText(original_value) on navigator.clipboard
-                        put '{% translate " copied!" %}' into #calc-menu-count wait 1s put original_value into
+                        put '{% translate "copied!" %}' into #calc-menu-count wait 1s put original_value into
               #calc-menu-count end">
               <div class="py-1 px-3">
                 <div>
