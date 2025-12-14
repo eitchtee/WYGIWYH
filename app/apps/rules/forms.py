@@ -50,7 +50,7 @@ class TransactionRuleForm(forms.ModelForm):
             "description",
             "trigger",
             Alert(
-                _("You can add actions to this rule in the next screen."), dismiss=True
+                _("You can add actions to this rule in the next screen."), dismiss=False
             ),
         )
 
