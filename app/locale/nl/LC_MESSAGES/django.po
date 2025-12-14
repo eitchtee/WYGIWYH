@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 14:47+0000\n"
+"POT-Creation-Date: 2025-12-14 14:57+0000\n"
 "PO-Revision-Date: 2025-12-14 11:24+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -2090,6 +2090,8 @@ msgstr "Verwijderen"
 #: templates/categories/fragments/table.html:56
 #: templates/cotton/transaction/item.html:160
 #: templates/cotton/transaction/item.html:236
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:44
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:42
@@ -2118,6 +2120,8 @@ msgstr "Weet je het zeker?"
 #: templates/categories/fragments/table.html:57
 #: templates/cotton/transaction/item.html:161
 #: templates/cotton/transaction/item.html:237
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:45
 #: templates/dca/fragments/strategy/details.html:76
 #: templates/dca/fragments/strategy/list.html:43
@@ -2381,19 +2385,11 @@ msgstr "Alles deselecteren"
 msgid "Invert election"
 msgstr "Electie omkeren"
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
-msgid " Are you sure?"
-msgstr " Weet je het zeker?"
-
-#: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
-msgid " You won't be able to revert this!"
-msgstr " Je kunt dit niet meer terugdraaien!"
-
 #: templates/cotton/ui/deleted_transactions_action_bar.html:59
 #: templates/cotton/ui/transactions_action_bar.html:84
-msgid " Yes, delete them!"
+#, fuzzy
+#| msgid " Yes, delete them!"
+msgid "Yes, delete them!"
 msgstr " Ja, verwijder ze!"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:103
@@ -2410,7 +2406,9 @@ msgstr " Ja, verwijder ze!"
 #: templates/cotton/ui/transactions_action_bar.html:191
 #: templates/cotton/ui/transactions_action_bar.html:207
 #: templates/cotton/ui/transactions_action_bar.html:223
-msgid " copied!"
+#, fuzzy
+#| msgid " copied!"
+msgid "copied!"
 msgstr " gekopieerd!"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:123
@@ -3491,6 +3489,12 @@ msgstr "Aanmelden met"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "Jaaroverzicht"
+
+#~ msgid " Are you sure?"
+#~ msgstr " Weet je het zeker?"
+
+#~ msgid " You won't be able to revert this!"
+#~ msgstr " Je kunt dit niet meer terugdraaien!"
 
 #~ msgid "Add new"
 #~ msgstr "Nieuwe toevoegen"

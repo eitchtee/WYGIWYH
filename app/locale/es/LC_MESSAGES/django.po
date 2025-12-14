@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 14:47+0000\n"
+"POT-Creation-Date: 2025-12-14 14:57+0000\n"
 "PO-Revision-Date: 2025-12-08 19:20+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -2090,6 +2090,8 @@ msgstr "Borrar"
 #: templates/categories/fragments/table.html:56
 #: templates/cotton/transaction/item.html:160
 #: templates/cotton/transaction/item.html:236
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:44
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:42
@@ -2118,6 +2120,8 @@ msgstr "¿Estás seguro?"
 #: templates/categories/fragments/table.html:57
 #: templates/cotton/transaction/item.html:161
 #: templates/cotton/transaction/item.html:237
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:45
 #: templates/dca/fragments/strategy/details.html:76
 #: templates/dca/fragments/strategy/list.html:43
@@ -2381,25 +2385,11 @@ msgstr "Deseleccionar Todo"
 msgid "Invert election"
 msgstr ""
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
-#, fuzzy
-#| msgid "Are you sure?"
-msgid " Are you sure?"
-msgstr "¿Estás seguro?"
-
-#: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
-#, fuzzy
-#| msgid "You won't be able to revert this!"
-msgid " You won't be able to revert this!"
-msgstr "¡No podrás revertir esto!"
-
 #: templates/cotton/ui/deleted_transactions_action_bar.html:59
 #: templates/cotton/ui/transactions_action_bar.html:84
 #, fuzzy
 #| msgid "Yes, delete them!"
-msgid " Yes, delete them!"
+msgid "Yes, delete them!"
 msgstr "Sí, ¡eliminalos!"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:103
@@ -2418,7 +2408,7 @@ msgstr "Sí, ¡eliminalos!"
 #: templates/cotton/ui/transactions_action_bar.html:223
 #, fuzzy
 #| msgid "copied!"
-msgid " copied!"
+msgid "copied!"
 msgstr "Copiado!"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:123
@@ -3495,6 +3485,16 @@ msgstr "Iniciar sesión con"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "Resumen Anual"
+
+#, fuzzy
+#~| msgid "Are you sure?"
+#~ msgid " Are you sure?"
+#~ msgstr "¿Estás seguro?"
+
+#, fuzzy
+#~| msgid "You won't be able to revert this!"
+#~ msgid " You won't be able to revert this!"
+#~ msgstr "¡No podrás revertir esto!"
 
 #~ msgid "Add new"
 #~ msgstr "Agregar nuevo"

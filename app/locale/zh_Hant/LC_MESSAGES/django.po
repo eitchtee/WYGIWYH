@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 14:47+0000\n"
+"POT-Creation-Date: 2025-12-14 14:57+0000\n"
 "PO-Revision-Date: 2025-10-08 16:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translations."
@@ -2047,6 +2047,8 @@ msgstr "刪除"
 #: templates/categories/fragments/table.html:56
 #: templates/cotton/transaction/item.html:160
 #: templates/cotton/transaction/item.html:236
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:44
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:42
@@ -2075,6 +2077,8 @@ msgstr "確定嗎？"
 #: templates/categories/fragments/table.html:57
 #: templates/cotton/transaction/item.html:161
 #: templates/cotton/transaction/item.html:237
+#: templates/cotton/ui/deleted_transactions_action_bar.html:58
+#: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:45
 #: templates/dca/fragments/strategy/details.html:76
 #: templates/dca/fragments/strategy/list.html:43
@@ -2338,25 +2342,11 @@ msgstr "取消選擇全部"
 msgid "Invert election"
 msgstr ""
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
-#, fuzzy
-#| msgid "Are you sure?"
-msgid " Are you sure?"
-msgstr "確定嗎？"
-
-#: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
-#, fuzzy
-#| msgid "You won't be able to revert this!"
-msgid " You won't be able to revert this!"
-msgstr "您將無法復原這個行為！"
-
 #: templates/cotton/ui/deleted_transactions_action_bar.html:59
 #: templates/cotton/ui/transactions_action_bar.html:84
 #, fuzzy
 #| msgid "Yes, delete them!"
-msgid " Yes, delete them!"
+msgid "Yes, delete them!"
 msgstr "確認，刪除它！"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:103
@@ -2375,7 +2365,7 @@ msgstr "確認，刪除它！"
 #: templates/cotton/ui/transactions_action_bar.html:223
 #, fuzzy
 #| msgid "copied!"
-msgid " copied!"
+msgid "copied!"
 msgstr "已經複製！"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:123
@@ -3442,6 +3432,16 @@ msgstr "登入"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "年份總覽"
+
+#, fuzzy
+#~| msgid "Are you sure?"
+#~ msgid " Are you sure?"
+#~ msgstr "確定嗎？"
+
+#, fuzzy
+#~| msgid "You won't be able to revert this!"
+#~ msgid " You won't be able to revert this!"
+#~ msgstr "您將無法復原這個行為！"
 
 #~ msgid "Add new"
 #~ msgstr "新增"
