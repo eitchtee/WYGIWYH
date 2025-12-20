@@ -459,12 +459,13 @@ class ImportService:
                 # Build query conditions for each field in the rule
                 for field in rule.fields:
                     if field in transaction_data:
-                        if rule.match_type == "strict":
-                            query = query.filter(**{field: transaction_data[field]})
-                        else:  # lax matching
-                            query = query.filter(
-                                **{f"{field}__iexact": transaction_data[field]}
-                            )
+                        value = transaction_data[field]
+                        # Use __iexact only for string fields; non-string types
+                        # (date, Decimal, bool, int, etc.) don't support UPPER()
+                        if rule.match_type == "strict" or not isinstance(value, str):
+                            query = query.filter(**{field: value})
+                        else:  # lax matching for strings only
+                            query = query.filter(**{f"{field}__iexact": value})
 
                 # If we found any matching transaction, it's a duplicate
                 if query.exists():
