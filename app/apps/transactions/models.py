@@ -20,7 +20,6 @@ from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import Q
 from django.dispatch import Signal
-from django.forms import ValidationError
 from django.template.defaultfilters import date
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -871,10 +870,8 @@ class RecurringTransaction(models.Model):
             notes=self.notes if self.add_notes_to_transaction else "",
             owner=self.account.owner,
         )
-        if self.tags.exists():
-            created_transaction.tags.set(self.tags.all())
-        if self.entities.exists():
-            created_transaction.entities.set(self.entities.all())
+        created_transaction.tags.set(self.tags.all())
+        created_transaction.entities.set(self.entities.all())
 
     def get_recurrence_delta(self):
         if self.recurrence_type == self.RecurrenceType.DAY:
