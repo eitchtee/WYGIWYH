@@ -74,5 +74,6 @@ RUN chown -R app:app /usr/src/app && \
 USER app
 
 RUN python manage.py compilemessages --settings "WYGIWYH.settings"
+RUN python manage.py collectstatic --noinput
 
 CMD ["/start-single"]
