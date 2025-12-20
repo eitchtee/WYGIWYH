@@ -143,6 +143,9 @@ WSGI_APPLICATION = "WYGIWYH.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+THREADS = int(os.getenv("GUNICORN_THREADS", 1))
+MAX_POOL_SIZE = THREADS + 1
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -151,8 +154,16 @@ DATABASES = {
         "PASSWORD": os.getenv("SQL_PASSWORD", "password"),
         "HOST": os.getenv("SQL_HOST", "localhost"),
         "PORT": os.getenv("SQL_PORT", "5432"),
+        "CONN_MAX_AGE": 0,
+        "CONN_HEALTH_CHECKS": True,
         "OPTIONS": {
-            "pool": True,
+            "pool": {
+                "min_size": 1,
+                "max_size": MAX_POOL_SIZE,
+                "timeout": 10,
+                "max_lifetime": 600,
+                "max_idle": 300,
+            },
         },
     }
 }
