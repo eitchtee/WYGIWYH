@@ -1,5 +1,5 @@
 import AirDatepicker from 'air-datepicker';
-import {createPopper} from '@popperjs/core';
+import { createPopper } from '@popperjs/core';
 import '../styles/_datepicker.scss'
 
 // --- Static Locale Imports ---
@@ -40,58 +40,58 @@ import localeZh from 'air-datepicker/locale/zh.js';
 
 // Map language codes to their imported locale objects
 const allLocales = {
-  'ar': localeAr,
-  'bg': localeBg,
-  'ca': localeCa,
-  'cs': localeCs,
-  'da': localeDa,
-  'de': localeDe,
-  'el': localeEl,
-  'en': localeEn,
-  'es': localeEs,
-  'eu': localeEu,
-  'fi': localeFi,
-  'fr': localeFr,
-  'hr': localeHr,
-  'hu': localeHu,
-  'id': localeId,
-  'it': localeIt,
-  'ja': localeJa,
-  'ko': localeKo,
-  'nb': localeNb,
-  'nl': localeNl,
-  'pl': localePl,
-  'pt-BR': localePtBr,
-  'pt': localePt,
-  'ro': localeRo,
-  'ru': localeRu,
-  'si': localeSi,
-  'sk': localeSk,
-  'sl': localeSl,
-  'sv': localeSv,
-  'th': localeTh,
-  'tr': localeTr,
-  'uk': localeUk,
-  'zh': localeZh
+    'ar': localeAr,
+    'bg': localeBg,
+    'ca': localeCa,
+    'cs': localeCs,
+    'da': localeDa,
+    'de': localeDe,
+    'el': localeEl,
+    'en': localeEn,
+    'es': localeEs,
+    'eu': localeEu,
+    'fi': localeFi,
+    'fr': localeFr,
+    'hr': localeHr,
+    'hu': localeHu,
+    'id': localeId,
+    'it': localeIt,
+    'ja': localeJa,
+    'ko': localeKo,
+    'nb': localeNb,
+    'nl': localeNl,
+    'pl': localePl,
+    'pt-BR': localePtBr,
+    'pt': localePt,
+    'ro': localeRo,
+    'ru': localeRu,
+    'si': localeSi,
+    'sk': localeSk,
+    'sl': localeSl,
+    'sv': localeSv,
+    'th': localeTh,
+    'tr': localeTr,
+    'uk': localeUk,
+    'zh': localeZh
 };
 // --- End of Locale Imports ---
 
 
 /**
- * Selects a pre-imported language file from the locale map.
- *
- * @param {string} langCode - The two-letter language code (e.g., 'en', 'es').
- * @returns {Promise<object>} A promise that resolves with the locale object.
- */
+ * Selects a pre-imported language file from the locale map.
+ *
+ * @param {string} langCode - The two-letter language code (e.g., 'en', 'es').
+ * @returns {Promise<object>} A promise that resolves with the locale object.
+ */
 export const getLocale = async (langCode) => {
-  const locale = allLocales[langCode];
+    const locale = allLocales[langCode];
 
-  if (locale) {
-    return locale;
-  }
+    if (locale) {
+        return locale;
+    }
 
-  console.warn(`Could not find locale for '${langCode}'. Defaulting to English.`);
-  return allLocales['en']; // Default to English
+    console.warn(`Could not find locale for '${langCode}'. Defaulting to English.`);
+    return allLocales['en']; // Default to English
 };
 
 function isMobileDevice() {
@@ -112,7 +112,7 @@ window.DatePicker = async function createDynamicDatePicker(element) {
         content: element.dataset.nowButtonTxt,
         onClick: (dp) => {
             let date = new Date();
-            dp.selectDate(date, {updateTime: true});
+            dp.selectDate(date, { updateTime: true });
             dp.setViewDate(date);
         }
     };
@@ -126,16 +126,18 @@ window.DatePicker = async function createDynamicDatePicker(element) {
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: await getLocale(element.dataset.language),
-        onSelect: ({date, formattedDate, datepicker}) => {
+        onSelect: ({ date, formattedDate, datepicker }) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
             });
             datepicker.$el.dispatchEvent(_event);
         }
     };
+    // Store popper instance for updating on view changes
+    let popperInstance = null;
     const positionConfig = !isOnMobile ? {
-        position({$datepicker, $target, $pointer, done}) {
-            let popper = createPopper($target, $datepicker, {
+        position({ $datepicker, $target, $pointer, done }) {
+            popperInstance = createPopper($target, $datepicker, {
                 placement: 'bottom',
                 modifiers: [
                     {
@@ -157,16 +159,24 @@ window.DatePicker = async function createDynamicDatePicker(element) {
                         options: {
                             element: $pointer
                         }
-                     }
+                    }
                 ]
             });
             return function completeHide() {
-                popper.destroy();
+                popperInstance.destroy();
+                popperInstance = null;
                 done();
             };
+        },
+        onChangeView() {
+            // Update popper position when view changes (e.g., clicking year)
+            // Use setTimeout to allow the DOM to update before recalculating
+            if (popperInstance) {
+                setTimeout(() => popperInstance.update(), 0);
+            }
         }
     } : {};
-    let opts = {...baseOpts, ...positionConfig};
+    let opts = { ...baseOpts, ...positionConfig };
     if (element.dataset.value) {
         opts["selectedDates"] = [element.dataset.value];
         opts["startDate"] = [element.dataset.value];
@@ -179,7 +189,7 @@ window.MonthYearPicker = async function createDynamicDatePicker(element) {
         content: element.dataset.nowButtonTxt,
         onClick: (dp) => {
             let date = new Date();
-            dp.selectDate(date, {updateTime: true});
+            dp.selectDate(date, { updateTime: true });
             dp.setViewDate(date);
         }
     };
@@ -193,16 +203,18 @@ window.MonthYearPicker = async function createDynamicDatePicker(element) {
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: await getLocale(element.dataset.language),
-        onSelect: ({date, formattedDate, datepicker}) => {
+        onSelect: ({ date, formattedDate, datepicker }) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
             });
             datepicker.$el.dispatchEvent(_event);
         }
     };
+    // Store popper instance for updating on view changes
+    let popperInstance = null;
     const positionConfig = !isOnMobile ? {
-        position({$datepicker, $target, $pointer, done}) {
-            let popper = createPopper($target, $datepicker, {
+        position({ $datepicker, $target, $pointer, done }) {
+            popperInstance = createPopper($target, $datepicker, {
                 placement: 'bottom',
                 modifiers: [
                     {
@@ -228,12 +240,19 @@ window.MonthYearPicker = async function createDynamicDatePicker(element) {
                 ]
             });
             return function completeHide() {
-                popper.destroy();
+                popperInstance.destroy();
+                popperInstance = null;
                 done();
             };
+        },
+        onChangeView() {
+            // Update popper position when view changes (e.g., clicking year)
+            if (popperInstance) {
+                setTimeout(() => popperInstance.update(), 0);
+            }
         }
     } : {};
-    let opts = {...baseOpts, ...positionConfig};
+    let opts = { ...baseOpts, ...positionConfig };
     if (element.dataset.value) {
         opts["selectedDates"] = [new Date(element.dataset.value + "T00:00:00")];
         opts["startDate"] = [new Date(element.dataset.value + "T00:00:00")];
@@ -246,7 +265,7 @@ window.YearPicker = async function createDynamicDatePicker(element) {
         content: element.dataset.nowButtonTxt,
         onClick: (dp) => {
             let date = new Date();
-            dp.selectDate(date, {updateTime: true});
+            dp.selectDate(date, { updateTime: true });
             dp.setViewDate(date);
         }
     };
@@ -260,16 +279,18 @@ window.YearPicker = async function createDynamicDatePicker(element) {
         autoClose: element.dataset.autoClose === 'true',
         buttons: element.dataset.clearButton === 'true' ? ['clear', todayButton] : [todayButton],
         locale: await getLocale(element.dataset.language),
-        onSelect: ({date, formattedDate, datepicker}) => {
+        onSelect: ({ date, formattedDate, datepicker }) => {
             const _event = new CustomEvent("change", {
                 bubbles: true,
             });
             datepicker.$el.dispatchEvent(_event);
         }
     };
+    // Store popper instance for updating on view changes
+    let popperInstance = null;
     const positionConfig = !isOnMobile ? {
-        position({$datepicker, $target, $pointer, done}) {
-            let popper = createPopper($target, $datepicker, {
+        position({ $datepicker, $target, $pointer, done }) {
+            popperInstance = createPopper($target, $datepicker, {
                 placement: 'bottom',
                 modifiers: [
                     {
@@ -295,12 +316,19 @@ window.YearPicker = async function createDynamicDatePicker(element) {
                 ]
             });
             return function completeHide() {
-                popper.destroy();
+                popperInstance.destroy();
+                popperInstance = null;
                 done();
             };
+        },
+        onChangeView() {
+            // Update popper position when view changes (e.g., clicking year)
+            if (popperInstance) {
+                setTimeout(() => popperInstance.update(), 0);
+            }
         }
     } : {};
-    let opts = {...baseOpts, ...positionConfig};
+    let opts = { ...baseOpts, ...positionConfig };
     if (element.dataset.value) {
         opts["selectedDates"] = [new Date(element.dataset.value + "T00:00:00")];
         opts["startDate"] = [new Date(element.dataset.value + "T00:00:00")];
