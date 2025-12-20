@@ -10,7 +10,6 @@ INTERNAL_PORT=${INTERNAL_PORT:-8000}
 # Remove flag file if it exists from previous run
 rm -f /tmp/migrations_complete
 
-python manage.py collectstatic --noinput
 python manage.py migrate
 
 # Create flag file to signal migrations are complete
