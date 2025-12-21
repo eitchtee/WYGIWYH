@@ -32,15 +32,16 @@ jobs:
           token: ${{ secrets.PAT }}
           ref: ${{ github.head_ref }}
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.11'
+          enable-cache: true
+
+      - name: Set up Python 3.11
+        run: uv python install 3.11
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: uv sync --frozen --no-dev
 
       - name: Install gettext
         run: sudo apt-get install -y gettext
@@ -48,7 +49,7 @@ jobs:
       - name: Run makemessages
         run: |
           cd app
-          python manage.py makemessages -a
+          uv run python manage.py makemessages -a
 
       - name: Check for changes
         id: check_changes
