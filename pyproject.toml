@@ -1,0 +1,37 @@
+[project]
+name = "wygiwyh"
+version = "0.8.13"
+description = "An opinionated and powerful finance tracker."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "crispy-bootstrap5==2025.6",
+    "django~=5.2.9",
+    "django-allauth[socialaccount]~=65.13.1",
+    "django-browser-reload==1.21.0",
+    "django-cachalot~=2.8.0",
+    "django-cotton<2.3.0",
+    "django-crispy-forms==2.5",
+    "django-debug-toolbar==6.1.0",
+    "django-filter==25.2",
+    "django-hijack==3.7.4",
+    "django-import-export~=4.3.9",
+    "django-pwa~=2.0.1",
+    "django-vite==3.1.0",
+    "djangorestframework~=3.16.0",
+    "drf-spectacular~=0.29.0",
+    "gunicorn==23.0.0",
+    "mistune~=3.1.3",
+    "openpyxl~=3.1.5",
+    "procrastinate[django]~=3.5.3",
+    "psycopg[binary,pool]==3.2.9",
+    "pydantic~=2.12.3",
+    "python-dateutil~=2.9.0.post0",
+    "pytz>=2025.2",
+    "pyyaml~=6.0.2",
+    "requests~=2.32.5",
+    "simpleeval~=1.0.3",
+    "watchfiles==1.1.1",
+    "whitenoise[brotli]==6.11.0",
+    "xlrd~=2.0.1",
+]
