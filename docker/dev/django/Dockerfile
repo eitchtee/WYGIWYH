@@ -8,7 +8,8 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_COMPILE_BYTECODE=1 \
-    UV_LINK_MODE=copy
+    UV_LINK_MODE=copy \
+    UV_PROJECT_ENVIRONMENT=/opt/venv
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y gettext supervisor && \
@@ -30,7 +31,7 @@ RUN sed -i 's/\r$//g' /start && \
     sed -i 's/\r$//g' /start-supervisor && \
     chmod +x /start-supervisor
 
-ENV PATH="/usr/src/app/.venv/bin:$PATH"
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY ./app .
 
