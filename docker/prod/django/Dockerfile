@@ -1,17 +1,19 @@
-FROM python:3.11-slim-bookworm AS python-build-stage
+FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS python-build-stage
+
+WORKDIR /app
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
     libpq-dev \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv for faster package resolution
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+COPY uv.lock pyproject.toml ./
 
-COPY ./requirements.txt .
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv pip install --system --compile-bytecode -r requirements.txt
+    uv sync --frozen --no-install-project --no-dev
 
 FROM node:lts-alpine AS vite_build
 WORKDIR /usr/src/frontend
@@ -33,9 +35,8 @@ ENV APP_VERSION=$VERSION
 
 COPY --from=vite_build /usr/src/frontend/build /usr/src/frontend/build
 
-# Copy Python packages from build stage
-COPY --from=python-build-stage /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
-COPY --from=python-build-stage /usr/local/bin /usr/local/bin
+# Copy virtual environment from build stage
+COPY --from=python-build-stage /app/.venv /app/.venv
 
 WORKDIR /usr/src/app
 
@@ -43,7 +44,8 @@ RUN addgroup --system app && \
     adduser --system --ingroup app app
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    PATH="/app/.venv/bin:$PATH"
 
 # Install runtime dependencies
 RUN --mount=type=cache,target=/root/.cache/apt \
