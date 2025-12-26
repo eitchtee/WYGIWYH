@@ -8,7 +8,6 @@ is only used for string fields (not dates, decimals, etc.).
 
 from datetime import date
 from decimal import Decimal
-from unittest.mock import MagicMock, patch
 
 from django.test import TestCase
 
