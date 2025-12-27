@@ -1,9 +1,6 @@
 services:
   web:
     image: eitchtee/wygiwyh:latest
-    build:
-      context: .
-      dockerfile: ./docker/prod/django/Dockerfile
     container_name: ${SERVER_NAME}
     ports:
       - "${OUTBOUND_PORT:-8000}:${INTERNAL_PORT:-8000}"
