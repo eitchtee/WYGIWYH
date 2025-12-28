@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-28 16:22+0000\n"
-"PO-Revision-Date: 2025-12-21 15:24+0000\n"
+"PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
 "app/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -706,7 +706,7 @@ msgstr "Servizio eliminato con successo"
 
 #: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
-msgstr "Servizi messi in coda con successo"
+msgstr "Servizi accodati con successo"
 
 #: apps/dca/forms.py:59 apps/dca/forms.py:158
 msgid "Create transaction"
@@ -748,7 +748,7 @@ msgstr "I conti di origine e destinazione devono essere diversi."
 #: apps/dca/forms.py:304
 #, python-format
 msgid "DCA for %(strategy_name)s"
-msgstr "DCA per %(strategy_name)s"
+msgstr "PAC per %(strategy_name)s"
 
 #: apps/dca/models.py:16
 msgid "Target Currency"
@@ -768,11 +768,11 @@ msgstr "Note"
 
 #: apps/dca/models.py:34
 msgid "DCA Strategy"
-msgstr "Strategia DCA"
+msgstr "Piano d'Accumulo del Capitale"
 
 #: apps/dca/models.py:35 apps/export_app/forms.py:150
 msgid "DCA Strategies"
-msgstr "Strategie DCA"
+msgstr "Piani d'Accumulo del Capitale"
 
 #: apps/dca/models.py:156
 msgid "Strategy"
@@ -788,23 +788,23 @@ msgstr "Importo ricevuto"
 
 #: apps/dca/models.py:186
 msgid "DCA Entry"
-msgstr "Voce DCA"
+msgstr "Rata del PAC"
 
 #: apps/dca/models.py:187 apps/export_app/forms.py:151
 msgid "DCA Entries"
-msgstr "Voci DCA"
+msgstr "Rate del PAC"
 
 #: apps/dca/views.py:38
 msgid "DCA Strategy added successfully"
-msgstr "Strategia DCA aggiunta con successo"
+msgstr "Piano d'Accumulo aggiunto con successo"
 
 #: apps/dca/views.py:75
 msgid "DCA Strategy updated successfully"
-msgstr "Strategia DCA aggiornata con successo"
+msgstr "Piano d'Accumulo aggiornato con successo"
 
 #: apps/dca/views.py:107
 msgid "DCA strategy deleted successfully"
-msgstr "Strategia DCA eliminata con successo"
+msgstr "Piano d'Accumulo eliminato con successo"
 
 #: apps/dca/views.py:237
 msgid "Entry added successfully"
@@ -881,7 +881,7 @@ msgstr "Regole"
 
 #: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:57
 msgid "DCA"
-msgstr "DCA"
+msgstr "Piano d'Accumulo del Capitale"
 
 #: apps/export_app/forms.py:91 apps/export_app/forms.py:152
 #: templates/import_app/fragments/profiles/list.html:21
