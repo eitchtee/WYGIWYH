@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 16:11+0000\n"
+"POT-Creation-Date: 2025-12-28 16:22+0000\n"
 "PO-Revision-Date: 2025-11-01 01:17+0000\n"
 "Last-Translator: mlystopad <mlystopadt@gmail.com>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -178,7 +178,7 @@ msgstr "Konto"
 #: templates/accounts/fragments/list.html:9
 #: templates/accounts/pages/index.html:4 templates/includes/sidebar.html:162
 #: templates/includes/sidebar.html:164
-#: templates/monthly_overview/pages/overview.html:75
+#: templates/monthly_overview/pages/overview.html:77
 #: templates/transactions/pages/transactions.html:26
 msgid "Accounts"
 msgstr "Konten"
@@ -195,8 +195,8 @@ msgstr "Kontengruppe erfolgreich hinzugefügt"
 
 #: apps/accounts/views/account_groups.py:69
 #: apps/accounts/views/account_groups.py:152 apps/accounts/views/accounts.py:68
-#: apps/accounts/views/accounts.py:106 apps/dca/views.py:63
-#: apps/dca/views.py:146 apps/rules/views.py:118 apps/rules/views.py:228
+#: apps/accounts/views/accounts.py:106 apps/dca/views.py:62
+#: apps/dca/views.py:145 apps/rules/views.py:118 apps/rules/views.py:228
 #: apps/transactions/views/categories.py:91
 #: apps/transactions/views/categories.py:129
 #: apps/transactions/views/entities.py:91
@@ -210,7 +210,7 @@ msgid "Account Group updated successfully"
 msgstr "Kontengruppe erfolgreich aktualisiert"
 
 #: apps/accounts/views/account_groups.py:111
-#: apps/accounts/views/accounts.py:145 apps/dca/views.py:105
+#: apps/accounts/views/accounts.py:145 apps/dca/views.py:104
 #: apps/rules/views.py:185 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
@@ -221,14 +221,14 @@ msgid "Account Group deleted successfully"
 msgstr "Kontengruppe erfolgreich gelöscht"
 
 #: apps/accounts/views/account_groups.py:135
-#: apps/accounts/views/accounts.py:189 apps/dca/views.py:129
+#: apps/accounts/views/accounts.py:189 apps/dca/views.py:128
 #: apps/rules/views.py:210 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
 msgstr "Besitzeigenschaft erfolgreich übernommen"
 
 #: apps/accounts/views/account_groups.py:165
-#: apps/accounts/views/accounts.py:119 apps/dca/views.py:159
+#: apps/accounts/views/accounts.py:119 apps/dca/views.py:158
 #: apps/rules/views.py:241 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
 msgid "Configuration saved successfully"
@@ -367,7 +367,7 @@ msgid "Public"
 msgstr "Öffentlich"
 
 #: apps/common/templatetags/natural.py:20
-#: templates/monthly_overview/fragments/monthly_summary.html:9
+#: templates/monthly_overview/fragments/monthly_summary.html:10
 msgid "today"
 msgstr "heute"
 
@@ -465,10 +465,10 @@ msgstr "Löschen"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:180
-#: templates/monthly_overview/pages/overview.html:171
-#: templates/monthly_overview/pages/overview.html:183
-#: templates/transactions/pages/transactions.html:124
-#: templates/transactions/pages/transactions.html:136
+#: templates/monthly_overview/pages/overview.html:275
+#: templates/monthly_overview/pages/overview.html:287
+#: templates/transactions/pages/transactions.html:225
+#: templates/transactions/pages/transactions.html:237
 msgid "Clear"
 msgstr "Zurücksetzen"
 
@@ -511,7 +511,7 @@ msgstr "Dezimalstellen"
 #: templates/currencies/fragments/list.html:9
 #: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:176
 #: templates/includes/sidebar.html:178
-#: templates/monthly_overview/pages/overview.html:62
+#: templates/monthly_overview/pages/overview.html:63
 #: templates/transactions/pages/transactions.html:12
 msgid "Currencies"
 msgstr "Währungen"
@@ -796,27 +796,27 @@ msgstr "DCA-Eintrag"
 msgid "DCA Entries"
 msgstr "DCA-Einträge"
 
-#: apps/dca/views.py:39
+#: apps/dca/views.py:38
 msgid "DCA Strategy added successfully"
 msgstr "DCA-Strategie erfolgreich hinzugefügt"
 
-#: apps/dca/views.py:76
+#: apps/dca/views.py:75
 msgid "DCA Strategy updated successfully"
 msgstr "DCA-Strategie erfolgreich aktualisiert"
 
-#: apps/dca/views.py:108
+#: apps/dca/views.py:107
 msgid "DCA strategy deleted successfully"
 msgstr "DCA-Strategie erfolgreich gelöscht"
 
-#: apps/dca/views.py:238
+#: apps/dca/views.py:237
 msgid "Entry added successfully"
 msgstr "Eintrag erfolgreich hinzugefügt"
 
-#: apps/dca/views.py:265
+#: apps/dca/views.py:264
 msgid "Entry updated successfully"
 msgstr "Eintrag erfolgreich aktualisiert"
 
-#: apps/dca/views.py:291
+#: apps/dca/views.py:290
 msgid "Entry deleted successfully"
 msgstr "Eintrag erfolgreich gelöscht"
 
@@ -1516,7 +1516,7 @@ msgstr "Entität"
 #: templates/cotton/ui/quick_transactions_buttons.html:10
 #: templates/cotton/ui/transactions_fab.html:10
 #: templates/insights/fragments/category_overview/index.html:87
-#: templates/monthly_overview/fragments/monthly_summary.html:39
+#: templates/monthly_overview/fragments/monthly_summary.html:41
 msgid "Income"
 msgstr "Einnahme"
 
@@ -1874,10 +1874,10 @@ msgid "This account is deactivated"
 msgstr "Dieses Konto ist deaktiviert"
 
 #: apps/users/forms.py:62 apps/users/forms.py:75 apps/users/forms.py:97
-#: templates/monthly_overview/pages/overview.html:95
-#: templates/monthly_overview/pages/overview.html:141
+#: templates/monthly_overview/pages/overview.html:98
+#: templates/monthly_overview/pages/overview.html:245
 #: templates/transactions/pages/transactions.html:47
-#: templates/transactions/pages/transactions.html:94
+#: templates/transactions/pages/transactions.html:195
 msgid "Default"
 msgstr "Standard"
 
@@ -2320,9 +2320,9 @@ msgstr "Schließen"
 
 #: templates/cotton/config/search.html:6
 #: templates/import_app/fragments/profiles/list_presets.html:13
-#: templates/monthly_overview/pages/overview.html:115
+#: templates/monthly_overview/pages/overview.html:219
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:57
-#: templates/transactions/pages/transactions.html:67
+#: templates/transactions/pages/transactions.html:168
 msgid "Search"
 msgstr "Suche"
 
@@ -2972,7 +2972,7 @@ msgid "Final total"
 msgstr "Gesamtbilanz"
 
 #: templates/insights/fragments/category_overview/index.html:89
-#: templates/monthly_overview/fragments/monthly_summary.html:165
+#: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr "Gesamt"
 
@@ -3152,32 +3152,32 @@ msgstr "Artikel"
 msgid "No transactions this month"
 msgstr "Keine Transaktionen in diesem Monat"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:6
+#: templates/monthly_overview/fragments/monthly_summary.html:7
 msgid "Daily Spending Allowance"
 msgstr "Tägliches Ausgabenlimit"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:6
+#: templates/monthly_overview/fragments/monthly_summary.html:7
 msgid "This is the final total divided by the remaining days in the month"
 msgstr ""
 "Dies ist der Gesamtwert geteilt durch die Anzahl verbleibender Tage im Monat"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:42
-#: templates/monthly_overview/fragments/monthly_summary.html:105
-#: templates/monthly_overview/fragments/monthly_summary.html:168
+#: templates/monthly_overview/fragments/monthly_summary.html:44
+#: templates/monthly_overview/fragments/monthly_summary.html:107
+#: templates/monthly_overview/fragments/monthly_summary.html:170
 msgid "current"
 msgstr "aktuell"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:71
-#: templates/monthly_overview/fragments/monthly_summary.html:134
-#: templates/monthly_overview/fragments/monthly_summary.html:197
+#: templates/monthly_overview/fragments/monthly_summary.html:73
+#: templates/monthly_overview/fragments/monthly_summary.html:136
+#: templates/monthly_overview/fragments/monthly_summary.html:199
 msgid "projected"
 msgstr "erwartet"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:102
+#: templates/monthly_overview/fragments/monthly_summary.html:104
 msgid "Expenses"
 msgstr "Ausgaben"
 
-#: templates/monthly_overview/fragments/monthly_summary.html:255
+#: templates/monthly_overview/fragments/monthly_summary.html:257
 msgid "Distribution"
 msgstr "Verteilung"
 
@@ -3185,27 +3185,27 @@ msgstr "Verteilung"
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#: templates/monthly_overview/pages/overview.html:96
-#: templates/monthly_overview/pages/overview.html:150
+#: templates/monthly_overview/pages/overview.html:99
+#: templates/monthly_overview/pages/overview.html:254
 #: templates/transactions/pages/transactions.html:48
-#: templates/transactions/pages/transactions.html:103
+#: templates/transactions/pages/transactions.html:204
 msgid "Oldest first"
 msgstr "Älteste zuerst"
 
-#: templates/monthly_overview/pages/overview.html:97
-#: templates/monthly_overview/pages/overview.html:159
+#: templates/monthly_overview/pages/overview.html:100
+#: templates/monthly_overview/pages/overview.html:263
 #: templates/transactions/pages/transactions.html:49
-#: templates/transactions/pages/transactions.html:112
+#: templates/transactions/pages/transactions.html:213
 msgid "Newest first"
 msgstr "Neueste zuerst"
 
-#: templates/monthly_overview/pages/overview.html:106
+#: templates/monthly_overview/pages/overview.html:109
 #: templates/transactions/pages/transactions.html:58
 msgid "Filter transactions"
 msgstr "Transaktionen filtern"
 
-#: templates/monthly_overview/pages/overview.html:131
-#: templates/transactions/pages/transactions.html:84
+#: templates/monthly_overview/pages/overview.html:235
+#: templates/transactions/pages/transactions.html:185
 msgid "Order by"
 msgstr "Sortieren nach"
 
