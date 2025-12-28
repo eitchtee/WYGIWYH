@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load currency_display %}
 <div class="grid grid-cols-1 gap-4 mt-1 mb-3">
+  {% if not has_active_filter %}
   {#  Daily Spending#}
   <div>
     <c-ui.info-card color="yellow" icon="fa-solid fa-calendar-day" title="{% trans 'Daily Spending Allowance' %}" help_text={% trans "This is the final total divided by the remaining days in the month" %}>
@@ -34,6 +35,7 @@
         </div>
     </c-ui.info-card>
   </div>
+  {% endif %}
 {#  Income#}
   <div>
       <c-ui.info-card color="green" icon="fa-solid fa-arrow-right-to-bracket" title="{% trans 'Income' %}">
