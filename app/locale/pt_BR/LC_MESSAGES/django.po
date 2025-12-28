@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-20 02:59+0000\n"
+"POT-Creation-Date: 2025-12-28 16:11+0000\n"
 "PO-Revision-Date: 2025-12-14 15:07+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -77,7 +77,7 @@ msgstr "Categoria"
 #: apps/accounts/forms.py:132 apps/dca/forms.py:95 apps/dca/forms.py:103
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
 #: apps/rules/forms.py:184 apps/rules/forms.py:194 apps/rules/models.py:45
-#: apps/rules/models.py:315 apps/transactions/filters.py:68
+#: apps/rules/models.py:315 apps/transactions/filters.py:73
 #: apps/transactions/forms.py:51 apps/transactions/forms.py:259
 #: apps/transactions/forms.py:427 apps/transactions/forms.py:532
 #: apps/transactions/forms.py:540 apps/transactions/forms.py:700
@@ -174,7 +174,7 @@ msgid "Account"
 msgstr "Conta"
 
 #: apps/accounts/models.py:76 apps/export_app/forms.py:19
-#: apps/export_app/forms.py:129 apps/transactions/filters.py:52
+#: apps/export_app/forms.py:129 apps/transactions/filters.py:57
 #: templates/accounts/fragments/list.html:9
 #: templates/accounts/pages/index.html:4 templates/includes/sidebar.html:162
 #: templates/includes/sidebar.html:164
@@ -504,7 +504,7 @@ msgid "Decimal Places"
 msgstr "Casas Decimais"
 
 #: apps/currencies/models.py:45 apps/export_app/forms.py:25
-#: apps/export_app/forms.py:130 apps/transactions/filters.py:59
+#: apps/export_app/forms.py:130 apps/transactions/filters.py:64
 #: templates/currencies/fragments/list.html:9
 #: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:176
 #: templates/includes/sidebar.html:178
@@ -569,9 +569,9 @@ msgstr "Nome do Serviço"
 msgid "Service Type"
 msgstr "Tipo de Serviço"
 
-#: apps/currencies/models.py:118 apps/transactions/models.py:218
-#: apps/transactions/models.py:242 apps/transactions/models.py:266
-#: templates/categories/fragments/list.html:16
+#: apps/currencies/models.py:118 apps/transactions/filters.py:27
+#: apps/transactions/models.py:218 apps/transactions/models.py:242
+#: apps/transactions/models.py:266 templates/categories/fragments/list.html:16
 #: templates/entities/fragments/list.html:16
 #: templates/installment_plans/fragments/list.html:16
 #: templates/recurring_transactions/fragments/list.html:16
@@ -833,14 +833,14 @@ msgid "Transactions"
 msgstr "Transações"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
-#: apps/transactions/filters.py:63 templates/categories/fragments/list.html:9
+#: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
 msgid "Categories"
 msgstr "Categorias"
 
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
-#: apps/rules/models.py:307 apps/transactions/filters.py:73
+#: apps/rules/models.py:307 apps/transactions/filters.py:78
 #: apps/transactions/forms.py:59 apps/transactions/forms.py:267
 #: apps/transactions/forms.py:435 apps/transactions/forms.py:715
 #: apps/transactions/forms.py:956 apps/transactions/models.py:277
@@ -1014,7 +1014,7 @@ msgid "Run deleted successfully"
 msgstr "Importação apagada com sucesso"
 
 #: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
-#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:186
+#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:203
 #: templates/insights/fragments/category_overview/index.html:96
 #: templates/insights/fragments/category_overview/index.html:407
 #: templates/insights/fragments/category_overview/index.html:436
@@ -1325,52 +1325,62 @@ msgstr "Ação Atualizar ou Criar Transação apagada com sucesso"
 msgid "Projected"
 msgstr "Previsto"
 
-#: apps/transactions/filters.py:40
+#: apps/transactions/filters.py:28 templates/categories/fragments/table.html:18
+msgid "Muted"
+msgstr "Silenciada"
+
+#: apps/transactions/filters.py:45
 msgid "Content"
 msgstr "Conteúdo"
 
-#: apps/transactions/filters.py:46
+#: apps/transactions/filters.py:51
 msgid "Transaction Type"
 msgstr "Tipo de Transação"
 
-#: apps/transactions/filters.py:84
+#: apps/transactions/filters.py:89
+#, fuzzy
+#| msgid "Status"
+msgid "Mute Status"
+msgstr "Status"
+
+#: apps/transactions/filters.py:94
 msgid "Date from"
 msgstr "Data de"
 
-#: apps/transactions/filters.py:89 apps/transactions/filters.py:99
+#: apps/transactions/filters.py:99 apps/transactions/filters.py:109
 msgid "Until"
 msgstr "Até"
 
-#: apps/transactions/filters.py:94
+#: apps/transactions/filters.py:104
 msgid "Reference date from"
 msgstr "Data de Referência de"
 
-#: apps/transactions/filters.py:104
+#: apps/transactions/filters.py:114
 msgid "Amount min"
 msgstr "Quantia miníma"
 
-#: apps/transactions/filters.py:109
+#: apps/transactions/filters.py:119
 msgid "Amount max"
 msgstr "Quantia máxima"
 
-#: apps/transactions/filters.py:185
+#: apps/transactions/filters.py:202
 msgid "Categorized"
 msgstr "Categorizada"
 
-#: apps/transactions/filters.py:192
+#: apps/transactions/filters.py:209
 msgid "Tagged"
 msgstr "Com tag"
 
-#: apps/transactions/filters.py:192
+#: apps/transactions/filters.py:209
 #: templates/insights/fragments/category_overview/index.html:189
 msgid "Untagged"
 msgstr "Sem tag"
 
-#: apps/transactions/filters.py:198
+#: apps/transactions/filters.py:215
 msgid "Any entity"
 msgstr "Qualquer entidade"
 
-#: apps/transactions/filters.py:199
+#: apps/transactions/filters.py:216
 #: templates/insights/fragments/category_overview/index.html:282
 msgid "No entity"
 msgstr "Sem entidade"
@@ -2263,10 +2273,6 @@ msgstr "Adicionar categoria"
 #: templates/categories/fragments/edit.html:5
 msgid "Edit category"
 msgstr "Editar categoria"
-
-#: templates/categories/fragments/table.html:18
-msgid "Muted"
-msgstr "Silenciada"
 
 #: templates/categories/fragments/table.html:73
 #: templates/insights/fragments/category_overview/index.html:552

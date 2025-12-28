@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-20 02:59+0000\n"
+"POT-Creation-Date: 2025-12-28 16:11+0000\n"
 "PO-Revision-Date: 2025-12-15 05:24+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -77,7 +77,7 @@ msgstr "Categorie"
 #: apps/accounts/forms.py:132 apps/dca/forms.py:95 apps/dca/forms.py:103
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
 #: apps/rules/forms.py:184 apps/rules/forms.py:194 apps/rules/models.py:45
-#: apps/rules/models.py:315 apps/transactions/filters.py:68
+#: apps/rules/models.py:315 apps/transactions/filters.py:73
 #: apps/transactions/forms.py:51 apps/transactions/forms.py:259
 #: apps/transactions/forms.py:427 apps/transactions/forms.py:532
 #: apps/transactions/forms.py:540 apps/transactions/forms.py:700
@@ -175,7 +175,7 @@ msgid "Account"
 msgstr "Rekening"
 
 #: apps/accounts/models.py:76 apps/export_app/forms.py:19
-#: apps/export_app/forms.py:129 apps/transactions/filters.py:52
+#: apps/export_app/forms.py:129 apps/transactions/filters.py:57
 #: templates/accounts/fragments/list.html:9
 #: templates/accounts/pages/index.html:4 templates/includes/sidebar.html:162
 #: templates/includes/sidebar.html:164
@@ -506,7 +506,7 @@ msgid "Decimal Places"
 msgstr "Cijfers na de komma"
 
 #: apps/currencies/models.py:45 apps/export_app/forms.py:25
-#: apps/export_app/forms.py:130 apps/transactions/filters.py:59
+#: apps/export_app/forms.py:130 apps/transactions/filters.py:64
 #: templates/currencies/fragments/list.html:9
 #: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:176
 #: templates/includes/sidebar.html:178
@@ -571,9 +571,9 @@ msgstr "Dienstnaam"
 msgid "Service Type"
 msgstr "Soort Dienst"
 
-#: apps/currencies/models.py:118 apps/transactions/models.py:218
-#: apps/transactions/models.py:242 apps/transactions/models.py:266
-#: templates/categories/fragments/list.html:16
+#: apps/currencies/models.py:118 apps/transactions/filters.py:27
+#: apps/transactions/models.py:218 apps/transactions/models.py:242
+#: apps/transactions/models.py:266 templates/categories/fragments/list.html:16
 #: templates/entities/fragments/list.html:16
 #: templates/installment_plans/fragments/list.html:16
 #: templates/recurring_transactions/fragments/list.html:16
@@ -835,14 +835,14 @@ msgid "Transactions"
 msgstr "Verrichtingen"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
-#: apps/transactions/filters.py:63 templates/categories/fragments/list.html:9
+#: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
 msgid "Categories"
 msgstr "Categorieën"
 
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
-#: apps/rules/models.py:307 apps/transactions/filters.py:73
+#: apps/rules/models.py:307 apps/transactions/filters.py:78
 #: apps/transactions/forms.py:59 apps/transactions/forms.py:267
 #: apps/transactions/forms.py:435 apps/transactions/forms.py:715
 #: apps/transactions/forms.py:956 apps/transactions/models.py:277
@@ -1016,7 +1016,7 @@ msgid "Run deleted successfully"
 msgstr "Run met succes verwijderd"
 
 #: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
-#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:186
+#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:203
 #: templates/insights/fragments/category_overview/index.html:96
 #: templates/insights/fragments/category_overview/index.html:407
 #: templates/insights/fragments/category_overview/index.html:436
@@ -1327,52 +1327,62 @@ msgstr "Verrichting Bijwerken Of Maken succesvol verwijderd"
 msgid "Projected"
 msgstr "Ingepland"
 
-#: apps/transactions/filters.py:40
+#: apps/transactions/filters.py:28 templates/categories/fragments/table.html:18
+msgid "Muted"
+msgstr "Gedempt"
+
+#: apps/transactions/filters.py:45
 msgid "Content"
 msgstr "Inhoud"
 
-#: apps/transactions/filters.py:46
+#: apps/transactions/filters.py:51
 msgid "Transaction Type"
 msgstr "Soort transactie"
 
-#: apps/transactions/filters.py:84
+#: apps/transactions/filters.py:89
+#, fuzzy
+#| msgid "Status"
+msgid "Mute Status"
+msgstr "Status"
+
+#: apps/transactions/filters.py:94
 msgid "Date from"
 msgstr "Datum vanaf"
 
-#: apps/transactions/filters.py:89 apps/transactions/filters.py:99
+#: apps/transactions/filters.py:99 apps/transactions/filters.py:109
 msgid "Until"
 msgstr "Tot"
 
-#: apps/transactions/filters.py:94
+#: apps/transactions/filters.py:104
 msgid "Reference date from"
 msgstr "Referentiedatum vanaf"
 
-#: apps/transactions/filters.py:104
+#: apps/transactions/filters.py:114
 msgid "Amount min"
 msgstr "Minimum bedrag"
 
-#: apps/transactions/filters.py:109
+#: apps/transactions/filters.py:119
 msgid "Amount max"
 msgstr "Maximaal bedrag"
 
-#: apps/transactions/filters.py:185
+#: apps/transactions/filters.py:202
 msgid "Categorized"
 msgstr "Gecategoriseerd"
 
-#: apps/transactions/filters.py:192
+#: apps/transactions/filters.py:209
 msgid "Tagged"
 msgstr "Gelabeld"
 
-#: apps/transactions/filters.py:192
+#: apps/transactions/filters.py:209
 #: templates/insights/fragments/category_overview/index.html:189
 msgid "Untagged"
 msgstr "Niet gelabeld"
 
-#: apps/transactions/filters.py:198
+#: apps/transactions/filters.py:215
 msgid "Any entity"
 msgstr "Elk bedrijf"
 
-#: apps/transactions/filters.py:199
+#: apps/transactions/filters.py:216
 #: templates/insights/fragments/category_overview/index.html:282
 msgid "No entity"
 msgstr "Geen bedrijf"
@@ -2264,10 +2274,6 @@ msgstr "Categorie toevoegen"
 #: templates/categories/fragments/edit.html:5
 msgid "Edit category"
 msgstr "Categorie bewerken"
-
-#: templates/categories/fragments/table.html:18
-msgid "Muted"
-msgstr "Gedempt"
 
 #: templates/categories/fragments/table.html:73
 #: templates/insights/fragments/category_overview/index.html:552
