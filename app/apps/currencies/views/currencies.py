@@ -23,7 +23,7 @@ def currencies_index(request):
 @login_required
 @require_http_methods(["GET"])
 def currencies_list(request):
-    currencies = Currency.objects.all().order_by("id")
+    currencies = Currency.objects.all().order_by("name")
     return render(
         request,
         "currencies/fragments/list.html",

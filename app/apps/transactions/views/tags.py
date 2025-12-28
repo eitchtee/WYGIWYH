@@ -35,7 +35,7 @@ def tags_list(request):
 @login_required
 @require_http_methods(["GET"])
 def tags_table_active(request):
-    tags = TransactionTag.objects.filter(active=True).order_by("id")
+    tags = TransactionTag.objects.filter(active=True).order_by("name")
     return render(
         request,
         "tags/fragments/table.html",
@@ -47,7 +47,7 @@ def tags_table_active(request):
 @login_required
 @require_http_methods(["GET"])
 def tags_table_archived(request):
-    tags = TransactionTag.objects.filter(active=False).order_by("id")
+    tags = TransactionTag.objects.filter(active=False).order_by("name")
     return render(
         request,
         "tags/fragments/table.html",

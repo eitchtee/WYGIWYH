@@ -23,7 +23,7 @@ def strategy_index(request):
 @only_htmx
 @login_required
 def strategy_list(request):
-    strategies = DCAStrategy.objects.all().order_by("created_at")
+    strategies = DCAStrategy.objects.all().order_by("name")
     return render(
         request, "dca/fragments/strategy/list.html", {"strategies": strategies}
     )
