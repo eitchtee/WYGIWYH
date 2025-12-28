@@ -23,6 +23,11 @@ SITUACAO_CHOICES = (
     ("0", _("Projected")),
 )
 
+MUTE_STATUS_CHOICES = (
+    ("active", _("Active")),
+    ("muted", _("Muted")),
+)
+
 
 def content_filter(queryset, name, value):
     queryset = queryset.filter(
@@ -77,6 +82,11 @@ class TransactionsFilter(django_filters.FilterSet):
     is_paid = django_filters.MultipleChoiceFilter(
         choices=SITUACAO_CHOICES,
         field_name="is_paid",
+    )
+    mute_status = django_filters.MultipleChoiceFilter(
+        choices=MUTE_STATUS_CHOICES,
+        method="filter_mute_status",
+        label=_("Mute Status"),
     )
     date_start = django_filters.DateFilter(
         field_name="date",
@@ -140,6 +150,9 @@ class TransactionsFilter(django_filters.FilterSet):
             if data.get("is_paid") is None:
                 data.setlist("is_paid", ["1", "0"])
 
+            if data.get("mute_status") is None:
+                data.setlist("mute_status", ["active", "muted"])
+
         super().__init__(data, *args, **kwargs)
 
         self.form.helper = FormHelper()
@@ -153,6 +166,10 @@ class TransactionsFilter(django_filters.FilterSet):
             ),
             Field(
                 "is_paid",
+                template="transactions/widgets/transaction_type_filter_buttons.html",
+            ),
+            Field(
+                "mute_status",
                 template="transactions/widgets/transaction_type_filter_buttons.html",
             ),
             Field("description"),
@@ -266,5 +283,38 @@ class TransactionsFilter(django_filters.FilterSet):
 
         if q.children:
             return queryset.filter(q).distinct()
+
+        return queryset
+
+    @staticmethod
+    def filter_mute_status(queryset, name, value):
+        from apps.common.middleware.thread_local import get_current_user
+
+        if not value:
+            return queryset
+
+        value = list(value)
+
+        # If both are selected, return all
+        if "active" in value and "muted" in value:
+            return queryset
+
+        user = get_current_user()
+
+        # Only Active selected: exclude muted transactions
+        if "active" in value:
+            return (
+                queryset.exclude(account__untracked_by=user)
+                .filter(
+                    mute=False,
+                )
+                .filter(Q(category__mute=False) | Q(category__isnull=True))
+            )
+
+        # Only Muted selected: include only muted transactions
+        if "muted" in value:
+            return queryset.filter(
+                Q(account__untracked_by=user) | Q(category__mute=True) | Q(mute=True)
+            )
 
         return queryset
