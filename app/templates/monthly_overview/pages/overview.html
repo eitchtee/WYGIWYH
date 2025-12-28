@@ -50,12 +50,13 @@
                  role="tab"
                  {% if summary_tab == 'summary' or not summary_tab %}checked="checked"{% endif %}
                  _="on click fetch {% url 'monthly_summary_select' selected='summary' %}"
-                 aria-controls="summary-tab-pane" />
+                 aria-controls="summary-tab-pane"/>
           <div class="tab-content" id="summary-tab-pane" role="tabpanel">
             <div id="summary"
                  hx-get="{% url 'monthly_summary' month=month year=year %}"
                  class="show-loading"
-                 hx-trigger="load, updated from:window, selective_update from:window, every 10m">
+                 hx-trigger="load, updated from:window, selective_update from:window, every 10m"
+                 hx-include="#filter">
             </div>
           </div>
 
@@ -68,7 +69,8 @@
             <div id="currency-summary"
                  hx-get="{% url 'monthly_currency_summary' month=month year=year %}"
                  class="show-loading"
-                 hx-trigger="load, updated from:window, selective_update from:window, every 10m">
+                 hx-trigger="load, updated from:window, selective_update from:window, every 10m"
+                 hx-include="#filter">
             </div>
           </div>
 
@@ -81,7 +83,8 @@
             <div id="account-summary"
                  hx-get="{% url 'monthly_account_summary' month=month year=year %}"
                  class="show-loading"
-                 hx-trigger="load, updated from:window, selective_update from:window, every 10m">
+                 hx-trigger="load, updated from:window, selective_update from:window, every 10m"
+                 hx-include="#filter">
             </div>
           </div>
         </div>
@@ -100,11 +103,112 @@
           {# Main control bar with filter, search, and ordering #}
           <div class="join w-full">
 
-            <button class="btn btn-secondary join-item relative" type="button"
+            <button class="btn btn-secondary join-item relative z-1" type="button"
                     @click="filterOpen = !filterOpen"
                     :aria-expanded="filterOpen" id="filter-button"
-                    title="{% translate 'Filter transactions' %}">
+                    title="{% translate 'Filter transactions' %}"
+                    _="on load or change from #filter
+                         -- Check if any filter has a non-default value
+                         set hasActiveFilter to false
+
+                         -- Check type (default is both IN and EX checked)
+                         set typeInputs to <input[name='type']:checked/> in #filter
+                         if typeInputs.length is not 2
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check is_paid (default is both 1 and 0 checked)
+                         set isPaidInputs to <input[name='is_paid']:checked/> in #filter
+                         if isPaidInputs.length is not 2
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check mute_status (default is both active and muted checked)
+                         set muteStatusInputs to <input[name='mute_status']:checked/> in #filter
+                         if muteStatusInputs.length is not 2
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check description
+                         set descInput to #id_description
+                         if descInput exists and descInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check date_start
+                         set dateStartInput to #id_date_start
+                         if dateStartInput exists and dateStartInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check date_end
+                         set dateEndInput to #id_date_end
+                         if dateEndInput exists and dateEndInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check reference_date_start
+                         set refDateStartInput to #id_reference_date_start
+                         if refDateStartInput exists and refDateStartInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check reference_date_end
+                         set refDateEndInput to #id_reference_date_end
+                         if refDateEndInput exists and refDateEndInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check from_amount
+                         set fromAmountInput to #id_from_amount
+                         if fromAmountInput exists and fromAmountInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check to_amount
+                         set toAmountInput to #id_to_amount
+                         if toAmountInput exists and toAmountInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check account (TomSelect stores values differently)
+                         set accountInput to #id_account
+                         if accountInput exists and accountInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check currency
+                         set currencyInput to #id_currency
+                         if currencyInput exists and currencyInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check category
+                         set categoryInput to #id_category
+                         if categoryInput exists and categoryInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check tags
+                         set tagsInput to #id_tags
+                         if tagsInput exists and tagsInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Check entities
+                         set entitiesInput to #id_entities
+                         if entitiesInput exists and entitiesInput.value is not ''
+                           set hasActiveFilter to true
+                         end
+
+                         -- Show or hide the indicator
+                         if hasActiveFilter
+                           remove .hidden from #filter-active-indicator
+                         else
+                           add .hidden to #filter-active-indicator
+                         end">
               <i class="fa-solid fa-filter fa-fw"></i>
+              <span id="filter-active-indicator" class="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full hidden z-10"></span>
             </button>
 
             {# Search box #}

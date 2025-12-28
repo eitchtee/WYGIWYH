@@ -1,4 +1,3 @@
-# apps/dca_tracker/views.py
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Avg
@@ -234,7 +233,7 @@ def strategy_entry_add(request, strategy_id):
     if request.method == "POST":
         form = DCAEntryForm(request.POST, strategy=strategy)
         if form.is_valid():
-            entry = form.save()
+            form.save()
             messages.success(request, _("Entry added successfully"))
 
             return HttpResponse(
