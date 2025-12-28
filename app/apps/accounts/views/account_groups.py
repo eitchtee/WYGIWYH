@@ -25,7 +25,7 @@ def account_groups_index(request):
 @login_required
 @require_http_methods(["GET"])
 def account_groups_list(request):
-    account_groups = AccountGroup.objects.all().order_by("id")
+    account_groups = AccountGroup.objects.all().order_by("name")
     return render(
         request,
         "account_groups/fragments/list.html",

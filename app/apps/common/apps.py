@@ -23,3 +23,6 @@ class CommonConfig(AppConfig):
         # Delete the cache for update checks to prevent false-positives when the app is restarted
         # this will be recreated by the check_for_updates task
         cache.delete("update_check")
+
+        # Register system checks for required environment variables
+        from apps.common import checks  # noqa: F401

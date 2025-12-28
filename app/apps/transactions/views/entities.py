@@ -35,7 +35,7 @@ def entities_list(request):
 @login_required
 @require_http_methods(["GET"])
 def entities_table_active(request):
-    entities = TransactionEntity.objects.filter(active=True).order_by("id")
+    entities = TransactionEntity.objects.filter(active=True).order_by("name")
     return render(
         request,
         "entities/fragments/table.html",
@@ -47,7 +47,7 @@ def entities_table_active(request):
 @login_required
 @require_http_methods(["GET"])
 def entities_table_archived(request):
-    entities = TransactionEntity.objects.filter(active=False).order_by("id")
+    entities = TransactionEntity.objects.filter(active=False).order_by("name")
     return render(
         request,
         "entities/fragments/table.html",

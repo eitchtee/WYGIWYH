@@ -25,7 +25,7 @@ def accounts_index(request):
 @login_required
 @require_http_methods(["GET"])
 def accounts_list(request):
-    accounts = Account.objects.all().order_by("id")
+    accounts = Account.objects.all().order_by("name")
     return render(
         request,
         "accounts/fragments/list.html",
