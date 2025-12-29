@@ -306,3 +306,30 @@ def emergency_fund(request):
         "insights/fragments/emergency_fund.html",
         {"data": currency_net_worth},
     )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def year_by_year(request):
+    if "group_by" in request.GET:
+        group_by = request.GET["group_by"]
+        request.session["insights_year_by_year_group_by"] = group_by
+    else:
+        group_by = request.session.get("insights_year_by_year_group_by", "categories")
+
+    # Validate group_by value
+    if group_by not in ("categories", "tags", "entities"):
+        group_by = "categories"
+
+    data = get_year_by_year_data(group_by=group_by)
+
+    return render(
+        request,
+        "insights/fragments/year_by_year.html",
+        {
+            "data": data,
+            "group_by": group_by,
+        },
+    )
+
