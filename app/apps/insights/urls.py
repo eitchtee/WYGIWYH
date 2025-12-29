@@ -54,4 +54,9 @@ urlpatterns = [
         views.year_by_year,
         name="insights_year_by_year",
     ),
+    path(
+        "insights/month-by-month/",
+        views.month_by_month,
+        name="insights_month_by_month",
+    ),
 ]

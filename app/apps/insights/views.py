@@ -26,6 +26,8 @@ from apps.insights.utils.sankey import (
     generate_sankey_data_by_currency,
 )
 from apps.insights.utils.transactions import get_transactions
+from apps.insights.utils.year_by_year import get_year_by_year_data
+from apps.insights.utils.month_by_month import get_month_by_month_data
 from apps.transactions.models import TransactionCategory, Transaction
 from apps.transactions.utils.calculations import calculate_currency_totals
 
@@ -333,3 +335,44 @@ def year_by_year(request):
         },
     )
 
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def month_by_month(request):
+    # Handle year selection
+    if "year" in request.GET:
+        try:
+            year = int(request.GET["year"])
+            request.session["insights_month_by_month_year"] = year
+        except (ValueError, TypeError):
+            year = request.session.get(
+                "insights_month_by_month_year", timezone.localdate(timezone.now()).year
+            )
+    else:
+        year = request.session.get(
+            "insights_month_by_month_year", timezone.localdate(timezone.now()).year
+        )
+
+    # Handle group_by selection
+    if "group_by" in request.GET:
+        group_by = request.GET["group_by"]
+        request.session["insights_month_by_month_group_by"] = group_by
+    else:
+        group_by = request.session.get("insights_month_by_month_group_by", "categories")
+
+    # Validate group_by value
+    if group_by not in ("categories", "tags", "entities"):
+        group_by = "categories"
+
+    data = get_month_by_month_data(year=year, group_by=group_by)
+
+    return render(
+        request,
+        "insights/fragments/month_by_month.html",
+        {
+            "data": data,
+            "group_by": group_by,
+            "selected_year": year,
+        },
+    )
