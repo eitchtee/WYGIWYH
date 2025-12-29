@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 16:22+0000\n"
+"POT-Creation-Date: 2025-12-29 01:57+0000\n"
 "PO-Revision-Date: 2025-11-08 12:20+0000\n"
 "Last-Translator: Marcin Kisielewski <kisielewski.mar@gmail.com>\n"
 "Language-Team: Polish <https://translations.herculino.com/projects/wygiwyh/"
@@ -72,6 +72,7 @@ msgstr "Nowe saldo"
 #: apps/transactions/models.py:1022
 #: templates/insights/fragments/category_overview/index.html:86
 #: templates/insights/fragments/category_overview/index.html:542
+#: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
 msgstr "Kategoria"
 
@@ -86,6 +87,8 @@ msgstr "Kategoria"
 #: apps/transactions/models.py:576 apps/transactions/models.py:778
 #: apps/transactions/models.py:1028 templates/includes/sidebar.html:150
 #: templates/insights/fragments/category_overview/index.html:40
+#: templates/insights/fragments/year_by_year.html:24
+#: templates/insights/fragments/year_by_year.html:27
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Tagi"
@@ -816,6 +819,8 @@ msgstr ""
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
+#: templates/insights/fragments/year_by_year.html:13
+#: templates/insights/fragments/year_by_year.html:16
 msgid "Categories"
 msgstr ""
 
@@ -830,6 +835,8 @@ msgstr ""
 #: templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:156
 #: templates/insights/fragments/category_overview/index.html:54
+#: templates/insights/fragments/year_by_year.html:35
+#: templates/insights/fragments/year_by_year.html:38
 msgid "Entities"
 msgstr ""
 
@@ -997,6 +1004,7 @@ msgstr ""
 #: templates/insights/fragments/category_overview/index.html:96
 #: templates/insights/fragments/category_overview/index.html:407
 #: templates/insights/fragments/category_overview/index.html:436
+#: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
 msgstr ""
 
@@ -1348,6 +1356,7 @@ msgstr ""
 
 #: apps/transactions/filters.py:209
 #: templates/insights/fragments/category_overview/index.html:189
+#: templates/insights/fragments/year_by_year.html:75
 msgid "Untagged"
 msgstr ""
 
@@ -1357,6 +1366,7 @@ msgstr ""
 
 #: apps/transactions/filters.py:216
 #: templates/insights/fragments/category_overview/index.html:282
+#: templates/insights/fragments/year_by_year.html:77
 msgid "No entity"
 msgstr ""
 
@@ -1444,6 +1454,7 @@ msgid ""
 msgstr ""
 
 #: apps/transactions/models.py:276
+#: templates/insights/fragments/year_by_year.html:56
 msgid "Entity"
 msgstr ""
 
@@ -2887,6 +2898,8 @@ msgid "Final total"
 msgstr ""
 
 #: templates/insights/fragments/category_overview/index.html:89
+#: templates/insights/fragments/year_by_year.html:59
+#: templates/insights/fragments/year_by_year.html:142
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr ""
@@ -2939,6 +2952,16 @@ msgstr ""
 msgid "Percentage"
 msgstr ""
 
+#: templates/insights/fragments/year_by_year.html:54
+#, fuzzy
+#| msgid "Tags"
+msgid "Tag"
+msgstr "Tagi"
+
+#: templates/insights/fragments/year_by_year.html:206
+msgid "No transactions"
+msgstr ""
+
 #: templates/insights/pages/index.html:37
 msgid "Month"
 msgstr ""
@@ -2986,6 +3009,10 @@ msgstr ""
 
 #: templates/insights/pages/index.html:122
 msgid "Emergency Fund"
+msgstr ""
+
+#: templates/insights/pages/index.html:127
+msgid "Year by Year"
 msgstr ""
 
 #: templates/installment_plans/fragments/add.html:5

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 16:22+0000\n"
+"POT-Creation-Date: 2025-12-29 01:57+0000\n"
 "PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -71,6 +71,7 @@ msgstr "Nuovo saldo"
 #: apps/transactions/models.py:1022
 #: templates/insights/fragments/category_overview/index.html:86
 #: templates/insights/fragments/category_overview/index.html:542
+#: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
 msgstr "Categoria"
 
@@ -85,6 +86,8 @@ msgstr "Categoria"
 #: apps/transactions/models.py:576 apps/transactions/models.py:778
 #: apps/transactions/models.py:1028 templates/includes/sidebar.html:150
 #: templates/insights/fragments/category_overview/index.html:40
+#: templates/insights/fragments/year_by_year.html:24
+#: templates/insights/fragments/year_by_year.html:27
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Tag"
@@ -836,6 +839,8 @@ msgstr "Transazioni"
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
+#: templates/insights/fragments/year_by_year.html:13
+#: templates/insights/fragments/year_by_year.html:16
 msgid "Categories"
 msgstr "Categorie"
 
@@ -850,6 +855,8 @@ msgstr "Categorie"
 #: templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:156
 #: templates/insights/fragments/category_overview/index.html:54
+#: templates/insights/fragments/year_by_year.html:35
+#: templates/insights/fragments/year_by_year.html:38
 msgid "Entities"
 msgstr "Beneficiari"
 
@@ -1019,6 +1026,7 @@ msgstr "Esecuzione eliminata con successo"
 #: templates/insights/fragments/category_overview/index.html:96
 #: templates/insights/fragments/category_overview/index.html:407
 #: templates/insights/fragments/category_overview/index.html:436
+#: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
 msgstr "Senza categoria"
 
@@ -1375,6 +1383,7 @@ msgstr "Taggato"
 
 #: apps/transactions/filters.py:209
 #: templates/insights/fragments/category_overview/index.html:189
+#: templates/insights/fragments/year_by_year.html:75
 msgid "Untagged"
 msgstr "Senza tag"
 
@@ -1384,6 +1393,7 @@ msgstr "Qualsiasi beneficiario"
 
 #: apps/transactions/filters.py:216
 #: templates/insights/fragments/category_overview/index.html:282
+#: templates/insights/fragments/year_by_year.html:77
 msgid "No entity"
 msgstr "Nessun beneficiario"
 
@@ -1479,6 +1489,7 @@ msgstr ""
 "creazione di nuove transazioni"
 
 #: apps/transactions/models.py:276
+#: templates/insights/fragments/year_by_year.html:56
 msgid "Entity"
 msgstr "Beneficiari"
 
@@ -2942,6 +2953,8 @@ msgid "Final total"
 msgstr "Totale finale"
 
 #: templates/insights/fragments/category_overview/index.html:89
+#: templates/insights/fragments/year_by_year.html:59
+#: templates/insights/fragments/year_by_year.html:142
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
 msgstr "Totale"
@@ -2994,6 +3007,18 @@ msgstr "Da"
 msgid "Percentage"
 msgstr "Percentuale"
 
+#: templates/insights/fragments/year_by_year.html:54
+#, fuzzy
+#| msgid "Tags"
+msgid "Tag"
+msgstr "Tag"
+
+#: templates/insights/fragments/year_by_year.html:206
+#, fuzzy
+#| msgid "transactions"
+msgid "No transactions"
+msgstr "transazioni"
+
 #: templates/insights/pages/index.html:37
 msgid "Month"
 msgstr "Mese"
@@ -3042,6 +3067,12 @@ msgstr "Transazioni recenti"
 #: templates/insights/pages/index.html:122
 msgid "Emergency Fund"
 msgstr "Fondo d'emergenza"
+
+#: templates/insights/pages/index.html:127
+#, fuzzy
+#| msgid "Yearly by account"
+msgid "Year by Year"
+msgstr "Annuale per conto"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
