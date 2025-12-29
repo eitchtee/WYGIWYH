@@ -1,0 +1,208 @@
+{% load i18n %}
+
+<div hx-get="{% url 'insights_year_by_year' %}" hx-trigger="updated from:window" class="show-loading"
+     hx-swap="outerHTML" hx-include="#group-by-selector">
+  <div class="h-full text-center mb-4">
+    <div class="tabs tabs-box mx-auto w-fit" role="group" id="group-by-selector" _="on change trigger updated">
+      <label class="tab">
+        <input type="radio"
+               name="group_by"
+               id="categories-view"
+               autocomplete="off"
+               value="categories"
+               aria-label="{% trans 'Categories' %}"
+               {% if group_by == "categories" %}checked{% endif %}>
+        <i class="fa-solid fa-icons fa-fw me-2"></i>
+        {% trans 'Categories' %}
+      </label>
+      <label class="tab">
+        <input type="radio"
+               name="group_by"
+               id="tags-view"
+               autocomplete="off"
+               value="tags"
+               aria-label="{% trans 'Tags' %}"
+               {% if group_by == "tags" %}checked{% endif %}>
+        <i class="fa-solid fa-hashtag fa-fw me-2"></i>
+        {% trans 'Tags' %}
+      </label>
+      <label class="tab">
+        <input type="radio"
+               name="group_by"
+               id="entities-view"
+               autocomplete="off"
+               value="entities"
+               aria-label="{% trans 'Entities' %}"
+               {% if group_by == "entities" %}checked{% endif %}>
+        <i class="fa-solid fa-user-group fa-fw me-2"></i>
+        {% trans 'Entities' %}
+      </label>
+    </div>
+  </div>
+
+  {% if data.years %}
+    <div class="card bg-base-100 card-border">
+      <div class="card-body">
+        <div class="overflow-x-auto">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="sticky left-0 bg-base-100 z-10">
+                  {% if group_by == "categories" %}
+                    {% trans 'Category' %}
+                  {% elif group_by == "tags" %}
+                    {% trans 'Tag' %}
+                  {% else %}
+                    {% trans 'Entity' %}
+                  {% endif %}
+                </th>
+                <th scope="col" class="text-center font-bold">{% trans 'Total' %}</th>
+                {% for year in data.years %}
+                  <th scope="col" class="text-center">{{ year }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for item_id, item in data.items.items %}
+                <tr>
+                  <th class="text-nowrap sticky left-0 bg-base-100 z-10">
+                    {% if item.name %}
+                      {{ item.name }}
+                    {% else %}
+                      {% if group_by == "categories" %}
+                        {% trans 'Uncategorized' %}
+                      {% elif group_by == "tags" %}
+                        {% trans 'Untagged' %}
+                      {% else %}
+                        {% trans 'No entity' %}
+                      {% endif %}
+                    {% endif %}
+                  </th>
+                  {# Total column for this item #}
+                  <td class="text-nowrap text-center font-semibold bg-base-200">
+                    {% for currency_id, currency_data in item.total.currencies.items %}
+                      <c-amount.display
+                          :amount="currency_data.final_total"
+                          :prefix="currency_data.currency.prefix"
+                          :suffix="currency_data.currency.suffix"
+                          :decimal_places="currency_data.currency.decimal_places"
+                          color="{% if currency_data.final_total < 0 %}red{% elif currency_data.final_total > 0 %}green{% endif %}"></c-amount.display>
+                      {% if currency_data.exchanged %}
+                        <div class="text-xs text-base-content/60">
+                          <c-amount.display
+                              :amount="currency_data.exchanged.final_total"
+                              :prefix="currency_data.exchanged.currency.prefix"
+                              :suffix="currency_data.exchanged.currency.suffix"
+                              :decimal_places="currency_data.exchanged.currency.decimal_places"
+                              color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                        </div>
+                      {% endif %}
+                    {% empty %}
+                      -
+                    {% endfor %}
+                  </td>
+                  {# Year columns #}
+                  {% for year in data.years %}
+                    <td class="text-nowrap text-center">
+                      {% with year_data=item.year_totals %}
+                        {% for y, y_data in year_data.items %}
+                          {% if y == year %}
+                            {% for currency_id, currency_data in y_data.currencies.items %}
+                              <c-amount.display
+                                  :amount="currency_data.final_total"
+                                  :prefix="currency_data.currency.prefix"
+                                  :suffix="currency_data.currency.suffix"
+                                  :decimal_places="currency_data.currency.decimal_places"
+                                  color="{% if currency_data.final_total < 0 %}red{% elif currency_data.final_total > 0 %}green{% endif %}"></c-amount.display>
+                              {% if currency_data.exchanged %}
+                                <div class="text-xs text-base-content/60">
+                                  <c-amount.display
+                                      :amount="currency_data.exchanged.final_total"
+                                      :prefix="currency_data.exchanged.currency.prefix"
+                                      :suffix="currency_data.exchanged.currency.suffix"
+                                      :decimal_places="currency_data.exchanged.currency.decimal_places"
+                                      color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                                </div>
+                              {% endif %}
+                            {% empty %}
+                              -
+                            {% endfor %}
+                          {% endif %}
+                        {% empty %}
+                          -
+                        {% endfor %}
+                      {% endwith %}
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr class="font-bold bg-base-200">
+                <th class="sticky left-0 bg-base-200 z-10">{% trans 'Total' %}</th>
+                {# Grand total #}
+                <td class="text-nowrap text-center bg-base-300">
+                  {% for currency_id, currency_data in data.grand_total.currencies.items %}
+                    <c-amount.display
+                        :amount="currency_data.final_total"
+                        :prefix="currency_data.currency.prefix"
+                        :suffix="currency_data.currency.suffix"
+                        :decimal_places="currency_data.currency.decimal_places"
+                        color="{% if currency_data.final_total < 0 %}red{% elif currency_data.final_total > 0 %}green{% endif %}"></c-amount.display>
+                    {% if currency_data.exchanged %}
+                      <div class="text-xs text-base-content/60">
+                        <c-amount.display
+                            :amount="currency_data.exchanged.final_total"
+                            :prefix="currency_data.exchanged.currency.prefix"
+                            :suffix="currency_data.exchanged.currency.suffix"
+                            :decimal_places="currency_data.exchanged.currency.decimal_places"
+                            color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                      </div>
+                    {% endif %}
+                  {% empty %}
+                    -
+                  {% endfor %}
+                </td>
+                {# Year totals #}
+                {% for year in data.years %}
+                  <td class="text-nowrap text-center">
+                    {% with year_total=data.year_totals %}
+                      {% for y, y_data in year_total.items %}
+                        {% if y == year %}
+                          {% for currency_id, currency_data in y_data.currencies.items %}
+                            <c-amount.display
+                                :amount="currency_data.final_total"
+                                :prefix="currency_data.currency.prefix"
+                                :suffix="currency_data.currency.suffix"
+                                :decimal_places="currency_data.currency.decimal_places"
+                                color="{% if currency_data.final_total < 0 %}red{% elif currency_data.final_total > 0 %}green{% endif %}"></c-amount.display>
+                            {% if currency_data.exchanged %}
+                              <div class="text-xs text-base-content/60">
+                                <c-amount.display
+                                    :amount="currency_data.exchanged.final_total"
+                                    :prefix="currency_data.exchanged.currency.prefix"
+                                    :suffix="currency_data.exchanged.currency.suffix"
+                                    :decimal_places="currency_data.exchanged.currency.decimal_places"
+                                    color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                              </div>
+                            {% endif %}
+                          {% empty %}
+                            -
+                          {% endfor %}
+                        {% endif %}
+                      {% empty %}
+                        -
+                      {% endfor %}
+                    {% endwith %}
+                  </td>
+                {% endfor %}
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <c-msg.empty title="{% translate 'No transactions' %}"></c-msg.empty>
+  {% endif %}
+</div>

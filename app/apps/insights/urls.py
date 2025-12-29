@@ -49,4 +49,9 @@ urlpatterns = [
         views.emergency_fund,
         name="insights_emergency_fund",
     ),
+    path(
+        "insights/year-by-year/",
+        views.year_by_year,
+        name="insights_year_by_year",
+    ),
 ]
