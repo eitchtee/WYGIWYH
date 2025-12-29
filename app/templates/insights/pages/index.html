@@ -126,6 +126,11 @@
                             hx-get="{% url 'insights_year_by_year' %}">
                             {% trans 'Year by Year' %}
                     </button>
+                    <button class="btn btn-ghost btn-free justify-start text-start"  data-bs-target="#v-pills-content"
+                            type="button" role="tab" aria-controls="v-pills-content" aria-selected="false"
+                            hx-get="{% url 'insights_month_by_month' %}">
+                            {% trans 'Month by Month' %}
+                    </button>
                   </div>
             </div>
           </div>
