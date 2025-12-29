@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 01:57+0000\n"
+"POT-Creation-Date: 2025-12-29 01:59+0000\n"
 "PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -71,6 +71,7 @@ msgstr "Nuovo saldo"
 #: apps/transactions/models.py:1022
 #: templates/insights/fragments/category_overview/index.html:86
 #: templates/insights/fragments/category_overview/index.html:542
+#: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
 msgstr "Categoria"
@@ -86,6 +87,8 @@ msgstr "Categoria"
 #: apps/transactions/models.py:576 apps/transactions/models.py:778
 #: apps/transactions/models.py:1028 templates/includes/sidebar.html:150
 #: templates/insights/fragments/category_overview/index.html:40
+#: templates/insights/fragments/month_by_month.html:29
+#: templates/insights/fragments/month_by_month.html:32
 #: templates/insights/fragments/year_by_year.html:24
 #: templates/insights/fragments/year_by_year.html:27
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
@@ -839,6 +842,8 @@ msgstr "Transazioni"
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
+#: templates/insights/fragments/month_by_month.html:18
+#: templates/insights/fragments/month_by_month.html:21
 #: templates/insights/fragments/year_by_year.html:13
 #: templates/insights/fragments/year_by_year.html:16
 msgid "Categories"
@@ -855,6 +860,8 @@ msgstr "Categorie"
 #: templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:156
 #: templates/insights/fragments/category_overview/index.html:54
+#: templates/insights/fragments/month_by_month.html:40
+#: templates/insights/fragments/month_by_month.html:43
 #: templates/insights/fragments/year_by_year.html:35
 #: templates/insights/fragments/year_by_year.html:38
 msgid "Entities"
@@ -1026,6 +1033,7 @@ msgstr "Esecuzione eliminata con successo"
 #: templates/insights/fragments/category_overview/index.html:96
 #: templates/insights/fragments/category_overview/index.html:407
 #: templates/insights/fragments/category_overview/index.html:436
+#: templates/insights/fragments/month_by_month.html:119
 #: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
 msgstr "Senza categoria"
@@ -1383,6 +1391,7 @@ msgstr "Taggato"
 
 #: apps/transactions/filters.py:209
 #: templates/insights/fragments/category_overview/index.html:189
+#: templates/insights/fragments/month_by_month.html:121
 #: templates/insights/fragments/year_by_year.html:75
 msgid "Untagged"
 msgstr "Senza tag"
@@ -1393,6 +1402,7 @@ msgstr "Qualsiasi beneficiario"
 
 #: apps/transactions/filters.py:216
 #: templates/insights/fragments/category_overview/index.html:282
+#: templates/insights/fragments/month_by_month.html:123
 #: templates/insights/fragments/year_by_year.html:77
 msgid "No entity"
 msgstr "Nessun beneficiario"
@@ -1489,6 +1499,7 @@ msgstr ""
 "creazione di nuove transazioni"
 
 #: apps/transactions/models.py:276
+#: templates/insights/fragments/month_by_month.html:88
 #: templates/insights/fragments/year_by_year.html:56
 msgid "Entity"
 msgstr "Beneficiari"
@@ -2953,6 +2964,8 @@ msgid "Final total"
 msgstr "Totale finale"
 
 #: templates/insights/fragments/category_overview/index.html:89
+#: templates/insights/fragments/month_by_month.html:91
+#: templates/insights/fragments/month_by_month.html:188
 #: templates/insights/fragments/year_by_year.html:59
 #: templates/insights/fragments/year_by_year.html:142
 #: templates/monthly_overview/fragments/monthly_summary.html:167
@@ -2999,6 +3012,75 @@ msgstr "Nessuna transazione in sospeso"
 msgid "No recent transactions"
 msgstr "Nessuna transazione recente"
 
+#: templates/insights/fragments/month_by_month.html:86
+#: templates/insights/fragments/year_by_year.html:54
+#, fuzzy
+#| msgid "Tags"
+msgid "Tag"
+msgstr "Tag"
+
+#: templates/insights/fragments/month_by_month.html:94
+msgid "Jan"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:95
+msgid "Feb"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:96
+#, fuzzy
+#| msgid "Max"
+msgid "Mar"
+msgstr "Massimo"
+
+#: templates/insights/fragments/month_by_month.html:97
+msgid "Apr"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:98
+#, fuzzy
+#| msgid "Max"
+msgid "May"
+msgstr "Massimo"
+
+#: templates/insights/fragments/month_by_month.html:99
+msgid "Jun"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:100
+msgid "Jul"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:101
+msgid "Aug"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:102
+#, fuzzy
+#| msgid "Set"
+msgid "Sep"
+msgstr "Imposta"
+
+#: templates/insights/fragments/month_by_month.html:103
+msgid "Oct"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:104
+#, fuzzy
+#| msgid "Now"
+msgid "Nov"
+msgstr "Adesso"
+
+#: templates/insights/fragments/month_by_month.html:105
+msgid "Dec"
+msgstr ""
+
+#: templates/insights/fragments/month_by_month.html:252
+#, fuzzy
+#| msgid "No transactions on this date"
+msgid "No transactions for this year"
+msgstr "Nessuna transazione in questa data"
+
 #: templates/insights/fragments/sankey.html:100
 msgid "From"
 msgstr "Da"
@@ -3006,12 +3088,6 @@ msgstr "Da"
 #: templates/insights/fragments/sankey.html:103
 msgid "Percentage"
 msgstr "Percentuale"
-
-#: templates/insights/fragments/year_by_year.html:54
-#, fuzzy
-#| msgid "Tags"
-msgid "Tag"
-msgstr "Tag"
 
 #: templates/insights/fragments/year_by_year.html:206
 #, fuzzy
@@ -3073,6 +3149,10 @@ msgstr "Fondo d'emergenza"
 #| msgid "Yearly by account"
 msgid "Year by Year"
 msgstr "Annuale per conto"
+
+#: templates/insights/pages/index.html:132
+msgid "Month by Month"
+msgstr ""
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
