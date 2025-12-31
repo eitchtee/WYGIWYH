@@ -88,9 +88,9 @@
                     {% trans 'Entity' %}
                   {% endif %}
                 </th>
-                <th scope="col" class="text-center font-bold">{% trans 'Total' %}</th>
+                <th scope="col" class="font-bold">{% trans 'Total' %}</th>
                 {% for month in data.months %}
-                  <th scope="col" class="text-center">
+                  <th scope="col">
                     {% if month == 1 %}{% trans 'Jan' %}
                     {% elif month == 2 %}{% trans 'Feb' %}
                     {% elif month == 3 %}{% trans 'Mar' %}
@@ -125,7 +125,7 @@
                     {% endif %}
                   </th>
                   {# Total column for this item #}
-                  <td class="text-nowrap text-center font-semibold bg-base-200">
+                  <td class="text-nowrap font-semibold bg-base-200">
                     {% for currency_id, currency_data in item.total.currencies.items %}
                       <c-amount.display
                           :amount="currency_data.final_total"
@@ -139,8 +139,7 @@
                               :amount="currency_data.exchanged.final_total"
                               :prefix="currency_data.exchanged.currency.prefix"
                               :suffix="currency_data.exchanged.currency.suffix"
-                              :decimal_places="currency_data.exchanged.currency.decimal_places"
-                              color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                              :decimal_places="currency_data.exchanged.currency.decimal_places"></c-amount.display>
                         </div>
                       {% endif %}
                     {% empty %}
@@ -149,7 +148,7 @@
                   </td>
                   {# Month columns #}
                   {% for month in data.months %}
-                    <td class="text-nowrap text-center">
+                    <td class="text-nowrap">
                       {% with month_data=item.month_totals %}
                         {% for m, m_data in month_data.items %}
                           {% if m == month %}
@@ -166,8 +165,7 @@
                                       :amount="currency_data.exchanged.final_total"
                                       :prefix="currency_data.exchanged.currency.prefix"
                                       :suffix="currency_data.exchanged.currency.suffix"
-                                      :decimal_places="currency_data.exchanged.currency.decimal_places"
-                                      color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                                      :decimal_places="currency_data.exchanged.currency.decimal_places"></c-amount.display>
                                 </div>
                               {% endif %}
                             {% empty %}
@@ -187,7 +185,7 @@
               <tr class="font-bold bg-base-200">
                 <th class="sticky left-0 bg-base-200 z-10">{% trans 'Total' %}</th>
                 {# Grand total #}
-                <td class="text-nowrap text-center bg-base-300">
+                <td class="text-nowrap bg-base-300">
                   {% for currency_id, currency_data in data.grand_total.currencies.items %}
                     <c-amount.display
                         :amount="currency_data.final_total"
@@ -201,8 +199,7 @@
                             :amount="currency_data.exchanged.final_total"
                             :prefix="currency_data.exchanged.currency.prefix"
                             :suffix="currency_data.exchanged.currency.suffix"
-                            :decimal_places="currency_data.exchanged.currency.decimal_places"
-                            color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                            :decimal_places="currency_data.exchanged.currency.decimal_places"></c-amount.display>
                       </div>
                     {% endif %}
                   {% empty %}
@@ -211,7 +208,7 @@
                 </td>
                 {# Month totals #}
                 {% for month in data.months %}
-                  <td class="text-nowrap text-center">
+                  <td class="text-nowrap">
                     {% with month_total=data.month_totals %}
                       {% for m, m_data in month_total.items %}
                         {% if m == month %}
@@ -228,8 +225,7 @@
                                     :amount="currency_data.exchanged.final_total"
                                     :prefix="currency_data.exchanged.currency.prefix"
                                     :suffix="currency_data.exchanged.currency.suffix"
-                                    :decimal_places="currency_data.exchanged.currency.decimal_places"
-                                    color="{% if currency_data.exchanged.final_total < 0 %}red{% elif currency_data.exchanged.final_total > 0 %}green{% endif %}"></c-amount.display>
+                                    :decimal_places="currency_data.exchanged.currency.decimal_places"></c-amount.display>
                               </div>
                             {% endif %}
                           {% empty %}
