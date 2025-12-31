@@ -1,8 +1,10 @@
 from import_export import fields, resources
-from import_export.widgets import ForeignKeyWidget
 
 from apps.accounts.models import Account
-from apps.export_app.widgets.foreign_key import AutoCreateForeignKeyWidget
+from apps.export_app.widgets.foreign_key import (
+    AllObjectsForeignKeyWidget,
+    AutoCreateForeignKeyWidget,
+)
 from apps.export_app.widgets.many_to_many import AutoCreateManyToManyWidget
 from apps.export_app.widgets.string import EmptyStringToNoneField
 from apps.transactions.models import (
@@ -20,7 +22,7 @@ class TransactionResource(resources.ModelResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
-        widget=ForeignKeyWidget(Account, "name"),
+        widget=AllObjectsForeignKeyWidget(Account, "name"),
     )
 
     category = fields.Field(
@@ -86,7 +88,7 @@ class RecurringTransactionResource(resources.ModelResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
-        widget=ForeignKeyWidget(Account, "name"),
+        widget=AllObjectsForeignKeyWidget(Account, "name"),
     )
 
     category = fields.Field(
@@ -119,12 +121,16 @@ class RecurringTransactionResource(resources.ModelResource):
     def get_queryset(self):
         return RecurringTransaction.all_objects.all()
 
+    def dehydrate_account_owner(self, obj):
+        """Export the account's owner ID for proper import matching."""
+        return obj.account.owner_id if obj.account else None
+
 
 class InstallmentPlanResource(resources.ModelResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
-        widget=ForeignKeyWidget(Account, "name"),
+        widget=AllObjectsForeignKeyWidget(Account, "name"),
     )
 
     category = fields.Field(
@@ -156,3 +162,7 @@ class InstallmentPlanResource(resources.ModelResource):
 
     def get_queryset(self):
         return InstallmentPlan.all_objects.all()
+
+    def dehydrate_account_owner(self, obj):
+        """Export the account's owner ID for proper import matching."""
+        return obj.account.owner_id if obj.account else None
