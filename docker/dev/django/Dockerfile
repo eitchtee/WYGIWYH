@@ -11,12 +11,17 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     UV_LINK_MODE=copy \
     UV_PROJECT_ENVIRONMENT=/opt/venv
 
+RUN addgroup --system app && \
+    adduser --ingroup app --home /home/app app && \
+    mkdir -p /home/app && \
+    chown -R app:app /home/app
+
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y gettext supervisor && \
+    apt-get install --no-install-recommends -y gettext supervisor git && \
     rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-install-project --no-dev
+RUN uv sync --frozen --no-install-project --all-extras
 
 COPY ./docker/dev/django/start /start
 COPY ./docker/dev/procrastinate/start /start-procrastinate
@@ -34,5 +39,7 @@ RUN sed -i 's/\r$//g' /start && \
 ENV PATH="/opt/venv/bin:$PATH"
 
 COPY ./app .
+
+USER app
 
 CMD ["/start-supervisor"]
