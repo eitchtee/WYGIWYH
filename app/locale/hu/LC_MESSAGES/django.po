@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-31 00:59+0000\n"
-"PO-Revision-Date: 2026-01-02 11:24+0000\n"
+"PO-Revision-Date: 2026-01-02 12:24+0000\n"
 "Last-Translator: Janez <janez@outlook.hu>\n"
 "Language-Team: Hungarian <https://translations.herculino.com/projects/"
 "wygiwyh/app/hu/>\n"
@@ -50,15 +50,15 @@ msgstr "Frissítés"
 #: apps/users/forms.py:228 apps/users/forms.py:386
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
-msgstr "Add"
+msgstr "Hozzáadás"
 
 #: apps/accounts/forms.py:53 templates/accounts/fragments/list.html:23
 msgid "Group"
-msgstr "Group"
+msgstr "Csoport"
 
 #: apps/accounts/forms.py:119
 msgid "New balance"
-msgstr "New balance"
+msgstr "Új egyenleg"
 
 #: apps/accounts/forms.py:125 apps/dca/forms.py:79 apps/dca/forms.py:86
 #: apps/insights/forms.py:117 apps/rules/forms.py:181 apps/rules/forms.py:197
@@ -74,7 +74,7 @@ msgstr "New balance"
 #: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
-msgstr "Category"
+msgstr "Kategória"
 
 #: apps/accounts/forms.py:132 apps/dca/forms.py:95 apps/dca/forms.py:103
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
@@ -93,7 +93,7 @@ msgstr "Category"
 #: templates/insights/fragments/year_by_year.html:27
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
 msgid "Tags"
-msgstr "Tags"
+msgstr "Címkék"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
@@ -113,42 +113,43 @@ msgstr "Tags"
 #: templates/tags/fragments/table.html:17
 #: templates/users/fragments/list.html:26
 msgid "Name"
-msgstr "Name"
+msgstr "Név"
 
 #: apps/accounts/models.py:18 apps/accounts/models.py:33
 msgid "Account Group"
-msgstr "Account Group"
+msgstr "Számla csoport"
 
 #: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:9
 #: templates/account_groups/pages/index.html:4
 #: templates/includes/sidebar.html:170
 msgid "Account Groups"
-msgstr "Account Groups"
+msgstr "Számla csoportok"
 
 #: apps/accounts/models.py:39 apps/currencies/models.py:44
 #: templates/accounts/fragments/list.html:24
 #: templates/yearly_overview/pages/yearly_overview_base.html:19
 msgid "Currency"
-msgstr "Currency"
+msgstr "Pénznem"
 
 #: apps/accounts/models.py:45 apps/currencies/models.py:27
 #: templates/accounts/fragments/list.html:25
 msgid "Exchange Currency"
-msgstr "Exchange Currency"
+msgstr "Pénznem váltás"
 
 #: apps/accounts/models.py:50 apps/currencies/models.py:32
 msgid "Default currency for exchange calculations"
-msgstr "Default currency for exchange calculations"
+msgstr "Alapértelmezett pénznem az átváltási számításokhoz"
 
 #: apps/accounts/models.py:55
 msgid "Asset account"
-msgstr "Asset account"
+msgstr "Eszközszámla"
 
 #: apps/accounts/models.py:57
 msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
 msgstr ""
-"Asset accounts count towards your Net Worth, but not towards your month."
+"Az eszközszámlák a nettó vagyonodhoz hozzájárulnak, de nem számítanak bele a "
+"havi költségvetésedbe."
 
 #: apps/accounts/models.py:62 apps/currencies/models.py:37
 #: templates/accounts/fragments/list.html:27
@@ -157,11 +158,13 @@ msgstr ""
 #: templates/entities/fragments/list.html:20
 #: templates/tags/fragments/list.html:20
 msgid "Archived"
-msgstr "Archived"
+msgstr "Archivált"
 
 #: apps/accounts/models.py:63
 msgid "Archived accounts don't show up nor count towards your net worth"
-msgstr "Archived accounts don't show up nor count towards your net worth"
+msgstr ""
+"Az archívált számlák nem jelennek meg, és nem számítanak bele a nettó "
+"vagyonodba"
 
 #: apps/accounts/models.py:75 apps/rules/forms.py:173 apps/rules/forms.py:187
 #: apps/rules/models.py:35 apps/rules/models.py:267
@@ -175,7 +178,7 @@ msgstr "Archived accounts don't show up nor count towards your net worth"
 #: templates/recurring_transactions/fragments/table.html:19
 #: templates/yearly_overview/pages/yearly_overview_base.html:23
 msgid "Account"
-msgstr "Account"
+msgstr "Számla"
 
 #: apps/accounts/models.py:76 apps/export_app/forms.py:19
 #: apps/export_app/forms.py:129 apps/transactions/filters.py:57
@@ -189,11 +192,11 @@ msgstr "Számlák"
 
 #: apps/accounts/models.py:93
 msgid "Exchange currency cannot be the same as the account's main currency."
-msgstr "Exchange currency cannot be the same as the account's main currency."
+msgstr "A váltási pénznem nem lehet azonos a számla fő pénznemével."
 
 #: apps/accounts/views/account_groups.py:44
 msgid "Account Group added successfully"
-msgstr "Account Group added successfully"
+msgstr "Számlacsoport sikeresen hozzáadva"
 
 #: apps/accounts/views/account_groups.py:69
 #: apps/accounts/views/account_groups.py:152 apps/accounts/views/accounts.py:68
@@ -205,80 +208,80 @@ msgstr "Account Group added successfully"
 #: apps/transactions/views/entities.py:171 apps/transactions/views/tags.py:91
 #: apps/transactions/views/tags.py:171
 msgid "Only the owner can edit this"
-msgstr "Only the owner can edit this"
+msgstr "Csak a tulajdonos szerkesztheti ezt"
 
 #: apps/accounts/views/account_groups.py:82
 msgid "Account Group updated successfully"
-msgstr "Account Group updated successfully"
+msgstr "A számlacsoport sikeresen módosítva lett"
 
 #: apps/accounts/views/account_groups.py:111
 #: apps/accounts/views/accounts.py:145 apps/dca/views.py:104
 #: apps/rules/views.py:185 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
-msgstr "Item no longer shared with you"
+msgstr "A tétel már nincs megosztva veled"
 
 #: apps/accounts/views/account_groups.py:114
 msgid "Account Group deleted successfully"
-msgstr "Account Group deleted successfully"
+msgstr "A számlacsoport sikeresen törlésre került"
 
 #: apps/accounts/views/account_groups.py:135
 #: apps/accounts/views/accounts.py:189 apps/dca/views.py:128
 #: apps/rules/views.py:210 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
-msgstr "Ownership taken successfully"
+msgstr "A tulajdonjog sikeresen átvéve"
 
 #: apps/accounts/views/account_groups.py:165
 #: apps/accounts/views/accounts.py:119 apps/dca/views.py:158
 #: apps/rules/views.py:241 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
 msgid "Configuration saved successfully"
-msgstr "Configuration saved successfully"
+msgstr "A beállítás mentésre került"
 
 #: apps/accounts/views/accounts.py:44
 msgid "Account added successfully"
-msgstr "Account added successfully"
+msgstr "A számla hozzáadásra került"
 
 #: apps/accounts/views/accounts.py:81
 msgid "Account updated successfully"
-msgstr "Account updated successfully"
+msgstr "A számla módosítása sikeres volt"
 
 #: apps/accounts/views/accounts.py:148
 msgid "Account deleted successfully"
-msgstr "Account deleted successfully"
+msgstr "A számla törlésre került"
 
 #: apps/accounts/views/accounts.py:165
 msgid "Account is now tracked"
-msgstr "Account is now tracked"
+msgstr "A számla mostantól követve van"
 
 #: apps/accounts/views/accounts.py:168
 msgid "Account is now untracked"
-msgstr "Account is now untracked"
+msgstr "A számla mostantól nincs követve"
 
 #: apps/accounts/views/balance.py:67
 msgid "Balance reconciliation"
-msgstr "Balance reconciliation"
+msgstr "Egyenleg egyeztetés"
 
 #: apps/accounts/views/balance.py:75
 msgid "Account balances have been reconciled successfully"
-msgstr ""
+msgstr "A számla egyenlegek egyeztetésre kerültek"
 
 #: apps/api/fields/transactions.py:31
 msgid "Category with this ID does not exist."
-msgstr ""
+msgstr "Nincs kategória ezzel az azonosítóval."
 
 #: apps/api/fields/transactions.py:41
 msgid "Invalid category data. Provide an ID or name."
-msgstr ""
+msgstr "Érvénytelen kategória. Adj meg egy azonosítót vagy egy nevet."
 
 #: apps/api/fields/transactions.py:74
 msgid "Tag with this ID does not exist."
-msgstr ""
+msgstr "Nem létezik címke ezzel az azonosítóval."
 
 #: apps/api/fields/transactions.py:84
 msgid "Invalid tag data. Provide an ID or name."
-msgstr ""
+msgstr "Érvénytelen címke. Adj meg egy azonosítót vagy egy nevet."
 
 #: apps/api/fields/transactions.py:109
 msgid "Entity with this ID does not exist."
@@ -307,24 +310,25 @@ msgstr ""
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:142
 msgid "Error creating new instance"
-msgstr ""
+msgstr "Hiba az új példány létrehozásakor"
 
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
 msgid "Ungrouped"
-msgstr ""
+msgstr "Csoporton kívüli"
 
 #: apps/common/fields/month_year.py:30
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
 msgstr ""
+"Érvénytelen dátum formátum. Használd a YYYY-MM vagy a YYYY-MM-DD formátumot."
 
 #: apps/common/fields/month_year.py:59
 msgid "Invalid date format. Use YYYY-MM."
-msgstr ""
+msgstr "Érvénytelen dátum formátum. Használd a YYYY-MM formátumot."
 
 #: apps/common/forms.py:24 apps/common/models.py:39
 msgid "Owner"
-msgstr ""
+msgstr "Tulajdonos"
 
 #: apps/common/forms.py:27
 msgid ""
@@ -338,7 +342,7 @@ msgstr ""
 
 #: apps/common/forms.py:40 apps/common/models.py:45
 msgid "Visibility"
-msgstr ""
+msgstr "Láthatóság"
 
 #: apps/common/forms.py:43
 msgid ""
@@ -348,61 +352,61 @@ msgstr ""
 
 #: apps/common/forms.py:76 apps/users/forms.py:149
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: apps/common/forms.py:90
 msgid "You cannot share this item with its owner."
-msgstr ""
+msgstr "Nem tudod megosztani ezt az elemet a tulajdonosával."
 
 #: apps/common/models.py:29
 msgid "Private"
-msgstr ""
+msgstr "Privát"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr ""
+msgstr "Publikus"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:10
 msgid "today"
-msgstr ""
+msgstr "ma"
 
 #: apps/common/templatetags/natural.py:22
 msgid "tomorrow"
-msgstr ""
+msgstr "holnap"
 
 #: apps/common/templatetags/natural.py:24
 msgid "yesterday"
-msgstr ""
+msgstr "tegnap"
 
 #: apps/common/templatetags/natural.py:26
 msgid "last 7 days"
-msgstr ""
+msgstr "Elmúlt 7 nap"
 
 #: apps/common/templatetags/natural.py:28
 msgid "in the next 7 days"
-msgstr ""
+msgstr "az elkövetkező 7 nap"
 
 #: apps/common/templatetags/natural.py:31
 #, python-format
 msgid "%(years)s year ago"
 msgid_plural "%(years)s years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(years) éve"
+msgstr[1] "%(years) éve"
 
 #: apps/common/templatetags/natural.py:37
 #, python-format
 msgid "%(months)s month ago"
 msgid_plural "%(months)s months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(months) hónapja"
+msgstr[1] "%(months) hónapja"
 
 #: apps/common/templatetags/natural.py:41
 #, python-format
 msgid "%(weeks)s week ago"
 msgid_plural "%(weeks)s weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(weeks) hete"
+msgstr[1] "%(weeks) hete"
 
 #: apps/common/templatetags/natural.py:46
 #, python-format
@@ -427,37 +431,37 @@ msgstr[1] ""
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
-msgstr ""
+msgstr "Sikeres"
 
 #: apps/common/templatetags/toast_bg.py:36
 msgid "Warning"
-msgstr ""
+msgstr "Figyelmeztetés"
 
 #: apps/common/templatetags/toast_bg.py:38
 msgid "Error"
-msgstr ""
+msgstr "Hiba"
 
 #: apps/common/templatetags/toast_bg.py:40
 msgid "Info"
-msgstr ""
+msgstr "Információ"
 
 #: apps/common/views.py:118
 msgid "Cache cleared successfully"
-msgstr ""
+msgstr "A gyorsítótár kiürítésre került"
 
 #: apps/common/widgets/datepicker.py:56 apps/common/widgets/datepicker.py:209
 #: apps/common/widgets/datepicker.py:267
 #: templates/common/fragments/month_year_picker.html:37
 msgid "Today"
-msgstr ""
+msgstr "Ma"
 
 #: apps/common/widgets/datepicker.py:142
 msgid "Now"
-msgstr ""
+msgstr "Most"
 
 #: apps/common/widgets/tom_select.py:11
 msgid "Remove"
-msgstr ""
+msgstr "Eltávolítás"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:180
@@ -466,19 +470,19 @@ msgstr ""
 #: templates/transactions/pages/transactions.html:225
 #: templates/transactions/pages/transactions.html:237
 msgid "Clear"
-msgstr ""
+msgstr "Törlés"
 
 #: apps/common/widgets/tom_select.py:16
 msgid "No results..."
-msgstr ""
+msgstr "Nincs eredmény"
 
 #: apps/currencies/forms.py:16 apps/currencies/models.py:22
 msgid "Prefix"
-msgstr ""
+msgstr "Előtag"
 
 #: apps/currencies/forms.py:17 apps/currencies/models.py:23
 msgid "Suffix"
-msgstr ""
+msgstr "Utótag"
 
 #: apps/currencies/forms.py:66 apps/dca/models.py:158 apps/rules/forms.py:176
 #: apps/rules/forms.py:190 apps/rules/models.py:38 apps/rules/models.py:279
@@ -488,19 +492,19 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:10
 #: templates/exchange_rates_services/fragments/table.html:11
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #: apps/currencies/models.py:14
 msgid "Currency Code"
-msgstr ""
+msgstr "Pénznem kódja"
 
 #: apps/currencies/models.py:16
 msgid "Currency Name"
-msgstr ""
+msgstr "Pénznem neve"
 
 #: apps/currencies/models.py:20
 msgid "Decimal Places"
-msgstr ""
+msgstr "Tizedesek"
 
 #: apps/currencies/models.py:45 apps/export_app/forms.py:25
 #: apps/export_app/forms.py:130 apps/transactions/filters.py:64
@@ -510,7 +514,7 @@ msgstr ""
 #: templates/monthly_overview/pages/overview.html:63
 #: templates/transactions/pages/transactions.html:12
 msgid "Currencies"
-msgstr ""
+msgstr "Pénznemek"
 
 #: apps/currencies/models.py:54
 msgid "Currency cannot have itself as exchange currency."
@@ -518,43 +522,43 @@ msgstr ""
 
 #: apps/currencies/models.py:65
 msgid "From Currency"
-msgstr ""
+msgstr "Forrás pénznem"
 
 #: apps/currencies/models.py:71
 msgid "To Currency"
-msgstr ""
+msgstr "Cél pénznem"
 
 #: apps/currencies/models.py:74 apps/currencies/models.py:81
 msgid "Exchange Rate"
-msgstr ""
+msgstr "Átváltási ráta"
 
 #: apps/currencies/models.py:76
 msgid "Date and Time"
-msgstr ""
+msgstr "Dátum és idő"
 
 #: apps/currencies/models.py:78 apps/users/models.py:12
 #: apps/users/models.py:497
 msgid "Auto"
-msgstr ""
+msgstr "Automata"
 
 #: apps/currencies/models.py:82 apps/export_app/forms.py:67
 #: apps/export_app/forms.py:142 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/sidebar.html:184
 msgid "Exchange Rates"
-msgstr ""
+msgstr "Átváltási ráták"
 
 #: apps/currencies/models.py:94
 msgid "From and To currencies cannot be the same."
-msgstr ""
+msgstr "A forrás és a cél pénznemnek különböznie kell."
 
 #: apps/currencies/models.py:110
 msgid "On"
-msgstr ""
+msgstr "Be"
 
 #: apps/currencies/models.py:111
 msgid "Every X hours"
-msgstr ""
+msgstr "Minden X órában"
 
 #: apps/currencies/models.py:112
 msgid "Not on"
@@ -562,11 +566,11 @@ msgstr ""
 
 #: apps/currencies/models.py:114
 msgid "Service Name"
-msgstr ""
+msgstr "Szolgáltatás neve"
 
 #: apps/currencies/models.py:116
 msgid "Service Type"
-msgstr ""
+msgstr "Szolgáltatás típusa"
 
 #: apps/currencies/models.py:118 apps/transactions/filters.py:27
 #: apps/transactions/models.py:218 apps/transactions/models.py:242
@@ -576,31 +580,31 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:16
 #: templates/tags/fragments/list.html:16 templates/users/fragments/list.html:25
 msgid "Active"
-msgstr ""
+msgstr "Aktív"
 
 #: apps/currencies/models.py:123
 msgid "API Key"
-msgstr ""
+msgstr "API kulcs"
 
 #: apps/currencies/models.py:124
 msgid "API key for the service (if required)"
-msgstr ""
+msgstr "API kulcs a szolgáltatáshoz (ha szükséges)"
 
 #: apps/currencies/models.py:129
 msgid "Interval Type"
-msgstr ""
+msgstr "Intervallum típusa"
 
 #: apps/currencies/models.py:133
 msgid "Interval"
-msgstr ""
+msgstr "Intervallum"
 
 #: apps/currencies/models.py:136
 msgid "Last Successful Fetch"
-msgstr ""
+msgstr "Utolsó sikeres elérés"
 
 #: apps/currencies/models.py:141
 msgid "Target Currencies"
-msgstr ""
+msgstr "Cél pénznemek"
 
 #: apps/currencies/models.py:143
 msgid ""
@@ -610,7 +614,7 @@ msgstr ""
 
 #: apps/currencies/models.py:151
 msgid "Target Accounts"
-msgstr ""
+msgstr "Cél számlák"
 
 #: apps/currencies/models.py:153
 msgid ""
@@ -700,15 +704,15 @@ msgstr ""
 
 #: apps/dca/forms.py:64 apps/transactions/forms.py:491
 msgid "From Account"
-msgstr ""
+msgstr "Forrás számla"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:496
 msgid "To Account"
-msgstr ""
+msgstr "Cél számla"
 
 #: apps/dca/forms.py:110 apps/dca/models.py:171
 msgid "Expense Transaction"
-msgstr ""
+msgstr "Kiadás tranzakció"
 
 #: apps/dca/forms.py:114 apps/dca/forms.py:124
 msgid "Type to search for a transaction to link to this entry"
@@ -716,16 +720,16 @@ msgstr ""
 
 #: apps/dca/forms.py:120 apps/dca/models.py:179
 msgid "Income Transaction"
-msgstr ""
+msgstr "Bevétel tranzakció"
 
 #: apps/dca/forms.py:192
 msgid "Link transaction"
-msgstr ""
+msgstr "Tranzakció csatolása"
 
 #: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
 #: apps/dca/forms.py:285
 msgid "You must provide an account."
-msgstr ""
+msgstr "Meg kell adnia egy számlát."
 
 #: apps/dca/forms.py:290 apps/transactions/forms.py:638
 msgid "From and To accounts must be different."
@@ -738,7 +742,7 @@ msgstr ""
 
 #: apps/dca/models.py:16
 msgid "Target Currency"
-msgstr ""
+msgstr "Cél pénznem"
 
 #: apps/dca/models.py:22
 msgid "Payment Currency"
@@ -750,7 +754,7 @@ msgstr ""
 #: apps/transactions/models.py:318 apps/transactions/models.py:583
 #: apps/transactions/models.py:784 apps/transactions/models.py:1018
 msgid "Notes"
-msgstr ""
+msgstr "Megjegyzések"
 
 #: apps/dca/models.py:34
 msgid "DCA Strategy"
@@ -766,11 +770,11 @@ msgstr ""
 
 #: apps/dca/models.py:160 templates/dca/fragments/strategy/details.html:51
 msgid "Amount Paid"
-msgstr ""
+msgstr "Kifizetett összeg"
 
 #: apps/dca/models.py:163 templates/dca/fragments/strategy/details.html:50
 msgid "Amount Received"
-msgstr ""
+msgstr "Érkeztetett összeg"
 
 #: apps/dca/models.py:186
 msgid "DCA Entry"
@@ -808,7 +812,7 @@ msgstr ""
 #: templates/includes/sidebar.html:221 templates/users/fragments/list.html:10
 #: templates/users/pages/index.html:4
 msgid "Users"
-msgstr ""
+msgstr "Felhasználók"
 
 #: apps/export_app/forms.py:31 apps/export_app/forms.py:134
 #: apps/transactions/models.py:379 templates/includes/sidebar.html:81
@@ -817,7 +821,7 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Tranzakciók"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
@@ -827,7 +831,7 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:13
 #: templates/insights/fragments/year_by_year.html:16
 msgid "Categories"
-msgstr ""
+msgstr "Kategóriák"
 
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
@@ -845,14 +849,14 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:35
 #: templates/insights/fragments/year_by_year.html:38
 msgid "Entities"
-msgstr ""
+msgstr "Entitások"
 
 #: apps/export_app/forms.py:55 apps/export_app/forms.py:137
 #: apps/transactions/models.py:821 templates/includes/sidebar.html:110
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
-msgstr ""
+msgstr "Ismétlődő tranzakciók"
 
 #: apps/export_app/forms.py:61 apps/export_app/forms.py:135
 #: apps/transactions/models.py:597 templates/includes/sidebar.html:104
@@ -871,7 +875,7 @@ msgstr ""
 #: apps/export_app/forms.py:79 templates/includes/sidebar.html:192
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
 msgid "Rules"
-msgstr ""
+msgstr "Szabályok"
 
 #: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:57
 msgid "DCA"
@@ -886,7 +890,7 @@ msgstr ""
 #: apps/export_app/forms.py:117 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:13
 msgid "Export"
-msgstr ""
+msgstr "Exportálás"
 
 #: apps/export_app/forms.py:125
 msgid "Import a ZIP file exported from WYGIWYH"
@@ -894,11 +898,11 @@ msgstr ""
 
 #: apps/export_app/forms.py:126
 msgid "ZIP File"
-msgstr ""
+msgstr "ZIP fájl"
 
 #: apps/export_app/forms.py:143 apps/rules/models.py:27
 msgid "Transaction rules"
-msgstr ""
+msgstr "Tranzakciós szabályok"
 
 #: apps/export_app/forms.py:145 apps/rules/models.py:68
 msgid "Edit transaction action"
@@ -913,7 +917,7 @@ msgstr ""
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
 msgid "Restore"
-msgstr ""
+msgstr "Helyreállítás"
 
 #: apps/export_app/forms.py:191
 msgid "Please upload either a ZIP file or at least one CSV file"
@@ -940,63 +944,63 @@ msgstr ""
 #: templates/import_app/fragments/profiles/list.html:57
 #: templates/includes/sidebar.html:198
 msgid "Import"
-msgstr ""
+msgstr "Importálás"
 
 #: apps/import_app/models.py:15
 msgid "YAML Configuration"
-msgstr ""
+msgstr "YAML konfiguráció"
 
 #: apps/import_app/models.py:19
 #: templates/import_app/fragments/profiles/list.html:35
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
 #: apps/import_app/models.py:30
 #, python-brace-format
 msgid "Version {number}"
-msgstr ""
+msgstr "Verzió {number}"
 
 #: apps/import_app/models.py:39
 msgid "Invalid YAML Configuration: "
-msgstr ""
+msgstr "Érvénytelen YAML konfiguráció: "
 
 #: apps/import_app/models.py:45
 msgid "Queued"
-msgstr ""
+msgstr "Sorbaállítva"
 
 #: apps/import_app/models.py:46
 msgid "Processing"
-msgstr ""
+msgstr "Feldolgozás alatt"
 
 #: apps/import_app/models.py:47
 msgid "Failed"
-msgstr ""
+msgstr "Sikertelen"
 
 #: apps/import_app/models.py:48
 #: templates/installment_plans/fragments/list.html:19
 #: templates/recurring_transactions/fragments/list.html:20
 msgid "Finished"
-msgstr ""
+msgstr "Befejezve"
 
 #: apps/import_app/models.py:54
 msgid "Status"
-msgstr ""
+msgstr "Állapot"
 
 #: apps/import_app/models.py:62
 msgid "File name"
-msgstr ""
+msgstr "Fájlnév"
 
 #: apps/import_app/views.py:67
 msgid "Import Profile added successfully"
-msgstr ""
+msgstr "Import profil sikeresen hozzáadásra került"
 
 #: apps/import_app/views.py:103
 msgid "Import Profile update successfully"
-msgstr ""
+msgstr "Az import profil módosításra került"
 
 #: apps/import_app/views.py:130
 msgid "Import Profile deleted successfully"
-msgstr ""
+msgstr "Az import profil törlésre került"
 
 #: apps/import_app/views.py:195
 msgid "Import Run queued successfully"
