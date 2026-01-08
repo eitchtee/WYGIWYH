@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 05:53+0000\n"
+"POT-Creation-Date: 2026-01-10 20:50+0000\n"
 "PO-Revision-Date: 2025-11-01 01:17+0000\n"
 "Last-Translator: mlystopad <mlystopadt@gmail.com>\n"
 "Language-Team: Ukrainian <https://translations.herculino.com/projects/"
@@ -615,11 +615,11 @@ msgstr "Інтервал"
 msgid "Last Successful Fetch"
 msgstr "Остання успішна вибірка"
 
-#: apps/currencies/models.py:141
+#: apps/currencies/models.py:143
 msgid "Target Currencies"
 msgstr "Цільові валюти"
 
-#: apps/currencies/models.py:143
+#: apps/currencies/models.py:145
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -627,11 +627,11 @@ msgstr ""
 "Оберіть валюти для завантаження курсів обміну. Курси будуть завантажені для "
 "кожної валюти відносно встановленої валюти обміну."
 
-#: apps/currencies/models.py:151
+#: apps/currencies/models.py:153
 msgid "Target Accounts"
 msgstr "Цільові Рахунки"
 
-#: apps/currencies/models.py:153
+#: apps/currencies/models.py:155
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -639,35 +639,35 @@ msgstr ""
 "Оберіть рахунки для завантаження курсів обміну. Курси будуть завантажені для "
 "валюти кожного рахунку відносно встановленої валюти обміну."
 
-#: apps/currencies/models.py:160
+#: apps/currencies/models.py:162
 #, fuzzy
 #| msgid "Exchange Rate"
 msgid "Single exchange rate"
 msgstr "Обмінний курс"
 
-#: apps/currencies/models.py:163
+#: apps/currencies/models.py:165
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 "Створіть один курс обміну та оновлюйте його постійно. Це запобігає "
 "засміченню бази даних."
 
-#: apps/currencies/models.py:168
+#: apps/currencies/models.py:170
 msgid "Exchange Rate Service"
 msgstr "Сервіс Курсів Обміну"
 
-#: apps/currencies/models.py:169
+#: apps/currencies/models.py:171
 msgid "Exchange Rate Services"
 msgstr "Сервіси Курсів Обміну"
 
-#: apps/currencies/models.py:221
+#: apps/currencies/models.py:223
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "Інтервал типу «Кожні X годин» потребує додатнього цілого числа."
 
-#: apps/currencies/models.py:230
+#: apps/currencies/models.py:232
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "Інтервал типу «Кожні X годин» повинен бути між 1 та 24."
 
-#: apps/currencies/models.py:244
+#: apps/currencies/models.py:246
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -675,7 +675,7 @@ msgstr ""
 "Неправильний формат годин. Використовуйте години, розділені комами (0–23) та/"
 "або діапазони (наприклад, '1-5,8,10-12')."
 
-#: apps/currencies/models.py:255
+#: apps/currencies/models.py:257
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
@@ -2686,15 +2686,23 @@ msgstr ""
 msgid "Last fetch"
 msgstr ""
 
-#: templates/exchange_rates_services/fragments/list.html:61
+#: templates/exchange_rates_services/fragments/list.html:62
+#, python-format
+msgid "%(counter)s consecutive failure"
+msgid_plural "%(counter)s consecutive failures"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: templates/exchange_rates_services/fragments/list.html:69
 msgid "currencies"
 msgstr ""
 
-#: templates/exchange_rates_services/fragments/list.html:61
+#: templates/exchange_rates_services/fragments/list.html:69
 msgid "accounts"
 msgstr ""
 
-#: templates/exchange_rates_services/fragments/list.html:69
+#: templates/exchange_rates_services/fragments/list.html:77
 msgid "No services configured"
 msgstr ""
 

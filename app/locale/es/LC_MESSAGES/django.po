@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 05:53+0000\n"
+"POT-Creation-Date: 2026-01-10 20:50+0000\n"
 "PO-Revision-Date: 2025-12-16 05:24+0000\n"
 "Last-Translator: BRodolfo <simplysmartbydesign@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -605,11 +605,11 @@ msgstr "Intervalo"
 msgid "Last Successful Fetch"
 msgstr "Última Sincronización Exitosa"
 
-#: apps/currencies/models.py:141
+#: apps/currencies/models.py:143
 msgid "Target Currencies"
 msgstr "Monedas de Destino"
 
-#: apps/currencies/models.py:143
+#: apps/currencies/models.py:145
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -618,11 +618,11 @@ msgstr ""
 "tasas se consultarán para cada moneda en relación con su moneda de "
 "referencia establecida."
 
-#: apps/currencies/models.py:151
+#: apps/currencies/models.py:153
 msgid "Target Accounts"
 msgstr "Cuentas de Destino"
 
-#: apps/currencies/models.py:153
+#: apps/currencies/models.py:155
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -631,33 +631,33 @@ msgstr ""
 "tasas se consultarán para la moneda de cada cuenta en relación con su moneda "
 "de referencia establecida."
 
-#: apps/currencies/models.py:160
+#: apps/currencies/models.py:162
 msgid "Single exchange rate"
 msgstr "Tasa de cambio única"
 
-#: apps/currencies/models.py:163
+#: apps/currencies/models.py:165
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 "Crea una única tasa de cambio y mantenla actualizada. Evita la acumulación "
 "de datos en la base de datos."
 
-#: apps/currencies/models.py:168
+#: apps/currencies/models.py:170
 msgid "Exchange Rate Service"
 msgstr "Servicio de Tasas de Cambio"
 
-#: apps/currencies/models.py:169
+#: apps/currencies/models.py:171
 msgid "Exchange Rate Services"
 msgstr "Servicios de Tasas de Cambio"
 
-#: apps/currencies/models.py:221
+#: apps/currencies/models.py:223
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "El tipo de intervalo 'Cada X horas' requiere un entero positivo."
 
-#: apps/currencies/models.py:230
+#: apps/currencies/models.py:232
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "El tipo de intervalo 'Cada X horas' debe ser ente 1 y 24."
 
-#: apps/currencies/models.py:244
+#: apps/currencies/models.py:246
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -665,7 +665,7 @@ msgstr ""
 "Formato de hora no válido. Usa horas separadas por coma (0-23) y/o rangos "
 "(p. ej., \"1-5,8,10-12\")."
 
-#: apps/currencies/models.py:255
+#: apps/currencies/models.py:257
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
@@ -2692,15 +2692,22 @@ msgstr "Dirigido a"
 msgid "Last fetch"
 msgstr "Última sincronización"
 
-#: templates/exchange_rates_services/fragments/list.html:61
+#: templates/exchange_rates_services/fragments/list.html:62
+#, python-format
+msgid "%(counter)s consecutive failure"
+msgid_plural "%(counter)s consecutive failures"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/exchange_rates_services/fragments/list.html:69
 msgid "currencies"
 msgstr "monedas"
 
-#: templates/exchange_rates_services/fragments/list.html:61
+#: templates/exchange_rates_services/fragments/list.html:69
 msgid "accounts"
 msgstr "cuentas"
 
-#: templates/exchange_rates_services/fragments/list.html:69
+#: templates/exchange_rates_services/fragments/list.html:77
 msgid "No services configured"
 msgstr "No hay servicios configurados"
 

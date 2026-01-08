@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 05:53+0000\n"
+"POT-Creation-Date: 2026-01-10 20:50+0000\n"
 "PO-Revision-Date: 2025-10-08 16:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translations."
@@ -595,51 +595,51 @@ msgstr "間隔"
 msgid "Last Successful Fetch"
 msgstr "最後更新時間"
 
-#: apps/currencies/models.py:141
+#: apps/currencies/models.py:143
 msgid "Target Currencies"
 msgstr "目標貨幣"
 
-#: apps/currencies/models.py:143
+#: apps/currencies/models.py:145
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 msgstr "選擇要自動擷取匯率的貨幣，貨幣會根據設定的目標貨幣自動取得匯率資訊。"
 
-#: apps/currencies/models.py:151
+#: apps/currencies/models.py:153
 msgid "Target Accounts"
 msgstr "目標帳戶"
 
-#: apps/currencies/models.py:153
+#: apps/currencies/models.py:155
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr "選擇自動擷取匯率的帳戶，帳戶會根據設定的匯兌貨幣取得匯率資訊。"
 
-#: apps/currencies/models.py:160
+#: apps/currencies/models.py:162
 msgid "Single exchange rate"
 msgstr "保留單一匯率資訊"
 
-#: apps/currencies/models.py:163
+#: apps/currencies/models.py:165
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr "只建立一筆匯率資訊並且持續更新，防止資料庫無限擴張。"
 
-#: apps/currencies/models.py:168
+#: apps/currencies/models.py:170
 msgid "Exchange Rate Service"
 msgstr "匯率資訊服務"
 
-#: apps/currencies/models.py:169
+#: apps/currencies/models.py:171
 msgid "Exchange Rate Services"
 msgstr "匯率資訊服務"
 
-#: apps/currencies/models.py:221
+#: apps/currencies/models.py:223
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "「每X小時」需要提供正整數。"
 
-#: apps/currencies/models.py:230
+#: apps/currencies/models.py:232
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "「每X小時」需要介於1到24之間。"
 
-#: apps/currencies/models.py:244
+#: apps/currencies/models.py:246
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -647,7 +647,7 @@ msgstr ""
 "錯誤的小時格式，請使用逗號設定多個小時（0~23）或著設定範圍（例"
 "如：'1-5,10-12'）。"
 
-#: apps/currencies/models.py:255
+#: apps/currencies/models.py:257
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
@@ -2654,15 +2654,21 @@ msgstr "目標"
 msgid "Last fetch"
 msgstr "最後更新"
 
-#: templates/exchange_rates_services/fragments/list.html:61
+#: templates/exchange_rates_services/fragments/list.html:62
+#, python-format
+msgid "%(counter)s consecutive failure"
+msgid_plural "%(counter)s consecutive failures"
+msgstr[0] ""
+
+#: templates/exchange_rates_services/fragments/list.html:69
 msgid "currencies"
 msgstr "貨幣"
 
-#: templates/exchange_rates_services/fragments/list.html:61
+#: templates/exchange_rates_services/fragments/list.html:69
 msgid "accounts"
 msgstr "帳戶"
 
-#: templates/exchange_rates_services/fragments/list.html:69
+#: templates/exchange_rates_services/fragments/list.html:77
 msgid "No services configured"
 msgstr "沒有設定任何服務"
 
