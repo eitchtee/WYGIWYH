@@ -56,10 +56,3 @@ class DCAEntryViewSet(viewsets.ModelViewSet):
     search_fields = ['notes']
     ordering_fields = '__all__'
     ordering = ['-date']
-
-    def get_queryset(self):
-        queryset = DCAEntry.objects.all()
-        strategy_id = self.request.query_params.get("strategy", None)
-        if strategy_id is not None:
-            queryset = queryset.filter(strategy_id=strategy_id)
-        return queryset
