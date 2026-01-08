@@ -6,7 +6,7 @@ from apps.api.serializers import DCAStrategySerializer, DCAEntrySerializer
 
 
 class DCAStrategyViewSet(viewsets.ModelViewSet):
-    queryset = DCAStrategy.objects.all()
+    queryset = DCAStrategy.all_objects.all()
     serializer_class = DCAStrategySerializer
     filterset_fields = {
         'name': ['exact', 'icontains'],
