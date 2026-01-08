@@ -8,6 +8,16 @@ from apps.api.serializers import DCAStrategySerializer, DCAEntrySerializer
 class DCAStrategyViewSet(viewsets.ModelViewSet):
     queryset = DCAStrategy.objects.all()
     serializer_class = DCAStrategySerializer
+    filterset_fields = {
+        'name': ['exact', 'icontains'],
+        'target_currency': ['exact'],
+        'payment_currency': ['exact'],
+        'notes': ['exact', 'icontains'],
+        'created_at': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'updated_at': ['exact', 'gte', 'lte', 'gt', 'lt'],
+    }
+    search_fields = ['name', 'notes']
+    ordering_fields = '__all__'
 
     @action(detail=True, methods=["get"])
     def investment_frequency(self, request, pk=None):
@@ -32,6 +42,20 @@ class DCAStrategyViewSet(viewsets.ModelViewSet):
 class DCAEntryViewSet(viewsets.ModelViewSet):
     queryset = DCAEntry.objects.all()
     serializer_class = DCAEntrySerializer
+    filterset_fields = {
+        'strategy': ['exact'],
+        'date': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'amount_paid': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'amount_received': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'expense_transaction': ['exact', 'isnull'],
+        'income_transaction': ['exact', 'isnull'],
+        'notes': ['exact', 'icontains'],
+        'created_at': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'updated_at': ['exact', 'gte', 'lte', 'gt', 'lt'],
+    }
+    search_fields = ['notes']
+    ordering_fields = '__all__'
+    ordering = ['-date']
 
     def get_queryset(self):
         queryset = DCAEntry.objects.all()

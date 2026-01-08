@@ -16,9 +16,14 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
     queryset = AccountGroup.objects.all()
     serializer_class = AccountGroupSerializer
     pagination_class = CustomPageNumberPagination
+    filterset_fields = {
+        'name': ['exact', 'icontains'],
+        'owner': ['exact'],
+    }
+    search_fields = ['name']
+    ordering_fields = '__all__'
+    ordering = ['id']
 
-    def get_queryset(self):
-        return AccountGroup.objects.all().order_by("id")
 
 
 @extend_schema_view(
@@ -34,11 +39,22 @@ class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     pagination_class = CustomPageNumberPagination
+    filterset_fields = {
+        'name': ['exact', 'icontains'],
+        'group': ['exact', 'isnull'],
+        'currency': ['exact'],
+        'exchange_currency': ['exact', 'isnull'],
+        'is_asset': ['exact'],
+        'is_archived': ['exact'],
+        'owner': ['exact'],
+    }
+    search_fields = ['name']
+    ordering_fields = '__all__'
+    ordering = ['id']
 
     def get_queryset(self):
         return (
             Account.objects.all()
-            .order_by("id")
             .select_related("group", "currency", "exchange_currency")
         )
 

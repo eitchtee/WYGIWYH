@@ -28,6 +28,14 @@ class ImportProfileViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ImportProfile.objects.all()
     serializer_class = ImportProfileSerializer
     permission_classes = [IsAuthenticated]
+    filterset_fields = {
+        'name': ['exact', 'icontains'],
+        'yaml_config': ['exact', 'icontains'],
+        'version': ['exact'],
+    }
+    search_fields = ['name', 'yaml_config']
+    ordering_fields = '__all__'
+    ordering = ['name']
 
 
 @extend_schema_view(
@@ -55,6 +63,22 @@ class ImportRunViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ImportRun.objects.all().order_by("-id")
     serializer_class = ImportRunSerializer
     permission_classes = [IsAuthenticated]
+    filterset_fields = {
+        'status': ['exact'],
+        'profile': ['exact'],
+        'file_name': ['exact', 'icontains'],
+        'logs': ['exact', 'icontains'],
+        'processed_rows': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'total_rows': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'successful_rows': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'skipped_rows': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'failed_rows': ['exact', 'gte', 'lte', 'gt', 'lt'],
+        'started_at': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
+        'finished_at': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
+    }
+    search_fields = ['file_name', 'logs']
+    ordering_fields = '__all__'
+    ordering = ['-id']
 
     def get_queryset(self):
         queryset = super().get_queryset()
