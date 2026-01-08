@@ -59,11 +59,6 @@ class DCAEntryViewSet(viewsets.ModelViewSet):
         "created_at": ["exact", "gte", "lte", "gt", "lt"],
         "updated_at": ["exact", "gte", "lte", "gt", "lt"],
     }
-    search_fields = ["notes"]
-    ordering_fields = "__all__"
-    ordering = ["-date"]
-
-    def get_queryset(self):
-        # Filter entries by strategies the user has access to
-        accessible_strategies = DCAStrategy.objects.all()
-        return DCAEntry.objects.filter(strategy__in=accessible_strategies)
+    search_fields = ['notes']
+    ordering_fields = '__all__'
+    ordering = ['-date']
