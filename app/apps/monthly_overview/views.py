@@ -75,6 +75,8 @@ def transactions_list(request, month: int, year: int):
         if order != request.session.get("monthly_transactions_order", "default"):
             request.session["monthly_transactions_order"] = order
 
+    today = timezone.localdate(timezone.now())
+
     f = TransactionsFilter(request.GET)
     transactions_filtered = f.qs.filter(
         reference_date__year=year,
@@ -92,12 +94,28 @@ def transactions_list(request, month: int, year: int):
         "dca_income_entries",
     )
 
+    # Late transactions: date < today and is_paid = False (only shown for default ordering)
+    late_transactions = None
+    if order == "default":
+        late_transactions = transactions_filtered.filter(
+            date__lt=today,
+            is_paid=False,
+        ).order_by("date", "id")
+        # Exclude late transactions from the main list
+        transactions_filtered = transactions_filtered.exclude(
+            date__lt=today,
+            is_paid=False,
+        )
+
     transactions_filtered = default_order(transactions_filtered, order=order)
 
     return render(
         request,
         "monthly_overview/fragments/list.html",
-        context={"transactions": transactions_filtered},
+        context={
+            "transactions": transactions_filtered,
+            "late_transactions": late_transactions,
+        },
     )
 
 

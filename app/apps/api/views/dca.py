@@ -22,6 +22,9 @@ class DCAStrategyViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return DCAStrategy.objects.all()
 
+    def get_queryset(self):
+        return DCAStrategy.objects.all().order_by("id")
+
     @action(detail=True, methods=["get"])
     def investment_frequency(self, request, pk=None):
         strategy = self.get_object()

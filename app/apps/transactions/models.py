@@ -383,6 +383,10 @@ class Transaction(OwnedObject):
     def clean(self):
         super().clean()
 
+        # Convert empty internal_id to None to allow multiple "empty" values with unique constraint
+        if self.internal_id == "":
+            self.internal_id = None
+
         # Only process amount and reference_date if account exists
         # If account is missing, Django's required field validation will handle it
         try:
