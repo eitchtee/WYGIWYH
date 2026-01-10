@@ -9,6 +9,9 @@ class DCAStrategyViewSet(viewsets.ModelViewSet):
     queryset = DCAStrategy.objects.all()
     serializer_class = DCAStrategySerializer
 
+    def get_queryset(self):
+        return DCAStrategy.objects.all().order_by("id")
+
     @action(detail=True, methods=["get"])
     def investment_frequency(self, request, pk=None):
         strategy = self.get_object()
