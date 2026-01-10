@@ -56,7 +56,15 @@
                 </td>
                 <td class="table-col-auto">{% if service.is_active %}<i class="fa-solid fa-circle text-success"></i>{% else %}
                   <i class="fa-solid fa-circle text-error"></i>{% endif %}</td>
-                <td class="table-col-auto">{{ service.name }}</td>
+                <td>
+                  {{ service.name }}
+                  {% if service.failure_count > 0 %}
+                    <span class="badge badge-error gap-1" data-tippy-content="{% blocktrans count counter=service.failure_count %}{{ counter }} consecutive failure{% plural %}{{ counter }} consecutive failures{% endblocktrans %}">
+                      <i class="fa-solid fa-triangle-exclamation fa-fw"></i>
+                      {{ service.failure_count }}
+                    </span>
+                  {% endif %}
+                </td>
                 <td>{{ service.get_service_type_display }}</td>
                 <td>{{ service.target_currencies.count }} {% trans 'currencies' %}, {{ service.target_accounts.count }} {% trans 'accounts' %}</td>
                 <td>{{ service.last_fetch|date:"SHORT_DATETIME_FORMAT" }}</td>
