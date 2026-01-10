@@ -152,7 +152,9 @@ def transaction_simple_add(request):
     date_param = request.GET.get("date")
     if date_param:
         try:
-            initial_data["date"] = datetime.datetime.strptime(date_param, "%Y-%m-%d").date()
+            initial_data["date"] = datetime.datetime.strptime(
+                date_param, "%Y-%m-%d"
+            ).date()
         except ValueError:
             pass
 
@@ -160,7 +162,9 @@ def transaction_simple_add(request):
     reference_date_param = request.GET.get("reference_date")
     if reference_date_param:
         try:
-            initial_data["reference_date"] = datetime.datetime.strptime(reference_date_param, "%Y-%m-%d").date()
+            initial_data["reference_date"] = datetime.datetime.strptime(
+                reference_date_param, "%Y-%m-%d"
+            ).date()
         except ValueError:
             pass
 
@@ -172,7 +176,10 @@ def transaction_simple_add(request):
         except (ValueError, TypeError):
             # Try to find by name
             from apps.accounts.models import Account
-            account = Account.objects.filter(name__iexact=account_param, is_archived=False).first()
+
+            account = Account.objects.filter(
+                name__iexact=account_param, is_archived=False
+            ).first()
             if account:
                 initial_data["account"] = account.pk
 
@@ -207,7 +214,10 @@ def transaction_simple_add(request):
         except (ValueError, TypeError):
             # Try to find by name
             from apps.transactions.models import TransactionCategory
-            category = TransactionCategory.objects.filter(name__iexact=category_param, active=True).first()
+
+            category = TransactionCategory.objects.filter(
+                name__iexact=category_param, active=True
+            ).first()
             if category:
                 initial_data["category"] = category.pk
 
@@ -457,7 +467,7 @@ def transaction_pay(request, transaction_id):
         context={"transaction": transaction, **request.GET},
     )
     response.headers["HX-Trigger"] = (
-        f'{"paid" if new_is_paid else "unpaid"}, selective_update'
+        f"{'paid' if new_is_paid else 'unpaid'}, selective_update"
     )
     return response
 
@@ -552,6 +562,8 @@ def transaction_all_list(request):
         if order != request.session.get("all_transactions_order", "default"):
             request.session["all_transactions_order"] = order
 
+    today = timezone.localdate(timezone.now())
+
     transactions = Transaction.objects.prefetch_related(
         "account",
         "account__group",
@@ -565,12 +577,27 @@ def transaction_all_list(request):
         "dca_income_entries",
     ).all()
 
-    transactions = default_order(transactions, order=order)
-
     f = TransactionsFilter(request.GET, queryset=transactions)
 
+    # Late transactions: date < today and is_paid = False (only shown for default ordering on first page)
+    late_transactions = None
     page_number = request.GET.get("page", 1)
-    paginator = Paginator(f.qs, 100)
+    if order == "default" and str(page_number) == "1":
+        late_transactions = f.qs.filter(
+            date__lt=today,
+            is_paid=False,
+        ).order_by("date", "id")
+        # Exclude late transactions from the main paginated list
+        main_transactions = f.qs.exclude(
+            date__lt=today,
+            is_paid=False,
+        )
+    else:
+        main_transactions = f.qs
+
+    main_transactions = default_order(main_transactions, order=order)
+
+    paginator = Paginator(main_transactions, 100)
     page_obj = paginator.get_page(page_number)
 
     return render(
@@ -579,6 +606,7 @@ def transaction_all_list(request):
         {
             "page_obj": page_obj,
             "paginator": paginator,
+            "late_transactions": late_transactions,
         },
     )
 
