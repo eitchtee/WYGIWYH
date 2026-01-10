@@ -7,7 +7,11 @@ from rest_framework.response import Response
 from apps.accounts.models import AccountGroup, Account
 from apps.accounts.services import get_account_balance
 from apps.api.custom.pagination import CustomPageNumberPagination
-from apps.api.serializers import AccountGroupSerializer, AccountSerializer, AccountBalanceSerializer
+from apps.api.serializers import (
+    AccountGroupSerializer,
+    AccountSerializer,
+    AccountBalanceSerializer,
+)
 
 
 class AccountGroupViewSet(viewsets.ModelViewSet):
@@ -17,13 +21,15 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
     serializer_class = AccountGroupSerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'name': ['exact', 'icontains'],
-        'owner': ['exact'],
+        "name": ["exact", "icontains"],
+        "owner": ["exact"],
     }
-    search_fields = ['name']
-    ordering_fields = '__all__'
-    ordering = ['id']
+    search_fields = ["name"]
+    ordering_fields = "__all__"
+    ordering = ["id"]
 
+    def get_queryset(self):
+        return AccountGroup.objects.all()
 
 
 @extend_schema_view(
@@ -40,37 +46,37 @@ class AccountViewSet(viewsets.ModelViewSet):
     serializer_class = AccountSerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'name': ['exact', 'icontains'],
-        'group': ['exact', 'isnull'],
-        'currency': ['exact'],
-        'exchange_currency': ['exact', 'isnull'],
-        'is_asset': ['exact'],
-        'is_archived': ['exact'],
-        'owner': ['exact'],
+        "name": ["exact", "icontains"],
+        "group": ["exact", "isnull"],
+        "currency": ["exact"],
+        "exchange_currency": ["exact", "isnull"],
+        "is_asset": ["exact"],
+        "is_archived": ["exact"],
+        "owner": ["exact"],
     }
-    search_fields = ['name']
-    ordering_fields = '__all__'
-    ordering = ['id']
+    search_fields = ["name"]
+    ordering_fields = "__all__"
+    ordering = ["id"]
 
     def get_queryset(self):
-        return (
-            Account.objects.all()
-            .select_related("group", "currency", "exchange_currency")
+        return Account.objects.all().select_related(
+            "group", "currency", "exchange_currency"
         )
 
     @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])
     def balance(self, request, pk=None):
         """Get current and projected balance for an account."""
         account = self.get_object()
-        
+
         current_balance = get_account_balance(account, paid_only=True)
         projected_balance = get_account_balance(account, paid_only=False)
-        
-        serializer = AccountBalanceSerializer({
-            "current_balance": current_balance,
-            "projected_balance": projected_balance,
-            "currency": account.currency,
-        })
-        
-        return Response(serializer.data)
 
+        serializer = AccountBalanceSerializer(
+            {
+                "current_balance": current_balance,
+                "projected_balance": projected_balance,
+                "currency": account.currency,
+            }
+        )
+
+        return Response(serializer.data)

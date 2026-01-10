@@ -27,30 +27,33 @@ class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'account': ['exact'],
-        'type': ['exact'],
-        'is_paid': ['exact'],
-        'date': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'reference_date': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'mute': ['exact'],
-        'amount': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'description': ['exact', 'icontains'],
-        'notes': ['exact', 'icontains'],
-        'category': ['exact', 'isnull'],
-        'installment_plan': ['exact', 'isnull'],
-        'installment_id': ['exact', 'gte', 'lte'],
-        'recurring_transaction': ['exact', 'isnull'],
-        'internal_note': ['exact', 'icontains'],
-        'internal_id': ['exact'],
-        'deleted': ['exact'],
-        'created_at': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'updated_at': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'deleted_at': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
-        'owner': ['exact'],
+        "account": ["exact"],
+        "type": ["exact"],
+        "is_paid": ["exact"],
+        "date": ["exact", "gte", "lte", "gt", "lt"],
+        "reference_date": ["exact", "gte", "lte", "gt", "lt"],
+        "mute": ["exact"],
+        "amount": ["exact", "gte", "lte", "gt", "lt"],
+        "description": ["exact", "icontains"],
+        "notes": ["exact", "icontains"],
+        "category": ["exact", "isnull"],
+        "installment_plan": ["exact", "isnull"],
+        "installment_id": ["exact", "gte", "lte"],
+        "recurring_transaction": ["exact", "isnull"],
+        "internal_note": ["exact", "icontains"],
+        "internal_id": ["exact"],
+        "deleted": ["exact"],
+        "created_at": ["exact", "gte", "lte", "gt", "lt"],
+        "updated_at": ["exact", "gte", "lte", "gt", "lt"],
+        "deleted_at": ["exact", "gte", "lte", "gt", "lt", "isnull"],
+        "owner": ["exact"],
     }
-    search_fields = ['description', 'notes', 'internal_note']
-    ordering_fields = '__all__'
-    ordering = ['-id']
+    search_fields = ["description", "notes", "internal_note"]
+    ordering_fields = "__all__"
+    ordering = ["-id"]
+
+    def get_queryset(self):
+        return Transaction.objects.all()
 
     def perform_create(self, serializer):
         instance = serializer.save()
@@ -71,14 +74,17 @@ class TransactionCategoryViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionCategorySerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'name': ['exact', 'icontains'],
-        'mute': ['exact'],
-        'active': ['exact'],
-        'owner': ['exact'],
+        "name": ["exact", "icontains"],
+        "mute": ["exact"],
+        "active": ["exact"],
+        "owner": ["exact"],
     }
-    search_fields = ['name']
-    ordering_fields = '__all__'
-    ordering = ['id']
+    search_fields = ["name"]
+    ordering_fields = "__all__"
+    ordering = ["id"]
+
+    def get_queryset(self):
+        return TransactionCategory.objects.all()
 
 
 class TransactionTagViewSet(viewsets.ModelViewSet):
@@ -86,13 +92,16 @@ class TransactionTagViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionTagSerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'name': ['exact', 'icontains'],
-        'active': ['exact'],
-        'owner': ['exact'],
+        "name": ["exact", "icontains"],
+        "active": ["exact"],
+        "owner": ["exact"],
     }
-    search_fields = ['name']
-    ordering_fields = '__all__'
-    ordering = ['id']
+    search_fields = ["name"]
+    ordering_fields = "__all__"
+    ordering = ["id"]
+
+    def get_queryset(self):
+        return TransactionTag.objects.all()
 
 
 class TransactionEntityViewSet(viewsets.ModelViewSet):
@@ -100,13 +109,16 @@ class TransactionEntityViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionEntitySerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'name': ['exact', 'icontains'],
-        'active': ['exact'],
-        'owner': ['exact'],
+        "name": ["exact", "icontains"],
+        "active": ["exact"],
+        "owner": ["exact"],
     }
-    search_fields = ['name']
-    ordering_fields = '__all__'
-    ordering = ['id']
+    search_fields = ["name"]
+    ordering_fields = "__all__"
+    ordering = ["id"]
+
+    def get_queryset(self):
+        return TransactionEntity.objects.all()
 
 
 class InstallmentPlanViewSet(viewsets.ModelViewSet):
@@ -114,25 +126,28 @@ class InstallmentPlanViewSet(viewsets.ModelViewSet):
     serializer_class = InstallmentPlanSerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'account': ['exact'],
-        'type': ['exact'],
-        'description': ['exact', 'icontains'],
-        'number_of_installments': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'installment_start': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'installment_total_number': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'start_date': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'reference_date': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
-        'end_date': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
-        'recurrence': ['exact'],
-        'installment_amount': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'category': ['exact', 'isnull'],
-        'notes': ['exact', 'icontains'],
-        'add_description_to_transaction': ['exact'],
-        'add_notes_to_transaction': ['exact'],
+        "account": ["exact"],
+        "type": ["exact"],
+        "description": ["exact", "icontains"],
+        "number_of_installments": ["exact", "gte", "lte", "gt", "lt"],
+        "installment_start": ["exact", "gte", "lte", "gt", "lt"],
+        "installment_total_number": ["exact", "gte", "lte", "gt", "lt"],
+        "start_date": ["exact", "gte", "lte", "gt", "lt"],
+        "reference_date": ["exact", "gte", "lte", "gt", "lt", "isnull"],
+        "end_date": ["exact", "gte", "lte", "gt", "lt", "isnull"],
+        "recurrence": ["exact"],
+        "installment_amount": ["exact", "gte", "lte", "gt", "lt"],
+        "category": ["exact", "isnull"],
+        "notes": ["exact", "icontains"],
+        "add_description_to_transaction": ["exact"],
+        "add_notes_to_transaction": ["exact"],
     }
-    search_fields = ['description', 'notes']
-    ordering_fields = '__all__'
-    ordering = ['-id']
+    search_fields = ["description", "notes"]
+    ordering_fields = "__all__"
+    ordering = ["-id"]
+
+    def get_queryset(self):
+        return InstallmentPlan.objects.all()
 
 
 class RecurringTransactionViewSet(viewsets.ModelViewSet):
@@ -140,25 +155,27 @@ class RecurringTransactionViewSet(viewsets.ModelViewSet):
     serializer_class = RecurringTransactionSerializer
     pagination_class = CustomPageNumberPagination
     filterset_fields = {
-        'is_paused': ['exact'],
-        'account': ['exact'],
-        'type': ['exact'],
-        'amount': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'description': ['exact', 'icontains'],
-        'category': ['exact', 'isnull'],
-        'notes': ['exact', 'icontains'],
-        'reference_date': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
-        'start_date': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'end_date': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
-        'recurrence_type': ['exact'],
-        'recurrence_interval': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'keep_at_most': ['exact', 'gte', 'lte', 'gt', 'lt'],
-        'last_generated_date': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
-        'last_generated_reference_date': ['exact', 'gte', 'lte', 'gt', 'lt', 'isnull'],
-        'add_description_to_transaction': ['exact'],
-        'add_notes_to_transaction': ['exact'],
+        "is_paused": ["exact"],
+        "account": ["exact"],
+        "type": ["exact"],
+        "amount": ["exact", "gte", "lte", "gt", "lt"],
+        "description": ["exact", "icontains"],
+        "category": ["exact", "isnull"],
+        "notes": ["exact", "icontains"],
+        "reference_date": ["exact", "gte", "lte", "gt", "lt", "isnull"],
+        "start_date": ["exact", "gte", "lte", "gt", "lt"],
+        "end_date": ["exact", "gte", "lte", "gt", "lt", "isnull"],
+        "recurrence_type": ["exact"],
+        "recurrence_interval": ["exact", "gte", "lte", "gt", "lt"],
+        "keep_at_most": ["exact", "gte", "lte", "gt", "lt"],
+        "last_generated_date": ["exact", "gte", "lte", "gt", "lt", "isnull"],
+        "last_generated_reference_date": ["exact", "gte", "lte", "gt", "lt", "isnull"],
+        "add_description_to_transaction": ["exact"],
+        "add_notes_to_transaction": ["exact"],
     }
-    search_fields = ['description', 'notes']
-    ordering_fields = '__all__'
-    ordering = ['-id']
+    search_fields = ["description", "notes"]
+    ordering_fields = "__all__"
+    ordering = ["-id"]
 
+    def get_queryset(self):
+        return RecurringTransaction.objects.all()
