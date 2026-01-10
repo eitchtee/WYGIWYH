@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "apps.api.apps.ApiConfig",
     "cachalot",
     "rest_framework",
+    "rest_framework.authtoken",
     "drf_spectacular",
     "django_cotton",
     "apps.rules.apps.RulesConfig",
@@ -434,6 +435,13 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.DjangoModelPermissions",
     ],
     "DEFAULT_PAGINATION_CLASS": "apps.api.custom.pagination.CustomPageNumberPagination",
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
