@@ -433,8 +433,7 @@ REST_FRAMEWORK = {
         "apps.api.permissions.NotInDemoMode",
         "rest_framework.permissions.DjangoModelPermissions",
     ],
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
+    "DEFAULT_PAGINATION_CLASS": "apps.api.custom.pagination.CustomPageNumberPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 

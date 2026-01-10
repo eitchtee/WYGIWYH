@@ -2,7 +2,6 @@ from copy import deepcopy
 
 from rest_framework import viewsets
 
-from apps.api.custom.pagination import CustomPageNumberPagination
 from apps.api.serializers import (
     TransactionSerializer,
     TransactionCategorySerializer,
@@ -25,7 +24,6 @@ from apps.rules.signals import transaction_updated, transaction_created
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
-    pagination_class = CustomPageNumberPagination
 
     def perform_create(self, serializer):
         instance = serializer.save()
@@ -47,7 +45,6 @@ class TransactionViewSet(viewsets.ModelViewSet):
 class TransactionCategoryViewSet(viewsets.ModelViewSet):
     queryset = TransactionCategory.objects.all()
     serializer_class = TransactionCategorySerializer
-    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
         return TransactionCategory.objects.all().order_by("id")
@@ -56,7 +53,6 @@ class TransactionCategoryViewSet(viewsets.ModelViewSet):
 class TransactionTagViewSet(viewsets.ModelViewSet):
     queryset = TransactionTag.objects.all()
     serializer_class = TransactionTagSerializer
-    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
         return TransactionTag.objects.all().order_by("id")
@@ -65,7 +61,6 @@ class TransactionTagViewSet(viewsets.ModelViewSet):
 class TransactionEntityViewSet(viewsets.ModelViewSet):
     queryset = TransactionEntity.objects.all()
     serializer_class = TransactionEntitySerializer
-    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
         return TransactionEntity.objects.all().order_by("id")
@@ -74,7 +69,6 @@ class TransactionEntityViewSet(viewsets.ModelViewSet):
 class InstallmentPlanViewSet(viewsets.ModelViewSet):
     queryset = InstallmentPlan.objects.all()
     serializer_class = InstallmentPlanSerializer
-    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
         return InstallmentPlan.objects.all().order_by("-id")
@@ -83,7 +77,6 @@ class InstallmentPlanViewSet(viewsets.ModelViewSet):
 class RecurringTransactionViewSet(viewsets.ModelViewSet):
     queryset = RecurringTransaction.objects.all()
     serializer_class = RecurringTransactionSerializer
-    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
         return RecurringTransaction.objects.all().order_by("-id")
