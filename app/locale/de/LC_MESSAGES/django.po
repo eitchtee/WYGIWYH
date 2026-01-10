@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 02:27+0000\n"
+"POT-Creation-Date: 2026-01-10 05:53+0000\n"
 "PO-Revision-Date: 2025-11-01 01:17+0000\n"
 "Last-Translator: mlystopad <mlystopadt@gmail.com>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -1791,7 +1791,7 @@ msgstr "Objekt erfolgreich gelöscht"
 
 #: apps/transactions/views/quick_transactions.py:156
 #: apps/transactions/views/transactions.py:53
-#: apps/transactions/views/transactions.py:228
+#: apps/transactions/views/transactions.py:238
 msgid "Transaction added successfully"
 msgstr "Transaktion erfolgreich hinzugefügt"
 
@@ -1831,30 +1831,30 @@ msgstr "Tag erfolgreich aktualisiert"
 msgid "Tag deleted successfully"
 msgstr "Tag erfolgreich gelöscht"
 
-#: apps/transactions/views/transactions.py:252
+#: apps/transactions/views/transactions.py:262
 msgid "Transaction updated successfully"
 msgstr "Transaktion erfolgreich aktualisiert"
 
-#: apps/transactions/views/transactions.py:303
+#: apps/transactions/views/transactions.py:313
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s Transaktion erfolgreich aktualisiert"
 msgstr[1] "%(count)s Transaktionen erfolgreich aktualisiert"
 
-#: apps/transactions/views/transactions.py:339
+#: apps/transactions/views/transactions.py:349
 msgid "Transaction duplicated successfully"
 msgstr "Transaktion erfolgreich duplisiert"
 
-#: apps/transactions/views/transactions.py:381
+#: apps/transactions/views/transactions.py:391
 msgid "Transaction deleted successfully"
 msgstr "Transaktion erfolgreich gelöscht"
 
-#: apps/transactions/views/transactions.py:399
+#: apps/transactions/views/transactions.py:409
 msgid "Transaction restored successfully"
 msgstr "Transaktion erfolgreich wiederhergestellt"
 
-#: apps/transactions/views/transactions.py:425
+#: apps/transactions/views/transactions.py:435
 msgid "Transfer added successfully"
 msgstr "Transfer erfolgreich hinzugefügt"
 
@@ -2580,8 +2580,8 @@ msgid "No entries for this DCA"
 msgstr "Keine Einträge für diesen DCA"
 
 #: templates/dca/fragments/strategy/details.html:120
-#: templates/monthly_overview/fragments/list.html:33
-#: templates/transactions/fragments/list_all.html:33
+#: templates/monthly_overview/fragments/list.html:59
+#: templates/transactions/fragments/list_all.html:59
 msgid "Try adding one"
 msgstr "Versuche einen hinzuzufügen"
 
@@ -2707,7 +2707,7 @@ msgstr "Kein Umrechnungskurs"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
-#: templates/transactions/fragments/list_all.html:43
+#: templates/transactions/fragments/list_all.html:70
 msgid "Page navigation"
 msgstr "Seitennavigation"
 
@@ -3259,7 +3259,12 @@ msgstr "Einzelpreis"
 msgid "Item"
 msgstr "Artikel"
 
-#: templates/monthly_overview/fragments/list.html:32
+#: templates/monthly_overview/fragments/list.html:15
+#: templates/transactions/fragments/list_all.html:15
+msgid "late"
+msgstr ""
+
+#: templates/monthly_overview/fragments/list.html:58
 msgid "No transactions this month"
 msgstr "Keine Transaktionen in diesem Monat"
 
@@ -3571,7 +3576,7 @@ msgstr "Bearbeitung"
 msgid "transactions"
 msgstr "Transaktionen"
 
-#: templates/transactions/fragments/list_all.html:32
+#: templates/transactions/fragments/list_all.html:58
 msgid "No transactions found"
 msgstr "Keine Transaktionen gefunden"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 02:27+0000\n"
+"POT-Creation-Date: 2026-01-10 05:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1726,7 +1726,7 @@ msgstr ""
 
 #: apps/transactions/views/quick_transactions.py:156
 #: apps/transactions/views/transactions.py:53
-#: apps/transactions/views/transactions.py:228
+#: apps/transactions/views/transactions.py:238
 msgid "Transaction added successfully"
 msgstr ""
 
@@ -1766,30 +1766,30 @@ msgstr ""
 msgid "Tag deleted successfully"
 msgstr ""
 
-#: apps/transactions/views/transactions.py:252
+#: apps/transactions/views/transactions.py:262
 msgid "Transaction updated successfully"
 msgstr ""
 
-#: apps/transactions/views/transactions.py:303
+#: apps/transactions/views/transactions.py:313
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] ""
 msgstr[1] ""
 
-#: apps/transactions/views/transactions.py:339
+#: apps/transactions/views/transactions.py:349
 msgid "Transaction duplicated successfully"
 msgstr ""
 
-#: apps/transactions/views/transactions.py:381
+#: apps/transactions/views/transactions.py:391
 msgid "Transaction deleted successfully"
 msgstr ""
 
-#: apps/transactions/views/transactions.py:399
+#: apps/transactions/views/transactions.py:409
 msgid "Transaction restored successfully"
 msgstr ""
 
-#: apps/transactions/views/transactions.py:425
+#: apps/transactions/views/transactions.py:435
 msgid "Transfer added successfully"
 msgstr ""
 
@@ -2502,8 +2502,8 @@ msgid "No entries for this DCA"
 msgstr ""
 
 #: templates/dca/fragments/strategy/details.html:120
-#: templates/monthly_overview/fragments/list.html:33
-#: templates/transactions/fragments/list_all.html:33
+#: templates/monthly_overview/fragments/list.html:59
+#: templates/transactions/fragments/list_all.html:59
 msgid "Try adding one"
 msgstr ""
 
@@ -2628,7 +2628,7 @@ msgstr ""
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
-#: templates/transactions/fragments/list_all.html:43
+#: templates/transactions/fragments/list_all.html:70
 msgid "Page navigation"
 msgstr ""
 
@@ -3151,7 +3151,12 @@ msgstr ""
 msgid "Item"
 msgstr ""
 
-#: templates/monthly_overview/fragments/list.html:32
+#: templates/monthly_overview/fragments/list.html:15
+#: templates/transactions/fragments/list_all.html:15
+msgid "late"
+msgstr ""
+
+#: templates/monthly_overview/fragments/list.html:58
 msgid "No transactions this month"
 msgstr ""
 
@@ -3448,7 +3453,7 @@ msgstr ""
 msgid "transactions"
 msgstr ""
 
-#: templates/transactions/fragments/list_all.html:32
+#: templates/transactions/fragments/list_all.html:58
 msgid "No transactions found"
 msgstr ""
 

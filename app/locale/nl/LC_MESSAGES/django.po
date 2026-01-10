@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 02:27+0000\n"
+"POT-Creation-Date: 2026-01-10 05:53+0000\n"
 "PO-Revision-Date: 2025-12-29 07:24+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -1760,7 +1760,7 @@ msgstr "Item succesvol verwijderd"
 
 #: apps/transactions/views/quick_transactions.py:156
 #: apps/transactions/views/transactions.py:53
-#: apps/transactions/views/transactions.py:228
+#: apps/transactions/views/transactions.py:238
 msgid "Transaction added successfully"
 msgstr "Verrichting succesvol toegevoegd"
 
@@ -1800,30 +1800,30 @@ msgstr "Label succesvol bijgewerkt"
 msgid "Tag deleted successfully"
 msgstr "Label succesvol verwijderd"
 
-#: apps/transactions/views/transactions.py:252
+#: apps/transactions/views/transactions.py:262
 msgid "Transaction updated successfully"
 msgstr "Verrichting succesvol bijgewerkt"
 
-#: apps/transactions/views/transactions.py:303
+#: apps/transactions/views/transactions.py:313
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s verrichting succesvol bijgewerkt"
 msgstr[1] "%(count)s verrichtingen succesvol bijgewerkt"
 
-#: apps/transactions/views/transactions.py:339
+#: apps/transactions/views/transactions.py:349
 msgid "Transaction duplicated successfully"
 msgstr "Verrichting succesvol gedupliceerd"
 
-#: apps/transactions/views/transactions.py:381
+#: apps/transactions/views/transactions.py:391
 msgid "Transaction deleted successfully"
 msgstr "Verrichting succesvol verwijderd"
 
-#: apps/transactions/views/transactions.py:399
+#: apps/transactions/views/transactions.py:409
 msgid "Transaction restored successfully"
 msgstr "Verrichting succesvol hersteld"
 
-#: apps/transactions/views/transactions.py:425
+#: apps/transactions/views/transactions.py:435
 msgid "Transfer added successfully"
 msgstr "Transactie succesvol toegevoegd"
 
@@ -2543,8 +2543,8 @@ msgid "No entries for this DCA"
 msgstr "Geen idems in deze DCA"
 
 #: templates/dca/fragments/strategy/details.html:120
-#: templates/monthly_overview/fragments/list.html:33
-#: templates/transactions/fragments/list_all.html:33
+#: templates/monthly_overview/fragments/list.html:59
+#: templates/transactions/fragments/list_all.html:59
 msgid "Try adding one"
 msgstr "Probeer er een toe te voegen"
 
@@ -2669,7 +2669,7 @@ msgstr "Geen wisselkoersen"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
-#: templates/transactions/fragments/list_all.html:43
+#: templates/transactions/fragments/list_all.html:70
 msgid "Page navigation"
 msgstr "Paginanavigatie"
 
@@ -3202,7 +3202,12 @@ msgstr "Eenheidsprijs"
 msgid "Item"
 msgstr "Artikel"
 
-#: templates/monthly_overview/fragments/list.html:32
+#: templates/monthly_overview/fragments/list.html:15
+#: templates/transactions/fragments/list_all.html:15
+msgid "late"
+msgstr ""
+
+#: templates/monthly_overview/fragments/list.html:58
 msgid "No transactions this month"
 msgstr "Geen verrichtingen deze maand"
 
@@ -3505,7 +3510,7 @@ msgstr "Bewerking"
 msgid "transactions"
 msgstr "verrichtingen"
 
-#: templates/transactions/fragments/list_all.html:32
+#: templates/transactions/fragments/list_all.html:58
 msgid "No transactions found"
 msgstr "Geen Verrichtingen gevonden"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 02:27+0000\n"
+"POT-Creation-Date: 2026-01-10 05:53+0000\n"
 "PO-Revision-Date: 2025-10-08 16:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translations."
@@ -1725,7 +1725,7 @@ msgstr "成功刪除項目"
 
 #: apps/transactions/views/quick_transactions.py:156
 #: apps/transactions/views/transactions.py:53
-#: apps/transactions/views/transactions.py:228
+#: apps/transactions/views/transactions.py:238
 msgid "Transaction added successfully"
 msgstr "成功新增交易"
 
@@ -1765,29 +1765,29 @@ msgstr "成功更新標籤"
 msgid "Tag deleted successfully"
 msgstr "成功刪除標籤"
 
-#: apps/transactions/views/transactions.py:252
+#: apps/transactions/views/transactions.py:262
 msgid "Transaction updated successfully"
 msgstr "成功更新交易"
 
-#: apps/transactions/views/transactions.py:303
+#: apps/transactions/views/transactions.py:313
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "成功更新%(count)s筆交易"
 
-#: apps/transactions/views/transactions.py:339
+#: apps/transactions/views/transactions.py:349
 msgid "Transaction duplicated successfully"
 msgstr "成功複製交易"
 
-#: apps/transactions/views/transactions.py:381
+#: apps/transactions/views/transactions.py:391
 msgid "Transaction deleted successfully"
 msgstr "成功刪除交易"
 
-#: apps/transactions/views/transactions.py:399
+#: apps/transactions/views/transactions.py:409
 msgid "Transaction restored successfully"
 msgstr "成功復原交易"
 
-#: apps/transactions/views/transactions.py:425
+#: apps/transactions/views/transactions.py:435
 msgid "Transfer added successfully"
 msgstr "成功新增轉帳"
 
@@ -2508,8 +2508,8 @@ msgid "No entries for this DCA"
 msgstr "這個定期定額沒有投入"
 
 #: templates/dca/fragments/strategy/details.html:120
-#: templates/monthly_overview/fragments/list.html:33
-#: templates/transactions/fragments/list_all.html:33
+#: templates/monthly_overview/fragments/list.html:59
+#: templates/transactions/fragments/list_all.html:59
 msgid "Try adding one"
 msgstr "試著增加一個"
 
@@ -2634,7 +2634,7 @@ msgstr "沒有匯率"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
-#: templates/transactions/fragments/list_all.html:43
+#: templates/transactions/fragments/list_all.html:70
 msgid "Page navigation"
 msgstr "頁面導覽"
 
@@ -3173,7 +3173,12 @@ msgstr "單位價格"
 msgid "Item"
 msgstr "項目"
 
-#: templates/monthly_overview/fragments/list.html:32
+#: templates/monthly_overview/fragments/list.html:15
+#: templates/transactions/fragments/list_all.html:15
+msgid "late"
+msgstr ""
+
+#: templates/monthly_overview/fragments/list.html:58
 msgid "No transactions this month"
 msgstr "這個月沒有交易"
 
@@ -3472,7 +3477,7 @@ msgstr "編輯"
 msgid "transactions"
 msgstr "交易"
 
-#: templates/transactions/fragments/list_all.html:32
+#: templates/transactions/fragments/list_all.html:58
 msgid "No transactions found"
 msgstr "沒有發現交易"
 

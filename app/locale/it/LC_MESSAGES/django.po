@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-10 02:27+0000\n"
+"POT-Creation-Date: 2026-01-10 05:53+0000\n"
 "PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -1764,7 +1764,7 @@ msgstr "Elemento eliminato con successo"
 
 #: apps/transactions/views/quick_transactions.py:156
 #: apps/transactions/views/transactions.py:53
-#: apps/transactions/views/transactions.py:228
+#: apps/transactions/views/transactions.py:238
 msgid "Transaction added successfully"
 msgstr "Transazione aggiunta con successo"
 
@@ -1804,30 +1804,30 @@ msgstr "Tag aggiornato con successo"
 msgid "Tag deleted successfully"
 msgstr "Tag rimosso con successo"
 
-#: apps/transactions/views/transactions.py:252
+#: apps/transactions/views/transactions.py:262
 msgid "Transaction updated successfully"
 msgstr "Transazione aggiornata con successo"
 
-#: apps/transactions/views/transactions.py:303
+#: apps/transactions/views/transactions.py:313
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s transazione aggiornata correttamente"
 msgstr[1] "%(count)s transazioni aggiornate correttamente"
 
-#: apps/transactions/views/transactions.py:339
+#: apps/transactions/views/transactions.py:349
 msgid "Transaction duplicated successfully"
 msgstr "Transazione duplicata con successo"
 
-#: apps/transactions/views/transactions.py:381
+#: apps/transactions/views/transactions.py:391
 msgid "Transaction deleted successfully"
 msgstr "Transazione eliminata con successo"
 
-#: apps/transactions/views/transactions.py:399
+#: apps/transactions/views/transactions.py:409
 msgid "Transaction restored successfully"
 msgstr "Transazione ripristinata con successo"
 
-#: apps/transactions/views/transactions.py:425
+#: apps/transactions/views/transactions.py:435
 msgid "Transfer added successfully"
 msgstr "Trasferimento aggiunto con successo"
 
@@ -2552,8 +2552,8 @@ msgid "No entries for this DCA"
 msgstr "Nessuna voce per questo DCA"
 
 #: templates/dca/fragments/strategy/details.html:120
-#: templates/monthly_overview/fragments/list.html:33
-#: templates/transactions/fragments/list_all.html:33
+#: templates/monthly_overview/fragments/list.html:59
+#: templates/transactions/fragments/list_all.html:59
 msgid "Try adding one"
 msgstr "Prova ad aggiungerne uno"
 
@@ -2678,7 +2678,7 @@ msgstr "Nessun cambio valuta"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
-#: templates/transactions/fragments/list_all.html:43
+#: templates/transactions/fragments/list_all.html:70
 msgid "Page navigation"
 msgstr "Navigazione della pagina"
 
@@ -3227,7 +3227,12 @@ msgstr "Prezzo unitario"
 msgid "Item"
 msgstr "Elemento"
 
-#: templates/monthly_overview/fragments/list.html:32
+#: templates/monthly_overview/fragments/list.html:15
+#: templates/transactions/fragments/list_all.html:15
+msgid "late"
+msgstr ""
+
+#: templates/monthly_overview/fragments/list.html:58
 msgid "No transactions this month"
 msgstr "Nessuna transazione questo mese"
 
@@ -3529,7 +3534,7 @@ msgstr "Modifica"
 msgid "transactions"
 msgstr "transazioni"
 
-#: templates/transactions/fragments/list_all.html:32
+#: templates/transactions/fragments/list_all.html:58
 msgid "No transactions found"
 msgstr "Nessuna transazione trovata"
 
