@@ -136,6 +136,8 @@ class ExchangeRateService(models.Model):
         null=True, blank=True, verbose_name=_("Last Successful Fetch")
     )
 
+    failure_count = models.PositiveIntegerField(default=0)
+
     target_currencies = models.ManyToManyField(
         Currency,
         verbose_name=_("Target Currencies"),
@@ -237,7 +239,7 @@ class ExchangeRateService(models.Model):
                     hours = self._parse_hour_ranges(self.fetch_interval)
                     # Store in normalized format (optional)
                     self.fetch_interval = ",".join(str(h) for h in sorted(hours))
-                except ValueError as e:
+                except ValueError:
                     raise ValidationError(
                         {
                             "fetch_interval": _(
@@ -248,7 +250,7 @@ class ExchangeRateService(models.Model):
                     )
         except ValidationError:
             raise
-        except Exception as e:
+        except Exception:
             raise ValidationError(
                 {
                     "fetch_interval": _(

@@ -1,5 +1,4 @@
 import logging
-from datetime import timedelta
 
 from django.db.models import QuerySet
 from django.utils import timezone
@@ -258,7 +257,10 @@ class ExchangeRateFetcher:
                     processed_pairs.add((from_currency.id, to_currency.id))
 
             service.last_fetch = timezone.now()
+            service.failure_count = 0
             service.save()
 
         except Exception as e:
             logger.error(f"Error fetching rates for {service.name}: {e}")
+            service.failure_count += 1
+            service.save()
