@@ -125,6 +125,70 @@ class TransactionTests(TestCase):
             datetime.datetime(day=1, month=2, year=2000).date(),
         )
 
+    def test_empty_internal_id_converts_to_none(self):
+        """Test that empty string internal_id is converted to None"""
+        transaction = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=timezone.now().date(),
+            amount=Decimal("100.00"),
+            description="Test transaction",
+            internal_id="",  # Empty string should become None
+        )
+        self.assertIsNone(transaction.internal_id)
+
+    def test_unique_internal_id_works(self):
+        """Test that unique non-empty internal_id values work correctly"""
+        transaction1 = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=timezone.now().date(),
+            amount=Decimal("100.00"),
+            description="Test transaction 1",
+            internal_id="unique-id-123",
+        )
+        transaction2 = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=timezone.now().date(),
+            amount=Decimal("100.00"),
+            description="Test transaction 2",
+            internal_id="unique-id-456",
+        )
+        self.assertEqual(transaction1.internal_id, "unique-id-123")
+        self.assertEqual(transaction2.internal_id, "unique-id-456")
+
+    def test_multiple_transactions_with_empty_internal_id(self):
+        """Test that multiple transactions can have empty/None internal_id"""
+        transaction1 = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=timezone.now().date(),
+            amount=Decimal("100.00"),
+            description="Test transaction 1",
+            internal_id="",
+        )
+        transaction2 = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=timezone.now().date(),
+            amount=Decimal("100.00"),
+            description="Test transaction 2",
+            internal_id="",
+        )
+        transaction3 = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=timezone.now().date(),
+            amount=Decimal("100.00"),
+            description="Test transaction 3",
+            internal_id=None,
+        )
+        # All should be saved successfully with None internal_id
+        self.assertIsNone(transaction1.internal_id)
+        self.assertIsNone(transaction2.internal_id)
+        self.assertIsNone(transaction3.internal_id)
+
 
 class InstallmentPlanTests(TestCase):
     def setUp(self):
