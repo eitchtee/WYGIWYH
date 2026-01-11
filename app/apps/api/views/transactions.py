@@ -2,7 +2,6 @@ from copy import deepcopy
 
 from rest_framework import viewsets
 
-from apps.api.custom.pagination import CustomPageNumberPagination
 from apps.api.serializers import (
     TransactionSerializer,
     TransactionCategorySerializer,
@@ -25,7 +24,6 @@ from apps.rules.signals import transaction_updated, transaction_created
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "account": ["exact"],
         "type": ["exact"],
@@ -72,7 +70,6 @@ class TransactionViewSet(viewsets.ModelViewSet):
 class TransactionCategoryViewSet(viewsets.ModelViewSet):
     queryset = TransactionCategory.objects.all()
     serializer_class = TransactionCategorySerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "name": ["exact", "icontains"],
         "mute": ["exact"],
@@ -90,7 +87,6 @@ class TransactionCategoryViewSet(viewsets.ModelViewSet):
 class TransactionTagViewSet(viewsets.ModelViewSet):
     queryset = TransactionTag.objects.all()
     serializer_class = TransactionTagSerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "name": ["exact", "icontains"],
         "active": ["exact"],
@@ -107,7 +103,6 @@ class TransactionTagViewSet(viewsets.ModelViewSet):
 class TransactionEntityViewSet(viewsets.ModelViewSet):
     queryset = TransactionEntity.objects.all()
     serializer_class = TransactionEntitySerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "name": ["exact", "icontains"],
         "active": ["exact"],
@@ -124,7 +119,6 @@ class TransactionEntityViewSet(viewsets.ModelViewSet):
 class InstallmentPlanViewSet(viewsets.ModelViewSet):
     queryset = InstallmentPlan.objects.all()
     serializer_class = InstallmentPlanSerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "account": ["exact"],
         "type": ["exact"],
@@ -153,7 +147,6 @@ class InstallmentPlanViewSet(viewsets.ModelViewSet):
 class RecurringTransactionViewSet(viewsets.ModelViewSet):
     queryset = RecurringTransaction.objects.all()
     serializer_class = RecurringTransactionSerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "is_paused": ["exact"],
         "account": ["exact"],

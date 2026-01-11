@@ -6,7 +6,6 @@ from rest_framework.response import Response
 
 from apps.accounts.models import AccountGroup, Account
 from apps.accounts.services import get_account_balance
-from apps.api.custom.pagination import CustomPageNumberPagination
 from apps.api.serializers import (
     AccountGroupSerializer,
     AccountSerializer,
@@ -19,7 +18,6 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
 
     queryset = AccountGroup.objects.all()
     serializer_class = AccountGroupSerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "name": ["exact", "icontains"],
         "owner": ["exact"],
@@ -44,7 +42,6 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
-    pagination_class = CustomPageNumberPagination
     filterset_fields = {
         "name": ["exact", "icontains"],
         "group": ["exact", "isnull"],
