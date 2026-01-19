@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-10 20:50+0000\n"
-"PO-Revision-Date: 2026-01-19 09:24+0000\n"
+"PO-Revision-Date: 2026-01-19 10:24+0000\n"
 "Last-Translator: Andrei Kamianets <kamenandroid@gmail.com>\n"
 "Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
 "app/ru/>\n"
@@ -616,85 +616,95 @@ msgstr ""
 
 #: apps/currencies/models.py:153
 msgid "Target Accounts"
-msgstr ""
+msgstr "Целевой счет"
 
 #: apps/currencies/models.py:155
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr ""
+"Выберите счета, для которых будут получены обменные курсы. Курсы будут "
+"рассчитаны для валюты каждого счета относительно установленной обменной "
+"валюты."
 
 #: apps/currencies/models.py:162
 msgid "Single exchange rate"
-msgstr ""
+msgstr "Единый обменный курс"
 
 #: apps/currencies/models.py:165
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
+"Создайте один обменный курс и постоянно обновляйте его. Это позволит "
+"избежать захламления базы данных."
 
 #: apps/currencies/models.py:170
 msgid "Exchange Rate Service"
-msgstr ""
+msgstr "Сервис обмена курсов"
 
 #: apps/currencies/models.py:171
 msgid "Exchange Rate Services"
-msgstr ""
+msgstr "Сервисы обмена курсов"
 
 #: apps/currencies/models.py:223
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr ""
+"Для интервалов типа «Каждые X часов» требуется положительное целое число."
 
 #: apps/currencies/models.py:232
 msgid "'Every X hours' interval must be between 1 and 24."
-msgstr ""
+msgstr "Интервал «каждые X часов» должен составлять от 1 до 24."
 
 #: apps/currencies/models.py:246
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
+"Неверный формат времени. Используйте часы, разделенные запятыми (0-23), и/"
+"или диапазоны (например, '1-5,8,10-12')."
 
 #: apps/currencies/models.py:257
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
 msgstr ""
+"Неверный формат. Пожалуйста, проверьте требования для выбранного вами типа "
+"интервала."
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
-msgstr ""
+msgstr "Валюта успешно добавлена"
 
 #: apps/currencies/views/currencies.py:70
 msgid "Currency updated successfully"
-msgstr ""
+msgstr "Валюта успешно обновлена"
 
 #: apps/currencies/views/currencies.py:96
 msgid "Currency deleted successfully"
-msgstr ""
+msgstr "Валюта успешно удалена"
 
 #: apps/currencies/views/exchange_rates.py:89
 msgid "Exchange rate added successfully"
-msgstr ""
+msgstr "Курс обмена успешно добавлен"
 
 #: apps/currencies/views/exchange_rates.py:117
 msgid "Exchange rate updated successfully"
-msgstr ""
+msgstr "Курс обмена валют успешно обновлен"
 
 #: apps/currencies/views/exchange_rates.py:143
 msgid "Exchange rate deleted successfully"
-msgstr ""
+msgstr "Курс обмена успешно удален"
 
 #: apps/currencies/views/exchange_rates_services.py:50
 msgid "Service added successfully"
-msgstr ""
+msgstr "Сервис успешно добавлен"
 
 #: apps/currencies/views/exchange_rates_services.py:79
 msgid "Service updated successfully"
-msgstr ""
+msgstr "Сервис успешно обновлен"
 
 #: apps/currencies/views/exchange_rates_services.py:106
 msgid "Service deleted successfully"
-msgstr ""
+msgstr "Сервис успешно удален"
 
 #: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
@@ -702,31 +712,31 @@ msgstr ""
 
 #: apps/dca/forms.py:59 apps/dca/forms.py:158
 msgid "Create transaction"
-msgstr ""
+msgstr "Создать транзакцию"
 
 #: apps/dca/forms.py:64 apps/transactions/forms.py:491
 msgid "From Account"
-msgstr ""
+msgstr "Со счета"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:496
 msgid "To Account"
-msgstr ""
+msgstr "В счет"
 
 #: apps/dca/forms.py:110 apps/dca/models.py:171
 msgid "Expense Transaction"
-msgstr ""
+msgstr "Расходы"
 
 #: apps/dca/forms.py:114 apps/dca/forms.py:124
 msgid "Type to search for a transaction to link to this entry"
-msgstr ""
+msgstr "Введите текст для поиска транзакции, чтобы связать ее с этой записью"
 
 #: apps/dca/forms.py:120 apps/dca/models.py:179
 msgid "Income Transaction"
-msgstr ""
+msgstr "Доходная транзакция"
 
 #: apps/dca/forms.py:192
 msgid "Link transaction"
-msgstr ""
+msgstr "Ссылка на транзакцию"
 
 #: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
 #: apps/dca/forms.py:285
@@ -735,7 +745,7 @@ msgstr ""
 
 #: apps/dca/forms.py:290 apps/transactions/forms.py:638
 msgid "From and To accounts must be different."
-msgstr ""
+msgstr "Счета «От» и «Получатель» должны быть разными."
 
 #: apps/dca/forms.py:304
 #, python-format
@@ -744,11 +754,11 @@ msgstr ""
 
 #: apps/dca/models.py:16
 msgid "Target Currency"
-msgstr ""
+msgstr "Целевая валюта"
 
 #: apps/dca/models.py:22
 msgid "Payment Currency"
-msgstr ""
+msgstr "Валюта платежа"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:180
 #: apps/rules/forms.py:196 apps/rules/models.py:43 apps/rules/models.py:295
@@ -756,27 +766,27 @@ msgstr ""
 #: apps/transactions/models.py:318 apps/transactions/models.py:587
 #: apps/transactions/models.py:788 apps/transactions/models.py:1022
 msgid "Notes"
-msgstr ""
+msgstr "Заметки"
 
 #: apps/dca/models.py:34
 msgid "DCA Strategy"
-msgstr ""
+msgstr "Стратегия DCA"
 
 #: apps/dca/models.py:35 apps/export_app/forms.py:150
 msgid "DCA Strategies"
-msgstr ""
+msgstr "Стратегии DCA"
 
 #: apps/dca/models.py:156
 msgid "Strategy"
-msgstr ""
+msgstr "Стратегия"
 
 #: apps/dca/models.py:160 templates/dca/fragments/strategy/details.html:51
 msgid "Amount Paid"
-msgstr ""
+msgstr "Сумма платежа"
 
 #: apps/dca/models.py:163 templates/dca/fragments/strategy/details.html:50
 msgid "Amount Received"
-msgstr ""
+msgstr "Полученная сумма"
 
 #: apps/dca/models.py:186
 msgid "DCA Entry"
@@ -784,37 +794,37 @@ msgstr ""
 
 #: apps/dca/models.py:187 apps/export_app/forms.py:151
 msgid "DCA Entries"
-msgstr ""
+msgstr "Записи DCA"
 
 #: apps/dca/views.py:38
 msgid "DCA Strategy added successfully"
-msgstr ""
+msgstr "Стратегия DCA успешно добавлена"
 
 #: apps/dca/views.py:75
 msgid "DCA Strategy updated successfully"
-msgstr ""
+msgstr "Стратегия DCA успешно обновлена"
 
 #: apps/dca/views.py:107
 msgid "DCA strategy deleted successfully"
-msgstr ""
+msgstr "Стратегия DCA успешно удалена"
 
 #: apps/dca/views.py:237
 msgid "Entry added successfully"
-msgstr ""
+msgstr "Запись успешно добавлена"
 
 #: apps/dca/views.py:264
 msgid "Entry updated successfully"
-msgstr ""
+msgstr "Запись успешно обновлена"
 
 #: apps/dca/views.py:290
 msgid "Entry deleted successfully"
-msgstr ""
+msgstr "Запись успешно удалена"
 
 #: apps/export_app/forms.py:13 apps/export_app/forms.py:128
 #: templates/includes/sidebar.html:221 templates/users/fragments/list.html:10
 #: templates/users/pages/index.html:4
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
 #: apps/export_app/forms.py:31 apps/export_app/forms.py:134
 #: apps/transactions/models.py:379 templates/includes/sidebar.html:81
@@ -823,7 +833,7 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Транзакции"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
@@ -833,7 +843,7 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:13
 #: templates/insights/fragments/year_by_year.html:16
 msgid "Categories"
-msgstr ""
+msgstr "Категории"
 
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
@@ -851,33 +861,33 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:35
 #: templates/insights/fragments/year_by_year.html:38
 msgid "Entities"
-msgstr ""
+msgstr "Объекты"
 
 #: apps/export_app/forms.py:55 apps/export_app/forms.py:137
 #: apps/transactions/models.py:825 templates/includes/sidebar.html:110
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
-msgstr ""
+msgstr "Повторяющиеся транзакции"
 
 #: apps/export_app/forms.py:61 apps/export_app/forms.py:135
 #: apps/transactions/models.py:601 templates/includes/sidebar.html:104
 #: templates/installment_plans/fragments/list.html:9
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
-msgstr ""
+msgstr "Планы рассрочки"
 
 #: apps/export_app/forms.py:73 apps/export_app/forms.py:140
 #: templates/exchange_rates_services/fragments/list.html:10
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/sidebar.html:212
 msgid "Automatic Exchange Rates"
-msgstr ""
+msgstr "Автоматические обменные курсы"
 
 #: apps/export_app/forms.py:79 templates/includes/sidebar.html:192
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
 msgid "Rules"
-msgstr ""
+msgstr "Правила"
 
 #: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:57
 msgid "DCA"
@@ -887,80 +897,82 @@ msgstr ""
 #: templates/import_app/fragments/profiles/list.html:21
 #: templates/import_app/pages/profiles_index.html:4
 msgid "Import Profiles"
-msgstr ""
+msgstr "Импорт профилей"
 
 #: apps/export_app/forms.py:117 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:13
 msgid "Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: apps/export_app/forms.py:125
 msgid "Import a ZIP file exported from WYGIWYH"
-msgstr ""
+msgstr "Импорт ZIP-файла, экспортированного из WYGIWYH"
 
 #: apps/export_app/forms.py:126
 msgid "ZIP File"
-msgstr ""
+msgstr "ZIP File"
 
 #: apps/export_app/forms.py:143 apps/rules/models.py:27
 msgid "Transaction rules"
-msgstr ""
+msgstr "Правила транзакций"
 
 #: apps/export_app/forms.py:145 apps/rules/models.py:68
 msgid "Edit transaction action"
-msgstr ""
+msgstr "Редактировать действие транзакции"
 
 #: apps/export_app/forms.py:148 apps/rules/models.py:327
 msgid "Update or create transaction actions"
-msgstr ""
+msgstr "Обновление или создание действий транзакции"
 
 #: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:224
 #: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
 msgid "Restore"
-msgstr ""
+msgstr "Восстановить"
 
 #: apps/export_app/forms.py:191
 msgid "Please upload either a ZIP file or at least one CSV file"
-msgstr ""
+msgstr "Пожалуйста, загрузите либо ZIP-файл, либо хотя бы один CSV-файл"
 
 #: apps/export_app/views.py:177
 msgid "You have to select at least one export"
-msgstr ""
+msgstr "Необходимо выбрать как минимум один экспорт"
 
 #: apps/export_app/views.py:197
 msgid "Data restored successfully"
-msgstr ""
+msgstr "Данные успешно восстановлены"
 
 #: apps/export_app/views.py:209
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
+"Произошла ошибка при восстановлении ваших данных. Для получения более "
+"подробной информации проверьте журналы."
 
 #: apps/import_app/forms.py:44
 msgid "Select a file"
-msgstr ""
+msgstr "Выберите файл"
 
 #: apps/import_app/forms.py:55
 #: templates/import_app/fragments/profiles/list.html:57
 #: templates/includes/sidebar.html:198
 msgid "Import"
-msgstr ""
+msgstr "Импорт"
 
 #: apps/import_app/models.py:15
 msgid "YAML Configuration"
-msgstr ""
+msgstr "Конфигурация YAML"
 
 #: apps/import_app/models.py:19
 #: templates/import_app/fragments/profiles/list.html:35
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 #: apps/import_app/models.py:30
 #, python-brace-format
 msgid "Version {number}"
-msgstr ""
+msgstr "Версия {number}"
 
 #: apps/import_app/models.py:39
 msgid "Invalid YAML Configuration: "
@@ -968,49 +980,49 @@ msgstr ""
 
 #: apps/import_app/models.py:45
 msgid "Queued"
-msgstr ""
+msgstr "В очереди"
 
 #: apps/import_app/models.py:46
 msgid "Processing"
-msgstr ""
+msgstr "Обработка"
 
 #: apps/import_app/models.py:47
 msgid "Failed"
-msgstr ""
+msgstr "Неудача"
 
 #: apps/import_app/models.py:48
 #: templates/installment_plans/fragments/list.html:19
 #: templates/recurring_transactions/fragments/list.html:20
 msgid "Finished"
-msgstr ""
+msgstr "Завершено"
 
 #: apps/import_app/models.py:54
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: apps/import_app/models.py:62
 msgid "File name"
-msgstr ""
+msgstr "Имя файла"
 
 #: apps/import_app/views.py:67
 msgid "Import Profile added successfully"
-msgstr ""
+msgstr "Профиль импорта успешно добавлен"
 
 #: apps/import_app/views.py:103
 msgid "Import Profile update successfully"
-msgstr ""
+msgstr "Обновление профиля импорта прошло успешно"
 
 #: apps/import_app/views.py:130
 msgid "Import Profile deleted successfully"
-msgstr ""
+msgstr "Импорт профиля успешно удален"
 
 #: apps/import_app/views.py:195
 msgid "Import Run queued successfully"
-msgstr ""
+msgstr "Операция импорта успешно поставлена в очередь"
 
 #: apps/import_app/views.py:222
 msgid "Run deleted successfully"
-msgstr ""
+msgstr "Запуск успешно удален"
 
 #: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:203
@@ -1020,7 +1032,7 @@ msgstr ""
 #: templates/insights/fragments/month_by_month.html:119
 #: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
-msgstr ""
+msgstr "Без категории"
 
 #: apps/insights/utils/category_explorer.py:66
 #: apps/insights/utils/category_explorer.py:145
@@ -1029,7 +1041,7 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:72
 #: templates/insights/fragments/category_explorer/charts/currency.html:72
 msgid "Current Income"
-msgstr ""
+msgstr "Текущий доход"
 
 #: apps/insights/utils/category_explorer.py:70
 #: apps/insights/utils/category_explorer.py:149
@@ -1038,7 +1050,7 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:66
 #: templates/insights/fragments/category_explorer/charts/currency.html:66
 msgid "Current Expenses"
-msgstr ""
+msgstr "Текущие расходы"
 
 #: apps/insights/utils/category_explorer.py:74
 #: apps/insights/utils/category_explorer.py:153
@@ -1047,7 +1059,7 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:78
 #: templates/insights/fragments/category_explorer/charts/currency.html:78
 msgid "Projected Income"
-msgstr ""
+msgstr "Прогнозируемый доход"
 
 #: apps/insights/utils/category_explorer.py:78
 #: apps/insights/utils/category_explorer.py:157
@@ -1056,32 +1068,32 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:60
 #: templates/insights/fragments/category_explorer/charts/currency.html:60
 msgid "Projected Expenses"
-msgstr ""
+msgstr "Прогнозируемые расходы"
 
 #: apps/insights/utils/sankey.py:133 apps/insights/utils/sankey.py:134
 #: apps/insights/utils/sankey.py:263 apps/insights/utils/sankey.py:264
 msgid "Saved"
-msgstr ""
+msgstr "Сохранено"
 
 #: apps/rules/forms.py:27
 msgid "Run on creation"
-msgstr ""
+msgstr "Выполнить при создании"
 
 #: apps/rules/forms.py:28
 msgid "Run on update"
-msgstr ""
+msgstr "Запустить при обновлении"
 
 #: apps/rules/forms.py:29
 msgid "Run on delete"
-msgstr ""
+msgstr "Выполнить при удалении"
 
 #: apps/rules/forms.py:30
 msgid "If..."
-msgstr ""
+msgstr "Если..."
 
 #: apps/rules/forms.py:53
 msgid "You can add actions to this rule in the next screen."
-msgstr ""
+msgstr "На следующем экране вы сможете добавить действия к этому правилу."
 
 #: apps/rules/forms.py:76
 msgid "Set field"
