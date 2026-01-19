@@ -8,19 +8,21 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-10 20:50+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-01-19 09:24+0000\n"
+"Last-Translator: Andrei Kamianets <kamenandroid@gmail.com>\n"
+"Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
+"app/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
-msgstr ""
+msgstr "Имя группы"
 
 #: apps/accounts/forms.py:39 apps/accounts/forms.py:105
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:87
@@ -35,7 +37,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: apps/accounts/forms.py:45 apps/accounts/forms.py:111
 #: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:59
@@ -49,15 +51,15 @@ msgstr ""
 #: apps/users/forms.py:228 apps/users/forms.py:386
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: apps/accounts/forms.py:53 templates/accounts/fragments/list.html:23
 msgid "Group"
-msgstr ""
+msgstr "Группа"
 
 #: apps/accounts/forms.py:119
 msgid "New balance"
-msgstr ""
+msgstr "Новый баланс"
 
 #: apps/accounts/forms.py:125 apps/dca/forms.py:79 apps/dca/forms.py:86
 #: apps/insights/forms.py:117 apps/rules/forms.py:181 apps/rules/forms.py:197
@@ -73,7 +75,7 @@ msgstr ""
 #: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 #: apps/accounts/forms.py:132 apps/dca/forms.py:95 apps/dca/forms.py:103
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
@@ -92,7 +94,7 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:27
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
 msgid "Tags"
-msgstr ""
+msgstr "Тэг"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
@@ -112,41 +114,43 @@ msgstr ""
 #: templates/tags/fragments/table.html:17
 #: templates/users/fragments/list.html:26
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: apps/accounts/models.py:18 apps/accounts/models.py:33
 msgid "Account Group"
-msgstr ""
+msgstr "Группа счетов"
 
 #: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:9
 #: templates/account_groups/pages/index.html:4
 #: templates/includes/sidebar.html:170
 msgid "Account Groups"
-msgstr ""
+msgstr "Группы счетов"
 
 #: apps/accounts/models.py:39 apps/currencies/models.py:44
 #: templates/accounts/fragments/list.html:24
 #: templates/yearly_overview/pages/yearly_overview_base.html:19
 msgid "Currency"
-msgstr ""
+msgstr "Валюта"
 
 #: apps/accounts/models.py:45 apps/currencies/models.py:27
 #: templates/accounts/fragments/list.html:25
 msgid "Exchange Currency"
-msgstr ""
+msgstr "Обмен валюты"
 
 #: apps/accounts/models.py:50 apps/currencies/models.py:32
 msgid "Default currency for exchange calculations"
-msgstr ""
+msgstr "Валюта по умолчанию для расчетов обмена валют"
 
 #: apps/accounts/models.py:55
 msgid "Asset account"
-msgstr ""
+msgstr "Счет активов"
 
 #: apps/accounts/models.py:57
 msgid ""
 "Asset accounts count towards your Net Worth, but not towards your month."
 msgstr ""
+"Активы, находящиеся на счетах, учитываются при расчете вашего чистого "
+"капитала, но не в ежемесячном исчислении."
 
 #: apps/accounts/models.py:62 apps/currencies/models.py:37
 #: templates/accounts/fragments/list.html:27
@@ -155,11 +159,13 @@ msgstr ""
 #: templates/entities/fragments/list.html:20
 #: templates/tags/fragments/list.html:20
 msgid "Archived"
-msgstr ""
+msgstr "Архив"
 
 #: apps/accounts/models.py:63
 msgid "Archived accounts don't show up nor count towards your net worth"
 msgstr ""
+"Архивированные счета не отображаются и не учитываются при расчете вашего "
+"чистого капитала"
 
 #: apps/accounts/models.py:75 apps/rules/forms.py:173 apps/rules/forms.py:187
 #: apps/rules/models.py:35 apps/rules/models.py:267
@@ -173,7 +179,7 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:19
 #: templates/yearly_overview/pages/yearly_overview_base.html:23
 msgid "Account"
-msgstr ""
+msgstr "Счет"
 
 #: apps/accounts/models.py:76 apps/export_app/forms.py:19
 #: apps/export_app/forms.py:129 apps/transactions/filters.py:57
@@ -183,15 +189,15 @@ msgstr ""
 #: templates/monthly_overview/pages/overview.html:77
 #: templates/transactions/pages/transactions.html:26
 msgid "Accounts"
-msgstr ""
+msgstr "Счета"
 
 #: apps/accounts/models.py:93
 msgid "Exchange currency cannot be the same as the account's main currency."
-msgstr ""
+msgstr "Обменная валюта не может совпадать с основной валютой счета."
 
 #: apps/accounts/views/account_groups.py:44
 msgid "Account Group added successfully"
-msgstr ""
+msgstr "Группа счетов успешно добавлена"
 
 #: apps/accounts/views/account_groups.py:69
 #: apps/accounts/views/account_groups.py:152 apps/accounts/views/accounts.py:68
@@ -203,126 +209,127 @@ msgstr ""
 #: apps/transactions/views/entities.py:171 apps/transactions/views/tags.py:91
 #: apps/transactions/views/tags.py:171
 msgid "Only the owner can edit this"
-msgstr ""
+msgstr "Редактировать это может только владелец"
 
 #: apps/accounts/views/account_groups.py:82
 msgid "Account Group updated successfully"
-msgstr ""
+msgstr "Группа счетов успешно обновлена"
 
 #: apps/accounts/views/account_groups.py:111
 #: apps/accounts/views/accounts.py:145 apps/dca/views.py:104
 #: apps/rules/views.py:185 apps/transactions/views/categories.py:168
 #: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
 msgid "Item no longer shared with you"
-msgstr ""
+msgstr "Информация больше не предоставляется вам"
 
 #: apps/accounts/views/account_groups.py:114
 msgid "Account Group deleted successfully"
-msgstr ""
+msgstr "Группа счетов успешно удалена"
 
 #: apps/accounts/views/account_groups.py:135
 #: apps/accounts/views/accounts.py:189 apps/dca/views.py:128
 #: apps/rules/views.py:210 apps/transactions/views/categories.py:192
 #: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
-msgstr ""
+msgstr "Владелец успешно присвоен"
 
 #: apps/accounts/views/account_groups.py:165
 #: apps/accounts/views/accounts.py:119 apps/dca/views.py:158
 #: apps/rules/views.py:241 apps/transactions/views/categories.py:142
 #: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
 msgid "Configuration saved successfully"
-msgstr ""
+msgstr "Настройки успешно сохранены"
 
 #: apps/accounts/views/accounts.py:44
 msgid "Account added successfully"
-msgstr ""
+msgstr "Счет успешно добавлен"
 
 #: apps/accounts/views/accounts.py:81
 msgid "Account updated successfully"
-msgstr ""
+msgstr "Счет успешно обновлен"
 
 #: apps/accounts/views/accounts.py:148
 msgid "Account deleted successfully"
-msgstr ""
+msgstr "Счет успешно удален"
 
 #: apps/accounts/views/accounts.py:165
 msgid "Account is now tracked"
-msgstr ""
+msgstr "Счет теперь отслеживается"
 
 #: apps/accounts/views/accounts.py:168
 msgid "Account is now untracked"
-msgstr ""
+msgstr "Счет теперь не отслеживается"
 
 #: apps/accounts/views/balance.py:67
 msgid "Balance reconciliation"
-msgstr ""
+msgstr "Сверка баланса"
 
 #: apps/accounts/views/balance.py:75
 msgid "Account balances have been reconciled successfully"
-msgstr ""
+msgstr "Сверка остатков на счетах прошла успешно"
 
 #: apps/api/fields/transactions.py:31
 msgid "Category with this ID does not exist."
-msgstr ""
+msgstr "Категория с таким идентификатором не существует."
 
 #: apps/api/fields/transactions.py:41
 msgid "Invalid category data. Provide an ID or name."
-msgstr ""
+msgstr "Неверные данные категории. Укажите идентификатор или имя."
 
 #: apps/api/fields/transactions.py:74
 msgid "Tag with this ID does not exist."
-msgstr ""
+msgstr "Тэг с таким идентификатором не существует."
 
 #: apps/api/fields/transactions.py:84
 msgid "Invalid tag data. Provide an ID or name."
-msgstr ""
+msgstr "Неверные данные тега. Укажите идентификатор или имя."
 
 #: apps/api/fields/transactions.py:109
 msgid "Entity with this ID does not exist."
-msgstr ""
+msgstr "Объект с таким идентификатором не существует."
 
 #: apps/api/fields/transactions.py:119
 msgid "Invalid entity data. Provide an ID or name."
-msgstr ""
+msgstr "Неверные данные сущности. Укажите идентификатор или имя."
 
 #: apps/api/serializers/transactions.py:192
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr ""
+"Необходимо указать либо параметр 'date', либо параметр 'reference_date'."
 
 #: apps/common/admin.py:5
 msgid "Make public"
-msgstr ""
+msgstr "Опубликовать"
 
 #: apps/common/admin.py:10
 msgid "Make private"
-msgstr ""
+msgstr "Сделать приватным"
 
 #: apps/common/admin.py:20 apps/common/forms.py:34 apps/common/models.py:51
 msgid "Shared with users"
-msgstr ""
+msgstr "Доступно пользователям"
 
 #: apps/common/fields/forms/dynamic_select.py:71
 #: apps/common/fields/forms/dynamic_select.py:142
 msgid "Error creating new instance"
-msgstr ""
+msgstr "Ошибка при создании нового экземпляра"
 
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
 msgid "Ungrouped"
-msgstr ""
+msgstr "Негруппированный"
 
 #: apps/common/fields/month_year.py:30
 msgid "Invalid date format. Use YYYY-MM or YYYY-MM-DD."
-msgstr ""
+msgstr "Неверный формат даты. Используйте YYYY-MM или YYYY-MM-DD."
 
 #: apps/common/fields/month_year.py:59
 msgid "Invalid date format. Use YYYY-MM."
-msgstr ""
+msgstr "Неверный формат даты. Используйте YYYY-MM."
 
 #: apps/common/forms.py:24 apps/common/models.py:39
 msgid "Owner"
-msgstr ""
+msgstr "Владелец"
 
 #: apps/common/forms.py:27
 msgid ""
@@ -333,10 +340,11 @@ msgstr ""
 #: apps/common/forms.py:35
 msgid "Select users to share this object with"
 msgstr ""
+"Выберите пользователей с которыми будет предоставлен доступ к этому объекту"
 
 #: apps/common/forms.py:40 apps/common/models.py:45
 msgid "Visibility"
-msgstr ""
+msgstr "Видимость"
 
 #: apps/common/forms.py:43
 msgid ""
@@ -346,40 +354,40 @@ msgstr ""
 
 #: apps/common/forms.py:76 apps/users/forms.py:149
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: apps/common/forms.py:90
 msgid "You cannot share this item with its owner."
-msgstr ""
+msgstr "Вы не можете поделиться этим предметом с его владельцем."
 
 #: apps/common/models.py:29
 msgid "Private"
-msgstr ""
+msgstr "Частный"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr ""
+msgstr "Общественный"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:10
 msgid "today"
-msgstr ""
+msgstr "сегодня"
 
 #: apps/common/templatetags/natural.py:22
 msgid "tomorrow"
-msgstr ""
+msgstr "завтра"
 
 #: apps/common/templatetags/natural.py:24
 msgid "yesterday"
-msgstr ""
+msgstr "вчера"
 
 #: apps/common/templatetags/natural.py:26
 msgid "last 7 days"
-msgstr ""
+msgstr "последние 7 дней"
 
 #: apps/common/templatetags/natural.py:28
 msgid "in the next 7 days"
-msgstr ""
+msgstr "в течение следующих 7 дней"
 
 #: apps/common/templatetags/natural.py:31
 #, python-format
@@ -425,37 +433,37 @@ msgstr[1] ""
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
-msgstr ""
+msgstr "Успех"
 
 #: apps/common/templatetags/toast_bg.py:36
 msgid "Warning"
-msgstr ""
+msgstr "Предупреждение"
 
 #: apps/common/templatetags/toast_bg.py:38
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: apps/common/templatetags/toast_bg.py:40
 msgid "Info"
-msgstr ""
+msgstr "Информация"
 
 #: apps/common/views.py:118
 msgid "Cache cleared successfully"
-msgstr ""
+msgstr "Кэш успешно очищен"
 
 #: apps/common/widgets/datepicker.py:56 apps/common/widgets/datepicker.py:209
 #: apps/common/widgets/datepicker.py:267
 #: templates/common/fragments/month_year_picker.html:37
 msgid "Today"
-msgstr ""
+msgstr "Сегодня"
 
 #: apps/common/widgets/datepicker.py:142
 msgid "Now"
-msgstr ""
+msgstr "Сейчас"
 
 #: apps/common/widgets/tom_select.py:11
 msgid "Remove"
-msgstr ""
+msgstr "Удалить"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:180
@@ -464,19 +472,19 @@ msgstr ""
 #: templates/transactions/pages/transactions.html:225
 #: templates/transactions/pages/transactions.html:237
 msgid "Clear"
-msgstr ""
+msgstr "Очистить"
 
 #: apps/common/widgets/tom_select.py:16
 msgid "No results..."
-msgstr ""
+msgstr "Нет результатов..."
 
 #: apps/currencies/forms.py:16 apps/currencies/models.py:22
 msgid "Prefix"
-msgstr ""
+msgstr "Префикс"
 
 #: apps/currencies/forms.py:17 apps/currencies/models.py:23
 msgid "Suffix"
-msgstr ""
+msgstr "Суффикс"
 
 #: apps/currencies/forms.py:66 apps/dca/models.py:158 apps/rules/forms.py:176
 #: apps/rules/forms.py:190 apps/rules/models.py:38 apps/rules/models.py:279
@@ -486,19 +494,19 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:10
 #: templates/exchange_rates_services/fragments/table.html:11
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: apps/currencies/models.py:14
 msgid "Currency Code"
-msgstr ""
+msgstr "Код валюты"
 
 #: apps/currencies/models.py:16
 msgid "Currency Name"
-msgstr ""
+msgstr "Имя валюты"
 
 #: apps/currencies/models.py:20
 msgid "Decimal Places"
-msgstr ""
+msgstr "Десятичные знаки"
 
 #: apps/currencies/models.py:45 apps/export_app/forms.py:25
 #: apps/export_app/forms.py:130 apps/transactions/filters.py:64
@@ -508,63 +516,63 @@ msgstr ""
 #: templates/monthly_overview/pages/overview.html:63
 #: templates/transactions/pages/transactions.html:12
 msgid "Currencies"
-msgstr ""
+msgstr "Валюты"
 
 #: apps/currencies/models.py:54
 msgid "Currency cannot have itself as exchange currency."
-msgstr ""
+msgstr "Валюта не может сама выступать в качестве валюты обмена."
 
 #: apps/currencies/models.py:65
 msgid "From Currency"
-msgstr ""
+msgstr "Из валюты"
 
 #: apps/currencies/models.py:71
 msgid "To Currency"
-msgstr ""
+msgstr "В валюту"
 
 #: apps/currencies/models.py:74 apps/currencies/models.py:81
 msgid "Exchange Rate"
-msgstr ""
+msgstr "Обменный курс"
 
 #: apps/currencies/models.py:76
 msgid "Date and Time"
-msgstr ""
+msgstr "Дата и время"
 
 #: apps/currencies/models.py:78 apps/users/models.py:12
 #: apps/users/models.py:497
 msgid "Auto"
-msgstr ""
+msgstr "Авто"
 
 #: apps/currencies/models.py:82 apps/export_app/forms.py:67
 #: apps/export_app/forms.py:142 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/sidebar.html:184
 msgid "Exchange Rates"
-msgstr ""
+msgstr "Обменные курсы"
 
 #: apps/currencies/models.py:94
 msgid "From and To currencies cannot be the same."
-msgstr ""
+msgstr "Валюты «откуда» и «куда» не могут совпадать."
 
 #: apps/currencies/models.py:110
 msgid "On"
-msgstr ""
+msgstr "На"
 
 #: apps/currencies/models.py:111
 msgid "Every X hours"
-msgstr ""
+msgstr "Каждые X часов"
 
 #: apps/currencies/models.py:112
 msgid "Not on"
-msgstr ""
+msgstr "Не в"
 
 #: apps/currencies/models.py:114
 msgid "Service Name"
-msgstr ""
+msgstr "Название услуги"
 
 #: apps/currencies/models.py:116
 msgid "Service Type"
-msgstr ""
+msgstr "Тип услуги"
 
 #: apps/currencies/models.py:118 apps/transactions/filters.py:27
 #: apps/transactions/models.py:218 apps/transactions/models.py:242
@@ -574,7 +582,7 @@ msgstr ""
 #: templates/recurring_transactions/fragments/list.html:16
 #: templates/tags/fragments/list.html:16 templates/users/fragments/list.html:25
 msgid "Active"
-msgstr ""
+msgstr "Активный"
 
 #: apps/currencies/models.py:123
 msgid "API Key"
