@@ -106,6 +106,17 @@ class ExcelImportSettings(BaseModel):
     sheets: list[str] | str = "*"
 
 
+class QIFImportSettings(BaseModel):
+    skip_errors: bool = Field(
+        default=False,
+        description="If True, errors during import will be logged and skipped",
+    )
+    file_type: Literal["qif"] = "qif"
+    importing: Literal["transactions"] = "transactions"
+    encoding: str = Field(default="utf-8", description="File encoding")
+    date_format: str = Field(..., description="Date format (e.g. %d/%m/%Y)")
+
+
 class ColumnMapping(BaseModel):
     source: Optional[str] | Optional[list[str]] = Field(
         default=None,
@@ -342,7 +353,7 @@ class CurrencyExchangeMapping(ColumnMapping):
 
 
 class ImportProfileSchema(BaseModel):
-    settings: CSVImportSettings | ExcelImportSettings
+    settings: CSVImportSettings | ExcelImportSettings | QIFImportSettings
     mapping: Dict[
         str,
         TransactionAccountMapping
