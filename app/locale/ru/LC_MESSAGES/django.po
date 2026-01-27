@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-10 20:50+0000\n"
-"PO-Revision-Date: 2026-01-27 08:24+0000\n"
+"PO-Revision-Date: 2026-01-27 09:24+0000\n"
 "Last-Translator: obervinov <bervinov.ob@gmail.com>\n"
 "Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
 "app/ru/>\n"
@@ -353,6 +353,9 @@ msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
+"Приватный: Отображается только для владельца и общих пользователей. Может "
+"быть изменено только владельцем<br/>Публичный: Отображается для всех "
+"пользователей. Может быть изменено только владельцем."
 
 #: apps/common/forms.py:76 apps/users/forms.py:149
 msgid "Save"
@@ -360,7 +363,7 @@ msgstr "Сохранить"
 
 #: apps/common/forms.py:90
 msgid "You cannot share this item with its owner."
-msgstr "Вы не можете поделиться этим предметом с его владельцем."
+msgstr "Вы не можете поделиться этим элементом с его владельцем."
 
 #: apps/common/models.py:29
 msgid "Private"
@@ -368,7 +371,7 @@ msgstr "Частный"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr "Общественный"
+msgstr "Общедоступный"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:10
@@ -395,43 +398,49 @@ msgstr "в течение следующих 7 дней"
 #, python-format
 msgid "%(years)s year ago"
 msgid_plural "%(years)s years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(years)s год назад"
+msgstr[1] "%(years)s года назад"
+msgstr[2] "%(years)s лет назад"
 
 #: apps/common/templatetags/natural.py:37
 #, python-format
 msgid "%(months)s month ago"
 msgid_plural "%(months)s months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(months)s месяц назад"
+msgstr[1] "%(months)s месяца назад"
+msgstr[2] "%(months)s месяцев назад"
 
 #: apps/common/templatetags/natural.py:41
 #, python-format
 msgid "%(weeks)s week ago"
 msgid_plural "%(weeks)s weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(weeks)s неделю назад"
+msgstr[1] "%(weeks)s недели назад"
+msgstr[2] "%(weeks)s недель назад"
 
 #: apps/common/templatetags/natural.py:46
 #, python-format
 msgid "in %(years)s year"
 msgid_plural "in %(years)s years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(years)s год"
+msgstr[1] "через %(years)s года"
+msgstr[2] "через %(years)s лет"
 
 #: apps/common/templatetags/natural.py:51
 #, python-format
 msgid "in %(months)s month"
 msgid_plural "in %(months)s months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(months)s месяц"
+msgstr[1] "через %(months)s месяца"
+msgstr[2] "через %(months)s месяцев"
 
 #: apps/common/templatetags/natural.py:56
 #, python-format
 msgid "in %(weeks)s week"
 msgid_plural "in %(weeks)s weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(weeks)s неделю"
+msgstr[1] "через %(weeks)s недели"
+msgstr[2] "через %(weeks)s недель"
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
@@ -588,11 +597,11 @@ msgstr "Активный"
 
 #: apps/currencies/models.py:123
 msgid "API Key"
-msgstr ""
+msgstr "API ключ"
 
 #: apps/currencies/models.py:124
 msgid "API key for the service (if required)"
-msgstr ""
+msgstr "API ключ сервиса (если необходим)"
 
 #: apps/currencies/models.py:129
 msgid "Interval Type"
