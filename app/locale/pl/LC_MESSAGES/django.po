@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-10 20:50+0000\n"
-"PO-Revision-Date: 2026-01-25 21:24+0000\n"
+"PO-Revision-Date: 2026-01-27 20:24+0000\n"
 "Last-Translator: Pawel Augustyn <pawelaugustyn15@gmail.com>\n"
 "Language-Team: Polish <https://translations.herculino.com/projects/wygiwyh/"
 "app/pl/>\n"
@@ -813,21 +813,21 @@ msgstr ""
 
 #: apps/dca/views.py:237
 msgid "Entry added successfully"
-msgstr ""
+msgstr "Pomyślnie dodano wpis"
 
 #: apps/dca/views.py:264
 msgid "Entry updated successfully"
-msgstr ""
+msgstr "Pomyślnie zaktualizowano wpis"
 
 #: apps/dca/views.py:290
 msgid "Entry deleted successfully"
-msgstr ""
+msgstr "Pomyślnie usunięto wpis"
 
 #: apps/export_app/forms.py:13 apps/export_app/forms.py:128
 #: templates/includes/sidebar.html:221 templates/users/fragments/list.html:10
 #: templates/users/pages/index.html:4
 msgid "Users"
-msgstr ""
+msgstr "Użytkownicy"
 
 #: apps/export_app/forms.py:31 apps/export_app/forms.py:134
 #: apps/transactions/models.py:379 templates/includes/sidebar.html:81
@@ -836,7 +836,7 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
 msgid "Transactions"
-msgstr ""
+msgstr "Transakcje"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/transactions/filters.py:68 templates/categories/fragments/list.html:9
@@ -846,7 +846,7 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:13
 #: templates/insights/fragments/year_by_year.html:16
 msgid "Categories"
-msgstr ""
+msgstr "Kategorie"
 
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
@@ -864,14 +864,14 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:35
 #: templates/insights/fragments/year_by_year.html:38
 msgid "Entities"
-msgstr ""
+msgstr "Encje"
 
 #: apps/export_app/forms.py:55 apps/export_app/forms.py:137
 #: apps/transactions/models.py:825 templates/includes/sidebar.html:110
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
-msgstr ""
+msgstr "Zlecenia stałe"
 
 #: apps/export_app/forms.py:61 apps/export_app/forms.py:135
 #: apps/transactions/models.py:601 templates/includes/sidebar.html:104
@@ -885,145 +885,147 @@ msgstr ""
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/sidebar.html:212
 msgid "Automatic Exchange Rates"
-msgstr ""
+msgstr "Automatyczne kursy walut"
 
 #: apps/export_app/forms.py:79 templates/includes/sidebar.html:192
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
 msgid "Rules"
-msgstr ""
+msgstr "Reguły"
 
 #: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:57
 msgid "DCA"
-msgstr ""
+msgstr "DCA"
 
 #: apps/export_app/forms.py:91 apps/export_app/forms.py:152
 #: templates/import_app/fragments/profiles/list.html:21
 #: templates/import_app/pages/profiles_index.html:4
 msgid "Import Profiles"
-msgstr ""
+msgstr "Profile importu"
 
 #: apps/export_app/forms.py:117 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:13
 msgid "Export"
-msgstr ""
+msgstr "Eksport"
 
 #: apps/export_app/forms.py:125
 msgid "Import a ZIP file exported from WYGIWYH"
-msgstr ""
+msgstr "Zaimportuj plik ZIP wyeksportowany z instancji WYGIWYH"
 
 #: apps/export_app/forms.py:126
 msgid "ZIP File"
-msgstr ""
+msgstr "Plik ZIP"
 
 #: apps/export_app/forms.py:143 apps/rules/models.py:27
 msgid "Transaction rules"
-msgstr ""
+msgstr "Reguły transakcji"
 
 #: apps/export_app/forms.py:145 apps/rules/models.py:68
 msgid "Edit transaction action"
-msgstr ""
+msgstr "Edycja akcji transakcyjnych"
 
 #: apps/export_app/forms.py:148 apps/rules/models.py:327
 msgid "Update or create transaction actions"
-msgstr ""
+msgstr "Stwórz lub uaktualnij akcje transakcyjne"
 
 #: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:224
 #: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
 msgid "Restore"
-msgstr ""
+msgstr "Importuj"
 
 #: apps/export_app/forms.py:191
 msgid "Please upload either a ZIP file or at least one CSV file"
-msgstr ""
+msgstr "Wrzuć plik ZIP lub przynajmniej jeden plik CSV"
 
 #: apps/export_app/views.py:177
 msgid "You have to select at least one export"
-msgstr ""
+msgstr "Musisz wybrać co najmniej jedną opcję do eksportu"
 
 #: apps/export_app/views.py:197
 msgid "Data restored successfully"
-msgstr ""
+msgstr "Pomyślnie odtworzono dane"
 
 #: apps/export_app/views.py:209
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
+"W trakcie przywracania danych wystąpił błąd. Przejrzyj logi, by poznać "
+"więcej szczegółów."
 
 #: apps/import_app/forms.py:44
 msgid "Select a file"
-msgstr ""
+msgstr "Wybierz plik"
 
 #: apps/import_app/forms.py:55
 #: templates/import_app/fragments/profiles/list.html:57
 #: templates/includes/sidebar.html:198
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: apps/import_app/models.py:15
 msgid "YAML Configuration"
-msgstr ""
+msgstr "Konfiguracja YAML"
 
 #: apps/import_app/models.py:19
 #: templates/import_app/fragments/profiles/list.html:35
 msgid "Version"
-msgstr ""
+msgstr "Wersja"
 
 #: apps/import_app/models.py:30
 #, python-brace-format
 msgid "Version {number}"
-msgstr ""
+msgstr "Wersja {number}"
 
 #: apps/import_app/models.py:39
 msgid "Invalid YAML Configuration: "
-msgstr ""
+msgstr "Niepoprawna konfiguracja YAML "
 
 #: apps/import_app/models.py:45
 msgid "Queued"
-msgstr ""
+msgstr "Zakolejkowany"
 
 #: apps/import_app/models.py:46
 msgid "Processing"
-msgstr ""
+msgstr "Przetwarzanie"
 
 #: apps/import_app/models.py:47
 msgid "Failed"
-msgstr ""
+msgstr "Przerwany błędem"
 
 #: apps/import_app/models.py:48
 #: templates/installment_plans/fragments/list.html:19
 #: templates/recurring_transactions/fragments/list.html:20
 msgid "Finished"
-msgstr ""
+msgstr "Zakończony"
 
 #: apps/import_app/models.py:54
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: apps/import_app/models.py:62
 msgid "File name"
-msgstr ""
+msgstr "Nazwa pliku"
 
 #: apps/import_app/views.py:67
 msgid "Import Profile added successfully"
-msgstr ""
+msgstr "Profil importu dodany pomyślnie"
 
 #: apps/import_app/views.py:103
 msgid "Import Profile update successfully"
-msgstr ""
+msgstr "Profil importu zaktualizowany pomyślnie"
 
 #: apps/import_app/views.py:130
 msgid "Import Profile deleted successfully"
-msgstr ""
+msgstr "Usunięto profil importu"
 
 #: apps/import_app/views.py:195
 msgid "Import Run queued successfully"
-msgstr ""
+msgstr "Import dodany do kolejki"
 
 #: apps/import_app/views.py:222
 msgid "Run deleted successfully"
-msgstr ""
+msgstr "Usunięto import"
 
 #: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:203
@@ -1033,7 +1035,7 @@ msgstr ""
 #: templates/insights/fragments/month_by_month.html:119
 #: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
-msgstr ""
+msgstr "Nieskategoryzowane"
 
 #: apps/insights/utils/category_explorer.py:66
 #: apps/insights/utils/category_explorer.py:145
@@ -1042,7 +1044,7 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:72
 #: templates/insights/fragments/category_explorer/charts/currency.html:72
 msgid "Current Income"
-msgstr ""
+msgstr "Dochód"
 
 #: apps/insights/utils/category_explorer.py:70
 #: apps/insights/utils/category_explorer.py:149
@@ -1051,7 +1053,7 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:66
 #: templates/insights/fragments/category_explorer/charts/currency.html:66
 msgid "Current Expenses"
-msgstr ""
+msgstr "Wydatki"
 
 #: apps/insights/utils/category_explorer.py:74
 #: apps/insights/utils/category_explorer.py:153
@@ -1060,7 +1062,7 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:78
 #: templates/insights/fragments/category_explorer/charts/currency.html:78
 msgid "Projected Income"
-msgstr ""
+msgstr "Przewidywany dochód"
 
 #: apps/insights/utils/category_explorer.py:78
 #: apps/insights/utils/category_explorer.py:157
@@ -1069,32 +1071,32 @@ msgstr ""
 #: templates/insights/fragments/category_explorer/charts/account.html:60
 #: templates/insights/fragments/category_explorer/charts/currency.html:60
 msgid "Projected Expenses"
-msgstr ""
+msgstr "Przewidywane wydatki"
 
 #: apps/insights/utils/sankey.py:133 apps/insights/utils/sankey.py:134
 #: apps/insights/utils/sankey.py:263 apps/insights/utils/sankey.py:264
 msgid "Saved"
-msgstr ""
+msgstr "Zapisano"
 
 #: apps/rules/forms.py:27
 msgid "Run on creation"
-msgstr ""
+msgstr "Uruchom po utworzeniu"
 
 #: apps/rules/forms.py:28
 msgid "Run on update"
-msgstr ""
+msgstr "Uruchom po aktualizacji"
 
 #: apps/rules/forms.py:29
 msgid "Run on delete"
-msgstr ""
+msgstr "Uruchom po usunięciu"
 
 #: apps/rules/forms.py:30
 msgid "If..."
-msgstr ""
+msgstr "Jeżeli..."
 
 #: apps/rules/forms.py:53
 msgid "You can add actions to this rule in the next screen."
-msgstr ""
+msgstr "Na następnym ekranie dodasz akcje dla tej reguły."
 
 #: apps/rules/forms.py:76
 msgid "Set field"
