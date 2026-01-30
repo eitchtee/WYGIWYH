@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-10 20:50+0000\n"
-"PO-Revision-Date: 2026-01-19 10:24+0000\n"
-"Last-Translator: Andrei Kamianets <kamenandroid@gmail.com>\n"
+"PO-Revision-Date: 2026-01-30 10:24+0000\n"
+"Last-Translator: obervinov <bervinov.ob@gmail.com>\n"
 "Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
 "app/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -336,6 +336,8 @@ msgid ""
 "The owner of this object, if empty all users can see, edit and take "
 "ownership."
 msgstr ""
+"Владелец этого объекта. Если не указан, все пользователи могут видеть, "
+"редактировать и назначать себя его владельцем."
 
 #: apps/common/forms.py:35
 msgid "Select users to share this object with"
@@ -351,6 +353,9 @@ msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
+"Приватный: Отображается только для владельца и общих пользователей. Может "
+"быть изменено только владельцем<br/>Публичный: Отображается для всех "
+"пользователей. Может быть изменено только владельцем."
 
 #: apps/common/forms.py:76 apps/users/forms.py:149
 msgid "Save"
@@ -358,7 +363,7 @@ msgstr "Сохранить"
 
 #: apps/common/forms.py:90
 msgid "You cannot share this item with its owner."
-msgstr "Вы не можете поделиться этим предметом с его владельцем."
+msgstr "Вы не можете поделиться этим элементом с его владельцем."
 
 #: apps/common/models.py:29
 msgid "Private"
@@ -366,7 +371,7 @@ msgstr "Частный"
 
 #: apps/common/models.py:30
 msgid "Public"
-msgstr "Общественный"
+msgstr "Общедоступный"
 
 #: apps/common/templatetags/natural.py:20
 #: templates/monthly_overview/fragments/monthly_summary.html:10
@@ -393,43 +398,49 @@ msgstr "в течение следующих 7 дней"
 #, python-format
 msgid "%(years)s year ago"
 msgid_plural "%(years)s years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(years)s год назад"
+msgstr[1] "%(years)s года назад"
+msgstr[2] "%(years)s лет назад"
 
 #: apps/common/templatetags/natural.py:37
 #, python-format
 msgid "%(months)s month ago"
 msgid_plural "%(months)s months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(months)s месяц назад"
+msgstr[1] "%(months)s месяца назад"
+msgstr[2] "%(months)s месяцев назад"
 
 #: apps/common/templatetags/natural.py:41
 #, python-format
 msgid "%(weeks)s week ago"
 msgid_plural "%(weeks)s weeks ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(weeks)s неделю назад"
+msgstr[1] "%(weeks)s недели назад"
+msgstr[2] "%(weeks)s недель назад"
 
 #: apps/common/templatetags/natural.py:46
 #, python-format
 msgid "in %(years)s year"
 msgid_plural "in %(years)s years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(years)s год"
+msgstr[1] "через %(years)s года"
+msgstr[2] "через %(years)s лет"
 
 #: apps/common/templatetags/natural.py:51
 #, python-format
 msgid "in %(months)s month"
 msgid_plural "in %(months)s months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(months)s месяц"
+msgstr[1] "через %(months)s месяца"
+msgstr[2] "через %(months)s месяцев"
 
 #: apps/common/templatetags/natural.py:56
 #, python-format
 msgid "in %(weeks)s week"
 msgid_plural "in %(weeks)s weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "через %(weeks)s неделю"
+msgstr[1] "через %(weeks)s недели"
+msgstr[2] "через %(weeks)s недель"
 
 #: apps/common/templatetags/toast_bg.py:34
 msgid "Success"
@@ -586,33 +597,35 @@ msgstr "Активный"
 
 #: apps/currencies/models.py:123
 msgid "API Key"
-msgstr ""
+msgstr "API ключ"
 
 #: apps/currencies/models.py:124
 msgid "API key for the service (if required)"
-msgstr ""
+msgstr "API ключ сервиса (если необходим)"
 
 #: apps/currencies/models.py:129
 msgid "Interval Type"
-msgstr ""
+msgstr "Тип интервала"
 
 #: apps/currencies/models.py:133
 msgid "Interval"
-msgstr ""
+msgstr "Интервал"
 
 #: apps/currencies/models.py:136
 msgid "Last Successful Fetch"
-msgstr ""
+msgstr "Последнее успешное получение данных"
 
 #: apps/currencies/models.py:143
 msgid "Target Currencies"
-msgstr ""
+msgstr "Целевые валюты"
 
 #: apps/currencies/models.py:145
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
 msgstr ""
+"Выберите валюты для получения обменных курсов. Курсы будут получены для "
+"каждой валюты по отношению к установленной валюте."
 
 #: apps/currencies/models.py:153
 msgid "Target Accounts"
@@ -708,7 +721,7 @@ msgstr "Сервис успешно удален"
 
 #: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
-msgstr ""
+msgstr "Службы успешно поставлены в очередь"
 
 #: apps/dca/forms.py:59 apps/dca/forms.py:158
 msgid "Create transaction"
@@ -741,7 +754,7 @@ msgstr "Ссылка на транзакцию"
 #: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
 #: apps/dca/forms.py:285
 msgid "You must provide an account."
-msgstr ""
+msgstr "Вы должны предоставить учетную запись."
 
 #: apps/dca/forms.py:290 apps/transactions/forms.py:638
 msgid "From and To accounts must be different."
