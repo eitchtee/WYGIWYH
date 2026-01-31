@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-10 20:50+0000\n"
-"PO-Revision-Date: 2026-01-28 12:24+0000\n"
+"PO-Revision-Date: 2026-01-31 09:24+0000\n"
 "Last-Translator: Pawel Augustyn <pawelaugustyn15@gmail.com>\n"
 "Language-Team: Polish <https://translations.herculino.com/projects/wygiwyh/"
 "app/pl/>\n"
@@ -636,6 +636,8 @@ msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
 msgstr ""
+"Wybierz konta dla których pobrać kursy wymiany. Będą one pobrane dla każdej "
+"z walut na podstawie jej docelowej waluty wymiany."
 
 #: apps/currencies/models.py:162
 msgid "Single exchange rate"
@@ -675,15 +677,15 @@ msgstr ""
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
-msgstr ""
+msgstr "Stworzono walutę"
 
 #: apps/currencies/views/currencies.py:70
 msgid "Currency updated successfully"
-msgstr ""
+msgstr "Zaktualizowano walutę"
 
 #: apps/currencies/views/currencies.py:96
 msgid "Currency deleted successfully"
-msgstr ""
+msgstr "Usunięto walutę"
 
 #: apps/currencies/views/exchange_rates.py:89
 msgid "Exchange rate added successfully"
@@ -757,11 +759,11 @@ msgstr ""
 
 #: apps/dca/models.py:16
 msgid "Target Currency"
-msgstr ""
+msgstr "Waluta docelowa"
 
 #: apps/dca/models.py:22
 msgid "Payment Currency"
-msgstr ""
+msgstr "Waluta dla płatności"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:180
 #: apps/rules/forms.py:196 apps/rules/models.py:43 apps/rules/models.py:295
@@ -878,7 +880,7 @@ msgstr "Zlecenia stałe"
 #: templates/installment_plans/fragments/list.html:9
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
-msgstr ""
+msgstr "Plany ratalne"
 
 #: apps/export_app/forms.py:73 apps/export_app/forms.py:140
 #: templates/exchange_rates_services/fragments/list.html:10
@@ -1650,13 +1652,13 @@ msgstr ""
 #: apps/transactions/views/quick_transactions.py:191
 #: templates/cotton/ui/transactions_fab.html:59
 msgid "Quick Transaction"
-msgstr ""
+msgstr "Szablon transakcji"
 
 #: apps/transactions/models.py:1055 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
-msgstr ""
+msgstr "Szablony transakcji"
 
 #: apps/transactions/validators.py:8
 #, python-format
@@ -1970,11 +1972,11 @@ msgstr "Podsumowanie roczne wg kont"
 
 #: apps/users/models.py:467 templates/net_worth/net_worth.html:9
 msgid "Current Net Worth"
-msgstr "Obecny majątek"
+msgstr "Obecne aktywa"
 
 #: apps/users/models.py:468 templates/net_worth/net_worth.html:11
 msgid "Projected Net Worth"
-msgstr "Przewidywany majątek"
+msgstr "Przewidywane aktywa"
 
 #: apps/users/models.py:469
 msgid "All Transactions"
@@ -2281,7 +2283,7 @@ msgstr "NIE"
 
 #: templates/calendar_view/fragments/list_transactions.html:5
 msgid "Transactions on"
-msgstr ""
+msgstr "Transakcje z dnia"
 
 #: templates/calendar_view/fragments/list_transactions.html:13
 msgid "No transactions on this date"
@@ -2348,7 +2350,7 @@ msgstr ""
 
 #: templates/cotton/transaction/item.html:205
 msgid "Add as quick transaction"
-msgstr ""
+msgstr "Dodaj jako szablon transakcji"
 
 #: templates/cotton/transaction/item.html:210
 msgid "Move to previous month"
@@ -2489,7 +2491,7 @@ msgstr ""
 
 #: templates/cotton/ui/transactions_action_bar.html:46
 msgid "Invert selection"
-msgstr ""
+msgstr "Odwróć zaznaczenie"
 
 #: templates/cotton/ui/transactions_action_bar.html:66
 msgid "Mark as unpaid"
@@ -2501,11 +2503,11 @@ msgstr ""
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
-msgstr ""
+msgstr "Dodaj walutę"
 
 #: templates/currencies/fragments/edit.html:5
 msgid "Edit currency"
-msgstr ""
+msgstr "Edytuj walutę"
 
 #: templates/currencies/fragments/list.html:22
 msgid "Code"
@@ -2670,7 +2672,7 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:49
 #: templates/exchange_rates_services/fragments/table.html:50
 msgid "No exchange rates"
-msgstr ""
+msgstr "Brak kursów wymiany walut"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
@@ -2680,7 +2682,7 @@ msgstr ""
 
 #: templates/exchange_rates_services/fragments/list.html:17
 msgid "Fetch all"
-msgstr ""
+msgstr "Pobierz wszystkie"
 
 #: templates/exchange_rates_services/fragments/list.html:29
 msgid "Service"
@@ -2712,11 +2714,11 @@ msgstr ""
 
 #: templates/exchange_rates_services/fragments/list.html:77
 msgid "No services configured"
-msgstr ""
+msgstr "Nie zdefiniowano serwisów"
 
 #: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:205
 msgid "Export and Restore"
-msgstr ""
+msgstr "Eksport i przywracanie"
 
 #: templates/import_app/fragments/profiles/add.html:6
 msgid "Add new import profile"
@@ -2740,7 +2742,7 @@ msgstr ""
 
 #: templates/import_app/fragments/profiles/list.html:51
 msgid "Runs"
-msgstr ""
+msgstr "Zlecone importy"
 
 #: templates/import_app/fragments/profiles/list.html:80
 msgid "No import profiles"
@@ -2764,27 +2766,27 @@ msgstr ""
 
 #: templates/import_app/fragments/runs/list.html:5
 msgid "Runs for"
-msgstr ""
+msgstr "Zlecone importy dla"
 
 #: templates/import_app/fragments/runs/list.html:29
 msgid "Total Items"
-msgstr ""
+msgstr "Łącznie encji"
 
 #: templates/import_app/fragments/runs/list.html:42
 msgid "Processed Items"
-msgstr ""
+msgstr "Przeprocesowano"
 
 #: templates/import_app/fragments/runs/list.html:55
 msgid "Skipped Items"
-msgstr ""
+msgstr "Pominięto"
 
 #: templates/import_app/fragments/runs/list.html:68
 msgid "Failed Items"
-msgstr ""
+msgstr "Liczba błędów"
 
 #: templates/import_app/fragments/runs/list.html:81
 msgid "Successful Items"
-msgstr ""
+msgstr "Pomyślnie przetworzono"
 
 #: templates/import_app/fragments/runs/list.html:95
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:7
@@ -2794,10 +2796,11 @@ msgstr ""
 #: templates/import_app/fragments/runs/list.html:105
 msgid "You won't be able to revert this! All imported items will be kept."
 msgstr ""
+"Nie da się tego odwrócić! Wszystkie zaimportowane encje zostaną zachowane."
 
 #: templates/import_app/fragments/runs/list.html:114
 msgid "No runs yet"
-msgstr ""
+msgstr "Brak zleconych importów"
 
 #: templates/import_app/fragments/runs/log.html:5
 msgid "Logs for"
@@ -2809,7 +2812,7 @@ msgstr ""
 
 #: templates/includes/navbar/user_menu.html:4
 msgid "Toggle theme"
-msgstr ""
+msgstr "Przełącz motyw"
 
 #: templates/includes/navbar/user_menu.html:31
 msgid "Settings"
@@ -2821,7 +2824,7 @@ msgstr ""
 
 #: templates/includes/navbar/user_menu.html:63
 msgid "Clear cache"
-msgstr ""
+msgstr "Wyczyść cache"
 
 #: templates/includes/navbar/user_menu.html:67
 msgid "Logout"
@@ -2854,11 +2857,11 @@ msgstr ""
 
 #: templates/includes/sidebar.html:69 templates/insights/pages/index.html:5
 msgid "Insights"
-msgstr "Wgląd"
+msgstr "Podsumowanie"
 
 #: templates/includes/sidebar.html:75
 msgid "Net Worth"
-msgstr ""
+msgstr "Aktywa"
 
 #: templates/includes/sidebar.html:91
 msgid "Trash Can"
@@ -2866,7 +2869,7 @@ msgstr ""
 
 #: templates/includes/sidebar.html:116
 msgid "Tools"
-msgstr ""
+msgstr "Narzędzia"
 
 #: templates/includes/sidebar.html:118
 msgid "Dollar Cost Average Tracker"
@@ -2876,17 +2879,17 @@ msgstr ""
 #: templates/mini_tools/unit_price_calculator.html:4
 #: templates/mini_tools/unit_price_calculator.html:9
 msgid "Unit Price Calculator"
-msgstr ""
+msgstr "Kalkulator ceny jednostkowej"
 
 #: templates/includes/sidebar.html:130
 #: templates/mini_tools/currency_converter/currency_converter.html:7
 #: templates/mini_tools/currency_converter/currency_converter.html:14
 msgid "Currency Converter"
-msgstr ""
+msgstr "Kalkulator walut"
 
 #: templates/includes/sidebar.html:139
 msgid "Management"
-msgstr ""
+msgstr "Zarządzanie"
 
 #: templates/includes/sidebar.html:190
 msgid "Automation"
@@ -2910,7 +2913,7 @@ msgstr ""
 
 #: templates/includes/sidebar.html:251
 msgid "Calculator"
-msgstr ""
+msgstr "Kalkulator"
 
 #: templates/insights/fragments/category_explorer/charts/account.html:100
 #: templates/insights/fragments/category_explorer/charts/currency.html:92
@@ -3169,7 +3172,7 @@ msgstr ""
 
 #: templates/installment_plans/fragments/table.html:87
 msgid "No installment plans"
-msgstr ""
+msgstr "Brak planów ratalnych"
 
 #: templates/layouts/base.html:37
 msgid "This is a demo!"
@@ -3181,31 +3184,31 @@ msgstr ""
 
 #: templates/mini_tools/currency_converter/currency_converter.html:57
 msgid "Invert"
-msgstr ""
+msgstr "Zamień"
 
 #: templates/mini_tools/unit_price_calculator.html:25
 #: templates/mini_tools/unit_price_calculator.html:102
 #: templates/mini_tools/unit_price_calculator.html:129
 msgid "Item price"
-msgstr ""
+msgstr "Kwota"
 
 #: templates/mini_tools/unit_price_calculator.html:31
 #: templates/mini_tools/unit_price_calculator.html:108
 #: templates/mini_tools/unit_price_calculator.html:135
 msgid "Item amount"
-msgstr ""
+msgstr "Liczba sztuk"
 
 #: templates/mini_tools/unit_price_calculator.html:37
 #: templates/mini_tools/unit_price_calculator.html:114
 #: templates/mini_tools/unit_price_calculator.html:141
 msgid "Unit price"
-msgstr ""
+msgstr "Cena jednostkowa"
 
 #: templates/mini_tools/unit_price_calculator.html:96
 #: templates/mini_tools/unit_price_calculator.html:123
 #: templates/mini_tools/unit_price_calculator.html:164
 msgid "Item"
-msgstr ""
+msgstr "Przedmiot"
 
 #: templates/monthly_overview/fragments/list.html:15
 #: templates/transactions/fragments/list_all.html:15
@@ -3228,13 +3231,13 @@ msgstr "Jest to łączna suma podzielona przez liczbę dni do końca miesiąca"
 #: templates/monthly_overview/fragments/monthly_summary.html:107
 #: templates/monthly_overview/fragments/monthly_summary.html:170
 msgid "current"
-msgstr "obecny"
+msgstr "obecne"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:73
 #: templates/monthly_overview/fragments/monthly_summary.html:136
 #: templates/monthly_overview/fragments/monthly_summary.html:199
 msgid "projected"
-msgstr "przewidywany"
+msgstr "przewidywane"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:104
 msgid "Expenses"
@@ -3301,7 +3304,7 @@ msgstr "Ewolucja wg kont"
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
 msgid "Add quick transaction"
-msgstr ""
+msgstr "Dodaj szablon transakcji"
 
 #: templates/quick_transactions/fragments/create_menu.html:17
 #: templates/quick_transactions/fragments/list.html:66
@@ -3310,11 +3313,11 @@ msgstr ""
 
 #: templates/quick_transactions/fragments/edit.html:5
 msgid "Edit quick transaction"
-msgstr ""
+msgstr "Edytuj szablon transakcji"
 
 #: templates/quick_transactions/fragments/list.html:38
 msgid "This will delete this item"
-msgstr ""
+msgstr "To usunie tę rzecz"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
@@ -3537,7 +3540,7 @@ msgstr ""
 
 #: templates/users/fragments/edit.html:5
 msgid "Edit user"
-msgstr ""
+msgstr "Edytuj użytkownika"
 
 #: templates/users/fragments/list.html:27
 msgid "Email"
@@ -3557,7 +3560,7 @@ msgstr ""
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
-msgstr ""
+msgstr "Ukryj kwoty"
 
 #: templates/users/generic/mute_sounds.html:2
 msgid "Mute sounds"
@@ -3569,7 +3572,7 @@ msgstr ""
 
 #: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
-msgstr ""
+msgstr "Pokaż kwoty"
 
 #: templates/users/login.html:16
 msgid "Welcome to WYGIWYH's demo!"
