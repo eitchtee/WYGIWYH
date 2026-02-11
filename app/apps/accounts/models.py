@@ -82,14 +82,6 @@ class Account(SharedObject):
         unique_together = (("owner", "name"),)
         ordering = ["name", "id"]
 
-        constraints = [
-            models.UniqueConstraint(
-                fields=["owner"],
-                condition=models.Q(is_default=True),
-                name="unique_default_account_per_owner",
-            )
-        ]
-
     def __str__(self):
         return self.name
 
