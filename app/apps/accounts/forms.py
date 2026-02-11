@@ -64,6 +64,7 @@ class AccountForm(forms.ModelForm):
             "exchange_currency",
             "is_asset",
             "is_archived",
+            "is_default",
         ]
         widgets = {
             "currency": TomSelect(),
@@ -95,6 +96,7 @@ class AccountForm(forms.ModelForm):
             "group",
             Switch("is_asset"),
             Switch("is_archived"),
+            Switch("is_default"),
             "currency",
             "exchange_currency",
         )
