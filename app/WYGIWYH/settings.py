@@ -449,7 +449,7 @@ SPECTACULAR_SETTINGS = {
 if "procrastinate" in sys.argv:
     LOGGING = {
         "version": 1,
-        "disable_existing_loggers": False,
+        "disable_existing_loggers": True,
         "formatters": {
             "standard": {
                 "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s",
@@ -457,26 +457,19 @@ if "procrastinate" in sys.argv:
             },
         },
         "handlers": {
-            "procrastinate": {
-                "level": "INFO",
-                "class": "logging.StreamHandler",
-                "formatter": "standard",
-            },
             "console": {
                 "class": "logging.StreamHandler",
                 "formatter": "standard",
                 "level": "INFO",
             },
         },
+        "root": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
         "loggers": {
             "procrastinate": {
-                "handlers": ["procrastinate"],
-                "propagate": False,
-            },
-            "root": {
-                "handlers": ["console"],
                 "level": "INFO",
-                "propagate": False,
             },
         },
     }
@@ -496,19 +489,20 @@ else:
                 "formatter": "standard",
                 "level": "INFO",
             },
-            "procrastinate": {
-                "level": "INFO",
-                "class": "logging.StreamHandler",
-            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": "INFO",
         },
         "loggers": {
             "procrastinate": {
-                "handlers": None,
+                "handlers": [],
                 "propagate": False,
             },
-            "root": {
+            "allauth": {
                 "handlers": ["console"],
-                "level": "INFO",
+                "level": "DEBUG",
+                "propagate": False,
             },
         },
     }
