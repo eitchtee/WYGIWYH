@@ -390,6 +390,10 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = int(os.getenv("SESSION_EXPIRY_TIME", 2678400))  # 31 days
 SESSION_COOKIE_SECURE = os.getenv("HTTPS_ENABLED", "false").lower() == "true"
 
+HTTPS_ENABLED = os.getenv("HTTPS_ENABLED", "false").lower() == "true"
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https" if HTTPS_ENABLED else "http"
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https") if HTTPS_ENABLED else None
+
 DEBUG_TOOLBAR_CONFIG = {
     "ROOT_TAG_EXTRA_ATTRS": "hx-preserve",
     # "SHOW_TOOLBAR_CALLBACK": lambda r: False,  # disables it
@@ -458,7 +462,7 @@ SPECTACULAR_SETTINGS = {
 if "procrastinate" in sys.argv:
     LOGGING = {
         "version": 1,
-        "disable_existing_loggers": False,
+        "disable_existing_loggers": True,
         "formatters": {
             "standard": {
                 "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s",
@@ -466,26 +470,19 @@ if "procrastinate" in sys.argv:
             },
         },
         "handlers": {
-            "procrastinate": {
-                "level": "INFO",
-                "class": "logging.StreamHandler",
-                "formatter": "standard",
-            },
             "console": {
                 "class": "logging.StreamHandler",
                 "formatter": "standard",
                 "level": "INFO",
             },
         },
+        "root": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
         "loggers": {
             "procrastinate": {
-                "handlers": ["procrastinate"],
-                "propagate": False,
-            },
-            "root": {
-                "handlers": ["console"],
                 "level": "INFO",
-                "propagate": False,
             },
         },
     }
@@ -505,19 +502,20 @@ else:
                 "formatter": "standard",
                 "level": "INFO",
             },
-            "procrastinate": {
-                "level": "INFO",
-                "class": "logging.StreamHandler",
-            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": "INFO",
         },
         "loggers": {
             "procrastinate": {
-                "handlers": None,
+                "handlers": [],
                 "propagate": False,
             },
-            "root": {
+            "allauth": {
                 "handlers": ["console"],
-                "level": "INFO",
+                "level": "DEBUG",
+                "propagate": False,
             },
         },
     }
