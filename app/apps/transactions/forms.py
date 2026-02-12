@@ -116,6 +116,9 @@ class TransactionForm(forms.ModelForm):
             self.fields["account"].queryset = Account.objects.filter(
                 is_archived=False,
             )
+            default_account = Account.objects.filter(is_archived=False, is_default=True).first()
+            if default_account:
+                self.fields["account"].initial = default_account.pk
 
             self.fields["category"].queryset = TransactionCategory.objects.filter(
                 active=True
@@ -768,6 +771,9 @@ class InstallmentPlanForm(forms.ModelForm):
             ).distinct()
         else:
             self.fields["account"].queryset = Account.objects.filter(is_archived=False)
+            default_account = Account.objects.filter(is_archived=False, is_default=True).first()
+            if default_account:
+                self.fields["account"].initial = default_account.pk
 
             self.fields["category"].queryset = TransactionCategory.objects.filter(
                 active=True
@@ -1010,6 +1016,10 @@ class RecurringTransactionForm(forms.ModelForm):
             ).distinct()
         else:
             self.fields["account"].queryset = Account.objects.filter(is_archived=False)
+            
+            default_account = Account.objects.filter(is_archived=False, is_default=True).first()
+            if default_account:
+                self.fields["account"].initial = default_account.pk
 
             self.fields["category"].queryset = TransactionCategory.objects.filter(
                 active=True

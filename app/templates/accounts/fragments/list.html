@@ -78,7 +78,7 @@
                        _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
                   </div>
                 </td>
-                <td>{{ account.name }}</td>
+                <td>{{ account.name }}{% if account.is_default %} <i class="fa-solid fa-solid fa-check text-success" data-tippy-content="{% translate "Default" %}"></i>{% endif %}</td>
                 <td>{{ account.group.name }}</td>
                 <td>{{ account.currency }}</td>
                 <td>{% if account.exchange_currency %}{{ account.exchange_currency }}{% else %}-{% endif %}</td>

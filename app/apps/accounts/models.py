@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.db import models
+from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.middleware.thread_local import get_current_user
@@ -62,6 +62,11 @@ class Account(SharedObject):
         verbose_name=_("Archived"),
         help_text=_("Archived accounts don't show up nor count towards your net worth"),
     )
+    is_default = models.BooleanField(
+        default=False,
+        verbose_name=_("Default"),
+        help_text=_("Use as a default account when adding new transactions"),
+    )
     untracked_by = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         blank=True,
@@ -94,3 +99,11 @@ class Account(SharedObject):
                     )
                 }
             )
+
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            if self.is_archived:
+                self.is_default = False
+            if self.is_default:
+                Account.objects.filter(owner_id=self.owner_id, is_default=True).exclude(pk=self.pk).update(is_default=False)
+            super().save(*args, **kwargs)
