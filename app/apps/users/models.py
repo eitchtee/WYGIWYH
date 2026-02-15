@@ -510,6 +510,12 @@ class UserSettings(models.Model):
         default=StartPage.MONTHLY,
         verbose_name=_("Start page"),
     )
+    default_account = models.ForeignKey(
+        "accounts.Account", on_delete=models.SET_NULL,
+        verbose_name=_("Default account"),
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return f"{self.user.email}'s settings"
