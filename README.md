@@ -157,6 +157,13 @@ WYGIWYH supports login via OpenID Connect (OIDC) through `django-allauth`. This 
 > [!NOTE]
 > Currently only OpenID Connect is supported as a provider, open an issue if you need something else.
 
+> [!Caution]
+> WYGIWYH automatically connects OIDC accounts to existing local accounts with matching email addresses.
+> This means if a user already exists with email `user@example.com` and someone logs in via OIDC with the same email, the OIDC account will be automatically linked to the existing account without requiring user confirmation.
+> This is only recommended for trusted OIDC providers that verify email addresses and where you control who can create accounts.
+
+### Configuration
+
 To configure OIDC, you need to set the following environment variables:
 
 | Variable             | Description                                                                                                                                                                                                                                            |
