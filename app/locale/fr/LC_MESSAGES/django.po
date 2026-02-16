@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-15 14:37+0000\n"
+"POT-Creation-Date: 2026-02-16 02:24+0000\n"
 "PO-Revision-Date: 2026-01-14 22:24+0000\n"
 "Last-Translator: sorcierwax <freakywax@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
@@ -27,12 +27,12 @@ msgstr "Nom du groupe"
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:87
 #: apps/currencies/forms.py:136 apps/dca/forms.py:46 apps/dca/forms.py:205
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
-#: apps/rules/forms.py:385 apps/transactions/forms.py:197
-#: apps/transactions/forms.py:361 apps/transactions/forms.py:480
-#: apps/transactions/forms.py:821 apps/transactions/forms.py:860
-#: apps/transactions/forms.py:888 apps/transactions/forms.py:919
-#: apps/transactions/forms.py:1065 apps/users/forms.py:222
-#: apps/users/forms.py:380
+#: apps/rules/forms.py:385 apps/transactions/forms.py:201
+#: apps/transactions/forms.py:365 apps/transactions/forms.py:484
+#: apps/transactions/forms.py:828 apps/transactions/forms.py:867
+#: apps/transactions/forms.py:895 apps/transactions/forms.py:926
+#: apps/transactions/forms.py:1076 apps/users/forms.py:242
+#: apps/users/forms.py:400
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -43,11 +43,11 @@ msgstr "Mise à jour"
 #: apps/currencies/forms.py:93 apps/currencies/forms.py:142
 #: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
-#: apps/transactions/forms.py:184 apps/transactions/forms.py:204
-#: apps/transactions/forms.py:368 apps/transactions/forms.py:827
-#: apps/transactions/forms.py:866 apps/transactions/forms.py:894
-#: apps/transactions/forms.py:925 apps/transactions/forms.py:1071
-#: apps/users/forms.py:228 apps/users/forms.py:386
+#: apps/transactions/forms.py:188 apps/transactions/forms.py:208
+#: apps/transactions/forms.py:372 apps/transactions/forms.py:834
+#: apps/transactions/forms.py:873 apps/transactions/forms.py:901
+#: apps/transactions/forms.py:932 apps/transactions/forms.py:1082
+#: apps/users/forms.py:248 apps/users/forms.py:406
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "Ajouter"
@@ -63,10 +63,10 @@ msgstr "Nouveau solde"
 #: apps/accounts/forms.py:125 apps/dca/forms.py:79 apps/dca/forms.py:86
 #: apps/insights/forms.py:117 apps/rules/forms.py:181 apps/rules/forms.py:197
 #: apps/rules/models.py:44 apps/rules/models.py:311
-#: apps/transactions/forms.py:43 apps/transactions/forms.py:251
-#: apps/transactions/forms.py:419 apps/transactions/forms.py:516
-#: apps/transactions/forms.py:523 apps/transactions/forms.py:707
-#: apps/transactions/forms.py:948 apps/transactions/models.py:322
+#: apps/transactions/forms.py:44 apps/transactions/forms.py:255
+#: apps/transactions/forms.py:423 apps/transactions/forms.py:520
+#: apps/transactions/forms.py:527 apps/transactions/forms.py:711
+#: apps/transactions/forms.py:955 apps/transactions/models.py:322
 #: apps/transactions/models.py:578 apps/transactions/models.py:778
 #: apps/transactions/models.py:1026
 #: templates/insights/fragments/category_overview/index.html:86
@@ -80,10 +80,10 @@ msgstr "Catégorie"
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
 #: apps/rules/forms.py:184 apps/rules/forms.py:194 apps/rules/models.py:45
 #: apps/rules/models.py:315 apps/transactions/filters.py:73
-#: apps/transactions/forms.py:51 apps/transactions/forms.py:259
-#: apps/transactions/forms.py:427 apps/transactions/forms.py:532
-#: apps/transactions/forms.py:540 apps/transactions/forms.py:700
-#: apps/transactions/forms.py:941 apps/transactions/models.py:328
+#: apps/transactions/forms.py:52 apps/transactions/forms.py:263
+#: apps/transactions/forms.py:431 apps/transactions/forms.py:536
+#: apps/transactions/forms.py:544 apps/transactions/forms.py:704
+#: apps/transactions/forms.py:948 apps/transactions/models.py:328
 #: apps/transactions/models.py:580 apps/transactions/models.py:782
 #: apps/transactions/models.py:1032 templates/includes/sidebar.html:150
 #: templates/insights/fragments/category_overview/index.html:40
@@ -167,9 +167,9 @@ msgstr ""
 
 #: apps/accounts/models.py:75 apps/rules/forms.py:173 apps/rules/forms.py:187
 #: apps/rules/models.py:35 apps/rules/models.py:267
-#: apps/transactions/forms.py:63 apps/transactions/forms.py:271
-#: apps/transactions/forms.py:386 apps/transactions/forms.py:692
-#: apps/transactions/forms.py:933 apps/transactions/models.py:294
+#: apps/transactions/forms.py:64 apps/transactions/forms.py:275
+#: apps/transactions/forms.py:390 apps/transactions/forms.py:696
+#: apps/transactions/forms.py:940 apps/transactions/models.py:294
 #: apps/transactions/models.py:538 apps/transactions/models.py:760
 #: apps/transactions/models.py:1000
 #: templates/installment_plans/fragments/table.html:17
@@ -355,7 +355,7 @@ msgstr ""
 "partagés. Seulement modifiable par le propriétaire.<br/> Publique : Visible "
 "par tous. Seulement modifiable par le propriétaire."
 
-#: apps/common/forms.py:76 apps/users/forms.py:149
+#: apps/common/forms.py:76 apps/users/forms.py:169
 msgid "Save"
 msgstr "Sauvegarder"
 
@@ -491,8 +491,8 @@ msgstr "Suffixe"
 
 #: apps/currencies/forms.py:66 apps/dca/models.py:158 apps/rules/forms.py:176
 #: apps/rules/forms.py:190 apps/rules/models.py:38 apps/rules/models.py:279
-#: apps/transactions/forms.py:67 apps/transactions/forms.py:391
-#: apps/transactions/forms.py:544 apps/transactions/models.py:304
+#: apps/transactions/forms.py:68 apps/transactions/forms.py:395
+#: apps/transactions/forms.py:548 apps/transactions/models.py:304
 #: templates/dca/fragments/strategy/details.html:49
 #: templates/exchange_rates/fragments/table.html:10
 #: templates/exchange_rates_services/fragments/table.html:11
@@ -717,11 +717,11 @@ msgstr "Services ajouté à la file avec succès"
 msgid "Create transaction"
 msgstr "Créer une transaction"
 
-#: apps/dca/forms.py:64 apps/transactions/forms.py:491
+#: apps/dca/forms.py:64 apps/transactions/forms.py:495
 msgid "From Account"
 msgstr "Compte originateur"
 
-#: apps/dca/forms.py:70 apps/transactions/forms.py:496
+#: apps/dca/forms.py:70 apps/transactions/forms.py:500
 msgid "To Account"
 msgstr "Compte bénéficiaire"
 
@@ -746,7 +746,7 @@ msgstr "Lié transaction"
 msgid "You must provide an account."
 msgstr "Vous devez fournir un compte."
 
-#: apps/dca/forms.py:290 apps/transactions/forms.py:638
+#: apps/dca/forms.py:290 apps/transactions/forms.py:642
 msgid "From and To accounts must be different."
 msgstr ""
 "Le compte originateur et le compte bénéficiaire doivent être différent."
@@ -766,7 +766,7 @@ msgstr "Devise de paiement"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:180
 #: apps/rules/forms.py:196 apps/rules/models.py:43 apps/rules/models.py:295
-#: apps/transactions/forms.py:413 apps/transactions/forms.py:560
+#: apps/transactions/forms.py:417 apps/transactions/forms.py:564
 #: apps/transactions/models.py:318 apps/transactions/models.py:587
 #: apps/transactions/models.py:788 apps/transactions/models.py:1022
 msgid "Notes"
@@ -852,9 +852,9 @@ msgstr "Catégories"
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
 #: apps/rules/models.py:307 apps/transactions/filters.py:78
-#: apps/transactions/forms.py:59 apps/transactions/forms.py:267
-#: apps/transactions/forms.py:435 apps/transactions/forms.py:715
-#: apps/transactions/forms.py:956 apps/transactions/models.py:277
+#: apps/transactions/forms.py:60 apps/transactions/forms.py:271
+#: apps/transactions/forms.py:439 apps/transactions/forms.py:719
+#: apps/transactions/forms.py:963 apps/transactions/models.py:277
 #: apps/transactions/models.py:333 apps/transactions/models.py:583
 #: apps/transactions/models.py:785 apps/transactions/models.py:1037
 #: templates/entities/fragments/list.html:9
@@ -1126,7 +1126,7 @@ msgid "Operator"
 msgstr "Opérateur"
 
 #: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:36
-#: apps/rules/models.py:271 apps/transactions/forms.py:377
+#: apps/rules/models.py:271 apps/transactions/forms.py:381
 #: apps/transactions/models.py:301 apps/transactions/models.py:543
 #: apps/transactions/models.py:766 apps/transactions/models.py:1007
 msgid "Type"
@@ -1134,7 +1134,7 @@ msgstr "Type"
 
 #: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:37
 #: apps/rules/models.py:275 apps/transactions/filters.py:22
-#: apps/transactions/forms.py:381 apps/transactions/models.py:303
+#: apps/transactions/forms.py:385 apps/transactions/models.py:303
 #: apps/transactions/models.py:1009 templates/cotton/transaction/item.html:20
 #: templates/cotton/transaction/item.html:31
 #: templates/transactions/widgets/paid_toggle_button.html:10
@@ -1143,15 +1143,15 @@ msgid "Paid"
 msgstr "Payé"
 
 #: apps/rules/forms.py:177 apps/rules/forms.py:191 apps/rules/models.py:39
-#: apps/rules/models.py:283 apps/transactions/forms.py:71
-#: apps/transactions/forms.py:397 apps/transactions/forms.py:547
-#: apps/transactions/forms.py:721 apps/transactions/models.py:305
+#: apps/rules/models.py:283 apps/transactions/forms.py:72
+#: apps/transactions/forms.py:401 apps/transactions/forms.py:551
+#: apps/transactions/forms.py:725 apps/transactions/models.py:305
 #: apps/transactions/models.py:561 apps/transactions/models.py:790
 msgid "Reference Date"
 msgstr "Date de référence"
 
 #: apps/rules/forms.py:178 apps/rules/forms.py:192 apps/rules/models.py:41
-#: apps/rules/models.py:287 apps/transactions/forms.py:404
+#: apps/rules/models.py:287 apps/transactions/forms.py:408
 #: apps/transactions/models.py:311 apps/transactions/models.py:771
 #: apps/transactions/models.py:1015
 #: templates/insights/fragments/sankey.html:102
@@ -1163,7 +1163,7 @@ msgstr "Montant"
 
 #: apps/rules/forms.py:179 apps/rules/forms.py:193 apps/rules/models.py:14
 #: apps/rules/models.py:42 apps/rules/models.py:291
-#: apps/transactions/forms.py:408 apps/transactions/forms.py:551
+#: apps/transactions/forms.py:412 apps/transactions/forms.py:555
 #: apps/transactions/models.py:316 apps/transactions/models.py:545
 #: apps/transactions/models.py:774 apps/transactions/models.py:1020
 msgid "Description"
@@ -1182,7 +1182,7 @@ msgid "Internal ID"
 msgstr "ID interne"
 
 #: apps/rules/forms.py:186 apps/rules/forms.py:200 apps/rules/models.py:40
-#: apps/rules/models.py:319 apps/transactions/forms.py:564
+#: apps/rules/models.py:319 apps/transactions/forms.py:568
 #: apps/transactions/models.py:215 apps/transactions/models.py:306
 #: apps/transactions/models.py:1010
 msgid "Mute"
@@ -1406,59 +1406,59 @@ msgstr "N'importe quelle entité"
 msgid "No entity"
 msgstr "Pas d'entité"
 
-#: apps/transactions/forms.py:170
+#: apps/transactions/forms.py:174
 msgid "More"
 msgstr "Plus"
 
-#: apps/transactions/forms.py:207
+#: apps/transactions/forms.py:211
 msgid "Save and add similar"
 msgstr "Enregistrer et ajouter des semblables"
 
-#: apps/transactions/forms.py:212
+#: apps/transactions/forms.py:216
 msgid "Save and add another"
 msgstr "Enregistrer et ajouter un autre"
 
-#: apps/transactions/forms.py:295 apps/transactions/forms.py:567
+#: apps/transactions/forms.py:299 apps/transactions/forms.py:571
 msgid "Muted transactions won't be displayed on monthly summaries"
 msgstr ""
 "Les transactions silencieuses ne sont pas affichées dans les résumés mensuels"
 
-#: apps/transactions/forms.py:503
+#: apps/transactions/forms.py:507
 msgid "From Amount"
 msgstr "Montant de départ"
 
-#: apps/transactions/forms.py:508
+#: apps/transactions/forms.py:512
 msgid "To Amount"
 msgstr "Montant d'arrivée"
 
-#: apps/transactions/forms.py:606
+#: apps/transactions/forms.py:610
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
 msgstr "Virement"
 
-#: apps/transactions/forms.py:847
+#: apps/transactions/forms.py:854
 msgid "Tag name"
 msgstr "Libellé de l'étiquette"
 
-#: apps/transactions/forms.py:875
+#: apps/transactions/forms.py:882
 msgid "Entity name"
 msgstr "Nom d'entité"
 
-#: apps/transactions/forms.py:903
+#: apps/transactions/forms.py:910
 msgid "Category name"
 msgstr "Nom de catégorie"
 
-#: apps/transactions/forms.py:905
+#: apps/transactions/forms.py:912
 msgid "Muted categories won't be displayed on monthly summaries"
 msgstr ""
 "Les catégories silencieuses ne compteront pas dans votre résumé mensuel"
 
-#: apps/transactions/forms.py:1055
+#: apps/transactions/forms.py:1066
 msgid "future transactions"
 msgstr "Transactions à venir"
 
-#: apps/transactions/forms.py:1081
+#: apps/transactions/forms.py:1092
 msgid "End date should be after the start date"
 msgstr "La date de fin doit être ultérieure à la date de début"
 
@@ -1850,24 +1850,24 @@ msgstr "Permissions"
 msgid "Important dates"
 msgstr "Dates importantes"
 
-#: apps/users/forms.py:22 apps/users/forms.py:26 apps/users/models.py:451
+#: apps/users/forms.py:24 apps/users/forms.py:28 apps/users/models.py:451
 #: templates/users/login.html:18
 msgid "E-mail"
 msgstr "E-mail"
 
-#: apps/users/forms.py:33 apps/users/forms.py:38 templates/users/login.html:19
+#: apps/users/forms.py:35 apps/users/forms.py:40 templates/users/login.html:19
 msgid "Password"
 msgstr "Mot de passe"
 
-#: apps/users/forms.py:45
+#: apps/users/forms.py:47
 msgid "Invalid e-mail or password"
 msgstr "E-mail ou mot de passe invalide"
 
-#: apps/users/forms.py:46
+#: apps/users/forms.py:48
 msgid "This account is deactivated"
 msgstr "Ce compte est désactivé"
 
-#: apps/users/forms.py:62 apps/users/forms.py:75 apps/users/forms.py:97
+#: apps/users/forms.py:64 apps/users/forms.py:77 apps/users/forms.py:99
 #: templates/monthly_overview/pages/overview.html:98
 #: templates/monthly_overview/pages/overview.html:245
 #: templates/transactions/pages/transactions.html:47
@@ -1875,19 +1875,25 @@ msgstr "Ce compte est désactivé"
 msgid "Default"
 msgstr "Par défaut"
 
-#: apps/users/forms.py:105 apps/users/models.py:484
+#: apps/users/forms.py:107 apps/users/models.py:484
 msgid "Date Format"
 msgstr "Format de date"
 
-#: apps/users/forms.py:110 apps/users/models.py:489
+#: apps/users/forms.py:112 apps/users/models.py:489
 msgid "Datetime Format"
 msgstr "Format de l'heure"
 
-#: apps/users/forms.py:116 apps/users/models.py:492
+#: apps/users/forms.py:118 apps/users/models.py:492
 msgid "Number Format"
 msgstr "Format numérique"
 
-#: apps/users/forms.py:154
+#: apps/users/forms.py:125
+#, fuzzy
+#| msgid "Target Accounts"
+msgid "Default Account"
+msgstr "Comptes cibles"
+
+#: apps/users/forms.py:174
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1899,19 +1905,19 @@ msgstr ""
 "Considérez d'aider à la traduction de WYGIWYH dans votre langue sur "
 "%(translation_link)s"
 
-#: apps/users/forms.py:163
+#: apps/users/forms.py:183
 msgid "New Password"
 msgstr "Nouveau mot de passe"
 
-#: apps/users/forms.py:166
+#: apps/users/forms.py:186
 msgid "Leave blank to keep the current password."
 msgstr "Laisser vide pour garder le mot de passe actuel."
 
-#: apps/users/forms.py:169
+#: apps/users/forms.py:189
 msgid "Confirm New Password"
 msgstr "Confirmer le nouveau mot de passe"
 
-#: apps/users/forms.py:181 apps/users/forms.py:338
+#: apps/users/forms.py:201 apps/users/forms.py:358
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -1919,7 +1925,7 @@ msgstr ""
 "Indique si cet utilisateur doit être traité comme actif. Désélectionnez ceci "
 "plutôt que supprimer des comptes."
 
-#: apps/users/forms.py:184 apps/users/forms.py:341
+#: apps/users/forms.py:204 apps/users/forms.py:361
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
@@ -1927,40 +1933,40 @@ msgstr ""
 "Définir que cet utilisateur a toutes les permissions sans les assigner "
 "explicitement."
 
-#: apps/users/forms.py:251
+#: apps/users/forms.py:271
 msgid "This email address is already in use by another account."
 msgstr ""
 "Cette adresse email est déjà utiliser dans un autre compte utilisateur."
 
-#: apps/users/forms.py:259
+#: apps/users/forms.py:279
 msgid "The two password fields didn't match."
 msgstr "Les deux mot de passe ne correspondent pas."
 
-#: apps/users/forms.py:261
+#: apps/users/forms.py:281
 msgid "Please confirm your new password."
 msgstr "Merci de confirmer votre mot de passe."
 
-#: apps/users/forms.py:263
+#: apps/users/forms.py:283
 msgid "Please enter the new password first."
 msgstr "Merci d'indiquer d'abord le nouveau mot de passe."
 
-#: apps/users/forms.py:283
+#: apps/users/forms.py:303
 msgid "You cannot deactivate your own account using this form."
 msgstr ""
 "Vous ne pouvez pas désactiver votre propre compte utilisateur avec ce "
 "formulaire."
 
-#: apps/users/forms.py:296
+#: apps/users/forms.py:316
 msgid "Cannot remove status from the last superuser."
 msgstr "Impossible de supprimer le statut du dernier super utilisateur."
 
-#: apps/users/forms.py:302
+#: apps/users/forms.py:322
 msgid "You cannot remove your own superuser status using this form."
 msgstr ""
 "Vous ne pouvez pas supprimer votre propre statut de super utilisateur via ce "
 "formulaire."
 
-#: apps/users/forms.py:395
+#: apps/users/forms.py:415
 msgid "A user with this email address already exists."
 msgstr "Un utilisateur avec cette adresse email existe déjà."
 
@@ -2003,6 +2009,22 @@ msgstr "Fuseau horaire"
 #: apps/users/models.py:511
 msgid "Start page"
 msgstr "Page d'accueil"
+
+#: apps/users/models.py:516
+#, fuzzy
+#| msgid "Asset account"
+msgid "Default account"
+msgstr "Compte d'actif"
+
+#: apps/users/models.py:517
+#, fuzzy
+#| msgid ""
+#| "Deactivated tags won't be able to be selected when creating new "
+#| "transactions"
+msgid "Selects the account by default when creating new transactions"
+msgstr ""
+"Les étiquettes désactivées ne pourront pas être sélectionnées lors de la "
+"création de nouvelles transactions"
 
 #: apps/users/views.py:67
 msgid "Transaction amounts are now hidden"

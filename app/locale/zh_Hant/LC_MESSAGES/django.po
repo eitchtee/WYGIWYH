@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-15 14:37+0000\n"
+"POT-Creation-Date: 2026-02-16 02:24+0000\n"
 "PO-Revision-Date: 2025-10-08 16:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translations."
@@ -27,12 +27,12 @@ msgstr "群組名稱"
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:87
 #: apps/currencies/forms.py:136 apps/dca/forms.py:46 apps/dca/forms.py:205
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
-#: apps/rules/forms.py:385 apps/transactions/forms.py:197
-#: apps/transactions/forms.py:361 apps/transactions/forms.py:480
-#: apps/transactions/forms.py:821 apps/transactions/forms.py:860
-#: apps/transactions/forms.py:888 apps/transactions/forms.py:919
-#: apps/transactions/forms.py:1065 apps/users/forms.py:222
-#: apps/users/forms.py:380
+#: apps/rules/forms.py:385 apps/transactions/forms.py:201
+#: apps/transactions/forms.py:365 apps/transactions/forms.py:484
+#: apps/transactions/forms.py:828 apps/transactions/forms.py:867
+#: apps/transactions/forms.py:895 apps/transactions/forms.py:926
+#: apps/transactions/forms.py:1076 apps/users/forms.py:242
+#: apps/users/forms.py:400
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -43,11 +43,11 @@ msgstr "更新"
 #: apps/currencies/forms.py:93 apps/currencies/forms.py:142
 #: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
-#: apps/transactions/forms.py:184 apps/transactions/forms.py:204
-#: apps/transactions/forms.py:368 apps/transactions/forms.py:827
-#: apps/transactions/forms.py:866 apps/transactions/forms.py:894
-#: apps/transactions/forms.py:925 apps/transactions/forms.py:1071
-#: apps/users/forms.py:228 apps/users/forms.py:386
+#: apps/transactions/forms.py:188 apps/transactions/forms.py:208
+#: apps/transactions/forms.py:372 apps/transactions/forms.py:834
+#: apps/transactions/forms.py:873 apps/transactions/forms.py:901
+#: apps/transactions/forms.py:932 apps/transactions/forms.py:1082
+#: apps/users/forms.py:248 apps/users/forms.py:406
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "新增"
@@ -63,10 +63,10 @@ msgstr "新的餘額"
 #: apps/accounts/forms.py:125 apps/dca/forms.py:79 apps/dca/forms.py:86
 #: apps/insights/forms.py:117 apps/rules/forms.py:181 apps/rules/forms.py:197
 #: apps/rules/models.py:44 apps/rules/models.py:311
-#: apps/transactions/forms.py:43 apps/transactions/forms.py:251
-#: apps/transactions/forms.py:419 apps/transactions/forms.py:516
-#: apps/transactions/forms.py:523 apps/transactions/forms.py:707
-#: apps/transactions/forms.py:948 apps/transactions/models.py:322
+#: apps/transactions/forms.py:44 apps/transactions/forms.py:255
+#: apps/transactions/forms.py:423 apps/transactions/forms.py:520
+#: apps/transactions/forms.py:527 apps/transactions/forms.py:711
+#: apps/transactions/forms.py:955 apps/transactions/models.py:322
 #: apps/transactions/models.py:578 apps/transactions/models.py:778
 #: apps/transactions/models.py:1026
 #: templates/insights/fragments/category_overview/index.html:86
@@ -80,10 +80,10 @@ msgstr "分類"
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
 #: apps/rules/forms.py:184 apps/rules/forms.py:194 apps/rules/models.py:45
 #: apps/rules/models.py:315 apps/transactions/filters.py:73
-#: apps/transactions/forms.py:51 apps/transactions/forms.py:259
-#: apps/transactions/forms.py:427 apps/transactions/forms.py:532
-#: apps/transactions/forms.py:540 apps/transactions/forms.py:700
-#: apps/transactions/forms.py:941 apps/transactions/models.py:328
+#: apps/transactions/forms.py:52 apps/transactions/forms.py:263
+#: apps/transactions/forms.py:431 apps/transactions/forms.py:536
+#: apps/transactions/forms.py:544 apps/transactions/forms.py:704
+#: apps/transactions/forms.py:948 apps/transactions/models.py:328
 #: apps/transactions/models.py:580 apps/transactions/models.py:782
 #: apps/transactions/models.py:1032 templates/includes/sidebar.html:150
 #: templates/insights/fragments/category_overview/index.html:40
@@ -164,9 +164,9 @@ msgstr "封存的帳戶不會在淨資產中被計算或顯示"
 
 #: apps/accounts/models.py:75 apps/rules/forms.py:173 apps/rules/forms.py:187
 #: apps/rules/models.py:35 apps/rules/models.py:267
-#: apps/transactions/forms.py:63 apps/transactions/forms.py:271
-#: apps/transactions/forms.py:386 apps/transactions/forms.py:692
-#: apps/transactions/forms.py:933 apps/transactions/models.py:294
+#: apps/transactions/forms.py:64 apps/transactions/forms.py:275
+#: apps/transactions/forms.py:390 apps/transactions/forms.py:696
+#: apps/transactions/forms.py:940 apps/transactions/models.py:294
 #: apps/transactions/models.py:538 apps/transactions/models.py:760
 #: apps/transactions/models.py:1000
 #: templates/installment_plans/fragments/table.html:17
@@ -349,7 +349,7 @@ msgstr ""
 "私人：只會顯示給擁有者或著已分享的使用者。只有擁有者可以編輯這個選項。<br/>公"
 "開：所有使用者都可以看到。只有擁有者可以編輯這個選項。"
 
-#: apps/common/forms.py:76 apps/users/forms.py:149
+#: apps/common/forms.py:76 apps/users/forms.py:169
 msgid "Save"
 msgstr "儲存"
 
@@ -479,8 +479,8 @@ msgstr "後綴"
 
 #: apps/currencies/forms.py:66 apps/dca/models.py:158 apps/rules/forms.py:176
 #: apps/rules/forms.py:190 apps/rules/models.py:38 apps/rules/models.py:279
-#: apps/transactions/forms.py:67 apps/transactions/forms.py:391
-#: apps/transactions/forms.py:544 apps/transactions/models.py:304
+#: apps/transactions/forms.py:68 apps/transactions/forms.py:395
+#: apps/transactions/forms.py:548 apps/transactions/models.py:304
 #: templates/dca/fragments/strategy/details.html:49
 #: templates/exchange_rates/fragments/table.html:10
 #: templates/exchange_rates_services/fragments/table.html:11
@@ -697,11 +697,11 @@ msgstr "成功排程服務"
 msgid "Create transaction"
 msgstr "建立交易"
 
-#: apps/dca/forms.py:64 apps/transactions/forms.py:491
+#: apps/dca/forms.py:64 apps/transactions/forms.py:495
 msgid "From Account"
 msgstr "來源帳戶"
 
-#: apps/dca/forms.py:70 apps/transactions/forms.py:496
+#: apps/dca/forms.py:70 apps/transactions/forms.py:500
 msgid "To Account"
 msgstr "目標帳戶"
 
@@ -726,7 +726,7 @@ msgstr "連結交易"
 msgid "You must provide an account."
 msgstr "務必選擇一個帳戶。"
 
-#: apps/dca/forms.py:290 apps/transactions/forms.py:638
+#: apps/dca/forms.py:290 apps/transactions/forms.py:642
 msgid "From and To accounts must be different."
 msgstr "來源跟目標帳戶不得相同。"
 
@@ -745,7 +745,7 @@ msgstr "交易貨幣"
 
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:180
 #: apps/rules/forms.py:196 apps/rules/models.py:43 apps/rules/models.py:295
-#: apps/transactions/forms.py:413 apps/transactions/forms.py:560
+#: apps/transactions/forms.py:417 apps/transactions/forms.py:564
 #: apps/transactions/models.py:318 apps/transactions/models.py:587
 #: apps/transactions/models.py:788 apps/transactions/models.py:1022
 msgid "Notes"
@@ -831,9 +831,9 @@ msgstr "類別"
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
 #: apps/rules/models.py:307 apps/transactions/filters.py:78
-#: apps/transactions/forms.py:59 apps/transactions/forms.py:267
-#: apps/transactions/forms.py:435 apps/transactions/forms.py:715
-#: apps/transactions/forms.py:956 apps/transactions/models.py:277
+#: apps/transactions/forms.py:60 apps/transactions/forms.py:271
+#: apps/transactions/forms.py:439 apps/transactions/forms.py:719
+#: apps/transactions/forms.py:963 apps/transactions/models.py:277
 #: apps/transactions/models.py:333 apps/transactions/models.py:583
 #: apps/transactions/models.py:785 apps/transactions/models.py:1037
 #: templates/entities/fragments/list.html:9
@@ -1103,7 +1103,7 @@ msgid "Operator"
 msgstr "運算子"
 
 #: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:36
-#: apps/rules/models.py:271 apps/transactions/forms.py:377
+#: apps/rules/models.py:271 apps/transactions/forms.py:381
 #: apps/transactions/models.py:301 apps/transactions/models.py:543
 #: apps/transactions/models.py:766 apps/transactions/models.py:1007
 msgid "Type"
@@ -1111,7 +1111,7 @@ msgstr "種類"
 
 #: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:37
 #: apps/rules/models.py:275 apps/transactions/filters.py:22
-#: apps/transactions/forms.py:381 apps/transactions/models.py:303
+#: apps/transactions/forms.py:385 apps/transactions/models.py:303
 #: apps/transactions/models.py:1009 templates/cotton/transaction/item.html:20
 #: templates/cotton/transaction/item.html:31
 #: templates/transactions/widgets/paid_toggle_button.html:10
@@ -1120,15 +1120,15 @@ msgid "Paid"
 msgstr "已支付"
 
 #: apps/rules/forms.py:177 apps/rules/forms.py:191 apps/rules/models.py:39
-#: apps/rules/models.py:283 apps/transactions/forms.py:71
-#: apps/transactions/forms.py:397 apps/transactions/forms.py:547
-#: apps/transactions/forms.py:721 apps/transactions/models.py:305
+#: apps/rules/models.py:283 apps/transactions/forms.py:72
+#: apps/transactions/forms.py:401 apps/transactions/forms.py:551
+#: apps/transactions/forms.py:725 apps/transactions/models.py:305
 #: apps/transactions/models.py:561 apps/transactions/models.py:790
 msgid "Reference Date"
 msgstr "起算日"
 
 #: apps/rules/forms.py:178 apps/rules/forms.py:192 apps/rules/models.py:41
-#: apps/rules/models.py:287 apps/transactions/forms.py:404
+#: apps/rules/models.py:287 apps/transactions/forms.py:408
 #: apps/transactions/models.py:311 apps/transactions/models.py:771
 #: apps/transactions/models.py:1015
 #: templates/insights/fragments/sankey.html:102
@@ -1140,7 +1140,7 @@ msgstr "金額"
 
 #: apps/rules/forms.py:179 apps/rules/forms.py:193 apps/rules/models.py:14
 #: apps/rules/models.py:42 apps/rules/models.py:291
-#: apps/transactions/forms.py:408 apps/transactions/forms.py:551
+#: apps/transactions/forms.py:412 apps/transactions/forms.py:555
 #: apps/transactions/models.py:316 apps/transactions/models.py:545
 #: apps/transactions/models.py:774 apps/transactions/models.py:1020
 msgid "Description"
@@ -1159,7 +1159,7 @@ msgid "Internal ID"
 msgstr "內部ID"
 
 #: apps/rules/forms.py:186 apps/rules/forms.py:200 apps/rules/models.py:40
-#: apps/rules/models.py:319 apps/transactions/forms.py:564
+#: apps/rules/models.py:319 apps/transactions/forms.py:568
 #: apps/transactions/models.py:215 apps/transactions/models.py:306
 #: apps/transactions/models.py:1010
 msgid "Mute"
@@ -1381,57 +1381,57 @@ msgstr "任何實體"
 msgid "No entity"
 msgstr "無實體"
 
-#: apps/transactions/forms.py:170
+#: apps/transactions/forms.py:174
 msgid "More"
 msgstr "更多"
 
-#: apps/transactions/forms.py:207
+#: apps/transactions/forms.py:211
 msgid "Save and add similar"
 msgstr "儲存並新增類似"
 
-#: apps/transactions/forms.py:212
+#: apps/transactions/forms.py:216
 msgid "Save and add another"
 msgstr "儲存並新增另一個"
 
-#: apps/transactions/forms.py:295 apps/transactions/forms.py:567
+#: apps/transactions/forms.py:299 apps/transactions/forms.py:571
 msgid "Muted transactions won't be displayed on monthly summaries"
 msgstr "每月總結不會顯示已經靜音的交易"
 
-#: apps/transactions/forms.py:503
+#: apps/transactions/forms.py:507
 msgid "From Amount"
 msgstr "原始金額"
 
-#: apps/transactions/forms.py:508
+#: apps/transactions/forms.py:512
 msgid "To Amount"
 msgstr "目標金額"
 
-#: apps/transactions/forms.py:606
+#: apps/transactions/forms.py:610
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
 msgstr "轉帳"
 
-#: apps/transactions/forms.py:847
+#: apps/transactions/forms.py:854
 msgid "Tag name"
 msgstr "標籤名稱"
 
-#: apps/transactions/forms.py:875
+#: apps/transactions/forms.py:882
 msgid "Entity name"
 msgstr "實體名稱"
 
-#: apps/transactions/forms.py:903
+#: apps/transactions/forms.py:910
 msgid "Category name"
 msgstr "分類名稱"
 
-#: apps/transactions/forms.py:905
+#: apps/transactions/forms.py:912
 msgid "Muted categories won't be displayed on monthly summaries"
 msgstr "靜音的分類不會顯示在每個月的總結中"
 
-#: apps/transactions/forms.py:1055
+#: apps/transactions/forms.py:1066
 msgid "future transactions"
 msgstr "未來的交易"
 
-#: apps/transactions/forms.py:1081
+#: apps/transactions/forms.py:1092
 msgid "End date should be after the start date"
 msgstr "結束日期應該大於起始日期"
 
@@ -1811,24 +1811,24 @@ msgstr "權限"
 msgid "Important dates"
 msgstr "重要的日子"
 
-#: apps/users/forms.py:22 apps/users/forms.py:26 apps/users/models.py:451
+#: apps/users/forms.py:24 apps/users/forms.py:28 apps/users/models.py:451
 #: templates/users/login.html:18
 msgid "E-mail"
 msgstr "電子郵件"
 
-#: apps/users/forms.py:33 apps/users/forms.py:38 templates/users/login.html:19
+#: apps/users/forms.py:35 apps/users/forms.py:40 templates/users/login.html:19
 msgid "Password"
 msgstr "密碼"
 
-#: apps/users/forms.py:45
+#: apps/users/forms.py:47
 msgid "Invalid e-mail or password"
 msgstr "無效的電子郵件或著密碼"
 
-#: apps/users/forms.py:46
+#: apps/users/forms.py:48
 msgid "This account is deactivated"
 msgstr "這個帳號已經被停用"
 
-#: apps/users/forms.py:62 apps/users/forms.py:75 apps/users/forms.py:97
+#: apps/users/forms.py:64 apps/users/forms.py:77 apps/users/forms.py:99
 #: templates/monthly_overview/pages/overview.html:98
 #: templates/monthly_overview/pages/overview.html:245
 #: templates/transactions/pages/transactions.html:47
@@ -1836,19 +1836,25 @@ msgstr "這個帳號已經被停用"
 msgid "Default"
 msgstr "預設"
 
-#: apps/users/forms.py:105 apps/users/models.py:484
+#: apps/users/forms.py:107 apps/users/models.py:484
 msgid "Date Format"
 msgstr "日期格式"
 
-#: apps/users/forms.py:110 apps/users/models.py:489
+#: apps/users/forms.py:112 apps/users/models.py:489
 msgid "Datetime Format"
 msgstr "日期時間格式"
 
-#: apps/users/forms.py:116 apps/users/models.py:492
+#: apps/users/forms.py:118 apps/users/models.py:492
 msgid "Number Format"
 msgstr "數字格式"
 
-#: apps/users/forms.py:154
+#: apps/users/forms.py:125
+#, fuzzy
+#| msgid "Target Accounts"
+msgid "Default Account"
+msgstr "目標帳戶"
+
+#: apps/users/forms.py:174
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1858,59 +1864,59 @@ msgstr ""
 "這會改變語言（如果支援的話）以及數字和日期的顯示方式\n"
 "若您有興趣也可以到%(translation_link)s幫助WYGIWYH進行翻譯"
 
-#: apps/users/forms.py:163
+#: apps/users/forms.py:183
 msgid "New Password"
 msgstr "新密碼"
 
-#: apps/users/forms.py:166
+#: apps/users/forms.py:186
 msgid "Leave blank to keep the current password."
 msgstr "若不想改變密碼請留白。"
 
-#: apps/users/forms.py:169
+#: apps/users/forms.py:189
 msgid "Confirm New Password"
 msgstr "確認新密碼"
 
-#: apps/users/forms.py:181 apps/users/forms.py:338
+#: apps/users/forms.py:201 apps/users/forms.py:358
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr "指定這個使用者是否為啟用狀態，如果沒有選擇的話帳號將無法使用。"
 
-#: apps/users/forms.py:184 apps/users/forms.py:341
+#: apps/users/forms.py:204 apps/users/forms.py:361
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr "指定這個使用者是否擁有全部的權限。"
 
-#: apps/users/forms.py:251
+#: apps/users/forms.py:271
 msgid "This email address is already in use by another account."
 msgstr "這個email已經被另一個帳號使用。"
 
-#: apps/users/forms.py:259
+#: apps/users/forms.py:279
 msgid "The two password fields didn't match."
 msgstr "兩個密碼欄位的內容不符。"
 
-#: apps/users/forms.py:261
+#: apps/users/forms.py:281
 msgid "Please confirm your new password."
 msgstr "請確認你的新密碼。"
 
-#: apps/users/forms.py:263
+#: apps/users/forms.py:283
 msgid "Please enter the new password first."
 msgstr "請先輸入新的密碼。"
 
-#: apps/users/forms.py:283
+#: apps/users/forms.py:303
 msgid "You cannot deactivate your own account using this form."
 msgstr "無法透過這個頁面停止自己的帳號。"
 
-#: apps/users/forms.py:296
+#: apps/users/forms.py:316
 msgid "Cannot remove status from the last superuser."
 msgstr "最後一位超級使用者無法移除這個權限。"
 
-#: apps/users/forms.py:302
+#: apps/users/forms.py:322
 msgid "You cannot remove your own superuser status using this form."
 msgstr "無法使用這個頁面移除自己的超級使用者權限。"
 
-#: apps/users/forms.py:395
+#: apps/users/forms.py:415
 msgid "A user with this email address already exists."
 msgstr "這個電子郵件的使用者已經存在。"
 
@@ -1953,6 +1959,20 @@ msgstr "時區"
 #: apps/users/models.py:511
 msgid "Start page"
 msgstr "起始頁面"
+
+#: apps/users/models.py:516
+#, fuzzy
+#| msgid "Asset account"
+msgid "Default account"
+msgstr "資產帳戶"
+
+#: apps/users/models.py:517
+#, fuzzy
+#| msgid ""
+#| "Deactivated tags won't be able to be selected when creating new "
+#| "transactions"
+msgid "Selects the account by default when creating new transactions"
+msgstr "新增交易的時候無法選擇停用的標籤"
 
 #: apps/users/views.py:67
 msgid "Transaction amounts are now hidden"
