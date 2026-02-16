@@ -6,7 +6,7 @@ const isIosPwa = () => {
     const ua = window.navigator.userAgent.toLowerCase();
     const isIos = /iphone|ipad|ipod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
-    return true || isIos && isStandalone;
+    return isIos && isStandalone;
 };
 
 const ptrMarkup = `
