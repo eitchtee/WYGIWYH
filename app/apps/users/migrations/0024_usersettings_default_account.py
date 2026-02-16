@@ -5,16 +5,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0016_account_untracked_by'),
-        ('users', '0023_alter_usersettings_timezone'),
+        ("accounts", "0016_account_untracked_by"),
+        ("users", "0023_alter_usersettings_timezone"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='usersettings',
-            name='default_account',
-            field=models.ForeignKey(blank=True, default=0, null=True, on_delete=django.db.models.deletion.SET_NULL, to='accounts.account', verbose_name='Default account'),
+            model_name="usersettings",
+            name="default_account",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="accounts.account",
+                verbose_name="Default account",
+            ),
         ),
     ]
