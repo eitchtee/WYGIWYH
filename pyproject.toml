@@ -36,5 +36,17 @@ dependencies = [
     "xlrd~=2.0.1",
 ]
 
+[project.optional-dependencies]
+test = [
+    "pytest~=8.3.0",
+    "pytest-django~=4.9.0",
+]
+
 [tool.setuptools]
 packages = ["app"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "WYGIWYH.settings"
+python_files = ["test_*.py", "*_test.py", "tests.py"]
+testpaths = ["app"]
+addopts = "-v"
