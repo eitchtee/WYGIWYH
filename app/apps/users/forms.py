@@ -120,8 +120,8 @@ class UserSettingsForm(forms.ModelForm):
 
     default_account = forms.ModelChoiceField(
         queryset=Account.objects.filter(
-                is_archived=False,
-            ),
+            is_archived=False,
+        ),
         label=_("Default Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
         required=False,
@@ -160,9 +160,9 @@ class UserSettingsForm(forms.ModelForm):
             "date_format",
             "datetime_format",
             "number_format",
-            "default_account",
             HTML('<hr class="hr my-3" />'),
             "start_page",
+            "default_account",
             HTML('<hr class="hr my-3" />'),
             "volume",
             FormActions(
@@ -176,10 +176,6 @@ class UserSettingsForm(forms.ModelForm):
         ) % {
             "translation_link": '<a href="https://translations.herculino.com" target="_blank">translations.herculino.com</a>'
         }
-
-        self.fields["default_account"].help_text = _(
-            "Selects the account by default when creating new transactions"
-        )
 
 
 class UserUpdateForm(forms.ModelForm):
