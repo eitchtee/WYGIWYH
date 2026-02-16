@@ -5,6 +5,7 @@ from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
 )
+from apps.common.middleware.thread_local import get_current_user
 from apps.common.widgets.crispy.daisyui import Switch
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.datepicker import AirDatePickerInput, AirMonthYearPickerInput
@@ -116,6 +117,9 @@ class TransactionForm(forms.ModelForm):
             self.fields["account"].queryset = Account.objects.filter(
                 is_archived=False,
             )
+            user_settings = get_current_user().settings
+            if user_settings.default_account:
+                self.fields["account"].initial = user_settings.default_account
 
             self.fields["category"].queryset = TransactionCategory.objects.filter(
                 active=True
@@ -768,6 +772,9 @@ class InstallmentPlanForm(forms.ModelForm):
             ).distinct()
         else:
             self.fields["account"].queryset = Account.objects.filter(is_archived=False)
+            user_settings = get_current_user().settings
+            if user_settings.default_account:
+                self.fields["account"].initial = user_settings.default_account
 
             self.fields["category"].queryset = TransactionCategory.objects.filter(
                 active=True
@@ -1010,6 +1017,10 @@ class RecurringTransactionForm(forms.ModelForm):
             ).distinct()
         else:
             self.fields["account"].queryset = Account.objects.filter(is_archived=False)
+            
+            user_settings = get_current_user().settings
+            if user_settings.default_account:
+                self.fields["account"].initial = user_settings.default_account
 
             self.fields["category"].queryset = TransactionCategory.objects.filter(
                 active=True
