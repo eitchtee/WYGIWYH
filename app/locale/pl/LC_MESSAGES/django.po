@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-16 02:24+0000\n"
-"PO-Revision-Date: 2026-02-16 07:24+0000\n"
+"PO-Revision-Date: 2026-02-18 11:24+0000\n"
 "Last-Translator: Pawel Augustyn <pawelaugustyn15@gmail.com>\n"
 "Language-Team: Polish <https://translations.herculino.com/projects/wygiwyh/"
 "app/pl/>\n"
@@ -295,6 +295,8 @@ msgstr "Niepoprawne dane encji. Wprowadź ID lub nazwę encji."
 #: apps/api/serializers/transactions.py:192
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr ""
+"Co najmniej jedno z pól \"data\" lub \"data referencyjna\" musi zostać "
+"uzupełnione."
 
 #: apps/common/admin.py:5
 msgid "Make public"
@@ -567,7 +569,7 @@ msgstr "Waluty Z oraz Do nie mogą być identyczne."
 
 #: apps/currencies/models.py:110
 msgid "On"
-msgstr ""
+msgstr "Włączone"
 
 #: apps/currencies/models.py:111
 msgid "Every X hours"
@@ -575,7 +577,7 @@ msgstr "Co X godzin"
 
 #: apps/currencies/models.py:112
 msgid "Not on"
-msgstr ""
+msgstr "Wyłączone"
 
 #: apps/currencies/models.py:114
 msgid "Service Name"
@@ -605,11 +607,11 @@ msgstr "Klucz API dla serwisu (jeśli potrzebny)"
 
 #: apps/currencies/models.py:129
 msgid "Interval Type"
-msgstr ""
+msgstr "Cykliczność"
 
 #: apps/currencies/models.py:133
 msgid "Interval"
-msgstr ""
+msgstr "Powtarzać co"
 
 #: apps/currencies/models.py:136
 msgid "Last Successful Fetch"
@@ -657,23 +659,25 @@ msgstr ""
 
 #: apps/currencies/models.py:223
 msgid "'Every X hours' interval type requires a positive integer."
-msgstr ""
+msgstr "Cykliczność \"co X godzin\" wymaga dodatniej liczby."
 
 #: apps/currencies/models.py:232
 msgid "'Every X hours' interval must be between 1 and 24."
-msgstr ""
+msgstr "Cykliczność \"co X godzin\" musi być z przedziału 1-24."
 
 #: apps/currencies/models.py:246
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
 msgstr ""
+"Niepoprawny format godziny. Użyj zakresów (0-23) i/lub oddziel godziny "
+"przecinkami (np. \"1-5,8,10-12\")."
 
 #: apps/currencies/models.py:257
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
-msgstr ""
+msgstr "Niepoprawny format. Sprawdź wymagania wybranego typu cykliczności."
 
 #: apps/currencies/views/currencies.py:42
 msgid "Currency added successfully"
@@ -746,11 +750,11 @@ msgstr ""
 #: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
 #: apps/dca/forms.py:285
 msgid "You must provide an account."
-msgstr ""
+msgstr "Należy wybrać konto."
 
 #: apps/dca/forms.py:290 apps/transactions/forms.py:642
 msgid "From and To accounts must be different."
-msgstr ""
+msgstr "Konta \"Z\" oraz \"Do\" muszą się różnić."
 
 #: apps/dca/forms.py:304
 #, python-format
@@ -771,7 +775,7 @@ msgstr "Waluta dla płatności"
 #: apps/transactions/models.py:318 apps/transactions/models.py:587
 #: apps/transactions/models.py:788 apps/transactions/models.py:1022
 msgid "Notes"
-msgstr ""
+msgstr "Notatki"
 
 #: apps/dca/models.py:34
 msgid "DCA Strategy"
@@ -2225,7 +2229,7 @@ msgstr "Udostępnij ustawienia"
 
 #: templates/accounts/fragments/account_reconciliation.html:6
 msgid "Account Reconciliation"
-msgstr "Uzgodnienie kont"
+msgstr "Ustalanie salda konta"
 
 #: templates/accounts/fragments/account_reconciliation.html:20
 msgid "Current balance"
@@ -2239,7 +2243,7 @@ msgstr "Różnica"
 
 #: templates/accounts/fragments/account_reconciliation.html:64
 msgid "Reconcile balances"
-msgstr "Uzgodnij salda"
+msgstr "Ustal nowe salda"
 
 #: templates/accounts/fragments/add.html:5
 msgid "Add account"
@@ -3043,10 +3047,8 @@ msgstr "Brak ostatnich transakcji"
 
 #: templates/insights/fragments/month_by_month.html:86
 #: templates/insights/fragments/year_by_year.html:54
-#, fuzzy
-#| msgid "Tags"
 msgid "Tag"
-msgstr "Tagi"
+msgstr "Tag"
 
 #: templates/insights/fragments/month_by_month.html:94
 msgid "Jan"
@@ -3363,7 +3365,7 @@ msgstr ""
 
 #: templates/recurring_transactions/fragments/table.html:53
 msgid "This will start creating new transactions until you pause it"
-msgstr ""
+msgstr "Ta akcja rozpocznie tworzenie nowych transakcji aż do zapauzowania"
 
 #: templates/recurring_transactions/fragments/table.html:54
 msgid "Yes, unpause it!"
@@ -3375,7 +3377,7 @@ msgstr ""
 
 #: templates/recurring_transactions/fragments/table.html:66
 msgid "This will stop the creation of new transactions until you unpause it"
-msgstr ""
+msgstr "Ta akcja zatrzyma tworzenie nowych transakcji aż do odpauzowania"
 
 #: templates/recurring_transactions/fragments/table.html:67
 msgid "Yes, pause it!"
@@ -3524,7 +3526,7 @@ msgstr ""
 #: templates/transactions/fragments/add.html:5
 #: templates/transactions/pages/add.html:5
 msgid "New transaction"
-msgstr ""
+msgstr "Nowa transakcja"
 
 #: templates/transactions/fragments/add_installment_plan.html:5
 msgid "Add Installment Plan"
