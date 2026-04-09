@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-16 02:24+0000\n"
-"PO-Revision-Date: 2026-01-30 10:24+0000\n"
-"Last-Translator: obervinov <bervinov.ob@gmail.com>\n"
+"PO-Revision-Date: 2026-03-31 13:24+0000\n"
+"Last-Translator: masttera <mail.masttera@gmail.com>\n"
 "Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
 "app/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -474,7 +474,7 @@ msgstr "Сейчас"
 
 #: apps/common/widgets/tom_select.py:11
 msgid "Remove"
-msgstr "Удалить"
+msgstr "Снять"
 
 #: apps/common/widgets/tom_select.py:15
 #: templates/mini_tools/unit_price_calculator.html:180
@@ -737,7 +737,7 @@ msgstr "В счет"
 
 #: apps/dca/forms.py:110 apps/dca/models.py:171
 msgid "Expense Transaction"
-msgstr "Расходы"
+msgstr "транзакция расхода"
 
 #: apps/dca/forms.py:114 apps/dca/forms.py:124
 msgid "Type to search for a transaction to link to this entry"
@@ -1120,11 +1120,11 @@ msgstr ""
 #: apps/rules/models.py:62 apps/rules/models.py:323
 #: templates/rules/fragments/list.html:23
 msgid "Order"
-msgstr ""
+msgstr "Заказ"
 
 #: apps/rules/forms.py:125
 msgid "A value for this field already exists in the rule."
-msgstr ""
+msgstr "В правиле уже существует значение для этого поля."
 
 #: apps/rules/forms.py:159 apps/rules/forms.py:160 apps/rules/forms.py:161
 #: apps/rules/forms.py:162 apps/rules/forms.py:163 apps/rules/forms.py:164
@@ -1132,7 +1132,7 @@ msgstr ""
 #: apps/rules/forms.py:168 apps/rules/forms.py:169 apps/rules/forms.py:170
 #: apps/rules/forms.py:171 apps/rules/forms.py:172
 msgid "Operator"
-msgstr ""
+msgstr "Оператор"
 
 #: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:36
 #: apps/rules/models.py:271 apps/transactions/forms.py:381
@@ -1149,7 +1149,7 @@ msgstr ""
 #: templates/transactions/widgets/paid_toggle_button.html:10
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:13
 msgid "Paid"
-msgstr ""
+msgstr "Оплаченный"
 
 #: apps/rules/forms.py:177 apps/rules/forms.py:191 apps/rules/models.py:39
 #: apps/rules/models.py:283 apps/transactions/forms.py:72
@@ -1157,7 +1157,7 @@ msgstr ""
 #: apps/transactions/forms.py:725 apps/transactions/models.py:305
 #: apps/transactions/models.py:561 apps/transactions/models.py:790
 msgid "Reference Date"
-msgstr ""
+msgstr "Дата ссылки"
 
 #: apps/rules/forms.py:178 apps/rules/forms.py:192 apps/rules/models.py:41
 #: apps/rules/models.py:287 apps/transactions/forms.py:408
@@ -1208,11 +1208,11 @@ msgstr ""
 #: apps/rules/forms.py:407 apps/rules/forms.py:442 apps/rules/forms.py:477
 #: apps/transactions/models.py:378
 msgid "Transaction"
-msgstr ""
+msgstr "Транзакция"
 
 #: apps/rules/forms.py:411 apps/rules/forms.py:446 apps/rules/forms.py:481
 msgid "Type to search for a transaction"
-msgstr ""
+msgstr "Введите текст для поиска транзакции"
 
 #: apps/rules/forms.py:422 apps/rules/forms.py:457 apps/rules/forms.py:491
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
@@ -1232,7 +1232,7 @@ msgstr ""
 
 #: apps/rules/models.py:26
 msgid "Transaction rule"
-msgstr ""
+msgstr "Правило транзакции"
 
 #: apps/rules/models.py:54 apps/rules/models.py:98
 msgid "Rule"
@@ -1280,15 +1280,15 @@ msgstr ""
 
 #: apps/rules/models.py:91
 msgid "greater than or equal"
-msgstr ""
+msgstr "больше или равно"
 
 #: apps/rules/models.py:92
 msgid "less than or equal"
-msgstr ""
+msgstr "меньше или равно"
 
 #: apps/rules/models.py:102
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 #: apps/rules/models.py:105
 msgid ""
@@ -1298,47 +1298,47 @@ msgstr ""
 
 #: apps/rules/models.py:326
 msgid "Update or create transaction action"
-msgstr ""
+msgstr "Операция обновления или создания транзакции"
 
 #: apps/rules/views.py:71
 msgid "Rule deactivated successfully"
-msgstr ""
+msgstr "Правило успешно деактивировано"
 
 #: apps/rules/views.py:73
 msgid "Rule activated successfully"
-msgstr ""
+msgstr "Правило успешно активировано"
 
 #: apps/rules/views.py:92
 msgid "Rule added successfully"
-msgstr ""
+msgstr "Правило успешно добавлено"
 
 #: apps/rules/views.py:131
 msgid "Rule updated successfully"
-msgstr ""
+msgstr "Правило успешно обновлено"
 
 #: apps/rules/views.py:188
 msgid "Rule deleted successfully"
-msgstr ""
+msgstr "Правило успешно удалено"
 
 #: apps/rules/views.py:305
 msgid "Action updated successfully"
-msgstr ""
+msgstr "Действие успешно обновлено"
 
 #: apps/rules/views.py:336
 msgid "Action deleted successfully"
-msgstr ""
+msgstr "Действие успешно удалено"
 
 #: apps/rules/views.py:360
 msgid "Update or Create Transaction action added successfully"
-msgstr ""
+msgstr "Действие «Обновить или создать транзакцию» успешно добавлено"
 
 #: apps/rules/views.py:393
 msgid "Update or Create Transaction action updated successfully"
-msgstr ""
+msgstr "Операция обновления или создания транзакции успешно завершена"
 
 #: apps/rules/views.py:423
 msgid "Update or Create Transaction action deleted successfully"
-msgstr ""
+msgstr "Операция обновления или создания транзакции успешно удалена"
 
 #: apps/transactions/filters.py:23 templates/cotton/transaction/item.html:20
 #: templates/cotton/transaction/item.html:31
@@ -1347,7 +1347,7 @@ msgstr ""
 #: templates/transactions/widgets/paid_toggle_button.html:7
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:10
 msgid "Projected"
-msgstr ""
+msgstr "Прогнозируемый"
 
 #: apps/transactions/filters.py:28 templates/categories/fragments/table.html:18
 msgid "Muted"
@@ -1359,7 +1359,7 @@ msgstr ""
 
 #: apps/transactions/filters.py:51
 msgid "Transaction Type"
-msgstr ""
+msgstr "Тип транзакции"
 
 #: apps/transactions/filters.py:89
 msgid "Mute Status"
@@ -1367,7 +1367,7 @@ msgstr ""
 
 #: apps/transactions/filters.py:94
 msgid "Date from"
-msgstr ""
+msgstr "Дата с"
 
 #: apps/transactions/filters.py:99 apps/transactions/filters.py:109
 msgid "Until"
@@ -1375,7 +1375,7 @@ msgstr ""
 
 #: apps/transactions/filters.py:104
 msgid "Reference date from"
-msgstr ""
+msgstr "Дата отсчета с"
 
 #: apps/transactions/filters.py:114
 msgid "Amount min"
@@ -1417,15 +1417,15 @@ msgstr ""
 
 #: apps/transactions/forms.py:211
 msgid "Save and add similar"
-msgstr ""
+msgstr "Сохранить и добавить похожие"
 
 #: apps/transactions/forms.py:216
 msgid "Save and add another"
-msgstr ""
+msgstr "Сохраните и добавьте еще один"
 
 #: apps/transactions/forms.py:299 apps/transactions/forms.py:571
 msgid "Muted transactions won't be displayed on monthly summaries"
-msgstr ""
+msgstr "Скрытые транзакции не будут отображаться в ежемесячных сводка"
 
 #: apps/transactions/forms.py:507
 msgid "From Amount"
@@ -1439,60 +1439,63 @@ msgstr ""
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
-msgstr ""
+msgstr "Передать"
 
 #: apps/transactions/forms.py:854
 msgid "Tag name"
-msgstr ""
+msgstr "Название тега"
 
 #: apps/transactions/forms.py:882
 msgid "Entity name"
-msgstr ""
+msgstr "Название организации"
 
 #: apps/transactions/forms.py:910
 msgid "Category name"
-msgstr ""
+msgstr "Название категории"
 
 #: apps/transactions/forms.py:912
 msgid "Muted categories won't be displayed on monthly summaries"
-msgstr ""
+msgstr "Категории, не отображаемые в сводках, не будут показываться"
 
 #: apps/transactions/forms.py:1066
 msgid "future transactions"
-msgstr ""
+msgstr "будущие транзакции"
 
 #: apps/transactions/forms.py:1092
 msgid "End date should be after the start date"
-msgstr ""
+msgstr "Дата окончания должна быть после даты начала"
 
 #: apps/transactions/models.py:220
 msgid ""
 "Deactivated categories won't be able to be selected when creating new "
 "transactions"
 msgstr ""
+"Деактивированные категории нельзя будет выбрать при создании новых транзакций"
 
 #: apps/transactions/models.py:228
 msgid "Transaction Category"
-msgstr ""
+msgstr "Категория транзакции"
 
 #: apps/transactions/models.py:229
 msgid "Transaction Categories"
-msgstr ""
+msgstr "Категории транзакций"
 
 #: apps/transactions/models.py:244
 msgid ""
 "Deactivated tags won't be able to be selected when creating new transactions"
 msgstr ""
+"Деактивированные теги нельзя будет выбрать при создании новых транзакций"
 
 #: apps/transactions/models.py:252 apps/transactions/models.py:253
 msgid "Transaction Tags"
-msgstr ""
+msgstr "Теги транзакций"
 
 #: apps/transactions/models.py:268
 msgid ""
 "Deactivated entities won't be able to be selected when creating new "
 "transactions"
 msgstr ""
+"Деактивированные объекты нельзя будет выбрать при создании новых транзакций"
 
 #: apps/transactions/models.py:276
 #: templates/insights/fragments/month_by_month.html:88
@@ -1521,19 +1524,19 @@ msgstr ""
 #: templates/cotton/ui/transactions_fab.html:19
 #: templates/insights/fragments/category_overview/index.html:88
 msgid "Expense"
-msgstr ""
+msgstr "Расход"
 
 #: apps/transactions/models.py:344 apps/transactions/models.py:600
 msgid "Installment Plan"
-msgstr ""
+msgstr "План рассрочки"
 
 #: apps/transactions/models.py:353 apps/transactions/models.py:824
 msgid "Recurring Transaction"
-msgstr ""
+msgstr "Повторяющаяся транзакция"
 
 #: apps/transactions/models.py:361
 msgid "Deleted"
-msgstr ""
+msgstr "Удалено"
 
 #: apps/transactions/models.py:366
 msgid "Deleted At"
@@ -1541,52 +1544,52 @@ msgstr ""
 
 #: apps/transactions/models.py:480 templates/tags/fragments/table.html:69
 msgid "No tags"
-msgstr ""
+msgstr "Нет тегов"
 
 #: apps/transactions/models.py:482
 msgid "No category"
-msgstr ""
+msgstr "Нет категории"
 
 #: apps/transactions/models.py:484
 msgid "No description"
-msgstr ""
+msgstr "Нет описания"
 
 #: apps/transactions/models.py:532 templates/includes/sidebar.html:57
 msgid "Yearly"
-msgstr ""
+msgstr "Ежегодно"
 
 #: apps/transactions/models.py:533 apps/users/models.py:464
 #: templates/includes/sidebar.html:51
 msgid "Monthly"
-msgstr ""
+msgstr "Ежемесячно"
 
 #: apps/transactions/models.py:534
 msgid "Weekly"
-msgstr ""
+msgstr "Еженедельно"
 
 #: apps/transactions/models.py:535
 msgid "Daily"
-msgstr ""
+msgstr "Ежедневно"
 
 #: apps/transactions/models.py:548
 msgid "Number of Installments"
-msgstr ""
+msgstr "Количество платежей"
 
 #: apps/transactions/models.py:553
 msgid "Installment Start"
-msgstr ""
+msgstr "Начало выплаты рассрочки"
 
 #: apps/transactions/models.py:554
 msgid "The installment number to start counting from"
-msgstr ""
+msgstr "Номер платежа, с которого начинается отсчет"
 
 #: apps/transactions/models.py:559 apps/transactions/models.py:794
 msgid "Start Date"
-msgstr ""
+msgstr "Дата начала"
 
 #: apps/transactions/models.py:563 apps/transactions/models.py:795
 msgid "End Date"
-msgstr ""
+msgstr "Дата окончания"
 
 #: apps/transactions/models.py:568
 msgid "Recurrence"
@@ -1594,36 +1597,36 @@ msgstr ""
 
 #: apps/transactions/models.py:571
 msgid "Installment Amount"
-msgstr ""
+msgstr "Сумма рассрочки"
 
 #: apps/transactions/models.py:590 apps/transactions/models.py:814
 msgid "Add description to transactions"
-msgstr ""
+msgstr "Добавить описание к транзакциям"
 
 #: apps/transactions/models.py:593 apps/transactions/models.py:817
 msgid "Add notes to transactions"
-msgstr ""
+msgstr "Добавить примечания к транзакциям"
 
 #: apps/transactions/models.py:753
 msgid "day(s)"
-msgstr ""
+msgstr "день"
 
 #: apps/transactions/models.py:754
 msgid "week(s)"
-msgstr ""
+msgstr "неделя"
 
 #: apps/transactions/models.py:755
 msgid "month(s)"
-msgstr ""
+msgstr "месяц"
 
 #: apps/transactions/models.py:756
 msgid "year(s)"
-msgstr ""
+msgstr "год"
 
 #: apps/transactions/models.py:758
 #: templates/recurring_transactions/fragments/list.html:18
 msgid "Paused"
-msgstr ""
+msgstr "Приостановлено"
 
 #: apps/transactions/models.py:797
 msgid "Recurrence Type"
@@ -1635,7 +1638,7 @@ msgstr ""
 
 #: apps/transactions/models.py:803
 msgid "Keep at most"
-msgstr ""
+msgstr "Хранить максимум"
 
 #: apps/transactions/models.py:807
 msgid "Last Generated Date"
@@ -1652,13 +1655,13 @@ msgstr ""
 #: apps/transactions/views/quick_transactions.py:191
 #: templates/cotton/ui/transactions_fab.html:59
 msgid "Quick Transaction"
-msgstr ""
+msgstr "Быстрая сделка"
 
 #: apps/transactions/models.py:1055 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
-msgstr ""
+msgstr "Быстрые транзакции"
 
 #: apps/transactions/validators.py:8
 #, python-format
@@ -1707,102 +1710,102 @@ msgstr[1] ""
 
 #: apps/transactions/views/categories.py:66
 msgid "Category added successfully"
-msgstr ""
+msgstr "Категория успешно добавлена"
 
 #: apps/transactions/views/categories.py:104
 msgid "Category updated successfully"
-msgstr ""
+msgstr "Категория успешно обновлена"
 
 #: apps/transactions/views/categories.py:171
 msgid "Category deleted successfully"
-msgstr ""
+msgstr "Категория успешно удалена"
 
 #: apps/transactions/views/entities.py:66
 msgid "Entity added successfully"
-msgstr ""
+msgstr "Объект успешно добавлен"
 
 #: apps/transactions/views/entities.py:104
 msgid "Entity updated successfully"
-msgstr ""
+msgstr "Объект обновлен успешно"
 
 #: apps/transactions/views/entities.py:133
 msgid "Entity deleted successfully"
-msgstr ""
+msgstr "Объект успешно удален"
 
 #: apps/transactions/views/installment_plans.py:87
 msgid "Installment Plan added successfully"
-msgstr ""
+msgstr "План рассрочки успешно добавлен"
 
 #: apps/transactions/views/installment_plans.py:115
 msgid "Installment Plan updated successfully"
-msgstr ""
+msgstr "План рассрочки успешно обновлен"
 
 #: apps/transactions/views/installment_plans.py:140
 msgid "Installment Plan refreshed successfully"
-msgstr ""
+msgstr "План рассрочки успешно перезагружен"
 
 #: apps/transactions/views/installment_plans.py:158
 msgid "Installment Plan deleted successfully"
-msgstr ""
+msgstr "План рассрочки успешно удален"
 
 #: apps/transactions/views/quick_transactions.py:45
 #: apps/transactions/views/quick_transactions.py:224 apps/users/views.py:188
 msgid "Item added successfully"
-msgstr ""
+msgstr "Элемент успешно добавлен"
 
 #: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:220
 msgid "Item updated successfully"
-msgstr ""
+msgstr "Элемент успешно обновлен"
 
 #: apps/transactions/views/quick_transactions.py:99
 msgid "Item deleted successfully"
-msgstr ""
+msgstr "Элемент успешно удален"
 
 #: apps/transactions/views/quick_transactions.py:156
 #: apps/transactions/views/transactions.py:53
 #: apps/transactions/views/transactions.py:238
 msgid "Transaction added successfully"
-msgstr ""
+msgstr "Транзакция успешно добавлена"
 
 #: apps/transactions/views/recurring_transactions.py:112
 msgid "Recurring Transaction added successfully"
-msgstr ""
+msgstr "Повторяющаяся транзакция успешно добавлена"
 
 #: apps/transactions/views/recurring_transactions.py:142
 msgid "Recurring Transaction updated successfully"
-msgstr ""
+msgstr "Повторяющаяся транзакция успешно обновлена"
 
 #: apps/transactions/views/recurring_transactions.py:186
 msgid "Recurring transaction unpaused successfully"
-msgstr ""
+msgstr "Повторяющаяся транзакция успешно возобновлена"
 
 #: apps/transactions/views/recurring_transactions.py:189
 msgid "Recurring transaction paused successfully"
-msgstr ""
+msgstr "Повторяющаяся транзакция успешно приостановлена"
 
 #: apps/transactions/views/recurring_transactions.py:215
 msgid "Recurring transaction finished successfully"
-msgstr ""
+msgstr "Повторяющаяся транзакция успешно завершена"
 
 #: apps/transactions/views/recurring_transactions.py:235
 msgid "Recurring Transaction deleted successfully"
-msgstr ""
+msgstr "Повторяющаяся транзакция успешно удалена"
 
 #: apps/transactions/views/tags.py:66
 msgid "Tag added successfully"
-msgstr ""
+msgstr "Тег успешно добавлен"
 
 #: apps/transactions/views/tags.py:104
 msgid "Tag updated successfully"
-msgstr ""
+msgstr "Тег успешно обновлен"
 
 #: apps/transactions/views/tags.py:133
 msgid "Tag deleted successfully"
-msgstr ""
+msgstr "Тег успешно удален"
 
 #: apps/transactions/views/transactions.py:262
 msgid "Transaction updated successfully"
-msgstr ""
+msgstr "Транзакция успешно обновлена"
 
 #: apps/transactions/views/transactions.py:313
 #, python-format
@@ -1813,35 +1816,35 @@ msgstr[1] ""
 
 #: apps/transactions/views/transactions.py:349
 msgid "Transaction duplicated successfully"
-msgstr ""
+msgstr "Транзакция успешно продублирована"
 
 #: apps/transactions/views/transactions.py:391
 msgid "Transaction deleted successfully"
-msgstr ""
+msgstr "Транзакция успешно удалена"
 
 #: apps/transactions/views/transactions.py:409
 msgid "Transaction restored successfully"
-msgstr ""
+msgstr "Транзакция успешно восстановлена"
 
 #: apps/transactions/views/transactions.py:435
 msgid "Transfer added successfully"
-msgstr ""
+msgstr "Перевод успешно добавлен"
 
 #: apps/users/admin.py:22 templates/users/fragments/user_settings.html:5
 msgid "User Settings"
-msgstr ""
+msgstr "Пользовательские настройки"
 
 #: apps/users/admin.py:23
 msgid "User Setting"
-msgstr ""
+msgstr "Настройки пользователя"
 
 #: apps/users/admin.py:48
 msgid "Personal info"
-msgstr ""
+msgstr "Персональная информация"
 
 #: apps/users/admin.py:50
 msgid "Permissions"
-msgstr ""
+msgstr "Разрешения"
 
 #: apps/users/admin.py:61
 msgid "Important dates"
@@ -1850,19 +1853,19 @@ msgstr ""
 #: apps/users/forms.py:24 apps/users/forms.py:28 apps/users/models.py:451
 #: templates/users/login.html:18
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: apps/users/forms.py:35 apps/users/forms.py:40 templates/users/login.html:19
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: apps/users/forms.py:47
 msgid "Invalid e-mail or password"
-msgstr ""
+msgstr "Неверный адрес электронной почты или пароль"
 
 #: apps/users/forms.py:48
 msgid "This account is deactivated"
-msgstr ""
+msgstr "Этот аккаунт деактивирован"
 
 #: apps/users/forms.py:64 apps/users/forms.py:77 apps/users/forms.py:99
 #: templates/monthly_overview/pages/overview.html:98
@@ -1870,25 +1873,23 @@ msgstr ""
 #: templates/transactions/pages/transactions.html:47
 #: templates/transactions/pages/transactions.html:195
 msgid "Default"
-msgstr ""
+msgstr "По умолчанию"
 
 #: apps/users/forms.py:107 apps/users/models.py:484
 msgid "Date Format"
-msgstr ""
+msgstr "Формат даты"
 
 #: apps/users/forms.py:112 apps/users/models.py:489
 msgid "Datetime Format"
-msgstr ""
+msgstr "Формат даты и времени"
 
 #: apps/users/forms.py:118 apps/users/models.py:492
 msgid "Number Format"
-msgstr ""
+msgstr "Формат чисел"
 
 #: apps/users/forms.py:125
-#, fuzzy
-#| msgid "Target Accounts"
 msgid "Default Account"
-msgstr "Целевой счет"
+msgstr "Учетная запись по умолчанию"
 
 #: apps/users/forms.py:174
 #, python-format
@@ -1897,18 +1898,21 @@ msgid ""
 "displayed\n"
 "Consider helping translate WYGIWYH to your language at %(translation_link)s"
 msgstr ""
+"Это изменяет язык (если он доступен) и способ отображения чисел и дат.\n"
+"Пожалуйста, рассмотрите возможность помочь перевести WYGIWYH на ваш язык по "
+"ссылке %(translation_link)s"
 
 #: apps/users/forms.py:183
 msgid "New Password"
-msgstr ""
+msgstr "Новый пароль"
 
 #: apps/users/forms.py:186
 msgid "Leave blank to keep the current password."
-msgstr ""
+msgstr "Оставьте поле пустым, чтобы сохранить текущий пароль."
 
 #: apps/users/forms.py:189
 msgid "Confirm New Password"
-msgstr ""
+msgstr "Подтвердите новый пароль"
 
 #: apps/users/forms.py:201 apps/users/forms.py:358
 msgid ""
@@ -1924,19 +1928,19 @@ msgstr ""
 
 #: apps/users/forms.py:271
 msgid "This email address is already in use by another account."
-msgstr ""
+msgstr "Этот адрес электронной почты уже используется другим аккаунтом."
 
 #: apps/users/forms.py:279
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "Поля ввода пароля не совпадали."
 
 #: apps/users/forms.py:281
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Пожалуйста, подтвердите свой новый пароль."
 
 #: apps/users/forms.py:283
 msgid "Please enter the new password first."
-msgstr ""
+msgstr "Пожалуйста, сначала введите новый пароль."
 
 #: apps/users/forms.py:303
 msgid "You cannot deactivate your own account using this form."
@@ -1952,31 +1956,31 @@ msgstr ""
 
 #: apps/users/forms.py:415
 msgid "A user with this email address already exists."
-msgstr ""
+msgstr "Пользователь с таким адресом электронной почты уже существует."
 
 #: apps/users/models.py:465
 msgid "Yearly by currency"
-msgstr ""
+msgstr "Ежегодно по валютам"
 
 #: apps/users/models.py:466
 msgid "Yearly by account"
-msgstr ""
+msgstr "Ежегодно по счетам"
 
 #: apps/users/models.py:467 templates/net_worth/net_worth.html:9
 msgid "Current Net Worth"
-msgstr ""
+msgstr "Текущее состояние"
 
 #: apps/users/models.py:468 templates/net_worth/net_worth.html:11
 msgid "Projected Net Worth"
-msgstr ""
+msgstr "Прогнозируемый чистый капитал"
 
 #: apps/users/models.py:469
 msgid "All Transactions"
-msgstr ""
+msgstr "Все транзакции"
 
 #: apps/users/models.py:470 templates/includes/sidebar.html:63
 msgid "Calendar"
-msgstr ""
+msgstr "Календарь"
 
 #: apps/users/models.py:480
 msgid "Volume"
@@ -1984,53 +1988,53 @@ msgstr ""
 
 #: apps/users/models.py:499
 msgid "Language"
-msgstr ""
+msgstr "Язык"
 
 #: apps/users/models.py:505
 msgid "Time Zone"
-msgstr ""
+msgstr "Часовой пояс"
 
 #: apps/users/models.py:511
 msgid "Start page"
-msgstr ""
+msgstr "Начальная страница"
 
 #: apps/users/models.py:516
-#, fuzzy
-#| msgid "Asset account"
 msgid "Default account"
-msgstr "Счет активов"
+msgstr "Выбор счета по умолчанию"
 
 #: apps/users/models.py:517
 msgid "Selects the account by default when creating new transactions"
 msgstr ""
+"При создании транзакций по умолчанию выбирается соответствующая учетная "
+"запись"
 
 #: apps/users/views.py:67
 msgid "Transaction amounts are now hidden"
-msgstr ""
+msgstr "Суммы транзакций теперь скрыты"
 
 #: apps/users/views.py:70
 msgid "Transaction amounts are now displayed"
-msgstr ""
+msgstr "Суммы транзакций теперь отображаются"
 
 #: apps/users/views.py:88
 msgid "Sounds are now muted"
-msgstr ""
+msgstr "Звуки теперь отключены"
 
 #: apps/users/views.py:91
 msgid "Sounds will now play"
-msgstr ""
+msgstr "Звуки теперь включены"
 
 #: apps/users/views.py:107
 msgid "Your settings have been updated"
-msgstr ""
+msgstr "Ваши настройки обновлены"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
-msgstr ""
+msgstr "Добавить группу учетных записей"
 
 #: templates/account_groups/fragments/edit.html:5
 msgid "Edit account group"
-msgstr ""
+msgstr "Редактировать группу учетных записей"
 
 #: templates/account_groups/fragments/list.html:29
 #: templates/accounts/fragments/list.html:34
@@ -2073,7 +2077,7 @@ msgstr ""
 #: templates/tags/fragments/table.html:28
 #: templates/users/fragments/list.html:39
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: templates/account_groups/fragments/list.html:39
 #: templates/accounts/fragments/list.html:44
@@ -2093,7 +2097,7 @@ msgstr ""
 #: templates/rules/fragments/list.html:50
 #: templates/tags/fragments/table.html:44
 msgid "Share"
-msgstr ""
+msgstr "Поделиться"
 
 #: templates/account_groups/fragments/list.html:54
 #: templates/accounts/fragments/list.html:71
@@ -2122,7 +2126,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:133
 #: templates/tags/fragments/table.html:51
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: templates/account_groups/fragments/list.html:58
 #: templates/accounts/fragments/list.html:75
@@ -2152,7 +2156,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:96
 #: templates/tags/fragments/table.html:55
 msgid "Are you sure?"
-msgstr ""
+msgstr "Вы уверены?"
 
 #: templates/account_groups/fragments/list.html:59
 #: templates/accounts/fragments/list.html:76
@@ -2198,7 +2202,7 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/view.html:98
 #: templates/tags/fragments/table.html:57
 msgid "Yes, delete it!"
-msgstr ""
+msgstr "Да, удалите это!"
 
 #: templates/account_groups/fragments/list.html:71
 msgid "No account groups"
@@ -2219,17 +2223,17 @@ msgstr ""
 
 #: templates/accounts/fragments/account_reconciliation.html:20
 msgid "Current balance"
-msgstr ""
+msgstr "Текущий баланс"
 
 #: templates/accounts/fragments/account_reconciliation.html:36
 #: templates/net_worth/net_worth.html:146
 #: templates/net_worth/net_worth.html:396
 msgid "Difference"
-msgstr ""
+msgstr "Разница"
 
 #: templates/accounts/fragments/account_reconciliation.html:64
 msgid "Reconcile balances"
-msgstr ""
+msgstr "Сверка балансов"
 
 #: templates/accounts/fragments/add.html:5
 msgid "Add account"
@@ -2241,47 +2245,47 @@ msgstr ""
 
 #: templates/accounts/fragments/list.html:26
 msgid "Is Asset"
-msgstr ""
+msgstr "Является ли активом"
 
 #: templates/accounts/fragments/list.html:62
 msgid "Track"
-msgstr ""
+msgstr "Отслеживать"
 
 #: templates/accounts/fragments/list.html:62
 msgid "Untrack"
-msgstr ""
+msgstr "Скрыть"
 
 #: templates/accounts/fragments/list.html:93
 msgid "No accounts"
-msgstr ""
+msgstr "Нет счетов"
 
 #: templates/calendar_view/fragments/list.html:7
 msgid "MON"
-msgstr ""
+msgstr "Пн"
 
 #: templates/calendar_view/fragments/list.html:10
 msgid "TUE"
-msgstr ""
+msgstr "Вт"
 
 #: templates/calendar_view/fragments/list.html:13
 msgid "WED"
-msgstr ""
+msgstr "Ср"
 
 #: templates/calendar_view/fragments/list.html:16
 msgid "THU"
-msgstr ""
+msgstr "Чт"
 
 #: templates/calendar_view/fragments/list.html:19
 msgid "FRI"
-msgstr ""
+msgstr "Пт"
 
 #: templates/calendar_view/fragments/list.html:22
 msgid "SAT"
-msgstr ""
+msgstr "Сб"
 
 #: templates/calendar_view/fragments/list.html:25
 msgid "SUN"
-msgstr ""
+msgstr "Вс"
 
 #: templates/calendar_view/fragments/list_transactions.html:5
 msgid "Transactions on"
@@ -2294,31 +2298,31 @@ msgstr ""
 #: templates/calendar_view/pages/calendar.html:7
 #: templates/monthly_overview/pages/overview.html:7
 msgid "Monthly Overview"
-msgstr ""
+msgstr "Ежемесячный обзор"
 
 #: templates/categories/fragments/add.html:5
 msgid "Add category"
-msgstr ""
+msgstr "Добавить категорию"
 
 #: templates/categories/fragments/edit.html:5
 msgid "Edit category"
-msgstr ""
+msgstr "Редактировать категорию"
 
 #: templates/categories/fragments/table.html:73
 #: templates/insights/fragments/category_overview/index.html:552
 msgid "No categories"
-msgstr ""
+msgstr "Категории отсутствуют"
 
 #: templates/common/fragments/month_year_picker.html:5
 msgid "Pick a month"
-msgstr ""
+msgstr "Выберите месяц"
 
 #: templates/common/fragments/toasts.html:20
 #: templates/cotton/components/fab.html:9
 #: templates/cotton/components/sidebar_collapsible_panel.html:28
 #: templates/extends/offcanvas.html:4 templates/includes/sidebar.html:44
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: templates/cotton/config/search.html:6
 #: templates/import_app/fragments/profiles/list_presets.html:13
@@ -2326,11 +2330,11 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:57
 #: templates/transactions/pages/transactions.html:168
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: templates/cotton/transaction/item.html:9
 msgid "Select"
-msgstr ""
+msgstr "Выбрать"
 
 #: templates/cotton/transaction/item.html:175
 #: templates/cotton/transaction/item.html:186
@@ -2340,7 +2344,7 @@ msgstr ""
 
 #: templates/cotton/transaction/item.html:177
 msgid "Controlled by account"
-msgstr ""
+msgstr "Управляется счетом"
 
 #: templates/cotton/transaction/item.html:188
 msgid "Controlled by category"
@@ -2352,69 +2356,69 @@ msgstr ""
 
 #: templates/cotton/transaction/item.html:205
 msgid "Add as quick transaction"
-msgstr ""
+msgstr "Добавить как быструю транзакцию"
 
 #: templates/cotton/transaction/item.html:210
 msgid "Move to previous month"
-msgstr ""
+msgstr "Перейти к предыдущему месяцу"
 
 #: templates/cotton/transaction/item.html:214
 msgid "Move to next month"
-msgstr ""
+msgstr "Перенести на следующий месяц"
 
 #: templates/cotton/transaction/item.html:217
 msgid "Move to today"
-msgstr ""
+msgstr "Перейдите к сегодняшнему дню"
 
 #: templates/cotton/transaction/item.html:221
 #: templates/cotton/ui/transactions_action_bar.html:78
 msgid "Duplicate"
-msgstr ""
+msgstr "Дубликат"
 
 #: templates/cotton/ui/account_card.html:10
 #: templates/cotton/ui/currency_card.html:10
 msgid "projected income"
-msgstr ""
+msgstr "прогнозируемый доход"
 
 #: templates/cotton/ui/account_card.html:33
 #: templates/cotton/ui/currency_card.html:33
 msgid "projected expenses"
-msgstr ""
+msgstr "прогнозируемые расходы"
 
 #: templates/cotton/ui/account_card.html:56
 #: templates/cotton/ui/currency_card.html:56
 msgid "projected total"
-msgstr ""
+msgstr "прогнозируемый общий"
 
 #: templates/cotton/ui/account_card.html:78
 #: templates/cotton/ui/currency_card.html:78
 msgid "current income"
-msgstr ""
+msgstr "текущий доход"
 
 #: templates/cotton/ui/account_card.html:101
 #: templates/cotton/ui/currency_card.html:101
 msgid "current expenses"
-msgstr ""
+msgstr "текущие расходы"
 
 #: templates/cotton/ui/account_card.html:124
 #: templates/cotton/ui/currency_card.html:124
 msgid "current total"
-msgstr ""
+msgstr "текущий общий"
 
 #: templates/cotton/ui/account_card.html:146
 #: templates/cotton/ui/currency_card.html:146
 msgid "final total"
-msgstr ""
+msgstr "Финальный итог"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:34
 #: templates/cotton/ui/transactions_action_bar.html:34
 msgid "Select All"
-msgstr ""
+msgstr "Выбрать все"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:40
 #: templates/cotton/ui/transactions_action_bar.html:40
 msgid "Unselect All"
-msgstr ""
+msgstr "Снять все"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:46
 msgid "Invert election"
@@ -2445,12 +2449,12 @@ msgstr ""
 #: templates/cotton/ui/deleted_transactions_action_bar.html:123
 #: templates/cotton/ui/transactions_action_bar.html:148
 msgid "Flat Total"
-msgstr ""
+msgstr "Итого"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:139
 #: templates/cotton/ui/transactions_action_bar.html:164
 msgid "Real Total"
-msgstr ""
+msgstr "Реальная сумма"
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:155
 #: templates/cotton/ui/transactions_action_bar.html:180
@@ -2470,26 +2474,26 @@ msgstr ""
 #: templates/cotton/ui/deleted_transactions_action_bar.html:203
 #: templates/cotton/ui/transactions_action_bar.html:228
 msgid "Count"
-msgstr ""
+msgstr "Считать"
 
 #: templates/cotton/ui/percentage_distribution.html:4
 msgid "Income and Expense Percentages"
-msgstr ""
+msgstr "Процентное соотношение доходов и расходов"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:25
 #: templates/cotton/ui/transactions_fab.html:27
 msgid "Installment"
-msgstr ""
+msgstr "Рассрочка"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:32
 #: templates/cotton/ui/transactions_fab.html:35
 msgid "Recurring"
-msgstr ""
+msgstr "Повторяющийся"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:47
 #: templates/cotton/ui/transactions_fab.html:52
 msgid "Balance"
-msgstr ""
+msgstr "Баланс"
 
 #: templates/cotton/ui/transactions_action_bar.html:46
 msgid "Invert selection"
@@ -2497,19 +2501,19 @@ msgstr ""
 
 #: templates/cotton/ui/transactions_action_bar.html:66
 msgid "Mark as unpaid"
-msgstr ""
+msgstr "Отметить как неоплаченное"
 
 #: templates/cotton/ui/transactions_action_bar.html:71
 msgid "Mark as paid"
-msgstr ""
+msgstr "Отметить как оплачено"
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
-msgstr ""
+msgstr "Добавить валюту"
 
 #: templates/currencies/fragments/edit.html:5
 msgid "Edit currency"
-msgstr ""
+msgstr "Изменить валюту"
 
 #: templates/currencies/fragments/list.html:22
 msgid "Code"
@@ -2517,7 +2521,7 @@ msgstr ""
 
 #: templates/currencies/fragments/list.html:59
 msgid "No currencies"
-msgstr ""
+msgstr "Нет валюты"
 
 #: templates/dca/fragments/entry/add.html:5
 msgid "Add DCA entry"
@@ -2533,11 +2537,11 @@ msgstr ""
 
 #: templates/dca/fragments/strategy/details.html:28
 msgid "No exchange rate available"
-msgstr ""
+msgstr "Курс обмена недоступен"
 
 #: templates/dca/fragments/strategy/details.html:40
 msgid "Entries"
-msgstr ""
+msgstr "Записи"
 
 #: templates/dca/fragments/strategy/details.html:52
 msgid "Current Value"
@@ -2559,11 +2563,11 @@ msgstr ""
 
 #: templates/dca/fragments/strategy/details.html:130
 msgid "Total Invested"
-msgstr ""
+msgstr "Общий объем инвестиций"
 
 #: templates/dca/fragments/strategy/details.html:144
 msgid "Total Received"
-msgstr ""
+msgstr "Всего получено"
 
 #: templates/dca/fragments/strategy/details.html:158
 msgid "Current Total Value"
@@ -2634,32 +2638,32 @@ msgstr ""
 
 #: templates/entities/fragments/add.html:5
 msgid "Add entity"
-msgstr ""
+msgstr "Добавить объект"
 
 #: templates/entities/fragments/edit.html:5
 msgid "Edit entity"
-msgstr ""
+msgstr "Редактировать объект"
 
 #: templates/entities/fragments/table.html:69
 msgid "No entities"
-msgstr ""
+msgstr "Нет объектов"
 
 #: templates/exchange_rates/fragments/add.html:5
 #: templates/exchange_rates_services/fragments/add.html:5
 msgid "Add exchange rate"
-msgstr ""
+msgstr "Добавить обменный курс"
 
 #: templates/exchange_rates/fragments/edit.html:5
 #: templates/exchange_rates_services/fragments/edit.html:5
 msgid "Edit exchange rate"
-msgstr ""
+msgstr "Изменить обменный курс"
 
 #: templates/exchange_rates/fragments/list.html:17
 #: templates/includes/sidebar.html:83
 #: templates/yearly_overview/pages/overview_by_account.html:33
 #: templates/yearly_overview/pages/overview_by_currency.html:35
 msgid "All"
-msgstr ""
+msgstr "Все"
 
 #: templates/exchange_rates/fragments/table.html:11
 #: templates/exchange_rates_services/fragments/table.html:12
@@ -2674,7 +2678,7 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:49
 #: templates/exchange_rates_services/fragments/table.html:50
 msgid "No exchange rates"
-msgstr ""
+msgstr "Нет обменных курсов"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
@@ -2719,11 +2723,11 @@ msgstr ""
 
 #: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:205
 msgid "Export and Restore"
-msgstr ""
+msgstr "Экспорт и восстановление"
 
 #: templates/import_app/fragments/profiles/add.html:6
 msgid "Add new import profile"
-msgstr ""
+msgstr "Добавить новый профиль импорта"
 
 #: templates/import_app/fragments/profiles/add.html:11
 msgid "A message from the author"
@@ -2731,11 +2735,11 @@ msgstr ""
 
 #: templates/import_app/fragments/profiles/edit.html:5
 msgid "Edit import profile"
-msgstr ""
+msgstr "Редактировать профиль импорта"
 
 #: templates/import_app/fragments/profiles/list.html:8
 msgid "New"
-msgstr ""
+msgstr "Новый"
 
 #: templates/import_app/fragments/profiles/list.html:15
 msgid "From preset"
@@ -2792,7 +2796,7 @@ msgstr ""
 #: templates/import_app/fragments/runs/list.html:95
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:7
 msgid "Logs"
-msgstr ""
+msgstr "Журнал"
 
 #: templates/import_app/fragments/runs/list.html:105
 msgid "You won't be able to revert this! All imported items will be kept."
@@ -2812,23 +2816,23 @@ msgstr ""
 
 #: templates/includes/navbar/user_menu.html:4
 msgid "Toggle theme"
-msgstr ""
+msgstr "Переключить тему"
 
 #: templates/includes/navbar/user_menu.html:31
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #: templates/includes/navbar/user_menu.html:36
 msgid "Edit profile"
-msgstr ""
+msgstr "Редактировать профиль"
 
 #: templates/includes/navbar/user_menu.html:63
 msgid "Clear cache"
-msgstr ""
+msgstr "Очистить кэш"
 
 #: templates/includes/navbar/user_menu.html:67
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:8
 msgid "Access Denied"
@@ -2849,15 +2853,15 @@ msgstr ""
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:24
 msgid "Reload"
-msgstr ""
+msgstr "Перезагрузка"
 
 #: templates/includes/scripts/hyperscript/swal.html:13
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: templates/includes/scripts/hyperscript/swal.html:14
 msgid "Confirm"
-msgstr ""
+msgstr "Подтверждать"
 
 #: templates/includes/scripts/pull_to_refresh_i18n.html:4
 msgid "Pull down to refresh"
@@ -2865,7 +2869,7 @@ msgstr ""
 
 #: templates/includes/scripts/pull_to_refresh_i18n.html:5
 msgid "Release to refresh"
-msgstr ""
+msgstr "Нажмите для обновления"
 
 #: templates/includes/scripts/pull_to_refresh_i18n.html:6
 msgid "Refreshing"
@@ -2885,11 +2889,11 @@ msgstr ""
 
 #: templates/includes/sidebar.html:116
 msgid "Tools"
-msgstr ""
+msgstr "Инструменты"
 
 #: templates/includes/sidebar.html:118
 msgid "Dollar Cost Average Tracker"
-msgstr ""
+msgstr "Трекер средней стоимости доллара"
 
 #: templates/includes/sidebar.html:124
 #: templates/mini_tools/unit_price_calculator.html:4
@@ -2901,7 +2905,7 @@ msgstr ""
 #: templates/mini_tools/currency_converter/currency_converter.html:7
 #: templates/mini_tools/currency_converter/currency_converter.html:14
 msgid "Currency Converter"
-msgstr ""
+msgstr "Конвертер валют"
 
 #: templates/includes/sidebar.html:139
 msgid "Management"
@@ -2913,11 +2917,11 @@ msgstr ""
 
 #: templates/includes/sidebar.html:219
 msgid "Admin"
-msgstr ""
+msgstr "Администратор"
 
 #: templates/includes/sidebar.html:227
 msgid "Django Admin"
-msgstr ""
+msgstr "Администратор Django"
 
 #: templates/includes/sidebar.html:228
 msgid "Only use this if you know what you're doing"
@@ -2929,7 +2933,7 @@ msgstr ""
 
 #: templates/includes/sidebar.html:251
 msgid "Calculator"
-msgstr ""
+msgstr "Калькулятор"
 
 #: templates/insights/fragments/category_explorer/charts/account.html:100
 #: templates/insights/fragments/category_explorer/charts/currency.html:92
@@ -2942,20 +2946,20 @@ msgstr ""
 #: templates/yearly_overview/fragments/account_data.html:12
 #: templates/yearly_overview/fragments/currency_data.html:12
 msgid "No information to display"
-msgstr ""
+msgstr "Информация для отображения отсутствует"
 
 #: templates/insights/fragments/category_explorer/index.html:23
 msgid "Income/Expense by Account"
-msgstr ""
+msgstr "Доходы/расходы по счетам"
 
 #: templates/insights/fragments/category_explorer/index.html:35
 msgid "Income/Expense by Currency"
-msgstr ""
+msgstr "Доходы/Расходы по валютам"
 
 #: templates/insights/fragments/category_overview/index.html:13
 #: templates/insights/fragments/category_overview/index.html:16
 msgid "Table"
-msgstr ""
+msgstr "таблица"
 
 #: templates/insights/fragments/category_overview/index.html:24
 #: templates/insights/fragments/category_overview/index.html:27
@@ -2976,7 +2980,7 @@ msgstr ""
 
 #: templates/insights/fragments/category_overview/index.html:73
 msgid "Final total"
-msgstr ""
+msgstr "Итоговая сумма"
 
 #: templates/insights/fragments/category_overview/index.html:89
 #: templates/insights/fragments/month_by_month.html:91
@@ -2985,15 +2989,15 @@ msgstr ""
 #: templates/insights/fragments/year_by_year.html:140
 #: templates/monthly_overview/fragments/monthly_summary.html:167
 msgid "Total"
-msgstr ""
+msgstr "Итог"
 
 #: templates/insights/fragments/category_overview/index.html:529
 msgid "Final Total"
-msgstr ""
+msgstr "Итоговая Cумма"
 
 #: templates/insights/fragments/emergency_fund.html:12
 msgid "You've spent an average of"
-msgstr ""
+msgstr "В среднем вы потратили"
 
 #: templates/insights/fragments/emergency_fund.html:20
 msgid "on the last 12 months, at this rate you could go by"
@@ -3005,7 +3009,7 @@ msgstr ""
 
 #: templates/insights/fragments/emergency_fund.html:28
 msgid "average expenses"
-msgstr ""
+msgstr "средние расходы"
 
 #: templates/insights/fragments/emergency_fund.html:42
 msgid "liquid total"
@@ -3017,7 +3021,7 @@ msgstr ""
 
 #: templates/insights/fragments/late_transactions.html:15
 msgid "All good!"
-msgstr ""
+msgstr "Всё отлично!"
 
 #: templates/insights/fragments/late_transactions.html:16
 msgid "No late transactions"
@@ -3025,7 +3029,7 @@ msgstr ""
 
 #: templates/insights/fragments/latest_transactions.html:14
 msgid "No recent transactions"
-msgstr ""
+msgstr "Нет недавних транзакций"
 
 #: templates/insights/fragments/month_by_month.html:86
 #: templates/insights/fragments/year_by_year.html:54
@@ -3034,51 +3038,51 @@ msgstr ""
 
 #: templates/insights/fragments/month_by_month.html:94
 msgid "Jan"
-msgstr ""
+msgstr "Январь"
 
 #: templates/insights/fragments/month_by_month.html:95
 msgid "Feb"
-msgstr ""
+msgstr "Февраль"
 
 #: templates/insights/fragments/month_by_month.html:96
 msgid "Mar"
-msgstr ""
+msgstr "Март"
 
 #: templates/insights/fragments/month_by_month.html:97
 msgid "Apr"
-msgstr ""
+msgstr "Апрель"
 
 #: templates/insights/fragments/month_by_month.html:98
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 #: templates/insights/fragments/month_by_month.html:99
 msgid "Jun"
-msgstr ""
+msgstr "Июнь"
 
 #: templates/insights/fragments/month_by_month.html:100
 msgid "Jul"
-msgstr ""
+msgstr "Июль"
 
 #: templates/insights/fragments/month_by_month.html:101
 msgid "Aug"
-msgstr ""
+msgstr "Август"
 
 #: templates/insights/fragments/month_by_month.html:102
 msgid "Sep"
-msgstr ""
+msgstr "Сентябрь"
 
 #: templates/insights/fragments/month_by_month.html:103
 msgid "Oct"
-msgstr ""
+msgstr "Октябрь"
 
 #: templates/insights/fragments/month_by_month.html:104
 msgid "Nov"
-msgstr ""
+msgstr "Ноябрь"
 
 #: templates/insights/fragments/month_by_month.html:105
 msgid "Dec"
-msgstr ""
+msgstr "Декабрь"
 
 #: templates/insights/fragments/month_by_month.html:248
 msgid "No transactions for this year"
@@ -3086,36 +3090,36 @@ msgstr ""
 
 #: templates/insights/fragments/sankey.html:100
 msgid "From"
-msgstr ""
+msgstr "От"
 
 #: templates/insights/fragments/sankey.html:103
 msgid "Percentage"
-msgstr ""
+msgstr "Процент"
 
 #: templates/insights/fragments/year_by_year.html:202
 msgid "No transactions"
-msgstr ""
+msgstr "Нет транзакций"
 
 #: templates/insights/pages/index.html:37
 msgid "Month"
-msgstr ""
+msgstr "Месяц"
 
 #: templates/insights/pages/index.html:39
 #: templates/yearly_overview/pages/yearly_overview_base.html:69
 msgid "Year"
-msgstr ""
+msgstr "Год"
 
 #: templates/insights/pages/index.html:41
 msgid "Month Range"
-msgstr ""
+msgstr "Диапазон месяцев"
 
 #: templates/insights/pages/index.html:43
 msgid "Year Range"
-msgstr ""
+msgstr "Годовой диапазон"
 
 #: templates/insights/pages/index.html:45
 msgid "Date Range"
-msgstr ""
+msgstr "Диапазон дат"
 
 #: templates/insights/pages/index.html:79
 msgid "Account Flow"
@@ -3147,28 +3151,28 @@ msgstr ""
 
 #: templates/insights/pages/index.html:127
 msgid "Year by Year"
-msgstr ""
+msgstr "Каждый год"
 
 #: templates/insights/pages/index.html:132
 msgid "Month by Month"
-msgstr ""
+msgstr "Помесячно"
 
 #: templates/installment_plans/fragments/add.html:5
 msgid "Add installment plan"
-msgstr ""
+msgstr "Добавить план рассрочки"
 
 #: templates/installment_plans/fragments/edit.html:5
 msgid "Edit installment plan"
-msgstr ""
+msgstr "Изменить план рассрочки"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
 #: templates/installment_plans/fragments/table.html:35
 msgid "Installments"
-msgstr ""
+msgstr "Рассрочки"
 
 #: templates/installment_plans/fragments/table.html:42
 msgid "Refresh"
-msgstr ""
+msgstr "Перезагрузить"
 
 #: templates/installment_plans/fragments/table.html:48
 msgid ""
@@ -3190,7 +3194,7 @@ msgstr ""
 
 #: templates/layouts/base.html:37
 msgid "This is a demo!"
-msgstr ""
+msgstr "Это демо-версия!"
 
 #: templates/layouts/base.html:37
 msgid "Any data you add here will be wiped in 24hrs or less"
@@ -3204,19 +3208,19 @@ msgstr ""
 #: templates/mini_tools/unit_price_calculator.html:102
 #: templates/mini_tools/unit_price_calculator.html:129
 msgid "Item price"
-msgstr ""
+msgstr "Цена товара"
 
 #: templates/mini_tools/unit_price_calculator.html:31
 #: templates/mini_tools/unit_price_calculator.html:108
 #: templates/mini_tools/unit_price_calculator.html:135
 msgid "Item amount"
-msgstr ""
+msgstr "Количество товара"
 
 #: templates/mini_tools/unit_price_calculator.html:37
 #: templates/mini_tools/unit_price_calculator.html:114
 #: templates/mini_tools/unit_price_calculator.html:141
 msgid "Unit price"
-msgstr ""
+msgstr "Цена за единицу товара"
 
 #: templates/mini_tools/unit_price_calculator.html:96
 #: templates/mini_tools/unit_price_calculator.html:123
@@ -3231,15 +3235,15 @@ msgstr ""
 
 #: templates/monthly_overview/fragments/list.html:58
 msgid "No transactions this month"
-msgstr ""
+msgstr "Нет транзакций этом месяце"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:7
 msgid "Daily Spending Allowance"
-msgstr ""
+msgstr "Суточный расход"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:7
 msgid "This is the final total divided by the remaining days in the month"
-msgstr ""
+msgstr "Это итоговая сумма, разделенная на количество оставшихся дней в месяце"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:44
 #: templates/monthly_overview/fragments/monthly_summary.html:107
@@ -3251,11 +3255,11 @@ msgstr ""
 #: templates/monthly_overview/fragments/monthly_summary.html:136
 #: templates/monthly_overview/fragments/monthly_summary.html:199
 msgid "projected"
-msgstr ""
+msgstr "прогнозируемый"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:104
 msgid "Expenses"
-msgstr ""
+msgstr "Расходы"
 
 #: templates/monthly_overview/fragments/monthly_summary.html:257
 msgid "Distribution"
@@ -3282,17 +3286,17 @@ msgstr ""
 #: templates/monthly_overview/pages/overview.html:109
 #: templates/transactions/pages/transactions.html:58
 msgid "Filter transactions"
-msgstr ""
+msgstr "Фильтр транзакций"
 
 #: templates/monthly_overview/pages/overview.html:235
 #: templates/transactions/pages/transactions.html:185
 msgid "Order by"
-msgstr ""
+msgstr "Сортировать по"
 
 #: templates/net_worth/net_worth.html:52
 #: templates/yearly_overview/pages/overview_by_currency.html:6
 msgid "By currency"
-msgstr ""
+msgstr "По валюте"
 
 #: templates/net_worth/net_worth.html:84
 msgid "Consolidated"
@@ -3318,7 +3322,7 @@ msgstr ""
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
 msgid "Add quick transaction"
-msgstr ""
+msgstr "Добавить быструю транзакцию"
 
 #: templates/quick_transactions/fragments/create_menu.html:17
 #: templates/quick_transactions/fragments/list.html:66
@@ -3327,7 +3331,7 @@ msgstr ""
 
 #: templates/quick_transactions/fragments/edit.html:5
 msgid "Edit quick transaction"
-msgstr ""
+msgstr "Редактировать быструю транзакцию"
 
 #: templates/quick_transactions/fragments/list.html:38
 msgid "This will delete this item"
@@ -3335,57 +3339,61 @@ msgstr ""
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
-msgstr ""
+msgstr "Добавить повторяющуюся транзакцию"
 
 #: templates/recurring_transactions/fragments/edit.html:5
 msgid "Edit recurring transaction"
-msgstr ""
+msgstr "Редактировать повторяющуюся транзакцию"
 
 #: templates/recurring_transactions/fragments/table.html:46
 msgid "Unpause"
-msgstr ""
+msgstr "Снять с паузы"
 
 #: templates/recurring_transactions/fragments/table.html:53
 msgid "This will start creating new transactions until you pause it"
 msgstr ""
+"Это приведет к созданию новых транзакций, пока вы не приостановите этот "
+"процесс"
 
 #: templates/recurring_transactions/fragments/table.html:54
 msgid "Yes, unpause it!"
-msgstr ""
+msgstr "Да, снимите с паузы!"
 
 #: templates/recurring_transactions/fragments/table.html:59
 msgid "Pause"
-msgstr ""
+msgstr "Пауза"
 
 #: templates/recurring_transactions/fragments/table.html:66
 msgid "This will stop the creation of new transactions until you unpause it"
-msgstr ""
+msgstr "Это остановит создание новых транзакций, пока вы не возобновите их"
 
 #: templates/recurring_transactions/fragments/table.html:67
 msgid "Yes, pause it!"
-msgstr ""
+msgstr "Да, поставьте на паузу!"
 
 #: templates/recurring_transactions/fragments/table.html:73
 msgid "Finish"
-msgstr ""
+msgstr "Закончить"
 
 #: templates/recurring_transactions/fragments/table.html:80
 msgid ""
 "This will stop the creation of new transactions and delete any unpaid "
 "transactions after today"
 msgstr ""
+"Это остановит создание новых транзакций и удалит все неоплаченные транзакции "
+"после сегодняшнего дня"
 
 #: templates/recurring_transactions/fragments/table.html:81
 msgid "Yes, finish it!"
-msgstr ""
+msgstr "Да, закончить!"
 
 #: templates/recurring_transactions/fragments/table.html:93
 msgid "This will delete the recurrence and all transactions associated with it"
-msgstr ""
+msgstr "Это удалит повторяющуюся запись и все связанные с ней транзакции"
 
 #: templates/recurring_transactions/fragments/table.html:121
 msgid "No recurring transactions"
-msgstr ""
+msgstr "Нет повторяющихся транзакций"
 
 #: templates/rules/fragments/list.html:34
 msgid "View"
@@ -3393,24 +3401,24 @@ msgstr ""
 
 #: templates/rules/fragments/list.html:70
 msgid "Deactivate"
-msgstr ""
+msgstr "Отключить"
 
 #: templates/rules/fragments/list.html:70
 msgid "Activate"
-msgstr ""
+msgstr "включить"
 
 #: templates/rules/fragments/list.html:89
 msgid "No rules"
-msgstr ""
+msgstr "Нет правил"
 
 #: templates/rules/fragments/transaction_rule/add.html:5
 msgid "Add transaction rule"
-msgstr ""
+msgstr "Добавить правило транзакции"
 
 #: templates/rules/fragments/transaction_rule/dry_run/created.html:5
 #: templates/rules/fragments/transaction_rule/view.html:123
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:4
 msgid "Visual"
@@ -3419,23 +3427,23 @@ msgstr ""
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:15
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:89
 msgid "Run a test to see..."
-msgstr ""
+msgstr "Проведите тест, чтобы увидеть..."
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:24
 #: templates/rules/fragments/transaction_rule/view.html:39
 #: templates/transactions/fragments/edit.html:5
 #: templates/transactions/fragments/edit_installment_plan.html:5
 msgid "Edit transaction"
-msgstr ""
+msgstr "Редактировать транзакцию"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:26
 #: templates/rules/fragments/transaction_rule/view.html:76
 msgid "Update or create transaction"
-msgstr ""
+msgstr "Обновить или создать транзакцию"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:36
 msgid "Start"
-msgstr ""
+msgstr "Запустить"
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:45
 #: templates/rules/fragments/transaction_rule/view.html:44
@@ -3449,33 +3457,33 @@ msgstr ""
 
 #: templates/rules/fragments/transaction_rule/dry_run/visual.html:64
 msgid "No transaction found, a new one will be created"
-msgstr ""
+msgstr "Транзакция не найдена, будет создана новая"
 
 #: templates/rules/fragments/transaction_rule/edit.html:5
 msgid "Edit transaction rule"
-msgstr ""
+msgstr "Редактировать правило транзакции"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/add.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/add.html:5
 msgid "Add action to transaction rule"
-msgstr ""
+msgstr "Добавить действие к правилу транзакции"
 
 #: templates/rules/fragments/transaction_rule/transaction_rule_action/edit.html:5
 #: templates/rules/fragments/transaction_rule/update_or_create_transaction_rule_action/edit.html:5
 msgid "Edit transaction rule action"
-msgstr ""
+msgstr "Редактировать действие правила транзакции"
 
 #: templates/rules/fragments/transaction_rule/view.html:5
 msgid "Transaction Rule"
-msgstr ""
+msgstr "Правило Транзакции"
 
 #: templates/rules/fragments/transaction_rule/view.html:14
 msgid "If transaction..."
-msgstr ""
+msgstr "Если транзакция..."
 
 #: templates/rules/fragments/transaction_rule/view.html:31
 msgid "Then..."
-msgstr ""
+msgstr "Тогда"
 
 #: templates/rules/fragments/transaction_rule/view.html:80
 msgid "Edit to view"
@@ -3483,56 +3491,56 @@ msgstr ""
 
 #: templates/rules/fragments/transaction_rule/view.html:108
 msgid "This rule has no actions"
-msgstr ""
+msgstr "Это правило не имеет действий"
 
 #: templates/rules/fragments/transaction_rule/view.html:140
 msgid "Add new action"
-msgstr ""
+msgstr "Добавить новое действие"
 
 #: templates/rules/fragments/transaction_rule/view.html:145
 msgid "Edit Transaction"
-msgstr ""
+msgstr "Редактировать Транзакцию"
 
 #: templates/rules/fragments/transaction_rule/view.html:148
 msgid "Update or Create Transaction"
-msgstr ""
+msgstr "Обновить или Создать Транзакцию"
 
 #: templates/tags/fragments/add.html:5
 msgid "Add tag"
-msgstr ""
+msgstr "Добавить тег"
 
 #: templates/tags/fragments/edit.html:5
 msgid "Edit tag"
-msgstr ""
+msgstr "Редактировать тег"
 
 #: templates/transactions/fragments/add.html:5
 #: templates/transactions/pages/add.html:5
 msgid "New transaction"
-msgstr ""
+msgstr "Новая транзакция"
 
 #: templates/transactions/fragments/add_installment_plan.html:5
 msgid "Add Installment Plan"
-msgstr ""
+msgstr "Добавить План Рассрочки"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
-msgstr ""
+msgstr "Массовое редактирование"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "Editing"
-msgstr ""
+msgstr "Редактирование"
 
 #: templates/transactions/fragments/bulk_edit.html:8
 msgid "transactions"
-msgstr ""
+msgstr "транзакции"
 
 #: templates/transactions/fragments/list_all.html:58
 msgid "No transactions found"
-msgstr ""
+msgstr "Транзакций не найдено"
 
 #: templates/transactions/fragments/transfer.html:5
 msgid "New transfer"
-msgstr ""
+msgstr "Новый перевод"
 
 #: templates/transactions/fragments/trash_list.html:7
 msgid "No deleted transactions to show"
@@ -3541,28 +3549,28 @@ msgstr ""
 #: templates/transactions/pages/trash.html:4
 #: templates/transactions/pages/trash.html:9
 msgid "Deleted transactions"
-msgstr ""
+msgstr "Удаленные транзакции"
 
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:11
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:7
 msgid "Unchanged"
-msgstr ""
+msgstr "Без изменений"
 
 #: templates/users/fragments/add.html:5
 msgid "Add user"
-msgstr ""
+msgstr "Добавить пользователя"
 
 #: templates/users/fragments/edit.html:5
 msgid "Edit user"
-msgstr ""
+msgstr "Редактировать пользователя"
 
 #: templates/users/fragments/list.html:27
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: templates/users/fragments/list.html:28
 msgid "Superuser"
-msgstr ""
+msgstr "Суперпользователь"
 
 #: templates/users/fragments/list.html:46
 msgid "Impersonate"
@@ -3570,36 +3578,36 @@ msgstr ""
 
 #: templates/users/fragments/list.html:76
 msgid "No users"
-msgstr ""
+msgstr "Нет пользователей"
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
-msgstr ""
+msgstr "Скрыть суммы"
 
 #: templates/users/generic/mute_sounds.html:2
 msgid "Mute sounds"
-msgstr ""
+msgstr "Выкл. звуки"
 
 #: templates/users/generic/play_sounds.html:2
 msgid "Play sounds"
-msgstr ""
+msgstr "Вкл. звуки"
 
 #: templates/users/generic/show_amounts.html:2
 msgid "Show amounts"
-msgstr ""
+msgstr "Показать суммы"
 
 #: templates/users/login.html:16
 msgid "Welcome to WYGIWYH's demo!"
-msgstr ""
+msgstr "Добро пожаловать в демоверсию WYGIWYH!"
 
 #: templates/users/login.html:17
 msgid "Use the credentials below to login"
-msgstr ""
+msgstr "Для входа используйте указанные ниже учетные данные"
 
 #: templates/users/login.html:37
 msgid "Login with"
-msgstr ""
+msgstr "Войти с помощью"
 
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
-msgstr ""
+msgstr "Годовой обзор"
