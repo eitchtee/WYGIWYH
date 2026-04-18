@@ -1,4 +1,4 @@
-import _hyperscript from 'hyperscript.org/dist/_hyperscript.min';
+import 'hyperscript.org';
 import './_htmx.js';
 import Alpine from "alpinejs";
 import mask from '@alpinejs/mask';
@@ -6,6 +6,7 @@ import collapse from '@alpinejs/collapse'
 import { create, all } from 'mathjs';
 
 window.Alpine = Alpine;
+const _hyperscript = window._hyperscript;
 window._hyperscript = _hyperscript;
 window.math = create(all, {
     number: 'BigNumber',
@@ -14,8 +15,6 @@ window.math = create(all, {
 Alpine.plugin(mask);
 Alpine.plugin(collapse);
 Alpine.start();
-
-_hyperscript.browserInit();
 
 const successAudio = new Audio("/static/sounds/success.mp3");
 const popAudio = new Audio("/static/sounds/pop.mp3");
