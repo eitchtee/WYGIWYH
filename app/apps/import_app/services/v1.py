@@ -13,6 +13,7 @@ import openpyxl
 import xlrd
 import yaml
 from cachalot.api import cachalot_disabled
+from django.core.exceptions import FieldDoesNotExist
 from django.utils import timezone
 from openpyxl.utils.exceptions import InvalidFileException
 
@@ -365,7 +366,7 @@ class ImportService:
                 try:
                     if entities_mapping:
                         if entities_mapping.type == "id":
-                            entity = TransactionTag.objects.filter(
+                            entity = TransactionEntity.objects.filter(
                                 id=entity_name
                             ).first()
                         else:  # name
@@ -462,18 +463,83 @@ class ImportService:
                 for field in rule.fields:
                     if field in transaction_data:
                         value = transaction_data[field]
-                        # Use __iexact only for string fields; non-string types
-                        # (date, Decimal, bool, int, etc.) don't support UPPER()
-                        if rule.match_type == "strict" or not isinstance(value, str):
-                            query = query.filter(**{field: value})
-                        else:  # lax matching for strings only
-                            query = query.filter(**{f"{field}__iexact": value})
+                        query = self._apply_deduplication_filter(
+                            query=query,
+                            field=field,
+                            value=value,
+                            match_type=rule.match_type,
+                        )
 
                 # If we found any matching transaction, it's a duplicate
                 if query.exists():
                     return True
 
         return False
+
+    @staticmethod
+    def _is_int_like(value: Any) -> bool:
+        try:
+            int(value)
+        except (TypeError, ValueError):
+            return False
+        return True
+
+    def _apply_deduplication_filter(
+        self,
+        query,
+        field: str,
+        value: Any,
+        match_type: Literal["lax", "strict"],
+    ):
+        if isinstance(value, list):
+            return self._apply_list_deduplication_filter(
+                query=query,
+                field=field,
+                values=value,
+                match_type=match_type,
+            )
+
+        # Use __iexact only for string fields; non-string types
+        # (date, Decimal, bool, int, etc.) don't support UPPER()
+        if match_type == "strict" or not isinstance(value, str):
+            return query.filter(**{field: value})
+
+        return query.filter(**{f"{field}__iexact": value})
+
+    def _apply_list_deduplication_filter(
+        self,
+        query,
+        field: str,
+        values: list[Any],
+        match_type: Literal["lax", "strict"],
+    ):
+        clean_values = [v for v in values if v not in (None, "")]
+        if not clean_values:
+            return query
+
+        try:
+            model_field = Transaction._meta.get_field(field)
+        except FieldDoesNotExist:
+            return query.filter(**{f"{field}__in": clean_values})
+
+        if getattr(model_field, "many_to_many", False):
+            # For m2m fields (e.g., entities/tags), apply one filter per value so
+            # all provided values must be present in the matched transaction.
+            if all(self._is_int_like(v) for v in clean_values):
+                for value in clean_values:
+                    query = query.filter(**{f"{field}__id": int(value)})
+            else:
+                for value in clean_values:
+                    lookup = (
+                        f"{field}__name"
+                        if match_type == "strict"
+                        else f"{field}__name__iexact"
+                    )
+                    query = query.filter(**{lookup: str(value).strip()})
+
+            return query.distinct()
+
+        return query.filter(**{f"{field}__in": clean_values})
 
     def _coerce_type(
         self, value: str, mapping: version_1.ColumnMapping
