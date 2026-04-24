@@ -4,6 +4,15 @@ import '../styles/_tom-select.scss'
 
 
 window.TomSelect = function createDynamicTomSelect(element) {
+    const schedulePopperUpdate = function (instance) {
+        // Wait for TomSelect DOM updates before recalculating dropdown position.
+        requestAnimationFrame(() => {
+            if (instance.popper) {
+                instance.popper.update();
+            }
+        });
+    };
+
     // Basic configuration
     const config = {
         plugins: {},
@@ -28,9 +37,15 @@ window.TomSelect = function createDynamicTomSelect(element) {
                 placement: "bottom-start",
                 modifiers: [
                     {
+                        name: "offset",
+                        options: {
+                            offset: [0, 4],
+                        },
+                    },
+                    {
                         name: "sameWidth",
                         enabled: true,
-                        fn: ({state}) => {
+                        fn: ({ state }) => {
                             state.styles.popper.width = `${state.rects.reference.width}px`;
                         },
                         phase: "beforeWrite",
@@ -48,8 +63,17 @@ window.TomSelect = function createDynamicTomSelect(element) {
 
         },
         onDropdownOpen: function () {
-            this.popper.update();
-        }
+            schedulePopperUpdate(this);
+        },
+        onItemAdd: function () {
+            schedulePopperUpdate(this);
+        },
+        onItemRemove: function () {
+            schedulePopperUpdate(this);
+        },
+        onClear: function () {
+            schedulePopperUpdate(this);
+        },
     };
 
     if (element.dataset.checkboxes === 'true') {
