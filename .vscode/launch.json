@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Docker: Dev",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "docker compose --env-file .env -f docker-compose.dev.yml up --build",
+            "cwd": "${workspaceFolder}",
+            "postDebugTask": "Docker: Dev Down"
+        },
+        {
+            "name": "Docker: Dev (no rebuild)",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "docker compose --env-file .env -f docker-compose.dev.yml up",
+            "cwd": "${workspaceFolder}",
+            "postDebugTask": "Docker: Dev Down"
+        },
+        {
+            "name": "Docker: Prod",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "docker compose --env-file .prod.env -f docker-compose.prod.yml up --build",
+            "cwd": "${workspaceFolder}",
+            "postDebugTask": "Docker: Prod Down"
+        }
+    ]
+}
