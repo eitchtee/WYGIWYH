@@ -90,10 +90,10 @@ class AccountBalanceAPITests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_get_balance_unauthenticated(self):
-        """Test unauthenticated request returns 403"""
+        """Test unauthenticated request returns 401"""
         unauthenticated_client = APIClient()
         response = unauthenticated_client.get(
             f"/api/accounts/{self.account.id}/balance/"
         )
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

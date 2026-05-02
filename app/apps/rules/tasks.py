@@ -365,7 +365,9 @@ def check_for_transaction_rules(
 
         if processed_action.set_category:
             value = simple.eval(processed_action.set_category)
-            if isinstance(value, int):
+            if value is None:
+                transaction.category = None
+            elif isinstance(value, int):
                 transaction.category = TransactionCategory.objects.get(id=value)
             else:
                 transaction.category = TransactionCategory.objects.get(name=value)
@@ -458,7 +460,9 @@ def check_for_transaction_rules(
                 transaction.account = account
 
         elif field == TransactionRuleAction.Field.category:
-            if isinstance(new_value, int):
+            if new_value is None:
+                transaction.category = None
+            elif isinstance(new_value, int):
                 category = TransactionCategory.objects.get(id=new_value)
                 transaction.category = category
             elif isinstance(new_value, str):
