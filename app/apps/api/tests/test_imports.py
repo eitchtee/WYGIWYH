@@ -159,7 +159,7 @@ column_mapping:
         self.assertIn("import_run_id", response.data)
 
     def test_unauthenticated_request(self):
-        """Test unauthenticated request returns 403"""
+        """Test unauthenticated request returns 401"""
         unauthenticated_client = APIClient()
 
         csv_content = b"date,description,amount\n2025-01-01,Test,100"
@@ -173,7 +173,7 @@ column_mapping:
             format="multipart",
         )
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 @override_settings(
@@ -266,11 +266,11 @@ column_mapping:
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_profiles_unauthenticated(self):
-        """Test unauthenticated request returns 403"""
+        """Test unauthenticated request returns 401"""
         unauthenticated_client = APIClient()
         response = unauthenticated_client.get("/api/import/profiles/")
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 @override_settings(
@@ -397,8 +397,8 @@ column_mapping:
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_runs_unauthenticated(self):
-        """Test unauthenticated request returns 403"""
+        """Test unauthenticated request returns 401"""
         unauthenticated_client = APIClient()
         response = unauthenticated_client.get("/api/import/runs/")
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
