@@ -1,32 +1,120 @@
 import datetime
 from copy import deepcopy
 
-from dateutil.relativedelta import relativedelta
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-from django.db.models import Q, When, Case, Value, IntegerField
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
-from django.utils.translation import gettext_lazy as _, ngettext_lazy
-from django.views.decorators.http import require_http_methods
-
+from apps.common.decorators.demo import disabled_on_demo
 from apps.common.decorators.htmx import only_htmx
 from apps.rules.signals import transaction_created, transaction_updated
 from apps.transactions.filters import TransactionsFilter
 from apps.transactions.forms import (
+    BulkEditTransactionForm,
+    TransactionAttachmentForm,
     TransactionForm,
     TransferForm,
-    BulkEditTransactionForm,
 )
-from apps.transactions.models import Transaction
+from apps.transactions.models import Transaction, TransactionAttachment
 from apps.transactions.utils.calculations import (
-    calculate_currency_totals,
     calculate_account_totals,
+    calculate_currency_totals,
     calculate_percentage_distribution,
 )
 from apps.transactions.utils.default_ordering import default_order
+from dateutil.relativedelta import relativedelta
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Case, IntegerField, Q, Value, When
+from django.http import FileResponse, Http404, HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
+from django.views.decorators.http import require_http_methods
+
+
+def _get_accessible_transaction_or_404(transaction_id):
+    return get_object_or_404(Transaction.objects, id=transaction_id)
+
+
+def _get_accessible_attachment_or_404(attachment_id):
+    attachment = get_object_or_404(
+        TransactionAttachment.objects.select_related("transaction"),
+        id=attachment_id,
+    )
+    if not Transaction.objects.filter(id=attachment.transaction_id).exists():
+        raise Http404()
+    return attachment
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET", "POST"])
+def transaction_attachments(request, transaction_id):
+    transaction = _get_accessible_transaction_or_404(transaction_id)
+
+    if request.method == "POST":
+        form = TransactionAttachmentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(transaction=transaction, uploaded_by=request.user)
+            messages.success(request, _("Attachment uploaded successfully"))
+            form = TransactionAttachmentForm()
+    else:
+        form = TransactionAttachmentForm()
+
+    response = render(
+        request,
+        "transactions/fragments/attachments_manage.html",
+        {"form": form, "transaction": transaction},
+    )
+
+    response["HX-Trigger"] = "toasts, updated"
+
+    return response
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET"])
+def transaction_attachments_list(request, transaction_id):
+    transaction = _get_accessible_transaction_or_404(transaction_id)
+    return render(
+        request,
+        "transactions/fragments/attachments.html",
+        {"transaction": transaction},
+    )
+
+
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET"])
+def transaction_attachment_download(request, attachment_id):
+    attachment = _get_accessible_attachment_or_404(attachment_id)
+    return FileResponse(
+        attachment.file.open("rb"),
+        as_attachment=False,
+        filename=attachment.original_name,
+        content_type=attachment.content_type or "application/octet-stream",
+    )
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["DELETE"])
+def transaction_attachment_delete(request, attachment_id):
+    attachment = _get_accessible_attachment_or_404(attachment_id)
+    transaction = attachment.transaction
+    attachment.file.delete(save=False)
+    attachment.delete()
+    messages.success(request, _("Attachment deleted successfully"))
+    response = render(
+        request,
+        "transactions/fragments/attachments.html",
+        {"transaction": transaction},
+    )
+    response["HX-Trigger"] = "toasts, updated"
+    return response
 
 
 @only_htmx
