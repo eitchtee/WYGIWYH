@@ -1,4 +1,4 @@
-import _hyperscript from 'hyperscript.org';
+import 'hyperscript.org';
 import './_htmx.js';
 import Alpine from "alpinejs";
 import mask from '@alpinejs/mask';
@@ -6,10 +6,6 @@ import collapse from '@alpinejs/collapse'
 import { create, all } from 'mathjs';
 
 window.Alpine = Alpine;
-if (!window._hyperscript) {
-    window._hyperscript = _hyperscript;
-    _hyperscript.browserInit();
-}
 window.math = create(all, {
     number: 'BigNumber',
 });
