@@ -14,6 +14,7 @@ from apps.common.widgets.tom_select import TomSelect
 from apps.rules.signals import transaction_created, transaction_updated
 from apps.transactions.models import (
     InstallmentPlan,
+    TransactionAttachment,
     QuickTransaction,
     RecurringTransaction,
     Transaction,
@@ -34,6 +35,22 @@ from crispy_forms.layout import (
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+
+
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(forms.FileField):
+    widget = MultipleFileInput
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            return [single_file_clean(file, initial) for file in data]
+        if data:
+            return [single_file_clean(data, initial)]
+        return []
 
 
 class TransactionForm(forms.ModelForm):
@@ -245,6 +262,41 @@ class TransactionForm(forms.ModelForm):
             transaction_updated.send(sender=instance, old_data=old_data)
 
         return instance
+
+
+class TransactionAttachmentForm(forms.Form):
+    attachments = MultipleFileField(
+        required=True,
+        label=_("Attachments"),
+        help_text=_("Files are private and only visible to users with access to this transaction."),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            "attachments",
+            FormActions(
+                NoClassSubmit("submit", _("Upload"), css_class="btn btn-primary"),
+            ),
+        )
+
+    def save(self, transaction, uploaded_by):
+        created = []
+        for attachment in self.cleaned_data.get("attachments") or []:
+            created.append(
+                TransactionAttachment.objects.create(
+                    transaction=transaction,
+                    file=attachment,
+                    original_name=attachment.name,
+                    content_type=getattr(attachment, "content_type", ""),
+                    size=attachment.size,
+                    uploaded_by=uploaded_by,
+                )
+            )
+        return created
 
 
 class QuickTransactionForm(forms.ModelForm):

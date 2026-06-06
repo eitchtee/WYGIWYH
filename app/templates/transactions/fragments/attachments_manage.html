@@ -1,0 +1,17 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Transaction attachments' %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% url 'transaction_attachments' transaction_id=transaction.id %}"
+      hx-target="#generic-offcanvas"
+      hx-swap="innerHTML"
+      enctype="multipart/form-data"
+      novalidate>
+  {% crispy form %}
+</form>
+
+{% include 'transactions/fragments/attachments.html' %}
+{% endblock %}

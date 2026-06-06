@@ -1,6 +1,7 @@
 volumes:
   wygiwyh_dev_postgres_data: {}
   wygiwyh_temp:
+  wygiwyh_attachments:
 
 
 services:
@@ -14,6 +15,7 @@ services:
       - ./app/:/usr/src/app/:z
       - ./frontend/:/usr/src/frontend:z
       - wygiwyh_temp:/usr/src/app/temp/
+      - wygiwyh_attachments:/usr/src/app/attachments/
     ports:
       - "${OUTBOUND_PORT:-8000}:${INTERNAL_PORT:-8000}"
     env_file:

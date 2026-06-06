@@ -1,6 +1,8 @@
 import decimal
 import logging
+import uuid
 from copy import deepcopy
+from pathlib import Path
 
 from apps.common.fields.month_year import MonthYearModelField
 from apps.common.functions.decimals import truncate_decimal
@@ -13,13 +15,15 @@ from apps.common.models import (
 )
 from apps.common.templatetags.decimal import drop_trailing_zeros, localize_number
 from apps.currencies.utils.convert import convert
+from apps.transactions.storage import PrivateMediaStorage
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import Q
-from django.dispatch import Signal
+from django.db.models.signals import post_delete
+from django.dispatch import Signal, receiver
 from django.template.defaultfilters import date
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -30,6 +34,11 @@ logger = logging.getLogger()
 transaction_created = Signal()
 transaction_updated = Signal()
 transaction_deleted = Signal()
+
+
+def transaction_attachment_path(instance, filename):
+    extension = Path(filename).suffix
+    return f"transaction_attachments/{instance.transaction_id}/{instance.id}{extension}"
 
 
 class SoftDeleteQuerySet(models.QuerySet):
@@ -526,6 +535,60 @@ class Transaction(OwnedObject):
 
         return new_obj
 
+class TransactionAttachment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    transaction = models.ForeignKey(
+        Transaction,
+        on_delete=models.CASCADE,
+        related_name="attachments",
+        verbose_name=_("Transaction"),
+    )
+    file = models.FileField(
+        upload_to=transaction_attachment_path,
+        storage=PrivateMediaStorage(),
+        verbose_name=_("File"),
+    )
+    original_name = models.CharField(max_length=255, verbose_name=_("Original Name"))
+    content_type = models.CharField(
+        max_length=255, blank=True, verbose_name=_("Content Type")
+    )
+    size = models.PositiveBigIntegerField(default=0, verbose_name=_("Size"))
+    uploaded_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="transaction_attachments",
+        verbose_name=_("Uploaded By"),
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Transaction Attachment")
+        verbose_name_plural = _("Transaction Attachments")
+        db_table = "transaction_attachments"
+        ordering = ["-created_at", "original_name"]
+
+    def save(self, *args, **kwargs):
+        if self.file:
+            if not self.original_name:
+                self.original_name = Path(self.file.name).name
+            if not self.size:
+                self.size = self.file.size
+            if not self.content_type:
+                self.content_type = getattr(self.file.file, "content_type", "")
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.original_name
+
+
+@receiver(post_delete, sender=TransactionAttachment)
+def delete_transaction_attachment_file(sender, instance, **kwargs):
+    if not instance.file.name:
+        return
+
+    storage = instance.file.storage
+    if storage.exists(instance.file.name):
+        storage.delete(instance.file.name)
 
 class InstallmentPlan(models.Model):
     class Recurrence(models.TextChoices):
