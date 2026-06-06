@@ -49,6 +49,10 @@ div:where(.swal2-container) {
   z-index: 1101 !important;
 }
 
+#toasts .toast-container {
+  z-index: 1100;
+}
+
 .logo {
   /* Set the background-color to DaisyUI CSS variable */
   background-color: var(--color-primary);
