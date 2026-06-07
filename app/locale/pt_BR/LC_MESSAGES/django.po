@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-06 08:15+0000\n"
-"PO-Revision-Date: 2026-04-30 02:24+0000\n"
+"PO-Revision-Date: 2026-06-07 14:57+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.17\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1417,21 +1417,19 @@ msgstr "Salvar e adicionar outra"
 
 #: apps/transactions/forms.py:270 templates/cotton/transaction/item.html:158
 #: templates/transactions/fragments/attachments.html:4
-#, fuzzy
-#| msgid "Installments"
 msgid "Attachments"
-msgstr "Parcelas"
+msgstr "Anexos"
 
 #: apps/transactions/forms.py:271
 msgid ""
 "Files are private and only visible to users with access to this transaction."
 msgstr ""
+"Os arquivos são privados e só podem ser visualizados por usuários com acesso "
+"a esta transação."
 
 #: apps/transactions/forms.py:282
-#, fuzzy
-#| msgid "Reload"
 msgid "Upload"
-msgstr "Recarregar"
+msgstr "Upload"
 
 #: apps/transactions/forms.py:351 apps/transactions/forms.py:623
 msgid "Muted transactions won't be displayed on monthly summaries"
@@ -1567,40 +1565,32 @@ msgid "No description"
 msgstr "Sem descrição"
 
 #: apps/transactions/models.py:549
-#, fuzzy
-#| msgid "ZIP File"
 msgid "File"
-msgstr "Arquivo ZIP"
+msgstr "Arquivo"
 
 #: apps/transactions/models.py:551
 msgid "Original Name"
-msgstr ""
+msgstr "Nome Original"
 
 #: apps/transactions/models.py:553
-#, fuzzy
-#| msgid "Content"
 msgid "Content Type"
-msgstr "Conteúdo"
+msgstr "Tipo de Conteúdo"
 
 #: apps/transactions/models.py:555
 msgid "Size"
-msgstr ""
+msgstr "Tamanho"
 
 #: apps/transactions/models.py:560
 msgid "Uploaded By"
-msgstr ""
+msgstr "Enviado por"
 
 #: apps/transactions/models.py:565
-#, fuzzy
-#| msgid "Transactions on"
 msgid "Transaction Attachment"
-msgstr "Transações em"
+msgstr "Anexo de transação"
 
 #: apps/transactions/models.py:566
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction Attachments"
-msgstr "Tags da Transação"
+msgstr "Anexo de transações"
 
 #: apps/transactions/models.py:595 templates/includes/sidebar.html:57
 msgid "Yearly"
@@ -1852,16 +1842,12 @@ msgid "Tag deleted successfully"
 msgstr "Tag apagada com sucesso"
 
 #: apps/transactions/views/transactions.py:59
-#, fuzzy
-#| msgid "Account updated successfully"
 msgid "Attachment uploaded successfully"
-msgstr "Conta atualizada com sucesso"
+msgstr "Anexo enviado com sucesso"
 
 #: apps/transactions/views/transactions.py:110
-#, fuzzy
-#| msgid "Account deleted successfully"
 msgid "Attachment deleted successfully"
-msgstr "Conta apagada com sucesso"
+msgstr "Anexo apagado com sucesso"
 
 #: apps/transactions/views/transactions.py:350
 msgid "Transaction updated successfully"
@@ -3593,25 +3579,19 @@ msgstr "Adicionar parcelamento"
 
 #: templates/transactions/fragments/attachments.html:20
 msgid "Delete this attachment?"
-msgstr ""
+msgstr "Apagar este anexo?"
 
 #: templates/transactions/fragments/attachments.html:21
-#, fuzzy
-#| msgid "This will stop the creation of new transactions"
 msgid "This file will be removed from the transaction."
-msgstr "Isso interromperá a criação de novas transações"
+msgstr "Este arquivo será removido da transação."
 
 #: templates/transactions/fragments/attachments.html:30
-#, fuzzy
-#| msgid "No presets yet"
 msgid "No attachments yet"
-msgstr "Nenhuma predefinição de importação ainda"
+msgstr "Nenhum anexo ainda"
 
 #: templates/transactions/fragments/attachments_manage.html:5
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction attachments"
-msgstr "Tags da Transação"
+msgstr "Anexos da transação"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
