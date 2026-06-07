@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-06 08:15+0000\n"
-"PO-Revision-Date: 2026-02-17 18:24+0000\n"
+"PO-Revision-Date: 2026-06-07 08:57+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1419,21 +1419,19 @@ msgstr "Opslaan en een andere toevoegen"
 
 #: apps/transactions/forms.py:270 templates/cotton/transaction/item.html:158
 #: templates/transactions/fragments/attachments.html:4
-#, fuzzy
-#| msgid "Installments"
 msgid "Attachments"
-msgstr "Aflossingen"
+msgstr "Bijlagen"
 
 #: apps/transactions/forms.py:271
 msgid ""
 "Files are private and only visible to users with access to this transaction."
 msgstr ""
+"Bestanden zijn privé en alleen zichtbaar voor gebruikers die toegang hebben "
+"tot deze transactie."
 
 #: apps/transactions/forms.py:282
-#, fuzzy
-#| msgid "Reload"
 msgid "Upload"
-msgstr "Herlaad"
+msgstr "Uploaden"
 
 #: apps/transactions/forms.py:351 apps/transactions/forms.py:623
 msgid "Muted transactions won't be displayed on monthly summaries"
@@ -1570,40 +1568,32 @@ msgid "No description"
 msgstr "Geen Beschrijving"
 
 #: apps/transactions/models.py:549
-#, fuzzy
-#| msgid "ZIP File"
 msgid "File"
-msgstr "ZIP-bestand"
+msgstr "Bestand"
 
 #: apps/transactions/models.py:551
 msgid "Original Name"
-msgstr ""
+msgstr "Originele Naam"
 
 #: apps/transactions/models.py:553
-#, fuzzy
-#| msgid "Content"
 msgid "Content Type"
-msgstr "Inhoud"
+msgstr "Inhoudstype"
 
 #: apps/transactions/models.py:555
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: apps/transactions/models.py:560
 msgid "Uploaded By"
-msgstr ""
+msgstr "Geüpload Door"
 
 #: apps/transactions/models.py:565
-#, fuzzy
-#| msgid "Transactions on"
 msgid "Transaction Attachment"
-msgstr "Verrichtingen op"
+msgstr "Transactiebijlage"
 
 #: apps/transactions/models.py:566
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction Attachments"
-msgstr "Verrichting Labels"
+msgstr "Transactiebijlages"
 
 #: apps/transactions/models.py:595 templates/includes/sidebar.html:57
 msgid "Yearly"
@@ -1855,16 +1845,12 @@ msgid "Tag deleted successfully"
 msgstr "Label succesvol verwijderd"
 
 #: apps/transactions/views/transactions.py:59
-#, fuzzy
-#| msgid "Account updated successfully"
 msgid "Attachment uploaded successfully"
-msgstr "Rekening succesvol bijgewerkt"
+msgstr "Bijlage succesvol geüpload"
 
 #: apps/transactions/views/transactions.py:110
-#, fuzzy
-#| msgid "Account deleted successfully"
 msgid "Attachment deleted successfully"
-msgstr "Rekening succesvol verwijderd"
+msgstr "Bijlage succesvol verwijderd"
 
 #: apps/transactions/views/transactions.py:350
 msgid "Transaction updated successfully"
@@ -3598,23 +3584,19 @@ msgstr "Afbetalingsplan Toevoegen"
 
 #: templates/transactions/fragments/attachments.html:20
 msgid "Delete this attachment?"
-msgstr ""
+msgstr "Deze bijlage verwijderen?"
 
 #: templates/transactions/fragments/attachments.html:21
 msgid "This file will be removed from the transaction."
-msgstr ""
+msgstr "Dit bestand wordt uit de transactie verwijderd."
 
 #: templates/transactions/fragments/attachments.html:30
-#, fuzzy
-#| msgid "No presets yet"
 msgid "No attachments yet"
-msgstr "Nog geen voorinstellingen"
+msgstr "Nog geen bijlagen"
 
 #: templates/transactions/fragments/attachments_manage.html:5
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction attachments"
-msgstr "Verrichting Labels"
+msgstr "Bijlagen bij transacties"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
