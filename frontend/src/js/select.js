@@ -60,12 +60,15 @@ window.TomSelect = function createDynamicTomSelect(element) {
                 ]
 
             });
-
         },
         onDropdownOpen: function () {
             schedulePopperUpdate(this);
         },
         onItemAdd: function () {
+            if (this.settings.mode === 'multi') {
+                this.setTextboxValue();
+                this.refreshOptions(false);
+            }
             schedulePopperUpdate(this);
         },
         onItemRemove: function () {
