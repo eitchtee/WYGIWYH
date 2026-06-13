@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-06 08:15+0000\n"
-"PO-Revision-Date: 2026-02-18 11:24+0000\n"
+"PO-Revision-Date: 2026-06-08 07:57+0000\n"
 "Last-Translator: Pawel Augustyn <pawelaugustyn15@gmail.com>\n"
 "Language-Team: Polish <https://translations.herculino.com/projects/wygiwyh/"
 "app/pl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1424,7 +1424,7 @@ msgstr "Zapisz i dodaj kolejne"
 #: apps/transactions/forms.py:270 templates/cotton/transaction/item.html:158
 #: templates/transactions/fragments/attachments.html:4
 msgid "Attachments"
-msgstr ""
+msgstr "Załączniki"
 
 #: apps/transactions/forms.py:271
 msgid ""
@@ -1596,16 +1596,12 @@ msgid "Uploaded By"
 msgstr ""
 
 #: apps/transactions/models.py:565
-#, fuzzy
-#| msgid "Transactions on"
 msgid "Transaction Attachment"
-msgstr "Transakcje z dnia"
+msgstr "Załącznik transakcji"
 
 #: apps/transactions/models.py:566
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction Attachments"
-msgstr "Tagi transakcji"
+msgstr "Załączniki transakcji"
 
 #: apps/transactions/models.py:595 templates/includes/sidebar.html:57
 msgid "Yearly"
@@ -1638,15 +1634,15 @@ msgstr ""
 
 #: apps/transactions/models.py:622 apps/transactions/models.py:857
 msgid "Start Date"
-msgstr ""
+msgstr "Data startowa"
 
 #: apps/transactions/models.py:626 apps/transactions/models.py:858
 msgid "End Date"
-msgstr ""
+msgstr "Data końcowa"
 
 #: apps/transactions/models.py:631
 msgid "Recurrence"
-msgstr ""
+msgstr "Zlecenie stałe"
 
 #: apps/transactions/models.py:634
 msgid "Installment Amount"
@@ -1683,15 +1679,15 @@ msgstr "Zapauzowane"
 
 #: apps/transactions/models.py:860
 msgid "Recurrence Type"
-msgstr ""
+msgstr "Typ powtarzania"
 
 #: apps/transactions/models.py:863
 msgid "Recurrence Interval"
-msgstr ""
+msgstr "Co ile powtarzać"
 
 #: apps/transactions/models.py:866
 msgid "Keep at most"
-msgstr ""
+msgstr "Zachowuj co najwyżej"
 
 #: apps/transactions/models.py:870
 msgid "Last Generated Date"
@@ -1862,16 +1858,12 @@ msgid "Tag deleted successfully"
 msgstr "Usunięto tag"
 
 #: apps/transactions/views/transactions.py:59
-#, fuzzy
-#| msgid "Account updated successfully"
 msgid "Attachment uploaded successfully"
-msgstr "Konto zaktualizowane"
+msgstr "Pomyślnie dodano załącznik"
 
 #: apps/transactions/views/transactions.py:110
-#, fuzzy
-#| msgid "Account deleted successfully"
 msgid "Attachment deleted successfully"
-msgstr "Usunięto konto"
+msgstr "Usunięto załącznik"
 
 #: apps/transactions/views/transactions.py:350
 msgid "Transaction updated successfully"
@@ -2448,7 +2440,7 @@ msgstr ""
 #: templates/cotton/transaction/item.html:227
 #: templates/cotton/ui/transactions_action_bar.html:78
 msgid "Duplicate"
-msgstr ""
+msgstr "Zduplikuj"
 
 #: templates/cotton/ui/account_card.html:10
 #: templates/cotton/ui/currency_card.html:10
@@ -2563,7 +2555,7 @@ msgstr ""
 #: templates/cotton/ui/quick_transactions_buttons.html:32
 #: templates/cotton/ui/transactions_fab.html:35
 msgid "Recurring"
-msgstr ""
+msgstr "Zlecenie stałe"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:47
 #: templates/cotton/ui/transactions_fab.html:52
@@ -3414,11 +3406,11 @@ msgstr "To usunie tę rzecz"
 
 #: templates/recurring_transactions/fragments/add.html:5
 msgid "Add recurring transaction"
-msgstr ""
+msgstr "Dodaj zlecenie stałe"
 
 #: templates/recurring_transactions/fragments/edit.html:5
 msgid "Edit recurring transaction"
-msgstr ""
+msgstr "Edytuj zlecenie stałe"
 
 #: templates/recurring_transactions/fragments/table.html:46
 msgid "Unpause"
@@ -3461,10 +3453,12 @@ msgstr ""
 #: templates/recurring_transactions/fragments/table.html:93
 msgid "This will delete the recurrence and all transactions associated with it"
 msgstr ""
+"Ta akcja spowoduje usunięcie zlecenia stałego i wszystkich powiązanych z nim "
+"transakcji"
 
 #: templates/recurring_transactions/fragments/table.html:121
 msgid "No recurring transactions"
-msgstr ""
+msgstr "Brak zleceń stałych"
 
 #: templates/rules/fragments/list.html:34
 msgid "View"
@@ -3595,23 +3589,19 @@ msgstr ""
 
 #: templates/transactions/fragments/attachments.html:20
 msgid "Delete this attachment?"
-msgstr ""
+msgstr "Czy chcesz usunąć ten załącznik?"
 
 #: templates/transactions/fragments/attachments.html:21
 msgid "This file will be removed from the transaction."
 msgstr ""
 
 #: templates/transactions/fragments/attachments.html:30
-#, fuzzy
-#| msgid "No runs yet"
 msgid "No attachments yet"
-msgstr "Brak zleconych importów"
+msgstr "Brak załączników"
 
 #: templates/transactions/fragments/attachments_manage.html:5
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction attachments"
-msgstr "Tagi transakcji"
+msgstr "Załączniki transakcji"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
