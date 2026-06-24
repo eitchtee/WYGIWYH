@@ -4,13 +4,19 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     AdminPasswordChangeForm,
 )
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
-from apps.users.models import User, UserSettings
+from apps.users.models import APIToken, User, UserSettings
+
+
+@admin.action(description=_("Revoke selected API tokens"))
+def revoke_api_tokens(modeladmin, request, queryset):
+    queryset.update(revoked_at=timezone.now())
 
 admin.site.unregister(Group)
 
@@ -77,3 +83,33 @@ class GroupAdmin(BaseGroupAdmin, ModelAdmin):
 
 
 admin.site.register(UserSettings)
+
+
+@admin.register(APIToken)
+class APITokenAdmin(admin.ModelAdmin):
+    actions = [revoke_api_tokens]
+    list_display = (
+        "name",
+        "user",
+        "token_key",
+        "created_at",
+        "last_used_at",
+        "expires_at",
+        "revoked_at",
+    )
+    search_fields = ("name", "user__email", "token_key")
+    # Never expose the secret hash in the form; it must not be editable.
+    exclude = ("token_hash",)
+    readonly_fields = (
+        "user",
+        "name",
+        "token_key",
+        "created_at",
+        "updated_at",
+        "last_used_at",
+        "expires_at",
+        "revoked_at",
+    )
+
+    def has_add_permission(self, request):
+        return False

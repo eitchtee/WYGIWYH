@@ -22,6 +22,10 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 from allauth.socialaccount.providers.openid_connect.views import login, callback
+from apps.common.oauth_views import (
+    authorization_server_metadata,
+    dynamic_client_registration,
+)
 
 
 urlpatterns = [
@@ -39,6 +43,17 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path("auth/", include("allauth.urls")),  # allauth urls
+    path("oauth/", include("oauth2_provider.urls", namespace="oauth2_provider")),
+    path(
+        ".well-known/oauth-authorization-server",
+        authorization_server_metadata,
+        name="oauth-authorization-server-metadata",
+    ),
+    path(
+        "oauth/register/",
+        dynamic_client_registration,
+        name="oauth-dynamic-client-registration",
+    ),
     # path("auth/oidc/<str:provider_id>/login/", login, name="openid_connect_login"),
     # path(
     #     "auth/oidc/<str:provider_id>/login/callback/",
