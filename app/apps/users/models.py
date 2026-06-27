@@ -415,7 +415,7 @@ timezones = [
     ("Pacific/Galapagos", "Pacific/Galapagos"),
     ("Pacific/Gambier", "Pacific/Gambier"),
     ("Pacific/Guadalcanal", "Pacific/Guadalcanal"),
-    ("P2025-06-29T01:43:14.671389745Z acific/Guam", "Pacific/Guam"),
+    ("Pacific/Guam", "Pacific/Guam"),
     ("Pacific/Honolulu", "Pacific/Honolulu"),
     ("Pacific/Kanton", "Pacific/Kanton"),
     ("Pacific/Kiritimati", "Pacific/Kiritimati"),
