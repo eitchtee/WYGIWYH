@@ -9,7 +9,7 @@
 </div>
 
 {% if raw_token %}
-  <div role="alert" class="alert alert-warning mb-4">
+  <div class="bg-primary-content p-3 rounded-box">
     <div class="w-full">
       <div class="font-semibold mb-1">{% translate "Copy this token now" %}</div>
       <p class="text-sm opacity-80 mb-3">
@@ -20,10 +20,10 @@
                type="text"
                readonly
                value="{{ raw_token }}"
-               class="input input-sm join-item w-full font-mono text-xs"
+               class="input input-sm join-item w-full"
                _="on focus call me.select()" />
         <button type="button"
-                class="btn btn-sm btn-primary join-item"
+                class="btn btn-sm btn-secondary join-item"
                 _="on click call navigator.clipboard.writeText('{{ raw_token|escapejs }}')
                      then put 'Copied!' into me
                      then wait 1.5s

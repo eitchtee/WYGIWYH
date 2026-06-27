@@ -437,7 +437,9 @@ class APITokenCreateForm(forms.Form):
     name = forms.CharField(
         max_length=255,
         label=_("Token name"),
-        help_text=_("Use a descriptive name such as n8n, Home Assistant, or backup job."),
+        help_text=_(
+            "Use a descriptive name such as n8n, Home Assistant, or backup job."
+        ),
     )
     expires_in_days = forms.IntegerField(
         required=False,
@@ -459,7 +461,7 @@ class APITokenCreateForm(forms.Form):
                 NoClassSubmit(
                     "submit",
                     _("Create token"),
-                    css_class="btn btn-outline-primary w-full",
+                    css_class="btn btn-primary",
                 ),
             ),
         )
