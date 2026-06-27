@@ -139,6 +139,7 @@ def _render_api_tokens(request, *, form=None, raw_token=None):
 
 @only_htmx
 @htmx_login_required
+@disabled_on_demo
 @require_http_methods(["POST"])
 def api_token_add(request):
     form = APITokenCreateForm(request.POST)
@@ -156,6 +157,7 @@ def api_token_add(request):
 
 @only_htmx
 @htmx_login_required
+@disabled_on_demo
 @require_http_methods(["DELETE"])
 def api_token_revoke(request, token_id):
     token = get_object_or_404(APIToken, id=token_id, user=request.user)
