@@ -87,6 +87,21 @@
                    _="install prompt_swal">
                   <i class="fa-solid fa-ban fa-fw"></i>
                 </a>
+              {% else %}
+                <a class="btn btn-error btn-sm"
+                   role="button"
+                   data-tippy-content="{% translate 'Delete' %}"
+                   hx-delete="{% url 'user_api_token_delete' token_id=token.id %}"
+                   hx-target="#api-token-settings"
+                   hx-swap="innerHTML"
+                   hx-trigger="confirmed"
+                   data-bypass-on-ctrl="true"
+                   data-title="{% translate 'Delete token?' %}"
+                   data-text="{% translate 'This permanently removes the token from the list. It cannot be undone.' %}"
+                   data-confirm-text="{% translate 'Yes, delete it!' %}"
+                   _="install prompt_swal">
+                  <i class="fa-solid fa-trash fa-fw"></i>
+                </a>
               {% endif %}
             </td>
           </tr>

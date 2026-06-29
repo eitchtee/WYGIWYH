@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from apps.users.models import APIToken
 
@@ -43,3 +44,30 @@ class UserAPITokenViewsTests(TestCase):
         token.refresh_from_db()
         self.assertIsNotNone(token.revoked_at)
         self.assertContains(response, "Revoked")
+
+    def test_can_delete_revoked_api_token(self):
+        token, _ = APIToken.objects.create_token(user=self.user, name="n8n")
+        token.revoked_at = timezone.now()
+        token.save(update_fields=["revoked_at"])
+
+        response = self.client.delete(
+            reverse("user_api_token_delete", kwargs={"token_id": token.id}),
+            **self.htmx_headers,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(APIToken.objects.filter(id=token.id).exists())
+
+    def test_cannot_delete_other_users_api_token(self):
+        other = get_user_model().objects.create_user(
+            email="other@example.com", password="test-password"
+        )
+        token, _ = APIToken.objects.create_token(user=other, name="theirs")
+
+        response = self.client.delete(
+            reverse("user_api_token_delete", kwargs={"token_id": token.id}),
+            **self.htmx_headers,
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertTrue(APIToken.objects.filter(id=token.id).exists())

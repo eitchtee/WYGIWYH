@@ -43,6 +43,11 @@ urlpatterns = [
         name="user_api_token_revoke",
     ),
     path(
+        "user/api-tokens/<int:token_id>/delete/",
+        views.api_token_delete,
+        name="user_api_token_delete",
+    ),
+    path(
         "users/",
         views.users_index,
         name="users_index",

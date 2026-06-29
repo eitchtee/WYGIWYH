@@ -170,6 +170,17 @@ def api_token_revoke(request, token_id):
 
 @only_htmx
 @htmx_login_required
+@disabled_on_demo
+@require_http_methods(["DELETE"])
+def api_token_delete(request, token_id):
+    token = get_object_or_404(APIToken, id=token_id, user=request.user)
+    token.delete()
+    messages.success(request, _("API token deleted successfully"))
+    return _render_api_tokens(request)
+
+
+@only_htmx
+@htmx_login_required
 @require_http_methods(["GET"])
 def toggle_sidebar_status(request):
     if not request.session.get("sidebar_status"):
