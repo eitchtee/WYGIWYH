@@ -153,3 +153,14 @@ class DemoModeAPITokenViewsTests(TestCase):
         self.assertEqual(response.status_code, 403)
         token.refresh_from_db()
         self.assertIsNone(token.revoked_at)
+
+    def test_cannot_delete_api_token_from_ui_in_demo_mode(self):
+        token, _ = APIToken.objects.create_token(user=self.user, name="n8n")
+
+        response = self.client.delete(
+            reverse("user_api_token_delete", kwargs={"token_id": token.id}),
+            **self.htmx_headers,
+        )
+
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(APIToken.objects.filter(id=token.id).exists())
