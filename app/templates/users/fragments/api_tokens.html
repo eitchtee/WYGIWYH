@@ -24,7 +24,7 @@
                _="on focus call me.select()" />
         <button type="button"
                 class="btn btn-sm btn-secondary join-item"
-                _="on click call navigator.clipboard.writeText('{{ raw_token|escapejs }}')
+                _="on click call navigator.clipboard.writeText(#raw-token-value.value)
                      then put 'Copied!' into me
                      then wait 1.5s
                      then put 'Copy' into me">
