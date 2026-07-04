@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-06 08:15+0000\n"
+"POT-Creation-Date: 2026-07-04 15:39+0000\n"
 "PO-Revision-Date: 2025-10-08 16:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translations."
@@ -31,8 +31,8 @@ msgstr "群組名稱"
 #: apps/transactions/forms.py:417 apps/transactions/forms.py:536
 #: apps/transactions/forms.py:880 apps/transactions/forms.py:919
 #: apps/transactions/forms.py:947 apps/transactions/forms.py:978
-#: apps/transactions/forms.py:1128 apps/users/forms.py:242
-#: apps/users/forms.py:400
+#: apps/transactions/forms.py:1128 apps/users/forms.py:246
+#: apps/users/forms.py:404
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -47,7 +47,7 @@ msgstr "更新"
 #: apps/transactions/forms.py:424 apps/transactions/forms.py:886
 #: apps/transactions/forms.py:925 apps/transactions/forms.py:953
 #: apps/transactions/forms.py:984 apps/transactions/forms.py:1134
-#: apps/users/forms.py:248 apps/users/forms.py:406
+#: apps/users/forms.py:252 apps/users/forms.py:410
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "新增"
@@ -99,7 +99,7 @@ msgstr "標籤"
 #: apps/import_app/models.py:14 apps/rules/models.py:13
 #: apps/transactions/models.py:223 apps/transactions/models.py:248
 #: apps/transactions/models.py:272 apps/transactions/models.py:1057
-#: templates/account_groups/fragments/list.html:22
+#: apps/users/models.py:572 templates/account_groups/fragments/list.html:22
 #: templates/accounts/fragments/list.html:22
 #: templates/categories/fragments/table.html:17
 #: templates/currencies/fragments/list.html:23
@@ -349,7 +349,7 @@ msgstr ""
 "私人：只會顯示給擁有者或著已分享的使用者。只有擁有者可以編輯這個選項。<br/>公"
 "開：所有使用者都可以看到。只有擁有者可以編輯這個選項。"
 
-#: apps/common/forms.py:76 apps/users/forms.py:169
+#: apps/common/forms.py:76 apps/users/forms.py:173
 msgid "Save"
 msgstr "儲存"
 
@@ -529,8 +529,8 @@ msgstr "換算匯率"
 msgid "Date and Time"
 msgstr "日期和時間"
 
-#: apps/currencies/models.py:78 apps/users/models.py:12
-#: apps/users/models.py:497
+#: apps/currencies/models.py:78 apps/users/models.py:17
+#: apps/users/models.py:502
 msgid "Auto"
 msgstr "自動"
 
@@ -571,7 +571,9 @@ msgstr "服務類型"
 #: templates/entities/fragments/list.html:16
 #: templates/installment_plans/fragments/list.html:16
 #: templates/recurring_transactions/fragments/list.html:16
-#: templates/tags/fragments/list.html:16 templates/users/fragments/list.html:25
+#: templates/tags/fragments/list.html:16
+#: templates/users/fragments/api_tokens.html:54
+#: templates/users/fragments/list.html:25
 msgid "Active"
 msgstr "啟用"
 
@@ -1577,7 +1579,7 @@ msgstr "交易標籤"
 msgid "Yearly"
 msgstr "年"
 
-#: apps/transactions/models.py:596 apps/users/models.py:464
+#: apps/transactions/models.py:596 apps/users/models.py:469
 #: templates/includes/sidebar.html:51
 msgid "Monthly"
 msgstr "月"
@@ -1763,11 +1765,11 @@ msgid "Installment Plan deleted successfully"
 msgstr "成功刪除分期付款計劃"
 
 #: apps/transactions/views/quick_transactions.py:45
-#: apps/transactions/views/quick_transactions.py:224 apps/users/views.py:188
+#: apps/transactions/views/quick_transactions.py:224 apps/users/views.py:252
 msgid "Item added successfully"
 msgstr "成功新增項目"
 
-#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:220
+#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:284
 msgid "Item updated successfully"
 msgstr "成功更新項目"
 
@@ -1855,44 +1857,48 @@ msgstr "成功復原交易"
 msgid "Transfer added successfully"
 msgstr "成功新增轉帳"
 
-#: apps/users/admin.py:22 templates/users/fragments/user_settings.html:5
+#: apps/users/admin.py:17
+msgid "Revoke selected API tokens"
+msgstr ""
+
+#: apps/users/admin.py:28 templates/users/fragments/user_settings.html:5
 msgid "User Settings"
 msgstr "使用者設定"
 
-#: apps/users/admin.py:23
+#: apps/users/admin.py:29
 msgid "User Setting"
 msgstr "使用者設定"
 
-#: apps/users/admin.py:48
+#: apps/users/admin.py:54
 msgid "Personal info"
 msgstr "個人資訊"
 
-#: apps/users/admin.py:50
+#: apps/users/admin.py:56
 msgid "Permissions"
 msgstr "權限"
 
-#: apps/users/admin.py:61
+#: apps/users/admin.py:67
 msgid "Important dates"
 msgstr "重要的日子"
 
-#: apps/users/forms.py:24 apps/users/forms.py:28 apps/users/models.py:451
+#: apps/users/forms.py:28 apps/users/forms.py:32 apps/users/models.py:456
 #: templates/users/login.html:18
 msgid "E-mail"
 msgstr "電子郵件"
 
-#: apps/users/forms.py:35 apps/users/forms.py:40 templates/users/login.html:19
+#: apps/users/forms.py:39 apps/users/forms.py:44 templates/users/login.html:19
 msgid "Password"
 msgstr "密碼"
 
-#: apps/users/forms.py:47
+#: apps/users/forms.py:51
 msgid "Invalid e-mail or password"
 msgstr "無效的電子郵件或著密碼"
 
-#: apps/users/forms.py:48
+#: apps/users/forms.py:52
 msgid "This account is deactivated"
 msgstr "這個帳號已經被停用"
 
-#: apps/users/forms.py:64 apps/users/forms.py:77 apps/users/forms.py:99
+#: apps/users/forms.py:68 apps/users/forms.py:81 apps/users/forms.py:103
 #: templates/monthly_overview/pages/overview.html:98
 #: templates/monthly_overview/pages/overview.html:245
 #: templates/transactions/pages/transactions.html:47
@@ -1900,25 +1906,25 @@ msgstr "這個帳號已經被停用"
 msgid "Default"
 msgstr "預設"
 
-#: apps/users/forms.py:107 apps/users/models.py:484
+#: apps/users/forms.py:111 apps/users/models.py:489
 msgid "Date Format"
 msgstr "日期格式"
 
-#: apps/users/forms.py:112 apps/users/models.py:489
+#: apps/users/forms.py:116 apps/users/models.py:494
 msgid "Datetime Format"
 msgstr "日期時間格式"
 
-#: apps/users/forms.py:118 apps/users/models.py:492
+#: apps/users/forms.py:122 apps/users/models.py:497
 msgid "Number Format"
 msgstr "數字格式"
 
-#: apps/users/forms.py:125
+#: apps/users/forms.py:129
 #, fuzzy
 #| msgid "Target Accounts"
 msgid "Default Account"
 msgstr "目標帳戶"
 
-#: apps/users/forms.py:174
+#: apps/users/forms.py:178
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1928,109 +1934,133 @@ msgstr ""
 "這會改變語言（如果支援的話）以及數字和日期的顯示方式\n"
 "若您有興趣也可以到%(translation_link)s幫助WYGIWYH進行翻譯"
 
-#: apps/users/forms.py:183
+#: apps/users/forms.py:187
 msgid "New Password"
 msgstr "新密碼"
 
-#: apps/users/forms.py:186
+#: apps/users/forms.py:190
 msgid "Leave blank to keep the current password."
 msgstr "若不想改變密碼請留白。"
 
-#: apps/users/forms.py:189
+#: apps/users/forms.py:193
 msgid "Confirm New Password"
 msgstr "確認新密碼"
 
-#: apps/users/forms.py:201 apps/users/forms.py:358
+#: apps/users/forms.py:205 apps/users/forms.py:362
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr "指定這個使用者是否為啟用狀態，如果沒有選擇的話帳號將無法使用。"
 
-#: apps/users/forms.py:204 apps/users/forms.py:361
+#: apps/users/forms.py:208 apps/users/forms.py:365
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr "指定這個使用者是否擁有全部的權限。"
 
-#: apps/users/forms.py:271
+#: apps/users/forms.py:275
 msgid "This email address is already in use by another account."
 msgstr "這個email已經被另一個帳號使用。"
 
-#: apps/users/forms.py:279
+#: apps/users/forms.py:283
 msgid "The two password fields didn't match."
 msgstr "兩個密碼欄位的內容不符。"
 
-#: apps/users/forms.py:281
+#: apps/users/forms.py:285
 msgid "Please confirm your new password."
 msgstr "請確認你的新密碼。"
 
-#: apps/users/forms.py:283
+#: apps/users/forms.py:287
 msgid "Please enter the new password first."
 msgstr "請先輸入新的密碼。"
 
-#: apps/users/forms.py:303
+#: apps/users/forms.py:307
 msgid "You cannot deactivate your own account using this form."
 msgstr "無法透過這個頁面停止自己的帳號。"
 
-#: apps/users/forms.py:316
+#: apps/users/forms.py:320
 msgid "Cannot remove status from the last superuser."
 msgstr "最後一位超級使用者無法移除這個權限。"
 
-#: apps/users/forms.py:322
+#: apps/users/forms.py:326
 msgid "You cannot remove your own superuser status using this form."
 msgstr "無法使用這個頁面移除自己的超級使用者權限。"
 
-#: apps/users/forms.py:415
+#: apps/users/forms.py:419
 msgid "A user with this email address already exists."
 msgstr "這個電子郵件的使用者已經存在。"
 
-#: apps/users/models.py:465
+#: apps/users/forms.py:439
+#, fuzzy
+#| msgid "Tag name"
+msgid "Token name"
+msgstr "標籤名稱"
+
+#: apps/users/forms.py:441
+msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
+msgstr ""
+
+#: apps/users/forms.py:447
+msgid "Expires in days"
+msgstr ""
+
+#: apps/users/forms.py:448
+msgid "Leave empty for a non-expiring token."
+msgstr ""
+
+#: apps/users/forms.py:463
+#, fuzzy
+#| msgid "Create transaction"
+msgid "Create token"
+msgstr "建立交易"
+
+#: apps/users/models.py:470
 msgid "Yearly by currency"
 msgstr "以貨幣排序的年報"
 
-#: apps/users/models.py:466
+#: apps/users/models.py:471
 msgid "Yearly by account"
 msgstr "以帳戶為主的年報"
 
-#: apps/users/models.py:467 templates/net_worth/net_worth.html:9
+#: apps/users/models.py:472 templates/net_worth/net_worth.html:9
 msgid "Current Net Worth"
 msgstr "目前的淨資產"
 
-#: apps/users/models.py:468 templates/net_worth/net_worth.html:11
+#: apps/users/models.py:473 templates/net_worth/net_worth.html:11
 msgid "Projected Net Worth"
 msgstr "預期的淨資產"
 
-#: apps/users/models.py:469
+#: apps/users/models.py:474
 msgid "All Transactions"
 msgstr "全部的交易"
 
-#: apps/users/models.py:470 templates/includes/sidebar.html:63
+#: apps/users/models.py:475 templates/includes/sidebar.html:63
 msgid "Calendar"
 msgstr "行事曆"
 
-#: apps/users/models.py:480
+#: apps/users/models.py:485
 msgid "Volume"
 msgstr "音量"
 
-#: apps/users/models.py:499
+#: apps/users/models.py:504
 msgid "Language"
 msgstr "語言"
 
-#: apps/users/models.py:505
+#: apps/users/models.py:510
 msgid "Time Zone"
 msgstr "時區"
 
-#: apps/users/models.py:511
+#: apps/users/models.py:516
 msgid "Start page"
 msgstr "起始頁面"
 
-#: apps/users/models.py:516
+#: apps/users/models.py:521
 #, fuzzy
 #| msgid "Asset account"
 msgid "Default account"
 msgstr "資產帳戶"
 
-#: apps/users/models.py:517
+#: apps/users/models.py:522
 #, fuzzy
 #| msgid ""
 #| "Deactivated tags won't be able to be selected when creating new "
@@ -2038,25 +2068,93 @@ msgstr "資產帳戶"
 msgid "Selects the account by default when creating new transactions"
 msgstr "新增交易的時候無法選擇停用的標籤"
 
-#: apps/users/views.py:67
+#: apps/users/models.py:570
+#, fuzzy
+#| msgid "Users"
+msgid "User"
+msgstr "使用者"
+
+#: apps/users/models.py:577
+msgid "Token key"
+msgstr ""
+
+#: apps/users/models.py:579
+msgid "Token hash"
+msgstr ""
+
+#: apps/users/models.py:583
+#, fuzzy
+#| msgid "Last Generated Date"
+msgid "Last used at"
+msgstr "最後產生的日期"
+
+#: apps/users/models.py:588
+msgid "Expires at"
+msgstr ""
+
+#: apps/users/models.py:593
+msgid "Revoked at"
+msgstr ""
+
+#: apps/users/models.py:595
+#, fuzzy
+#| msgid "Create"
+msgid "Created at"
+msgstr "建立"
+
+#: apps/users/models.py:596
+#, fuzzy
+#| msgid "Update"
+msgid "Updated at"
+msgstr "更新"
+
+#: apps/users/models.py:606
+#, fuzzy
+#| msgid "API Key"
+msgid "API token"
+msgstr "API金鑰"
+
+#: apps/users/models.py:607
+msgid "API tokens"
+msgstr ""
+
+#: apps/users/views.py:69
 msgid "Transaction amounts are now hidden"
 msgstr "已隱藏交易金額"
 
-#: apps/users/views.py:70
+#: apps/users/views.py:72
 msgid "Transaction amounts are now displayed"
 msgstr "已顯示交易金額"
 
-#: apps/users/views.py:88
+#: apps/users/views.py:90
 msgid "Sounds are now muted"
 msgstr "音效已調整為靜音"
 
-#: apps/users/views.py:91
+#: apps/users/views.py:93
 msgid "Sounds will now play"
 msgstr "音效已恢復播放"
 
-#: apps/users/views.py:107
+#: apps/users/views.py:109
 msgid "Your settings have been updated"
 msgstr "您的設定已經更新"
+
+#: apps/users/views.py:148
+#, fuzzy
+#| msgid "Action updated successfully"
+msgid "API token created successfully"
+msgstr "成功更新行為"
+
+#: apps/users/views.py:167
+#, fuzzy
+#| msgid "Action deleted successfully"
+msgid "API token revoked successfully"
+msgstr "成功刪除行為"
+
+#: apps/users/views.py:178
+#, fuzzy
+#| msgid "Action deleted successfully"
+msgid "API token deleted successfully"
+msgstr "成功刪除行為"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
@@ -2155,6 +2253,7 @@ msgstr "分享"
 #: templates/rules/fragments/transaction_rule/view.html:92
 #: templates/rules/fragments/transaction_rule/view.html:133
 #: templates/tags/fragments/table.html:51
+#: templates/users/fragments/api_tokens.html:93
 msgid "Delete"
 msgstr "刪除"
 
@@ -2232,6 +2331,7 @@ msgstr "您將無法復原這個行為！"
 #: templates/rules/fragments/transaction_rule/view.html:98
 #: templates/tags/fragments/table.html:57
 #: templates/transactions/fragments/attachments.html:22
+#: templates/users/fragments/api_tokens.html:101
 msgid "Yes, delete it!"
 msgstr "確認，刪除它！"
 
@@ -3250,6 +3350,10 @@ msgstr "沒有分期付款計劃"
 msgid "This is a demo!"
 msgstr "這是展示！"
 
+#: templates/layouts/base.html:37
+msgid "Any data you add here will be wiped in 24hrs or less"
+msgstr "任何新增的資料都會在24小時內被刪除"
+
 #: templates/mini_tools/currency_converter/currency_converter.html:57
 msgid "Invert"
 msgstr "交換"
@@ -3628,6 +3732,87 @@ msgstr "未變更"
 msgid "Add user"
 msgstr "新增使用者"
 
+#: templates/users/fragments/api_tokens.html:5
+msgid "API Tokens"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:7
+msgid ""
+"Use these tokens for automations such as n8n. The raw token is shown only "
+"once after creation."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:14
+msgid "Copy this token now"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:16
+msgid "It will not be shown again after this response."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:31
+msgid "Copy"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:52
+msgid "Revoked"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:59
+#, python-format
+msgid "Created %(created)s"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:62
+#, python-format
+msgid "last used %(used)s"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:64
+msgid "never used"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:68
+#, python-format
+msgid "expires %(expires)s"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:70
+msgid "no expiry"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:78
+msgid "Revoke"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:84
+msgid "Revoke token?"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:85
+msgid "This token will stop working immediately."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:86
+#, fuzzy
+#| msgid "Yes, refresh it!"
+msgid "Yes, revoke it!"
+msgstr "確定，重新整理！"
+
+#: templates/users/fragments/api_tokens.html:99
+#, fuzzy
+#| msgid "Deleted At"
+msgid "Delete token?"
+msgstr "刪除時間"
+
+#: templates/users/fragments/api_tokens.html:100
+msgid "This permanently removes the token from the list. It cannot be undone."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:114
+msgid "No API tokens"
+msgstr ""
+
 #: templates/users/fragments/edit.html:5
 msgid "Edit user"
 msgstr "編輯使用者"
@@ -3679,9 +3864,6 @@ msgstr "登入"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "年份總覽"
-
-#~ msgid "Any data you add here will be wiped in 24hrs or less"
-#~ msgstr "任何新增的資料都會在24小時內被刪除"
 
 #, fuzzy
 #~| msgid "Are you sure?"

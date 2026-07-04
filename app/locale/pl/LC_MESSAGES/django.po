@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-06 08:15+0000\n"
+"POT-Creation-Date: 2026-07-04 15:39+0000\n"
 "PO-Revision-Date: 2026-06-08 07:57+0000\n"
 "Last-Translator: Pawel Augustyn <pawelaugustyn15@gmail.com>\n"
 "Language-Team: Polish <https://translations.herculino.com/projects/wygiwyh/"
@@ -32,8 +32,8 @@ msgstr "Nazwa grupy"
 #: apps/transactions/forms.py:417 apps/transactions/forms.py:536
 #: apps/transactions/forms.py:880 apps/transactions/forms.py:919
 #: apps/transactions/forms.py:947 apps/transactions/forms.py:978
-#: apps/transactions/forms.py:1128 apps/users/forms.py:242
-#: apps/users/forms.py:400
+#: apps/transactions/forms.py:1128 apps/users/forms.py:246
+#: apps/users/forms.py:404
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -48,7 +48,7 @@ msgstr "Aktualizuj"
 #: apps/transactions/forms.py:424 apps/transactions/forms.py:886
 #: apps/transactions/forms.py:925 apps/transactions/forms.py:953
 #: apps/transactions/forms.py:984 apps/transactions/forms.py:1134
-#: apps/users/forms.py:248 apps/users/forms.py:406
+#: apps/users/forms.py:252 apps/users/forms.py:410
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "Dodaj"
@@ -100,7 +100,7 @@ msgstr "Tagi"
 #: apps/import_app/models.py:14 apps/rules/models.py:13
 #: apps/transactions/models.py:223 apps/transactions/models.py:248
 #: apps/transactions/models.py:272 apps/transactions/models.py:1057
-#: templates/account_groups/fragments/list.html:22
+#: apps/users/models.py:572 templates/account_groups/fragments/list.html:22
 #: templates/accounts/fragments/list.html:22
 #: templates/categories/fragments/table.html:17
 #: templates/currencies/fragments/list.html:23
@@ -359,7 +359,7 @@ msgstr ""
 "udostępnione. Tylko właściciel może dokonywać zmian.<br />Publiczny: "
 "Widoczne dla wszystkich. Tylko właściciel może dokonywać zmian."
 
-#: apps/common/forms.py:76 apps/users/forms.py:169
+#: apps/common/forms.py:76 apps/users/forms.py:173
 msgid "Save"
 msgstr "Zapisz"
 
@@ -551,8 +551,8 @@ msgstr "Kurs wymiany"
 msgid "Date and Time"
 msgstr "Data i godzina"
 
-#: apps/currencies/models.py:78 apps/users/models.py:12
-#: apps/users/models.py:497
+#: apps/currencies/models.py:78 apps/users/models.py:17
+#: apps/users/models.py:502
 msgid "Auto"
 msgstr "Automatycznie"
 
@@ -593,7 +593,9 @@ msgstr "Typ serwisu"
 #: templates/entities/fragments/list.html:16
 #: templates/installment_plans/fragments/list.html:16
 #: templates/recurring_transactions/fragments/list.html:16
-#: templates/tags/fragments/list.html:16 templates/users/fragments/list.html:25
+#: templates/tags/fragments/list.html:16
+#: templates/users/fragments/api_tokens.html:54
+#: templates/users/fragments/list.html:25
 msgid "Active"
 msgstr "Aktywny"
 
@@ -1607,7 +1609,7 @@ msgstr "Załączniki transakcji"
 msgid "Yearly"
 msgstr "Rocznie"
 
-#: apps/transactions/models.py:596 apps/users/models.py:464
+#: apps/transactions/models.py:596 apps/users/models.py:469
 #: templates/includes/sidebar.html:51
 msgid "Monthly"
 msgstr "Miesięcznie"
@@ -1803,11 +1805,11 @@ msgid "Installment Plan deleted successfully"
 msgstr "Usunięto plan ratalny"
 
 #: apps/transactions/views/quick_transactions.py:45
-#: apps/transactions/views/quick_transactions.py:224 apps/users/views.py:188
+#: apps/transactions/views/quick_transactions.py:224 apps/users/views.py:252
 msgid "Item added successfully"
 msgstr "Pomyślnie dodano"
 
-#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:220
+#: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:284
 msgid "Item updated successfully"
 msgstr "Pomyślnie zaktualizowano"
 
@@ -1893,44 +1895,48 @@ msgstr "Odtworzono transakcję"
 msgid "Transfer added successfully"
 msgstr "Dodano przelew"
 
-#: apps/users/admin.py:22 templates/users/fragments/user_settings.html:5
+#: apps/users/admin.py:17
+msgid "Revoke selected API tokens"
+msgstr ""
+
+#: apps/users/admin.py:28 templates/users/fragments/user_settings.html:5
 msgid "User Settings"
 msgstr "Ustawienia użytkownika"
 
-#: apps/users/admin.py:23
+#: apps/users/admin.py:29
 msgid "User Setting"
 msgstr "Ustawienie użytkownika"
 
-#: apps/users/admin.py:48
+#: apps/users/admin.py:54
 msgid "Personal info"
 msgstr "Dane personalne"
 
-#: apps/users/admin.py:50
+#: apps/users/admin.py:56
 msgid "Permissions"
 msgstr "Uprawnienia"
 
-#: apps/users/admin.py:61
+#: apps/users/admin.py:67
 msgid "Important dates"
 msgstr "Ważne daty"
 
-#: apps/users/forms.py:24 apps/users/forms.py:28 apps/users/models.py:451
+#: apps/users/forms.py:28 apps/users/forms.py:32 apps/users/models.py:456
 #: templates/users/login.html:18
 msgid "E-mail"
 msgstr "E-mail"
 
-#: apps/users/forms.py:35 apps/users/forms.py:40 templates/users/login.html:19
+#: apps/users/forms.py:39 apps/users/forms.py:44 templates/users/login.html:19
 msgid "Password"
 msgstr "Hasło"
 
-#: apps/users/forms.py:47
+#: apps/users/forms.py:51
 msgid "Invalid e-mail or password"
 msgstr "Niepoprawny e-mail lub hasło"
 
-#: apps/users/forms.py:48
+#: apps/users/forms.py:52
 msgid "This account is deactivated"
 msgstr "To konto jest nieaktywne"
 
-#: apps/users/forms.py:64 apps/users/forms.py:77 apps/users/forms.py:99
+#: apps/users/forms.py:68 apps/users/forms.py:81 apps/users/forms.py:103
 #: templates/monthly_overview/pages/overview.html:98
 #: templates/monthly_overview/pages/overview.html:245
 #: templates/transactions/pages/transactions.html:47
@@ -1938,23 +1944,23 @@ msgstr "To konto jest nieaktywne"
 msgid "Default"
 msgstr "Domyślne"
 
-#: apps/users/forms.py:107 apps/users/models.py:484
+#: apps/users/forms.py:111 apps/users/models.py:489
 msgid "Date Format"
 msgstr "Format daty"
 
-#: apps/users/forms.py:112 apps/users/models.py:489
+#: apps/users/forms.py:116 apps/users/models.py:494
 msgid "Datetime Format"
 msgstr "Format daty i czasu"
 
-#: apps/users/forms.py:118 apps/users/models.py:492
+#: apps/users/forms.py:122 apps/users/models.py:497
 msgid "Number Format"
 msgstr "Format liczb"
 
-#: apps/users/forms.py:125
+#: apps/users/forms.py:129
 msgid "Default Account"
 msgstr "Konto główne/domyślne"
 
-#: apps/users/forms.py:174
+#: apps/users/forms.py:178
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1966,19 +1972,19 @@ msgstr ""
 "Rozważ wsparcie tłumaczenia WYGIWYH dla Twojego języka na "
 "%(translation_link)s"
 
-#: apps/users/forms.py:183
+#: apps/users/forms.py:187
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: apps/users/forms.py:186
+#: apps/users/forms.py:190
 msgid "Leave blank to keep the current password."
 msgstr "Pozostaw puste by zachować obecne hasło."
 
-#: apps/users/forms.py:189
+#: apps/users/forms.py:193
 msgid "Confirm New Password"
 msgstr "Potwierdź nowe hasło"
 
-#: apps/users/forms.py:201 apps/users/forms.py:358
+#: apps/users/forms.py:205 apps/users/forms.py:362
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -1986,7 +1992,7 @@ msgstr ""
 "Określa czy ten użytkownik powinien być aktywny. Odznacz tę opcję zamiast "
 "kasować konta."
 
-#: apps/users/forms.py:204 apps/users/forms.py:361
+#: apps/users/forms.py:208 apps/users/forms.py:365
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
@@ -1994,105 +2000,195 @@ msgstr ""
 "Określa czy ten użytkownik posiada wszystkie uprawnienia bez jawnego ich "
 "przypisania."
 
-#: apps/users/forms.py:271
+#: apps/users/forms.py:275
 msgid "This email address is already in use by another account."
 msgstr "Ten adres e-mail jest już zajęty przez innego użytkownika."
 
-#: apps/users/forms.py:279
+#: apps/users/forms.py:283
 msgid "The two password fields didn't match."
 msgstr "Hasła różnią się."
 
-#: apps/users/forms.py:281
+#: apps/users/forms.py:285
 msgid "Please confirm your new password."
 msgstr "Potwierdź nowe hasło."
 
-#: apps/users/forms.py:283
+#: apps/users/forms.py:287
 msgid "Please enter the new password first."
 msgstr "Wpisz najpierw nowe hasło."
 
-#: apps/users/forms.py:303
+#: apps/users/forms.py:307
 msgid "You cannot deactivate your own account using this form."
 msgstr "Nie możesz dezaktywować własnego konta przy użyciu tego formularza."
 
-#: apps/users/forms.py:316
+#: apps/users/forms.py:320
 msgid "Cannot remove status from the last superuser."
 msgstr "Nie można usunąć statusu ostatniemu superuserowi."
 
-#: apps/users/forms.py:322
+#: apps/users/forms.py:326
 msgid "You cannot remove your own superuser status using this form."
 msgstr "Nie możesz usunąć uprawnień superusera samemu sobie."
 
-#: apps/users/forms.py:415
+#: apps/users/forms.py:419
 msgid "A user with this email address already exists."
 msgstr "Użytkownik z tym adresem e-mail już istnieje."
 
-#: apps/users/models.py:465
+#: apps/users/forms.py:439
+#, fuzzy
+#| msgid "Tag name"
+msgid "Token name"
+msgstr "Nazwa taga"
+
+#: apps/users/forms.py:441
+msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
+msgstr ""
+
+#: apps/users/forms.py:447
+msgid "Expires in days"
+msgstr ""
+
+#: apps/users/forms.py:448
+msgid "Leave empty for a non-expiring token."
+msgstr ""
+
+#: apps/users/forms.py:463
+#, fuzzy
+#| msgid "Create transaction"
+msgid "Create token"
+msgstr "Stwórz transakcję"
+
+#: apps/users/models.py:470
 msgid "Yearly by currency"
 msgstr "Podsumowanie roczne wg waluty"
 
-#: apps/users/models.py:466
+#: apps/users/models.py:471
 msgid "Yearly by account"
 msgstr "Podsumowanie roczne wg kont"
 
-#: apps/users/models.py:467 templates/net_worth/net_worth.html:9
+#: apps/users/models.py:472 templates/net_worth/net_worth.html:9
 msgid "Current Net Worth"
 msgstr "Obecne aktywa"
 
-#: apps/users/models.py:468 templates/net_worth/net_worth.html:11
+#: apps/users/models.py:473 templates/net_worth/net_worth.html:11
 msgid "Projected Net Worth"
 msgstr "Przewidywane aktywa"
 
-#: apps/users/models.py:469
+#: apps/users/models.py:474
 msgid "All Transactions"
 msgstr "Wszystkie transakcje"
 
-#: apps/users/models.py:470 templates/includes/sidebar.html:63
+#: apps/users/models.py:475 templates/includes/sidebar.html:63
 msgid "Calendar"
 msgstr "Kalendarz"
 
-#: apps/users/models.py:480
+#: apps/users/models.py:485
 msgid "Volume"
 msgstr "Głośność"
 
-#: apps/users/models.py:499
+#: apps/users/models.py:504
 msgid "Language"
 msgstr "Język"
 
-#: apps/users/models.py:505
+#: apps/users/models.py:510
 msgid "Time Zone"
 msgstr "Strefa czasowa"
 
-#: apps/users/models.py:511
+#: apps/users/models.py:516
 msgid "Start page"
 msgstr "Strona startowa"
 
-#: apps/users/models.py:516
+#: apps/users/models.py:521
 msgid "Default account"
 msgstr "Konto domyślne/główne"
 
-#: apps/users/models.py:517
+#: apps/users/models.py:522
 msgid "Selects the account by default when creating new transactions"
 msgstr "Domyślnie wybierz konto przy tworzeniu nowych transakcji"
 
-#: apps/users/views.py:67
+#: apps/users/models.py:570
+#, fuzzy
+#| msgid "Users"
+msgid "User"
+msgstr "Użytkownicy"
+
+#: apps/users/models.py:577
+msgid "Token key"
+msgstr ""
+
+#: apps/users/models.py:579
+msgid "Token hash"
+msgstr ""
+
+#: apps/users/models.py:583
+msgid "Last used at"
+msgstr ""
+
+#: apps/users/models.py:588
+msgid "Expires at"
+msgstr ""
+
+#: apps/users/models.py:593
+msgid "Revoked at"
+msgstr ""
+
+#: apps/users/models.py:595
+#, fuzzy
+#| msgid "Create transaction"
+msgid "Created at"
+msgstr "Stwórz transakcję"
+
+#: apps/users/models.py:596
+#, fuzzy
+#| msgid "Update"
+msgid "Updated at"
+msgstr "Aktualizuj"
+
+#: apps/users/models.py:606
+#, fuzzy
+#| msgid "API Key"
+msgid "API token"
+msgstr "Klucz API"
+
+#: apps/users/models.py:607
+msgid "API tokens"
+msgstr ""
+
+#: apps/users/views.py:69
 msgid "Transaction amounts are now hidden"
 msgstr "Kwoty transakcji są od teraz ukryte"
 
-#: apps/users/views.py:70
+#: apps/users/views.py:72
 msgid "Transaction amounts are now displayed"
 msgstr "Kwoty transakcji są od teraz widoczne"
 
-#: apps/users/views.py:88
+#: apps/users/views.py:90
 msgid "Sounds are now muted"
 msgstr "Dźwięki wyciszone"
 
-#: apps/users/views.py:91
+#: apps/users/views.py:93
 msgid "Sounds will now play"
 msgstr "Dźwięki będą teraz odtwarzane"
 
-#: apps/users/views.py:107
+#: apps/users/views.py:109
 msgid "Your settings have been updated"
 msgstr "Zapisano ustawienia"
+
+#: apps/users/views.py:148
+#, fuzzy
+#| msgid "Action updated successfully"
+msgid "API token created successfully"
+msgstr "Zaktualizowano akcję"
+
+#: apps/users/views.py:167
+#, fuzzy
+#| msgid "Action deleted successfully"
+msgid "API token revoked successfully"
+msgstr "Usunięto akcję"
+
+#: apps/users/views.py:178
+#, fuzzy
+#| msgid "Action deleted successfully"
+msgid "API token deleted successfully"
+msgstr "Usunięto akcję"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
@@ -2191,6 +2287,7 @@ msgstr "Udostępnij"
 #: templates/rules/fragments/transaction_rule/view.html:92
 #: templates/rules/fragments/transaction_rule/view.html:133
 #: templates/tags/fragments/table.html:51
+#: templates/users/fragments/api_tokens.html:93
 msgid "Delete"
 msgstr "Usuń"
 
@@ -2268,6 +2365,7 @@ msgstr "Tej akcji nie da się odwrócić!"
 #: templates/rules/fragments/transaction_rule/view.html:98
 #: templates/tags/fragments/table.html:57
 #: templates/transactions/fragments/attachments.html:22
+#: templates/users/fragments/api_tokens.html:101
 msgid "Yes, delete it!"
 msgstr "Tak, usuń!"
 
@@ -3267,6 +3365,10 @@ msgstr "Brak planów ratalnych"
 msgid "This is a demo!"
 msgstr ""
 
+#: templates/layouts/base.html:37
+msgid "Any data you add here will be wiped in 24hrs or less"
+msgstr ""
+
 #: templates/mini_tools/currency_converter/currency_converter.html:57
 msgid "Invert"
 msgstr "Zamień"
@@ -3639,6 +3741,87 @@ msgstr ""
 
 #: templates/users/fragments/add.html:5
 msgid "Add user"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:5
+msgid "API Tokens"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:7
+msgid ""
+"Use these tokens for automations such as n8n. The raw token is shown only "
+"once after creation."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:14
+msgid "Copy this token now"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:16
+msgid "It will not be shown again after this response."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:31
+msgid "Copy"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:52
+msgid "Revoked"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:59
+#, python-format
+msgid "Created %(created)s"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:62
+#, python-format
+msgid "last used %(used)s"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:64
+msgid "never used"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:68
+#, python-format
+msgid "expires %(expires)s"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:70
+msgid "no expiry"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:78
+msgid "Revoke"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:84
+msgid "Revoke token?"
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:85
+msgid "This token will stop working immediately."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:86
+#, fuzzy
+#| msgid "Yes, delete it!"
+msgid "Yes, revoke it!"
+msgstr "Tak, usuń!"
+
+#: templates/users/fragments/api_tokens.html:99
+#, fuzzy
+#| msgid "Delete"
+msgid "Delete token?"
+msgstr "Usuń"
+
+#: templates/users/fragments/api_tokens.html:100
+msgid "This permanently removes the token from the list. It cannot be undone."
+msgstr ""
+
+#: templates/users/fragments/api_tokens.html:114
+msgid "No API tokens"
 msgstr ""
 
 #: templates/users/fragments/edit.html:5
