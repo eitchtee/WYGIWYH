@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
+    "oauth2_provider",
     "django_cotton",
     "apps.rules.apps.RulesConfig",
     "apps.calendar_view.apps.CalendarViewConfig",
@@ -344,6 +345,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/login/"
 LOGOUT_REDIRECT_URL = "/login/"
+# Public base URL advertised in OAuth metadata. Falls back to the first entry
+# of the existing space-separated URL env var, then to the request host.
+PUBLIC_BASE_URL = (
+    os.getenv("PUBLIC_BASE_URL", "") or os.getenv("URL", "").split(" ")[0]
+).rstrip("/")
 
 # Allauth settings
 AUTHENTICATION_BACKENDS = [
@@ -381,6 +387,12 @@ SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 SOCIALACCOUNT_ADAPTER = "apps.users.adapters.AutoConnectSocialAccountAdapter"
+
+# Personal access tokens. last_used_at is only rewritten once per interval to
+# avoid a database write on every authenticated request.
+API_TOKEN_LAST_USED_UPDATE_INTERVAL = int(
+    os.getenv("API_TOKEN_LAST_USED_UPDATE_INTERVAL", "600")
+)
 
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = [
@@ -446,13 +458,32 @@ REST_FRAMEWORK = {
         "rest_framework.filters.OrderingFilter",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        "apps.api.authentication.APITokenAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
     ],
     "DEFAULT_PAGINATION_CLASS": "apps.api.custom.pagination.CustomPageNumberPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
+OAUTH2_PROVIDER = {
+    "PKCE_REQUIRED": True,
+    "ACCESS_TOKEN_EXPIRE_SECONDS": int(
+        os.getenv("OAUTH2_ACCESS_TOKEN_EXPIRE_SECONDS", "3600")
+    ),
+    "SCOPES": {
+        "mcp": "Access WYGIWYH from MCP clients.",
+    },
+}
+
+# Dynamic Client Registration (RFC 7591). Disabled by default: an open
+# registration endpoint lets anyone create OAuth applications. Enable it only
+# when remote MCP clients must self-register, and optionally require an initial
+# access token presented as `Authorization: Bearer <token>`.
+OAUTH2_DCR_ENABLED = os.getenv("OAUTH2_DCR_ENABLED", "false").lower() == "true"
+OAUTH2_DCR_INITIAL_ACCESS_TOKEN = os.getenv("OAUTH2_DCR_INITIAL_ACCESS_TOKEN", "")
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "WYGIWYH API",

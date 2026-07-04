@@ -182,6 +182,49 @@ When configuring your OIDC provider, you will need to provide a callback URL (al
 
 Replace `https://your.wygiwyh.domain` with the actual URL where your WYGIWYH instance is accessible. And `<OIDC_CLIENT_NAME>` with the slugfied value set in OIDC_CLIENT_NAME or the default `openid-connect` if you haven't set this variable.
 
+### API Tokens for n8n and other automations
+
+If you need a stable non-browser credential for automations such as `n8n`, WYGIWYH can also issue its own user-bound API tokens. This avoids Keycloak login flows and can be used directly against `/api/`.
+
+Create a token from the container or application shell:
+
+```bash
+python manage.py create_api_token you@example.com --name n8n
+```
+
+Optional expiration:
+
+```bash
+python manage.py create_api_token you@example.com --name n8n --expires-in-days 90
+```
+
+The command prints the raw token **once**. Store it in your secret manager and use it like this:
+
+```bash
+curl -H "Authorization: Token wygiwyh_pat_<key>.<secret>" \
+  https://your.wygiwyh.domain/api/accounts/
+```
+
+Recommended usage for automation is a dedicated WYGIWYH user such as `n8n@...`, so API ownership and audit trails stay separate from your interactive account.
+
+### MCP OAuth Application Bootstrap
+
+If you want WYGIWYH to act as the OAuth authorization server for a remote MCP server, you can let the container create or update the OAuth application automatically on startup.
+
+Set these environment variables:
+
+| Variable | Description |
+|---|---|
+| `MCP_OAUTH_CLIENT_NAME` | Optional display name for the OAuth client. Defaults to `WYGIWYH MCP`. |
+| `MCP_OAUTH_CLIENT_ID` | Client ID that will be created or updated in `django-oauth-toolkit`. |
+| `MCP_OAUTH_CLIENT_SECRET` | Client secret for that OAuth application. |
+| `MCP_OAUTH_REDIRECT_URIS` | Space-separated redirect URIs allowed for the MCP OAuth client. |
+| `MCP_OAUTH_SKIP_AUTHORIZATION` | Set to `true` to bypass the consent screen. Defaults to `false`. |
+
+When these variables are present, startup runs `python manage.py setup_oauth` after migrations and keeps the OAuth application in sync without needing a manual Django admin step.
+
+WYGIWYH also exposes OAuth Dynamic Client Registration at `/.well-known/oauth-authorization-server` via `registration_endpoint`, so MCP clients that support RFC 7591 can self-register instead of relying on a pre-created `MCP_OAUTH_CLIENT_ID` / `MCP_OAUTH_CLIENT_SECRET`. The current implementation supports `authorization_code` + PKCE clients using `none`, `client_secret_basic`, or `client_secret_post` token endpoint auth methods.
+
 # How it works
 
 Check out our [Wiki](https://github.com/eitchtee/WYGIWYH/wiki) for more information.

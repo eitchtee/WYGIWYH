@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from apps.common.middleware.thread_local import get_current_user
+from apps.users.models import APIToken
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.tom_select import TomSelect
 from apps.users.models import UserSettings
@@ -16,6 +19,7 @@ from django.contrib.auth.forms import (
     UsernameField,
 )
 from django.db import transaction
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -427,3 +431,49 @@ class UserAddForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class APITokenCreateForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        label=_("Token name"),
+        help_text=_(
+            "Use a descriptive name such as n8n, Home Assistant, or backup job."
+        ),
+    )
+    expires_in_days = forms.IntegerField(
+        required=False,
+        min_value=1,
+        label=_("Expires in days"),
+        help_text=_("Leave empty for a non-expiring token."),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            "name",
+            "expires_in_days",
+            FormActions(
+                NoClassSubmit(
+                    "submit",
+                    _("Create token"),
+                    css_class="btn btn-primary",
+                ),
+            ),
+        )
+
+    def save(self, user):
+        expires_in_days = self.cleaned_data.get("expires_in_days")
+        expires_at = None
+        if expires_in_days:
+            expires_at = timezone.now() + timedelta(days=expires_in_days)
+
+        return APIToken.objects.create_token(
+            user=user,
+            name=self.cleaned_data["name"],
+            expires_at=expires_at,
+        )
