@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-06 08:15+0000\n"
-"PO-Revision-Date: 2026-02-23 08:24+0000\n"
-"Last-Translator: Erwan Colin <zephone@protonmail.com>\n"
+"PO-Revision-Date: 2026-06-27 21:57+0000\n"
+"Last-Translator: sorcierwax <freakywax@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -351,8 +351,8 @@ msgid ""
 "Private: Only shown for the owner and shared users. Only editable by the "
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
-"Privé : Visible uniquement pour le propriétaire et les utilisateurs "
-"partagés. Seulement modifiable par le propriétaire.<br/> Publique : Visible "
+"Privé : Visible uniquement pour le propriétaire et les utilisateurs "
+"partagés. Seulement modifiable par le propriétaire.<br/> Publique : Visible "
 "par tous. Seulement modifiable par le propriétaire."
 
 #: apps/common/forms.py:76 apps/users/forms.py:169
@@ -1420,19 +1420,19 @@ msgstr "Enregistrer et ajouter un autre"
 
 #: apps/transactions/forms.py:270 templates/cotton/transaction/item.html:158
 #: templates/transactions/fragments/attachments.html:4
-#, fuzzy
-#| msgid "Installments"
 msgid "Attachments"
-msgstr "Paiements en plusieurs fois"
+msgstr "Fichiers attachés"
 
 #: apps/transactions/forms.py:271
 msgid ""
 "Files are private and only visible to users with access to this transaction."
 msgstr ""
+"Les fichiers sont privés et visibles uniquement pour les utilisateurs "
+"autorisés à voir cette transaction."
 
 #: apps/transactions/forms.py:282
 msgid "Upload"
-msgstr ""
+msgstr "Envoi"
 
 #: apps/transactions/forms.py:351 apps/transactions/forms.py:623
 msgid "Muted transactions won't be displayed on monthly summaries"
@@ -1571,40 +1571,32 @@ msgid "No description"
 msgstr "Pas de description"
 
 #: apps/transactions/models.py:549
-#, fuzzy
-#| msgid "ZIP File"
 msgid "File"
-msgstr "Fichier ZIP"
+msgstr "Fichier"
 
 #: apps/transactions/models.py:551
 msgid "Original Name"
-msgstr ""
+msgstr "Nom initial"
 
 #: apps/transactions/models.py:553
-#, fuzzy
-#| msgid "Content"
 msgid "Content Type"
-msgstr "Contenu"
+msgstr "Type de contenu"
 
 #: apps/transactions/models.py:555
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 #: apps/transactions/models.py:560
 msgid "Uploaded By"
-msgstr ""
+msgstr "Envoyer par"
 
 #: apps/transactions/models.py:565
-#, fuzzy
-#| msgid "Transactions on"
 msgid "Transaction Attachment"
-msgstr "Transactions du"
+msgstr "Fichiers de la transaction"
 
 #: apps/transactions/models.py:566
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction Attachments"
-msgstr "Etiquettes de transaction"
+msgstr "Fichiers de transactions"
 
 #: apps/transactions/models.py:595 templates/includes/sidebar.html:57
 msgid "Yearly"
@@ -1856,16 +1848,12 @@ msgid "Tag deleted successfully"
 msgstr "Etiquette supprimée avec succès"
 
 #: apps/transactions/views/transactions.py:59
-#, fuzzy
-#| msgid "Account updated successfully"
 msgid "Attachment uploaded successfully"
-msgstr "Compte mis à jour avec succès"
+msgstr "Fichier téléchargé avec succès"
 
 #: apps/transactions/views/transactions.py:110
-#, fuzzy
-#| msgid "Account deleted successfully"
 msgid "Attachment deleted successfully"
-msgstr "Compte supprimé avec succès"
+msgstr "Fichier supprimé avec succès"
 
 #: apps/transactions/views/transactions.py:350
 msgid "Transaction updated successfully"
@@ -1952,10 +1940,8 @@ msgid "Number Format"
 msgstr "Format numérique"
 
 #: apps/users/forms.py:125
-#, fuzzy
-#| msgid "Target Accounts"
 msgid "Default Account"
-msgstr "Comptes cibles"
+msgstr "Compte par défaut"
 
 #: apps/users/forms.py:174
 #, python-format
@@ -2075,20 +2061,14 @@ msgid "Start page"
 msgstr "Page d'accueil"
 
 #: apps/users/models.py:516
-#, fuzzy
-#| msgid "Asset account"
 msgid "Default account"
-msgstr "Compte d'actif"
+msgstr "Compte par défaut"
 
 #: apps/users/models.py:517
-#, fuzzy
-#| msgid ""
-#| "Deactivated tags won't be able to be selected when creating new "
-#| "transactions"
 msgid "Selects the account by default when creating new transactions"
 msgstr ""
-"Les étiquettes désactivées ne pourront pas être sélectionnées lors de la "
-"création de nouvelles transactions"
+"Sélectionner le compte par défaut lors de la création de nouvelles "
+"transactions"
 
 #: apps/users/views.py:67
 msgid "Transaction amounts are now hidden"
@@ -2944,7 +2924,7 @@ msgstr ""
 
 #: templates/includes/scripts/hyperscript/htmx_error_handler.html:24
 msgid "Reload"
-msgstr ""
+msgstr "Recharger"
 
 #: templates/includes/scripts/hyperscript/swal.html:13
 msgid "Cancel"
@@ -2956,17 +2936,15 @@ msgstr "Confirmer"
 
 #: templates/includes/scripts/pull_to_refresh_i18n.html:4
 msgid "Pull down to refresh"
-msgstr ""
+msgstr "Tirer vers le bas pour raffraichir"
 
 #: templates/includes/scripts/pull_to_refresh_i18n.html:5
 msgid "Release to refresh"
-msgstr ""
+msgstr "Lâcher pour raffraichir"
 
 #: templates/includes/scripts/pull_to_refresh_i18n.html:6
-#, fuzzy
-#| msgid "Refresh"
 msgid "Refreshing"
-msgstr "Rafraichir"
+msgstr "Rafraichissement"
 
 #: templates/includes/sidebar.html:69 templates/insights/pages/index.html:5
 msgid "Insights"
@@ -3622,23 +3600,19 @@ msgstr "Ajouter un paiement en plusieurs fois"
 
 #: templates/transactions/fragments/attachments.html:20
 msgid "Delete this attachment?"
-msgstr ""
+msgstr "Supprimer le fichier attaché ?"
 
 #: templates/transactions/fragments/attachments.html:21
 msgid "This file will be removed from the transaction."
-msgstr ""
+msgstr "Ce fichier va être supprimer de cette transaction."
 
 #: templates/transactions/fragments/attachments.html:30
-#, fuzzy
-#| msgid "No presets yet"
 msgid "No attachments yet"
-msgstr "Pas encore de préréglages"
+msgstr "Pas encore de fichiers attachés"
 
 #: templates/transactions/fragments/attachments_manage.html:5
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction attachments"
-msgstr "Etiquettes de transaction"
+msgstr "Fichiers de transactions"
 
 #: templates/transactions/fragments/bulk_edit.html:5
 msgid "Bulk Editing"
