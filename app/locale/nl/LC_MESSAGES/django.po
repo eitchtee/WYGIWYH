@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-04 15:39+0000\n"
-"PO-Revision-Date: 2026-06-07 08:57+0000\n"
+"PO-Revision-Date: 2026-07-05 15:57+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1883,7 +1883,7 @@ msgstr "Transactie succesvol toegevoegd"
 
 #: apps/users/admin.py:17
 msgid "Revoke selected API tokens"
-msgstr ""
+msgstr "Geselecteerde API-tokens intrekken"
 
 #: apps/users/admin.py:28 templates/users/fragments/user_settings.html:5
 msgid "User Settings"
@@ -2018,28 +2018,25 @@ msgid "A user with this email address already exists."
 msgstr "Er bestaat al een gebruiker met dit e-mailadres."
 
 #: apps/users/forms.py:439
-#, fuzzy
-#| msgid "Tag name"
 msgid "Token name"
-msgstr "Labelnaam"
+msgstr "Token naam"
 
 #: apps/users/forms.py:441
 msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
 msgstr ""
+"Gebruik een beschrijvende naam, zoals n8n, Home Assistant of back-uptaak."
 
 #: apps/users/forms.py:447
 msgid "Expires in days"
-msgstr ""
+msgstr "Verloopt over X dagen"
 
 #: apps/users/forms.py:448
 msgid "Leave empty for a non-expiring token."
-msgstr ""
+msgstr "Laat dit veld leeg voor een token zonder vervaldatum."
 
 #: apps/users/forms.py:463
-#, fuzzy
-#| msgid "Create transaction"
 msgid "Create token"
-msgstr "Maak verrichtingen"
+msgstr "Token aanmaken"
 
 #: apps/users/models.py:470
 msgid "Yearly by currency"
@@ -2091,54 +2088,44 @@ msgstr ""
 "Selecteer het account automatisch bij het maken van nieuwe verrichtingen"
 
 #: apps/users/models.py:570
-#, fuzzy
-#| msgid "Users"
 msgid "User"
-msgstr "Gebruikers"
+msgstr "Gebruiker"
 
 #: apps/users/models.py:577
 msgid "Token key"
-msgstr ""
+msgstr "Token-sleutel"
 
 #: apps/users/models.py:579
 msgid "Token hash"
-msgstr ""
+msgstr "Token-hash"
 
 #: apps/users/models.py:583
-#, fuzzy
-#| msgid "Last Generated Date"
 msgid "Last used at"
-msgstr "Laatste Gegenereerde Datum"
+msgstr "Laatst gebruikt op"
 
 #: apps/users/models.py:588
 msgid "Expires at"
-msgstr ""
+msgstr "Verloopt op"
 
 #: apps/users/models.py:593
 msgid "Revoked at"
-msgstr ""
+msgstr "Ingetrokken op"
 
 #: apps/users/models.py:595
-#, fuzzy
-#| msgid "Create"
 msgid "Created at"
-msgstr "Aanmaken"
+msgstr "Gemaakt op"
 
 #: apps/users/models.py:596
-#, fuzzy
-#| msgid "Update"
 msgid "Updated at"
-msgstr "Bijwerken"
+msgstr "Bijgewerkt op"
 
 #: apps/users/models.py:606
-#, fuzzy
-#| msgid "API Key"
 msgid "API token"
-msgstr "API Sleutel"
+msgstr "API sleutel"
 
 #: apps/users/models.py:607
 msgid "API tokens"
-msgstr ""
+msgstr "API sleutels"
 
 #: apps/users/views.py:69
 msgid "Transaction amounts are now hidden"
@@ -2161,22 +2148,16 @@ msgid "Your settings have been updated"
 msgstr "Jouw instellingen zijn bijgewerkt"
 
 #: apps/users/views.py:148
-#, fuzzy
-#| msgid "Action updated successfully"
 msgid "API token created successfully"
-msgstr "Actie succesvol bijgewerkt"
+msgstr "API token succesvol aangemaakt"
 
 #: apps/users/views.py:167
-#, fuzzy
-#| msgid "Action deleted successfully"
 msgid "API token revoked successfully"
-msgstr "Actie succesvol verwijderd"
+msgstr "API token succesvol ingetrokken"
 
 #: apps/users/views.py:178
-#, fuzzy
-#| msgid "Action deleted successfully"
 msgid "API token deleted successfully"
-msgstr "Actie succesvol verwijderd"
+msgstr "API token succesvol verwijderd"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
@@ -3743,84 +3724,84 @@ msgstr "Gebruiker toevoegen"
 
 #: templates/users/fragments/api_tokens.html:5
 msgid "API Tokens"
-msgstr ""
+msgstr "API Tokens"
 
 #: templates/users/fragments/api_tokens.html:7
 msgid ""
 "Use these tokens for automations such as n8n. The raw token is shown only "
 "once after creation."
 msgstr ""
+"Gebruik deze tokens voor automatiseringen zoals n8n. Het onbewerkte token "
+"wordt na het aanmaken slechts één keer weergegeven."
 
 #: templates/users/fragments/api_tokens.html:14
 msgid "Copy this token now"
-msgstr ""
+msgstr "Kopieer deze token nu"
 
 #: templates/users/fragments/api_tokens.html:16
 msgid "It will not be shown again after this response."
-msgstr ""
+msgstr "Na dit antwoord wordt het niet meer weergegeven."
 
 #: templates/users/fragments/api_tokens.html:31
 msgid "Copy"
-msgstr ""
+msgstr "Kopiëren"
 
 #: templates/users/fragments/api_tokens.html:52
 msgid "Revoked"
-msgstr ""
+msgstr "Ingetrokken"
 
 #: templates/users/fragments/api_tokens.html:59
 #, python-format
 msgid "Created %(created)s"
-msgstr ""
+msgstr "Aangemaakt %(created)s"
 
 #: templates/users/fragments/api_tokens.html:62
 #, python-format
 msgid "last used %(used)s"
-msgstr ""
+msgstr "laatst gebruikt %(used)s"
 
 #: templates/users/fragments/api_tokens.html:64
 msgid "never used"
-msgstr ""
+msgstr "nooit gebruikt"
 
 #: templates/users/fragments/api_tokens.html:68
 #, python-format
 msgid "expires %(expires)s"
-msgstr ""
+msgstr "verloopt over %(expires)s"
 
 #: templates/users/fragments/api_tokens.html:70
 msgid "no expiry"
-msgstr ""
+msgstr "geen vervaldatum"
 
 #: templates/users/fragments/api_tokens.html:78
 msgid "Revoke"
-msgstr ""
+msgstr "Intrekken"
 
 #: templates/users/fragments/api_tokens.html:84
 msgid "Revoke token?"
-msgstr ""
+msgstr "Token intrekken?"
 
 #: templates/users/fragments/api_tokens.html:85
 msgid "This token will stop working immediately."
-msgstr ""
+msgstr "Deze token zal onmiddellijk niet meer werken."
 
 #: templates/users/fragments/api_tokens.html:86
-#, fuzzy
-#| msgid "Yes, refresh it!"
 msgid "Yes, revoke it!"
-msgstr "Ja, vernieuw het!"
+msgstr "Ja, trek het in!"
 
 #: templates/users/fragments/api_tokens.html:99
-#, fuzzy
-#| msgid "Deleted At"
 msgid "Delete token?"
-msgstr "Verwijderd Op"
+msgstr "Token verwijderen?"
 
 #: templates/users/fragments/api_tokens.html:100
 msgid "This permanently removes the token from the list. It cannot be undone."
 msgstr ""
+"Hiermee wordt het token definitief uit de lijst verwijderd. Deze handeling "
+"kan niet ongedaan worden gemaakt."
 
 #: templates/users/fragments/api_tokens.html:114
 msgid "No API tokens"
-msgstr ""
+msgstr "Geen API tokens"
 
 #: templates/users/fragments/edit.html:5
 msgid "Edit user"
