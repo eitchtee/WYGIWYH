@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-04 15:39+0000\n"
-"PO-Revision-Date: 2026-02-24 01:24+0000\n"
+"PO-Revision-Date: 2026-07-10 04:57+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
 "app/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1418,21 +1418,19 @@ msgstr "Guardar y añadir otro"
 
 #: apps/transactions/forms.py:270 templates/cotton/transaction/item.html:158
 #: templates/transactions/fragments/attachments.html:4
-#, fuzzy
-#| msgid "Installments"
 msgid "Attachments"
-msgstr "Cuotas"
+msgstr "Archivos Adjuntos"
 
 #: apps/transactions/forms.py:271
 msgid ""
 "Files are private and only visible to users with access to this transaction."
 msgstr ""
+"Los archivos adjuntos son privados y únicamente son visibles para los "
+"usuarios con acceso a esta transacción."
 
 #: apps/transactions/forms.py:282
-#, fuzzy
-#| msgid "Reload"
 msgid "Upload"
-msgstr "Refrescar"
+msgstr "Subir"
 
 #: apps/transactions/forms.py:351 apps/transactions/forms.py:623
 msgid "Muted transactions won't be displayed on monthly summaries"
@@ -1571,40 +1569,32 @@ msgid "No description"
 msgstr "Sin descripción"
 
 #: apps/transactions/models.py:549
-#, fuzzy
-#| msgid "ZIP File"
 msgid "File"
-msgstr "Archivo ZIP"
+msgstr "Archivo"
 
 #: apps/transactions/models.py:551
 msgid "Original Name"
-msgstr ""
+msgstr "Nombre Original"
 
 #: apps/transactions/models.py:553
-#, fuzzy
-#| msgid "Content"
 msgid "Content Type"
-msgstr "Contenido"
+msgstr "Tipo de Contenido"
 
 #: apps/transactions/models.py:555
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: apps/transactions/models.py:560
 msgid "Uploaded By"
-msgstr ""
+msgstr "Subido por"
 
 #: apps/transactions/models.py:565
-#, fuzzy
-#| msgid "Transactions on"
 msgid "Transaction Attachment"
-msgstr "Transacciones en"
+msgstr "Archivos Adjunto"
 
 #: apps/transactions/models.py:566
-#, fuzzy
-#| msgid "Transaction Tags"
 msgid "Transaction Attachments"
-msgstr "Etiquetas de Transacción"
+msgstr "Archivos Adjuntos"
 
 #: apps/transactions/models.py:595 templates/includes/sidebar.html:57
 msgid "Yearly"
@@ -1856,16 +1846,12 @@ msgid "Tag deleted successfully"
 msgstr "Etiqueta eliminada con éxito"
 
 #: apps/transactions/views/transactions.py:59
-#, fuzzy
-#| msgid "Account updated successfully"
 msgid "Attachment uploaded successfully"
-msgstr "Cuenta actualizada exitosamente"
+msgstr "Archivo subido con éxito"
 
 #: apps/transactions/views/transactions.py:110
-#, fuzzy
-#| msgid "Account deleted successfully"
 msgid "Attachment deleted successfully"
-msgstr "Cuenta borrada exitosamente"
+msgstr "Archivo eliminado  exitosamente"
 
 #: apps/transactions/views/transactions.py:350
 msgid "Transaction updated successfully"
