@@ -3,9 +3,9 @@ FROM node:lts-alpine
 WORKDIR /usr/src/frontend
 
 COPY ./frontend/package.json ./frontend/package-lock.json ./
-
-RUN npm ci --verbose && npm cache clean --force
+COPY ./docker/dev/vite/entrypoint.sh /usr/local/bin/vite-entrypoint
+RUN chmod +x /usr/local/bin/vite-entrypoint
 
 ENV PATH ./node_modules/.bin/:$PATH
 
-CMD ["npm", "run", "dev"]
+ENTRYPOINT ["vite-entrypoint"]
