@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-04 15:39+0000\n"
+"POT-Creation-Date: 2026-07-18 00:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -29,8 +29,8 @@ msgstr ""
 #: apps/transactions/forms.py:417 apps/transactions/forms.py:536
 #: apps/transactions/forms.py:880 apps/transactions/forms.py:919
 #: apps/transactions/forms.py:947 apps/transactions/forms.py:978
-#: apps/transactions/forms.py:1128 apps/users/forms.py:246
-#: apps/users/forms.py:404
+#: apps/transactions/forms.py:1128 apps/users/forms.py:245
+#: apps/users/forms.py:403
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -45,7 +45,7 @@ msgstr ""
 #: apps/transactions/forms.py:424 apps/transactions/forms.py:886
 #: apps/transactions/forms.py:925 apps/transactions/forms.py:953
 #: apps/transactions/forms.py:984 apps/transactions/forms.py:1134
-#: apps/users/forms.py:252 apps/users/forms.py:410
+#: apps/users/forms.py:251 apps/users/forms.py:409
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr ""
@@ -343,7 +343,7 @@ msgid ""
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
 
-#: apps/common/forms.py:76 apps/users/forms.py:173
+#: apps/common/forms.py:76 apps/users/forms.py:172
 msgid "Save"
 msgstr ""
 
@@ -1910,7 +1910,7 @@ msgstr ""
 msgid "Default Account"
 msgstr ""
 
-#: apps/users/forms.py:178
+#: apps/users/forms.py:177
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1918,79 +1918,79 @@ msgid ""
 "Consider helping translate WYGIWYH to your language at %(translation_link)s"
 msgstr ""
 
-#: apps/users/forms.py:187
+#: apps/users/forms.py:186
 msgid "New Password"
 msgstr ""
 
-#: apps/users/forms.py:190
+#: apps/users/forms.py:189
 msgid "Leave blank to keep the current password."
 msgstr ""
 
-#: apps/users/forms.py:193
+#: apps/users/forms.py:192
 msgid "Confirm New Password"
 msgstr ""
 
-#: apps/users/forms.py:205 apps/users/forms.py:362
+#: apps/users/forms.py:204 apps/users/forms.py:361
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
 
-#: apps/users/forms.py:208 apps/users/forms.py:365
+#: apps/users/forms.py:207 apps/users/forms.py:364
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr ""
 
-#: apps/users/forms.py:275
+#: apps/users/forms.py:274
 msgid "This email address is already in use by another account."
 msgstr ""
 
-#: apps/users/forms.py:283
+#: apps/users/forms.py:282
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: apps/users/forms.py:285
+#: apps/users/forms.py:284
 msgid "Please confirm your new password."
 msgstr ""
 
-#: apps/users/forms.py:287
+#: apps/users/forms.py:286
 msgid "Please enter the new password first."
 msgstr ""
 
-#: apps/users/forms.py:307
+#: apps/users/forms.py:306
 msgid "You cannot deactivate your own account using this form."
 msgstr ""
 
-#: apps/users/forms.py:320
+#: apps/users/forms.py:319
 msgid "Cannot remove status from the last superuser."
 msgstr ""
 
-#: apps/users/forms.py:326
+#: apps/users/forms.py:325
 msgid "You cannot remove your own superuser status using this form."
 msgstr ""
 
-#: apps/users/forms.py:419
+#: apps/users/forms.py:418
 msgid "A user with this email address already exists."
 msgstr ""
 
-#: apps/users/forms.py:439
+#: apps/users/forms.py:438
 msgid "Token name"
 msgstr ""
 
-#: apps/users/forms.py:441
+#: apps/users/forms.py:440
 msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
 msgstr ""
 
-#: apps/users/forms.py:447
+#: apps/users/forms.py:446
 msgid "Expires in days"
 msgstr ""
 
-#: apps/users/forms.py:448
+#: apps/users/forms.py:447
 msgid "Leave empty for a non-expiring token."
 msgstr ""
 
-#: apps/users/forms.py:463
+#: apps/users/forms.py:462
 msgid "Create token"
 msgstr ""
 

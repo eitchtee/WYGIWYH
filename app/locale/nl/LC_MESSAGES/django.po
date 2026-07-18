@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-04 15:39+0000\n"
+"POT-Creation-Date: 2026-07-18 00:29+0000\n"
 "PO-Revision-Date: 2026-07-05 15:57+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -31,8 +31,8 @@ msgstr "Groepsnaam"
 #: apps/transactions/forms.py:417 apps/transactions/forms.py:536
 #: apps/transactions/forms.py:880 apps/transactions/forms.py:919
 #: apps/transactions/forms.py:947 apps/transactions/forms.py:978
-#: apps/transactions/forms.py:1128 apps/users/forms.py:246
-#: apps/users/forms.py:404
+#: apps/transactions/forms.py:1128 apps/users/forms.py:245
+#: apps/users/forms.py:403
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -47,7 +47,7 @@ msgstr "Bijwerken"
 #: apps/transactions/forms.py:424 apps/transactions/forms.py:886
 #: apps/transactions/forms.py:925 apps/transactions/forms.py:953
 #: apps/transactions/forms.py:984 apps/transactions/forms.py:1134
-#: apps/users/forms.py:252 apps/users/forms.py:410
+#: apps/users/forms.py:251 apps/users/forms.py:409
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "Toevoegen"
@@ -355,7 +355,7 @@ msgstr ""
 "bewerkbaar door de eigenaar.<br/>Publiek: Weergegeven voor alle gebruikers. "
 "Alleen bewerkbaar door de eigenaar."
 
-#: apps/common/forms.py:76 apps/users/forms.py:173
+#: apps/common/forms.py:76 apps/users/forms.py:172
 msgid "Save"
 msgstr "Opslaan"
 
@@ -1946,7 +1946,7 @@ msgstr "Schrijfwijze Nummers"
 msgid "Default Account"
 msgstr "Standaard Rekening"
 
-#: apps/users/forms.py:178
+#: apps/users/forms.py:177
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1957,19 +1957,19 @@ msgstr ""
 "weergegeven\n"
 "Overweeg om WYGIWYH te helpen vertalen naar jouw taal op %(translation_link)s"
 
-#: apps/users/forms.py:187
+#: apps/users/forms.py:186
 msgid "New Password"
 msgstr "Nieuw Wachtwoord"
 
-#: apps/users/forms.py:190
+#: apps/users/forms.py:189
 msgid "Leave blank to keep the current password."
 msgstr "Laat leeg om het huidige wachtwoord te behouden."
 
-#: apps/users/forms.py:193
+#: apps/users/forms.py:192
 msgid "Confirm New Password"
 msgstr "Bevestig Nieuw Wachtwoord"
 
-#: apps/users/forms.py:205 apps/users/forms.py:362
+#: apps/users/forms.py:204 apps/users/forms.py:361
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -1977,7 +1977,7 @@ msgstr ""
 "Geeft aan of deze gebruiker als actief moet worden behandeld. Deselecteer "
 "dit in plaats van accounts te verwijderen."
 
-#: apps/users/forms.py:208 apps/users/forms.py:365
+#: apps/users/forms.py:207 apps/users/forms.py:364
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
@@ -1985,56 +1985,56 @@ msgstr ""
 "Geeft aan dat deze gebruiker alle rechten heeft zonder ze expliciet toe te "
 "kennen."
 
-#: apps/users/forms.py:275
+#: apps/users/forms.py:274
 msgid "This email address is already in use by another account."
 msgstr "Dit e-mailadres wordt al gebruikt door een ander account."
 
-#: apps/users/forms.py:283
+#: apps/users/forms.py:282
 msgid "The two password fields didn't match."
 msgstr "De twee wachtwoordvelden komen niet overeen."
 
-#: apps/users/forms.py:285
+#: apps/users/forms.py:284
 msgid "Please confirm your new password."
 msgstr "Bevestig je nieuwe wachtwoord."
 
-#: apps/users/forms.py:287
+#: apps/users/forms.py:286
 msgid "Please enter the new password first."
 msgstr "Geef eerst het nieuwe wachtwoord op."
 
-#: apps/users/forms.py:307
+#: apps/users/forms.py:306
 msgid "You cannot deactivate your own account using this form."
 msgstr "Je kunt je eigen account niet deactiveren met dit formulier."
 
-#: apps/users/forms.py:320
+#: apps/users/forms.py:319
 msgid "Cannot remove status from the last superuser."
 msgstr "Kan de status van de laatste Hoofdadmin niet verwijderen."
 
-#: apps/users/forms.py:326
+#: apps/users/forms.py:325
 msgid "You cannot remove your own superuser status using this form."
 msgstr "Je kunt je eigen hoofdadminrechten niet verwijderen met dit formulier."
 
-#: apps/users/forms.py:419
+#: apps/users/forms.py:418
 msgid "A user with this email address already exists."
 msgstr "Er bestaat al een gebruiker met dit e-mailadres."
 
-#: apps/users/forms.py:439
+#: apps/users/forms.py:438
 msgid "Token name"
 msgstr "Token naam"
 
-#: apps/users/forms.py:441
+#: apps/users/forms.py:440
 msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
 msgstr ""
 "Gebruik een beschrijvende naam, zoals n8n, Home Assistant of back-uptaak."
 
-#: apps/users/forms.py:447
+#: apps/users/forms.py:446
 msgid "Expires in days"
 msgstr "Verloopt over X dagen"
 
-#: apps/users/forms.py:448
+#: apps/users/forms.py:447
 msgid "Leave empty for a non-expiring token."
 msgstr "Laat dit veld leeg voor een token zonder vervaldatum."
 
-#: apps/users/forms.py:463
+#: apps/users/forms.py:462
 msgid "Create token"
 msgstr "Token aanmaken"
 

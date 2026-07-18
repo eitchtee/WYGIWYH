@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-04 15:39+0000\n"
+"POT-Creation-Date: 2026-07-18 00:29+0000\n"
 "PO-Revision-Date: 2025-10-08 16:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translations."
@@ -31,8 +31,8 @@ msgstr "群組名稱"
 #: apps/transactions/forms.py:417 apps/transactions/forms.py:536
 #: apps/transactions/forms.py:880 apps/transactions/forms.py:919
 #: apps/transactions/forms.py:947 apps/transactions/forms.py:978
-#: apps/transactions/forms.py:1128 apps/users/forms.py:246
-#: apps/users/forms.py:404
+#: apps/transactions/forms.py:1128 apps/users/forms.py:245
+#: apps/users/forms.py:403
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -47,7 +47,7 @@ msgstr "更新"
 #: apps/transactions/forms.py:424 apps/transactions/forms.py:886
 #: apps/transactions/forms.py:925 apps/transactions/forms.py:953
 #: apps/transactions/forms.py:984 apps/transactions/forms.py:1134
-#: apps/users/forms.py:252 apps/users/forms.py:410
+#: apps/users/forms.py:251 apps/users/forms.py:409
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "新增"
@@ -349,7 +349,7 @@ msgstr ""
 "私人：只會顯示給擁有者或著已分享的使用者。只有擁有者可以編輯這個選項。<br/>公"
 "開：所有使用者都可以看到。只有擁有者可以編輯這個選項。"
 
-#: apps/common/forms.py:76 apps/users/forms.py:173
+#: apps/common/forms.py:76 apps/users/forms.py:172
 msgid "Save"
 msgstr "儲存"
 
@@ -1924,7 +1924,7 @@ msgstr "數字格式"
 msgid "Default Account"
 msgstr "目標帳戶"
 
-#: apps/users/forms.py:178
+#: apps/users/forms.py:177
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1934,81 +1934,81 @@ msgstr ""
 "這會改變語言（如果支援的話）以及數字和日期的顯示方式\n"
 "若您有興趣也可以到%(translation_link)s幫助WYGIWYH進行翻譯"
 
-#: apps/users/forms.py:187
+#: apps/users/forms.py:186
 msgid "New Password"
 msgstr "新密碼"
 
-#: apps/users/forms.py:190
+#: apps/users/forms.py:189
 msgid "Leave blank to keep the current password."
 msgstr "若不想改變密碼請留白。"
 
-#: apps/users/forms.py:193
+#: apps/users/forms.py:192
 msgid "Confirm New Password"
 msgstr "確認新密碼"
 
-#: apps/users/forms.py:205 apps/users/forms.py:362
+#: apps/users/forms.py:204 apps/users/forms.py:361
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr "指定這個使用者是否為啟用狀態，如果沒有選擇的話帳號將無法使用。"
 
-#: apps/users/forms.py:208 apps/users/forms.py:365
+#: apps/users/forms.py:207 apps/users/forms.py:364
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
 msgstr "指定這個使用者是否擁有全部的權限。"
 
-#: apps/users/forms.py:275
+#: apps/users/forms.py:274
 msgid "This email address is already in use by another account."
 msgstr "這個email已經被另一個帳號使用。"
 
-#: apps/users/forms.py:283
+#: apps/users/forms.py:282
 msgid "The two password fields didn't match."
 msgstr "兩個密碼欄位的內容不符。"
 
-#: apps/users/forms.py:285
+#: apps/users/forms.py:284
 msgid "Please confirm your new password."
 msgstr "請確認你的新密碼。"
 
-#: apps/users/forms.py:287
+#: apps/users/forms.py:286
 msgid "Please enter the new password first."
 msgstr "請先輸入新的密碼。"
 
-#: apps/users/forms.py:307
+#: apps/users/forms.py:306
 msgid "You cannot deactivate your own account using this form."
 msgstr "無法透過這個頁面停止自己的帳號。"
 
-#: apps/users/forms.py:320
+#: apps/users/forms.py:319
 msgid "Cannot remove status from the last superuser."
 msgstr "最後一位超級使用者無法移除這個權限。"
 
-#: apps/users/forms.py:326
+#: apps/users/forms.py:325
 msgid "You cannot remove your own superuser status using this form."
 msgstr "無法使用這個頁面移除自己的超級使用者權限。"
 
-#: apps/users/forms.py:419
+#: apps/users/forms.py:418
 msgid "A user with this email address already exists."
 msgstr "這個電子郵件的使用者已經存在。"
 
-#: apps/users/forms.py:439
+#: apps/users/forms.py:438
 #, fuzzy
 #| msgid "Tag name"
 msgid "Token name"
 msgstr "標籤名稱"
 
-#: apps/users/forms.py:441
+#: apps/users/forms.py:440
 msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
 msgstr ""
 
-#: apps/users/forms.py:447
+#: apps/users/forms.py:446
 msgid "Expires in days"
 msgstr ""
 
-#: apps/users/forms.py:448
+#: apps/users/forms.py:447
 msgid "Leave empty for a non-expiring token."
 msgstr ""
 
-#: apps/users/forms.py:463
+#: apps/users/forms.py:462
 #, fuzzy
 #| msgid "Create transaction"
 msgid "Create token"
