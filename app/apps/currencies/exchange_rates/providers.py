@@ -503,3 +503,82 @@ class TwelveDataMarketsProvider(ExchangeRateProvider):
                 )
 
         return results
+
+
+class YFinanceMarketsProvider(ExchangeRateProvider):
+    """Fetch market prices for Yahoo Finance symbols using yfinance.
+
+    Currency codes are passed to Yahoo Finance verbatim. For example, use
+    ``PETR4.SA`` for Petrobras on B3 or ``AAPL`` for Apple. The configured
+    exchange currency is treated as the currency of the Yahoo quote.
+    """
+
+    rates_inverted = True
+
+    def __init__(self, api_key: str = None, ticker_factory=None):
+        super().__init__(api_key)
+        self._ticker_factory = ticker_factory
+
+    @classmethod
+    def requires_api_key(cls) -> bool:
+        return False
+
+    def _get_ticker_factory(self):
+        if self._ticker_factory is None:
+            try:
+                import yfinance as yf
+            except ImportError as exc:
+                raise RuntimeError(
+                    "The yfinance package is required for the Yahoo Finance provider."
+                ) from exc
+
+            self._ticker_factory = yf.Ticker
+
+        return self._ticker_factory
+
+    def get_rates(
+        self, target_currencies: QuerySet, exchange_currencies: set
+    ) -> List[Tuple[Currency, Currency, Decimal]]:
+        results = []
+        ticker_factory = self._get_ticker_factory()
+
+        for asset in target_currencies:
+            exchange_currency = asset.exchange_currency
+            if exchange_currency not in exchange_currencies:
+                continue
+
+            try:
+                history = ticker_factory(asset.code).history(
+                    period="5d", interval="1h", auto_adjust=False
+                )
+
+                if history is None or history.empty:
+                    logger.warning(
+                        "YFinanceMarkets: no history returned for %s", asset.code
+                    )
+                    continue
+
+                try:
+                    latest_close = history["Close"].dropna().iloc[-1]
+                except (IndexError, KeyError, TypeError):
+                    logger.warning(
+                        "YFinanceMarkets: no close price returned for %s", asset.code
+                    )
+                    continue
+
+                rate = Decimal(str(latest_close))
+                if not rate.is_finite() or rate <= 0:
+                    logger.warning(
+                        "YFinanceMarkets: invalid close price %r for %s",
+                        latest_close,
+                        asset.code,
+                    )
+                    continue
+
+                results.append((exchange_currency, asset, rate))
+            except Exception as exc:
+                logger.error(
+                    "YFinanceMarkets: error fetching %s: %s", asset.code, exc
+                )
+
+        return results
