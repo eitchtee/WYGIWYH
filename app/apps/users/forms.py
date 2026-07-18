@@ -140,7 +140,6 @@ class UserSettingsForm(forms.ModelForm):
             "date_format",
             "datetime_format",
             "number_format",
-            "volume",
             "default_account",
         ]
         widgets = {

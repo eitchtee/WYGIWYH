@@ -3,6 +3,7 @@ import 'vite/modulepreload-polyfill';
 import './js/bootstrap.js';
 import './js/datepicker.js';
 import './js/htmx.js';
+import './js/sounds.js';
 import './js/select.js';
 import './js/charts.js';
 import './js/autosize.js';

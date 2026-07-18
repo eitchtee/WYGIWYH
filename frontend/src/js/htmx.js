@@ -14,11 +14,6 @@ Alpine.plugin(mask);
 Alpine.plugin(collapse);
 Alpine.start();
 
-const successAudio = new Audio("/static/sounds/success.mp3");
-const popAudio = new Audio("/static/sounds/pop.mp3");
-window.paidSound = successAudio;
-window.unpaidSound = popAudio;
-
 /**
  * Parse a localized number to a float.
  * @param {string} stringNumber - the localized number
