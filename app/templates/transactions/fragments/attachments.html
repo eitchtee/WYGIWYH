@@ -1,0 +1,32 @@
+{% load i18n %}
+
+<div id="transaction-attachments-list" class="mt-4">
+  <h3 class="font-semibold mb-2">{% translate 'Attachments' %}</h3>
+  {% if transaction.attachments.exists %}
+    <ul class="flex flex-col gap-2">
+      {% for attachment in transaction.attachments.all %}
+        <li class="flex items-center justify-between gap-3 rounded-box border border-base-content/20 p-3">
+          <a class="link link-primary truncate"
+             target="_blank"
+             href="{% url 'transaction_attachment_download' attachment_id=attachment.id %}">
+            {{ attachment.original_name }}
+          </a>
+          <button class="btn btn-error btn-sm btn-soft"
+                  type="button"
+                  hx-delete="{% url 'transaction_attachment_delete' attachment_id=attachment.id %}"
+                  hx-trigger="confirmed"
+                  hx-target="#transaction-attachments-list"
+                  hx-swap="outerHTML"
+                  data-title="{% translate 'Delete this attachment?' %}"
+                  data-text="{% translate 'This file will be removed from the transaction.' %}"
+                  data-confirm-text="{% translate 'Yes, delete it!' %}"
+                  _="install prompt_swal">
+            <i class="fa-solid fa-trash fa-fw"></i>
+          </button>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-base-content/60">{% translate 'No attachments yet' %}</p>
+  {% endif %}
+</div>

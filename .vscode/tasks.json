@@ -1,0 +1,119 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Docker: Dev",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "--env-file",
+                ".env",
+                "-f",
+                "docker-compose.dev.yml",
+                "up",
+                "--build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker: Dev (no rebuild)",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "--env-file",
+                ".env",
+                "-f",
+                "docker-compose.dev.yml",
+                "up"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker: Dev Refresh Vite Deps",
+            "type": "shell",
+            "command": "docker compose --env-file .env -f docker-compose.dev.yml rm -sfv vite; docker compose --env-file .env -f docker-compose.dev.yml up --build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker: Dev Down",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "--env-file",
+                ".env",
+                "-f",
+                "docker-compose.dev.yml",
+                "down"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker: Prod",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "--env-file",
+                ".prod.env",
+                "-f",
+                "docker-compose.prod.yml",
+                "up",
+                "--build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker: Prod Down",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "--env-file",
+                ".prod.env",
+                "-f",
+                "docker-compose.prod.yml",
+                "down"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Django: Runserver localhost:8000",
+            "type": "shell",
+            "command": "${command:python.interpreterPath}",
+            "args": [
+                "manage.py",
+                "runserver",
+                "localhost:8000"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/app",
+                "env": {
+                    "PYTHONUNBUFFERED": "1"
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}

@@ -147,6 +147,12 @@
                       hx-target="#generic-offcanvas" hx-swap="innerHTML"
                       data-tippy-content="{% translate "Edit" %}">
                     <i class="fa-solid fa-pencil fa-fw"></i></a>
+                  <a class="btn btn-soft btn-sm transaction-action gap-1"
+                      role="button"
+                      hx-get="{% url 'transaction_attachments' transaction_id=transaction.id %}"
+                      hx-target="#generic-offcanvas" hx-swap="innerHTML"
+                      data-tippy-content="{% translate "Attachments" %}">
+                    <i class="fa-solid fa-paperclip fa-fw"></i><span>{{ transaction.attachments.count }}</span></a>
                   <a class="btn btn-error btn-soft btn-sm transaction-action"
                       role="button"
                       hx-delete="{% url 'transaction_delete' transaction_id=transaction.id %}"

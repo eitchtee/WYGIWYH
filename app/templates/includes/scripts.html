@@ -9,9 +9,10 @@
 {% include 'includes/scripts/hyperscript/sounds.html' %}
 {% include 'includes/scripts/hyperscript/swal.html' %}
 {% include 'includes/scripts/hyperscript/autosize.html' %}
+{% include 'includes/scripts/pull_to_refresh_i18n.html' %}
 
 <script defer>
-let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 if (!tz) {
     tz = "UTC"
 }

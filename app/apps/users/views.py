@@ -2,12 +2,13 @@ from apps.common.decorators.demo import disabled_on_demo
 from apps.common.decorators.htmx import only_htmx
 from apps.common.decorators.user import htmx_login_required, is_superuser
 from apps.users.forms import (
+    APITokenCreateForm,
     LoginForm,
     UserAddForm,
     UserSettingsForm,
     UserUpdateForm,
 )
-from apps.users.models import UserSettings
+from apps.users.models import APIToken, UserSettings
 from django.contrib import messages
 from django.contrib.auth import get_user_model, logout
 from django.contrib.auth.decorators import login_required
@@ -18,6 +19,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
@@ -112,7 +114,69 @@ def update_settings(request):
     else:
         form = UserSettingsForm(instance=user_settings)
 
-    return render(request, "users/fragments/user_settings.html", {"form": form})
+    return render(
+        request,
+        "users/fragments/user_settings.html",
+        {
+            "form": form,
+            "api_token_form": APITokenCreateForm(),
+            "api_tokens": request.user.api_tokens.all(),
+        },
+    )
+
+
+def _render_api_tokens(request, *, form=None, raw_token=None):
+    return render(
+        request,
+        "users/fragments/api_tokens.html",
+        {
+            "api_token_form": form or APITokenCreateForm(),
+            "api_tokens": request.user.api_tokens.all(),
+            "raw_token": raw_token,
+        },
+    )
+
+
+@only_htmx
+@htmx_login_required
+@disabled_on_demo
+@require_http_methods(["POST"])
+def api_token_add(request):
+    form = APITokenCreateForm(request.POST)
+    if form.is_valid():
+        _token, raw_token = form.save(user=request.user)
+        messages.success(request, _("API token created successfully"))
+        return _render_api_tokens(
+            request,
+            form=APITokenCreateForm(),
+            raw_token=raw_token,
+        )
+
+    return _render_api_tokens(request, form=form)
+
+
+@only_htmx
+@htmx_login_required
+@disabled_on_demo
+@require_http_methods(["DELETE"])
+def api_token_revoke(request, token_id):
+    token = get_object_or_404(APIToken, id=token_id, user=request.user)
+    if token.revoked_at is None:
+        token.revoked_at = timezone.now()
+        token.save(update_fields=["revoked_at"])
+    messages.success(request, _("API token revoked successfully"))
+    return _render_api_tokens(request)
+
+
+@only_htmx
+@htmx_login_required
+@disabled_on_demo
+@require_http_methods(["DELETE"])
+def api_token_delete(request, token_id):
+    token = get_object_or_404(APIToken, id=token_id, user=request.user)
+    token.delete()
+    messages.success(request, _("API token deleted successfully"))
+    return _render_api_tokens(request)
 
 
 @only_htmx

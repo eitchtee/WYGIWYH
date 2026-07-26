@@ -51,10 +51,44 @@ export default defineConfig({
         manifest: 'manifest.json',
         emptyOutDir: true,
         target: 'es2017',
+        chunkSizeWarningLimit: 800,
         rollupOptions: {
             input: rollupInputs,
             output: {
                 chunkFileNames: undefined,
+                manualChunks(id) {
+                    if (!id.includes('node_modules')) {
+                        return;
+                    }
+
+                    if (id.includes('/chart.js/') || id.includes('/chartjs-chart-sankey/')) {
+                        return 'vendor-chart';
+                    }
+
+                    if (id.includes('/mathjs/')) {
+                        return 'vendor-math';
+                    }
+
+                    if (
+                        id.includes('/alpinejs/') ||
+                        id.includes('/@alpinejs/') ||
+                        id.includes('/htmx.org/') ||
+                        id.includes('/hyperscript.org/')
+                    ) {
+                        return 'vendor-interaction';
+                    }
+
+                    if (
+                        id.includes('/bootstrap/') ||
+                        id.includes('/@popperjs/') ||
+                        id.includes('/sweetalert2/') ||
+                        id.includes('/tippy.js/') ||
+                        id.includes('/tom-select/') ||
+                        id.includes('/air-datepicker/')
+                    ) {
+                        return 'vendor-ui';
+                    }
+                },
             },
         },
     },

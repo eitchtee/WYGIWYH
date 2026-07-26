@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
+    "oauth2_provider",
     "django_cotton",
     "apps.rules.apps.RulesConfig",
     "apps.calendar_view.apps.CalendarViewConfig",
@@ -311,6 +312,7 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static_files"
+ATTACHMENT_MEDIA_ROOT = BASE_DIR / "attachments"
 
 STATICFILES_DIRS = [
     ROOT_DIR / "frontend" / "build",
@@ -343,6 +345,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/login/"
 LOGOUT_REDIRECT_URL = "/login/"
+# Public base URL advertised in OAuth metadata. Falls back to the first entry
+# of the existing space-separated URL env var, then to the request host.
+PUBLIC_BASE_URL = (
+    os.getenv("PUBLIC_BASE_URL", "") or os.getenv("URL", "").split(" ")[0]
+).rstrip("/")
 
 # Allauth settings
 AUTHENTICATION_BACKENDS = [
@@ -376,8 +383,16 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_ONLY = True
 SOCIALACCOUNT_AUTO_SIGNUP = os.getenv("OIDC_ALLOW_SIGNUP", "true").lower() == "true"
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
-SOCIALACCOUNT_ADAPTER = "allauth.socialaccount.adapter.DefaultSocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "apps.users.adapters.AutoConnectSocialAccountAdapter"
+
+# Personal access tokens. last_used_at is only rewritten once per interval to
+# avoid a database write on every authenticated request.
+API_TOKEN_LAST_USED_UPDATE_INTERVAL = int(
+    os.getenv("API_TOKEN_LAST_USED_UPDATE_INTERVAL", "600")
+)
 
 # CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = [
@@ -389,6 +404,10 @@ CRISPY_TEMPLATE_PACK = "crispy-daisyui"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = int(os.getenv("SESSION_EXPIRY_TIME", 2678400))  # 31 days
 SESSION_COOKIE_SECURE = os.getenv("HTTPS_ENABLED", "false").lower() == "true"
+
+HTTPS_ENABLED = os.getenv("HTTPS_ENABLED", "false").lower() == "true"
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https" if HTTPS_ENABLED else "http"
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https") if HTTPS_ENABLED else None
 
 DEBUG_TOOLBAR_CONFIG = {
     "ROOT_TAG_EXTRA_ATTRS": "hx-preserve",
@@ -434,18 +453,37 @@ REST_FRAMEWORK = {
         "apps.api.permissions.NotInDemoMode",
         "rest_framework.permissions.DjangoModelPermissions",
     ],
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
-        'rest_framework.filters.OrderingFilter',
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        "apps.api.authentication.APITokenAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
     ],
     "DEFAULT_PAGINATION_CLASS": "apps.api.custom.pagination.CustomPageNumberPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
+
+OAUTH2_PROVIDER = {
+    "PKCE_REQUIRED": True,
+    "ACCESS_TOKEN_EXPIRE_SECONDS": int(
+        os.getenv("OAUTH2_ACCESS_TOKEN_EXPIRE_SECONDS", "3600")
+    ),
+    "SCOPES": {
+        "mcp": "Access WYGIWYH from MCP clients.",
+    },
+}
+
+# Dynamic Client Registration (RFC 7591). Disabled by default: an open
+# registration endpoint lets anyone create OAuth applications. Enable it only
+# when remote MCP clients must self-register, and optionally require an initial
+# access token presented as `Authorization: Bearer <token>`.
+OAUTH2_DCR_ENABLED = os.getenv("OAUTH2_DCR_ENABLED", "false").lower() == "true"
+OAUTH2_DCR_INITIAL_ACCESS_TOKEN = os.getenv("OAUTH2_DCR_INITIAL_ACCESS_TOKEN", "")
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "WYGIWYH API",
@@ -458,7 +496,7 @@ SPECTACULAR_SETTINGS = {
 if "procrastinate" in sys.argv:
     LOGGING = {
         "version": 1,
-        "disable_existing_loggers": False,
+        "disable_existing_loggers": True,
         "formatters": {
             "standard": {
                 "format": "[%(asctime)s] - %(levelname)s - %(name)s - %(message)s",
@@ -466,26 +504,19 @@ if "procrastinate" in sys.argv:
             },
         },
         "handlers": {
-            "procrastinate": {
-                "level": "INFO",
-                "class": "logging.StreamHandler",
-                "formatter": "standard",
-            },
             "console": {
                 "class": "logging.StreamHandler",
                 "formatter": "standard",
                 "level": "INFO",
             },
         },
+        "root": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
         "loggers": {
             "procrastinate": {
-                "handlers": ["procrastinate"],
-                "propagate": False,
-            },
-            "root": {
-                "handlers": ["console"],
                 "level": "INFO",
-                "propagate": False,
             },
         },
     }
@@ -505,19 +536,20 @@ else:
                 "formatter": "standard",
                 "level": "INFO",
             },
-            "procrastinate": {
-                "level": "INFO",
-                "class": "logging.StreamHandler",
-            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": "INFO",
         },
         "loggers": {
             "procrastinate": {
-                "handlers": None,
+                "handlers": [],
                 "propagate": False,
             },
-            "root": {
+            "allauth": {
                 "handlers": ["console"],
-                "level": "INFO",
+                "level": "DEBUG",
+                "propagate": False,
             },
         },
     }

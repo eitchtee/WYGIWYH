@@ -82,6 +82,26 @@ urlpatterns = [
         name="transaction_move_to_today",
     ),
     path(
+        "transaction/<int:transaction_id>/attachments/",
+        views.transaction_attachments,
+        name="transaction_attachments",
+    ),
+    path(
+        "transaction/<int:transaction_id>/attachments/list/",
+        views.transaction_attachments_list,
+        name="transaction_attachments_list",
+    ),
+    path(
+        "transaction/attachments/<uuid:attachment_id>/download/",
+        views.transaction_attachment_download,
+        name="transaction_attachment_download",
+    ),
+    path(
+        "transaction/attachments/<uuid:attachment_id>/delete/",
+        views.transaction_attachment_delete,
+        name="transaction_attachment_delete",
+    ),
+    path(
         "transaction/<int:transaction_id>/delete/",
         views.transaction_delete,
         name="transaction_delete",

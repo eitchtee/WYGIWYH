@@ -20,11 +20,16 @@ behavior htmx_error_handler
         text: '{% trans "Try reloading the page or check the console for more information." %}',
         icon: 'error',
         timer: 60000,
+        showDenyButton: true,
+        denyButtonText: '{% trans "Reload" %}',
         customClass: {
-          confirmButton: 'btn btn-primary'
+          confirmButton: 'btn btn-primary',
+          denyButton: 'btn btn-error',
+          actions: 'gap-2'
         },
-        buttonsStyling: false
-      })
+        buttonsStyling: false,
+        reverseButtons: true
+      }) then if it.isDenied call location.reload()
     end
     then log event
     then halt the event

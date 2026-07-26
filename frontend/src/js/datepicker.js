@@ -87,11 +87,12 @@ export const getLocale = async (langCode) => {
     const locale = allLocales[langCode];
 
     if (locale) {
-        return locale;
+        return locale.default ?? locale;
     }
 
     console.warn(`Could not find locale for '${langCode}'. Defaulting to English.`);
-    return allLocales['en']; // Default to English
+    const fallbackLocale = allLocales['en'];
+    return fallbackLocale.default ?? fallbackLocale;
 };
 
 function isMobileDevice() {

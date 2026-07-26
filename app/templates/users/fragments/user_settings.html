@@ -8,4 +8,8 @@
 <form hx-post="{% url 'user_settings' %}" hx-target="#generic-offcanvas" novalidate>
     {% crispy form %}
 </form>
+<div class="divider my-6"></div>
+<div id="api-token-settings">
+    {% include "users/fragments/api_tokens.html" %}
+</div>
 {% endblock %}

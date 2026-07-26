@@ -15,7 +15,7 @@ from apps.accounts.models import Account, AccountGroup
 from apps.currencies.models import Currency
 from apps.import_app.models import ImportProfile, ImportRun
 from apps.import_app.services.v1 import ImportService
-from apps.transactions.models import Transaction
+from apps.transactions.models import Transaction, TransactionEntity
 
 
 class DeduplicationTests(TestCase):
@@ -273,3 +273,39 @@ deduplication:
             }
         )
         self.assertTrue(is_duplicate)
+
+    def test_deduplication_with_entities_list_value(self):
+        """Test that list values for m2m entities deduplicate correctly."""
+        entity = TransactionEntity.objects.create(name="DB Vertrieb GmbH")
+        self.existing_transaction.entities.add(entity)
+
+        service = self._create_import_service_with_deduplication(
+            fields=["date", "amount", "entities"], match_type="strict"
+        )
+
+        is_duplicate = service._check_duplicate_transaction(
+            {
+                "date": date(2024, 1, 15),
+                "amount": Decimal("100.00"),
+                "entities": ["DB Vertrieb GmbH"],
+            }
+        )
+        self.assertTrue(is_duplicate)
+
+    def test_deduplication_with_entities_list_value_not_matching(self):
+        """Test that non-matching entity list values are not marked duplicate."""
+        entity = TransactionEntity.objects.create(name="DB Vertrieb GmbH")
+        self.existing_transaction.entities.add(entity)
+
+        service = self._create_import_service_with_deduplication(
+            fields=["date", "amount", "entities"], match_type="strict"
+        )
+
+        is_duplicate = service._check_duplicate_transaction(
+            {
+                "date": date(2024, 1, 15),
+                "amount": Decimal("100.00"),
+                "entities": ["Different Entity"],
+            }
+        )
+        self.assertFalse(is_duplicate)

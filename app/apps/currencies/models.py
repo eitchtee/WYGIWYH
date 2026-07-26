@@ -105,6 +105,7 @@ class ExchangeRateService(models.Model):
         FRANKFURTER = "frankfurter", "Frankfurter"
         TWELVEDATA = "twelvedata", "TwelveData"
         TWELVEDATA_MARKETS = "twelvedatamarkets", "TwelveData Markets"
+        YFINANCE = "yfinance", "Yahoo Finance"
 
     class IntervalType(models.TextChoices):
         ON = "on", _("On")
