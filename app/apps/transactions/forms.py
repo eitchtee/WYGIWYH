@@ -618,7 +618,7 @@ class TransferForm(forms.Form):
 
     mute = forms.BooleanField(
         label=_("Mute"),
-        initial=True,
+        initial=False,
         required=False,
         help_text=_("Muted transactions won't be displayed on monthly summaries"),
     )
