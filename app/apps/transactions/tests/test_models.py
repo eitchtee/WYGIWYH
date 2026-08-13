@@ -7,6 +7,7 @@ from django.utils import timezone
 from apps.transactions.models import (
     TransactionCategory,
     TransactionTag,
+    TransactionEntity,
     Transaction,
     InstallmentPlan,
     RecurringTransaction,
@@ -240,3 +241,27 @@ class RecurringTransactionTests(TestCase):
         self.assertFalse(recurring.is_paused)
         self.assertEqual(recurring.recurrence_interval, 1)
         self.assertEqual(recurring.account.currency.code, "USD")
+
+    def test_generate_upcoming_transactions_keeps_tags_and_entities(self):
+        """Generation must copy tags/entities even with no current user"""
+        tag = TransactionTag.objects.create(name="Essential")
+        entity = TransactionEntity.objects.create(name="Landlord")
+        recurring = RecurringTransaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            amount=Decimal("100.00"),
+            description="Monthly Payment",
+            start_date=timezone.now().date(),
+            recurrence_type=RecurringTransaction.RecurrenceType.MONTH,
+            recurrence_interval=1,
+        )
+        recurring.tags.set([tag])
+        recurring.entities.set([entity])
+
+        RecurringTransaction.generate_upcoming_transactions()
+
+        generated = Transaction.all_objects.filter(recurring_transaction=recurring)
+        self.assertTrue(generated.exists())
+        for transaction in generated:
+            self.assertIn(tag, transaction.tags(manager="all_objects").all())
+            self.assertIn(entity, transaction.entities(manager="all_objects").all())

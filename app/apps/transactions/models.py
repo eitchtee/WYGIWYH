@@ -937,8 +937,10 @@ class RecurringTransaction(models.Model):
             notes=self.notes if self.add_notes_to_transaction else "",
             owner=self.account.owner,
         )
-        created_transaction.tags.set(self.tags.all())
-        created_transaction.entities.set(self.entities.all())
+        # Unfiltered managers: generation also runs without a current user, or with a
+        # different one, and the scoped default manager would hide private rows.
+        created_transaction.tags.set(self.tags(manager="all_objects").all())
+        created_transaction.entities.set(self.entities(manager="all_objects").all())
 
     def get_recurrence_delta(self):
         if self.recurrence_type == self.RecurrenceType.DAY:
@@ -1030,9 +1032,11 @@ class RecurringTransaction(models.Model):
                 self.notes if self.add_notes_to_transaction else ""
             )
 
-            # Update many-to-many relationships
-            existing_transaction.tags.set(self.tags.all())
-            existing_transaction.entities.set(self.entities.all())
+            # Update many-to-many relationships (see create_transaction)
+            existing_transaction.tags.set(self.tags(manager="all_objects").all())
+            existing_transaction.entities.set(
+                self.entities(manager="all_objects").all()
+            )
 
             # Save updated transaction
             existing_transaction.save()
