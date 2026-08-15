@@ -331,6 +331,8 @@
                                 },
                                 scales: {
                                     x: {
+                                        min: Math.max(0, priceData.labels.length - 20),
+                                        max: Math.max(0, priceData.labels.length - 1),
                                         grid: {
                                             display: false
                                         },
@@ -369,6 +371,29 @@
                                     }
                                 },
                                 plugins: {
+                                    zoom: {
+                                        limits: {
+                                            x: {
+                                                min: 0,
+                                                max: Math.max(0, priceData.labels.length - 1),
+                                                minRange: 5
+                                            }
+                                        },
+                                        pan: {
+                                            enabled: true,
+                                            mode: 'x'
+                                        },
+                                        zoom: {
+                                            wheel: {
+                                                enabled: true,
+                                                modifierKey: 'ctrl'
+                                            },
+                                            pinch: {
+                                                enabled: true
+                                            },
+                                            mode: 'x'
+                                        }
+                                    },
                                     legend: {
                                         position: 'top'
                                     },
