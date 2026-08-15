@@ -52,7 +52,8 @@
         <i class="fa-solid fa-grip"></i>
       </div>
 
-      <input type="search"
+      <div class="relative">
+        <input type="search"
              class="input w-full"
              id="calculator-input"
              _="on click me.focus()
@@ -90,14 +91,15 @@
                 then remove .swing-out-top-bck from #calculator-result-container
               end"
              placeholder="2 + 2">
+        <div class="btn btn-error btn-circle absolute cursor-pointer top-0 right-0 translate-x-1/2 -translate-y-1/2 p-0 flex items-center justify-center w-5 h-5"
+             _="on click trigger show on #calculator">
+          <i class="fa-solid fa-xmark flex items-center justify-center w-full h-full content-center text-xs"></i>
+        </div>
+      </div>
       <div class="hidden" id="calculator-result-container">
         <div class="flex flex-row py-3 px-5 justify-between">
           <div class="text-subtle">=</div>
           <div id="calculator-result" class="select-all"></div>
         </div>
-      </div>
-      <div class="btn btn-error btn-circle absolute cursor-pointer top-0 left-full start-100 -translate-x-1/2 -translate-y-1/2 p-0 flex items-center justify-center w-5 h-5"
-            _="on click trigger show on #calculator">
-        <i class="fa-solid fa-xmark flex items-center justify-center w-full h-full content-center text-xs"></i>
       </div>
     </div>
