@@ -56,7 +56,7 @@
                   <li>
                     {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
                       <a class="cursor-pointer select-auto flex justify-between items-center w-full"
-                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
+                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}', '{{ currency.currency.name }}')">
                         <span
                             class="currency-name text-start font-mono shrink text-ellipsis">{{ currency.currency.name }}</span>
                         <span class="text-end shrink-0">
@@ -80,7 +80,8 @@
                       </a>
                       <ul>
                         <li>
-                          <a class="text-base-content/60 select-auto flex justify-between items-center w-full">
+                          <a class="cursor-pointer text-base-content/60 select-auto flex justify-between items-center w-full"
+                             _="on click showOnlyCurrencyDataset('{{ currency.currency.name }} {% trans "Consolidated" %}', '{{ currency.currency.name }}')">
                             <span class="text-start shrink">{% trans "Consolidated" %}</span>
                             <span class="text-end shrink-0">
                             <c-amount.display :amount="currency.consolidated.total_final"
@@ -95,7 +96,7 @@
                       </ul>
                     {% else %}
                       <a class="cursor-pointer select-auto flex justify-between items-center w-full"
-                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}')">
+                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}', '{{ currency.currency.name }}')">
                         <span class="currency-name text-start font-mono shrink">{{ currency.currency.name }}</span>
                         <span class="text-end shrink-0">
                         <div>
@@ -302,6 +303,16 @@
                     }
                 }
             });
+
+            for (const dataset of currencyChart.data.datasets) {
+                if (!dataset.colorSource) continue;
+                const source = currencyChart.data.datasets.find(
+                    candidate => candidate.label === dataset.colorSource
+                );
+                dataset.borderColor = source.borderColor;
+                dataset.backgroundColor = source.backgroundColor;
+            }
+            currencyChart.update('none');
         }
     </script>
     <script id="accountBalanceChartScript">
@@ -448,7 +459,7 @@
         call accountChart.update()
       end
 
-      def showOnlyCurrencyDataset(datasetName)
+      def showOnlyCurrencyDataset(datasetName, differenceDatasetName)
         for dataset in currencyChart.data.datasets
           set isMatch to dataset.label is datasetName
           call currencyChart.setDatasetVisibility(currencyChart.data.datasets.indexOf(dataset), isMatch)
@@ -456,7 +467,7 @@
         call currencyChart.update()
 
         for dataset in monthlyDifferenceChart.data.datasets
-          set isMatch to dataset.label is datasetName
+          set isMatch to dataset.label is differenceDatasetName
           call monthlyDifferenceChart.setDatasetVisibility(monthlyDifferenceChart.data.datasets.indexOf(dataset), isMatch)
         end
         call monthlyDifferenceChart.update()

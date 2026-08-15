@@ -3,8 +3,11 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext
 from django.views.decorators.http import require_http_methods
 
+from apps.currencies.models import Currency
+from apps.currencies.utils.convert import convert
 from apps.net_worth.utils.calculate_net_worth import (
     calculate_historical_currency_net_worth,
     calculate_historical_account_balance,
@@ -78,6 +81,17 @@ def net_worth(request):
     )
 
     datasets = []
+    currency_models = {
+        currency.name: currency
+        for currency in Currency.objects.filter(name__in=currencies).select_related(
+            "exchange_currency"
+        )
+    }
+    consolidated_currencies = {
+        data["currency"]["name"]
+        for data in currency_net_worth.values()
+        if data["consolidated"]["total_final"] != data["total_final"]
+    }
     for i, currency in enumerate(currencies):
         data = [
             float(month_data[currency])
@@ -92,6 +106,45 @@ def net_worth(request):
                 "tension": 0.1,
             }
         )
+
+        if currency in consolidated_currencies:
+            target = currency_models[currency]
+            sources = [
+                source
+                for source in currency_models.values()
+                if source.exchange_currency_id == target.id
+            ]
+            rates = {}
+            for source in sources:
+                converted, _, _, _ = convert(1, source, target)
+                if converted is not None:
+                    rates[source.name] = converted
+
+            consolidated_data = [
+                float(
+                    round(
+                        month_data[currency]
+                        + sum(
+                            month_data[source] * rate for source, rate in rates.items()
+                        ),
+                        target.decimal_places,
+                    )
+                )
+                for month_data in historical_currency_net_worth.values()
+            ]
+            datasets.append(
+                {
+                    "label": f"{currency} {gettext('Consolidated')}",
+                    "data": consolidated_data,
+                    "yAxisID": f"y{i}",
+                    "fill": False,
+                    "tension": 0.1,
+                    "colorSource": currency,
+                    "borderDash": [12, 6],
+                    "pointRadius": 0,
+                    "pointHitRadius": 8,
+                }
+            )
 
     chart_data_currency = {"labels": labels, "datasets": datasets}
 
