@@ -226,7 +226,6 @@ def monthly_account_summary(request, month: int, year: int):
                 Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True)
             )
             .exclude(account__in=request.user.untracked_accounts.all())
-            .exclude(account__is_asset=True)
         )
 
     account_data = calculate_account_totals(transactions_queryset=queryset.all())
@@ -280,7 +279,6 @@ def monthly_currency_summary(request, month: int, year: int):
                 Q(Q(category__mute=True) & ~Q(category=None)) | Q(mute=True)
             )
             .exclude(account__in=request.user.untracked_accounts.all())
-            .exclude(account__is_asset=True)
         )
 
     currency_data = calculate_currency_totals(queryset.all(), ignore_empty=True)

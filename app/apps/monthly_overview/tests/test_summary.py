@@ -107,6 +107,25 @@ class MonthlySummaryFilterBehaviorTests(TestCase):
                 return data
         return None
 
+    def _create_asset_income(self):
+        asset_account = Account.objects.create(
+            name="Asset Account",
+            group=self.account_group,
+            currency=self.currency,
+            is_asset=True,
+        )
+        Transaction.objects.create(
+            account=asset_account,
+            type=Transaction.Type.INCOME,
+            is_paid=True,
+            date=date(2025, 12, 25),
+            reference_date=date(2025, 12, 1),
+            amount=Decimal("50.00"),
+            description="Asset Income",
+            owner=self.user,
+        )
+        return asset_account
+
     # --- monthly_summary view tests ---
 
     def test_monthly_summary_no_filter_returns_200(self):
@@ -304,6 +323,15 @@ class MonthlySummaryFilterBehaviorTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
+    def test_monthly_account_summary_includes_asset_accounts(self):
+        asset_account = self._create_asset_income()
+        response = self.client.get(
+            "/monthly/12/2025/summary/accounts/",
+            HTTP_HX_REQUEST="true",
+        )
+
+        self.assertIn(asset_account.id, response.context["account_data"])
+
     def test_monthly_account_summary_with_filter_returns_200(self):
         """Test that monthly_account_summary returns 200 with filter"""
         response = self.client.get(
@@ -321,6 +349,16 @@ class MonthlySummaryFilterBehaviorTests(TestCase):
             HTTP_HX_REQUEST="true",
         )
         self.assertEqual(response.status_code, 200)
+
+    def test_monthly_currency_summary_includes_asset_account_transactions(self):
+        self._create_asset_income()
+        response = self.client.get(
+            "/monthly/12/2025/summary/currencies/",
+            HTTP_HX_REQUEST="true",
+        )
+
+        usd_data = self._get_currency_data(response.context["currency_data"])
+        self.assertEqual(usd_data["income_current"], Decimal("1050.00"))
 
     def test_monthly_currency_summary_with_filter_returns_200(self):
         """Test that monthly_currency_summary returns 200 with filter"""
