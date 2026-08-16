@@ -1,0 +1,37 @@
+{% load i18n %}
+
+<div id="filter-presets">
+  <button class="btn btn-secondary join-item" type="button"
+          data-bs-toggle="dropdown" aria-expanded="false"
+          title="{% translate 'Filter presets' %}">
+    <i class="fa-solid fa-bookmark fa-fw"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end menu min-w-52">
+    {% for preset in filter_presets %}
+      <li class="group flex-row items-center">
+        <button class="grow justify-start"
+                type="button"
+                hx-get="{% url 'filter_preset_apply' preset.id %}"
+                hx-target="#filter"
+                hx-swap="outerHTML">
+          {{ preset.name }}
+        </button>
+        <button class="btn btn-ghost btn-xs opacity-0 group-hover:opacity-100 focus:opacity-100"
+                type="button"
+                aria-label="{% blocktranslate with name=preset.name %}Delete {{ name }}{% endblocktranslate %}"
+                hx-post="{% url 'filter_preset_delete' preset.id %}"
+                hx-trigger="confirmed"
+                hx-target="#filter-presets"
+                hx-swap="outerHTML"
+                data-title="{% translate 'Delete filter preset?' %}"
+                data-text="{% blocktranslate with name=preset.name %}Delete “{{ name }}”?{% endblocktranslate %}"
+                data-confirm-text="{% translate 'Delete' %}"
+                _="install prompt_swal">
+          <i class="fa-solid fa-xmark fa-fw"></i>
+        </button>
+      </li>
+    {% empty %}
+      <li class="menu-disabled"><span>{% translate 'No saved presets' %}</span></li>
+    {% endfor %}
+  </ul>
+</div>

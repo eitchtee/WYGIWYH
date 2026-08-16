@@ -11,7 +11,7 @@ from apps.transactions.forms import (
     TransactionForm,
     TransferForm,
 )
-from apps.transactions.models import Transaction, TransactionAttachment
+from apps.transactions.models import FilterPreset, Transaction, TransactionAttachment
 from apps.transactions.utils.calculations import (
     calculate_account_totals,
     calculate_currency_totals,
@@ -23,7 +23,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Case, IntegerField, Q, Value, When
-from django.http import FileResponse, Http404, HttpResponse, JsonResponse
+from django.http import FileResponse, Http404, HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -635,7 +635,92 @@ def transaction_all_index(request):
     return render(
         request,
         "transactions/pages/transactions.html",
-        {"filter": f, "order": order, "summary_tab": summary_tab},
+        {
+            "filter": f,
+            "filter_is_active": f.has_active_filters,
+            "filter_presets": FilterPreset.objects.filter(owner=request.user),
+            "order": order,
+            "summary_tab": summary_tab,
+        },
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["POST"])
+def filter_preset_create(request):
+    name = request.POST.get("name", "").strip()
+    if not name or len(name) > 100:
+        return HttpResponse(status=400)
+
+    parameters = {
+        key: request.POST.getlist(key)
+        for key in TransactionsFilter.base_filters
+        if key in request.POST
+    }
+    FilterPreset.objects.create(
+        owner=request.user,
+        name=name,
+        parameters=parameters,
+    )
+    return render(
+        request,
+        "transactions/fragments/filter_presets.html",
+        {"filter_presets": FilterPreset.objects.filter(owner=request.user)},
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def filter_preset_apply(request, preset_id):
+    preset = get_object_or_404(FilterPreset, pk=preset_id, owner=request.user)
+    data = QueryDict(mutable=True)
+    for key, values in preset.parameters.items():
+        if key in TransactionsFilter.base_filters:
+            data.setlist(key, values)
+
+    transaction_filter = TransactionsFilter(data)
+    response = render(
+        request,
+        "transactions/fragments/filter_form.html",
+        {
+            "filter": transaction_filter,
+            "filter_is_active": transaction_filter.has_active_filters,
+            "swap_filter_indicator": True,
+        },
+    )
+    response.headers["HX-Trigger-After-Settle"] = "updated"
+    return response
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def transaction_filter_clear(request):
+    transaction_filter = TransactionsFilter(QueryDict())
+    response = render(
+        request,
+        "transactions/fragments/filter_form.html",
+        {
+            "filter": transaction_filter,
+            "filter_is_active": False,
+            "swap_filter_indicator": True,
+        },
+    )
+    response.headers["HX-Trigger-After-Settle"] = "updated"
+    return response
+
+
+@only_htmx
+@login_required
+@require_http_methods(["POST"])
+def filter_preset_delete(request, preset_id):
+    get_object_or_404(FilterPreset, pk=preset_id, owner=request.user).delete()
+    return render(
+        request,
+        "transactions/fragments/filter_presets.html",
+        {"filter_presets": FilterPreset.objects.filter(owner=request.user)},
     )
 
 

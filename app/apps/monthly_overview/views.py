@@ -14,7 +14,7 @@ from apps.monthly_overview.utils.daily_spending_allowance import (
     calculate_daily_allowance_currency,
 )
 from apps.transactions.filters import TransactionsFilter
-from apps.transactions.models import Transaction
+from apps.transactions.models import FilterPreset, Transaction
 from apps.transactions.utils.calculations import (
     calculate_currency_totals,
     calculate_percentage_distribution,
@@ -58,6 +58,8 @@ def monthly_overview(request, month: int, year: int):
             "previous_month": previous_month,
             "previous_year": previous_year,
             "filter": f,
+            "filter_is_active": f.has_active_filters,
+            "filter_presets": FilterPreset.objects.filter(owner=request.user),
             "order": order,
             "summary_tab": summary_tab,
         },

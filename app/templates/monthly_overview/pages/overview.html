@@ -107,7 +107,7 @@
                     @click="filterOpen = !filterOpen"
                     :aria-expanded="filterOpen" id="filter-button"
                     title="{% translate 'Filter transactions' %}"
-                    _="on load or change from #filter
+                    _="on change from #filter-container
                          -- Check if any filter has a non-default value
                          set hasActiveFilter to false
 
@@ -208,7 +208,7 @@
                            add .hidden to #filter-active-indicator
                          end">
               <i class="fa-solid fa-filter fa-fw"></i>
-              <span id="filter-active-indicator" class="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full hidden z-10"></span>
+              <span id="filter-active-indicator" class="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full {% if not filter_is_active %}hidden {% endif %}z-10"></span>
             </button>
 
             {# Search box #}
@@ -227,6 +227,8 @@
                          show <.transactions-divider-title/> when my value is empty
                          show <.transaction/> in <#transactions-list/>
                          when its textContent.toLowerCase() contains my value.toLowerCase()">
+
+            {% include "transactions/fragments/filter_presets.html" %}
 
             {# Order by icon dropdown #}
             <div>
@@ -270,21 +272,16 @@
           {# Filter transactions form #}
           <div class="z-1" x-show="filterOpen" x-collapse x-cloak>
             <div class="card card-body bg-base-200 mt-2">
-              <div class="text-right">
-                <button class="btn btn-outline btn-error btn-sm w-fit"
-                        _="on click call #filter.reset() then trigger change on #filter">{% translate 'Clear' %}</button>
-              </div>
+              {% include "transactions/fragments/filter_actions.html" %}
 
-              <form _="on change or submit or search trigger updated on window
-                         install init_tom_select
-                         install init_datepicker"
-                    id="filter" class="mt-3">
-                {% crispy filter.form %}
-              </form>
+              {% include "transactions/fragments/filter_form.html" %}
 
               <div class="text-right">
-                <button class="btn btn-outline btn-error btn-sm w-fit"
-                        _="on click call #filter.reset() then trigger change on #filter">{% translate 'Clear' %}</button>
+                <a class="btn btn-outline btn-error btn-sm w-fit"
+                   href="{{ request.path }}"
+                   hx-get="{% url 'transaction_filter_clear' %}"
+                   hx-target="#filter"
+                   hx-swap="outerHTML">{% translate 'Clear' %}</a>
               </div>
             </div>
           </div>

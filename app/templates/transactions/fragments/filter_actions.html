@@ -1,0 +1,50 @@
+{% load i18n %}
+{% translate "Save filter preset" as save_filter_preset_title %}
+{% translate "Preset name" as preset_name_label %}
+{% translate "Cancel" as cancel_label %}
+{% translate "Save" as save_label %}
+
+<div class="flex justify-end gap-2">
+  <form id="save-filter-preset"
+        hx-post="{% url 'filter_preset_create' %}"
+        hx-include="#filter"
+        hx-target="#filter-presets"
+        hx-swap="outerHTML">
+    <input id="filter-preset-name" type="hidden" name="name">
+    <button class="btn btn-outline btn-primary btn-sm" type="button"
+            data-title="{{ save_filter_preset_title }}"
+            data-input-label="{{ preset_name_label }}"
+            data-cancel-text="{{ cancel_label }}"
+            data-confirm-text="{{ save_label }}"
+            _="on click
+                 call Swal.fire({title: @data-title,
+                                 input: 'text',
+                                 inputLabel: @data-input-label,
+                                 inputAttributes: {maxlength: '100'},
+                                 showCancelButton: true,
+                                 cancelButtonText: @data-cancel-text,
+                                 confirmButtonText: @data-confirm-text,
+                                 customClass: {
+                                   confirmButton: 'btn btn-primary me-3',
+                                   cancelButton: 'btn btn-error'
+                                 },
+                                 buttonsStyling: false})
+                 if result.isConfirmed
+                   set presetName to result.value.trim()
+                   if presetName is not ''
+                     set #filter-preset-name.value to presetName
+                     trigger submit on #save-filter-preset
+                   end
+                 end">
+      <i class="fa-solid fa-bookmark fa-fw"></i>
+      {% translate 'Save preset' %}
+    </button>
+  </form>
+  <a class="btn btn-outline btn-error btn-sm"
+     href="{{ request.path }}"
+     hx-get="{% url 'transaction_filter_clear' %}"
+     hx-target="#filter"
+     hx-swap="outerHTML">
+    {% translate 'Clear' %}
+  </a>
+</div>
