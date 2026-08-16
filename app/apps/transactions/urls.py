@@ -7,6 +7,26 @@ urlpatterns = [
         "transactions/list/", views.transaction_all_list, name="transactions_all_list"
     ),
     path(
+        "transactions/filter-presets/create/",
+        views.filter_preset_create,
+        name="filter_preset_create",
+    ),
+    path(
+        "transactions/filter-presets/<int:preset_id>/apply/",
+        views.filter_preset_apply,
+        name="filter_preset_apply",
+    ),
+    path(
+        "transactions/filter-presets/<int:preset_id>/delete/",
+        views.filter_preset_delete,
+        name="filter_preset_delete",
+    ),
+    path(
+        "transactions/filter/clear/",
+        views.transaction_filter_clear,
+        name="transaction_filter_clear",
+    ),
+    path(
         "transactions/trash/",
         views.transactions_trash_can_index,
         name="transactions_trash_index",

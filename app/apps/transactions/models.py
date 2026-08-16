@@ -30,10 +30,25 @@ from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger()
 
-
 transaction_created = Signal()
 transaction_updated = Signal()
 transaction_deleted = Signal()
+
+
+class FilterPreset(models.Model):
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="filter_presets",
+    )
+    name = models.CharField(max_length=100)
+    parameters = models.JSONField(default=dict)
+
+    class Meta:
+        ordering = ["name", "id"]
+
+    def __str__(self):
+        return self.name
 
 
 def transaction_attachment_path(instance, filename):
@@ -535,6 +550,7 @@ class Transaction(OwnedObject):
 
         return new_obj
 
+
 class TransactionAttachment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     transaction = models.ForeignKey(
@@ -589,6 +605,7 @@ def delete_transaction_attachment_file(sender, instance, **kwargs):
     storage = instance.file.storage
     if storage.exists(instance.file.name):
         storage.delete(instance.file.name)
+
 
 class InstallmentPlan(models.Model):
     class Recurrence(models.TextChoices):

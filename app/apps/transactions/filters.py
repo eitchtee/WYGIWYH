@@ -41,6 +41,12 @@ class MonthYearFilter(Filter):
 
 
 class TransactionsFilter(django_filters.FilterSet):
+    default_filter_values = {
+        "type": {"IN", "EX"},
+        "is_paid": {"1", "0"},
+        "mute_status": {"active", "muted"},
+    }
+
     description = django_filters.CharFilter(
         label=_("Content"),
         method=content_filter,
@@ -216,6 +222,23 @@ class TransactionsFilter(django_filters.FilterSet):
             ("no_entity", _("No entity")),
         ]
         self.form.fields["entities"].choices = custom_entity_choices + entity_choices
+
+    @property
+    def has_active_filters(self):
+        for name in self.base_filters:
+            if hasattr(self.form.data, "getlist"):
+                values = self.form.data.getlist(name)
+            else:
+                value = self.form.data.get(name)
+                values = value if isinstance(value, (list, tuple)) else [value]
+
+            values = [str(value) for value in values if value not in (None, "")]
+            if not values:
+                continue
+            if set(values) == self.default_filter_values.get(name):
+                continue
+            return True
+        return False
 
     @staticmethod
     def filter_category(queryset, name, value):
