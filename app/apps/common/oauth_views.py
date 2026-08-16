@@ -1,5 +1,6 @@
 import hmac
 import json
+import logging
 import time
 from secrets import token_urlsafe
 
@@ -12,6 +13,7 @@ from oauth2_provider.models import get_application_model
 
 
 Application = get_application_model()
+logger = logging.getLogger(__name__)
 
 SUPPORTED_TOKEN_ENDPOINT_AUTH_METHODS = {
     "none": Application.CLIENT_PUBLIC,
@@ -145,7 +147,8 @@ def dynamic_client_registration(request):
             default=["code"],
         )
     except ValueError as exc:
-        return _json_error("invalid_client_metadata", str(exc))
+        logger.warning("Invalid dynamic client registration payload: %s", exc)
+        return _json_error("invalid_client_metadata", "Client metadata is invalid.")
 
     unsupported_grant_types = sorted(set(grant_types) - SUPPORTED_GRANT_TYPES)
     if unsupported_grant_types:
@@ -223,12 +226,10 @@ def dynamic_client_registration(request):
     try:
         application.full_clean()
     except ValidationError as exc:
-        errors = []
-        for field, messages in exc.message_dict.items():
-            errors.extend(f"{field}: {message}" for message in messages)
+        logger.warning("Dynamic client registration validation failed: %s", exc)
         return _json_error(
             "invalid_client_metadata",
-            "; ".join(errors),
+            "Client metadata is invalid.",
         )
 
     application.save()
