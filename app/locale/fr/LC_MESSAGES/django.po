@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-16 04:46+0000\n"
-"PO-Revision-Date: 2026-06-27 21:57+0000\n"
-"Last-Translator: sorcierwax <freakywax@gmail.com>\n"
+"PO-Revision-Date: 2026-08-23 14:57+0000\n"
+"Last-Translator: renardspark <remibonnard@laposte.net>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -352,7 +352,7 @@ msgid ""
 "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgstr ""
 "Privé : Visible uniquement pour le propriétaire et les utilisateurs "
-"partagés. Seulement modifiable par le propriétaire.<br/> Publique : Visible "
+"partagés. Seulement modifiable par le propriétaire.<br/>Publique : Visible "
 "par tous. Seulement modifiable par le propriétaire."
 
 #: apps/common/forms.py:76 apps/users/forms.py:172
@@ -1886,7 +1886,7 @@ msgstr "Virement ajouté avec succès"
 
 #: apps/users/admin.py:17
 msgid "Revoke selected API tokens"
-msgstr ""
+msgstr "Révoquer les jetons API sélectionnés"
 
 #: apps/users/admin.py:28 templates/users/fragments/user_settings.html:5
 msgid "User Settings"
@@ -2027,28 +2027,26 @@ msgid "A user with this email address already exists."
 msgstr "Un utilisateur avec cette adresse email existe déjà."
 
 #: apps/users/forms.py:438
-#, fuzzy
-#| msgid "Tag name"
 msgid "Token name"
-msgstr "Libellé de l'étiquette"
+msgstr "Nom du jeton"
 
 #: apps/users/forms.py:440
 msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
 msgstr ""
+"Utilisez un nom clair, comme \"n8n\", \"Home Assistant\", ou \"outil de "
+"sauvegarde\"."
 
 #: apps/users/forms.py:446
 msgid "Expires in days"
-msgstr ""
+msgstr "Expire dans (jours)"
 
 #: apps/users/forms.py:447
 msgid "Leave empty for a non-expiring token."
-msgstr ""
+msgstr "Laisser vide pour un jeton sans expiration."
 
 #: apps/users/forms.py:462
-#, fuzzy
-#| msgid "Create transaction"
 msgid "Create token"
-msgstr "Créer une transaction"
+msgstr "Créer un jeton"
 
 #: apps/users/models.py:470
 msgid "Yearly by currency"
@@ -2101,54 +2099,47 @@ msgstr ""
 "transactions"
 
 #: apps/users/models.py:570
-#, fuzzy
-#| msgid "Users"
 msgid "User"
-msgstr "Utilisateurs"
+msgstr "Utilisateur"
 
 #: apps/users/models.py:577
 msgid "Token key"
-msgstr ""
+msgstr "Clé du jeton"
 
 #: apps/users/models.py:579
 msgid "Token hash"
-msgstr ""
+msgstr "Hash du jeton"
 
 #: apps/users/models.py:583
 #, fuzzy
 #| msgid "Last Generated Date"
 msgid "Last used at"
-msgstr "Dernière date générée"
+msgstr "Dernière utilisation le"
 
 #: apps/users/models.py:588
+#, fuzzy
 msgid "Expires at"
-msgstr ""
+msgstr "Expire le"
 
 #: apps/users/models.py:593
 msgid "Revoked at"
-msgstr ""
+msgstr "Révoqué le"
 
 #: apps/users/models.py:595
-#, fuzzy
-#| msgid "Create"
 msgid "Created at"
-msgstr "Créer"
+msgstr "Créé le"
 
 #: apps/users/models.py:596
-#, fuzzy
-#| msgid "Update"
 msgid "Updated at"
-msgstr "Mise à jour"
+msgstr "Mis à jour le"
 
 #: apps/users/models.py:606
-#, fuzzy
-#| msgid "API Key"
 msgid "API token"
-msgstr "Clé API"
+msgstr "Jeton API"
 
 #: apps/users/models.py:607
 msgid "API tokens"
-msgstr ""
+msgstr "Jetons API"
 
 #: apps/users/views.py:69
 msgid "Transaction amounts are now hidden"
@@ -2171,22 +2162,16 @@ msgid "Your settings have been updated"
 msgstr "Vos réglages ont été mis à jour"
 
 #: apps/users/views.py:148
-#, fuzzy
-#| msgid "Action updated successfully"
 msgid "API token created successfully"
-msgstr "Action mis à jour avec succès"
+msgstr "Jeton API créé avec succès"
 
 #: apps/users/views.py:167
-#, fuzzy
-#| msgid "Action deleted successfully"
 msgid "API token revoked successfully"
-msgstr "Action supprimée avec succès"
+msgstr "Jeton API révoqué avec succès"
 
 #: apps/users/views.py:178
-#, fuzzy
-#| msgid "Action deleted successfully"
 msgid "API token deleted successfully"
-msgstr "Action supprimée avec succès"
+msgstr "Jeton API supprimé avec succès"
 
 #: templates/account_groups/fragments/add.html:5
 msgid "Add account group"
@@ -3483,7 +3468,7 @@ msgstr "Consolidé"
 
 #: templates/net_worth/net_worth.html:135
 msgid "Evolution"
-msgstr "Evolution"
+msgstr "Évolution"
 
 #: templates/net_worth/net_worth.html:163
 #: templates/yearly_overview/pages/overview_by_account.html:4
@@ -3733,8 +3718,9 @@ msgid "transactions"
 msgstr "transactions"
 
 #: templates/transactions/fragments/filter_actions.html:2
+#, fuzzy
 msgid "Save filter preset"
-msgstr ""
+msgstr "Enregistrer le modèle de filtrage"
 
 #: templates/transactions/fragments/filter_actions.html:3
 #, fuzzy
@@ -3757,22 +3743,23 @@ msgstr "à partir d'un préréglage"
 #: templates/transactions/fragments/filter_presets.html:21
 #, python-format
 msgid "Delete %(name)s"
-msgstr ""
+msgstr "Supprimer %(name)s"
 
 #: templates/transactions/fragments/filter_presets.html:26
+#, fuzzy
 msgid "Delete filter preset?"
-msgstr ""
+msgstr "Supprimer ce modèle de filtrage ?"
 
 #: templates/transactions/fragments/filter_presets.html:27
-#, python-format
+#, fuzzy, python-format
 msgid "Delete “%(name)s”?"
-msgstr ""
+msgstr "Supprimer \"%(name)s\" ?"
 
 #: templates/transactions/fragments/filter_presets.html:34
 #, fuzzy
 #| msgid "No presets yet"
 msgid "No saved presets"
-msgstr "Pas encore de préréglages"
+msgstr "Aucun modèle de filtrage enregistré"
 
 #: templates/transactions/fragments/list_all.html:58
 msgid "No transactions found"
@@ -3802,84 +3789,84 @@ msgstr "Ajouter un nouvel utilisateur"
 
 #: templates/users/fragments/api_tokens.html:5
 msgid "API Tokens"
-msgstr ""
+msgstr "Jetons d'API"
 
 #: templates/users/fragments/api_tokens.html:7
 msgid ""
 "Use these tokens for automations such as n8n. The raw token is shown only "
 "once after creation."
 msgstr ""
+"Utilisez ces jetons avec des systèmes d'automatisation comme n8n. Le jeton "
+"ne sera affiché qu'une seule fois après sa création."
 
 #: templates/users/fragments/api_tokens.html:14
 msgid "Copy this token now"
-msgstr ""
+msgstr "Veuillez copier ce jeton"
 
 #: templates/users/fragments/api_tokens.html:16
 msgid "It will not be shown again after this response."
-msgstr ""
+msgstr "Il ne pourra plus être affiché une seconde fois."
 
 #: templates/users/fragments/api_tokens.html:31
 msgid "Copy"
-msgstr ""
+msgstr "Copier"
 
 #: templates/users/fragments/api_tokens.html:52
 msgid "Revoked"
-msgstr ""
+msgstr "Révoqué"
 
 #: templates/users/fragments/api_tokens.html:59
 #, python-format
 msgid "Created %(created)s"
-msgstr ""
+msgstr "Créé le %(created)s"
 
 #: templates/users/fragments/api_tokens.html:62
 #, python-format
 msgid "last used %(used)s"
-msgstr ""
+msgstr "Dernière utilisation le %(used)s"
 
 #: templates/users/fragments/api_tokens.html:64
 msgid "never used"
-msgstr ""
+msgstr "jamais utilisé"
 
 #: templates/users/fragments/api_tokens.html:68
 #, python-format
 msgid "expires %(expires)s"
-msgstr ""
+msgstr "expire le %(expires)s"
 
 #: templates/users/fragments/api_tokens.html:70
 msgid "no expiry"
-msgstr ""
+msgstr "pas d'expiration"
 
 #: templates/users/fragments/api_tokens.html:78
 msgid "Revoke"
-msgstr ""
+msgstr "Révoquer"
 
 #: templates/users/fragments/api_tokens.html:84
 msgid "Revoke token?"
-msgstr ""
+msgstr "Révoquer ce jeton ?"
 
 #: templates/users/fragments/api_tokens.html:85
 msgid "This token will stop working immediately."
-msgstr ""
+msgstr "Ce jeton cessera immédiatement de fonctionner."
 
 #: templates/users/fragments/api_tokens.html:86
-#, fuzzy
-#| msgid "Yes, refresh it!"
 msgid "Yes, revoke it!"
-msgstr "Oui, mets à jour !"
+msgstr "Oui, révoquer ce jeton !"
 
 #: templates/users/fragments/api_tokens.html:99
-#, fuzzy
-#| msgid "Deleted At"
 msgid "Delete token?"
-msgstr "Supprimé à"
+msgstr "Supprimer ce jeton ?"
 
 #: templates/users/fragments/api_tokens.html:100
 msgid "This permanently removes the token from the list. It cannot be undone."
 msgstr ""
+"Cela retirera définitivement le jeton de la liste. Cette opération ne peut "
+"pas être annulée."
 
 #: templates/users/fragments/api_tokens.html:114
 msgid "No API tokens"
-msgstr ""
+msgstr "Pas de jetons API"
 
 #: templates/users/fragments/edit.html:5
 msgid "Edit user"
@@ -3903,7 +3890,7 @@ msgstr "Aucuns utilisateurs"
 
 #: templates/users/generic/hide_amounts.html:2
 msgid "Hide amounts"
-msgstr "Masques les montants"
+msgstr "Masquer les montants"
 
 #: templates/users/generic/mute_sounds.html:2
 msgid "Mute sounds"
