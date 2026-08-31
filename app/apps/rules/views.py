@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from apps.common.functions.permissions import get_owned_object_or_403
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
@@ -62,7 +63,7 @@ def rules_list(request):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_toggle_activity(request, transaction_rule_id, **kwargs):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_owned_object_or_403(TransactionRule, request, id=transaction_rule_id)
     current_active = transaction_rule.active
     transaction_rule.active = not current_active
     transaction_rule.save(update_fields=["active"])
@@ -151,7 +152,7 @@ def transaction_rule_edit(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_view(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_owned_object_or_403(TransactionRule, request, id=transaction_rule_id)
 
     edit_actions = transaction_rule.transaction_actions.all()
     update_or_create_actions = (
@@ -200,7 +201,7 @@ def transaction_rule_delete(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET"])
 def transaction_rule_take_ownership(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_owned_object_or_403(TransactionRule, request, id=transaction_rule_id)
 
     if not transaction_rule.owner:
         transaction_rule.owner = request.user
@@ -261,7 +262,7 @@ def transaction_rule_share(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_action_add(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_owned_object_or_403(TransactionRule, request, id=transaction_rule_id)
 
     if request.method == "POST":
         form = TransactionRuleActionForm(request.POST, rule=transaction_rule)
@@ -289,8 +290,8 @@ def transaction_rule_action_add(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_action_edit(request, transaction_rule_action_id):
-    transaction_rule_action = get_object_or_404(
-        TransactionRuleAction, id=transaction_rule_action_id
+    transaction_rule_action = get_owned_object_or_403(
+        TransactionRuleAction, request, id=transaction_rule_action_id, owner_path="rule.owner"
     )
     transaction_rule = get_object_or_404(
         TransactionRule, id=transaction_rule_action.rule.id
@@ -327,8 +328,8 @@ def transaction_rule_action_edit(request, transaction_rule_action_id):
 @disabled_on_demo
 @require_http_methods(["DELETE"])
 def transaction_rule_action_delete(request, transaction_rule_action_id):
-    transaction_rule_action = get_object_or_404(
-        TransactionRuleAction, id=transaction_rule_action_id
+    transaction_rule_action = get_owned_object_or_403(
+        TransactionRuleAction, request, id=transaction_rule_action_id, owner_path="rule.owner"
     )
 
     transaction_rule_action.delete()
@@ -348,7 +349,7 @@ def transaction_rule_action_delete(request, transaction_rule_action_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def update_or_create_transaction_rule_action_add(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_owned_object_or_403(TransactionRule, request, id=transaction_rule_id)
 
     if request.method == "POST":
         form = UpdateOrCreateTransactionRuleActionForm(
@@ -380,7 +381,9 @@ def update_or_create_transaction_rule_action_add(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def update_or_create_transaction_rule_action_edit(request, pk):
-    linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)
+    linked_action = get_owned_object_or_403(
+        UpdateOrCreateTransactionRuleAction, request, id=pk, owner_path="rule.owner"
+    )
     transaction_rule = linked_action.rule
 
     if request.method == "POST":
@@ -415,7 +418,9 @@ def update_or_create_transaction_rule_action_edit(request, pk):
 @disabled_on_demo
 @require_http_methods(["DELETE"])
 def update_or_create_transaction_rule_action_delete(request, pk):
-    linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)
+    linked_action = get_owned_object_or_403(
+        UpdateOrCreateTransactionRuleAction, request, id=pk, owner_path="rule.owner"
+    )
 
     linked_action.delete()
 
@@ -436,7 +441,7 @@ def update_or_create_transaction_rule_action_delete(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def dry_run_rule_created(request, pk):
-    rule = get_object_or_404(TransactionRule, id=pk)
+    rule = get_owned_object_or_403(TransactionRule, request, id=pk)
     logs = None
     results = None
 
@@ -481,7 +486,7 @@ def dry_run_rule_created(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def dry_run_rule_deleted(request, pk):
-    rule = get_object_or_404(TransactionRule, id=pk)
+    rule = get_owned_object_or_403(TransactionRule, request, id=pk)
     logs = None
     results = None
 
@@ -526,7 +531,7 @@ def dry_run_rule_deleted(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def dry_run_rule_updated(request, pk):
-    rule = get_object_or_404(TransactionRule, id=pk)
+    rule = get_owned_object_or_403(TransactionRule, request, id=pk)
     logs = None
     results = None
 
