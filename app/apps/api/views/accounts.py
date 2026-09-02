@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 from apps.accounts.models import AccountGroup, Account
 from apps.accounts.services import get_account_balance
+from apps.api.permissions import SHARED_OBJECT_PERMISSIONS
 from apps.api.serializers import (
     AccountGroupSerializer,
     AccountSerializer,
@@ -16,6 +17,7 @@ from apps.api.serializers import (
 class AccountGroupViewSet(viewsets.ModelViewSet):
     """ViewSet for managing account groups."""
 
+    permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = AccountGroup.objects.all()
     serializer_class = AccountGroupSerializer
     filterset_fields = {
@@ -40,6 +42,7 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
 class AccountViewSet(viewsets.ModelViewSet):
     """ViewSet for managing accounts."""
 
+    permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     filterset_fields = {

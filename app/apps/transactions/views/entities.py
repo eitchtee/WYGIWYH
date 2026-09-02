@@ -1,11 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
+from apps.common.functions.permissions import (
+    EDIT,
+    READ,
+    get_shared_object_or_error,
+)
 from apps.transactions.forms import TransactionEntityForm
 from apps.transactions.models import TransactionEntity
 from apps.common.models import SharedObject
@@ -85,17 +91,9 @@ def entity_add(request, **kwargs):
 @login_required
 @require_http_methods(["GET", "POST"])
 def entity_edit(request, entity_id):
-    entity = get_object_or_404(TransactionEntity, id=entity_id)
-
-    if entity.owner and entity.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    entity = get_shared_object_or_error(
+        TransactionEntity, request, id=entity_id, level=EDIT
+    )
 
     if request.method == "POST":
         form = TransactionEntityForm(request.POST, instance=entity)
@@ -123,14 +121,20 @@ def entity_edit(request, entity_id):
 @login_required
 @require_http_methods(["DELETE"])
 def entity_delete(request, entity_id):
-    entity = get_object_or_404(TransactionEntity, id=entity_id)
+    entity = get_shared_object_or_error(
+        TransactionEntity, request, id=entity_id, level=READ
+    )
 
-    if entity.owner != request.user and request.user in entity.shared_with.all():
+    if entity.is_editable_by(request.user):
+        entity.delete()
+        messages.success(request, _("Entity deleted successfully"))
+    elif entity.shared_with.filter(pk=request.user.pk).exists():
+        # Someone else's object shared with us: we can drop our own access
+        # to it, but never delete it.
         entity.shared_with.remove(request.user)
         messages.success(request, _("Item no longer shared with you"))
     else:
-        entity.delete()
-        messages.success(request, _("Entity deleted successfully"))
+        raise PermissionDenied
 
     return HttpResponse(
         status=204,
@@ -144,7 +148,9 @@ def entity_delete(request, entity_id):
 @login_required
 @require_http_methods(["GET"])
 def entity_take_ownership(request, entity_id):
-    entity = get_object_or_404(TransactionEntity, id=entity_id)
+    entity = get_shared_object_or_error(
+        TransactionEntity, request, id=entity_id, level=EDIT
+    )
 
     if not entity.owner:
         entity.owner = request.user
@@ -165,17 +171,7 @@ def entity_take_ownership(request, entity_id):
 @login_required
 @require_http_methods(["GET", "POST"])
 def entity_share(request, pk):
-    obj = get_object_or_404(TransactionEntity, id=pk)
-
-    if obj.owner and obj.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    obj = get_shared_object_or_error(TransactionEntity, request, id=pk, level=EDIT)
 
     if request.method == "POST":
         form = SharedObjectForm(request.POST, instance=obj, user=request.user)

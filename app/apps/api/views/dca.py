@@ -2,10 +2,12 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from apps.dca.models import DCAStrategy, DCAEntry
+from apps.api.permissions import SHARED_OBJECT_PERMISSIONS
 from apps.api.serializers import DCAStrategySerializer, DCAEntrySerializer
 
 
 class DCAStrategyViewSet(viewsets.ModelViewSet):
+    permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = DCAStrategy.objects.all()
     serializer_class = DCAStrategySerializer
     filterset_fields = {
@@ -43,6 +45,8 @@ class DCAStrategyViewSet(viewsets.ModelViewSet):
 
 
 class DCAEntryViewSet(viewsets.ModelViewSet):
+    permission_classes = SHARED_OBJECT_PERMISSIONS
+    shared_object_via = "strategy"
     queryset = DCAEntry.objects.all()
     serializer_class = DCAEntrySerializer
     filterset_fields = {

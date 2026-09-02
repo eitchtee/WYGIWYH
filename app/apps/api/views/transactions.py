@@ -19,6 +19,7 @@ from apps.transactions.models import (
     RecurringTransaction,
 )
 from apps.rules.signals import transaction_updated, transaction_created
+from apps.api.permissions import SHARED_OBJECT_PERMISSIONS
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
@@ -68,6 +69,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
 
 
 class TransactionCategoryViewSet(viewsets.ModelViewSet):
+    permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = TransactionCategory.objects.all()
     serializer_class = TransactionCategorySerializer
     filterset_fields = {
@@ -85,6 +87,7 @@ class TransactionCategoryViewSet(viewsets.ModelViewSet):
 
 
 class TransactionTagViewSet(viewsets.ModelViewSet):
+    permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = TransactionTag.objects.all()
     serializer_class = TransactionTagSerializer
     filterset_fields = {
@@ -101,6 +104,7 @@ class TransactionTagViewSet(viewsets.ModelViewSet):
 
 
 class TransactionEntityViewSet(viewsets.ModelViewSet):
+    permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = TransactionEntity.objects.all()
     serializer_class = TransactionEntitySerializer
     filterset_fields = {

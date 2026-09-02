@@ -3,3 +3,4 @@ from .test_imports import *
 from .test_accounts import *
 from .test_data_isolation import *
 from .test_shared_access import *
+from .test_object_permissions import *

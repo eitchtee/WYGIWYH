@@ -1,11 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
+from apps.common.functions.permissions import (
+    EDIT,
+    READ,
+    get_shared_object_or_error,
+)
 from apps.transactions.forms import TransactionTagForm
 from apps.transactions.models import TransactionTag
 from apps.common.models import SharedObject
@@ -85,17 +91,7 @@ def tag_add(request, **kwargs):
 @login_required
 @require_http_methods(["GET", "POST"])
 def tag_edit(request, tag_id):
-    tag = get_object_or_404(TransactionTag, id=tag_id)
-
-    if tag.owner and tag.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    tag = get_shared_object_or_error(TransactionTag, request, id=tag_id, level=EDIT)
 
     if request.method == "POST":
         form = TransactionTagForm(request.POST, instance=tag)
@@ -123,14 +119,18 @@ def tag_edit(request, tag_id):
 @login_required
 @require_http_methods(["DELETE"])
 def tag_delete(request, tag_id):
-    tag = get_object_or_404(TransactionTag, id=tag_id)
+    tag = get_shared_object_or_error(TransactionTag, request, id=tag_id, level=READ)
 
-    if tag.owner != request.user and request.user in tag.shared_with.all():
+    if tag.is_editable_by(request.user):
+        tag.delete()
+        messages.success(request, _("Tag deleted successfully"))
+    elif tag.shared_with.filter(pk=request.user.pk).exists():
+        # Someone else's object shared with us: we can drop our own access
+        # to it, but never delete it.
         tag.shared_with.remove(request.user)
         messages.success(request, _("Item no longer shared with you"))
     else:
-        tag.delete()
-        messages.success(request, _("Tag deleted successfully"))
+        raise PermissionDenied
 
     return HttpResponse(
         status=204,
@@ -144,7 +144,7 @@ def tag_delete(request, tag_id):
 @login_required
 @require_http_methods(["GET"])
 def tag_take_ownership(request, tag_id):
-    tag = get_object_or_404(TransactionTag, id=tag_id)
+    tag = get_shared_object_or_error(TransactionTag, request, id=tag_id, level=EDIT)
 
     if not tag.owner:
         tag.owner = request.user
@@ -165,17 +165,7 @@ def tag_take_ownership(request, tag_id):
 @login_required
 @require_http_methods(["GET", "POST"])
 def tag_share(request, pk):
-    obj = get_object_or_404(TransactionTag, id=pk)
-
-    if obj.owner and obj.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    obj = get_shared_object_or_error(TransactionTag, request, id=pk, level=EDIT)
 
     if request.method == "POST":
         form = SharedObjectForm(request.POST, instance=obj, user=request.user)
