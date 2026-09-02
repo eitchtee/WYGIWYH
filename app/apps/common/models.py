@@ -58,13 +58,35 @@ class SharedObject(models.Model):
             models.Index(fields=["visibility"]),
         ]
 
-    def is_accessible_by(self, user):
-        """Check if a user can access this object"""
-        return (
-            self.visibility == "public"
-            or self.owner == user
-            or (self.visibility == "shared" and user in self.shared_with.all())
-        )
+    # NOTE: these two predicates must stay in sync with the ``Q`` objects built
+    # by ``SharedObjectManager.get_queryset`` above. The manager filters at the
+    # queryset level and these check a single instance, so they cannot share an
+    # implementation; ``SharedObjectPredicateParityTests`` asserts they agree.
+    def is_visible_to(self, user):
+        """Whether ``user`` may read this object.
+
+        Mirrors ``SharedObjectManager``: public objects, objects with no owner,
+        the owner's own objects, and objects explicitly shared with the user.
+        """
+        if self.owner is None or self.visibility == "public":
+            return True
+
+        if not user or not user.is_authenticated:
+            return False
+
+        return self.owner_id == user.pk or self.shared_with.filter(pk=user.pk).exists()
+
+    def is_editable_by(self, user):
+        """Whether ``user`` may mutate this object.
+
+        Sharing grants read access only; mutation stays with the owner. Objects
+        with no owner remain editable by everyone, preserving the behaviour of
+        legacy/unowned objects.
+        """
+        if self.owner is None:
+            return True
+
+        return bool(user and user.is_authenticated and self.owner_id == user.pk)
 
     def save(self, *args, **kwargs):
         if not self.pk and not self.owner:
