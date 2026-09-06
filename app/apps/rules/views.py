@@ -4,13 +4,19 @@ from copy import deepcopy
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
+from apps.common.functions.permissions import (
+    EDIT,
+    READ,
+    get_shared_object_or_error,
+)
 from apps.rules.forms import (
     TransactionRuleForm,
     TransactionRuleActionForm,
@@ -62,7 +68,9 @@ def rules_list(request):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_toggle_activity(request, transaction_rule_id, **kwargs):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_shared_object_or_error(
+        TransactionRule, request, id=transaction_rule_id, level=EDIT
+    )
     current_active = transaction_rule.active
     transaction_rule.active = not current_active
     transaction_rule.save(update_fields=["active"])
@@ -112,17 +120,9 @@ def transaction_rule_add(request, **kwargs):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_edit(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
-
-    if transaction_rule.owner and transaction_rule.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    transaction_rule = get_shared_object_or_error(
+        TransactionRule, request, id=transaction_rule_id, level=EDIT
+    )
 
     if request.method == "POST":
         form = TransactionRuleForm(request.POST, instance=transaction_rule)
@@ -151,7 +151,9 @@ def transaction_rule_edit(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_view(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_shared_object_or_error(
+        TransactionRule, request, id=transaction_rule_id, level=READ
+    )
 
     edit_actions = transaction_rule.transaction_actions.all()
     update_or_create_actions = (
@@ -175,17 +177,20 @@ def transaction_rule_view(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["DELETE"])
 def transaction_rule_delete(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_shared_object_or_error(
+        TransactionRule, request, id=transaction_rule_id, level=READ
+    )
 
-    if (
-        transaction_rule.owner != request.user
-        and request.user in transaction_rule.shared_with.all()
-    ):
+    if transaction_rule.is_editable_by(request.user):
+        transaction_rule.delete()
+        messages.success(request, _("Rule deleted successfully"))
+    elif transaction_rule.shared_with.filter(pk=request.user.pk).exists():
+        # Someone else's rule shared with us: we can drop our own access to it,
+        # but never delete it.
         transaction_rule.shared_with.remove(request.user)
         messages.success(request, _("Item no longer shared with you"))
     else:
-        transaction_rule.delete()
-        messages.success(request, _("Rule deleted successfully"))
+        raise PermissionDenied
 
     return HttpResponse(
         status=204,
@@ -200,7 +205,9 @@ def transaction_rule_delete(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET"])
 def transaction_rule_take_ownership(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_shared_object_or_error(
+        TransactionRule, request, id=transaction_rule_id, level=EDIT
+    )
 
     if not transaction_rule.owner:
         transaction_rule.owner = request.user
@@ -222,17 +229,7 @@ def transaction_rule_take_ownership(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_share(request, pk):
-    obj = get_object_or_404(TransactionRule, id=pk)
-
-    if obj.owner and obj.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    obj = get_shared_object_or_error(TransactionRule, request, id=pk, level=EDIT)
 
     if request.method == "POST":
         form = SharedObjectForm(request.POST, instance=obj, user=request.user)
@@ -261,7 +258,9 @@ def transaction_rule_share(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_action_add(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_shared_object_or_error(
+        TransactionRule, request, id=transaction_rule_id, level=EDIT
+    )
 
     if request.method == "POST":
         form = TransactionRuleActionForm(request.POST, rule=transaction_rule)
@@ -289,12 +288,14 @@ def transaction_rule_action_add(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def transaction_rule_action_edit(request, transaction_rule_action_id):
-    transaction_rule_action = get_object_or_404(
-        TransactionRuleAction, id=transaction_rule_action_id
+    transaction_rule_action = get_shared_object_or_error(
+        TransactionRuleAction,
+        request,
+        id=transaction_rule_action_id,
+        level=EDIT,
+        via="rule",
     )
-    transaction_rule = get_object_or_404(
-        TransactionRule, id=transaction_rule_action.rule.id
-    )
+    transaction_rule = transaction_rule_action.rule
 
     if request.method == "POST":
         form = TransactionRuleActionForm(
@@ -327,8 +328,12 @@ def transaction_rule_action_edit(request, transaction_rule_action_id):
 @disabled_on_demo
 @require_http_methods(["DELETE"])
 def transaction_rule_action_delete(request, transaction_rule_action_id):
-    transaction_rule_action = get_object_or_404(
-        TransactionRuleAction, id=transaction_rule_action_id
+    transaction_rule_action = get_shared_object_or_error(
+        TransactionRuleAction,
+        request,
+        id=transaction_rule_action_id,
+        level=EDIT,
+        via="rule",
     )
 
     transaction_rule_action.delete()
@@ -348,7 +353,9 @@ def transaction_rule_action_delete(request, transaction_rule_action_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def update_or_create_transaction_rule_action_add(request, transaction_rule_id):
-    transaction_rule = get_object_or_404(TransactionRule, id=transaction_rule_id)
+    transaction_rule = get_shared_object_or_error(
+        TransactionRule, request, id=transaction_rule_id, level=EDIT
+    )
 
     if request.method == "POST":
         form = UpdateOrCreateTransactionRuleActionForm(
@@ -380,7 +387,9 @@ def update_or_create_transaction_rule_action_add(request, transaction_rule_id):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def update_or_create_transaction_rule_action_edit(request, pk):
-    linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)
+    linked_action = get_shared_object_or_error(
+        UpdateOrCreateTransactionRuleAction, request, id=pk, level=EDIT, via="rule"
+    )
     transaction_rule = linked_action.rule
 
     if request.method == "POST":
@@ -415,7 +424,9 @@ def update_or_create_transaction_rule_action_edit(request, pk):
 @disabled_on_demo
 @require_http_methods(["DELETE"])
 def update_or_create_transaction_rule_action_delete(request, pk):
-    linked_action = get_object_or_404(UpdateOrCreateTransactionRuleAction, id=pk)
+    linked_action = get_shared_object_or_error(
+        UpdateOrCreateTransactionRuleAction, request, id=pk, level=EDIT, via="rule"
+    )
 
     linked_action.delete()
 
@@ -436,7 +447,7 @@ def update_or_create_transaction_rule_action_delete(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def dry_run_rule_created(request, pk):
-    rule = get_object_or_404(TransactionRule, id=pk)
+    rule = get_shared_object_or_error(TransactionRule, request, id=pk, level=EDIT)
     logs = None
     results = None
 
@@ -481,7 +492,7 @@ def dry_run_rule_created(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def dry_run_rule_deleted(request, pk):
-    rule = get_object_or_404(TransactionRule, id=pk)
+    rule = get_shared_object_or_error(TransactionRule, request, id=pk, level=EDIT)
     logs = None
     results = None
 
@@ -526,7 +537,7 @@ def dry_run_rule_deleted(request, pk):
 @disabled_on_demo
 @require_http_methods(["GET", "POST"])
 def dry_run_rule_updated(request, pk):
-    rule = get_object_or_404(TransactionRule, id=pk)
+    rule = get_shared_object_or_error(TransactionRule, request, id=pk, level=EDIT)
     logs = None
     results = None
 

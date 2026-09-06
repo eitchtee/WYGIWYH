@@ -1,13 +1,19 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.db.models import Sum, Avg
 from django.db.models.functions import TruncMonth
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
+from apps.common.functions.permissions import (
+    EDIT,
+    READ,
+    get_shared_object_or_error,
+)
 from apps.dca.forms import DCAEntryForm, DCAStrategyForm
 from apps.dca.models import DCAStrategy, DCAEntry
 from apps.common.models import SharedObject
@@ -56,17 +62,9 @@ def strategy_add(request):
 @only_htmx
 @login_required
 def strategy_edit(request, strategy_id):
-    dca_strategy = get_object_or_404(DCAStrategy, id=strategy_id)
-
-    if dca_strategy.owner and dca_strategy.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    dca_strategy = get_shared_object_or_error(
+        DCAStrategy, request, id=strategy_id, level=EDIT
+    )
 
     if request.method == "POST":
         form = DCAStrategyForm(request.POST, instance=dca_strategy)
@@ -94,17 +92,20 @@ def strategy_edit(request, strategy_id):
 @login_required
 @require_http_methods(["DELETE"])
 def strategy_delete(request, strategy_id):
-    dca_strategy = get_object_or_404(DCAStrategy, id=strategy_id)
+    dca_strategy = get_shared_object_or_error(
+        DCAStrategy, request, id=strategy_id, level=READ
+    )
 
-    if (
-        dca_strategy.owner != request.user
-        and request.user in dca_strategy.shared_with.all()
-    ):
+    if dca_strategy.is_editable_by(request.user):
+        dca_strategy.delete()
+        messages.success(request, _("DCA strategy deleted successfully"))
+    elif dca_strategy.shared_with.filter(pk=request.user.pk).exists():
+        # Someone else's object shared with us: we can drop our own access
+        # to it, but never delete it.
         dca_strategy.shared_with.remove(request.user)
         messages.success(request, _("Item no longer shared with you"))
     else:
-        dca_strategy.delete()
-        messages.success(request, _("DCA strategy deleted successfully"))
+        raise PermissionDenied
 
     return HttpResponse(
         status=204,
@@ -118,7 +119,9 @@ def strategy_delete(request, strategy_id):
 @login_required
 @require_http_methods(["GET"])
 def strategy_take_ownership(request, strategy_id):
-    dca_strategy = get_object_or_404(DCAStrategy, id=strategy_id)
+    dca_strategy = get_shared_object_or_error(
+        DCAStrategy, request, id=strategy_id, level=EDIT
+    )
 
     if not dca_strategy.owner:
         dca_strategy.owner = request.user
@@ -139,17 +142,7 @@ def strategy_take_ownership(request, strategy_id):
 @login_required
 @require_http_methods(["GET", "POST"])
 def strategy_share(request, pk):
-    obj = get_object_or_404(DCAStrategy, id=pk)
-
-    if obj.owner and obj.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    obj = get_shared_object_or_error(DCAStrategy, request, id=pk, level=EDIT)
 
     if request.method == "POST":
         form = SharedObjectForm(request.POST, instance=obj, user=request.user)
@@ -175,7 +168,9 @@ def strategy_share(request, pk):
 
 @login_required
 def strategy_detail_index(request, strategy_id):
-    strategy = get_object_or_404(DCAStrategy, id=strategy_id)
+    strategy = get_shared_object_or_error(
+        DCAStrategy, request, id=strategy_id, level=READ
+    )
 
     return render(
         request,
@@ -187,7 +182,9 @@ def strategy_detail_index(request, strategy_id):
 @only_htmx
 @login_required
 def strategy_detail(request, strategy_id):
-    strategy = get_object_or_404(DCAStrategy, id=strategy_id)
+    strategy = get_shared_object_or_error(
+        DCAStrategy, request, id=strategy_id, level=READ
+    )
     entries = strategy.entries.all()
 
     # Calculate monthly aggregates
@@ -229,7 +226,9 @@ def strategy_detail(request, strategy_id):
 @only_htmx
 @login_required
 def strategy_entry_add(request, strategy_id):
-    strategy = get_object_or_404(DCAStrategy, id=strategy_id)
+    strategy = get_shared_object_or_error(
+        DCAStrategy, request, id=strategy_id, level=EDIT
+    )
     if request.method == "POST":
         form = DCAEntryForm(request.POST, strategy=strategy)
         if form.is_valid():
@@ -255,7 +254,14 @@ def strategy_entry_add(request, strategy_id):
 @only_htmx
 @login_required
 def strategy_entry_edit(request, strategy_id, entry_id):
-    dca_entry = get_object_or_404(DCAEntry, id=entry_id, strategy__id=strategy_id)
+    dca_entry = get_shared_object_or_error(
+        DCAEntry,
+        request,
+        id=entry_id,
+        strategy__id=strategy_id,
+        level=EDIT,
+        via="strategy",
+    )
 
     if request.method == "POST":
         form = DCAEntryForm(request.POST, instance=dca_entry)
@@ -283,7 +289,14 @@ def strategy_entry_edit(request, strategy_id, entry_id):
 @login_required
 @require_http_methods(["DELETE"])
 def strategy_entry_delete(request, entry_id, strategy_id):
-    dca_entry = get_object_or_404(DCAEntry, id=entry_id, strategy__id=strategy_id)
+    dca_entry = get_shared_object_or_error(
+        DCAEntry,
+        request,
+        id=entry_id,
+        strategy__id=strategy_id,
+        level=EDIT,
+        via="strategy",
+    )
 
     dca_entry.delete()
 

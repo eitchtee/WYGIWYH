@@ -1,13 +1,19 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.accounts.forms import AccountForm
 from apps.accounts.models import Account
 from apps.common.decorators.htmx import only_htmx
+from apps.common.functions.permissions import (
+    EDIT,
+    READ,
+    get_shared_object_or_error,
+)
 from apps.common.models import SharedObject
 from apps.common.forms import SharedObjectForm
 
@@ -63,16 +69,7 @@ def account_add(request, **kwargs):
 @login_required
 @require_http_methods(["GET", "POST"])
 def account_edit(request, pk):
-    account = get_object_or_404(Account, id=pk)
-    if account.owner and account.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    account = get_shared_object_or_error(Account, request, id=pk, level=EDIT)
 
     if request.method == "POST":
         form = AccountForm(request.POST, instance=account)
@@ -100,17 +97,7 @@ def account_edit(request, pk):
 @login_required
 @require_http_methods(["GET", "POST"])
 def account_share(request, pk):
-    obj = get_object_or_404(Account, id=pk)
-
-    if obj.owner and obj.owner != request.user:
-        messages.error(request, _("Only the owner can edit this"))
-
-        return HttpResponse(
-            status=204,
-            headers={
-                "HX-Trigger": "updated, hide_offcanvas",
-            },
-        )
+    obj = get_shared_object_or_error(Account, request, id=pk, level=EDIT)
 
     if request.method == "POST":
         form = SharedObjectForm(request.POST, instance=obj, user=request.user)
@@ -138,14 +125,18 @@ def account_share(request, pk):
 @login_required
 @require_http_methods(["DELETE"])
 def account_delete(request, pk):
-    account = get_object_or_404(Account, id=pk)
+    account = get_shared_object_or_error(Account, request, id=pk, level=READ)
 
-    if account.owner != request.user and request.user in account.shared_with.all():
+    if account.is_editable_by(request.user):
+        account.delete()
+        messages.success(request, _("Account deleted successfully"))
+    elif account.shared_with.filter(pk=request.user.pk).exists():
+        # Someone else's object shared with us: we can drop our own access
+        # to it, but never delete it.
         account.shared_with.remove(request.user)
         messages.success(request, _("Item no longer shared with you"))
     else:
-        account.delete()
-        messages.success(request, _("Account deleted successfully"))
+        raise PermissionDenied
 
     return HttpResponse(
         status=204,
@@ -159,7 +150,9 @@ def account_delete(request, pk):
 @login_required
 @require_http_methods(["GET"])
 def account_toggle_untracked(request, pk):
-    account = get_object_or_404(Account, id=pk)
+    # Only flips the calling user's own row in untracked_by, so visibility --
+    # not ownership -- is the right bar here.
+    account = get_shared_object_or_error(Account, request, id=pk, level=READ)
     if account.is_untracked_by():
         account.untracked_by.remove(request.user)
         messages.success(request, _("Account is now tracked"))
@@ -179,7 +172,7 @@ def account_toggle_untracked(request, pk):
 @login_required
 @require_http_methods(["GET"])
 def account_take_ownership(request, pk):
-    account = get_object_or_404(Account, id=pk)
+    account = get_shared_object_or_error(Account, request, id=pk, level=EDIT)
 
     if not account.owner:
         account.owner = request.user
