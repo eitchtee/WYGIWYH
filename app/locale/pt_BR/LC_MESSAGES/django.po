@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 04:46+0000\n"
+"POT-Creation-Date: 2026-09-06 19:42+0000\n"
 "PO-Revision-Date: 2026-08-16 22:03+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -193,68 +193,56 @@ msgstr "Contas"
 msgid "Exchange currency cannot be the same as the account's main currency."
 msgstr "A moeda de câmbio não pode ser a mesma que a moeda principal da conta."
 
-#: apps/accounts/views/account_groups.py:44
+#: apps/accounts/views/account_groups.py:50
 msgid "Account Group added successfully"
 msgstr "Grupo de Conta adicionado com sucesso"
 
-#: apps/accounts/views/account_groups.py:69
-#: apps/accounts/views/account_groups.py:152 apps/accounts/views/accounts.py:68
-#: apps/accounts/views/accounts.py:106 apps/dca/views.py:62
-#: apps/dca/views.py:145 apps/rules/views.py:118 apps/rules/views.py:228
-#: apps/transactions/views/categories.py:91
-#: apps/transactions/views/categories.py:129
-#: apps/transactions/views/entities.py:91
-#: apps/transactions/views/entities.py:171 apps/transactions/views/tags.py:91
-#: apps/transactions/views/tags.py:171
-msgid "Only the owner can edit this"
-msgstr "Somente o proprietário pode editar isso"
-
-#: apps/accounts/views/account_groups.py:82
+#: apps/accounts/views/account_groups.py:78
 msgid "Account Group updated successfully"
 msgstr "Grupo de Conta atualizado com sucesso"
 
-#: apps/accounts/views/account_groups.py:111
-#: apps/accounts/views/accounts.py:145 apps/dca/views.py:104
-#: apps/rules/views.py:185 apps/transactions/views/categories.py:168
-#: apps/transactions/views/entities.py:130 apps/transactions/views/tags.py:130
-msgid "Item no longer shared with you"
-msgstr "Item não está mais compartilhado com você"
-
-#: apps/accounts/views/account_groups.py:114
+#: apps/accounts/views/account_groups.py:104
 msgid "Account Group deleted successfully"
 msgstr "Grupo de Conta apagado com sucesso"
 
-#: apps/accounts/views/account_groups.py:135
-#: apps/accounts/views/accounts.py:189 apps/dca/views.py:128
-#: apps/rules/views.py:210 apps/transactions/views/categories.py:192
-#: apps/transactions/views/entities.py:154 apps/transactions/views/tags.py:154
+#: apps/accounts/views/account_groups.py:109
+#: apps/accounts/views/accounts.py:137 apps/dca/views.py:106
+#: apps/rules/views.py:191 apps/transactions/views/categories.py:163
+#: apps/transactions/views/entities.py:135 apps/transactions/views/tags.py:131
+msgid "Item no longer shared with you"
+msgstr "Item não está mais compartilhado com você"
+
+#: apps/accounts/views/account_groups.py:132
+#: apps/accounts/views/accounts.py:182 apps/dca/views.py:131
+#: apps/rules/views.py:217 apps/transactions/views/categories.py:188
+#: apps/transactions/views/entities.py:160 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
 msgstr "Propriedade assumida com sucesso"
 
-#: apps/accounts/views/account_groups.py:165
-#: apps/accounts/views/accounts.py:119 apps/dca/views.py:158
-#: apps/rules/views.py:241 apps/transactions/views/categories.py:142
-#: apps/transactions/views/entities.py:184 apps/transactions/views/tags.py:184
+#: apps/accounts/views/account_groups.py:152
+#: apps/accounts/views/accounts.py:106 apps/dca/views.py:151
+#: apps/rules/views.py:238 apps/transactions/views/categories.py:130
+#: apps/transactions/views/entities.py:180 apps/transactions/views/tags.py:174
 msgid "Configuration saved successfully"
 msgstr "Configuração salva com sucesso"
 
-#: apps/accounts/views/accounts.py:44
+#: apps/accounts/views/accounts.py:50
 msgid "Account added successfully"
 msgstr "Conta adicionado com sucesso"
 
-#: apps/accounts/views/accounts.py:81
+#: apps/accounts/views/accounts.py:78
 msgid "Account updated successfully"
 msgstr "Conta atualizada com sucesso"
 
-#: apps/accounts/views/accounts.py:148
+#: apps/accounts/views/accounts.py:132
 msgid "Account deleted successfully"
 msgstr "Conta apagada com sucesso"
 
-#: apps/accounts/views/accounts.py:165
+#: apps/accounts/views/accounts.py:158
 msgid "Account is now tracked"
 msgstr "A conta agora está sendo acompanhada"
 
-#: apps/accounts/views/accounts.py:168
+#: apps/accounts/views/accounts.py:161
 msgid "Account is now untracked"
 msgstr "A conta agora não está mais sendo acompanhada"
 
@@ -801,27 +789,27 @@ msgstr "Entrada CMP"
 msgid "DCA Entries"
 msgstr "Entradas CMP"
 
-#: apps/dca/views.py:38
+#: apps/dca/views.py:44
 msgid "DCA Strategy added successfully"
 msgstr "Estratégia CMP adicionada com sucesso"
 
-#: apps/dca/views.py:75
+#: apps/dca/views.py:73
 msgid "DCA Strategy updated successfully"
 msgstr "Estratégia CMP atualizada com sucesso"
 
-#: apps/dca/views.py:107
+#: apps/dca/views.py:101
 msgid "DCA strategy deleted successfully"
 msgstr "Estratégia CMP apagada com sucesso"
 
-#: apps/dca/views.py:237
+#: apps/dca/views.py:236
 msgid "Entry added successfully"
 msgstr "Entrada adicionada com sucesso"
 
-#: apps/dca/views.py:264
+#: apps/dca/views.py:270
 msgid "Entry updated successfully"
 msgstr "Entrada atualizada com sucesso"
 
-#: apps/dca/views.py:290
+#: apps/dca/views.py:303
 msgid "Entry deleted successfully"
 msgstr "Entrada apagada com sucesso"
 
@@ -1294,15 +1282,15 @@ msgstr ""
 msgid "Update or create transaction action"
 msgstr "Ação de atualizar ou criar transação"
 
-#: apps/rules/views.py:71
+#: apps/rules/views.py:79
 msgid "Rule deactivated successfully"
 msgstr "Regra desativada com sucesso"
 
-#: apps/rules/views.py:73
+#: apps/rules/views.py:81
 msgid "Rule activated successfully"
 msgstr "Regra ativada com sucesso"
 
-#: apps/rules/views.py:92
+#: apps/rules/views.py:100
 msgid "Rule added successfully"
 msgstr "Regra adicionada com sucesso"
 
@@ -1310,27 +1298,27 @@ msgstr "Regra adicionada com sucesso"
 msgid "Rule updated successfully"
 msgstr "Regra atualizada com sucesso"
 
-#: apps/rules/views.py:188
+#: apps/rules/views.py:186
 msgid "Rule deleted successfully"
 msgstr "Regra apagada com sucesso"
 
-#: apps/rules/views.py:305
+#: apps/rules/views.py:306
 msgid "Action updated successfully"
 msgstr "Ação atualizada com sucesso"
 
-#: apps/rules/views.py:336
+#: apps/rules/views.py:341
 msgid "Action deleted successfully"
 msgstr "Ação apagada com sucesso"
 
-#: apps/rules/views.py:360
+#: apps/rules/views.py:367
 msgid "Update or Create Transaction action added successfully"
 msgstr "Ação Atualizar ou Criar Transação adicionada com sucesso"
 
-#: apps/rules/views.py:393
+#: apps/rules/views.py:402
 msgid "Update or Create Transaction action updated successfully"
 msgstr "Ação Atualizar ou Criar Transação atualizada com sucesso"
 
-#: apps/rules/views.py:423
+#: apps/rules/views.py:434
 msgid "Update or Create Transaction action deleted successfully"
 msgstr "Ação Atualizar ou Criar Transação apagada com sucesso"
 
@@ -1748,27 +1736,27 @@ msgid_plural "%(count)s transactions duplicated successfully"
 msgstr[0] "%(count)s transação duplicada com sucesso"
 msgstr[1] "%(count)s transações duplicadas com sucesso"
 
-#: apps/transactions/views/categories.py:66
+#: apps/transactions/views/categories.py:72
 msgid "Category added successfully"
 msgstr "Categoria adicionada com sucesso"
 
-#: apps/transactions/views/categories.py:104
+#: apps/transactions/views/categories.py:102
 msgid "Category updated successfully"
 msgstr "Categoria atualizada com sucesso"
 
-#: apps/transactions/views/categories.py:171
+#: apps/transactions/views/categories.py:158
 msgid "Category deleted successfully"
 msgstr "Categoria apagada com sucesso"
 
-#: apps/transactions/views/entities.py:66
+#: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
 msgstr "Entidade adicionada com sucesso"
 
-#: apps/transactions/views/entities.py:104
+#: apps/transactions/views/entities.py:102
 msgid "Entity updated successfully"
 msgstr "Entidade atualizada com sucesso"
 
-#: apps/transactions/views/entities.py:133
+#: apps/transactions/views/entities.py:130
 msgid "Entity deleted successfully"
 msgstr "Entidade apagada com sucesso"
 
@@ -1831,15 +1819,15 @@ msgstr "Transação Recorrente finalizada com sucesso"
 msgid "Recurring Transaction deleted successfully"
 msgstr "Transação Recorrente apagada com sucesso"
 
-#: apps/transactions/views/tags.py:66
+#: apps/transactions/views/tags.py:72
 msgid "Tag added successfully"
 msgstr "Tag adicionada com sucesso"
 
-#: apps/transactions/views/tags.py:104
+#: apps/transactions/views/tags.py:100
 msgid "Tag updated successfully"
 msgstr "Tag atualizada com sucesso"
 
-#: apps/transactions/views/tags.py:133
+#: apps/transactions/views/tags.py:126
 msgid "Tag deleted successfully"
 msgstr "Tag apagada com sucesso"
 
@@ -3541,15 +3529,21 @@ msgstr "Nenhuma transação recorrente"
 msgid "View"
 msgstr "Visualizar"
 
-#: templates/rules/fragments/list.html:70
+#: templates/rules/fragments/list.html:71
 msgid "Deactivate"
 msgstr "Desativar"
 
-#: templates/rules/fragments/list.html:70
+#: templates/rules/fragments/list.html:71
 msgid "Activate"
 msgstr "Ativar"
 
-#: templates/rules/fragments/list.html:89
+#: templates/rules/fragments/list.html:77
+#, fuzzy
+#| msgid "Only the owner can edit this"
+msgid "Only the owner can change this"
+msgstr "Somente o proprietário pode editar isso"
+
+#: templates/rules/fragments/list.html:96
 msgid "No rules"
 msgstr "Nenhuma regra"
 
