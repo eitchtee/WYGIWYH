@@ -301,3 +301,20 @@
     pointer-events: auto;
   }
 }
+
+// Transaction rows and dividers on their way out.
+// See templates/includes/scripts/hyperscript/transactions.html, which waits on
+// transitionend, so every property here shares one duration and reduced motion
+// shortens it rather than removing it.
+.transaction-removing {
+  transition-property: height, opacity, transform;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  transform: translateX(-1.5rem);
+  opacity: 0;
+  pointer-events: none;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.01s;
+  }
+}

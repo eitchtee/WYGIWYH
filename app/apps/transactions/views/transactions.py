@@ -1,4 +1,5 @@
 import datetime
+import json
 from copy import deepcopy
 
 from apps.common.decorators.demo import disabled_on_demo
@@ -478,9 +479,20 @@ def transaction_delete(request, transaction_id, **kwargs):
 
     messages.success(request, _("Transaction deleted successfully"))
 
+    # The list isn't reloaded, the client removes the row it already has and
+    # drops any divider left empty.
+    # See templates/includes/scripts/hyperscript/transactions.html
     return HttpResponse(
         status=204,
-        headers={"HX-Trigger": "updated"},
+        headers={
+            "HX-Trigger": json.dumps(
+                {
+                    "transactions_deleted": {"ids": [str(transaction_id)]},
+                    "selective_update": None,
+                    "toasts": None,
+                }
+            )
+        },
     )
 
 

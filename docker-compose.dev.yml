@@ -2,6 +2,7 @@ volumes:
   wygiwyh_dev_postgres_data: {}
   wygiwyh_temp:
   wygiwyh_attachments:
+  wygiwyh_node_modules:
 
 
 services:
@@ -35,7 +36,7 @@ services:
       - ./frontend/:/usr/src/frontend
       - ./app/:/usr/src/app/
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
-      - /usr/src/frontend/node_modules
+      - wygiwyh_node_modules:/usr/src/frontend/node_modules
     ports:
       - '${WEBPACK_OUTBOUND_PORT}:5173'
     environment:
