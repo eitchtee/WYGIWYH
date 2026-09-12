@@ -3,6 +3,7 @@ import './_htmx.js';
 import Alpine from "alpinejs";
 import mask from '@alpinejs/mask';
 import collapse from '@alpinejs/collapse'
+import sort from '@alpinejs/sort';
 import { create, all } from 'mathjs';
 
 window.Alpine = Alpine;
@@ -12,6 +13,7 @@ window.math = create(all, {
 
 Alpine.plugin(mask);
 Alpine.plugin(collapse);
+Alpine.plugin(sort);
 Alpine.start();
 
 /**
