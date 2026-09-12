@@ -89,6 +89,16 @@
 }
 
 
+@layer base {
+    /* Always reserve space for the scrollbar so content doesn't shift when it appears.
+       `html:root` outranks daisyUI's `:root` rule, which resets the gutter to `unset`
+       unless a modal/drawer is open. */
+    html:root {
+        scrollbar-gutter: stable;
+    }
+}
+
+
 @layer utilities {
     .textarea {
         min-height: unset;
