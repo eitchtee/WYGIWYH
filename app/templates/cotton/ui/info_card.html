@@ -3,7 +3,7 @@
     {% if icon %}<i class="{{ icon }}"></i>{% else %}<span class="font-bold">{{ title.0 }}</span>{% endif %}
   </div>
   <div class="card-body">
-    <h5 class="font-bold mr-[50px] text-xl {{ title_css_classes }}" {{ attrs }}>{{ title }}{% if help_text %}<c-ui.help-icon :content="help_text" icon=""></c-ui.help-icon>{% endif %}</h5>
+    <h5 class="font-bold mr-12.5 text-xl {{ title_css_classes }}" {{ attrs }}>{{ title }}{% if help_text %}<c-ui.help-icon :content="help_text" icon=""></c-ui.help-icon>{% endif %}</h5>
     {{ slot }}
   </div>
 </div>

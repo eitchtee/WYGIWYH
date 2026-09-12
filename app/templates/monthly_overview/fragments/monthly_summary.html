@@ -4,7 +4,8 @@
   {% if not has_active_filter %}
   {#  Daily Spending#}
   <div>
-    <c-ui.info-card color="yellow" icon="fa-solid fa-calendar-day" title="{% trans 'Daily Spending Allowance' %}" help_text={% trans "This is the final total divided by the remaining days in the month" %}>
+    <c-ui.info-card color="yellow" icon="fa-solid fa-calendar-day" title="{% trans 'Daily Spending Allowance' %}"
+                    help_text="{% trans "This is the final total divided by the remaining days in the month" %}">
       <div class="flex justify-between mt-3">
           <div class="text-right font-mono">
             <div class="text-subtle">{% translate 'today' %}</div>
