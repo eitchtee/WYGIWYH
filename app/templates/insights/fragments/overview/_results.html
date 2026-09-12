@@ -1,0 +1,195 @@
+{% load i18n %}
+{% if total_table %}
+  {% if view_type == "table" %}
+    <div class="card bg-base-100 card-border">
+      <div class="card-body">
+        <c-config.search></c-config.search>
+        <div class="overflow-x-auto">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">{{ level_1.singular }}</th>
+              <th scope="col">{% trans 'Income' %}</th>
+              <th scope="col">{% trans 'Expense' %}</th>
+              <th scope="col">{% trans 'Total' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in total_table.values %}
+{#              Top level row #}
+              {% include "insights/fragments/overview/_row.html" with node=item is_root=True row_class="font-semibold" empty_label=level_1.empty search_path=item.search_path %}
+
+{#              Second level rows #}
+              {% if level_2 %}
+                {% for child in item.children.values %}
+                  {% if child.name or item.children.values|length > 1 %}
+                    {% include "insights/fragments/overview/_row.html" with node=child row_class="bg-base-200" indent="ps-6" icon=level_2.icon empty_label=level_2.empty search_path=child.search_path %}
+
+{#                    Third level rows #}
+                    {% if level_3 %}
+                      {% for grandchild in child.children.values %}
+                        {% if grandchild.name or child.children.values|length > 1 %}
+                          {% include "insights/fragments/overview/_row.html" with node=grandchild row_class="bg-base-300" indent="ps-10" icon=level_3.icon empty_label=level_3.empty search_path=grandchild.search_path %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  {% elif view_type == "bars" %}
+    <div class="card bg-base-100 card-border">
+      <div class="card-body">
+        <div class="chart-container relative h-[75vh] w-full" _="init call setupChart() end">
+          <canvas id="overviewChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    {{ total_table|json_script:"overviewData" }}
+
+    <script>
+        function setupChart() {
+            var rawData = JSON.parse(document.getElementById('overviewData').textContent);
+            var emptyLabel = "{{ level_1.empty|escapejs }}";
+
+            var items = [];
+            var currencyDetails = {};
+            var currencyData = {};
+
+            // Pass 1: collect the top level rows and the currencies in play
+            Object.values(rawData).forEach(item => {
+                var itemName = item.name === null ? emptyLabel : item.name;
+                if (!items.includes(itemName)) {
+                    items.push(itemName);
+                }
+                if (item.currencies) {
+                    Object.values(item.currencies).forEach(curr => {
+                        var details = curr.currency;
+                        if (details && details.code && !currencyDetails[details.code]) {
+                            var decimals = parseInt(details.decimal_places, 10);
+                            currencyDetails[details.code] = {
+                                code: details.code,
+                                name: details.name || details.code,
+                                prefix: details.prefix || '',
+                                suffix: details.suffix || '',
+                                decimal_places: !isNaN(decimals) && decimals >= 0 ? decimals : 2
+                            };
+                        }
+                    });
+                }
+            });
+
+            Object.keys(currencyDetails).forEach(code => {
+                currencyData[code] = new Array(items.length).fill(null);
+            });
+
+            // Pass 2: fill one series per currency, leaving gaps as null
+            Object.values(rawData).forEach(item => {
+                var itemName = item.name === null ? emptyLabel : item.name;
+                var itemIndex = items.indexOf(itemName);
+                if (itemIndex === -1) return;
+
+                if (item.currencies) {
+                    Object.values(item.currencies).forEach(curr => {
+                        var code = curr.currency?.code;
+                        if (code && currencyData[code]) {
+                            var value = parseFloat(curr.shown.total);
+                            currencyData[code][itemIndex] = !isNaN(value) ? value : null;
+                        }
+                    });
+                }
+            });
+
+            var datasets = Object.keys(currencyDetails).map(code => {
+                return {
+                    label: currencyDetails[code].name,
+                    data: currencyData[code],
+                    currencyCode: code,
+                    borderWidth: 1
+                };
+            });
+
+            new Chart(document.getElementById('overviewChart'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: items,
+                        datasets: datasets
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        interaction: {
+                            intersect: false,
+                            mode: 'nearest',
+                            axis: "y"
+                        },
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const details = currencyDetails[context.dataset.currencyCode];
+                                        const value = context.parsed.x; // 'x' because indexAxis is 'y'
+
+                                        if (value === null || value === undefined || !details) {
+                                            return null;
+                                        }
+
+                                        let formattedValue = '';
+                                        try {
+                                            formattedValue = new Intl.NumberFormat(undefined, {
+                                                minimumFractionDigits: details.decimal_places,
+                                                maximumFractionDigits: details.decimal_places,
+                                            }).format(value);
+                                        } catch (e) {
+                                            formattedValue = value.toFixed(details.decimal_places);
+                                        }
+
+                                        return `${details.prefix}${formattedValue}${details.suffix}`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'top',
+                            }
+                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                                type: 'linear',
+                                title: {
+                                    display: true,
+                                    text: '{% trans 'Total' %}'
+                                },
+                                ticks: {
+                                    callback: function (value) {
+                                        return value.toLocaleString();
+                                    }
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                title: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+        }
+    </script>
+  {% endif %}
+{% else %}
+  <c-msg.empty title="{{ empty_message }}"></c-msg.empty>
+{% endif %}

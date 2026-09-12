@@ -4,7 +4,6 @@ from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render
-from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
@@ -22,7 +21,12 @@ from apps.insights.utils.category_explorer import (
     get_category_sums_by_account,
     get_category_sums_by_currency,
 )
-from apps.insights.utils.overview import get_grouped_totals
+from apps.insights.utils.overview import (
+    LEVEL_KEYS,
+    clean_chain,
+    clean_levels,
+    get_grouped_totals,
+)
 from apps.insights.utils.sankey import (
     generate_sankey_data_by_account,
     generate_sankey_data_by_currency,
@@ -33,9 +37,7 @@ from apps.insights.utils.month_by_month import get_month_by_month_data
 from apps.transactions.models import TransactionCategory, Transaction
 from apps.transactions.utils.calculations import calculate_currency_totals
 
-# Labels for the grouping levels an overview can be built from. The overviews
-# only differ by which level sits at the top, so everything user facing lives
-# here instead of in three near identical views and templates.
+# Labels for the grouping levels the overview can be built from.
 OVERVIEW_LEVELS = {
     "categories": {
         "label": _("Categories"),
@@ -59,54 +61,6 @@ OVERVIEW_LEVELS = {
         "icon": "fa-solid fa-user-group",
     },
 }
-
-
-def _render_overview(request, levels, url_name):
-    """Render the overview table/chart for ``levels``, top level first."""
-    session_prefix = f"insights_{levels[0]}_overview"
-
-    def setting(name, default, cast=None):
-        key = f"{session_prefix}_{name}"
-        if name in request.GET:
-            value = cast(request.GET[name]) if cast else request.GET[name]
-            request.session[key] = value
-            return value
-        return request.session.get(key, default)
-
-    view_type = setting("view_type", "table")
-    showing = setting("showing", "final")
-    show_level_2 = setting("show_level_2", True, cast=lambda value: value == "on")
-    show_level_3 = setting("show_level_3", False, cast=lambda value: value == "on")
-
-    if show_level_2:
-        depth = 3 if show_level_3 else 2
-    else:
-        depth = 1
-
-    total_table = get_grouped_totals(
-        transactions_queryset=get_transactions(request, include_silent=True),
-        levels=levels,
-        showing=showing,
-        ignore_empty=False,
-        depth=depth,
-    )
-
-    return render(
-        request,
-        "insights/fragments/overview/index.html",
-        {
-            "total_table": total_table,
-            "refresh_url": reverse(url_name),
-            "view_type": view_type,
-            "showing": showing,
-            "show_level_2": show_level_2,
-            "show_level_3": show_level_3,
-            "level_1": OVERVIEW_LEVELS[levels[0]],
-            "level_2": OVERVIEW_LEVELS[levels[1]],
-            "level_3": OVERVIEW_LEVELS[levels[2]],
-            "empty_message": OVERVIEW_LEVELS[levels[0]]["empty_message"],
-        },
-    )
 
 
 @login_required
@@ -247,28 +201,102 @@ def category_sum_by_currency(request):
     )
 
 
+OVERVIEW_SESSION_PREFIX = "insights_overview"
+
+# What a first visit shows: categories broken down by tags, as the old
+# Categories Overview did, with entities available but switched off.
+OVERVIEW_DEFAULT_LEVELS = ["categories", "tags"]
+
+
+def _overview_setting(request, name, default):
+    """Read a control from the query string, falling back to the last one used."""
+    key = f"{OVERVIEW_SESSION_PREFIX}_{name}"
+    if name in request.GET:
+        request.session[key] = request.GET[name]
+        return request.GET[name]
+    return request.session.get(key, default)
+
+
+def _overview_chain(request):
+    """The chip order and the switched on levels, from the request or session."""
+    chain_key = f"{OVERVIEW_SESSION_PREFIX}_chain"
+    levels_key = f"{OVERVIEW_SESSION_PREFIX}_levels"
+
+    if "chain" in request.GET:
+        chain = clean_chain(request.GET.getlist("chain"))
+        levels = clean_levels(request.GET.getlist("level"), chain)
+        request.session[chain_key] = chain
+        request.session[levels_key] = levels
+    else:
+        chain = clean_chain(request.session.get(chain_key, list(LEVEL_KEYS)))
+        levels = clean_levels(
+            request.session.get(levels_key, OVERVIEW_DEFAULT_LEVELS), chain
+        )
+
+    return chain, levels
+
+
 @only_htmx
 @login_required
 @require_http_methods(["GET"])
-def category_overview(request):
-    return _render_overview(
-        request, ("categories", "tags", "entities"), "category_overview"
+def overview(request):
+    """
+    One overview whose level chain the user arranges.
+
+    Renders only the controls; they stay put while the results below them
+    reload, so rearranging the chain never pulls the chips out from under the
+    pointer. The chips hold the order, which is why nothing here rewrites it.
+    """
+    chain, levels = _overview_chain(request)
+
+    return render(
+        request,
+        "insights/fragments/overview/index.html",
+        {
+            "chips": [
+                {
+                    "key": key,
+                    "meta": OVERVIEW_LEVELS[key],
+                    "enabled": key in levels,
+                    "position": levels.index(key) + 1 if key in levels else "",
+                }
+                for key in chain
+            ],
+            "view_type": _overview_setting(request, "view_type", "table"),
+            "showing": _overview_setting(request, "showing", "final"),
+        },
     )
 
 
 @only_htmx
 @login_required
 @require_http_methods(["GET"])
-def tag_overview(request):
-    return _render_overview(request, ("tags", "categories", "entities"), "tag_overview")
+def overview_results(request):
+    """The table or chart for the arrangement the controls submitted."""
+    chain, levels = _overview_chain(request)
+    view_type = _overview_setting(request, "view_type", "table")
+    showing = _overview_setting(request, "showing", "final")
 
+    total_table = get_grouped_totals(
+        transactions_queryset=get_transactions(request, include_silent=True),
+        levels=levels,
+        showing=showing,
+        ignore_empty=False,
+        depth=len(levels),
+    )
 
-@only_htmx
-@login_required
-@require_http_methods(["GET"])
-def entity_overview(request):
-    return _render_overview(
-        request, ("entities", "categories", "tags"), "entity_overview"
+    return render(
+        request,
+        "insights/fragments/overview/_results.html",
+        {
+            "total_table": total_table,
+            "view_type": view_type,
+            "showing": showing,
+            "level_1": OVERVIEW_LEVELS[levels[0]],
+            "level_2": OVERVIEW_LEVELS[levels[1]] if len(levels) > 1 else None,
+            "level_3": OVERVIEW_LEVELS[levels[2]] if len(levels) > 2 else None,
+            "empty_message": OVERVIEW_LEVELS[levels[0]]["empty_message"],
+        },
     )
 
 

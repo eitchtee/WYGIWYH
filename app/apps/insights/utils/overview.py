@@ -8,14 +8,15 @@ from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
 from apps.transactions.models import Transaction
 
-# Grouping levels an overview can be built from. Any ordering of these keys is a
-# valid hierarchy, which is what makes the categories, tags and entities
-# overviews the same view with a different level order.
+# Grouping levels the overview can be built from. Any ordering of these keys is
+# a valid hierarchy, which is what lets the user arrange the chain freely.
 LEVELS = {
     "categories": {"field": "category", "name": "category__name"},
     "tags": {"field": "tags", "name": "tags__name"},
     "entities": {"field": "entities", "name": "entities__name"},
 }
+
+LEVEL_KEYS = tuple(LEVELS)
 
 CURRENCY_FIELDS = (
     "account__currency",
@@ -234,3 +235,35 @@ def get_grouped_totals(
             )
 
     return result
+
+
+def _known(values):
+    """Drop anything that is not a level, and any repeat."""
+    levels = []
+    for value in values:
+        if value in LEVEL_KEYS and value not in levels:
+            levels.append(value)
+    return levels
+
+
+def clean_chain(values):
+    """
+    The full chain in the submitted order.
+
+    Every level always has a chip, switched on or not, so a short or unknown
+    submission is padded back out rather than rejected.
+    """
+    chain = _known(values)
+    return chain + [key for key in LEVEL_KEYS if key not in chain]
+
+
+def clean_levels(values, chain):
+    """
+    The levels actually switched on, ordered by their place in ``chain``.
+
+    Taking the order from the chain rather than from the submission keeps the
+    hierarchy and the chips in step even if the two disagree. Never empty: the
+    first chip stands in, since an overview with no levels has nothing to show.
+    """
+    enabled = set(_known(values))
+    return [key for key in chain if key in enabled] or list(chain[:1])
