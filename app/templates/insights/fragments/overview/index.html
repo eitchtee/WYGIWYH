@@ -1,7 +1,11 @@
 {% load i18n %}
+{% comment %}
+  Overview insight: the level chain is arranged here instead of being baked
+  into the view. Only #overview-results reloads when something changes, so the
+  controls never get pulled out from under the pointer.
+{% endcomment %}
 
-<div hx-get="{{ refresh_url }}" hx-trigger="updated from:window" class="show-loading" hx-swap="outerHTML"
-     hx-include="#picker-form, #picker-type, #view-type, #show-level-2, #showing, #show-level-3">
+<div>
   <div class="h-full text-center mb-4">
     <div class="tabs tabs-box mx-auto w-fit" role="group" id="view-type" _="on change trigger updated">
       <label class="tab">
@@ -28,37 +32,36 @@
       </label>
     </div>
   </div>
-  <div class="my-3 flex flex-col gap-3 md:flex-row justify-between">
-    <div class="flex gap-4">
-      {% if view_type == 'table' %}
-        <div id="show-level-2">
-          <label class="label">
-            <input type="hidden" name="show_level_2" value="off">
-            <input type="checkbox" class="toggle toggle-primary toggle-sm" id="show-level-2-switch" name="show_level_2"
-                   _="on change trigger updated" {% if show_level_2 %}checked{% endif %}>
-            <span>
-                {{ level_2.label }}
-            </span>
-            <c-ui.help-icon
-                content="{% trans 'Transaction amounts associated with multiple tags or entities will be counted once for each one of them' %}"
-                icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
-          </label>
-        </div>
-        <div id="show-level-3" class="{% if not show_level_2 %}hidden{% endif %}">
-          <label class="label">
-            <input type="hidden" name="show_level_3" value="off">
-            <input type="checkbox" class="toggle toggle-primary toggle-sm" id="show-level-3-switch"
-                   name="show_level_3"
-                   _="on change trigger updated" {% if show_level_3 %}checked{% endif %}>
-            <span>
-                {{ level_3.label }}
-            </span>
-            <c-ui.help-icon
-                content="{% trans 'Transaction amounts associated with multiple tags or entities will be counted once for each one of them' %}"
-                icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
-          </label>
-        </div>
-      {% endif %}
+  <div class="my-3 flex flex-col gap-3 md:flex-row md:items-center justify-between">
+    <div class="flex flex-wrap items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2" id="level-chain"
+           x-data
+           x-sort.ghost="levelChainSorted()"
+           x-sort:config="{ ghostClass: 'opacity-40' }"
+           data-last-level-title="{% trans 'At least one level has to stay on' %}">
+        {% for chip in chips %}
+          {# The hidden inputs sit outside .join: it rounds its end from :last-child, which they would otherwise be #}
+          <div class="level-chip inline-flex{% if not chip.enabled %} level-off{% endif %}" data-level="{{ chip.key }}">
+            {# --radius-field is what .join reads for its outer corners, so overriding it here turns the chip into a pill #}
+            <div class="join bg-base-200 rounded-full [--radius-field:9999px]">
+              <button class="join-item btn btn-sm btn-ghost ps-3 pe-2 cursor-grab active:cursor-grabbing" type="button"
+                      x-sort:handle data-handle
+                      aria-label="{% trans 'Drag to reorder, or use the left and right arrow keys' %}"><i
+                  class="fa-solid fa-grip-vertical fa-fw"></i></button>
+              <button class="join-item btn btn-sm pe-4 gap-2" type="button" data-toggle
+                      aria-label="{{ chip.meta.label }}">
+                <span class="level-position badge badge-xs badge-neutral">{{ chip.position }}</span>
+                <span class="level-label"><i class="{{ chip.meta.icon }} fa-fw me-1"></i>{{ chip.meta.label }}</span>
+              </button>
+            </div>
+            <input type="hidden" name="chain" value="{{ chip.key }}">
+            <input type="hidden" name="level" value="{{ chip.key }}" {% if not chip.enabled %}disabled{% endif %}>
+          </div>
+        {% endfor %}
+      </div>
+      <c-ui.help-icon
+          content="{% trans 'Transaction amounts associated with multiple tags or entities will be counted once for each one of them' %}"
+          icon="fa-solid fa-circle-exclamation"></c-ui.help-icon>
     </div>
     <div class="join" role="group" id="showing" _="on change trigger updated">
       <input type="radio" class="join-item btn btn-outline btn-primary btn-sm" name="showing" id="showing-projected"
@@ -74,210 +77,102 @@
              {% if showing == 'final' %}checked{% endif %}>
     </div>
   </div>
-  {% if total_table %}
-    {% if view_type == "table" %}
-      <div class="card bg-base-100 card-border">
-        <div class="card-body">
-          <c-config.search></c-config.search>
-          <div class="overflow-x-auto">
-            <table class="table">
-              <thead>
-              <tr>
-                <th scope="col">{{ level_1.singular }}</th>
-                <th scope="col">{% trans 'Income' %}</th>
-                <th scope="col">{% trans 'Expense' %}</th>
-                <th scope="col">{% trans 'Total' %}</th>
-              </tr>
-              </thead>
-              <tbody>
-              {% for item in total_table.values %}
-{#              Top level row #}
-                {% include "insights/fragments/overview/_row.html" with node=item is_root=True row_class="font-semibold" empty_label=level_1.empty search_path=item.search_path %}
 
-{#              Second level rows #}
-                {% if show_level_2 %}
-                  {% for child in item.children.values %}
-                    {% if child.name or item.children.values|length > 1 %}
-                      {% include "insights/fragments/overview/_row.html" with node=child row_class="bg-base-200" indent="ps-6" icon=level_2.icon empty_label=level_2.empty search_path=child.search_path %}
+  <div id="overview-results" class="show-loading"
+       hx-get="{% url 'insights_overview_results' %}"
+       hx-trigger="load, updated from:window"
+       hx-include="#picker-form, #picker-type, #view-type, #level-chain, #showing"
+       hx-sync="this:replace"></div>
 
-{#                    Third level rows #}
-                      {% if show_level_3 %}
-                        {% for grandchild in child.children.values %}
-                          {% if grandchild.name or child.children.values|length > 1 %}
-                            {% include "insights/fragments/overview/_row.html" with node=grandchild row_class="bg-base-300" indent="ps-10" icon=level_3.icon empty_label=level_3.empty search_path=grandchild.search_path %}
-                          {% endif %}
-                        {% endfor %}
-                      {% endif %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-    {% elif view_type == "bars" %}
-      <div class="card bg-base-100 card-border">
-        <div class="card-body">
-          <div class="chart-container relative h-[75vh] w-full" _="init call setupChart() end">
-            <canvas id="overviewChart"></canvas>
-          </div>
-        </div>
-      </div>
-
-      {{ total_table|json_script:"overviewData" }}
-
-      <script>
-          function setupChart() {
-              var rawData = JSON.parse(document.getElementById('overviewData').textContent);
-
-              // --- Dynamic Data Processing ---
-              var items = [];
-              var currencyDetails = {}; // Stores details like { BRL: {code: 'BRL', name: 'Real', ...}, ... }
-              var currencyData = {};    // Stores data arrays like { BRL: [val1, null, val3,...], ... }
-
-              // Pass 1: Collect items and currency details
-              Object.values(rawData).forEach(item => {
-                  var itemName = item.name === null ? "{{ level_1.empty|escapejs }}" : item.name;
-                  if (!items.includes(itemName)) {
-                      items.push(itemName);
-                  }
-                  if (item.currencies) {
-                      Object.values(item.currencies).forEach(curr => {
-                          var details = curr.currency;
-                          if (details && details.code && !currencyDetails[details.code]) {
-                              var decimals = parseInt(details.decimal_places, 10);
-                              currencyDetails[details.code] = {
-                                  code: details.code,
-                                  name: details.name || details.code,
-                                  prefix: details.prefix || '',
-                                  suffix: details.suffix || '',
-                                  // Ensure decimal_places is a non-negative integer
-                                  decimal_places: !isNaN(decimals) && decimals >= 0 ? decimals : 2
-                              };
-                          }
-                      });
-                  }
+  <script>
+      // The chips are the source of truth for the chain: their DOM order is the
+      // hierarchy and their hidden inputs are what gets submitted. Dragging is
+      // therefore instant, and the server only reads the result back.
+      function setupLevelChain(root) {
+          function refresh() {
+              var chips = Array.prototype.slice.call(root.querySelectorAll('.level-chip'));
+              var enabled = chips.filter(function (chip) {
+                  return !chip.classList.contains('level-off');
               });
 
-              // Initialize data structure for each currency with nulls
-              Object.keys(currencyDetails).forEach(code => {
-                  currencyData[code] = new Array(items.length).fill(null);
+              chips.forEach(function (chip) {
+                  var off = chip.classList.contains('level-off');
+                  var toggle = chip.querySelector('[data-toggle]');
+                  var label = chip.querySelector('.level-label');
+                  var position = chip.querySelector('.level-position');
+
+                  chip.querySelector('input[name="level"]').disabled = off;
+
+                  // An off level reads as daisyUI's disabled button, but stays
+                  // clickable. Using .btn-disabled would set pointer-events:none
+                  // and strand it in the off state.
+                  toggle.classList.toggle('btn-primary', !off);
+                  toggle.classList.toggle('btn-ghost', off);
+                  label.classList.toggle('line-through', off);
+                  label.classList.toggle('opacity-50', off);
+                  chip.classList.toggle('opacity-80', off);
+
+                  position.textContent = off ? '' : (enabled.indexOf(chip) + 1);
+                  position.hidden = off;
+
+                  // Same reasoning for the last one standing: mark it refused
+                  // rather than disabled, so it still looks switched on.
+                  var last = !off && enabled.length === 1;
+                  toggle.setAttribute('aria-disabled', last ? 'true' : 'false');
+                  toggle.classList.toggle('cursor-not-allowed', last);
+                  toggle.title = last ? (root.dataset.lastLevelTitle || '') : '';
               });
-
-              // Pass 2: Populate data arrays (store all valid numbers now)
-              Object.values(rawData).forEach(item => {
-                  var itemName = item.name === null ? "{{ level_1.empty|escapejs }}" : item.name;
-                  var itemIndex = items.indexOf(itemName);
-                  if (itemIndex === -1) return;
-
-                  if (item.currencies) {
-                      Object.values(item.currencies).forEach(curr => {
-                          var code = curr.currency?.code;
-                          if (code && currencyData[code]) {
-                              var value = parseFloat(curr.shown.total);
-
-                              // Store the number if it's valid, otherwise keep null
-                              currencyData[code][itemIndex] = !isNaN(value) ? value : null;
-                          }
-                      });
-                  }
-              });
-
-              // --- Dynamic Chart Configuration ---
-              var datasets = Object.keys(currencyDetails).map((code, index) => {
-                  return {
-                      label: currencyDetails[code].name, // Use currency name for the legend label
-                      data: currencyData[code],
-                      currencyCode: code, // Store code for easy lookup in tooltip
-                      borderWidth: 1
-                  };
-              });
-
-              new Chart(document.getElementById('overviewChart'),
-                  {
-                      type: 'bar',
-                      data: {
-                          labels: items,
-                          datasets: datasets
-                      },
-                      options: {
-                          indexAxis: 'y',
-                          responsive: true,
-                          interaction: {
-                              intersect: false,
-                              mode: 'nearest',
-                              axis: "y"
-                          },
-                          maintainAspectRatio: false,
-                          plugins: {
-                              title: {
-                                  display: false
-                              },
-                              tooltip: {
-                                  callbacks: {
-                                      label: function (context) {
-                                          const dataset = context.dataset;
-                                          const currencyCode = dataset.currencyCode;
-                                          const details = currencyDetails[currencyCode];
-                                          const value = context.parsed.x; // Use 'x' because indexAxis is 'y'
-
-                                          if (value === null || value === undefined || !details) {
-                                              // Display the item name if the value is null/undefined
-                                              return null;
-                                          }
-
-                                          let formattedValue = '';
-                                          try {
-                                              // Use Intl.NumberFormat for ALL values, configured with locale and exact decimal places
-                                              formattedValue = new Intl.NumberFormat(undefined, {
-                                                  minimumFractionDigits: details.decimal_places,
-                                                  maximumFractionDigits: details.decimal_places,
-                                                  // Do NOT use style: 'currency' here, as we add prefix/suffix manually
-                                              }).format(value);
-                                          } catch (e) {
-                                              formattedValue = value.toFixed(details.decimal_places);
-                                          }
-
-                                          // Return label with currency name and formatted value including prefix/suffix
-                                          return `${details.prefix}${formattedValue}${details.suffix}`;
-                                      }
-                                  }
-                              },
-                              legend: {
-                                  position: 'top',
-                              }
-                          },
-                          scales: {
-                              x: {
-                                  stacked: true,
-                                  type: 'linear',
-                                  title: {
-                                      display: true,
-                                      text: '{% trans 'Total' %}'
-                                  },
-                                  ticks: {
-                                      // Format ticks using the detected locale
-                                      callback: function (value, index, ticks) {
-                                          return value.toLocaleString();
-                                      }
-                                  }
-                              },
-                              y: {
-                                  stacked: true,
-                                  title: {
-                                      display: false
-                                  }
-                              }
-                          }
-                      }
-                  });
           }
-      </script>
-    {% endif %}
-  {% else %}
-    <c-msg.empty title="{{ empty_message }}"></c-msg.empty>
-  {% endif %}
+
+          function commit() {
+              refresh();
+              window.dispatchEvent(new CustomEvent('updated'));
+          }
+
+          function move(chip, step) {
+              var sibling = step < 0 ? chip.previousElementSibling : chip.nextElementSibling;
+              if (!sibling) return false;
+              if (step < 0) {
+                  root.insertBefore(chip, sibling);
+              } else {
+                  root.insertBefore(sibling, chip);
+              }
+              return true;
+          }
+
+          root.addEventListener('click', function (event) {
+              var toggle = event.target.closest('[data-toggle]');
+              if (!toggle || !root.contains(toggle)) return;
+              if (toggle.getAttribute('aria-disabled') === 'true') return;
+              toggle.closest('.level-chip').classList.toggle('level-off');
+              commit();
+          });
+
+          // Dragging is mouse and touch only, so the handle also reorders with
+          // the arrow keys rather than leaving the chain keyboard inaccessible.
+          root.addEventListener('keydown', function (event) {
+              if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+              var handle = event.target.closest('[data-handle]');
+              if (!handle || !root.contains(handle)) return;
+              if (!move(handle.closest('.level-chip'), event.key === 'ArrowLeft' ? -1 : 1)) return;
+              event.preventDefault();
+              handle.focus();
+              commit();
+          });
+
+          // Reached from the x-sort handler once Sortable has moved the chip.
+          root.levelChainCommit = commit;
+
+          refresh();
+      }
+
+      function levelChainSorted() {
+          var root = document.getElementById('level-chain');
+          if (root && root.levelChainCommit) root.levelChainCommit();
+      }
+
+      // Wired up here rather than with a hyperscript init, so it does not
+      // depend on which of the two runs first after an htmx swap.
+      setupLevelChain(document.getElementById('level-chain'));
+  </script>
 </div>
