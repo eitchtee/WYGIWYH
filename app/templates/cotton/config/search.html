@@ -5,7 +5,23 @@
          class="input input-bordered w-full"
          placeholder="{% translate 'Search' %}"
          _="on input or search
-              show < tbody>tr /> in <table/>
-              when its textContent.toLowerCase() contains my value.toLowerCase()"/>
+              set query to my value.toLowerCase()
+              set rows to <tbody>tr/> in <table/>
+              set paths to []
+              set matches to []
+              repeat for row in rows index i
+                set path to row.getAttribute('data-search-path')
+                if no path then set path to '#' + i + '/' end
+                append path to paths
+                if row.textContent.toLowerCase() contains query then append path to matches end
+              end
+              repeat for row in rows index i
+                set path to paths[i]
+                set keep to false
+                repeat for match in matches
+                  if path.startsWith(match) or match.startsWith(path) then set keep to true end
+                end
+                if keep then show row else hide row end
+              end"/>
   </label>
 </div>

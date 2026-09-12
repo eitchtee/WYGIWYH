@@ -92,7 +92,7 @@
               <tbody>
               {% for category in total_table.values %}
 {#                Category row #}
-                <tr class="font-semibold">
+                <tr class="font-semibold" data-search-path="{{ forloop.counter0 }}/">
                   <th class="text-nowrap">{% if category.name %}{{ category.name }}{% else %}{% trans 'Uncategorized' %}{% endif %}</th>
                   <td class="text-nowrap">
                     {% for currency in category.currencies.values %}
@@ -184,7 +184,8 @@
                 {% if show_tags %}
                   {% for tag_id, tag in category.tags.items %}
                     {% if tag.name or not tag.name and category.tags.values|length > 1 %}
-                      <tr class="bg-base-200">
+                      <tr class="bg-base-200"
+                          data-search-path="{{ forloop.parentloop.counter0 }}/{{ forloop.counter0 }}/">
                         <td class="ps-6 text-nowrap">
                           <i class="fa-solid fa-hashtag fa-fw me-2 text-base-content/60"></i>{% if tag.name %}{{ tag.name }}{% else %}{% trans 'Untagged' %}{% endif %}
                         </td>
@@ -277,7 +278,8 @@
                       {% if show_entities %}
                         {% for entity_id, entity in tag.entities.items %}
                           {% if entity.name or not entity.name and tag.entities.values|length > 1 %}
-                            <tr class="bg-base-300">
+                            <tr class="bg-base-300"
+                                data-search-path="{{ forloop.parentloop.parentloop.counter0 }}/{{ forloop.parentloop.counter0 }}/{{ forloop.counter0 }}/">
                               <td class="ps-10 text-nowrap">
                                 <i class="fa-solid fa-user-group fa-fw me-2 text-base-content/60"></i>{% if entity.name %}{{ entity.name }}{% else %}{% trans 'No entity' %}{% endif %}
                               </td>
