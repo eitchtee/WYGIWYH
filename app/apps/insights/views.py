@@ -4,7 +4,9 @@ from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
@@ -20,7 +22,7 @@ from apps.insights.utils.category_explorer import (
     get_category_sums_by_account,
     get_category_sums_by_currency,
 )
-from apps.insights.utils.category_overview import get_categories_totals
+from apps.insights.utils.overview import get_grouped_totals
 from apps.insights.utils.sankey import (
     generate_sankey_data_by_account,
     generate_sankey_data_by_currency,
@@ -30,6 +32,81 @@ from apps.insights.utils.year_by_year import get_year_by_year_data
 from apps.insights.utils.month_by_month import get_month_by_month_data
 from apps.transactions.models import TransactionCategory, Transaction
 from apps.transactions.utils.calculations import calculate_currency_totals
+
+# Labels for the grouping levels an overview can be built from. The overviews
+# only differ by which level sits at the top, so everything user facing lives
+# here instead of in three near identical views and templates.
+OVERVIEW_LEVELS = {
+    "categories": {
+        "label": _("Categories"),
+        "singular": _("Category"),
+        "empty": _("Uncategorized"),
+        "empty_message": _("No categories"),
+        "icon": "fa-solid fa-icons",
+    },
+    "tags": {
+        "label": _("Tags"),
+        "singular": _("Tag"),
+        "empty": _("Untagged"),
+        "empty_message": _("No tags"),
+        "icon": "fa-solid fa-hashtag",
+    },
+    "entities": {
+        "label": _("Entities"),
+        "singular": _("Entity"),
+        "empty": _("No entity"),
+        "empty_message": _("No entities"),
+        "icon": "fa-solid fa-user-group",
+    },
+}
+
+
+def _render_overview(request, levels, url_name):
+    """Render the overview table/chart for ``levels``, top level first."""
+    session_prefix = f"insights_{levels[0]}_overview"
+
+    def setting(name, default, cast=None):
+        key = f"{session_prefix}_{name}"
+        if name in request.GET:
+            value = cast(request.GET[name]) if cast else request.GET[name]
+            request.session[key] = value
+            return value
+        return request.session.get(key, default)
+
+    view_type = setting("view_type", "table")
+    showing = setting("showing", "final")
+    show_level_2 = setting("show_level_2", True, cast=lambda value: value == "on")
+    show_level_3 = setting("show_level_3", False, cast=lambda value: value == "on")
+
+    if show_level_2:
+        depth = 3 if show_level_3 else 2
+    else:
+        depth = 1
+
+    total_table = get_grouped_totals(
+        transactions_queryset=get_transactions(request, include_silent=True),
+        levels=levels,
+        showing=showing,
+        ignore_empty=False,
+        depth=depth,
+    )
+
+    return render(
+        request,
+        "insights/fragments/overview/index.html",
+        {
+            "total_table": total_table,
+            "refresh_url": reverse(url_name),
+            "view_type": view_type,
+            "showing": showing,
+            "show_level_2": show_level_2,
+            "show_level_3": show_level_3,
+            "level_1": OVERVIEW_LEVELS[levels[0]],
+            "level_2": OVERVIEW_LEVELS[levels[1]],
+            "level_3": OVERVIEW_LEVELS[levels[2]],
+            "empty_message": OVERVIEW_LEVELS[levels[0]]["empty_message"],
+        },
+    )
 
 
 @login_required
@@ -174,51 +251,24 @@ def category_sum_by_currency(request):
 @login_required
 @require_http_methods(["GET"])
 def category_overview(request):
-    if "view_type" in request.GET:
-        view_type = request.GET["view_type"]
-        request.session["insights_category_explorer_view_type"] = view_type
-    else:
-        view_type = request.session.get("insights_category_explorer_view_type", "table")
-
-    if "show_tags" in request.GET:
-        show_tags = request.GET["show_tags"] == "on"
-        request.session["insights_category_explorer_show_tags"] = show_tags
-    else:
-        show_tags = request.session.get("insights_category_explorer_show_tags", True)
-
-    if "show_entities" in request.GET:
-        show_entities = request.GET["show_entities"] == "on"
-        request.session["insights_category_explorer_show_entities"] = show_entities
-    else:
-        show_entities = request.session.get(
-            "insights_category_explorer_show_entities", False
-        )
-
-    if "showing" in request.GET:
-        showing = request.GET["showing"]
-        request.session["insights_category_explorer_showing"] = showing
-    else:
-        showing = request.session.get("insights_category_explorer_showing", "final")
-
-    # Get filtered transactions
-    transactions = get_transactions(request, include_silent=True)
-
-    total_table = get_categories_totals(
-        transactions_queryset=transactions,
-        ignore_empty=False,
-        show_entities=show_entities,
+    return _render_overview(
+        request, ("categories", "tags", "entities"), "category_overview"
     )
 
-    return render(
-        request,
-        "insights/fragments/category_overview/index.html",
-        {
-            "total_table": total_table,
-            "view_type": view_type,
-            "show_tags": show_tags,
-            "show_entities": show_entities,
-            "showing": showing,
-        },
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def tag_overview(request):
+    return _render_overview(request, ("tags", "categories", "entities"), "tag_overview")
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET"])
+def entity_overview(request):
+    return _render_overview(
+        request, ("entities", "categories", "tags"), "entity_overview"
     )
 
 

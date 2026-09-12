@@ -1,0 +1,56 @@
+{% load i18n %}
+{% comment %}
+  One overview row. Expects: node, indent, icon, empty_label, row_class,
+  search_path and, for the top level, is_root.
+{% endcomment %}
+<tr class="{{ row_class }}" data-search-path="{{ search_path }}">
+  {% if is_root %}
+    <th class="text-nowrap">{% if node.name %}{{ node.name }}{% else %}{{ empty_label }}{% endif %}</th>
+  {% else %}
+    <td class="{{ indent }} text-nowrap">
+      <i class="{{ icon }} fa-fw me-2 text-base-content/60"></i>{% if node.name %}{{ node.name }}{% else %}{{ empty_label }}{% endif %}
+    </td>
+  {% endif %}
+  <td class="text-nowrap">
+    {% for currency in node.currencies.values %}
+      {% if currency.shown.income != 0 %}
+        <c-amount.display
+            :amount="currency.shown.income"
+            :prefix="currency.currency.prefix"
+            :suffix="currency.currency.suffix"
+            :decimal_places="currency.currency.decimal_places"
+            color="green"></c-amount.display>
+      {% else %}
+        <div>-</div>
+      {% endif %}
+    {% endfor %}
+  </td>
+  <td class="text-nowrap">
+    {% for currency in node.currencies.values %}
+      {% if currency.shown.expense != 0 %}
+        <c-amount.display
+            :amount="currency.shown.expense"
+            :prefix="currency.currency.prefix"
+            :suffix="currency.currency.suffix"
+            :decimal_places="currency.currency.decimal_places"
+            color="red"></c-amount.display>
+      {% else %}
+        <div>-</div>
+      {% endif %}
+    {% endfor %}
+  </td>
+  <td class="text-nowrap">
+    {% for currency in node.currencies.values %}
+      {% if currency.shown.total != 0 %}
+        <c-amount.display
+            :amount="currency.shown.total"
+            :prefix="currency.currency.prefix"
+            :suffix="currency.currency.suffix"
+            :decimal_places="currency.currency.decimal_places"
+            color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+      {% else %}
+        <div>-</div>
+      {% endif %}
+    {% endfor %}
+  </td>
+</tr>

@@ -35,6 +35,16 @@ urlpatterns = [
         name="category_overview",
     ),
     path(
+        "insights/tag-overview/",
+        views.tag_overview,
+        name="tag_overview",
+    ),
+    path(
+        "insights/entity-overview/",
+        views.entity_overview,
+        name="entity_overview",
+    ),
+    path(
         "insights/late-transactions/",
         views.late_transactions,
         name="insights_late_transactions",
