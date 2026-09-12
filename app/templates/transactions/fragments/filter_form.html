@@ -12,7 +12,5 @@
   {% crispy filter.form %}
 </form>
 {% if swap_filter_indicator %}
-  <span id="filter-active-indicator"
-        class="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full {% if not filter_is_active %}hidden {% endif %}z-10"
-        hx-swap-oob="outerHTML"></span>
+  {% include "transactions/fragments/filter_active_indicator.html" %}
 {% endif %}

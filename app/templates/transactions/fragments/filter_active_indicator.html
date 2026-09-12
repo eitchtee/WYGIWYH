@@ -1,0 +1,11 @@
+{% load i18n %}
+
+<button id="filter-active-indicator"
+        type="button"
+        class="group absolute -top-1 -right-1 z-10 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-error text-error-content transition-transform duration-150 motion-reduce:transition-none hover:scale-125 focus-visible:scale-125 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error {% if not filter_is_active %}hidden{% endif %}"
+        aria-label="{% translate 'Clear filters' %}"
+        title="{% translate 'Clear filters' %}"
+        {% if swap_filter_indicator %}hx-swap-oob="outerHTML"{% endif %}
+        _="on click halt the event then trigger click on #filter-clear">
+  <i class="fa-solid fa-xmark hidden text-[0.625rem] leading-none group-hover:inline-block group-focus-visible:inline-block" aria-hidden="true"></i>
+</button>
