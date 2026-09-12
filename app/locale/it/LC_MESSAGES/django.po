@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-12 17:16+0000\n"
+"POT-Creation-Date: 2026-09-12 20:35+0000\n"
 "PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -61,16 +61,14 @@ msgid "New balance"
 msgstr "Nuovo saldo"
 
 #: apps/accounts/forms.py:125 apps/dca/forms.py:79 apps/dca/forms.py:86
-#: apps/insights/forms.py:117 apps/rules/forms.py:181 apps/rules/forms.py:197
-#: apps/rules/models.py:44 apps/rules/models.py:311
+#: apps/insights/forms.py:117 apps/insights/views.py:42 apps/rules/forms.py:181
+#: apps/rules/forms.py:197 apps/rules/models.py:44 apps/rules/models.py:311
 #: apps/transactions/forms.py:61 apps/transactions/forms.py:307
 #: apps/transactions/forms.py:475 apps/transactions/forms.py:572
 #: apps/transactions/forms.py:579 apps/transactions/forms.py:763
 #: apps/transactions/forms.py:1007 apps/transactions/models.py:346
 #: apps/transactions/models.py:658 apps/transactions/models.py:858
 #: apps/transactions/models.py:1110
-#: templates/insights/fragments/category_overview/index.html:86
-#: templates/insights/fragments/category_overview/index.html:544
 #: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
@@ -78,15 +76,15 @@ msgstr "Categoria"
 
 #: apps/accounts/forms.py:132 apps/dca/forms.py:95 apps/dca/forms.py:103
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
-#: apps/rules/forms.py:184 apps/rules/forms.py:194 apps/rules/models.py:45
-#: apps/rules/models.py:315 apps/transactions/filters.py:79
-#: apps/transactions/forms.py:69 apps/transactions/forms.py:315
-#: apps/transactions/forms.py:483 apps/transactions/forms.py:588
-#: apps/transactions/forms.py:596 apps/transactions/forms.py:756
-#: apps/transactions/forms.py:1000 apps/transactions/models.py:352
-#: apps/transactions/models.py:660 apps/transactions/models.py:862
-#: apps/transactions/models.py:1116 templates/includes/sidebar.html:150
-#: templates/insights/fragments/category_overview/index.html:40
+#: apps/insights/views.py:48 apps/rules/forms.py:184 apps/rules/forms.py:194
+#: apps/rules/models.py:45 apps/rules/models.py:315
+#: apps/transactions/filters.py:79 apps/transactions/forms.py:69
+#: apps/transactions/forms.py:315 apps/transactions/forms.py:483
+#: apps/transactions/forms.py:588 apps/transactions/forms.py:596
+#: apps/transactions/forms.py:756 apps/transactions/forms.py:1000
+#: apps/transactions/models.py:352 apps/transactions/models.py:660
+#: apps/transactions/models.py:862 apps/transactions/models.py:1116
+#: templates/includes/sidebar.html:150
 #: templates/insights/fragments/month_by_month.html:29
 #: templates/insights/fragments/month_by_month.html:32
 #: templates/insights/fragments/year_by_year.html:24
@@ -830,7 +828,8 @@ msgid "Transactions"
 msgstr "Transazioni"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
-#: apps/transactions/filters.py:74 templates/categories/fragments/list.html:9
+#: apps/insights/views.py:41 apps/transactions/filters.py:74
+#: templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
 #: templates/insights/fragments/month_by_month.html:18
 #: templates/insights/fragments/month_by_month.html:21
@@ -840,16 +839,15 @@ msgid "Categories"
 msgstr "Categorie"
 
 #: apps/export_app/forms.py:49 apps/export_app/forms.py:133
-#: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
-#: apps/rules/models.py:307 apps/transactions/filters.py:84
-#: apps/transactions/forms.py:77 apps/transactions/forms.py:323
-#: apps/transactions/forms.py:491 apps/transactions/forms.py:771
-#: apps/transactions/forms.py:1015 apps/transactions/models.py:301
-#: apps/transactions/models.py:357 apps/transactions/models.py:663
-#: apps/transactions/models.py:865 apps/transactions/models.py:1121
-#: templates/entities/fragments/list.html:9
+#: apps/insights/views.py:55 apps/rules/forms.py:185 apps/rules/forms.py:195
+#: apps/rules/models.py:46 apps/rules/models.py:307
+#: apps/transactions/filters.py:84 apps/transactions/forms.py:77
+#: apps/transactions/forms.py:323 apps/transactions/forms.py:491
+#: apps/transactions/forms.py:771 apps/transactions/forms.py:1015
+#: apps/transactions/models.py:301 apps/transactions/models.py:357
+#: apps/transactions/models.py:663 apps/transactions/models.py:865
+#: apps/transactions/models.py:1121 templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:156
-#: templates/insights/fragments/category_overview/index.html:54
 #: templates/insights/fragments/month_by_month.html:40
 #: templates/insights/fragments/month_by_month.html:43
 #: templates/insights/fragments/year_by_year.html:35
@@ -1019,10 +1017,8 @@ msgid "Run deleted successfully"
 msgstr "Esecuzione eliminata con successo"
 
 #: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
-#: apps/insights/utils/sankey.py:167 apps/transactions/filters.py:209
-#: templates/insights/fragments/category_overview/index.html:96
-#: templates/insights/fragments/category_overview/index.html:409
-#: templates/insights/fragments/category_overview/index.html:438
+#: apps/insights/utils/sankey.py:167 apps/insights/views.py:43
+#: apps/transactions/filters.py:209
 #: templates/insights/fragments/month_by_month.html:119
 #: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
@@ -1068,6 +1064,45 @@ msgstr "Spese previste"
 #: apps/insights/utils/sankey.py:263 apps/insights/utils/sankey.py:264
 msgid "Saved"
 msgstr "Risparmiati"
+
+#: apps/insights/views.py:44 templates/categories/fragments/table.html:73
+msgid "No categories"
+msgstr "Nessuna categoria"
+
+#: apps/insights/views.py:49
+#: templates/insights/fragments/month_by_month.html:86
+#: templates/insights/fragments/year_by_year.html:54
+#, fuzzy
+#| msgid "Tags"
+msgid "Tag"
+msgstr "Tag"
+
+#: apps/insights/views.py:50 apps/transactions/filters.py:215
+#: templates/insights/fragments/month_by_month.html:121
+#: templates/insights/fragments/year_by_year.html:75
+msgid "Untagged"
+msgstr "Senza tag"
+
+#: apps/insights/views.py:51 apps/transactions/models.py:504
+#: templates/tags/fragments/table.html:69
+msgid "No tags"
+msgstr "Nessun tag"
+
+#: apps/insights/views.py:56 apps/transactions/models.py:300
+#: templates/insights/fragments/month_by_month.html:88
+#: templates/insights/fragments/year_by_year.html:56
+msgid "Entity"
+msgstr "Beneficiari"
+
+#: apps/insights/views.py:57 apps/transactions/filters.py:222
+#: templates/insights/fragments/month_by_month.html:123
+#: templates/insights/fragments/year_by_year.html:77
+msgid "No entity"
+msgstr "Nessun beneficiario"
+
+#: apps/insights/views.py:58 templates/entities/fragments/table.html:69
+msgid "No entities"
+msgstr "Nessun beneficiario"
 
 #: apps/rules/forms.py:27
 msgid "Run on creation"
@@ -1326,7 +1361,7 @@ msgstr "Azione Aggiornamento o Creazione transazione eliminata correttamente"
 
 #: apps/transactions/filters.py:23 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:32
-#: templates/insights/fragments/category_overview/index.html:65
+#: templates/insights/fragments/overview/index.html:65
 #: templates/net_worth/net_worth.html:39 templates/net_worth/net_worth.html:43
 #: templates/transactions/widgets/paid_toggle_button.html:7
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:10
@@ -1379,23 +1414,9 @@ msgstr "Categorizzato"
 msgid "Tagged"
 msgstr "Taggato"
 
-#: apps/transactions/filters.py:215
-#: templates/insights/fragments/category_overview/index.html:190
-#: templates/insights/fragments/month_by_month.html:121
-#: templates/insights/fragments/year_by_year.html:75
-msgid "Untagged"
-msgstr "Senza tag"
-
 #: apps/transactions/filters.py:221
 msgid "Any entity"
 msgstr "Qualsiasi beneficiario"
-
-#: apps/transactions/filters.py:222
-#: templates/insights/fragments/category_overview/index.html:284
-#: templates/insights/fragments/month_by_month.html:123
-#: templates/insights/fragments/year_by_year.html:77
-msgid "No entity"
-msgstr "Nessun beneficiario"
 
 #: apps/transactions/forms.py:191
 msgid "More"
@@ -1504,12 +1525,6 @@ msgstr ""
 "I beneficiari disattivati non potranno essere selezionati durante la "
 "creazione di nuove transazioni"
 
-#: apps/transactions/models.py:300
-#: templates/insights/fragments/month_by_month.html:88
-#: templates/insights/fragments/year_by_year.html:56
-msgid "Entity"
-msgstr "Beneficiari"
-
 #: apps/transactions/models.py:312 apps/transactions/models.py:1071
 #: templates/calendar_view/fragments/list.html:42
 #: templates/calendar_view/fragments/list.html:44
@@ -1517,7 +1532,7 @@ msgstr "Beneficiari"
 #: templates/calendar_view/fragments/list.html:54
 #: templates/cotton/ui/quick_transactions_buttons.html:10
 #: templates/cotton/ui/transactions_fab.html:10
-#: templates/insights/fragments/category_overview/index.html:87
+#: templates/insights/fragments/overview/index.html:87
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 msgid "Income"
 msgstr "Entrate"
@@ -1529,7 +1544,7 @@ msgstr "Entrate"
 #: templates/calendar_view/fragments/list.html:58
 #: templates/cotton/ui/quick_transactions_buttons.html:18
 #: templates/cotton/ui/transactions_fab.html:19
-#: templates/insights/fragments/category_overview/index.html:88
+#: templates/insights/fragments/overview/index.html:88
 msgid "Expense"
 msgstr "Spesa"
 
@@ -1548,10 +1563,6 @@ msgstr "Eliminato"
 #: apps/transactions/models.py:390
 msgid "Deleted At"
 msgstr "Eliminato alle"
-
-#: apps/transactions/models.py:504 templates/tags/fragments/table.html:69
-msgid "No tags"
-msgstr "Nessun tag"
 
 #: apps/transactions/models.py:506
 msgid "No category"
@@ -2478,11 +2489,6 @@ msgstr "Aggiungi categoria"
 msgid "Edit category"
 msgstr "Modifica categoria"
 
-#: templates/categories/fragments/table.html:73
-#: templates/insights/fragments/category_overview/index.html:554
-msgid "No categories"
-msgstr "Nessuna categoria"
-
 #: templates/common/fragments/month_year_picker.html:5
 msgid "Pick a month"
 msgstr "Seleziona un mese"
@@ -2816,10 +2822,6 @@ msgstr "Aggiungi beneficiario"
 msgid "Edit entity"
 msgstr "Modifica beneficiario"
 
-#: templates/entities/fragments/table.html:69
-msgid "No entities"
-msgstr "Nessun beneficiario"
-
 #: templates/exchange_rates/fragments/add.html:5
 #: templates/exchange_rates_services/fragments/add.html:5
 msgid "Add exchange rate"
@@ -3137,47 +3139,6 @@ msgstr "Entrate/Uscite per conto"
 msgid "Income/Expense by Currency"
 msgstr "Entrate/Uscite per valuta"
 
-#: templates/insights/fragments/category_overview/index.html:13
-#: templates/insights/fragments/category_overview/index.html:16
-msgid "Table"
-msgstr "Tabella"
-
-#: templates/insights/fragments/category_overview/index.html:24
-#: templates/insights/fragments/category_overview/index.html:27
-msgid "Bars"
-msgstr "Grafico a barre"
-
-#: templates/insights/fragments/category_overview/index.html:43
-#: templates/insights/fragments/category_overview/index.html:57
-msgid ""
-"Transaction amounts associated with multiple tags will be counted once for "
-"each tag"
-msgstr ""
-"Gli importi delle transazioni associati a più tag verranno conteggiati una "
-"volta per ogni tag"
-
-#: templates/insights/fragments/category_overview/index.html:69
-#: templates/net_worth/net_worth.html:29 templates/net_worth/net_worth.html:33
-msgid "Current"
-msgstr "Attuale"
-
-#: templates/insights/fragments/category_overview/index.html:73
-msgid "Final total"
-msgstr "Totale finale"
-
-#: templates/insights/fragments/category_overview/index.html:89
-#: templates/insights/fragments/month_by_month.html:91
-#: templates/insights/fragments/month_by_month.html:186
-#: templates/insights/fragments/year_by_year.html:59
-#: templates/insights/fragments/year_by_year.html:140
-#: templates/monthly_overview/fragments/monthly_summary.html:168
-msgid "Total"
-msgstr "Totale"
-
-#: templates/insights/fragments/category_overview/index.html:531
-msgid "Final Total"
-msgstr "Totale finale"
-
 #: templates/insights/fragments/emergency_fund.html:12
 msgid "You've spent an average of"
 msgstr "Hai speso una media di"
@@ -3214,12 +3175,15 @@ msgstr "Nessuna transazione in sospeso"
 msgid "No recent transactions"
 msgstr "Nessuna transazione recente"
 
-#: templates/insights/fragments/month_by_month.html:86
-#: templates/insights/fragments/year_by_year.html:54
-#, fuzzy
-#| msgid "Tags"
-msgid "Tag"
-msgstr "Tag"
+#: templates/insights/fragments/month_by_month.html:91
+#: templates/insights/fragments/month_by_month.html:186
+#: templates/insights/fragments/overview/index.html:89
+#: templates/insights/fragments/overview/index.html:259
+#: templates/insights/fragments/year_by_year.html:59
+#: templates/insights/fragments/year_by_year.html:140
+#: templates/monthly_overview/fragments/monthly_summary.html:168
+msgid "Total"
+msgstr "Totale"
 
 #: templates/insights/fragments/month_by_month.html:94
 msgid "Jan"
@@ -3283,6 +3247,38 @@ msgstr ""
 msgid "No transactions for this year"
 msgstr "Nessuna transazione in questa data"
 
+#: templates/insights/fragments/overview/index.html:13
+#: templates/insights/fragments/overview/index.html:16
+msgid "Table"
+msgstr "Tabella"
+
+#: templates/insights/fragments/overview/index.html:24
+#: templates/insights/fragments/overview/index.html:27
+msgid "Bars"
+msgstr "Grafico a barre"
+
+#: templates/insights/fragments/overview/index.html:43
+#: templates/insights/fragments/overview/index.html:57
+#, fuzzy
+#| msgid ""
+#| "Transaction amounts associated with multiple tags and entities will be "
+#| "counted once for each tag"
+msgid ""
+"Transaction amounts associated with multiple tags or entities will be "
+"counted once for each one of them"
+msgstr ""
+"Gli importi delle transazioni associati a più tag e beneficiari verranno "
+"conteggiati una volta per ogni tag"
+
+#: templates/insights/fragments/overview/index.html:69
+#: templates/net_worth/net_worth.html:29 templates/net_worth/net_worth.html:33
+msgid "Current"
+msgstr "Attuale"
+
+#: templates/insights/fragments/overview/index.html:73
+msgid "Final total"
+msgstr "Totale finale"
+
 #: templates/insights/fragments/sankey.html:100
 msgid "From"
 msgstr "Da"
@@ -3334,25 +3330,37 @@ msgstr "Categorie"
 msgid "Categories Overview"
 msgstr "Panoramica categorie"
 
-#: templates/insights/pages/index.html:112
+#: templates/insights/pages/index.html:99
+#, fuzzy
+#| msgid "Overview"
+msgid "Tags Overview"
+msgstr "Panoramica"
+
+#: templates/insights/pages/index.html:104
+#, fuzzy
+#| msgid "Categories Overview"
+msgid "Entities Overview"
+msgstr "Panoramica categorie"
+
+#: templates/insights/pages/index.html:122
 msgid "Late Transactions"
 msgstr "Transazioni in sospeso"
 
-#: templates/insights/pages/index.html:117
+#: templates/insights/pages/index.html:127
 msgid "Latest Transactions"
 msgstr "Transazioni recenti"
 
-#: templates/insights/pages/index.html:122
+#: templates/insights/pages/index.html:132
 msgid "Emergency Fund"
 msgstr "Fondo d'emergenza"
 
-#: templates/insights/pages/index.html:127
+#: templates/insights/pages/index.html:137
 #, fuzzy
 #| msgid "Yearly by account"
 msgid "Year by Year"
 msgstr "Annuale per conto"
 
-#: templates/insights/pages/index.html:132
+#: templates/insights/pages/index.html:142
 msgid "Month by Month"
 msgstr ""
 
@@ -3970,6 +3978,16 @@ msgstr "Accedi con"
 msgid "Yearly Overview"
 msgstr "Panoramica annuale"
 
+#~ msgid ""
+#~ "Transaction amounts associated with multiple tags will be counted once "
+#~ "for each tag"
+#~ msgstr ""
+#~ "Gli importi delle transazioni associati a più tag verranno conteggiati "
+#~ "una volta per ogni tag"
+
+#~ msgid "Final Total"
+#~ msgstr "Totale finale"
+
 #, fuzzy
 #~| msgid "Are you sure?"
 #~ msgid " Are you sure?"
@@ -3983,15 +4001,5 @@ msgstr "Panoramica annuale"
 #~ msgid "Add new"
 #~ msgstr "Aggiungi nuova"
 
-#~ msgid "Overview"
-#~ msgstr "Panoramica"
-
 #~ msgid "Toggle Dropdown"
 #~ msgstr "Attiva/disattiva menu a discesa"
-
-#~ msgid ""
-#~ "Transaction amounts associated with multiple tags and entities will be "
-#~ "counted once for each tag"
-#~ msgstr ""
-#~ "Gli importi delle transazioni associati a più tag e beneficiari verranno "
-#~ "conteggiati una volta per ogni tag"
