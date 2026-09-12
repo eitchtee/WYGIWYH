@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-12 15:07+0000\n"
+"POT-Creation-Date: 2026-09-12 16:46+0000\n"
 "PO-Revision-Date: 2026-08-23 16:57+0000\n"
 "Last-Translator: renardspark <remibonnard@laposte.net>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
@@ -883,7 +883,7 @@ msgstr "Taux de change automatique"
 msgid "Rules"
 msgstr "Règles"
 
-#: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:57
+#: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:58
 msgid "DCA"
 msgstr "DCA"
 
@@ -918,7 +918,7 @@ msgstr "Modifier l'action de transaction"
 msgid "Update or create transaction actions"
 msgstr "Mettre à jour ou créer des actions de transaction"
 
-#: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:230
+#: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:231
 #: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
@@ -1125,8 +1125,8 @@ msgstr "Type"
 #: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:37
 #: apps/rules/models.py:275 apps/transactions/filters.py:22
 #: apps/transactions/forms.py:437 apps/transactions/models.py:327
-#: apps/transactions/models.py:1093 templates/cotton/transaction/item.html:20
-#: templates/cotton/transaction/item.html:31
+#: apps/transactions/models.py:1093 templates/cotton/transaction/item.html:21
+#: templates/cotton/transaction/item.html:32
 #: templates/transactions/widgets/paid_toggle_button.html:10
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:13
 msgid "Paid"
@@ -1325,8 +1325,8 @@ msgid "Update or Create Transaction action deleted successfully"
 msgstr ""
 "Mis à jour ou Création de l'action de Transaction supprimée avec succès"
 
-#: apps/transactions/filters.py:23 templates/cotton/transaction/item.html:20
-#: templates/cotton/transaction/item.html:31
+#: apps/transactions/filters.py:23 templates/cotton/transaction/item.html:21
+#: templates/cotton/transaction/item.html:32
 #: templates/insights/fragments/category_overview/index.html:65
 #: templates/net_worth/net_worth.html:39 templates/net_worth/net_worth.html:43
 #: templates/transactions/widgets/paid_toggle_button.html:7
@@ -1408,7 +1408,7 @@ msgstr "Enregistrer et ajouter des semblables"
 msgid "Save and add another"
 msgstr "Enregistrer et ajouter un autre"
 
-#: apps/transactions/forms.py:270 templates/cotton/transaction/item.html:158
+#: apps/transactions/forms.py:270 templates/cotton/transaction/item.html:159
 #: templates/transactions/fragments/attachments.html:4
 msgid "Attachments"
 msgstr "Fichiers attachés"
@@ -1707,35 +1707,35 @@ msgstr "%(value)s a trop de décimales. Le maximum est 30."
 msgid "%(value)s is not a non-negative number"
 msgstr "%(value)s n'est pas un nombre positif"
 
-#: apps/transactions/views/actions.py:24
+#: apps/transactions/views/actions.py:25
 #, python-format
 msgid "%(count)s transaction marked as paid"
 msgid_plural "%(count)s transactions marked as paid"
 msgstr[0] "%(count)s transaction marquée comme payé"
 msgstr[1] "%(count)s transactions marquées comme payées"
 
-#: apps/transactions/views/actions.py:48
+#: apps/transactions/views/actions.py:49
 #, python-format
 msgid "%(count)s transaction marked as not paid"
 msgid_plural "%(count)s transactions marked as not paid"
 msgstr[0] "%(count)s transaction marquée comme non payée"
 msgstr[1] "%(count)s transactions marquées comme non payées"
 
-#: apps/transactions/views/actions.py:72
+#: apps/transactions/views/actions.py:74
 #, python-format
 msgid "%(count)s transaction deleted successfully"
 msgid_plural "%(count)s transactions deleted successfully"
 msgstr[0] "%(count)s transaction supprimée avec succès"
 msgstr[1] "%(count)s transactions supprimées avec succès"
 
-#: apps/transactions/views/actions.py:96
+#: apps/transactions/views/actions.py:109
 #, python-format
 msgid "%(count)s transaction restored successfully"
 msgid_plural "%(count)s transactions restored successfully"
 msgstr[0] "%(count)s transaction restaurée avec succès"
 msgstr[1] "%(count)s transactions restaurées avec succès"
 
-#: apps/transactions/views/actions.py:131
+#: apps/transactions/views/actions.py:144
 #, python-format
 msgid "%(count)s transaction duplicated successfully"
 msgid_plural "%(count)s transactions duplicated successfully"
@@ -1796,8 +1796,8 @@ msgid "Item deleted successfully"
 msgstr "Item supprimée avec succès"
 
 #: apps/transactions/views/quick_transactions.py:156
-#: apps/transactions/views/transactions.py:141
-#: apps/transactions/views/transactions.py:326
+#: apps/transactions/views/transactions.py:142
+#: apps/transactions/views/transactions.py:327
 msgid "Transaction added successfully"
 msgstr "Transaction ajoutée avec succès"
 
@@ -1837,38 +1837,38 @@ msgstr "Etiquette mise à jour avec succès"
 msgid "Tag deleted successfully"
 msgstr "Etiquette supprimée avec succès"
 
-#: apps/transactions/views/transactions.py:59
+#: apps/transactions/views/transactions.py:60
 msgid "Attachment uploaded successfully"
 msgstr "Fichier téléchargé avec succès"
 
-#: apps/transactions/views/transactions.py:110
+#: apps/transactions/views/transactions.py:111
 msgid "Attachment deleted successfully"
 msgstr "Fichier supprimé avec succès"
 
-#: apps/transactions/views/transactions.py:350
+#: apps/transactions/views/transactions.py:351
 msgid "Transaction updated successfully"
 msgstr "Transaction mise à jour avec succès"
 
-#: apps/transactions/views/transactions.py:401
+#: apps/transactions/views/transactions.py:402
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s transaction mise à jour avec succès"
 msgstr[1] "%(count)s transactions mises à jour avec succès"
 
-#: apps/transactions/views/transactions.py:437
+#: apps/transactions/views/transactions.py:438
 msgid "Transaction duplicated successfully"
 msgstr "Transaction dupliquée avec succès"
 
-#: apps/transactions/views/transactions.py:479
+#: apps/transactions/views/transactions.py:480
 msgid "Transaction deleted successfully"
 msgstr "Transaction supprimée avec succès"
 
-#: apps/transactions/views/transactions.py:497
+#: apps/transactions/views/transactions.py:509
 msgid "Transaction restored successfully"
 msgstr "Transaction restaurée avec succès"
 
-#: apps/transactions/views/transactions.py:523
+#: apps/transactions/views/transactions.py:535
 msgid "Transfer added successfully"
 msgstr "Virement ajouté avec succès"
 
@@ -2191,7 +2191,7 @@ msgstr "Actions"
 #: templates/account_groups/fragments/list.html:32
 #: templates/accounts/fragments/list.html:37
 #: templates/categories/fragments/table.html:29
-#: templates/cotton/transaction/item.html:152
+#: templates/cotton/transaction/item.html:153
 #: templates/cotton/ui/transactions_action_bar.html:54
 #: templates/currencies/fragments/list.html:34
 #: templates/dca/fragments/strategy/details.html:63
@@ -2235,8 +2235,8 @@ msgstr "Partager"
 #: templates/account_groups/fragments/list.html:54
 #: templates/accounts/fragments/list.html:71
 #: templates/categories/fragments/table.html:51
-#: templates/cotton/transaction/item.html:164
-#: templates/cotton/transaction/item.html:236
+#: templates/cotton/transaction/item.html:165
+#: templates/cotton/transaction/item.html:237
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:82
 #: templates/currencies/fragments/list.html:40
@@ -2266,8 +2266,8 @@ msgstr "Supprimer"
 #: templates/account_groups/fragments/list.html:58
 #: templates/accounts/fragments/list.html:75
 #: templates/categories/fragments/table.html:56
-#: templates/cotton/transaction/item.html:166
-#: templates/cotton/transaction/item.html:242
+#: templates/cotton/transaction/item.html:167
+#: templates/cotton/transaction/item.html:243
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:44
@@ -2296,8 +2296,8 @@ msgstr "Êtes-vous sûr ?"
 #: templates/account_groups/fragments/list.html:59
 #: templates/accounts/fragments/list.html:76
 #: templates/categories/fragments/table.html:57
-#: templates/cotton/transaction/item.html:167
-#: templates/cotton/transaction/item.html:243
+#: templates/cotton/transaction/item.html:168
+#: templates/cotton/transaction/item.html:244
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:45
@@ -2318,8 +2318,8 @@ msgstr "Cette opération est irréversible, vous ne pourrez pas l'annuler !"
 #: templates/account_groups/fragments/list.html:60
 #: templates/accounts/fragments/list.html:77
 #: templates/categories/fragments/table.html:58
-#: templates/cotton/transaction/item.html:168
-#: templates/cotton/transaction/item.html:244
+#: templates/cotton/transaction/item.html:169
+#: templates/cotton/transaction/item.html:245
 #: templates/currencies/fragments/list.html:46
 #: templates/dca/fragments/strategy/details.html:77
 #: templates/dca/fragments/strategy/list.html:44
@@ -2469,45 +2469,45 @@ msgstr "Fermer"
 msgid "Search"
 msgstr "Rechercher"
 
-#: templates/cotton/transaction/item.html:9
+#: templates/cotton/transaction/item.html:10
 msgid "Select"
 msgstr "Sélectionner"
 
-#: templates/cotton/transaction/item.html:181
-#: templates/cotton/transaction/item.html:192
-#: templates/cotton/transaction/item.html:202
+#: templates/cotton/transaction/item.html:182
+#: templates/cotton/transaction/item.html:193
+#: templates/cotton/transaction/item.html:203
 msgid "Show on summaries"
 msgstr "Afficher sur le résumé"
 
-#: templates/cotton/transaction/item.html:183
+#: templates/cotton/transaction/item.html:184
 msgid "Controlled by account"
 msgstr "Vérifié par compte"
 
-#: templates/cotton/transaction/item.html:194
+#: templates/cotton/transaction/item.html:195
 msgid "Controlled by category"
 msgstr "Vérifié par catégorie"
 
-#: templates/cotton/transaction/item.html:207
+#: templates/cotton/transaction/item.html:208
 msgid "Hide from summaries"
 msgstr "Masquer sur le résumé"
 
-#: templates/cotton/transaction/item.html:211
+#: templates/cotton/transaction/item.html:212
 msgid "Add as quick transaction"
 msgstr "Ajouter aux transactions rapides"
 
-#: templates/cotton/transaction/item.html:216
+#: templates/cotton/transaction/item.html:217
 msgid "Move to previous month"
 msgstr "Aller au mois précédent"
 
-#: templates/cotton/transaction/item.html:220
+#: templates/cotton/transaction/item.html:221
 msgid "Move to next month"
 msgstr "Aller au mois suivant"
 
-#: templates/cotton/transaction/item.html:223
+#: templates/cotton/transaction/item.html:224
 msgid "Move to today"
 msgstr "Aller à aujourd'hui"
 
-#: templates/cotton/transaction/item.html:227
+#: templates/cotton/transaction/item.html:228
 #: templates/cotton/ui/transactions_action_bar.html:78
 msgid "Duplicate"
 msgstr "Dupliquer"
@@ -2693,8 +2693,8 @@ msgid "No entries for this DCA"
 msgstr "Pas d'entrées pour ce DCA"
 
 #: templates/dca/fragments/strategy/details.html:120
-#: templates/monthly_overview/fragments/list.html:59
-#: templates/transactions/fragments/list_all.html:59
+#: templates/monthly_overview/fragments/list.html:61
+#: templates/transactions/fragments/list_all.html:61
 msgid "Try adding one"
 msgstr "Essayer d'en ajouter une"
 
@@ -2820,7 +2820,7 @@ msgstr "Pas de taux de change"
 
 #: templates/exchange_rates/fragments/table.html:56
 #: templates/exchange_rates_services/fragments/table.html:57
-#: templates/transactions/fragments/list_all.html:70
+#: templates/transactions/fragments/list_all.html:72
 msgid "Page navigation"
 msgstr "Navigation dans les pages"
 
@@ -3344,11 +3344,11 @@ msgstr ""
 msgid "No installment plans"
 msgstr "Aucuns paiements en plusieurs fois"
 
-#: templates/layouts/base.html:37
+#: templates/layouts/base.html:38
 msgid "This is a demo!"
 msgstr "C'est une démo !"
 
-#: templates/layouts/base.html:37
+#: templates/layouts/base.html:38
 msgid "Any data you add here will be wiped in 24hrs or less"
 msgstr "Toutes les données ajoutées ici seront purgées dans les 24 heures"
 
@@ -3380,12 +3380,12 @@ msgstr "Prix unitaire"
 msgid "Item"
 msgstr "Eléments"
 
-#: templates/monthly_overview/fragments/list.html:15
-#: templates/transactions/fragments/list_all.html:15
+#: templates/monthly_overview/fragments/list.html:16
+#: templates/transactions/fragments/list_all.html:16
 msgid "late"
 msgstr "En retard"
 
-#: templates/monthly_overview/fragments/list.html:58
+#: templates/monthly_overview/fragments/list.html:60
 msgid "No transactions this month"
 msgstr "Aucune transaction ce mois-ci"
 
@@ -3762,7 +3762,7 @@ msgstr "Supprimer \"%(name)s\" ?"
 msgid "No saved presets"
 msgstr "Aucun modèle de filtres enregistré"
 
-#: templates/transactions/fragments/list_all.html:58
+#: templates/transactions/fragments/list_all.html:60
 msgid "No transactions found"
 msgstr "Aucune transaction trouvée"
 
