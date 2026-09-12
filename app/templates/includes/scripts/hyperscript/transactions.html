@@ -1,0 +1,75 @@
+<script type="text/hyperscript">
+  -- Removes deleted transactions from the lists without reloading them.
+  --
+  -- The delete endpoints answer with a `transactions_deleted` HX-Trigger
+  -- carrying the affected ids instead of firing `updated`, which every
+  -- transaction list listens to and would answer with a full re-render.
+  --
+  -- transaction_remover is installed once on the body wrapper so a page with
+  -- hundreds of rows still only holds a single listener. Once the rows are
+  -- gone it announces transactions_removed, and every divider decides for
+  -- itself whether it still has anything to show.
+
+  behavior transaction_remover
+    on transactions_deleted from window
+      set ids to event.detail.ids
+      if no ids then exit end
+
+      set rows to []
+      set lists to []
+      repeat for row in <.transaction[data-transaction-id]/>
+        if ids.includes(the @data-transaction-id of row)
+          append row to rows
+          set list to the closest <#transactions-list/> to row
+          if list and not lists.includes(list) then append list to lists end
+        end
+      end
+      if rows.length is 0 then exit end
+
+      -- freeze the current height so it has somewhere to animate from
+      repeat for row in rows
+        set *height of row to `${row.offsetHeight}px`
+        set *overflow of row to 'hidden'
+      end
+
+      repeat for row in rows
+        get row.offsetHeight -- force a reflow so the height above is the start
+        add .transaction-removing to row
+        set *height of row to '0px'
+      end
+
+      -- `wait for transitionend` can only watch `me`, which here is the wrapper,
+      -- so the rows get a plain wait. Keep it just above the .transaction-removing
+      -- duration in _animations.scss.
+      wait 300ms
+
+      repeat for row in rows
+        remove row
+      end
+
+      trigger transactions_removed on window
+
+      repeat for list in lists
+        send change to list -- the selection action bar recounts what's left
+        set remaining to <.transaction/> in list
+        if remaining.length is 0
+          -- nothing left to show, let the server render the empty state
+          trigger updated on window
+        end
+      end
+  end
+
+  behavior transaction_divider
+    on transactions_removed from window
+      set remaining to <.transaction/> in me
+      if remaining.length is not 0 then exit end
+
+      set *height of me to `${my offsetHeight}px`
+      set *overflow of me to 'hidden'
+      get my offsetHeight
+      add .transaction-removing to me
+      set *height of me to '0px'
+      wait for transitionend or 1s
+      remove me
+  end
+</script>

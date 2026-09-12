@@ -1,6 +1,7 @@
 {% load markdown %}
 {% load i18n %}
 <div
+    {% if transaction.id and not dummy %}data-transaction-id="{{ transaction.id }}"{% endif %}
     class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction">
   <div class="flex my-1">
     {% if not disable_selection or not dummy %}

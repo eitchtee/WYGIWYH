@@ -1,3 +1,4 @@
+import json
 from copy import deepcopy
 
 from django.contrib import messages
@@ -63,7 +64,8 @@ def bulk_unpay_transactions(request):
 def bulk_delete_transactions(request):
     selected_transactions = request.GET.getlist("transactions", [])
     transactions = Transaction.objects.filter(id__in=selected_transactions)
-    count = transactions.count()
+    deleted_ids = [str(pk) for pk in transactions.values_list("id", flat=True)]
+    count = len(deleted_ids)
     transactions.delete()
 
     messages.success(
@@ -76,9 +78,20 @@ def bulk_delete_transactions(request):
         % {"count": count},
     )
 
+    # The list isn't reloaded, the client removes the rows it already has and
+    # drops any divider left empty.
+    # See templates/includes/scripts/hyperscript/transactions.html
     return HttpResponse(
         status=204,
-        headers={"HX-Trigger": "updated"},
+        headers={
+            "HX-Trigger": json.dumps(
+                {
+                    "transactions_deleted": {"ids": deleted_ids},
+                    "selective_update": None,
+                    "toasts": None,
+                }
+            )
+        },
     )
 
 

@@ -26,6 +26,7 @@
 
 <body class="font-mono">
   <div _="install htmx_error_handler
+            install transaction_remover
             {% block body_hyperscript %}{% endblock %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     {% include 'includes/mobile_navbar.html' %}
     {% include 'includes/sidebar.html' %}
