@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-13 05:22+0000\n"
-"PO-Revision-Date: 2026-08-16 22:03+0000\n"
+"PO-Revision-Date: 2026-09-13 14:34+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1946,7 +1946,7 @@ msgstr "Volume"
 
 #: apps/users/forms.py:140
 msgid "Set to 0 to mute all sounds"
-msgstr ""
+msgstr "Defina como 0 para desabilitar todos os sons"
 
 #: apps/users/forms.py:194
 #, python-format
@@ -3196,23 +3196,20 @@ msgstr "Barras"
 
 #: templates/insights/fragments/overview/index.html:41
 msgid "At least one level has to stay on"
-msgstr ""
+msgstr "Pelo menos um nível deve estar ativado"
 
 #: templates/insights/fragments/overview/index.html:49
 msgid "Drag to reorder, or use the left and right arrow keys"
 msgstr ""
+"Arraste para reorganizar ou use as setas para a esquerda e para a direita"
 
 #: templates/insights/fragments/overview/index.html:63
-#, fuzzy
-#| msgid ""
-#| "Transaction amounts associated with multiple tags and entities will be "
-#| "counted once for each tag"
 msgid ""
 "Transaction amounts associated with multiple tags or entities will be "
 "counted once for each one of them"
 msgstr ""
-"Os valores das transações associadas a várias tags e entidades serão "
-"contados uma vez para cada tag"
+"Os valores das transações associadas a várias tags ou entidades serão "
+"contados uma vez para cada um"
 
 #: templates/insights/fragments/overview/index.html:72
 #: templates/net_worth/net_worth.html:29 templates/net_worth/net_worth.html:33
@@ -3269,8 +3266,6 @@ msgid "Category Explorer"
 msgstr "Explorador de Categoria"
 
 #: templates/insights/pages/index.html:94
-#, fuzzy
-#| msgid "Overview"
 msgid "Overview"
 msgstr "Visão Geral"
 
@@ -3709,10 +3704,8 @@ msgstr "Salvar predefinição"
 
 #: templates/transactions/fragments/filter_active_indicator.html:6
 #: templates/transactions/fragments/filter_active_indicator.html:7
-#, fuzzy
-#| msgid "Select a file"
 msgid "Clear filters"
-msgstr "Selecione um arquivo"
+msgstr "Limpar filtros"
 
 #: templates/transactions/fragments/filter_presets.html:6
 msgid "Filter presets"
