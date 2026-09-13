@@ -481,7 +481,7 @@ class UserSettings(models.Model):
     mute_sounds = models.BooleanField(default=False)
     volume = models.PositiveIntegerField(
         default=10,
-        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        validators=[MinValueValidator(0), MaxValueValidator(10)],
         verbose_name=_("Volume"),
     )
 
