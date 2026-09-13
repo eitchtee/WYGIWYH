@@ -1,0 +1,29 @@
+{% load crispy_forms_field %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    <{% if tag %}{{ tag }}{% else %}fieldset{% endif %} id="div_{{ field.auto_id }}" class="fieldset{% if wrapper_class %} {{ wrapper_class }}{% endif %}{% if field.css_classes %} {{ field.css_classes }}{% endif %}">
+        {% if field.label and form_show_labels %}
+            <label {% if field.id_for_label %}for="{{ field.id_for_label }}"{% endif %} class="fieldset-legend{% if label_class %} {{ label_class }}{% endif %}{% if field.field.required %} requiredField{% endif %}">
+                {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
+            </label>
+        {% endif %}
+        <div class="w-full">
+            {% if field.errors %}
+                {% crispy_field field 'class' 'range range-error w-full' %}
+            {% else %}
+                {% crispy_field field 'class' 'range range-primary w-full' %}
+            {% endif %}
+            {% if range_steps %}
+                <div class="flex justify-between px-2.5 mt-2 text-xs">
+                    {% for step in range_steps %}<span>|</span>{% endfor %}
+                </div>
+                <div class="flex justify-between px-2.5 mt-2 text-xs">
+                    {% for step in range_steps %}<span>{{ step|stringformat:"02d" }}</span>{% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
+    </{% if tag %}{{ tag }}{% else %}fieldset{% endif %}>
+{% endif %}
