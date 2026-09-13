@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-12 21:03+0000\n"
+"POT-Creation-Date: 2026-09-13 05:22+0000\n"
 "PO-Revision-Date: 2026-06-08 07:57+0000\n"
 "Last-Translator: Pawel Augustyn <pawelaugustyn15@gmail.com>\n"
 "Language-Team: Polish <https://translations.herculino.com/projects/wygiwyh/"
@@ -32,8 +32,8 @@ msgstr "Nazwa grupy"
 #: apps/transactions/forms.py:417 apps/transactions/forms.py:536
 #: apps/transactions/forms.py:880 apps/transactions/forms.py:919
 #: apps/transactions/forms.py:947 apps/transactions/forms.py:978
-#: apps/transactions/forms.py:1128 apps/users/forms.py:245
-#: apps/users/forms.py:403
+#: apps/transactions/forms.py:1128 apps/users/forms.py:262
+#: apps/users/forms.py:420
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
@@ -48,7 +48,7 @@ msgstr "Aktualizuj"
 #: apps/transactions/forms.py:424 apps/transactions/forms.py:886
 #: apps/transactions/forms.py:925 apps/transactions/forms.py:953
 #: apps/transactions/forms.py:984 apps/transactions/forms.py:1134
-#: apps/users/forms.py:251 apps/users/forms.py:409
+#: apps/users/forms.py:268 apps/users/forms.py:426
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "Dodaj"
@@ -345,7 +345,7 @@ msgstr ""
 "udostępnione. Tylko właściciel może dokonywać zmian.<br />Publiczny: "
 "Widoczne dla wszystkich. Tylko właściciel może dokonywać zmian."
 
-#: apps/common/forms.py:76 apps/users/forms.py:172
+#: apps/common/forms.py:76 apps/users/forms.py:189
 #: templates/transactions/fragments/filter_actions.html:5
 msgid "Save"
 msgstr "Zapisz"
@@ -1916,24 +1916,24 @@ msgstr "Uprawnienia"
 msgid "Important dates"
 msgstr "Ważne daty"
 
-#: apps/users/forms.py:28 apps/users/forms.py:32 apps/users/models.py:456
+#: apps/users/forms.py:30 apps/users/forms.py:34 apps/users/models.py:456
 #: templates/users/login.html:18
 msgid "E-mail"
 msgstr "E-mail"
 
-#: apps/users/forms.py:39 apps/users/forms.py:44 templates/users/login.html:19
+#: apps/users/forms.py:41 apps/users/forms.py:46 templates/users/login.html:19
 msgid "Password"
 msgstr "Hasło"
 
-#: apps/users/forms.py:51
+#: apps/users/forms.py:53
 msgid "Invalid e-mail or password"
 msgstr "Niepoprawny e-mail lub hasło"
 
-#: apps/users/forms.py:52
+#: apps/users/forms.py:54
 msgid "This account is deactivated"
 msgstr "To konto jest nieaktywne"
 
-#: apps/users/forms.py:68 apps/users/forms.py:81 apps/users/forms.py:103
+#: apps/users/forms.py:70 apps/users/forms.py:83 apps/users/forms.py:105
 #: templates/monthly_overview/pages/overview.html:98
 #: templates/monthly_overview/pages/overview.html:249
 #: templates/transactions/pages/transactions.html:47
@@ -1941,23 +1941,31 @@ msgstr "To konto jest nieaktywne"
 msgid "Default"
 msgstr "Domyślne"
 
-#: apps/users/forms.py:111 apps/users/models.py:489
+#: apps/users/forms.py:113 apps/users/models.py:489
 msgid "Date Format"
 msgstr "Format daty"
 
-#: apps/users/forms.py:116 apps/users/models.py:494
+#: apps/users/forms.py:118 apps/users/models.py:494
 msgid "Datetime Format"
 msgstr "Format daty i czasu"
 
-#: apps/users/forms.py:122 apps/users/models.py:497
+#: apps/users/forms.py:124 apps/users/models.py:497
 msgid "Number Format"
 msgstr "Format liczb"
 
-#: apps/users/forms.py:129
+#: apps/users/forms.py:131
 msgid "Default Account"
 msgstr "Konto główne/domyślne"
 
-#: apps/users/forms.py:177
+#: apps/users/forms.py:139 apps/users/models.py:485
+msgid "Volume"
+msgstr "Głośność"
+
+#: apps/users/forms.py:140
+msgid "Set to 0 to mute all sounds"
+msgstr ""
+
+#: apps/users/forms.py:194
 #, python-format
 msgid ""
 "This changes the language (if available) and how numbers and dates are "
@@ -1969,19 +1977,19 @@ msgstr ""
 "Rozważ wsparcie tłumaczenia WYGIWYH dla Twojego języka na "
 "%(translation_link)s"
 
-#: apps/users/forms.py:186
+#: apps/users/forms.py:203
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: apps/users/forms.py:189
+#: apps/users/forms.py:206
 msgid "Leave blank to keep the current password."
 msgstr "Pozostaw puste by zachować obecne hasło."
 
-#: apps/users/forms.py:192
+#: apps/users/forms.py:209
 msgid "Confirm New Password"
 msgstr "Potwierdź nowe hasło"
 
-#: apps/users/forms.py:204 apps/users/forms.py:361
+#: apps/users/forms.py:221 apps/users/forms.py:378
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
@@ -1989,7 +1997,7 @@ msgstr ""
 "Określa czy ten użytkownik powinien być aktywny. Odznacz tę opcję zamiast "
 "kasować konta."
 
-#: apps/users/forms.py:207 apps/users/forms.py:364
+#: apps/users/forms.py:224 apps/users/forms.py:381
 msgid ""
 "Designates that this user has all permissions without explicitly assigning "
 "them."
@@ -1997,57 +2005,57 @@ msgstr ""
 "Określa czy ten użytkownik posiada wszystkie uprawnienia bez jawnego ich "
 "przypisania."
 
-#: apps/users/forms.py:274
+#: apps/users/forms.py:291
 msgid "This email address is already in use by another account."
 msgstr "Ten adres e-mail jest już zajęty przez innego użytkownika."
 
-#: apps/users/forms.py:282
+#: apps/users/forms.py:299
 msgid "The two password fields didn't match."
 msgstr "Hasła różnią się."
 
-#: apps/users/forms.py:284
+#: apps/users/forms.py:301
 msgid "Please confirm your new password."
 msgstr "Potwierdź nowe hasło."
 
-#: apps/users/forms.py:286
+#: apps/users/forms.py:303
 msgid "Please enter the new password first."
 msgstr "Wpisz najpierw nowe hasło."
 
-#: apps/users/forms.py:306
+#: apps/users/forms.py:323
 msgid "You cannot deactivate your own account using this form."
 msgstr "Nie możesz dezaktywować własnego konta przy użyciu tego formularza."
 
-#: apps/users/forms.py:319
+#: apps/users/forms.py:336
 msgid "Cannot remove status from the last superuser."
 msgstr "Nie można usunąć statusu ostatniemu superuserowi."
 
-#: apps/users/forms.py:325
+#: apps/users/forms.py:342
 msgid "You cannot remove your own superuser status using this form."
 msgstr "Nie możesz usunąć uprawnień superusera samemu sobie."
 
-#: apps/users/forms.py:418
+#: apps/users/forms.py:435
 msgid "A user with this email address already exists."
 msgstr "Użytkownik z tym adresem e-mail już istnieje."
 
-#: apps/users/forms.py:438
+#: apps/users/forms.py:455
 #, fuzzy
 #| msgid "Tag name"
 msgid "Token name"
 msgstr "Nazwa taga"
 
-#: apps/users/forms.py:440
+#: apps/users/forms.py:457
 msgid "Use a descriptive name such as n8n, Home Assistant, or backup job."
 msgstr ""
 
-#: apps/users/forms.py:446
+#: apps/users/forms.py:463
 msgid "Expires in days"
 msgstr ""
 
-#: apps/users/forms.py:447
+#: apps/users/forms.py:464
 msgid "Leave empty for a non-expiring token."
 msgstr ""
 
-#: apps/users/forms.py:462
+#: apps/users/forms.py:479
 #, fuzzy
 #| msgid "Create transaction"
 msgid "Create token"
@@ -2076,10 +2084,6 @@ msgstr "Wszystkie transakcje"
 #: apps/users/models.py:475 templates/includes/sidebar.html:63
 msgid "Calendar"
 msgstr "Kalendarz"
-
-#: apps/users/models.py:485
-msgid "Volume"
-msgstr "Głośność"
 
 #: apps/users/models.py:504
 msgid "Language"
