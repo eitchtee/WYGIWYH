@@ -18,6 +18,7 @@ PROVIDER_MAPPING = {
     "twelvedata": providers.TwelveDataProvider,
     "twelvedatamarkets": providers.TwelveDataMarketsProvider,
     "yfinance": providers.YFinanceMarketsProvider,
+    "fxmacrodata": providers.FXMacroDataProvider,
 }
 
 

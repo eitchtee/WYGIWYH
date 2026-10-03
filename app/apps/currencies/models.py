@@ -106,6 +106,7 @@ class ExchangeRateService(models.Model):
         TWELVEDATA = "twelvedata", "TwelveData"
         TWELVEDATA_MARKETS = "twelvedatamarkets", "TwelveData Markets"
         YFINANCE = "yfinance", "Yahoo Finance"
+        FXMACRODATA = "fxmacrodata", "FXMacroData"
 
     class IntervalType(models.TextChoices):
         ON = "on", _("On")

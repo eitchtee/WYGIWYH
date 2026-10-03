@@ -582,3 +582,66 @@ class YFinanceMarketsProvider(ExchangeRateProvider):
                 )
 
         return results
+
+
+class FXMacroDataProvider(ExchangeRateProvider):
+    """Implementation for the FXMacroData API (fxmacrodata.com)"""
+
+    BASE_URL = "https://api.fxmacrodata.com/v1/forex"
+    rates_inverted = False  # /forex/EUR/USD returns how many USD one EUR buys
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+        self.session = requests.Session()
+        self.session.headers.update({"X-API-Key": api_key})
+
+    @classmethod
+    def requires_api_key(cls) -> bool:
+        return True
+
+    def get_rates(
+        self, target_currencies: QuerySet, exchange_currencies: set
+    ) -> List[Tuple[Currency, Currency, Decimal]]:
+        results = []
+
+        for target_currency in target_currencies:
+            if target_currency.exchange_currency not in exchange_currencies:
+                continue
+
+            base_currency = target_currency.exchange_currency
+
+            if base_currency.code == target_currency.code:
+                results.append((base_currency, target_currency, Decimal("1")))
+                continue
+
+            pair = f"{base_currency.code}/{target_currency.code}"
+
+            try:
+                response = self.session.get(f"{self.BASE_URL}/{pair}")
+                response.raise_for_status()
+
+                # val is null on dates without a fixing, so use the newest non-null row
+                rows = [
+                    row
+                    for row in response.json().get("data", [])
+                    if row.get("val") is not None
+                ]
+                if not rows:
+                    logger.error(f"No rate returned for {pair} from FXMacroData")
+                    continue
+
+                latest = max(rows, key=lambda row: row["date"])
+                rate = Decimal(str(latest["val"]))
+                results.append((base_currency, target_currency, rate))
+            except requests.RequestException as e:
+                logger.error(f"Error fetching rate from FXMacroData for {pair}: {e}")
+            except KeyError as e:
+                logger.error(
+                    f"Unexpected response structure from FXMacroData for {pair}: {e}"
+                )
+            except Exception as e:
+                logger.error(
+                    f"Unexpected error processing FXMacroData data for {pair}: {e}"
+                )
+
+        return results
