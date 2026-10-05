@@ -591,6 +591,7 @@ class FXMacroDataProvider(ExchangeRateProvider):
     rates_inverted = False  # /forex/EUR/USD returns how many USD one EUR buys
 
     def __init__(self, api_key: str):
+        api_key = (api_key or "").strip()
         super().__init__(api_key)
         self.session = requests.Session()
         self.session.headers.update({"X-API-Key": api_key})
@@ -603,6 +604,14 @@ class FXMacroDataProvider(ExchangeRateProvider):
         self, target_currencies: QuerySet, exchange_currencies: set
     ) -> List[Tuple[Currency, Currency, Decimal]]:
         results = []
+
+        # requests puts the header value in its InvalidHeader message, which would
+        # then end up in the logs, so reject a bad key before making any request
+        if any(char.isspace() or not char.isprintable() for char in self.api_key):
+            logger.error(
+                "FXMacroData API key contains whitespace or control characters"
+            )
+            return results
 
         for target_currency in target_currencies:
             if target_currency.exchange_currency not in exchange_currencies:
@@ -617,14 +626,41 @@ class FXMacroDataProvider(ExchangeRateProvider):
             pair = f"{base_currency.code}/{target_currency.code}"
 
             try:
-                response = self.session.get(f"{self.BASE_URL}/{pair}")
+                # requests only drops Authorization on a cross-host redirect, so
+                # following one would send X-API-Key to the new host
+                response = self.session.get(
+                    f"{self.BASE_URL}/{pair}", allow_redirects=False
+                )
+                if 300 <= response.status_code < 400:
+                    logger.error(
+                        f"FXMacroData redirected the request for {pair} "
+                        f"(HTTP {response.status_code}), not following it"
+                    )
+                    continue
                 response.raise_for_status()
+
+                try:
+                    payload = response.json()
+                except ValueError:
+                    logger.error(f"FXMacroData returned a non-JSON response for {pair}")
+                    continue
+
+                if not isinstance(payload, dict):
+                    payload = {}
+                data = payload.get("data")
+                if not isinstance(data, list):
+                    detail = payload.get("detail")
+                    logger.error(
+                        f"Unexpected response structure from FXMacroData for {pair}"
+                        + (f": {detail}" if isinstance(detail, str) else "")
+                    )
+                    continue
 
                 # val is null on dates without a fixing, so use the newest non-null row
                 rows = [
                     row
-                    for row in response.json().get("data", [])
-                    if row.get("val") is not None
+                    for row in data
+                    if isinstance(row, dict) and row.get("val") is not None
                 ]
                 if not rows:
                     logger.error(f"No rate returned for {pair} from FXMacroData")
