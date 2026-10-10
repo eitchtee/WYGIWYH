@@ -150,6 +150,49 @@ class DynamicClientRegistrationTests(TestCase):
         self.assertEqual(response.json()["error"], "invalid_client_metadata")
         self.assertIn("redirect_uris", response.json()["error_description"])
 
+    def test_rejects_invalid_json_body(self):
+        response = self.client.post(
+            reverse("oauth-dynamic-client-registration"),
+            data="{not json",
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["error"], "invalid_client_metadata")
+        self.assertEqual(
+            response.json()["error_description"], "Request body must be valid JSON."
+        )
+
+    def test_rejects_disallowed_redirect_uri_scheme(self):
+        response = self.client.post(
+            reverse("oauth-dynamic-client-registration"),
+            data=json.dumps({"redirect_uris": ["ftp://example.com/callback"]}),
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["error"], "invalid_client_metadata")
+        self.assertEqual(
+            response.json()["error_description"],
+            "redirect_uris contains an invalid or disallowed URI.",
+        )
+
+    def test_rejects_non_string_token_auth_method(self):
+        response = self.client.post(
+            reverse("oauth-dynamic-client-registration"),
+            data=json.dumps(
+                {
+                    "redirect_uris": ["http://127.0.0.1:8765/callback"],
+                    "token_endpoint_auth_method": ["none"],
+                }
+            ),
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["error"], "invalid_client_metadata")
+        self.assertIn("token_endpoint_auth_method", response.json()["error_description"])
+
     @override_settings(OAUTH2_DCR_ENABLED=False)
     def test_returns_404_when_dcr_disabled(self):
         response = self.client.post(
