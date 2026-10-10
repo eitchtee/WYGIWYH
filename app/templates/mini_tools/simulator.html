@@ -1,0 +1,479 @@
+{% extends "layouts/base.html" %}
+{% load formats %}
+{% load i18n %}
+
+{% block title %}{% translate 'Simulator' %}{% endblock %}
+
+{% block content %}
+  {% get_current_language as LANGUAGE_CODE %}
+  {{ baseline|json_script:"simulator-baseline" }}
+  <div class="container px-md-3 py-3 column-gap-5"
+       id="simulator"
+       data-decimal-separator="{% get_decimal_separator %}"
+       data-thousand-separator="{% get_thousand_separator %}"
+       data-language="{{ LANGUAGE_CODE }}"
+       _="install init_tom_select
+          init call runSimulation() end
+          on change call runSimulation() end
+          on input debounced at 150ms call runSimulation() end
+          on simulate call runSimulation() end">
+    <div class="text-3xl font-bold font-mono w-full mb-3">
+      <div>{% translate 'Simulator' %}</div>
+    </div>
+    <p class="text-base-content/70 mb-4">
+      {% translate 'See how a one-time, recurring or installment expense or income would affect your projected balance in the coming months.' %}
+    </p>
+
+    {% if not baseline.currencies %}
+      <div role="alert" class="alert">
+        <i class="fa-solid fa-circle-info fa-fw"></i>
+        <span>{% translate 'You need at least one active account to use the simulator.' %}</span>
+      </div>
+    {% else %}
+      <div class="card bg-base-100 shadow mb-3">
+        <div class="card-body p-4">
+          <div class="grid lg:grid-cols-2 gap-3">
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">{% translate 'Currency' %}</legend>
+              <select class="select w-full" id="sim-currency">
+                {% for currency in baseline.currencies %}
+                  <option value="{{ currency.id }}">{{ currency.name }}</option>
+                {% endfor %}
+              </select>
+            </fieldset>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">{% translate 'Months to simulate' %}</legend>
+              <input type="number"
+                     inputmode="numeric"
+                     class="input input-bordered w-full"
+                     id="sim-months"
+                     min="1"
+                     max="120"
+                     value="12">
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <template id="sim-entry-template">
+        <div class="card bg-base-100 shadow mb-3 sim-entry">
+          <div class="card-body p-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr_auto] gap-3 items-end">
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% translate 'Type' %}</legend>
+                <select class="select w-full sim-type">
+                  <option value="expense">{% translate 'Expense' %}</option>
+                  <option value="income">{% translate 'Income' %}</option>
+                </select>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% translate 'Amount' %}</legend>
+                <input type="number" inputmode="decimal" min="0" step="any"
+                       class="input input-bordered w-full sim-amount">
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% translate 'Frequency' %}</legend>
+                <select class="select w-full sim-frequency"
+                        _="on change
+                             set entry to the closest .sim-entry
+                             if my value is 'once'
+                               add .hidden to <.sim-repeat-fields/> in entry
+                             else
+                               remove .hidden from <.sim-repeat-fields/> in entry
+                             end
+                             if my value is 'recurring'
+                               remove .hidden from <.sim-recurring-fields/> in entry
+                             else
+                               add .hidden to <.sim-recurring-fields/> in entry
+                             end
+                             if my value is 'installments'
+                               remove .hidden from <.sim-installment-fields/> in entry
+                             else
+                               add .hidden to <.sim-installment-fields/> in entry
+                             end">
+                  <option value="once">{% translate 'One time' %}</option>
+                  <option value="recurring">{% translate 'Recurring' %}</option>
+                  <option value="installments">{% translate 'Installments' %}</option>
+                </select>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% translate 'Starting month' %}</legend>
+                {{ start_month_input }}
+              </fieldset>
+              <fieldset class="fieldset">
+                <button class="btn btn-error"
+                        type="button"
+                        data-tippy-content="{% translate 'Delete' %}"
+                        _="on click
+                             set entry to the closest .sim-entry to me
+                             set startInput to the first <.sim-start/> in entry
+                             if startInput.monthPicker call startInput.monthPicker.destroy() end
+                             remove entry
+                             trigger simulate on #simulator">
+                  <i class="fa-solid fa-trash fa-fw"></i>
+                </button>
+              </fieldset>
+            </div>
+            <div class="grid md:grid-cols-3 gap-3 sim-repeat-fields hidden">
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% translate 'Repeat every' %}</legend>
+                <input type="number" inputmode="numeric" min="1" value="1"
+                       class="input input-bordered w-full sim-interval">
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend class="fieldset-legend">{% translate 'Period' %}</legend>
+                <select class="select w-full sim-unit">
+                  <option value="day">{% translate 'day(s)' %}</option>
+                  <option value="week">{% translate 'week(s)' %}</option>
+                  <option value="month" selected>{% translate 'month(s)' %}</option>
+                  <option value="year">{% translate 'year(s)' %}</option>
+                </select>
+              </fieldset>
+              <fieldset class="fieldset sim-recurring-fields hidden">
+                <legend class="fieldset-legend">{% translate 'Occurrences' %}</legend>
+                <input type="number" inputmode="numeric" min="1"
+                       class="input input-bordered w-full sim-occurrences"
+                       placeholder="{% translate 'Leave empty to repeat indefinitely' %}">
+              </fieldset>
+              <fieldset class="fieldset sim-installment-fields hidden">
+                <legend class="fieldset-legend">{% translate 'Number of installments' %}</legend>
+                <input type="number" inputmode="numeric" min="1" value="2"
+                       class="input input-bordered w-full sim-installments">
+                <p class="label">{% translate 'The amount is split evenly between the installments' %}</p>
+              </fieldset>
+            </div>
+            <p class="text-sm text-base-content/70 sim-repeat-fields hidden">
+              {% translate 'Daily and weekly entries start on the first day of the starting month.' %}
+            </p>
+          </div>
+        </div>
+      </template>
+
+      <div id="sim-entries"></div>
+
+      <div class="grid lg:grid-cols-[2fr_1fr] gap-3 mb-6">
+        <button class="btn btn-primary w-full"
+                type="button"
+                _="on click
+                     get #sim-entry-template
+                     set newEntry to it.content.firstElementChild.cloneNode(true)
+                     put newEntry at the end of #sim-entries
+                     call _hyperscript.processNode(newEntry)
+                     for select in <select/> in newEntry
+                       remove .select from select
+                       js(select)
+                         TomSelect(select)
+                       end
+                     end
+                     set startInput to the first <.sim-start/> in newEntry
+                     call MonthYearPicker(startInput)
+                     set startInput.monthPicker to it
+                     call newEntry.querySelector('.sim-amount').focus()
+                     trigger tooltips on body
+                     trigger simulate on #simulator">
+          <i class="fa-solid fa-plus fa-fw"></i> {% translate 'Add' %}
+        </button>
+        <button class="btn btn-error w-full"
+                type="button"
+                _="on click
+                     for startInput in <#sim-entries .sim-start/>
+                       if startInput.monthPicker call startInput.monthPicker.destroy() end
+                     end
+                     set #sim-entries's innerHTML to ''
+                     trigger simulate on #simulator">
+          {% translate 'Clear' %}
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
+        <div class="card bg-base-100 shadow">
+          <div class="card-body p-4">
+            <div class="text-sm text-base-content/70">{% translate 'Final balance without simulation' %}</div>
+            <div class="text-xl" id="sim-stat-baseline"></div>
+          </div>
+        </div>
+        <div class="card bg-base-100 shadow">
+          <div class="card-body p-4">
+            <div class="text-sm text-base-content/70">{% translate 'Final balance with simulation' %}</div>
+            <div class="text-xl" id="sim-stat-simulated"></div>
+          </div>
+        </div>
+        <div class="card bg-base-100 shadow">
+          <div class="card-body p-4">
+            <div class="text-sm text-base-content/70">{% translate 'Total impact' %}</div>
+            <div class="text-xl" id="sim-stat-impact"></div>
+          </div>
+        </div>
+        <div class="card bg-base-100 shadow">
+          <div class="card-body p-4">
+            <div class="text-sm text-base-content/70">{% translate 'Lowest balance with simulation' %}</div>
+            <div class="text-xl" id="sim-stat-lowest"></div>
+            <div class="text-sm text-base-content/70" id="sim-stat-lowest-month"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 shadow mb-3">
+        <div class="card-body p-4">
+          <div class="h-80">
+            <canvas id="sim-chart"
+                    data-baseline-label="{% translate 'Without simulation' %}"
+                    data-simulated-label="{% translate 'With simulation' %}"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 shadow mb-3">
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <thead>
+            <tr>
+              <th>{% translate 'Month' %}</th>
+              <th class="text-end">{% translate 'Projected change' %}</th>
+              <th class="text-end">{% translate 'Simulated change' %}</th>
+              <th class="text-end">{% translate 'Balance without simulation' %}</th>
+              <th class="text-end">{% translate 'Balance with simulation' %}</th>
+            </tr>
+            </thead>
+            <tbody id="sim-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="text-sm text-base-content/70">
+        {% translate 'The simulation starts at the earliest starting month among your entries, or the current month if there are none. Balances include paid and unpaid transactions, and archived and untracked accounts are ignored. Converted amounts use the latest exchange rate.' %}
+      </p>
+    {% endif %}
+
+    <script type="text/hyperscript">
+      def runSimulation()
+        if no #sim-currency exit end
+
+        set entries to []
+        for entry in <#sim-entries .sim-entry/>
+          call entries.push({
+            type: entry.querySelector('.sim-type').value,
+            amount: entry.querySelector('.sim-amount').value,
+            frequency: entry.querySelector('.sim-frequency').value,
+            startInput: entry.querySelector('.sim-start'),
+            interval: entry.querySelector('.sim-interval').value,
+            unit: entry.querySelector('.sim-unit').value,
+            occurrences: entry.querySelector('.sim-occurrences').value,
+            installments: entry.querySelector('.sim-installments').value
+          })
+        end
+
+        js(entries)
+          const baseline = JSON.parse(document.getElementById('simulator-baseline').textContent);
+          const currencyId = parseInt(document.getElementById('sim-currency').value);
+          const months = parseInt(document.getElementById('sim-months').value) || 1;
+          // Months are handled as absolute indexes (year * 12 + month) so any month can be the start
+          const keyToIndex = (key) => {
+            const [year, month] = key.split('-').map(Number);
+            return year * 12 + month - 1;
+          };
+          const currentMonth = keyToIndex(baseline.current_month);
+          const parsed = entries.map(entry => {
+            const picker = entry.startInput.monthPicker;
+            const date = picker && picker.selectedDates[0];
+            return {
+              type: entry.type,
+              frequency: entry.frequency,
+              amount: parseFloat(entry.amount) || 0,
+              start: date ? date.getFullYear() * 12 + date.getMonth() : currentMonth,
+              interval: Math.max(parseInt(entry.interval) || 1, 1),
+              unit: entry.unit,
+              occurrences: parseInt(entry.occurrences) || null,
+              installments: parseInt(entry.installments) || 1,
+            };
+          });
+          return {
+            baseline: baseline,
+            currency: baseline.currencies.find(c => c.id === currencyId) || baseline.currencies[0],
+            firstMonth: parsed.length ? Math.min(...parsed.map(entry => entry.start)) : currentMonth,
+            monthCount: Math.min(Math.max(months, 1), 120),
+            keyToIndex: keyToIndex,
+            entries: parsed,
+          };
+        end
+        set context to it
+
+        set deltas to simulatorDeltas(context)
+        set rows to simulatorRows(context, deltas)
+        call simulatorRender(context, rows)
+      end
+
+      -- Net simulated change of each month, from the entries the user added
+      def simulatorDeltas(context)
+        js(context)
+          const {entries, firstMonth, monthCount} = context;
+          const deltas = new Array(monthCount).fill(0);
+          // Date of the nth occurrence, counted from the first day of the starting month
+          const occurrenceDate = (start, unit, steps) => {
+            const date = new Date(Math.floor(start / 12), start % 12, 1);
+            if (unit === 'day') date.setDate(date.getDate() + steps);
+            else if (unit === 'week') date.setDate(date.getDate() + steps * 7);
+            else if (unit === 'year') date.setFullYear(date.getFullYear() + steps);
+            else date.setMonth(date.getMonth() + steps);
+            return date;
+          };
+          for (const entry of entries) {
+            if (!(entry.amount > 0)) continue;
+            const sign = entry.type === 'income' ? 1 : -1;
+            let count = 1;
+            let amount = entry.amount;
+            if (entry.frequency === 'recurring') {
+              count = entry.occurrences > 0 ? entry.occurrences : Infinity;
+            } else if (entry.frequency === 'installments') {
+              count = Math.max(entry.installments, 1);
+              amount = entry.amount / count;
+            }
+            for (let i = 0; i < count; i++) {
+              const date = occurrenceDate(entry.start, entry.unit, i * entry.interval);
+              const month = date.getFullYear() * 12 + date.getMonth() - firstMonth;
+              if (month >= monthCount) break;
+              deltas[month] += sign * amount;
+            }
+          }
+          return deltas;
+        end
+        return it
+      end
+
+      -- Running balances with and without the simulated entries
+      def simulatorRows(context, deltas)
+        js(context, deltas)
+          const {currency, firstMonth, monthCount, keyToIndex} = context;
+          const monthly = {};
+          let opening = 0;
+          for (const [key, net] of Object.entries(currency.monthly)) {
+            const index = keyToIndex(key);
+            if (index < firstMonth) opening += net;
+            else monthly[index] = net;
+          }
+
+          let baselineBalance = opening;
+          let simulatedBalance = opening;
+          const rows = [];
+          for (let i = 0; i < monthCount; i++) {
+            const projected = monthly[firstMonth + i] || 0;
+            baselineBalance += projected;
+            simulatedBalance += projected + deltas[i];
+            rows.push({
+              month: firstMonth + i,
+              projected: projected,
+              simulated: deltas[i],
+              baselineBalance: baselineBalance,
+              simulatedBalance: simulatedBalance,
+            });
+          }
+          return rows;
+        end
+        return it
+      end
+
+      def simulatorRender(context, rows)
+        js(context, rows)
+          const {currency} = context;
+          const simulator = document.getElementById('simulator');
+          const decimalSeparator = simulator.dataset.decimalSeparator;
+          const thousandSeparator = simulator.dataset.thousandSeparator;
+          const monthFormat = new Intl.DateTimeFormat(simulator.dataset.language, {month: 'short', year: 'numeric'});
+          const monthLabel = (index) => monthFormat.format(new Date(Math.floor(index / 12), index % 12, 1));
+          const hideAmounts = !!document.querySelector('#settings-hide-amounts');
+
+          const escape = (value) => {
+            const div = document.createElement('div');
+            div.textContent = value ?? '';
+            return div.innerHTML;
+          };
+
+          const formatted = (value, format, color) => {
+            const rounded = Number(value.toFixed(format.decimal_places));
+            let [integer, fraction] = Math.abs(rounded).toFixed(format.decimal_places).split('.');
+            integer = integer.replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
+            const number = fraction ? integer + decimalSeparator + fraction : integer;
+            const sign = rounded < 0 ? '-' : '';
+            const prefix = escape(format.prefix);
+            const suffix = escape(format.suffix);
+            const content = hideAmounts
+              ? '•••••••••••'
+              : `<span>${sign}</span><span>${prefix}</span><span>${number}</span><span>${suffix}</span>`;
+            return `<span class="amount font-medium ${color}" data-original-sign="${sign}" data-original-prefix="${prefix}" data-original-amount="${number}" data-original-suffix="${suffix}" data-amount="${rounded}">${content}</span>`;
+          };
+
+          // Amount in the simulated currency, followed by its converted amount when it has an exchange currency
+          const amount = (value, colored = false) => {
+            const rounded = Number(value.toFixed(currency.decimal_places));
+            const color = rounded < 0 ? 'text-expense' : (colored && rounded > 0 ? 'text-income' : '');
+            let html = `<div>${formatted(value, currency, color)}</div>`;
+            if (currency.exchange) {
+              html += `<div class="text-xs">${formatted(value * currency.exchange.rate, currency.exchange, 'text-exchange-rate')}</div>`;
+            }
+            return html;
+          };
+
+          document.getElementById('sim-table-body').innerHTML = rows.map(row => `
+            <tr>
+              <td>${escape(monthLabel(row.month))}</td>
+              <td class="text-end">${amount(row.projected, true)}</td>
+              <td class="text-end">${amount(row.simulated, true)}</td>
+              <td class="text-end">${amount(row.baselineBalance)}</td>
+              <td class="text-end">${amount(row.simulatedBalance)}</td>
+            </tr>`).join('');
+
+          const last = rows[rows.length - 1];
+          const lowest = rows.reduce((min, row) => row.simulatedBalance < min.simulatedBalance ? row : min, rows[0]);
+          document.getElementById('sim-stat-baseline').innerHTML = amount(last.baselineBalance);
+          document.getElementById('sim-stat-simulated').innerHTML = amount(last.simulatedBalance);
+          document.getElementById('sim-stat-impact').innerHTML = amount(last.simulatedBalance - last.baselineBalance, true);
+          document.getElementById('sim-stat-lowest').innerHTML = amount(lowest.simulatedBalance);
+          document.getElementById('sim-stat-lowest-month').textContent = monthLabel(lowest.month);
+
+          const canvas = document.getElementById('sim-chart');
+          const labels = rows.map(row => monthLabel(row.month));
+          const round = (value) => Number(value.toFixed(currency.decimal_places));
+          const datasets = [
+            {
+              label: canvas.dataset.baselineLabel,
+              data: rows.map(row => round(row.baselineBalance)),
+              borderDash: [6, 4],
+              fill: false,
+              tension: 0.1,
+            },
+            {
+              label: canvas.dataset.simulatedLabel,
+              data: rows.map(row => round(row.simulatedBalance)),
+              fill: false,
+              tension: 0.1,
+            },
+          ];
+
+          if (window.simulatorChart && window.simulatorChart.canvas === canvas) {
+            window.simulatorChart.data.labels = labels;
+            window.simulatorChart.data.datasets.forEach((dataset, i) => dataset.data = datasets[i].data);
+            window.simulatorChart.update();
+          } else {
+            if (window.simulatorChart) window.simulatorChart.destroy();
+            window.simulatorChart = new Chart(canvas, {
+              type: 'line',
+              data: {labels: labels, datasets: datasets},
+              options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                interaction: {mode: 'index', intersect: false},
+                scales: {
+                  y: {
+                    ticks: {display: !hideAmounts},
+                  },
+                },
+                plugins: {
+                  tooltip: {enabled: !hideAmounts},
+                },
+              },
+            });
+          }
+        end
+      end
+    </script>
+  </div>
+{% endblock %}
