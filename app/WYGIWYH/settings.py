@@ -372,6 +372,11 @@ if (
             "secret": os.getenv("OIDC_CLIENT_SECRET"),
             "settings": {
                 "server_url": os.getenv("OIDC_SERVER_URL"),
+                # When true, every email from the provider is treated as
+                # verified and auto-linked to a matching local account. When
+                # false, only emails with email_verified=true are linked.
+                "verified_email": os.getenv("OIDC_TRUST_EMAIL", "true").lower()
+                == "true",
             },
         }
     )
