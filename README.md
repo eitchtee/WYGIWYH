@@ -158,9 +158,11 @@ WYGIWYH supports login via OpenID Connect (OIDC) through `django-allauth`. This 
 > Currently only OpenID Connect is supported as a provider, open an issue if you need something else.
 
 > [!Caution]
-> WYGIWYH automatically connects OIDC accounts to existing local accounts with matching email addresses.
+> By default, WYGIWYH automatically connects OIDC accounts to existing local accounts with matching email addresses.
 > This means if a user already exists with email `user@example.com` and someone logs in via OIDC with the same email, the OIDC account will be automatically linked to the existing account without requiring user confirmation.
 > This is only recommended for trusted OIDC providers that verify email addresses and where you control who can create accounts.
+> Set `OIDC_TRUST_EMAIL=false` to only link accounts when your provider marks the email as verified (`email_verified` claim).
+> The default `OIDC_TRUST_EMAIL=true` preserves existing behavior: emails are trusted even when `email_verified` is explicitly false or missing. If the issuer allows users to claim another person's email, this can allow account takeover, including administrator accounts. Email matching is case-insensitive in both modes.
 
 ### Configuration
 
@@ -173,6 +175,7 @@ To configure OIDC, you need to set the following environment variables:
 | `OIDC_CLIENT_SECRET` | The Client Secret provided by your OIDC provider.                                                                                                                                                                                                      |
 | `OIDC_SERVER_URL`    | The base URL of your OIDC provider's discovery document or authorization server (e.g., `https://your-provider.com/auth/realms/your-realm`). `django-allauth` will use this to discover the necessary endpoints (authorization, token, userinfo, etc.). |
 | `OIDC_ALLOW_SIGNUP`  | Allow the automatic creation of inexistent accounts on a successfull authentication. Defaults to `true`.                                                                                                                                               |
+| `OIDC_TRUST_EMAIL`   | Treat every email sent by your provider as verified, linking it to a matching existing local account even without the `email_verified` claim. Set to `false` to only link verified emails. Defaults to `true`.                                  |
 
 **Callback URL (Redirect URI):**
 
