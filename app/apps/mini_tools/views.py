@@ -1,16 +1,35 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.utils import timezone
 
+from apps.common.widgets.datepicker import AirMonthYearPickerInput
 from apps.common.widgets.decimal import convert_to_decimal
 from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
 from apps.mini_tools.forms import CurrencyConverterForm
 from apps.mini_tools.utils.exchange_rate_map import get_currency_exchange_map
+from apps.mini_tools.utils.simulator import get_simulator_baseline
 
 
 @login_required
 def unit_price_calculator(request):
     return render(request, "mini_tools/unit_price_calculator.html")
+
+
+@login_required
+def simulator(request):
+    start_month_input = AirMonthYearPickerInput(
+        clear_button=False, attrs={"class": "w-full sim-start"}
+    ).render("start_month", timezone.localdate(timezone.now()).replace(day=1))
+
+    return render(
+        request,
+        "mini_tools/simulator.html",
+        context={
+            "baseline": get_simulator_baseline(request.user),
+            "start_month_input": start_month_input,
+        },
+    )
 
 
 @login_required

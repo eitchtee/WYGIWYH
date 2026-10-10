@@ -9,6 +9,11 @@ urlpatterns = [
         name="unit_price_calculator",
     ),
     path(
+        "tools/simulator/",
+        views.simulator,
+        name="simulator",
+    ),
+    path(
         "tools/currency-converter/",
         views.currency_converter,
         name="currency_converter",
