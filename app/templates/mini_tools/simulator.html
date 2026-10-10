@@ -68,8 +68,11 @@
               </fieldset>
               <fieldset class="fieldset">
                 <legend class="fieldset-legend">{% translate 'Amount' %}</legend>
-                <input type="number" inputmode="decimal" min="0" step="any"
-                       class="input input-bordered w-full sim-amount">
+                <input type="text" inputmode="decimal"
+                       class="input input-bordered w-full sim-amount"
+                       x-data
+                       x-mask:dynamic="$money($input, '{% get_decimal_separator %}', '{% get_thousand_separator %}', '30')"
+                       x-on:keyup="if (!['Control', 'Shift', 'Alt', 'Meta'].includes($event.key) && !(($event.ctrlKey || $event.metaKey) && $event.key.toLowerCase() === 'a')) $el.dispatchEvent(new Event('input'))">
               </fieldset>
               <fieldset class="fieldset">
                 <legend class="fieldset-legend">{% translate 'Frequency' %}</legend>
@@ -272,13 +275,19 @@
             return year * 12 + month - 1;
           };
           const currentMonth = keyToIndex(baseline.current_month);
+          // Amounts are masked with the user's separators, so normalize them before parsing
+          const {decimalSeparator, thousandSeparator} = document.getElementById('simulator').dataset;
+          const parseAmount = (value) => {
+            if (thousandSeparator) value = value.split(thousandSeparator).join('');
+            return parseFloat(value.split(decimalSeparator).join('.'));
+          };
           const parsed = entries.map(entry => {
             const picker = entry.startInput.monthPicker;
             const date = picker && picker.selectedDates[0];
             return {
               type: entry.type,
               frequency: entry.frequency,
-              amount: parseFloat(entry.amount) || 0,
+              amount: parseAmount(entry.amount) || 0,
               start: date ? date.getFullYear() * 12 + date.getMonth() : currentMonth,
               interval: Math.max(parseInt(entry.interval) || 1, 1),
               unit: entry.unit,
