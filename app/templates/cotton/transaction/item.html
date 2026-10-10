@@ -202,9 +202,50 @@
                                hx-target="closest .transaction" hx-swap="outerHTML"><i
                             class="fa-solid fa-eye-slash fa-fw mr-2"></i>{% translate 'Hide from summaries' %}</a></li>
                       {% endif %}
-                      <li><a href="#"
-                             hx-get="{% url 'quick_transaction_add_as_quick_transaction' transaction_id=transaction.id %}"><i
-                          class="fa-solid fa-person-running fa-fw mr-2"></i>{% translate 'Add as quick transaction' %}</a>
+                      <li class="dropdown-submenu">
+                        <a href="#" _="on click halt"><i
+                            class="fa-solid fa-shuffle fa-fw mr-2"></i>{% translate 'Convert' %}<i
+                            class="fa-solid fa-chevron-right fa-fw fa-xs ms-auto"></i></a>
+                        <ul class="dropdown-submenu-content menu">
+                          <li><a href="#"
+                                 hx-get="{% url 'transaction_convert_to_quick_transaction' transaction_id=transaction.id %}"
+                                 hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
+                              class="fa-solid fa-person-running fa-fw mr-2"></i>{% translate 'Quick Transaction' %}</a>
+                          </li>
+                          {% if transaction.installment_plan or transaction.recurring_transaction %}
+                            <li class="menu-disabled" aria-disabled="true">
+                              <a class="flex items-center">
+                                <i class="fa-solid fa-repeat fa-fw mr-2"></i>
+                                <div>
+                                  {% translate 'Recurring Transaction' %}
+                                  <div
+                                      class="block text-base-content/60 text-xs font-medium">{% translate 'Already part of a plan or recurrence' %}</div>
+                                </div>
+                              </a>
+                            </li>
+                            <li class="menu-disabled" aria-disabled="true">
+                              <a class="flex items-center">
+                                <i class="fa-solid fa-divide fa-fw mr-2"></i>
+                                <div>
+                                  {% translate 'Installment Plan' %}
+                                  <div
+                                      class="block text-base-content/60 text-xs font-medium">{% translate 'Already part of a plan or recurrence' %}</div>
+                                </div>
+                              </a>
+                            </li>
+                          {% else %}
+                            <li><a href="#"
+                                   hx-get="{% url 'transaction_convert_to_recurring_transaction' transaction_id=transaction.id %}"
+                                   hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
+                                class="fa-solid fa-repeat fa-fw mr-2"></i>{% translate 'Recurring Transaction' %}</a>
+                            </li>
+                            <li><a href="#"
+                                   hx-get="{% url 'transaction_convert_to_installment_plan' transaction_id=transaction.id %}"
+                                   hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
+                                class="fa-solid fa-divide fa-fw mr-2"></i>{% translate 'Installment Plan' %}</a>
+                            </li>
+                          {% endif %}
+                        </ul>
                       </li>
                       <hr class="my-1 hr">
                       <li><a href="#"
