@@ -5,7 +5,7 @@ import time
 from secrets import token_urlsafe
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -47,31 +47,31 @@ def _set_no_store_headers(response):
 def _parse_json_request_body(request):
     try:
         payload = json.loads(request.body.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise ValueError("Request body must be valid JSON.") from exc
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return None, "Request body must be valid JSON."
 
     if not isinstance(payload, dict):
-        raise ValueError("Request body must be a JSON object.")
+        return None, "Request body must be a JSON object."
 
-    return payload
+    return payload, None
 
 
 def _get_string_list(payload, field_name, *, required=False, default=None):
     value = payload.get(field_name, default)
     if value is None:
         if required:
-            raise ValueError(f"'{field_name}' is required.")
-        return None
+            return None, f"'{field_name}' is required."
+        return None, None
 
     if not isinstance(value, list) or not value:
-        raise ValueError(f"'{field_name}' must be a non-empty array of strings.")
+        return None, f"'{field_name}' must be a non-empty array of strings."
 
     normalized = []
     for item in value:
         if not isinstance(item, str) or not item.strip():
-            raise ValueError(f"'{field_name}' must contain only non-empty strings.")
+            return None, f"'{field_name}' must contain only non-empty strings."
         normalized.append(item.strip())
-    return normalized
+    return normalized, None
 
 
 def _get_supported_scopes():
@@ -133,22 +133,29 @@ def dynamic_client_registration(request):
             status=401,
         )
 
-    try:
-        payload = _parse_json_request_body(request)
-        redirect_uris = _get_string_list(payload, "redirect_uris", required=True)
-        grant_types = _get_string_list(
-            payload,
-            "grant_types",
-            default=["authorization_code"],
-        )
-        response_types = _get_string_list(
-            payload,
-            "response_types",
-            default=["code"],
-        )
-    except ValueError as exc:
-        logger.warning("Invalid dynamic client registration payload: %s", exc)
-        return _json_error("invalid_client_metadata", "Client metadata is invalid.")
+    payload, error = _parse_json_request_body(request)
+    if error:
+        return _json_error("invalid_client_metadata", error)
+
+    redirect_uris, error = _get_string_list(payload, "redirect_uris", required=True)
+    if error:
+        return _json_error("invalid_client_metadata", error)
+
+    grant_types, error = _get_string_list(
+        payload,
+        "grant_types",
+        default=["authorization_code"],
+    )
+    if error:
+        return _json_error("invalid_client_metadata", error)
+
+    response_types, error = _get_string_list(
+        payload,
+        "response_types",
+        default=["code"],
+    )
+    if error:
+        return _json_error("invalid_client_metadata", error)
 
     unsupported_grant_types = sorted(set(grant_types) - SUPPORTED_GRANT_TYPES)
     if unsupported_grant_types:
@@ -181,11 +188,13 @@ def dynamic_client_registration(request):
         "token_endpoint_auth_method",
         "client_secret_basic",
     )
-    if token_endpoint_auth_method not in SUPPORTED_TOKEN_ENDPOINT_AUTH_METHODS:
+    if (
+        not isinstance(token_endpoint_auth_method, str)
+        or token_endpoint_auth_method not in SUPPORTED_TOKEN_ENDPOINT_AUTH_METHODS
+    ):
         return _json_error(
             "invalid_client_metadata",
-            "Unsupported token_endpoint_auth_method: "
-            + token_endpoint_auth_method,
+            "Unsupported token_endpoint_auth_method.",
         )
 
     supported_scopes = _get_supported_scopes()
@@ -226,11 +235,19 @@ def dynamic_client_registration(request):
     try:
         application.full_clean()
     except ValidationError as exc:
-        logger.warning("Dynamic client registration validation failed: %s", exc)
-        return _json_error(
-            "invalid_client_metadata",
-            "Client metadata is invalid.",
+        logger.warning(
+            "Dynamic client registration validation failed: %s", exc.message_dict
         )
+        # Map to fixed messages so validator text never reaches the client.
+        # Application.clean() validates redirect URIs as non-field errors; with
+        # the fields set above, that is the only non-field error it can raise.
+        if "redirect_uris" in exc.message_dict or NON_FIELD_ERRORS in exc.message_dict:
+            description = "redirect_uris contains an invalid or disallowed URI."
+        elif "name" in exc.message_dict:
+            description = "client_name is invalid."
+        else:
+            description = "Client metadata is invalid."
+        return _json_error("invalid_client_metadata", description)
 
     application.save()
 
