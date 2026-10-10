@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-03 17:07+0000\n"
+"POT-Creation-Date: 2026-10-10 20:52+0000\n"
 "PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -29,9 +29,9 @@ msgstr "Nome del gruppo"
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
 #: apps/rules/forms.py:385 apps/transactions/forms.py:218
 #: apps/transactions/forms.py:417 apps/transactions/forms.py:536
-#: apps/transactions/forms.py:880 apps/transactions/forms.py:919
-#: apps/transactions/forms.py:947 apps/transactions/forms.py:978
-#: apps/transactions/forms.py:1128 apps/users/forms.py:262
+#: apps/transactions/forms.py:880 apps/transactions/forms.py:925
+#: apps/transactions/forms.py:953 apps/transactions/forms.py:984
+#: apps/transactions/forms.py:1134 apps/users/forms.py:262
 #: apps/users/forms.py:420
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
@@ -45,9 +45,10 @@ msgstr "Aggiorna"
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
 #: apps/transactions/forms.py:205 apps/transactions/forms.py:225
 #: apps/transactions/forms.py:424 apps/transactions/forms.py:886
-#: apps/transactions/forms.py:925 apps/transactions/forms.py:953
-#: apps/transactions/forms.py:984 apps/transactions/forms.py:1134
+#: apps/transactions/forms.py:931 apps/transactions/forms.py:959
+#: apps/transactions/forms.py:990 apps/transactions/forms.py:1140
 #: apps/users/forms.py:268 apps/users/forms.py:426
+#: templates/mini_tools/simulator.html:174
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "Aggiungi"
@@ -66,9 +67,9 @@ msgstr "Nuovo saldo"
 #: apps/transactions/forms.py:61 apps/transactions/forms.py:307
 #: apps/transactions/forms.py:475 apps/transactions/forms.py:572
 #: apps/transactions/forms.py:579 apps/transactions/forms.py:763
-#: apps/transactions/forms.py:1007 apps/transactions/models.py:346
+#: apps/transactions/forms.py:1013 apps/transactions/models.py:346
 #: apps/transactions/models.py:658 apps/transactions/models.py:858
-#: apps/transactions/models.py:1110
+#: apps/transactions/models.py:1135
 #: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
@@ -81,10 +82,10 @@ msgstr "Categoria"
 #: apps/transactions/filters.py:79 apps/transactions/forms.py:69
 #: apps/transactions/forms.py:315 apps/transactions/forms.py:483
 #: apps/transactions/forms.py:588 apps/transactions/forms.py:596
-#: apps/transactions/forms.py:756 apps/transactions/forms.py:1000
+#: apps/transactions/forms.py:756 apps/transactions/forms.py:1006
 #: apps/transactions/models.py:352 apps/transactions/models.py:660
-#: apps/transactions/models.py:862 apps/transactions/models.py:1116
-#: templates/includes/sidebar.html:150
+#: apps/transactions/models.py:862 apps/transactions/models.py:1141
+#: templates/includes/sidebar.html:156
 #: templates/insights/fragments/month_by_month.html:29
 #: templates/insights/fragments/month_by_month.html:32
 #: templates/insights/fragments/year_by_year.html:24
@@ -96,7 +97,7 @@ msgstr "Tag"
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:14 apps/rules/models.py:13
 #: apps/transactions/models.py:238 apps/transactions/models.py:263
-#: apps/transactions/models.py:287 apps/transactions/models.py:1078
+#: apps/transactions/models.py:287 apps/transactions/models.py:1103
 #: apps/users/models.py:572 templates/account_groups/fragments/list.html:22
 #: templates/accounts/fragments/list.html:22
 #: templates/categories/fragments/table.html:17
@@ -119,12 +120,13 @@ msgstr "Gruppo conto"
 
 #: apps/accounts/models.py:19 templates/account_groups/fragments/list.html:9
 #: templates/account_groups/pages/index.html:4
-#: templates/includes/sidebar.html:170
+#: templates/includes/sidebar.html:176
 msgid "Account Groups"
 msgstr "Gruppi conti"
 
 #: apps/accounts/models.py:39 apps/currencies/models.py:44
 #: templates/accounts/fragments/list.html:24
+#: templates/mini_tools/simulator.html:37
 #: templates/yearly_overview/pages/yearly_overview_base.html:19
 msgid "Currency"
 msgstr "Valuta"
@@ -167,9 +169,9 @@ msgstr ""
 #: apps/rules/models.py:35 apps/rules/models.py:267
 #: apps/transactions/forms.py:81 apps/transactions/forms.py:327
 #: apps/transactions/forms.py:442 apps/transactions/forms.py:748
-#: apps/transactions/forms.py:992 apps/transactions/models.py:318
+#: apps/transactions/forms.py:998 apps/transactions/models.py:318
 #: apps/transactions/models.py:618 apps/transactions/models.py:840
-#: apps/transactions/models.py:1084
+#: apps/transactions/models.py:1109
 #: templates/installment_plans/fragments/table.html:17
 #: templates/quick_transactions/fragments/list.html:14
 #: templates/recurring_transactions/fragments/table.html:19
@@ -180,8 +182,8 @@ msgstr "Conto"
 #: apps/accounts/models.py:76 apps/export_app/forms.py:19
 #: apps/export_app/forms.py:129 apps/transactions/filters.py:63
 #: templates/accounts/fragments/list.html:9
-#: templates/accounts/pages/index.html:4 templates/includes/sidebar.html:162
-#: templates/includes/sidebar.html:164
+#: templates/accounts/pages/index.html:4 templates/includes/sidebar.html:168
+#: templates/includes/sidebar.html:170
 #: templates/monthly_overview/pages/overview.html:77
 #: templates/transactions/pages/transactions.html:26
 msgid "Accounts"
@@ -455,7 +457,7 @@ msgstr "Adesso"
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: apps/common/widgets/tom_select.py:15
+#: apps/common/widgets/tom_select.py:15 templates/mini_tools/simulator.html:184
 #: templates/mini_tools/unit_price_calculator.html:180
 #: templates/monthly_overview/pages/overview.html:286
 #: templates/transactions/fragments/filter_actions.html:48
@@ -500,8 +502,8 @@ msgstr "Cifre decimali"
 #: apps/currencies/models.py:45 apps/export_app/forms.py:25
 #: apps/export_app/forms.py:130 apps/transactions/filters.py:70
 #: templates/currencies/fragments/list.html:9
-#: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:176
-#: templates/includes/sidebar.html:178
+#: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:182
+#: templates/includes/sidebar.html:184
 #: templates/monthly_overview/pages/overview.html:63
 #: templates/transactions/pages/transactions.html:12
 msgid "Currencies"
@@ -535,7 +537,7 @@ msgstr "Automatico"
 #: apps/currencies/models.py:82 apps/export_app/forms.py:67
 #: apps/export_app/forms.py:142 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
-#: templates/includes/sidebar.html:184
+#: templates/includes/sidebar.html:190
 msgid "Exchange Rates"
 msgstr "Cambio valute"
 
@@ -756,7 +758,7 @@ msgstr "Valuta di pagamento"
 #: apps/rules/forms.py:196 apps/rules/models.py:43 apps/rules/models.py:295
 #: apps/transactions/forms.py:469 apps/transactions/forms.py:616
 #: apps/transactions/models.py:342 apps/transactions/models.py:667
-#: apps/transactions/models.py:868 apps/transactions/models.py:1106
+#: apps/transactions/models.py:868 apps/transactions/models.py:1131
 msgid "Notes"
 msgstr "Note"
 
@@ -813,14 +815,14 @@ msgid "Entry deleted successfully"
 msgstr "Voce eliminata con successo"
 
 #: apps/export_app/forms.py:13 apps/export_app/forms.py:128
-#: templates/includes/sidebar.html:221 templates/users/fragments/list.html:10
+#: templates/includes/sidebar.html:227 templates/users/fragments/list.html:10
 #: templates/users/pages/index.html:4
 msgid "Users"
 msgstr "Utenti"
 
 #: apps/export_app/forms.py:31 apps/export_app/forms.py:134
 #: apps/transactions/models.py:403 templates/includes/sidebar.html:81
-#: templates/includes/sidebar.html:142
+#: templates/includes/sidebar.html:148
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:37
 #: templates/transactions/pages/transactions.html:5
@@ -830,7 +832,7 @@ msgstr "Transazioni"
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:131
 #: apps/insights/views.py:43 apps/transactions/filters.py:74
 #: templates/categories/fragments/list.html:9
-#: templates/categories/pages/index.html:4 templates/includes/sidebar.html:144
+#: templates/categories/pages/index.html:4 templates/includes/sidebar.html:150
 #: templates/insights/fragments/month_by_month.html:18
 #: templates/insights/fragments/month_by_month.html:21
 #: templates/insights/fragments/year_by_year.html:13
@@ -843,11 +845,11 @@ msgstr "Categorie"
 #: apps/rules/models.py:46 apps/rules/models.py:307
 #: apps/transactions/filters.py:84 apps/transactions/forms.py:77
 #: apps/transactions/forms.py:323 apps/transactions/forms.py:491
-#: apps/transactions/forms.py:771 apps/transactions/forms.py:1015
+#: apps/transactions/forms.py:771 apps/transactions/forms.py:1021
 #: apps/transactions/models.py:301 apps/transactions/models.py:357
 #: apps/transactions/models.py:663 apps/transactions/models.py:865
-#: apps/transactions/models.py:1121 templates/entities/fragments/list.html:9
-#: templates/entities/pages/index.html:4 templates/includes/sidebar.html:156
+#: apps/transactions/models.py:1146 templates/entities/fragments/list.html:9
+#: templates/entities/pages/index.html:4 templates/includes/sidebar.html:162
 #: templates/insights/fragments/month_by_month.html:40
 #: templates/insights/fragments/month_by_month.html:43
 #: templates/insights/fragments/year_by_year.html:35
@@ -872,11 +874,11 @@ msgstr "Pagamenti a rate"
 #: apps/export_app/forms.py:73 apps/export_app/forms.py:140
 #: templates/exchange_rates_services/fragments/list.html:10
 #: templates/exchange_rates_services/pages/index.html:4
-#: templates/includes/sidebar.html:212
+#: templates/includes/sidebar.html:218
 msgid "Automatic Exchange Rates"
 msgstr "Cambio valuta automatico"
 
-#: apps/export_app/forms.py:79 templates/includes/sidebar.html:192
+#: apps/export_app/forms.py:79 templates/includes/sidebar.html:198
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Regole"
@@ -916,7 +918,7 @@ msgstr "Modifica azione transazione"
 msgid "Update or create transaction actions"
 msgstr "Aggiorna o crea azioni di transazione"
 
-#: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:231
+#: apps/export_app/forms.py:181 templates/cotton/transaction/item.html:272
 #: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
@@ -948,7 +950,7 @@ msgstr "Seleziona un file"
 
 #: apps/import_app/forms.py:55
 #: templates/import_app/fragments/profiles/list.html:57
-#: templates/includes/sidebar.html:198
+#: templates/includes/sidebar.html:204
 msgid "Import"
 msgstr "Importa"
 
@@ -1154,14 +1156,15 @@ msgstr "Operatore"
 #: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:36
 #: apps/rules/models.py:271 apps/transactions/forms.py:433
 #: apps/transactions/models.py:325 apps/transactions/models.py:623
-#: apps/transactions/models.py:846 apps/transactions/models.py:1091
+#: apps/transactions/models.py:846 apps/transactions/models.py:1116
+#: templates/mini_tools/simulator.html:63
 msgid "Type"
 msgstr "Tipo"
 
 #: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:37
 #: apps/rules/models.py:275 apps/transactions/filters.py:22
 #: apps/transactions/forms.py:437 apps/transactions/models.py:327
-#: apps/transactions/models.py:1093 templates/cotton/transaction/item.html:21
+#: apps/transactions/models.py:1118 templates/cotton/transaction/item.html:21
 #: templates/cotton/transaction/item.html:32
 #: templates/transactions/widgets/paid_toggle_button.html:10
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:13
@@ -1179,9 +1182,10 @@ msgstr "Data di riferimento"
 #: apps/rules/forms.py:178 apps/rules/forms.py:192 apps/rules/models.py:41
 #: apps/rules/models.py:287 apps/transactions/forms.py:460
 #: apps/transactions/models.py:335 apps/transactions/models.py:851
-#: apps/transactions/models.py:1099
+#: apps/transactions/models.py:1124
 #: templates/insights/fragments/sankey.html:102
 #: templates/installment_plans/fragments/table.html:18
+#: templates/mini_tools/simulator.html:70
 #: templates/quick_transactions/fragments/list.html:15
 #: templates/recurring_transactions/fragments/table.html:20
 msgid "Amount"
@@ -1191,26 +1195,26 @@ msgstr "Importo"
 #: apps/rules/models.py:42 apps/rules/models.py:291
 #: apps/transactions/forms.py:464 apps/transactions/forms.py:607
 #: apps/transactions/models.py:340 apps/transactions/models.py:625
-#: apps/transactions/models.py:854 apps/transactions/models.py:1104
+#: apps/transactions/models.py:854 apps/transactions/models.py:1129
 msgid "Description"
 msgstr "Descrizione"
 
 #: apps/rules/forms.py:182 apps/rules/forms.py:198 apps/rules/models.py:47
 #: apps/rules/models.py:299 apps/transactions/models.py:379
-#: apps/transactions/models.py:1126
+#: apps/transactions/models.py:1151
 msgid "Internal Note"
 msgstr "Note interne"
 
 #: apps/rules/forms.py:183 apps/rules/forms.py:199 apps/rules/models.py:48
 #: apps/rules/models.py:303 apps/transactions/models.py:381
-#: apps/transactions/models.py:1128
+#: apps/transactions/models.py:1153
 msgid "Internal ID"
 msgstr "ID Interno"
 
 #: apps/rules/forms.py:186 apps/rules/forms.py:200 apps/rules/models.py:40
 #: apps/rules/models.py:319 apps/transactions/forms.py:620
 #: apps/transactions/models.py:239 apps/transactions/models.py:330
-#: apps/transactions/models.py:1094
+#: apps/transactions/models.py:1119
 msgid "Mute"
 msgstr "Silenzia"
 
@@ -1465,28 +1469,28 @@ msgstr "A importo"
 msgid "Transfer"
 msgstr "Trasferimento"
 
-#: apps/transactions/forms.py:906
+#: apps/transactions/forms.py:912
 msgid "Tag name"
 msgstr "Nome tag"
 
-#: apps/transactions/forms.py:934
+#: apps/transactions/forms.py:940
 msgid "Entity name"
 msgstr "Nome beneficiario"
 
-#: apps/transactions/forms.py:962
+#: apps/transactions/forms.py:968
 msgid "Category name"
 msgstr "Nome categoria"
 
-#: apps/transactions/forms.py:964
+#: apps/transactions/forms.py:970
 msgid "Muted categories won't be displayed on monthly summaries"
 msgstr ""
 "Le categorie silenziate non verranno visualizzate nei riepiloghi mensili"
 
-#: apps/transactions/forms.py:1118
+#: apps/transactions/forms.py:1124
 msgid "future transactions"
 msgstr "transazioni future"
 
-#: apps/transactions/forms.py:1144
+#: apps/transactions/forms.py:1150
 msgid "End date should be after the start date"
 msgstr "La data di fine deve essere dopo la data d'inizio"
 
@@ -1525,7 +1529,7 @@ msgstr ""
 "I beneficiari disattivati non potranno essere selezionati durante la "
 "creazione di nuove transazioni"
 
-#: apps/transactions/models.py:312 apps/transactions/models.py:1071
+#: apps/transactions/models.py:312 apps/transactions/models.py:1096
 #: templates/calendar_view/fragments/list.html:42
 #: templates/calendar_view/fragments/list.html:44
 #: templates/calendar_view/fragments/list.html:52
@@ -1533,11 +1537,12 @@ msgstr ""
 #: templates/cotton/ui/quick_transactions_buttons.html:10
 #: templates/cotton/ui/transactions_fab.html:10
 #: templates/insights/fragments/overview/_results.html:12
+#: templates/mini_tools/simulator.html:66
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 msgid "Income"
 msgstr "Entrate"
 
-#: apps/transactions/models.py:313 apps/transactions/models.py:1072
+#: apps/transactions/models.py:313 apps/transactions/models.py:1097
 #: templates/calendar_view/fragments/list.html:46
 #: templates/calendar_view/fragments/list.html:48
 #: templates/calendar_view/fragments/list.html:56
@@ -1545,14 +1550,19 @@ msgstr "Entrate"
 #: templates/cotton/ui/quick_transactions_buttons.html:18
 #: templates/cotton/ui/transactions_fab.html:19
 #: templates/insights/fragments/overview/_results.html:13
+#: templates/mini_tools/simulator.html:65
 msgid "Expense"
 msgstr "Spesa"
 
 #: apps/transactions/models.py:368 apps/transactions/models.py:680
+#: templates/cotton/transaction/item.html:235
+#: templates/cotton/transaction/item.html:250
 msgid "Installment Plan"
 msgstr "Piano di rateizzazione"
 
 #: apps/transactions/models.py:377 apps/transactions/models.py:904
+#: templates/cotton/transaction/item.html:225
+#: templates/cotton/transaction/item.html:245
 msgid "Recurring Transaction"
 msgstr "Transazione ricorrente"
 
@@ -1661,19 +1671,19 @@ msgstr "Aggiungi una descrizione alle transazioni"
 msgid "Add notes to transactions"
 msgstr "Aggiungi note alle transazioni"
 
-#: apps/transactions/models.py:833
+#: apps/transactions/models.py:833 templates/mini_tools/simulator.html:126
 msgid "day(s)"
 msgstr "giorno/i"
 
-#: apps/transactions/models.py:834
+#: apps/transactions/models.py:834 templates/mini_tools/simulator.html:127
 msgid "week(s)"
 msgstr "settimana/e"
 
-#: apps/transactions/models.py:835
+#: apps/transactions/models.py:835 templates/mini_tools/simulator.html:128
 msgid "month(s)"
 msgstr "mese/i"
 
-#: apps/transactions/models.py:836
+#: apps/transactions/models.py:836 templates/mini_tools/simulator.html:129
 msgid "year(s)"
 msgstr "anno/i"
 
@@ -1702,16 +1712,12 @@ msgstr "Data dell'ultima generazione"
 msgid "Last Generated Reference Date"
 msgstr "Data dell'ultimo riferimento generato"
 
-#: apps/transactions/models.py:1138
-#: apps/transactions/views/quick_transactions.py:178
-#: apps/transactions/views/quick_transactions.py:187
-#: apps/transactions/views/quick_transactions.py:189
-#: apps/transactions/views/quick_transactions.py:191
+#: apps/transactions/models.py:1163 templates/cotton/transaction/item.html:218
 #: templates/cotton/ui/transactions_fab.html:59
 msgid "Quick Transaction"
 msgstr "Transazione rapida"
 
-#: apps/transactions/models.py:1139 templates/includes/sidebar.html:98
+#: apps/transactions/models.py:1164 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
@@ -1774,6 +1780,39 @@ msgstr "Categoria aggiornata con successo"
 msgid "Category deleted successfully"
 msgstr "Categoria eliminata con successo"
 
+#: apps/transactions/views/conversions.py:63
+#: apps/transactions/views/quick_transactions.py:45 apps/users/views.py:252
+msgid "Item added successfully"
+msgstr "Elemento aggiunto con successo"
+
+#: apps/transactions/views/conversions.py:82
+#, fuzzy
+#| msgid "Edit quick transaction"
+msgid "Convert into quick transaction"
+msgstr "Modifica transazione rapida"
+
+#: apps/transactions/views/conversions.py:99
+#: apps/transactions/views/recurring_transactions.py:112
+msgid "Recurring Transaction added successfully"
+msgstr "Transazione ricorrente aggiunta con successo"
+
+#: apps/transactions/views/conversions.py:120
+#, fuzzy
+#| msgid "Edit recurring transaction"
+msgid "Convert into recurring transaction"
+msgstr "Modifica transazione ricorrente"
+
+#: apps/transactions/views/conversions.py:137
+#: apps/transactions/views/installment_plans.py:87
+msgid "Installment Plan added successfully"
+msgstr "Piano di rateizzazione aggiunto correttamente"
+
+#: apps/transactions/views/conversions.py:156
+#, fuzzy
+#| msgid "Edit installment plan"
+msgid "Convert into installment plan"
+msgstr "Modifica piano di rateizzazione"
+
 #: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
 msgstr "Beneficiario aggiunto con successo"
@@ -1786,10 +1825,6 @@ msgstr "Beneficiario aggiornato con successo"
 msgid "Entity deleted successfully"
 msgstr "Beneficiario eliminato con successo"
 
-#: apps/transactions/views/installment_plans.py:87
-msgid "Installment Plan added successfully"
-msgstr "Piano di rateizzazione aggiunto correttamente"
-
 #: apps/transactions/views/installment_plans.py:115
 msgid "Installment Plan updated successfully"
 msgstr "Piano di rateizzazione aggiornato correttamente"
@@ -1801,11 +1836,6 @@ msgstr "Piano di rateizzazione aggiornato correttamente"
 #: apps/transactions/views/installment_plans.py:158
 msgid "Installment Plan deleted successfully"
 msgstr "Piano di rateizzazione eliminato correttamente"
-
-#: apps/transactions/views/quick_transactions.py:45
-#: apps/transactions/views/quick_transactions.py:224 apps/users/views.py:252
-msgid "Item added successfully"
-msgstr "Elemento aggiunto con successo"
 
 #: apps/transactions/views/quick_transactions.py:73 apps/users/views.py:284
 msgid "Item updated successfully"
@@ -1820,10 +1850,6 @@ msgstr "Elemento eliminato con successo"
 #: apps/transactions/views/transactions.py:327
 msgid "Transaction added successfully"
 msgstr "Transazione aggiunta con successo"
-
-#: apps/transactions/views/recurring_transactions.py:112
-msgid "Recurring Transaction added successfully"
-msgstr "Transazione ricorrente aggiunta con successo"
 
 #: apps/transactions/views/recurring_transactions.py:142
 msgid "Recurring Transaction updated successfully"
@@ -2284,7 +2310,7 @@ msgstr "Condividi"
 #: templates/accounts/fragments/list.html:71
 #: templates/categories/fragments/table.html:51
 #: templates/cotton/transaction/item.html:165
-#: templates/cotton/transaction/item.html:237
+#: templates/cotton/transaction/item.html:278
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:82
 #: templates/currencies/fragments/list.html:40
@@ -2297,6 +2323,7 @@ msgstr "Condividi"
 #: templates/import_app/fragments/profiles/list.html:63
 #: templates/import_app/fragments/runs/list.html:100
 #: templates/installment_plans/fragments/table.html:54
+#: templates/mini_tools/simulator.html:106
 #: templates/mini_tools/unit_price_calculator.html:16
 #: templates/quick_transactions/fragments/list.html:32
 #: templates/recurring_transactions/fragments/table.html:87
@@ -2315,7 +2342,7 @@ msgstr "Elimina"
 #: templates/accounts/fragments/list.html:75
 #: templates/categories/fragments/table.html:56
 #: templates/cotton/transaction/item.html:167
-#: templates/cotton/transaction/item.html:243
+#: templates/cotton/transaction/item.html:284
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:44
@@ -2345,7 +2372,7 @@ msgstr "Sei sicuro?"
 #: templates/accounts/fragments/list.html:76
 #: templates/categories/fragments/table.html:57
 #: templates/cotton/transaction/item.html:168
-#: templates/cotton/transaction/item.html:244
+#: templates/cotton/transaction/item.html:285
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:83
 #: templates/currencies/fragments/list.html:45
@@ -2367,7 +2394,7 @@ msgstr "Non sarà possibile annullare questa operazione!"
 #: templates/accounts/fragments/list.html:77
 #: templates/categories/fragments/table.html:58
 #: templates/cotton/transaction/item.html:169
-#: templates/cotton/transaction/item.html:245
+#: templates/cotton/transaction/item.html:286
 #: templates/currencies/fragments/list.html:46
 #: templates/dca/fragments/strategy/details.html:77
 #: templates/dca/fragments/strategy/list.html:44
@@ -2535,22 +2562,29 @@ msgid "Hide from summaries"
 msgstr "Nascondi dai riepiloghi"
 
 #: templates/cotton/transaction/item.html:212
-msgid "Add as quick transaction"
-msgstr "Aggiungi come transazione rapida"
+#, fuzzy
+#| msgid "Invert"
+msgid "Convert"
+msgstr "Investi"
 
-#: templates/cotton/transaction/item.html:217
+#: templates/cotton/transaction/item.html:227
+#: templates/cotton/transaction/item.html:237
+msgid "Already part of a plan or recurrence"
+msgstr ""
+
+#: templates/cotton/transaction/item.html:258
 msgid "Move to previous month"
 msgstr "Vai al mese precedente"
 
-#: templates/cotton/transaction/item.html:221
+#: templates/cotton/transaction/item.html:262
 msgid "Move to next month"
 msgstr "Vai al mese successivo"
 
-#: templates/cotton/transaction/item.html:224
+#: templates/cotton/transaction/item.html:265
 msgid "Move to today"
 msgstr "Vai a oggi"
 
-#: templates/cotton/transaction/item.html:228
+#: templates/cotton/transaction/item.html:269
 #: templates/cotton/ui/transactions_action_bar.html:78
 msgid "Duplicate"
 msgstr "Duplica"
@@ -2669,6 +2703,7 @@ msgstr "Rata"
 
 #: templates/cotton/ui/quick_transactions_buttons.html:32
 #: templates/cotton/ui/transactions_fab.html:35
+#: templates/mini_tools/simulator.html:95
 msgid "Recurring"
 msgstr "Ricorrente"
 
@@ -2899,7 +2934,7 @@ msgstr "conti"
 msgid "No services configured"
 msgstr "Nessun servizio configurato"
 
-#: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:205
+#: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:211
 msgid "Export and Restore"
 msgstr "Esporta e ripristina"
 
@@ -3094,31 +3129,38 @@ msgstr "Prezzo per unità"
 msgid "Currency Converter"
 msgstr "Converti valuta"
 
-#: templates/includes/sidebar.html:139
+#: templates/includes/sidebar.html:136 templates/mini_tools/simulator.html:5
+#: templates/mini_tools/simulator.html:21
+#, fuzzy
+#| msgid "Calculator"
+msgid "Simulator"
+msgstr "Calcolatrice"
+
+#: templates/includes/sidebar.html:145
 msgid "Management"
 msgstr "Gestione"
 
-#: templates/includes/sidebar.html:190
+#: templates/includes/sidebar.html:196
 msgid "Automation"
 msgstr "Automazione"
 
-#: templates/includes/sidebar.html:219
+#: templates/includes/sidebar.html:225
 msgid "Admin"
 msgstr "Amministratore"
 
-#: templates/includes/sidebar.html:227
+#: templates/includes/sidebar.html:233
 msgid "Django Admin"
 msgstr "Amministrazione Django"
 
-#: templates/includes/sidebar.html:228
+#: templates/includes/sidebar.html:234
 msgid "Only use this if you know what you're doing"
 msgstr "Usalo solo se sai cosa stai facendo"
 
-#: templates/includes/sidebar.html:243
+#: templates/includes/sidebar.html:249
 msgid "is available"
 msgstr "è disponibile"
 
-#: templates/includes/sidebar.html:251
+#: templates/includes/sidebar.html:257
 msgid "Calculator"
 msgstr "Calcolatrice"
 
@@ -3305,6 +3347,7 @@ msgid "No transactions"
 msgstr "transazioni"
 
 #: templates/insights/pages/index.html:37
+#: templates/mini_tools/simulator.html:231
 msgid "Month"
 msgstr "Mese"
 
@@ -3375,6 +3418,7 @@ msgstr "Modifica piano di rateizzazione"
 
 #: templates/installment_plans/fragments/list_transactions.html:5
 #: templates/installment_plans/fragments/table.html:35
+#: templates/mini_tools/simulator.html:96
 msgid "Installments"
 msgstr "Rate"
 
@@ -3413,6 +3457,124 @@ msgstr "Tutti i dati che aggiungi qui verranno cancellati entro 24 ore o meno"
 #: templates/mini_tools/currency_converter/currency_converter.html:57
 msgid "Invert"
 msgstr "Investi"
+
+#: templates/mini_tools/simulator.html:24
+msgid ""
+"See how a one-time, recurring or installment expense or income would affect "
+"your projected balance in the coming months."
+msgstr ""
+
+#: templates/mini_tools/simulator.html:30
+msgid "You need at least one active account to use the simulator."
+msgstr ""
+
+#: templates/mini_tools/simulator.html:45
+msgid "Months to simulate"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:75
+#, fuzzy
+#| msgid "Sequenced"
+msgid "Frequency"
+msgstr "Sequenziato"
+
+#: templates/mini_tools/simulator.html:94
+msgid "One time"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:100
+msgid "Starting month"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:119
+msgid "Repeat every"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:124
+msgid "Period"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:133
+#, fuzzy
+#| msgid "currencies"
+msgid "Occurrences"
+msgstr "valute"
+
+#: templates/mini_tools/simulator.html:136
+msgid "Leave empty to repeat indefinitely"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:139
+#, fuzzy
+#| msgid "Number of Installments"
+msgid "Number of installments"
+msgstr "Numero di rate"
+
+#: templates/mini_tools/simulator.html:142
+msgid "The amount is split evenly between the installments"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:146
+msgid "Daily and weekly entries start on the first day of the starting month."
+msgstr ""
+
+#: templates/mini_tools/simulator.html:191
+msgid "Final balance without simulation"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:197
+msgid "Final balance with simulation"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:203
+#, fuzzy
+#| msgid "Total Items"
+msgid "Total impact"
+msgstr "Elementi totali"
+
+#: templates/mini_tools/simulator.html:209
+msgid "Lowest balance with simulation"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:220
+msgid "Without simulation"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:221
+msgid "With simulation"
+msgstr ""
+
+#: templates/mini_tools/simulator.html:232
+#, fuzzy
+#| msgid "Projected Income"
+msgid "Projected change"
+msgstr "Entrate previste"
+
+#: templates/mini_tools/simulator.html:233
+#, fuzzy
+#| msgid "Date Range"
+msgid "Simulated change"
+msgstr "Intervallo date"
+
+#: templates/mini_tools/simulator.html:234
+#, fuzzy
+#| msgid "Balance reconciliation"
+msgid "Balance without simulation"
+msgstr "Riconciliazione saldo"
+
+#: templates/mini_tools/simulator.html:235
+#, fuzzy
+#| msgid "Balance reconciliation"
+msgid "Balance with simulation"
+msgstr "Riconciliazione saldo"
+
+#: templates/mini_tools/simulator.html:243
+msgid ""
+"The simulation starts at the earliest starting month among your entries, or "
+"the current month if there are none. Balances include paid and unpaid "
+"transactions, and archived and untracked accounts are ignored. Converted "
+"amounts use the latest exchange rate."
+msgstr ""
 
 #: templates/mini_tools/unit_price_calculator.html:25
 #: templates/mini_tools/unit_price_calculator.html:102
@@ -3978,6 +4140,9 @@ msgstr "Accedi con"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "Panoramica annuale"
+
+#~ msgid "Add as quick transaction"
+#~ msgstr "Aggiungi come transazione rapida"
 
 #~ msgid "Categories Overview"
 #~ msgstr "Panoramica categorie"
