@@ -1,0 +1,10 @@
+{% extends 'extends/offcanvas.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<form hx-post="{{ form_url }}" hx-target="#generic-offcanvas" novalidate>
+    {% crispy form %}
+</form>
+{% endblock %}
