@@ -402,3 +402,48 @@ $breakpoints: (
     --dropdown-link-disabled-color: #adb5bd;
     --dropdown-header-color: #adb5bd;
 }
+
+// Flyout submenu inside a dropdown menu, opened on hover/focus
+.dropdown-submenu {
+    position: relative;
+    // Block layout (not daisyUI's wrapping flex column), so the inline submenu's
+    // height is measured at its real width instead of a near-zero fit-content one
+    display: block;
+
+    > .dropdown-submenu-content {
+        display: none;
+        // Inline (mobile) submenu fits the menu's current width instead of widening it
+        contain: inline-size;
+        width: auto; // stretch to the parent item (daisyUI's .menu is fit-content)
+        white-space: normal;
+        margin-inline-start: 0.5rem;
+        padding: 0;
+
+        &::before {
+            display: none;
+        }
+    }
+
+    &:hover > .dropdown-submenu-content,
+    &:focus-within > .dropdown-submenu-content {
+        display: block;
+    }
+
+    @include media-breakpoint-up(md) {
+        > .dropdown-submenu-content {
+            position: absolute;
+            top: calc(-1 * (var(--dropdown-padding-y) + var(--dropdown-border-width)));
+            left: 100%;
+            margin: 0;
+            z-index: var(--dropdown-z-index);
+            width: max-content;
+            contain: none;
+            white-space: nowrap;
+            padding: var(--dropdown-padding-y) var(--dropdown-padding-x);
+            background-color: var(--dropdown-bg);
+            border: var(--dropdown-border-width) solid var(--dropdown-border-color);
+            border-radius: var(--dropdown-border-radius);
+            box-shadow: var(--dropdown-box-shadow);
+        }
+    }
+}

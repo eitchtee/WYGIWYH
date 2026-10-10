@@ -398,8 +398,18 @@ urlpatterns = [
         name="quick_transaction_add_as_transaction",
     ),
     path(
-        "transactions/<int:transaction_id>/add-as-quick-transaction/",
-        views.quick_transaction_add_as_quick_transaction,
-        name="quick_transaction_add_as_quick_transaction",
+        "transaction/<int:transaction_id>/convert/quick-transaction/",
+        views.transaction_convert_to_quick_transaction,
+        name="transaction_convert_to_quick_transaction",
+    ),
+    path(
+        "transaction/<int:transaction_id>/convert/recurring-transaction/",
+        views.transaction_convert_to_recurring_transaction,
+        name="transaction_convert_to_recurring_transaction",
+    ),
+    path(
+        "transaction/<int:transaction_id>/convert/installment-plan/",
+        views.transaction_convert_to_installment_plan,
+        name="transaction_convert_to_installment_plan",
     ),
 ]

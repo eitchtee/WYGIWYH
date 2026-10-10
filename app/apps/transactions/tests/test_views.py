@@ -2,11 +2,15 @@ from datetime import date
 
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
+from django.urls import reverse
 from django.utils import timezone
 
 from apps.accounts.models import Account, AccountGroup
 from apps.currencies.models import Currency
 from apps.transactions.models import (
+    InstallmentPlan,
+    QuickTransaction,
+    RecurringTransaction,
     Transaction,
     TransactionCategory,
     TransactionTag,
@@ -172,3 +176,154 @@ class TransactionSimpleAddViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         form = response.context["form"]
         self.assertEqual(form.initial.get("category"), self.category.id)
+
+
+@override_settings(
+    STORAGES={
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    },
+    WHITENOISE_AUTOREFRESH=True,
+)
+class TransactionConvertViewTests(TestCase):
+    """Tests for converting a transaction into quick/recurring/installment"""
+
+    def setUp(self):
+        User = get_user_model()
+        self.user = User.objects.create_user(
+            email="testuser@test.com", password="testpass123"
+        )
+        self.client.login(username="testuser@test.com", password="testpass123")
+
+        self.currency = Currency.objects.create(
+            code="USD", name="US Dollar", decimal_places=2, prefix="$ "
+        )
+        self.account = Account.objects.create(
+            name="Test Account", currency=self.currency
+        )
+        self.category = TransactionCategory.objects.create(name="Test Category")
+        self.tag = TransactionTag.objects.create(name="TestTag")
+
+        self.transaction = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=date(2030, 1, 15),
+            amount=50,
+            description="Gym",
+            category=self.category,
+            is_paid=True,
+        )
+        self.transaction.tags.add(self.tag)
+
+    def _get(self, url_name):
+        return self.client.get(
+            reverse(url_name, kwargs={"transaction_id": self.transaction.id}),
+            HTTP_HX_REQUEST="true",
+        )
+
+    def _post(self, url_name, data):
+        return self.client.post(
+            reverse(url_name, kwargs={"transaction_id": self.transaction.id}),
+            data,
+            HTTP_HX_REQUEST="true",
+        )
+
+    def test_quick_transaction_form_is_prefilled_without_name(self):
+        response = self._get("transaction_convert_to_quick_transaction")
+        self.assertEqual(response.status_code, 200)
+        initial = response.context["form"].initial
+        self.assertEqual(initial["description"], "Gym")
+        self.assertEqual(initial["tags"], ["TestTag"])
+        self.assertNotIn("name", initial)
+
+    def test_quick_transaction_requires_name_and_keeps_transaction(self):
+        data = {
+            "account": self.account.id,
+            "type": "EX",
+            "amount": "50",
+            "description": "Gym",
+        }
+        response = self._post("transaction_convert_to_quick_transaction", data)
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(QuickTransaction.objects.exists())
+
+        response = self._post(
+            "transaction_convert_to_quick_transaction", {**data, "name": "Gym"}
+        )
+        self.assertEqual(response.status_code, 204)
+        self.assertTrue(QuickTransaction.objects.filter(name="Gym").exists())
+        self.assertTrue(Transaction.objects.filter(id=self.transaction.id).exists())
+
+    def test_recurring_transaction_adopts_original_as_first_occurrence(self):
+        response = self._post(
+            "transaction_convert_to_recurring_transaction",
+            {
+                "account": self.account.id,
+                "type": "EX",
+                "amount": "60",
+                "description": "Gym",
+                "category": self.category.id,
+                "tags": ["TestTag"],
+                "start_date": "2030-01-15",
+                "recurrence_type": "month",
+                "recurrence_interval": 1,
+                "keep_at_most": 6,
+            },
+        )
+        self.assertEqual(response.status_code, 204)
+
+        recurring = RecurringTransaction.all_objects.get()
+        self.transaction.refresh_from_db()
+        self.assertEqual(self.transaction.recurring_transaction, recurring)
+        # Paid amount is preserved
+        self.assertEqual(self.transaction.amount, 50)
+        self.assertEqual(
+            recurring.transactions.filter(date=date(2030, 1, 15)).count(), 1
+        )
+        self.assertEqual(recurring.last_generated_date, date(2030, 1, 15))
+
+    def test_installment_plan_adopts_original_as_first_installment(self):
+        response = self._post(
+            "transaction_convert_to_installment_plan",
+            {
+                "account": self.account.id,
+                "type": "EX",
+                "installment_amount": "50",
+                "description": "TV",
+                "add_description_to_transaction": "on",
+                "number_of_installments": 3,
+                "installment_start": 1,
+                "start_date": "2030-01-15",
+                "recurrence": "monthly",
+            },
+        )
+        self.assertEqual(response.status_code, 204)
+
+        plan = InstallmentPlan.all_objects.get()
+        self.transaction.refresh_from_db()
+        self.assertEqual(self.transaction.installment_plan, plan)
+        self.assertEqual(self.transaction.installment_id, 1)
+        self.assertTrue(self.transaction.is_paid)
+        self.assertEqual(self.transaction.description, "TV")
+        self.assertEqual(plan.transactions.count(), 3)
+
+    def test_linked_transaction_cannot_be_converted_into_plan(self):
+        self._post(
+            "transaction_convert_to_installment_plan",
+            {
+                "account": self.account.id,
+                "type": "EX",
+                "installment_amount": "50",
+                "description": "TV",
+                "number_of_installments": 2,
+                "installment_start": 1,
+                "start_date": "2030-01-15",
+                "recurrence": "monthly",
+            },
+        )
+        self.assertEqual(
+            self._get("transaction_convert_to_recurring_transaction").status_code, 404
+        )
+        self.assertEqual(
+            self._get("transaction_convert_to_installment_plan").status_code, 404
+        )
