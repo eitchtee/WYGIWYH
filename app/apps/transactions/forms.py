@@ -887,11 +887,17 @@ class InstallmentPlanForm(forms.ModelForm):
                 ),
             )
 
-    def save(self, **kwargs):
+    def save(self, source_transaction=None, **kwargs):
         is_new = not self.instance.id
 
         instance = super().save(**kwargs)
-        if is_new:
+        if is_new and source_transaction:
+            # The converted transaction becomes the first installment
+            source_transaction.installment_plan = instance
+            source_transaction.installment_id = instance.installment_start
+            source_transaction.save()
+            instance.update_transactions()
+        elif is_new:
             instance.create_transactions()
         else:
             instance.update_transactions()
@@ -1145,12 +1151,12 @@ class RecurringTransactionForm(forms.ModelForm):
 
         return cleaned_data
 
-    def save(self, **kwargs):
+    def save(self, source_transaction=None, **kwargs):
         is_new = not self.instance.id
 
         instance = super().save(**kwargs)
         if is_new:
-            instance.create_upcoming_transactions()
+            instance.create_upcoming_transactions(first_transaction=source_transaction)
         else:
             instance.update_unpaid_transactions()
             instance.generate_upcoming_transactions()

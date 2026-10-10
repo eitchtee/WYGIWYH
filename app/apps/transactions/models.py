@@ -915,7 +915,7 @@ class RecurringTransaction(models.Model):
         instance = super().save(*args, **kwargs)
         return instance
 
-    def create_upcoming_transactions(self):
+    def create_upcoming_transactions(self, first_transaction=None):
         current_date = self.start_date
         reference_date = self.reference_date
         end_date = min(
@@ -924,6 +924,12 @@ class RecurringTransaction(models.Model):
             + (self.get_recurrence_delta() * self.keep_at_most),
             timezone.now().date() + (self.get_recurrence_delta() * self.keep_at_most),
         )
+
+        # When converting an existing transaction, it becomes the first occurrence
+        if first_transaction:
+            self.adopt_transaction(first_transaction, current_date, reference_date)
+            current_date = self.get_next_date(current_date)
+            reference_date = self.get_next_date(reference_date)
 
         while current_date <= end_date:
             self.create_transaction(current_date, reference_date)
@@ -958,6 +964,25 @@ class RecurringTransaction(models.Model):
         # different one, and the scoped default manager would hide private rows.
         created_transaction.tags.set(self.tags(manager="all_objects").all())
         created_transaction.entities.set(self.entities(manager="all_objects").all())
+
+    def adopt_transaction(self, existing_transaction, date, reference_date):
+        existing_transaction.account = self.account
+        existing_transaction.type = self.type
+        existing_transaction.date = date
+        existing_transaction.reference_date = reference_date.replace(day=1)
+        existing_transaction.description = (
+            self.description if self.add_description_to_transaction else ""
+        )
+        existing_transaction.category = self.category
+        existing_transaction.notes = self.notes if self.add_notes_to_transaction else ""
+        existing_transaction.recurring_transaction = self
+
+        if not existing_transaction.is_paid:  # Don't update value for paid transactions
+            existing_transaction.amount = self.amount
+
+        existing_transaction.save()
+        existing_transaction.tags.set(self.tags(manager="all_objects").all())
+        existing_transaction.entities.set(self.entities(manager="all_objects").all())
 
     def get_recurrence_delta(self):
         if self.recurrence_type == self.RecurrenceType.DAY:
