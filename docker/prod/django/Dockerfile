@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS python-build-stage
+FROM ghcr.io/astral-sh/uv:python3.14-bookworm-slim AS python-build-stage
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ COPY ./app/templates /usr/src/app/templates
 
 RUN npm run build
 
-FROM python:3.11-slim-bookworm AS python-run-stage
+FROM python:3.14-slim-bookworm AS python-run-stage
 
 ARG VERSION=dev
 ENV APP_VERSION=$VERSION
