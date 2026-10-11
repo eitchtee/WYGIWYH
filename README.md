@@ -63,6 +63,10 @@ You can try WYGIWYH on [wygiwyh-demo.herculino.com](https://wygiwyh-demo.herculi
 
 Keep in mind that **any data you add will be wiped in 24 hours or less**. And that **most automation features like the API, Rules, Automatic Exchange Rates and Import/Export are disabled**.
 
+# ☁️ One-Click Deploy
+
+[![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploylobe.svg)](https://repocloud.io/details/WYGIWYH/)
+
 # How To Use
 
 To run this application, you'll need [Docker](https://docs.docker.com/engine/install/) with [docker-compose](https://docs.docker.com/compose/install/).
