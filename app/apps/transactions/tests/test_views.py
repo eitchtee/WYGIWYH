@@ -289,7 +289,7 @@ class TransactionConvertViewTests(TestCase):
             {
                 "account": self.account.id,
                 "type": "EX",
-                "installment_amount": "50",
+                "installment_amount": "70",
                 "description": "TV",
                 "add_description_to_transaction": "on",
                 "number_of_installments": 3,
@@ -307,6 +307,10 @@ class TransactionConvertViewTests(TestCase):
         self.assertTrue(self.transaction.is_paid)
         self.assertEqual(self.transaction.description, "TV")
         self.assertEqual(plan.transactions.count(), 3)
+        # The form's amount applies to every installment, including the paid original
+        self.assertEqual(
+            set(plan.transactions.values_list("amount", flat=True)), {70}
+        )
 
     def test_linked_transaction_cannot_be_converted_into_plan(self):
         self._post(
