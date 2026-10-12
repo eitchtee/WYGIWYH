@@ -275,8 +275,9 @@ class TransactionConvertViewTests(TestCase):
         recurring = RecurringTransaction.all_objects.get()
         self.transaction.refresh_from_db()
         self.assertEqual(self.transaction.recurring_transaction, recurring)
-        # Paid amount is preserved
-        self.assertEqual(self.transaction.amount, 50)
+        # The form's amount applies even though the original was paid
+        self.assertEqual(self.transaction.amount, 60)
+        self.assertTrue(self.transaction.is_paid)
         self.assertEqual(
             recurring.transactions.filter(date=date(2030, 1, 15)).count(), 1
         )

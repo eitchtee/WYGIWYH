@@ -976,9 +976,7 @@ class RecurringTransaction(models.Model):
         existing_transaction.category = self.category
         existing_transaction.notes = self.notes if self.add_notes_to_transaction else ""
         existing_transaction.recurring_transaction = self
-
-        if not existing_transaction.is_paid:  # Don't update value for paid transactions
-            existing_transaction.amount = self.amount
+        existing_transaction.amount = self.amount
 
         existing_transaction.save()
         existing_transaction.tags.set(self.tags(manager="all_objects").all())
