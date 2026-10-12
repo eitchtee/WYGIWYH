@@ -444,6 +444,19 @@ $breakpoints: (
             border: var(--dropdown-border-width) solid var(--dropdown-border-color);
             border-radius: var(--dropdown-border-radius);
             box-shadow: var(--dropdown-box-shadow);
+            // Delay hiding: moving the pointer diagonally into the flyout crosses the
+            // items below the parent, and the delay keeps it open long enough to reach it.
+            // Delaying display (not visibility) keeps the flyout inheriting the menu's
+            // visibility, so it still disappears together with the main menu.
+            transition-property: display;
+            transition-duration: 0s;
+            transition-delay: 300ms;
+            transition-behavior: allow-discrete;
+        }
+
+        &:hover > .dropdown-submenu-content,
+        &:focus-within > .dropdown-submenu-content {
+            transition-delay: 0s;
         }
     }
 }
