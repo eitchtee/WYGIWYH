@@ -895,6 +895,8 @@ class InstallmentPlanForm(forms.ModelForm):
             # The converted transaction becomes the first installment
             source_transaction.installment_plan = instance
             source_transaction.installment_id = instance.installment_start
+            # Take the amount set on the form, even if already paid
+            source_transaction.amount = instance.installment_amount
             source_transaction.save()
             instance.update_transactions()
         elif is_new:

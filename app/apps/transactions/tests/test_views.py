@@ -275,8 +275,9 @@ class TransactionConvertViewTests(TestCase):
         recurring = RecurringTransaction.all_objects.get()
         self.transaction.refresh_from_db()
         self.assertEqual(self.transaction.recurring_transaction, recurring)
-        # Paid amount is preserved
-        self.assertEqual(self.transaction.amount, 50)
+        # The form's amount applies even though the original was paid
+        self.assertEqual(self.transaction.amount, 60)
+        self.assertTrue(self.transaction.is_paid)
         self.assertEqual(
             recurring.transactions.filter(date=date(2030, 1, 15)).count(), 1
         )
@@ -288,7 +289,7 @@ class TransactionConvertViewTests(TestCase):
             {
                 "account": self.account.id,
                 "type": "EX",
-                "installment_amount": "50",
+                "installment_amount": "70",
                 "description": "TV",
                 "add_description_to_transaction": "on",
                 "number_of_installments": 3,
@@ -306,6 +307,10 @@ class TransactionConvertViewTests(TestCase):
         self.assertTrue(self.transaction.is_paid)
         self.assertEqual(self.transaction.description, "TV")
         self.assertEqual(plan.transactions.count(), 3)
+        # The form's amount applies to every installment, including the paid original
+        self.assertEqual(
+            set(plan.transactions.values_list("amount", flat=True)), {70}
+        )
 
     def test_linked_transaction_cannot_be_converted_into_plan(self):
         self._post(
