@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-10 21:20+0000\n"
-"PO-Revision-Date: 2026-09-13 14:34+0000\n"
+"PO-Revision-Date: 2026-10-10 21:57+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -2518,7 +2518,7 @@ msgstr "Inverter"
 #: templates/cotton/transaction/item.html:227
 #: templates/cotton/transaction/item.html:237
 msgid "Already part of a plan or recurrence"
-msgstr ""
+msgstr "Já faz parte de um parcelamento ou de uma recorrência"
 
 #: templates/cotton/transaction/item.html:258
 msgid "Move to previous month"
@@ -3388,14 +3388,16 @@ msgid ""
 "See how a one-time, recurring or installment expense or income would affect "
 "your projected balance in the coming months."
 msgstr ""
+"Veja como uma despesa ou receita pontual, recorrente ou parcelada afetaria "
+"seu saldo projetado nos próximos meses."
 
 #: templates/mini_tools/simulator.html:30
 msgid "You need at least one active account to use the simulator."
-msgstr ""
+msgstr "Você precisa ter pelo menos uma conta ativa para usar o simulador."
 
 #: templates/mini_tools/simulator.html:45
 msgid "Months to simulate"
-msgstr ""
+msgstr "Meses para simular"
 
 #: templates/mini_tools/simulator.html:78
 #, fuzzy
@@ -3405,11 +3407,11 @@ msgstr "Sequencial"
 
 #: templates/mini_tools/simulator.html:97
 msgid "One time"
-msgstr ""
+msgstr "Uma vez"
 
 #: templates/mini_tools/simulator.html:103
 msgid "Starting month"
-msgstr ""
+msgstr "Mês inicial"
 
 #: templates/mini_tools/simulator.html:122
 #, fuzzy
@@ -3419,7 +3421,7 @@ msgstr "Buscar a cada"
 
 #: templates/mini_tools/simulator.html:127
 msgid "Period"
-msgstr ""
+msgstr "Período"
 
 #: templates/mini_tools/simulator.html:136
 #, fuzzy
@@ -3441,19 +3443,19 @@ msgstr "Número de Parcelas"
 
 #: templates/mini_tools/simulator.html:145
 msgid "The amount is split evenly between the installments"
-msgstr ""
+msgstr "O valor é dividido igualmente entre as parcelas"
 
 #: templates/mini_tools/simulator.html:149
 msgid "Daily and weekly entries start on the first day of the starting month."
-msgstr ""
+msgstr "Os registros diários e semanais começam no primeiro dia do mês inicial."
 
 #: templates/mini_tools/simulator.html:194
 msgid "Final balance without simulation"
-msgstr ""
+msgstr "Balanço final sem simulação"
 
 #: templates/mini_tools/simulator.html:200
 msgid "Final balance with simulation"
-msgstr ""
+msgstr "Balanço final com simulação"
 
 #: templates/mini_tools/simulator.html:206
 #, fuzzy
@@ -3463,15 +3465,15 @@ msgstr "Itens Totais"
 
 #: templates/mini_tools/simulator.html:212
 msgid "Lowest balance with simulation"
-msgstr ""
+msgstr "Menor balanço com simulação"
 
 #: templates/mini_tools/simulator.html:223
 msgid "Without simulation"
-msgstr ""
+msgstr "Sem simulação"
 
 #: templates/mini_tools/simulator.html:224
 msgid "With simulation"
-msgstr ""
+msgstr "Com simulação"
 
 #: templates/mini_tools/simulator.html:235
 #, fuzzy
@@ -3504,6 +3506,10 @@ msgid ""
 "transactions, and archived and untracked accounts are ignored. Converted "
 "amounts use the latest exchange rate."
 msgstr ""
+"A simulação começa no primeiro mês de início entre os dados inseridos ou no "
+"mês atual, caso não haja nenhum. Os saldos incluem transações pagas e não "
+"pagas, e as contas arquivadas e não rastreadas são ignoradas. Os valores "
+"convertidos utilizam a taxa de câmbio mais recente."
 
 #: templates/mini_tools/unit_price_calculator.html:25
 #: templates/mini_tools/unit_price_calculator.html:102
