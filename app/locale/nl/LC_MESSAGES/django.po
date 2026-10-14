@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-12 05:47+0000\n"
-"PO-Revision-Date: 2026-09-13 11:48+0000\n"
+"PO-Revision-Date: 2026-10-14 03:57+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1772,10 +1772,8 @@ msgid "Item added successfully"
 msgstr "Item succesvol toegevoegd"
 
 #: apps/transactions/views/conversions.py:82
-#, fuzzy
-#| msgid "Edit quick transaction"
 msgid "Convert into quick transaction"
-msgstr "Bewerk snelle verrichting"
+msgstr "Omzetten in een snelle verrichting"
 
 #: apps/transactions/views/conversions.py:99
 #: apps/transactions/views/recurring_transactions.py:112
@@ -1783,10 +1781,8 @@ msgid "Recurring Transaction added successfully"
 msgstr "Terugkerende Verrichting succesvol toegevoegd"
 
 #: apps/transactions/views/conversions.py:120
-#, fuzzy
-#| msgid "Edit recurring transaction"
 msgid "Convert into recurring transaction"
-msgstr "Bewerk terugkerende verrichtingen"
+msgstr "Omzetten in een terugkerende verrichtingen"
 
 #: apps/transactions/views/conversions.py:137
 #: apps/transactions/views/installment_plans.py:87
@@ -1794,10 +1790,8 @@ msgid "Installment Plan added successfully"
 msgstr "Afbetalingsplan succesvol toegevoegd"
 
 #: apps/transactions/views/conversions.py:156
-#, fuzzy
-#| msgid "Edit installment plan"
 msgid "Convert into installment plan"
-msgstr "Afbetalingsplan bewerken"
+msgstr "Omzetten in een Afbetalingsplan"
 
 #: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
@@ -2513,15 +2507,13 @@ msgid "Hide from summaries"
 msgstr "Verbergen in samenvattingen"
 
 #: templates/cotton/transaction/item.html:212
-#, fuzzy
-#| msgid "Invert"
 msgid "Convert"
-msgstr "Omdraaien"
+msgstr "Omzetten"
 
 #: templates/cotton/transaction/item.html:227
 #: templates/cotton/transaction/item.html:237
 msgid "Already part of a plan or recurrence"
-msgstr ""
+msgstr "Reeds onderdeel van een plan of terugkerende verrichting"
 
 #: templates/cotton/transaction/item.html:258
 msgid "Move to previous month"
@@ -3077,10 +3069,8 @@ msgstr "Valuta omrekenen"
 
 #: templates/includes/sidebar.html:136 templates/mini_tools/simulator.html:5
 #: templates/mini_tools/simulator.html:21
-#, fuzzy
-#| msgid "Calculator"
 msgid "Simulator"
-msgstr "Rekenmachine"
+msgstr "Simulator"
 
 #: templates/includes/sidebar.html:145
 msgid "Management"
@@ -3392,10 +3382,13 @@ msgid ""
 "See how a one-time, recurring or installment expense or income would affect "
 "your projected balance in the coming months."
 msgstr ""
+"Bekijk welk effect een eenmalige, terugkerende of in termijnen te betalen "
+"uitgave of inkomstenpost zou hebben op uw verwachte saldo in de komende "
+"maanden."
 
 #: templates/mini_tools/simulator.html:30
 msgid "You need at least one active account to use the simulator."
-msgstr ""
+msgstr "Je hebt minstens één actief account nodig om de simulator te gebruiken."
 
 #: templates/mini_tools/simulator.html:45
 msgid "Months to simulate"
