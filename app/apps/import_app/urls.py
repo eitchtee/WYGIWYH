@@ -33,6 +33,16 @@ urlpatterns = [
         name="import_profile_edit",
     ),
     path(
+        "import/profiles/<int:profile_id>/take-ownership/",
+        views.import_profile_take_ownership,
+        name="import_profile_take_ownership",
+    ),
+    path(
+        "import/profiles/<int:pk>/share/",
+        views.import_profile_share,
+        name="import_profile_share_settings",
+    ),
+    path(
         "import/profiles/<int:profile_id>/runs/list/",
         views.import_runs_list,
         name="import_profile_runs_list",

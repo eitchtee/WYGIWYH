@@ -39,3 +39,8 @@ class ImportFileSerializer(serializers.Serializer):
         queryset=ImportProfile.objects.all(), source="profile"
     )
     file = serializers.FileField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Reload the queryset to get an updated version with the requesting user
+        self.fields["profile_id"].queryset = ImportProfile.objects.all()

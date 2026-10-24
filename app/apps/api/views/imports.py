@@ -37,6 +37,9 @@ class ImportProfileViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = '__all__'
     ordering = ['name']
 
+    def get_queryset(self):
+        return ImportProfile.objects.all()
+
 
 @extend_schema_view(
     list=extend_schema(
@@ -81,7 +84,7 @@ class ImportRunViewSet(viewsets.ReadOnlyModelViewSet):
     ordering = ['-id']
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = ImportRun.objects.all().order_by("-id")
         profile_id = self.request.query_params.get("profile_id")
         if profile_id:
             queryset = queryset.filter(profile_id=profile_id)
@@ -132,7 +135,9 @@ class ImportViewSet(viewsets.ViewSet):
         file_path = fs.path(filename)
 
         # Create ImportRun record
-        import_run = ImportRun.objects.create(profile=profile, file_name=filename)
+        import_run = ImportRun.objects.create(
+            profile=profile, file_name=filename, owner=request.user
+        )
 
         # Queue import task
         process_import.defer(
