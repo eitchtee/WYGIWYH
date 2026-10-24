@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 14:59+0000\n"
+"POT-Creation-Date: 2026-10-24 16:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -93,7 +93,7 @@ msgid "Tags"
 msgstr ""
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
-#: apps/import_app/models.py:14 apps/rules/models.py:13
+#: apps/import_app/models.py:20 apps/rules/models.py:13
 #: apps/transactions/models.py:238 apps/transactions/models.py:263
 #: apps/transactions/models.py:287 apps/transactions/models.py:1101
 #: apps/users/models.py:572 templates/account_groups/fragments/list.html:22
@@ -202,21 +202,24 @@ msgstr ""
 
 #: apps/accounts/views/account_groups.py:109
 #: apps/accounts/views/accounts.py:137 apps/dca/views.py:106
-#: apps/rules/views.py:191 apps/transactions/views/categories.py:163
+#: apps/import_app/views.py:147 apps/rules/views.py:191
+#: apps/transactions/views/categories.py:163
 #: apps/transactions/views/entities.py:135 apps/transactions/views/tags.py:131
 msgid "Item no longer shared with you"
 msgstr ""
 
 #: apps/accounts/views/account_groups.py:132
 #: apps/accounts/views/accounts.py:182 apps/dca/views.py:131
-#: apps/rules/views.py:217 apps/transactions/views/categories.py:188
+#: apps/import_app/views.py:273 apps/rules/views.py:217
+#: apps/transactions/views/categories.py:188
 #: apps/transactions/views/entities.py:160 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
 msgstr ""
 
 #: apps/accounts/views/account_groups.py:152
 #: apps/accounts/views/accounts.py:106 apps/dca/views.py:151
-#: apps/rules/views.py:238 apps/transactions/views/categories.py:130
+#: apps/import_app/views.py:294 apps/rules/views.py:238
+#: apps/transactions/views/categories.py:130
 #: apps/transactions/views/entities.py:180 apps/transactions/views/tags.py:174
 msgid "Configuration saved successfully"
 msgstr ""
@@ -924,72 +927,72 @@ msgid "Select a file"
 msgstr ""
 
 #: apps/import_app/forms.py:55
-#: templates/import_app/fragments/profiles/list.html:57
+#: templates/import_app/fragments/profiles/list.html:75
 #: templates/includes/sidebar.html:204
 msgid "Import"
 msgstr ""
 
-#: apps/import_app/models.py:15
+#: apps/import_app/models.py:21
 msgid "YAML Configuration"
 msgstr ""
 
-#: apps/import_app/models.py:19
+#: apps/import_app/models.py:25
 #: templates/import_app/fragments/profiles/list.html:35
 msgid "Version"
 msgstr ""
 
-#: apps/import_app/models.py:30
+#: apps/import_app/models.py:39
 #, python-brace-format
 msgid "Version {number}"
 msgstr ""
 
-#: apps/import_app/models.py:39
+#: apps/import_app/models.py:48
 msgid "Invalid YAML Configuration: "
 msgstr ""
 
-#: apps/import_app/models.py:45
+#: apps/import_app/models.py:54
 msgid "Queued"
 msgstr ""
 
-#: apps/import_app/models.py:46
+#: apps/import_app/models.py:55
 msgid "Processing"
 msgstr ""
 
-#: apps/import_app/models.py:47
+#: apps/import_app/models.py:56
 msgid "Failed"
 msgstr ""
 
-#: apps/import_app/models.py:48
+#: apps/import_app/models.py:57
 #: templates/installment_plans/fragments/list.html:19
 #: templates/recurring_transactions/fragments/list.html:20
 msgid "Finished"
 msgstr ""
 
-#: apps/import_app/models.py:54
+#: apps/import_app/models.py:63
 msgid "Status"
 msgstr ""
 
-#: apps/import_app/models.py:62
+#: apps/import_app/models.py:71
 msgid "File name"
 msgstr ""
 
-#: apps/import_app/views.py:67
+#: apps/import_app/views.py:75
 msgid "Import Profile added successfully"
 msgstr ""
 
-#: apps/import_app/views.py:103
+#: apps/import_app/views.py:113
 msgid "Import Profile update successfully"
 msgstr ""
 
-#: apps/import_app/views.py:130
+#: apps/import_app/views.py:142
 msgid "Import Profile deleted successfully"
 msgstr ""
 
-#: apps/import_app/views.py:195
+#: apps/import_app/views.py:222
 msgid "Import Run queued successfully"
 msgstr ""
 
-#: apps/import_app/views.py:222
+#: apps/import_app/views.py:249
 msgid "Run deleted successfully"
 msgstr ""
 
@@ -2179,7 +2182,7 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:22
 #: templates/exchange_rates_services/fragments/list.html:41
 #: templates/exchange_rates_services/fragments/table.html:23
-#: templates/import_app/fragments/profiles/list.html:45
+#: templates/import_app/fragments/profiles/list.html:46
 #: templates/installment_plans/fragments/table.html:28
 #: templates/quick_transactions/fragments/list.html:25
 #: templates/recurring_transactions/fragments/table.html:30
@@ -2196,6 +2199,7 @@ msgstr ""
 #: templates/categories/fragments/table.html:36
 #: templates/dca/fragments/strategy/list.html:51
 #: templates/entities/fragments/table.html:35
+#: templates/import_app/fragments/profiles/list.html:54
 #: templates/rules/fragments/list.html:41
 #: templates/tags/fragments/table.html:35
 msgid "Take ownership"
@@ -2206,6 +2210,7 @@ msgstr ""
 #: templates/categories/fragments/table.html:45
 #: templates/dca/fragments/strategy/list.html:59
 #: templates/entities/fragments/table.html:44
+#: templates/import_app/fragments/profiles/list.html:63
 #: templates/rules/fragments/list.html:50
 #: templates/tags/fragments/table.html:44
 msgid "Share"
@@ -2225,7 +2230,7 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:29
 #: templates/exchange_rates_services/fragments/list.html:47
 #: templates/exchange_rates_services/fragments/table.html:30
-#: templates/import_app/fragments/profiles/list.html:63
+#: templates/import_app/fragments/profiles/list.html:81
 #: templates/import_app/fragments/runs/list.html:100
 #: templates/installment_plans/fragments/table.html:54
 #: templates/mini_tools/simulator.html:109
@@ -2257,7 +2262,7 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:34
 #: templates/exchange_rates_services/fragments/list.html:51
 #: templates/exchange_rates_services/fragments/table.html:35
-#: templates/import_app/fragments/profiles/list.html:67
+#: templates/import_app/fragments/profiles/list.html:85
 #: templates/import_app/fragments/runs/list.html:104
 #: templates/installment_plans/fragments/table.html:47
 #: templates/installment_plans/fragments/table.html:58
@@ -2287,7 +2292,7 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:35
 #: templates/exchange_rates_services/fragments/list.html:52
 #: templates/exchange_rates_services/fragments/table.html:36
-#: templates/import_app/fragments/profiles/list.html:68
+#: templates/import_app/fragments/profiles/list.html:86
 #: templates/rules/fragments/list.html:61
 #: templates/rules/fragments/transaction_rule/view.html:64
 #: templates/rules/fragments/transaction_rule/view.html:97
@@ -2307,7 +2312,7 @@ msgstr ""
 #: templates/exchange_rates/fragments/table.html:36
 #: templates/exchange_rates_services/fragments/list.html:53
 #: templates/exchange_rates_services/fragments/table.html:37
-#: templates/import_app/fragments/profiles/list.html:69
+#: templates/import_app/fragments/profiles/list.html:87
 #: templates/import_app/fragments/runs/list.html:106
 #: templates/installment_plans/fragments/table.html:60
 #: templates/quick_transactions/fragments/list.html:39
@@ -2330,6 +2335,7 @@ msgstr ""
 #: templates/categories/fragments/share.html:5
 #: templates/dca/fragments/strategy/share.html:5
 #: templates/entities/fragments/share.html:5
+#: templates/import_app/fragments/profiles/share.html:5
 #: templates/rules/fragments/share.html:5 templates/tags/fragments/share.html:5
 msgid "Share settings"
 msgstr ""
@@ -2858,11 +2864,11 @@ msgstr ""
 msgid "From preset"
 msgstr ""
 
-#: templates/import_app/fragments/profiles/list.html:51
+#: templates/import_app/fragments/profiles/list.html:69
 msgid "Runs"
 msgstr ""
 
-#: templates/import_app/fragments/profiles/list.html:80
+#: templates/import_app/fragments/profiles/list.html:98
 msgid "No import profiles"
 msgstr ""
 
