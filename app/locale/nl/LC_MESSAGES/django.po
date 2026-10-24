@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 05:47+0000\n"
+"POT-Creation-Date: 2026-10-24 14:59+0000\n"
 "PO-Revision-Date: 2026-10-14 04:57+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -1104,6 +1104,11 @@ msgstr "Geen bedrijf"
 #: apps/insights/views.py:60 templates/entities/fragments/table.html:69
 msgid "No entities"
 msgstr "Geen bedrijven"
+
+#: apps/net_worth/views.py:137 templates/net_worth/net_worth.html:84
+#: templates/net_worth/net_worth.html:85
+msgid "Consolidated"
+msgstr "Samengevoegd"
 
 #: apps/rules/forms.py:27
 msgid "Run on creation"
@@ -3388,7 +3393,8 @@ msgstr ""
 
 #: templates/mini_tools/simulator.html:30
 msgid "You need at least one active account to use the simulator."
-msgstr "Je hebt minstens één actief account nodig om de simulator te gebruiken."
+msgstr ""
+"Je hebt minstens één actief account nodig om de simulator te gebruiken."
 
 #: templates/mini_tools/simulator.html:45
 msgid "Months to simulate"
@@ -3582,10 +3588,6 @@ msgstr "Sorteer op"
 #: templates/yearly_overview/pages/overview_by_currency.html:6
 msgid "By currency"
 msgstr "Op munteenheid"
-
-#: templates/net_worth/net_worth.html:84 templates/net_worth/net_worth.html:85
-msgid "Consolidated"
-msgstr "Samengevoegd"
 
 #: templates/net_worth/net_worth.html:135
 msgid "Evolution"
