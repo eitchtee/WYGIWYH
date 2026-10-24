@@ -1,0 +1,79 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Cancel superseded runs on the same PR/branch
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  django-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      db:
+        image: postgres:15
+        env:
+          POSTGRES_USER: wygiwyh
+          POSTGRES_PASSWORD: wygiwyh
+          POSTGRES_DB: wygiwyh
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U wygiwyh"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      SECRET_KEY: ci-only-not-secret
+      SQL_DATABASE: wygiwyh
+      SQL_USER: wygiwyh
+      SQL_PASSWORD: wygiwyh
+      SQL_HOST: localhost
+      SQL_PORT: 5432
+      # Emit dev-server script tags instead of reading the Vite manifest,
+      # so the frontend doesn't need to be built to render templates
+      DJANGO_VITE_DEV_MODE: "true"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python 3.14
+        run: uv python install 3.14
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      # Import code reads/writes the Docker image's paths directly
+      - name: Create container paths used by the app
+        run: |
+          sudo mkdir -p /usr/src/app/temp /usr/src/app/import_presets
+          sudo chown -R "$(id -u):$(id -g)" /usr/src/app
+
+      - name: Check for missing migrations
+        working-directory: app
+        run: uv run python manage.py makemigrations --check --dry-run
+
+      - name: Run tests
+        working-directory: app
+        env:
+          # Some tests point STATIC_ROOT at the temp dir; the runner's /tmp
+          # holds root-only systemd dirs that WhiteNoise can't scan
+          TMPDIR: ${{ runner.temp }}
+        run: uv run python manage.py test --parallel auto --noinput
