@@ -105,7 +105,6 @@ class OIDCEmailAutoConnectTests(TestCase):
         from allauth.core import context
         from allauth.socialaccount.adapter import get_adapter
         from allauth.socialaccount.helpers import complete_social_login
-        from allauth.socialaccount.models import SocialLogin
         from django.contrib.messages.middleware import MessageMiddleware
         from django.contrib.sessions.middleware import SessionMiddleware
         from django.contrib.auth.models import AnonymousUser
@@ -118,7 +117,7 @@ class OIDCEmailAutoConnectTests(TestCase):
 
         provider = get_adapter().get_provider(request, "test-oidc")
         sociallogin = provider.sociallogin_from_response(request, claims)
-        sociallogin.state = SocialLogin.state_from_request(request)
+        sociallogin.state = {"process": "login"}
         with context.request_context(request):
             complete_social_login(request, sociallogin)
         return request
