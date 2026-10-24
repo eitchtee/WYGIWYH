@@ -60,10 +60,20 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
+      # Import code reads/writes the Docker image's paths directly
+      - name: Create container paths used by the app
+        run: |
+          sudo mkdir -p /usr/src/app/temp /usr/src/app/import_presets
+          sudo chown -R "$(id -u):$(id -g)" /usr/src/app
+
       - name: Check for missing migrations
         working-directory: app
         run: uv run python manage.py makemigrations --check --dry-run
 
       - name: Run tests
         working-directory: app
+        env:
+          # Some tests point STATIC_ROOT at the temp dir; the runner's /tmp
+          # holds root-only systemd dirs that WhiteNoise can't scan
+          TMPDIR: ${{ runner.temp }}
         run: uv run python manage.py test --parallel auto --noinput

@@ -193,6 +193,7 @@ class TransactionAttachmentTests(TestCase):
             TransactionAttachment.objects.filter(id=attachment.id).exists()
         )
 
+    @override_settings(ENABLE_SOFT_DELETE=True)
     def test_hard_deleting_transaction_deletes_attachment_files(self):
         attachment = TransactionAttachment.objects.create(
             transaction=self.transaction,
