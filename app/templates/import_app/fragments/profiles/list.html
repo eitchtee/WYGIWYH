@@ -40,12 +40,30 @@
             <tr class="profile">
               <td class="table-col-auto">
                 <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                  {% if not profile.owner or user == profile.owner %}
                   <a class="btn btn-secondary btn-sm join-item"
                      role="button"
                      data-tippy-content="{% translate "Edit" %}"
                      hx-get="{% url 'import_profile_edit' profile_id=profile.id %}"
                      hx-target="#generic-offcanvas">
                     <i class="fa-solid fa-pencil fa-fw"></i></a>
+                  {% endif %}
+                  {% if not profile.owner %}
+                  <a class="btn btn-secondary btn-sm join-item"
+                     role="button"
+                     data-tippy-content="{% translate "Take ownership" %}"
+                     hx-get="{% url 'import_profile_take_ownership' profile_id=profile.id %}">
+                    <i class="fa-solid fa-crown fa-fw"></i></a>
+                  {% endif %}
+                  {% if user == profile.owner %}
+                  <a class="btn btn-secondary btn-sm join-item"
+                     role="button"
+                     hx-target="#generic-offcanvas"
+                     hx-swap="innerHTML"
+                     data-tippy-content="{% translate "Share" %}"
+                     hx-get="{% url 'import_profile_share_settings' pk=profile.id %}">
+                    <i class="fa-solid fa-share fa-fw"></i></a>
+                  {% endif %}
                   <a class="btn btn-secondary btn-sm join-item"
                      role="button"
                      data-tippy-content="{% translate "Runs" %}"

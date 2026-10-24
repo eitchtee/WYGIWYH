@@ -4,20 +4,29 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.common.models import (
+    OwnedObject,
+    OwnedObjectManager,
+    SharedObject,
+    SharedObjectManager,
+)
 from apps.import_app.schemas import version_1
 
 
-class ImportProfile(models.Model):
+class ImportProfile(SharedObject):
     class Versions(models.IntegerChoices):
         VERSION_1 = 1, "Version 1"
 
-    name = models.CharField(max_length=100, verbose_name=_("Name"), unique=True)
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
     yaml_config = models.TextField(verbose_name=_("YAML Configuration"))
     version = models.IntegerField(
         choices=Versions,
         default=Versions.VERSION_1,
         verbose_name=_("Version"),
     )
+
+    objects = SharedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
 
     def __str__(self):
         return self.name
@@ -40,7 +49,7 @@ class ImportProfile(models.Model):
                 )
 
 
-class ImportRun(models.Model):
+class ImportRun(OwnedObject):
     class Status(models.TextChoices):
         QUEUED = "QUEUED", _("Queued")
         PROCESSING = "PROCESSING", _("Processing")
@@ -85,3 +94,6 @@ class ImportRun(models.Model):
     failed_rows = models.IntegerField(default=0)
     started_at = models.DateTimeField(null=True)
     finished_at = models.DateTimeField(null=True)
+
+    objects = OwnedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
