@@ -338,7 +338,7 @@ def check_for_transaction_rules(
             transaction.is_paid = simple.eval(processed_action.set_is_paid)
 
         if processed_action.set_mute:
-            transaction.is_paid = simple.eval(processed_action.set_mute)
+            transaction.mute = simple.eval(processed_action.set_mute)
 
         if processed_action.set_date:
             transaction.date = simple.eval(processed_action.set_date)

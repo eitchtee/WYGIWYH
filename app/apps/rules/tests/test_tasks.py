@@ -80,3 +80,45 @@ class CheckForTransactionRulesTests(TransactionTestCase):
             description="Generated transaction"
         )
         self.assertIsNone(generated_transaction.category)
+
+    @patch("apps.rules.signals.check_for_transaction_rules.defer")
+    def test_update_or_create_action_set_mute_sets_mute_not_is_paid(self, mock_defer):
+        source_transaction = Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            amount=Decimal("10.00"),
+            date=date(2026, 5, 4),
+            reference_date=date(2026, 5, 1),
+            description="Unpaid source",
+            is_paid=False,
+            owner=self.user,
+        )
+        rule = TransactionRule.objects.create(
+            active=True,
+            on_create=False,
+            on_update=True,
+            name="Create muted copy",
+            trigger="True",
+            owner=self.user,
+        )
+        UpdateOrCreateTransactionRuleAction.objects.create(
+            rule=rule,
+            set_account="account_id",
+            set_type="'EX'",
+            set_date="date",
+            set_reference_date="reference_date",
+            set_amount="amount",
+            set_description="'Muted copy'",
+            set_is_paid="is_paid",
+            set_mute="True",
+        )
+
+        run_check_for_transaction_rules_without_worker_wrapper(
+            instance_id=source_transaction.id,
+            user_id=self.user.id,
+            signal="transaction_updated",
+        )
+
+        generated_transaction = Transaction.objects.get(description="Muted copy")
+        self.assertTrue(generated_transaction.mute)
+        self.assertFalse(generated_transaction.is_paid)
