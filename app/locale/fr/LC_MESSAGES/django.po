@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-24 16:57+0000\n"
-"PO-Revision-Date: 2026-08-23 16:57+0000\n"
-"Last-Translator: renardspark <remibonnard@laposte.net>\n"
+"PO-Revision-Date: 2026-10-25 12:58+0000\n"
+"Last-Translator: sorcierwax <freakywax@gmail.com>\n"
 "Language-Team: French <https://translations.herculino.com/projects/wygiwyh/"
 "app/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #: apps/accounts/forms.py:24
 msgid "Group name"
@@ -1783,10 +1783,8 @@ msgid "Item added successfully"
 msgstr "Item ajouté avec succès"
 
 #: apps/transactions/views/conversions.py:82
-#, fuzzy
-#| msgid "Edit quick transaction"
 msgid "Convert into quick transaction"
-msgstr "Modifier la transaction rapide"
+msgstr "Transformer en transaction rapide"
 
 #: apps/transactions/views/conversions.py:99
 #: apps/transactions/views/recurring_transactions.py:112
@@ -1794,10 +1792,8 @@ msgid "Recurring Transaction added successfully"
 msgstr "Transaction récurrente ajoutée avec succès"
 
 #: apps/transactions/views/conversions.py:120
-#, fuzzy
-#| msgid "Edit recurring transaction"
 msgid "Convert into recurring transaction"
-msgstr "Modifier la transaction récurrente"
+msgstr "Transformer en transaction récurrente"
 
 #: apps/transactions/views/conversions.py:137
 #: apps/transactions/views/installment_plans.py:87
@@ -1805,10 +1801,8 @@ msgid "Installment Plan added successfully"
 msgstr "Paiement en plusieurs fois ajouté avec succès"
 
 #: apps/transactions/views/conversions.py:156
-#, fuzzy
-#| msgid "Edit installment plan"
 msgid "Convert into installment plan"
-msgstr "Modifier le paiement en plusieurs fois"
+msgstr "Transformer en paiement en plusieurs fois"
 
 #: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
@@ -1986,7 +1980,7 @@ msgstr "Volume"
 
 #: apps/users/forms.py:140
 msgid "Set to 0 to mute all sounds"
-msgstr ""
+msgstr "Définir à 0 pour mettre tous les sons en sourdine"
 
 #: apps/users/forms.py:194
 #, python-format
@@ -2146,13 +2140,10 @@ msgid "Token hash"
 msgstr "Hash du jeton"
 
 #: apps/users/models.py:583
-#, fuzzy
-#| msgid "Last Generated Date"
 msgid "Last used at"
 msgstr "Dernière utilisation le"
 
 #: apps/users/models.py:588
-#, fuzzy
 msgid "Expires at"
 msgstr "Expire le"
 
@@ -2538,15 +2529,15 @@ msgid "Hide from summaries"
 msgstr "Masquer sur le résumé"
 
 #: templates/cotton/transaction/item.html:212
-#, fuzzy
-#| msgid "Invert"
 msgid "Convert"
-msgstr "Inverser"
+msgstr "Convertir"
 
 #: templates/cotton/transaction/item.html:227
 #: templates/cotton/transaction/item.html:237
 msgid "Already part of a plan or recurrence"
 msgstr ""
+"Fait déjà partie d'un paiement en plusieurs fois ou d'une transaction "
+"récurrente"
 
 #: templates/cotton/transaction/item.html:258
 msgid "Move to previous month"
@@ -3105,10 +3096,8 @@ msgstr "Convertisseur de devises"
 
 #: templates/includes/sidebar.html:136 templates/mini_tools/simulator.html:5
 #: templates/mini_tools/simulator.html:21
-#, fuzzy
-#| msgid "Calculator"
 msgid "Simulator"
-msgstr "Calculatrice"
+msgstr "Simulateur"
 
 #: templates/includes/sidebar.html:145
 msgid "Management"
@@ -3269,22 +3258,20 @@ msgstr "Barres"
 
 #: templates/insights/fragments/overview/index.html:41
 msgid "At least one level has to stay on"
-msgstr ""
+msgstr "Au moins un niveau doit rester actif"
 
 #: templates/insights/fragments/overview/index.html:49
 msgid "Drag to reorder, or use the left and right arrow keys"
 msgstr ""
+"Cliquer-glisser pour réarranger, ou utiliser les touches flèches droite et "
+"gauche"
 
 #: templates/insights/fragments/overview/index.html:63
-#, fuzzy
-#| msgid ""
-#| "Transaction amounts associated with multiple tags and entities will be "
-#| "counted once for each tag"
 msgid ""
 "Transaction amounts associated with multiple tags or entities will be "
 "counted once for each one of them"
 msgstr ""
-"Les montants de transaction qui comprennent plusieurs étiquettes et entités "
+"Les montants de transaction qui comprennent plusieurs étiquettes ou entités "
 "ne seront comptabilisées qu'une fois par étiquette"
 
 #: templates/insights/fragments/overview/index.html:72
@@ -3343,8 +3330,6 @@ msgid "Category Explorer"
 msgstr "Balance par catégorie"
 
 #: templates/insights/pages/index.html:94
-#, fuzzy
-#| msgid "Overview"
 msgid "Overview"
 msgstr "Aperçu"
 
@@ -3425,112 +3410,98 @@ msgid ""
 "See how a one-time, recurring or installment expense or income would affect "
 "your projected balance in the coming months."
 msgstr ""
+"Visualiser comment un paiement unique, récurrent ou en plusieurs fois, ou "
+"bien un revenu va impacter votre solde prévisionnel des mois à venir."
 
 #: templates/mini_tools/simulator.html:30
 msgid "You need at least one active account to use the simulator."
-msgstr ""
+msgstr "Vous devez avoir au moins un compte actif pour utiliser le simulateur."
 
 #: templates/mini_tools/simulator.html:45
 msgid "Months to simulate"
-msgstr ""
+msgstr "Mois à simuler"
 
 #: templates/mini_tools/simulator.html:78
-#, fuzzy
-#| msgid "Sequenced"
 msgid "Frequency"
-msgstr "Classé"
+msgstr "Fréquence"
 
 #: templates/mini_tools/simulator.html:97
 msgid "One time"
-msgstr ""
+msgstr "Unique"
 
 #: templates/mini_tools/simulator.html:103
 msgid "Starting month"
-msgstr ""
+msgstr "Mois de début"
 
 #: templates/mini_tools/simulator.html:122
 msgid "Repeat every"
-msgstr ""
+msgstr "Répéter tous les"
 
 #: templates/mini_tools/simulator.html:127
 msgid "Period"
-msgstr ""
+msgstr "Période"
 
 #: templates/mini_tools/simulator.html:136
-#, fuzzy
-#| msgid "currencies"
 msgid "Occurrences"
-msgstr "devises"
+msgstr "Évènements"
 
 #: templates/mini_tools/simulator.html:139
-#, fuzzy
-#| msgid "Leave empty for a non-expiring token."
 msgid "Leave empty to repeat indefinitely"
-msgstr "Laisser vide pour un jeton sans expiration."
+msgstr "Laisser vide pour répétition sans fin"
 
 #: templates/mini_tools/simulator.html:142
-#, fuzzy
-#| msgid "Number of Installments"
 msgid "Number of installments"
-msgstr "Nombre d'écheances"
+msgstr "Nombre d’échéances"
 
 #: templates/mini_tools/simulator.html:145
 msgid "The amount is split evenly between the installments"
-msgstr ""
+msgstr "Le montant est divisé également sur chaque échéances"
 
 #: templates/mini_tools/simulator.html:149
 msgid "Daily and weekly entries start on the first day of the starting month."
 msgstr ""
+"Les saisies quotidiennes et hebdomadaires commencent le premier jour du mois "
+"de début."
 
 #: templates/mini_tools/simulator.html:194
 msgid "Final balance without simulation"
-msgstr ""
+msgstr "Solde final sans simulation"
 
 #: templates/mini_tools/simulator.html:200
 msgid "Final balance with simulation"
-msgstr ""
+msgstr "Solde final avec simulation"
 
 #: templates/mini_tools/simulator.html:206
-#, fuzzy
-#| msgid "Total Items"
 msgid "Total impact"
-msgstr "Eléments totaux"
+msgstr "Impact global"
 
 #: templates/mini_tools/simulator.html:212
 msgid "Lowest balance with simulation"
-msgstr ""
+msgstr "Solde le plus bas avec simulation"
 
 #: templates/mini_tools/simulator.html:223
 msgid "Without simulation"
-msgstr ""
+msgstr "Sans simulation"
 
 #: templates/mini_tools/simulator.html:224
 msgid "With simulation"
-msgstr ""
+msgstr "Avec simulation"
 
 #: templates/mini_tools/simulator.html:235
-#, fuzzy
-#| msgid "Projected Income"
 msgid "Projected change"
-msgstr "Revenus prévisionnels"
+msgstr "Devises prévisionnels"
 
 #: templates/mini_tools/simulator.html:236
-#, fuzzy
-#| msgid "Date Range"
 msgid "Simulated change"
-msgstr "Plage de dates"
+msgstr "Devises simulées"
 
 #: templates/mini_tools/simulator.html:237
-#, fuzzy
-#| msgid "Balance reconciliation"
 msgid "Balance without simulation"
-msgstr "Rapprochement des soldes"
+msgstr "Solde sans simulation"
 
 #: templates/mini_tools/simulator.html:238
-#, fuzzy
-#| msgid "Balance reconciliation"
 msgid "Balance with simulation"
-msgstr "Rapprochement des soldes"
+msgstr "Solde avec simulation"
 
 #: templates/mini_tools/simulator.html:246
 msgid ""
@@ -3539,6 +3510,10 @@ msgid ""
 "transactions, and archived and untracked accounts are ignored. Converted "
 "amounts use the latest exchange rate."
 msgstr ""
+"La simulation commence au premier mois de début de vos saisies, ou au mois "
+"en cours s’il n’y en a pas. Les soldes incluent les transactions payées et "
+"non payées, et les comptes archivés ou non suivis sont ignorés. Les montants "
+"convertis utilisent le dernier taux de change en vigueur."
 
 #: templates/mini_tools/unit_price_calculator.html:25
 #: templates/mini_tools/unit_price_calculator.html:102
@@ -3743,8 +3718,6 @@ msgid "Activate"
 msgstr "Activer"
 
 #: templates/rules/fragments/list.html:77
-#, fuzzy
-#| msgid "Only the owner can edit this"
 msgid "Only the owner can change this"
 msgstr "Seul le propriétaire peut modifier ceci"
 
@@ -3892,34 +3865,25 @@ msgid "transactions"
 msgstr "transactions"
 
 #: templates/transactions/fragments/filter_actions.html:2
-#, fuzzy
 msgid "Save filter preset"
 msgstr "Enregistrer les filtres comme modèle"
 
 #: templates/transactions/fragments/filter_actions.html:3
-#, fuzzy
-#| msgid "File name"
 msgid "Preset name"
 msgstr "Nom du modèle"
 
 #: templates/transactions/fragments/filter_actions.html:40
-#, fuzzy
-#| msgid "From preset"
 msgid "Save preset"
-msgstr "Enregistrer comme modèle"
+msgstr "Enregistrer le modèle"
 
 #: templates/transactions/fragments/filter_active_indicator.html:6
 #: templates/transactions/fragments/filter_active_indicator.html:7
-#, fuzzy
-#| msgid "Select a file"
 msgid "Clear filters"
-msgstr "Sélectionnez un fichier"
+msgstr "Réinitialiser les filtres"
 
 #: templates/transactions/fragments/filter_presets.html:6
-#, fuzzy
-#| msgid "From preset"
 msgid "Filter presets"
-msgstr "à partir d'un préréglage"
+msgstr "Modèles de filtres"
 
 #: templates/transactions/fragments/filter_presets.html:21
 #, python-format
@@ -3927,18 +3891,15 @@ msgid "Delete %(name)s"
 msgstr "Supprimer %(name)s"
 
 #: templates/transactions/fragments/filter_presets.html:26
-#, fuzzy
 msgid "Delete filter preset?"
 msgstr "Supprimer ce modèle de filtres ?"
 
 #: templates/transactions/fragments/filter_presets.html:27
-#, fuzzy, python-format
+#, python-format
 msgid "Delete “%(name)s”?"
 msgstr "Supprimer \"%(name)s\" ?"
 
 #: templates/transactions/fragments/filter_presets.html:34
-#, fuzzy
-#| msgid "No presets yet"
 msgid "No saved presets"
 msgstr "Aucun modèle de filtres enregistré"
 
