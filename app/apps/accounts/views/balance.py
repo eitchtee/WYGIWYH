@@ -6,10 +6,9 @@ from django.db import models
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from apps.accounts.forms import AccountBalanceFormSet
+from apps.accounts.forms import AccountBalanceFormSet, ReconciliationCutoffForm
 from apps.accounts.models import Account, Transaction
 from apps.accounts.services import get_account_balance
 from apps.common.decorators.htmx import only_htmx
@@ -18,6 +17,11 @@ from apps.common.decorators.htmx import only_htmx
 @only_htmx
 @login_required
 def account_reconciliation(request):
+    cutoff = ReconciliationCutoffForm(
+        request.POST if request.method == "POST" else request.GET or None
+    )
+    balance_filters = cutoff.balance_filters()
+
     initial_data = [
         {
             "account_id": account.id,
@@ -26,7 +30,7 @@ def account_reconciliation(request):
             "decimal_places": account.currency.decimal_places,
             "suffix": account.currency.suffix,
             "prefix": account.currency.prefix,
-            "current_balance": get_account_balance(account),
+            "current_balance": get_account_balance(account, **balance_filters),
         }
         for account in Account.objects.filter(is_archived=False)
         .select_related("currency", "group")
@@ -35,7 +39,8 @@ def account_reconciliation(request):
 
     if request.method == "POST":
         formset = AccountBalanceFormSet(request.POST, initial=initial_data)
-        if formset.is_valid():
+        if formset.is_valid() and cutoff.is_valid():
+            adjustment_date, adjustment_reference_date = cutoff.adjustment_dates()
             with transaction.atomic():
                 for form in formset:
                     if form.is_valid():
@@ -48,7 +53,9 @@ def account_reconciliation(request):
                         if new_balance is None:
                             continue
 
-                        current_balance = get_account_balance(account)
+                        current_balance = get_account_balance(
+                            account, **balance_filters
+                        )
                         difference = new_balance - current_balance
 
                         if difference != 0:
@@ -60,10 +67,8 @@ def account_reconciliation(request):
                                     else Transaction.Type.EXPENSE
                                 ),
                                 amount=abs(difference),
-                                date=timezone.localdate(timezone.now()),
-                                reference_date=timezone.localdate(
-                                    timezone.now()
-                                ).replace(day=1),
+                                date=adjustment_date,
+                                reference_date=adjustment_reference_date,
                                 description=_("Balance reconciliation"),
                                 is_paid=True,
                                 category=category,
@@ -82,5 +87,7 @@ def account_reconciliation(request):
         formset = AccountBalanceFormSet(initial=initial_data)
 
     return render(
-        request, "accounts/fragments/account_reconciliation.html", {"form": formset}
+        request,
+        "accounts/fragments/account_reconciliation.html",
+        {"form": formset, "cutoff": cutoff},
     )
