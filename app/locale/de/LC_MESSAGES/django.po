@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 16:57+0000\n"
+"POT-Creation-Date: 2026-10-31 21:00+0000\n"
 "PO-Revision-Date: 2026-08-10 12:57+0000\n"
 "Last-Translator: GitEbu <ebu@buol.ch>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.8\n"
 
-#: apps/accounts/forms.py:24
+#: apps/accounts/forms.py:28
 msgid "Group name"
 msgstr "Gruppe Name"
 
-#: apps/accounts/forms.py:39 apps/accounts/forms.py:105
+#: apps/accounts/forms.py:43 apps/accounts/forms.py:109
 #: apps/currencies/forms.py:53 apps/currencies/forms.py:87
 #: apps/currencies/forms.py:136 apps/dca/forms.py:46 apps/dca/forms.py:205
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
@@ -38,7 +38,7 @@ msgstr "Gruppe Name"
 msgid "Update"
 msgstr "Aktualisierung"
 
-#: apps/accounts/forms.py:45 apps/accounts/forms.py:111
+#: apps/accounts/forms.py:49 apps/accounts/forms.py:115
 #: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:59
 #: apps/currencies/forms.py:93 apps/currencies/forms.py:142
 #: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
@@ -53,15 +53,15 @@ msgstr "Aktualisierung"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: apps/accounts/forms.py:53 templates/accounts/fragments/list.html:23
+#: apps/accounts/forms.py:57 templates/accounts/fragments/list.html:23
 msgid "Group"
 msgstr "Gruppe"
 
-#: apps/accounts/forms.py:119
+#: apps/accounts/forms.py:123
 msgid "New balance"
 msgstr "Neuer Saldo"
 
-#: apps/accounts/forms.py:125 apps/dca/forms.py:79 apps/dca/forms.py:86
+#: apps/accounts/forms.py:129 apps/dca/forms.py:79 apps/dca/forms.py:86
 #: apps/insights/forms.py:117 apps/insights/views.py:44 apps/rules/forms.py:181
 #: apps/rules/forms.py:197 apps/rules/models.py:44 apps/rules/models.py:311
 #: apps/transactions/forms.py:61 apps/transactions/forms.py:307
@@ -75,7 +75,7 @@ msgstr "Neuer Saldo"
 msgid "Category"
 msgstr "Kategorie"
 
-#: apps/accounts/forms.py:132 apps/dca/forms.py:95 apps/dca/forms.py:103
+#: apps/accounts/forms.py:136 apps/dca/forms.py:95 apps/dca/forms.py:103
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:132
 #: apps/insights/views.py:50 apps/rules/forms.py:184 apps/rules/forms.py:194
 #: apps/rules/models.py:45 apps/rules/models.py:315
@@ -93,6 +93,45 @@ msgstr "Kategorie"
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
 msgid "Tags"
 msgstr "Tags"
+
+#: apps/accounts/forms.py:179
+#, fuzzy
+#| msgid "All Transactions"
+msgid "All paid transactions"
+msgstr "Alle Transaktionen"
+
+#: apps/accounts/forms.py:180
+#, fuzzy
+#| msgid "Update"
+msgid "Up to date"
+msgstr "Aktualisierung"
+
+#: apps/accounts/forms.py:181
+msgid "Up to reference month"
+msgstr ""
+
+#: apps/accounts/forms.py:185
+#, fuzzy
+#| msgid "Balance"
+msgid "Balance against"
+msgstr "Saldo"
+
+#: apps/accounts/forms.py:189 apps/currencies/forms.py:66
+#: apps/dca/models.py:158 apps/rules/forms.py:176 apps/rules/forms.py:190
+#: apps/rules/models.py:38 apps/rules/models.py:279
+#: apps/transactions/forms.py:85 apps/transactions/forms.py:447
+#: apps/transactions/forms.py:600 apps/transactions/models.py:328
+#: templates/dca/fragments/strategy/details.html:49
+#: templates/exchange_rates/fragments/table.html:10
+#: templates/exchange_rates_services/fragments/table.html:11
+msgid "Date"
+msgstr "Datum"
+
+#: apps/accounts/forms.py:194
+#, fuzzy
+#| msgid "Reference Date"
+msgid "Reference month"
+msgstr "Referenzdatum"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:20 apps/rules/models.py:13
@@ -251,11 +290,11 @@ msgstr "Konto wird verfolgt"
 msgid "Account is now untracked"
 msgstr "Konto wird nicht mehr gefolgt"
 
-#: apps/accounts/views/balance.py:67
+#: apps/accounts/views/balance.py:72
 msgid "Balance reconciliation"
 msgstr "Saldenaktualisierung"
 
-#: apps/accounts/views/balance.py:75
+#: apps/accounts/views/balance.py:80
 msgid "Account balances have been reconciled successfully"
 msgstr "Kontostände wurden erfolgreich aktualisiert"
 
@@ -480,16 +519,6 @@ msgstr "Präfix"
 #: apps/currencies/forms.py:17 apps/currencies/models.py:23
 msgid "Suffix"
 msgstr "Suffix"
-
-#: apps/currencies/forms.py:66 apps/dca/models.py:158 apps/rules/forms.py:176
-#: apps/rules/forms.py:190 apps/rules/models.py:38 apps/rules/models.py:279
-#: apps/transactions/forms.py:85 apps/transactions/forms.py:447
-#: apps/transactions/forms.py:600 apps/transactions/models.py:328
-#: templates/dca/fragments/strategy/details.html:49
-#: templates/exchange_rates/fragments/table.html:10
-#: templates/exchange_rates_services/fragments/table.html:11
-msgid "Date"
-msgstr "Datum"
 
 #: apps/currencies/models.py:14
 msgid "Currency Code"
@@ -2445,17 +2474,17 @@ msgstr "Einstellungen teilen"
 msgid "Account Reconciliation"
 msgstr "Kontostände anpassen"
 
-#: templates/accounts/fragments/account_reconciliation.html:20
+#: templates/accounts/fragments/account_reconciliation.html:63
 msgid "Current balance"
 msgstr "Aktueller Saldo"
 
-#: templates/accounts/fragments/account_reconciliation.html:36
+#: templates/accounts/fragments/account_reconciliation.html:79
 #: templates/net_worth/net_worth.html:147
 #: templates/net_worth/net_worth.html:407
 msgid "Difference"
 msgstr "Differenz"
 
-#: templates/accounts/fragments/account_reconciliation.html:64
+#: templates/accounts/fragments/account_reconciliation.html:108
 msgid "Reconcile balances"
 msgstr "Salden anpassen"
 
