@@ -78,14 +78,10 @@ def reset_demo_data(timestamp=None):
         )
         logger.info("Database flushed successfully.")
 
-        # 2. Load data from the fixture
-        # TO-DO: Roll dates over based on today's date
-        fixture_name = "fixtures/demo_data.json"
-        logger.info(f"Loading data from fixture: {fixture_name}...")
-        management.call_command(
-            "loaddata", fixture_name, database=DEFAULT_DB_ALIAS, verbosity=1
-        )
-        logger.info(f"Data loaded successfully from {fixture_name}.")
+        # 2. Load demo data, with dates relative to today
+        logger.info("Loading demo data...")
+        management.call_command("load_demo_data", verbosity=1)
+        logger.info("Demo data loaded successfully.")
 
         logger.info("Daily demo data reset completed.")
 
