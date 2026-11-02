@@ -23,11 +23,16 @@
       <div class="card bg-base-100 shadow-2xl">
         <div class="card-body">
           <h1 class="text-2xl card-title text-center mb-4">Login</h1>
-          {% crispy form %}
+          {% settings "OIDC_DISABLE_LOCAL_LOGIN" as local_login_disabled %}
+          {% if not local_login_disabled %}
+            {% crispy form %}
+          {% endif %}
 
           {% get_providers as socialaccount_providers %}
           {% if socialaccount_providers %}
-            <hr class="hr my-3">
+            {% if not local_login_disabled %}
+              <hr class="hr my-3">
+            {% endif %}
             <ul class="socialaccount_providers list-none flex flex-col gap-3">
               {% for provider in socialaccount_providers %}
                 <li>

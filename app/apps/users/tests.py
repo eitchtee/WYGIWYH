@@ -1,4 +1,12 @@
-from django.contrib.auth import get_user_model
+import base64
+
+from django.contrib.auth import (
+    BACKEND_SESSION_KEY,
+    SESSION_KEY,
+    authenticate,
+    get_user_model,
+)
+from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -92,6 +100,28 @@ def _oidc_providers(trust_email=False):
     }
 
 
+def _complete_oidc_login(claims):
+    from allauth.core import context
+    from allauth.socialaccount.adapter import get_adapter
+    from allauth.socialaccount.helpers import complete_social_login
+    from django.contrib.messages.middleware import MessageMiddleware
+    from django.contrib.sessions.middleware import SessionMiddleware
+    from django.contrib.auth.models import AnonymousUser
+    from django.test import RequestFactory
+
+    request = RequestFactory().get("/auth/oidc/test-oidc/login/callback/")
+    SessionMiddleware(lambda r: None).process_request(request)
+    MessageMiddleware(lambda r: None).process_request(request)
+    request.user = AnonymousUser()
+
+    provider = get_adapter().get_provider(request, "test-oidc")
+    sociallogin = provider.sociallogin_from_response(request, claims)
+    sociallogin.state = {"process": "login"}
+    with context.request_context(request):
+        complete_social_login(request, sociallogin)
+    return request
+
+
 class OIDCEmailAutoConnectTests(TestCase):
     """GHSA-prgm-wrjv-fvrh: OIDC logins must only link to existing local
     accounts by email when the email is verified (or explicitly trusted)."""
@@ -102,25 +132,7 @@ class OIDCEmailAutoConnectTests(TestCase):
         )
 
     def _login(self, claims):
-        from allauth.core import context
-        from allauth.socialaccount.adapter import get_adapter
-        from allauth.socialaccount.helpers import complete_social_login
-        from django.contrib.messages.middleware import MessageMiddleware
-        from django.contrib.sessions.middleware import SessionMiddleware
-        from django.contrib.auth.models import AnonymousUser
-        from django.test import RequestFactory
-
-        request = RequestFactory().get("/auth/oidc/test-oidc/login/callback/")
-        SessionMiddleware(lambda r: None).process_request(request)
-        MessageMiddleware(lambda r: None).process_request(request)
-        request.user = AnonymousUser()
-
-        provider = get_adapter().get_provider(request, "test-oidc")
-        sociallogin = provider.sociallogin_from_response(request, claims)
-        sociallogin.state = {"process": "login"}
-        with context.request_context(request):
-            complete_social_login(request, sociallogin)
-        return request
+        return _complete_oidc_login(claims)
 
     def _assert_not_linked(self, request):
         from allauth.socialaccount.models import SocialAccount
@@ -168,3 +180,140 @@ class OIDCEmailAutoConnectTests(TestCase):
             {"sub": "oidc-uid", "email": "victim@example.com", "email_verified": False}
         )
         self._assert_linked(request)
+
+
+SOCIAL_ONLY_BACKEND = "apps.users.backends.SocialOnlyAuthenticationBackend"
+
+# The login page loads static files, which the default manifest storage can
+# only find after collectstatic.
+PLAIN_STATIC_FILES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+}
+
+
+def _basic_auth(email, password):
+    credentials = base64.b64encode(f"{email}:{password}".encode()).decode()
+    return f"Basic {credentials}"
+
+
+@override_settings(STORAGES=PLAIN_STATIC_FILES, WHITENOISE_AUTOREFRESH=True)
+class LocalLoginEnabledByDefaultTests(TestCase):
+    def setUp(self):
+        # Superuser so the admin login is allowed; mirrors LocalLoginDisabledTests.
+        self.user = get_user_model().objects.create_superuser(
+            email="user@example.com", password="test-password"
+        )
+
+    def test_password_authenticates(self):
+        self.assertEqual(
+            authenticate(username="user@example.com", password="test-password"),
+            self.user,
+        )
+
+    def test_login_page_shows_the_password_form(self):
+        response = self.client.get(reverse("login"))
+
+        self.assertContains(response, 'name="password"')
+
+    def test_login_page_accepts_a_password(self):
+        self.client.post(
+            reverse("login"),
+            {"username": "user@example.com", "password": "test-password"},
+        )
+
+        self.assertEqual(self.client.session.get(SESSION_KEY), str(self.user.pk))
+
+    def test_admin_accepts_a_password(self):
+        self.client.post(
+            reverse("admin:login"),
+            {"username": "user@example.com", "password": "test-password"},
+        )
+
+        self.assertEqual(self.client.session.get(SESSION_KEY), str(self.user.pk))
+
+    def test_api_basic_auth_works(self):
+        response = self.client.get(
+            "/api/accounts/",
+            HTTP_AUTHORIZATION=_basic_auth("user@example.com", "test-password"),
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+
+@override_settings(
+    AUTHENTICATION_BACKENDS=[SOCIAL_ONLY_BACKEND],
+    OIDC_DISABLE_LOCAL_LOGIN=True,
+    SOCIALACCOUNT_PROVIDERS=_oidc_providers(trust_email=True),
+    STORAGES=PLAIN_STATIC_FILES,
+    WHITENOISE_AUTOREFRESH=True,
+)
+class LocalLoginDisabledTests(TestCase):
+    """OIDC_DISABLE_LOCAL_LOGIN: passwords are refused everywhere, while OIDC
+    logins and permission checks keep working."""
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_superuser(
+            email="user@example.com", password="test-password"
+        )
+
+    def test_password_does_not_authenticate(self):
+        self.assertIsNone(
+            authenticate(username="user@example.com", password="test-password")
+        )
+        self.assertIsNone(
+            authenticate(email="user@example.com", password="test-password")
+        )
+
+    def test_login_page_hides_the_password_form(self):
+        response = self.client.get(reverse("login"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'name="password"')
+        self.assertContains(response, "Test OIDC")
+
+    def test_login_page_refuses_a_password(self):
+        self.client.post(
+            reverse("login"),
+            {"username": "user@example.com", "password": "test-password"},
+        )
+
+        self.assertNotIn(SESSION_KEY, self.client.session)
+
+    def test_admin_refuses_a_password(self):
+        self.client.post(
+            reverse("admin:login"),
+            {"username": "user@example.com", "password": "test-password"},
+        )
+
+        self.assertNotIn(SESSION_KEY, self.client.session)
+
+    def test_api_basic_auth_is_refused(self):
+        response = self.client.get(
+            "/api/accounts/",
+            HTTP_AUTHORIZATION=_basic_auth("user@example.com", "test-password"),
+        )
+
+        self.assertEqual(response.status_code, 401)
+
+    def test_oidc_login_still_works(self):
+        request = _complete_oidc_login(
+            {"sub": "oidc-uid", "email": "user@example.com", "email_verified": True}
+        )
+
+        self.assertEqual(request.session.get(SESSION_KEY), str(self.user.pk))
+        self.assertEqual(request.session.get(BACKEND_SESSION_KEY), SOCIAL_ONLY_BACKEND)
+
+    def test_permission_checks_still_work(self):
+        member = get_user_model().objects.create_user(
+            email="member@example.com", password="member-password"
+        )
+        member.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="accounts", codename="view_account"
+            )
+        )
+        member = get_user_model().objects.get(pk=member.pk)
+
+        self.assertTrue(member.has_perm("accounts.view_account"))
+        self.assertFalse(member.has_perm("accounts.delete_account"))
