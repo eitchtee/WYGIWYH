@@ -33,6 +33,7 @@ from crispy_forms.layout import (
     Row,
 )
 from django import forms
+from django.db import transaction as db_transaction
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
@@ -299,6 +300,28 @@ class TransactionAttachmentForm(forms.Form):
         return created
 
 
+def _transfer_fields(form):
+    """To account/To amount for recurring and quick transfers, shown only for the Transfer type."""
+    form.fields["to_account"].queryset = Account.objects.filter(
+        Q(is_archived=False) | Q(pk=form.instance.to_account_id)
+    )
+    form.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()
+    return Div(
+        Row(Column("to_account"), Column("to_amount")),
+        x_show="type === 'TR'",
+        x_cloak="",
+    )
+
+
+def _type_aware(form, *layout):
+    """Wraps a layout so it knows the selected type (used by _transfer_fields)."""
+    return Div(
+        *layout,
+        x_data="{ type: '%s' }" % (form["type"].value() or ""),
+        **{"x-on:change": "if ($event.target.name === 'type') type = $event.target.value"},
+    )
+
+
 class QuickTransactionForm(forms.ModelForm):
     category = DynamicModelChoiceField(
         create_field="name",
@@ -327,6 +350,12 @@ class QuickTransactionForm(forms.ModelForm):
         label=_("Account"),
         widget=TomSelect(clear_button=False, group_by="group"),
     )
+    to_account = forms.ModelChoiceField(
+        queryset=Account.objects.filter(is_archived=False),
+        label=_("To account"),
+        widget=TomSelect(clear_button=False, group_by="group"),
+        required=False,
+    )
 
     class Meta:
         model = QuickTransaction
@@ -336,6 +365,8 @@ class QuickTransactionForm(forms.ModelForm):
             "type",
             "is_paid",
             "amount",
+            "to_account",
+            "to_amount",
             "description",
             "notes",
             "category",
@@ -386,25 +417,29 @@ class QuickTransactionForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.form_method = "post"
         self.helper.layout = Layout(
-            Field(
-                "type",
-                template="transactions/widgets/income_expense_toggle_buttons.html",
-            ),
-            Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
-            "name",
-            HTML('<hr class="hr my-3" />'),
-            Row(
-                Column("account"),
-                Column("entities"),
-            ),
-            "description",
-            Field("amount", inputmode="decimal"),
-            Row(
-                Column("category"),
-                Column("tags"),
-            ),
-            "notes",
-            Switch("mute"),
+            _type_aware(
+                self,
+                Field(
+                    "type",
+                    template="transactions/widgets/income_expense_toggle_buttons.html",
+                ),
+                Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
+                "name",
+                HTML('<hr class="hr my-3" />'),
+                Row(
+                    Column("account"),
+                    Column("entities"),
+                ),
+                "description",
+                Field("amount", inputmode="decimal"),
+                _transfer_fields(self),
+                Row(
+                    Column("category"),
+                    Column("tags"),
+                ),
+                "notes",
+                Switch("mute"),
+            )
         )
 
         if self.instance and self.instance.pk:
@@ -623,7 +658,26 @@ class TransferForm(forms.Form):
         help_text=_("Muted transactions won't be displayed on monthly summaries"),
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, instance=None, **kwargs):
+        # instance: either side of an existing transfer, to edit it
+        self.instance = instance
+        if instance:
+            from_t, to_t = instance.transfer_from, instance.transfer_to
+            kwargs["initial"] = {
+                "from_account": from_t.account,
+                "to_account": to_t.account,
+                "from_amount": from_t.amount,
+                "to_amount": to_t.amount,
+                "from_category": from_t.category,
+                "to_category": to_t.category,
+                "from_tags": list(from_t.tags.all()),
+                "to_tags": list(to_t.tags.all()),
+                "date": from_t.date,
+                "reference_date": from_t.reference_date,
+                "description": from_t.description,
+                "notes": from_t.notes,
+                "mute": from_t.mute,
+            }
         super().__init__(*args, **kwargs)
 
         self.helper = FormHelper()
@@ -659,7 +713,11 @@ class TransferForm(forms.Form):
                 css_class="bg-base-100 rounded-box p-4 border-base-content/60 border",
             ),
             FormActions(
-                NoClassSubmit("submit", _("Transfer"), css_class="btn btn-primary"),
+                NoClassSubmit(
+                    "submit",
+                    _("Update") if instance else _("Transfer"),
+                    css_class="btn btn-primary",
+                ),
             ),
         )
 
@@ -696,48 +754,50 @@ class TransferForm(forms.Form):
         return cleaned_data
 
     def save(self):
-        mute = self.cleaned_data["mute"]
+        data = self.cleaned_data
 
-        from_account = self.cleaned_data["from_account"]
-        to_account = self.cleaned_data["to_account"]
-        from_amount = self.cleaned_data["from_amount"]
-        to_amount = self.cleaned_data["to_amount"] or from_amount
-        date = self.cleaned_data["date"]
-        reference_date = self.cleaned_data["reference_date"]
-        description = self.cleaned_data["description"]
-        from_category = self.cleaned_data.get("from_category")
-        to_category = self.cleaned_data.get("to_category")
-        notes = self.cleaned_data.get("notes")
+        if self.instance:
+            from_transaction = self.instance.transfer_from
+            to_transaction = self.instance.transfer_to
+            # Snapshots for update rules, taken before anything changes
+            old_data = [
+                deepcopy(Transaction.objects.get(pk=t.pk))
+                for t in (from_transaction, to_transaction)
+            ]
+        else:
+            from_transaction = Transaction(type=Transaction.Type.EXPENSE, is_paid=True)
+            to_transaction = Transaction(type=Transaction.Type.INCOME, is_paid=True)
 
-        # Create "From" transaction
-        from_transaction = Transaction.objects.create(
-            account=from_account,
-            type=Transaction.Type.EXPENSE,
-            is_paid=True,
-            date=date,
-            reference_date=reference_date,
-            amount=from_amount,
-            description=description,
-            category=from_category,
-            notes=notes,
-            mute=mute,
-        )
-        from_transaction.tags.set(self.cleaned_data.get("from_tags", []))
+        for transaction, side in ((from_transaction, "from"), (to_transaction, "to")):
+            transaction.account = data[f"{side}_account"]
+            transaction.category = data.get(f"{side}_category")
+            transaction.date = data["date"]
+            transaction.reference_date = data["reference_date"]
+            transaction.description = data["description"]
+            transaction.notes = data.get("notes")
+            transaction.mute = data["mute"]
+        from_transaction.amount = data["from_amount"]
+        to_transaction.amount = data["to_amount"] or data["from_amount"]
 
-        # Create "To" transaction
-        to_transaction = Transaction.objects.create(
-            account=to_account,
-            type=Transaction.Type.INCOME,
-            is_paid=True,
-            date=date,
-            reference_date=reference_date,
-            amount=to_amount,
-            description=description,
-            category=to_category,
-            notes=notes,
-            mute=mute,
-        )
-        to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
+        # Both sides get the shared fields here, so no partner sync (and its rule
+        # signal) on save; the signals below cover each side once.
+        with db_transaction.atomic():
+            from_transaction.save(sync_partner=False)
+            to_transaction.linked_transaction = from_transaction
+            to_transaction.save(sync_partner=False)
+            if not from_transaction.linked_transaction_id:
+                from_transaction.linked_transaction = to_transaction
+                from_transaction.save(sync_partner=False)
+
+            from_transaction.tags.set(data.get("from_tags", []))
+            to_transaction.tags.set(data.get("to_tags", []))
+
+        # Rules run for each side, like any other transaction
+        for i, transaction in enumerate((from_transaction, to_transaction)):
+            if self.instance:
+                transaction_updated.send(sender=transaction, old_data=old_data[i])
+            else:
+                transaction_created.send(sender=transaction)
 
         return from_transaction, to_transaction
 
@@ -1023,7 +1083,13 @@ class RecurringTransactionForm(forms.ModelForm):
         label=_("Entities"),
         queryset=TransactionEntity.objects.filter(active=True),
     )
-    type = forms.ChoiceField(choices=Transaction.Type.choices)
+    type = forms.ChoiceField(choices=RecurringTransaction.Type.choices)
+    to_account = forms.ModelChoiceField(
+        queryset=Account.objects.filter(is_archived=False),
+        label=_("To account"),
+        widget=TomSelect(clear_button=False, group_by="group"),
+        required=False,
+    )
 
     class Meta:
         model = RecurringTransaction
@@ -1031,6 +1097,8 @@ class RecurringTransactionForm(forms.ModelForm):
             "account",
             "type",
             "amount",
+            "to_account",
+            "to_amount",
             "description",
             "add_description_to_transaction",
             "category",
@@ -1097,33 +1165,37 @@ class RecurringTransactionForm(forms.ModelForm):
         self.helper.form_tag = False
 
         self.helper.layout = Layout(
-            Field(
-                "type",
-                template="transactions/widgets/income_expense_toggle_buttons.html",
-            ),
-            Row(
-                Column("account"),
-                Column("entities"),
-            ),
-            "description",
-            Switch("add_description_to_transaction"),
-            "amount",
-            Row(
-                Column("category"),
-                Column("tags"),
-            ),
-            "notes",
-            Switch("add_notes_to_transaction"),
-            Row(
-                Column("start_date"),
-                Column("reference_date"),
-            ),
-            Row(
-                Column("recurrence_interval", css_class="col-span-12 md:col-span-4"),
-                Column("recurrence_type", css_class="col-span-12 md:col-span-4"),
-                Column("end_date", css_class="col-span-12 md:col-span-4"),
-            ),
-            AppendedText("keep_at_most", _("future transactions")),
+            _type_aware(
+                self,
+                Field(
+                    "type",
+                    template="transactions/widgets/income_expense_toggle_buttons.html",
+                ),
+                Row(
+                    Column("account"),
+                    Column("entities"),
+                ),
+                "description",
+                Switch("add_description_to_transaction"),
+                "amount",
+                _transfer_fields(self),
+                Row(
+                    Column("category"),
+                    Column("tags"),
+                ),
+                "notes",
+                Switch("add_notes_to_transaction"),
+                Row(
+                    Column("start_date"),
+                    Column("reference_date"),
+                ),
+                Row(
+                    Column("recurrence_interval", css_class="col-span-12 md:col-span-4"),
+                    Column("recurrence_type", css_class="col-span-12 md:col-span-4"),
+                    Column("end_date", css_class="col-span-12 md:col-span-4"),
+                ),
+                AppendedText("keep_at_most", _("future transactions")),
+            )
         )
 
         self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput()

@@ -115,6 +115,8 @@ class RecurringTransactionSerializer(serializers.ModelSerializer):
             "account",
             "type",
             "amount",
+            "to_account",
+            "to_amount",
             "description",
             "category",
             "tags",
@@ -129,6 +131,16 @@ class RecurringTransactionSerializer(serializers.ModelSerializer):
             "last_generated_reference_date",
         ]
         read_only_fields = ["last_generated_date", "last_generated_reference_date"]
+
+    def validate(self, attrs):
+        # Same rule as TransferTemplate.clean(), which DRF doesn't run
+        type_ = attrs.get("type", getattr(self.instance, "type", None))
+        to_account = attrs.get("to_account", getattr(self.instance, "to_account", None))
+        if type_ == RecurringTransaction.Type.TRANSFER and not to_account:
+            raise serializers.ValidationError(
+                {"to_account": _("This field is required.")}
+            )
+        return super().validate(attrs)
 
     def create(self, validated_data):
         instance = super().create(validated_data)
@@ -170,6 +182,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             "id",
             "installment_plan",
             "recurring_transaction",
+            "linked_transaction",
             "installment_id",
             "owner",
             "deleted_at",

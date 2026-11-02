@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from apps.common.middleware.thread_local import get_current_user
 from apps.users.models import APIToken
-from apps.common.widgets.crispy.daisyui import Range
+from apps.common.widgets.crispy.daisyui import Range, Switch
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.range import RangeInput
 from apps.common.widgets.tom_select import TomSelect
@@ -157,6 +157,7 @@ class UserSettingsForm(forms.ModelForm):
             "datetime_format",
             "number_format",
             "default_account",
+            "combine_transfers",
             "volume",
         ]
         widgets = {
@@ -183,6 +184,7 @@ class UserSettingsForm(forms.ModelForm):
             HTML('<hr class="hr my-3" />'),
             "start_page",
             "default_account",
+            Switch("combine_transfers"),
             HTML('<hr class="hr my-3" />'),
             Range("volume"),
             FormActions(

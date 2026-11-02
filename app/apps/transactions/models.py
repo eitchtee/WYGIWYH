@@ -19,6 +19,7 @@ from apps.transactions.storage import PrivateMediaStorage
 from apps.transactions.validators import validate_decimal_places, validate_non_negative
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.db.models import Q
@@ -144,6 +145,16 @@ class SoftDeleteQuerySet(models.QuerySet):
 
     def hard_delete(self):
         return super().delete()
+
+    def collapse_transfers(self):
+        # A transfer is listed once: drop its income side when the expense side is also listed
+        if not Transaction.transfers_combined():
+            return self
+        return self.exclude(
+            type=Transaction.Type.INCOME,
+            linked_transaction__type=Transaction.Type.EXPENSE,
+            linked_transaction__in=self.values("pk"),
+        )
 
 
 class SoftDeleteManager(models.Manager):
@@ -376,6 +387,14 @@ class Transaction(OwnedObject):
         related_name="transactions",
         verbose_name=_("Recurring Transaction"),
     )
+    linked_transaction = models.OneToOneField(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
+        verbose_name=_("Linked Transaction"),
+    )
     internal_note = models.TextField(blank=True, verbose_name=_("Internal Note"))
     internal_id = models.TextField(
         blank=True, null=True, unique=True, verbose_name=_("Internal ID")
@@ -434,7 +453,7 @@ class Transaction(OwnedObject):
         elif not self.reference_date and self.date:
             self.reference_date = self.date.replace(day=1)
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, sync_partner=True, **kwargs):
         # This is here so Django validation doesn't trigger an error before clean() is ran
         if not self.reference_date and self.date:
             self.reference_date = self.date.replace(day=1)
@@ -444,7 +463,73 @@ class Transaction(OwnedObject):
         self.full_clean()
         super().save(*args, **kwargs)
 
-    def delete(self, *args, **kwargs):
+        # Both sides of a transfer share date, reference date, paid and mute state.
+        # all_objects: never reach a side the current user can no longer see.
+        if sync_partner and self.linked_transaction_id:
+            Transaction.all_objects.filter(
+                pk=self.linked_transaction_id
+            ).exclude(
+                date=self.date,
+                reference_date=self.reference_date,
+                is_paid=self.is_paid,
+                mute=self.mute,
+            ).update(
+                date=self.date,
+                reference_date=self.reference_date,
+                is_paid=self.is_paid,
+                mute=self.mute,
+            )
+
+    @staticmethod
+    def transfers_combined():
+        """The current user's "Combine transfers" setting (on when unknown)."""
+        try:
+            return get_current_user().settings.combine_transfers
+        except (AttributeError, ObjectDoesNotExist):
+            return True
+
+    @property
+    def shown_as_transfer(self):
+        return bool(self.linked_transaction_id) and self.transfers_combined()
+
+    @property
+    def display_transaction(self):
+        """The side a listing renders: the "from" side for a combined transfer."""
+        return self.transfer_from if self.shown_as_transfer else self
+
+    def add_transfer_side(self, account, amount):
+        """Creates the "to" side of a transfer for this saved "from" (expense) transaction."""
+        to_transaction = self.deepcopy()
+        to_transaction.account = account
+        to_transaction.type = Transaction.Type.INCOME
+        to_transaction.amount = amount
+        to_transaction.linked_transaction = self
+        to_transaction.save()
+        self.linked_transaction = to_transaction
+        self.save()
+        return to_transaction
+
+    @property
+    def transfer_from(self):
+        if self.linked_transaction_id and self.type == self.Type.INCOME:
+            return self.linked_transaction
+        return self
+
+    @property
+    def transfer_to(self):
+        if self.linked_transaction_id and self.type == self.Type.EXPENSE:
+            return self.linked_transaction
+        return self
+
+    def delete(self, *args, _with_partner=True, **kwargs):
+        # Transfers are deleted as a pair
+        if _with_partner and self.linked_transaction_id:
+            partner = Transaction.all_objects.filter(
+                pk=self.linked_transaction_id
+            ).first()
+            if partner:
+                partner.delete(_with_partner=False)
+
         if settings.ENABLE_SOFT_DELETE:
             if not self.deleted:
                 self.deleted = True
@@ -531,7 +616,7 @@ class Transaction(OwnedObject):
                 continue
 
             # Reset any unique fields to None to avoid constraint violations
-            if field.unique and field.name == "internal_id":
+            if field.unique and field.name in ("internal_id", "linked_transaction"):
                 setattr(new_obj, field.name, None)
                 continue
 
@@ -828,7 +913,63 @@ class InstallmentPlan(models.Model):
         super().delete(*args, **kwargs)
 
 
-class RecurringTransaction(models.Model):
+class TransferTemplate(models.Model):
+    """Lets a recurring or quick transaction of type Transfer generate linked transfers."""
+
+    to_account = models.ForeignKey(
+        "accounts.Account",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="+",
+        verbose_name=_("To account"),
+    )
+    to_amount = models.DecimalField(
+        max_digits=42,
+        decimal_places=30,
+        null=True,
+        blank=True,
+        verbose_name=_("To amount"),
+        help_text=_("Leave empty to use the same amount"),
+        validators=[validate_non_negative, validate_decimal_places],
+    )
+
+    class Meta:
+        abstract = True
+
+    @property
+    def is_transfer(self):
+        return self.type == self.Type.TRANSFER
+
+    @property
+    def transaction_type(self):
+        """Type of the generated transaction: a transfer starts with its expense side."""
+        return Transaction.Type.EXPENSE if self.is_transfer else self.type
+
+    def clean(self):
+        super().clean()
+        if self.is_transfer:
+            if not self.to_account_id:
+                raise ValidationError({"to_account": _("This field is required.")})
+            if self.to_account_id == self.account_id:
+                raise ValidationError(
+                    {"to_account": _("From and To accounts must be different.")}
+                )
+
+    def complete_transfer(self, transaction):
+        """Adds the "to" side when this generates transfers."""
+        if self.is_transfer and self.to_account_id:
+            return transaction.add_transfer_side(
+                self.to_account, self.to_amount or self.amount
+            )
+
+
+class RecurringTransaction(TransferTemplate):
+    class Type(models.TextChoices):
+        INCOME = "IN", _("Income")
+        TRANSFER = "TR", _("Transfer")
+        EXPENSE = "EX", _("Expense")
+
     class RecurrenceType(models.TextChoices):
         DAY = "day", _("day(s)")
         WEEK = "week", _("week(s)")
@@ -841,8 +982,8 @@ class RecurringTransaction(models.Model):
     )
     type = models.CharField(
         max_length=2,
-        choices=Transaction.Type,
-        default=Transaction.Type.EXPENSE,
+        choices=Type,
+        default=Type.EXPENSE,
         verbose_name=_("Type"),
     )
     amount = models.DecimalField(
@@ -947,7 +1088,7 @@ class RecurringTransaction(models.Model):
     def create_transaction(self, date, reference_date):
         created_transaction = Transaction.all_objects.create(
             account=self.account,
-            type=self.type,
+            type=self.transaction_type,
             date=date,
             reference_date=reference_date.replace(day=1),
             amount=self.amount,
@@ -964,10 +1105,35 @@ class RecurringTransaction(models.Model):
         # different one, and the scoped default manager would hide private rows.
         created_transaction.tags.set(self.tags(manager="all_objects").all())
         created_transaction.entities.set(self.entities(manager="all_objects").all())
+        self.complete_transfer(created_transaction)
 
     def adopt_transaction(self, existing_transaction, date, reference_date):
-        existing_transaction.account = self.account
-        existing_transaction.type = self.type
+        self._apply_to(
+            existing_transaction,
+            self.account,
+            self.transaction_type,
+            self.amount,
+            date,
+            reference_date,
+        )
+        if not self.is_transfer:
+            return
+        if existing_transaction.linked_transaction_id:
+            # Converting a transfer: its "to" side joins the recurrence too
+            self._apply_to(
+                existing_transaction.linked_transaction,
+                self.to_account,
+                Transaction.Type.INCOME,
+                self.to_amount or self.amount,
+                date,
+                reference_date,
+            )
+        else:
+            self.complete_transfer(existing_transaction)
+
+    def _apply_to(self, existing_transaction, account, type, amount, date, reference_date):
+        existing_transaction.account = account
+        existing_transaction.type = type
         existing_transaction.date = date
         existing_transaction.reference_date = reference_date.replace(day=1)
         existing_transaction.description = (
@@ -976,7 +1142,7 @@ class RecurringTransaction(models.Model):
         existing_transaction.category = self.category
         existing_transaction.notes = self.notes if self.add_notes_to_transaction else ""
         existing_transaction.recurring_transaction = self
-        existing_transaction.amount = self.amount
+        existing_transaction.amount = amount
 
         existing_transaction.save()
         existing_transaction.tags.set(self.tags(manager="all_objects").all())
@@ -1063,7 +1229,13 @@ class RecurringTransaction(models.Model):
 
         for existing_transaction in unpaid_transactions:
             # Update fields based on RecurringTransaction
-            existing_transaction.amount = self.amount
+            is_to_side = (
+                existing_transaction.linked_transaction_id
+                and existing_transaction.type == Transaction.Type.INCOME
+            )
+            existing_transaction.amount = (
+                self.to_amount or self.amount if is_to_side else self.amount
+            )
             existing_transaction.description = (
                 self.description if self.add_description_to_transaction else ""
             )
@@ -1089,9 +1261,10 @@ class RecurringTransaction(models.Model):
         self.transactions.filter(is_paid=False, date__gt=today).delete()
 
 
-class QuickTransaction(OwnedObject):
+class QuickTransaction(TransferTemplate, OwnedObject):
     class Type(models.TextChoices):
         INCOME = "IN", _("Income")
+        TRANSFER = "TR", _("Transfer")
         EXPENSE = "EX", _("Expense")
 
     name = models.CharField(

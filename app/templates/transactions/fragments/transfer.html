@@ -2,10 +2,10 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block title %}{% translate 'New transfer' %}{% endblock %}
+{% block title %}{% if transaction %}{% translate 'Edit transfer' %}{% else %}{% translate 'New transfer' %}{% endif %}{% endblock %}
 
 {% block body %}
-<form hx-post="{% url 'transactions_transfer' %}" hx-target="#generic-offcanvas" novalidate>
+<form hx-post="{% if transaction %}{% url 'transaction_transfer_edit' transaction_id=transaction.id %}{% else %}{% url 'transactions_transfer' %}{% endif %}" hx-target="#generic-offcanvas" novalidate>
     {% crispy form %}
 </form>
 {% endblock %}

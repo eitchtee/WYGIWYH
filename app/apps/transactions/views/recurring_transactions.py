@@ -90,7 +90,7 @@ def recurring_transaction_transactions(request, recurring_transaction_id):
     recurring_transaction = get_object_or_404(
         RecurringTransaction, id=recurring_transaction_id
     )
-    transactions = recurring_transaction.transactions.all().order_by(
+    transactions = recurring_transaction.transactions.collapse_transfers().order_by(
         "reference_date", "id"
     )
 

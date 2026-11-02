@@ -171,6 +171,11 @@ urlpatterns = [
         views.transactions_transfer,
         name="transactions_transfer",
     ),
+    path(
+        "transactions/<int:transaction_id>/transfer/edit/",
+        views.transaction_transfer_edit,
+        name="transaction_transfer_edit",
+    ),
     path("tags/", views.tags_index, name="tags_index"),
     path("tags/list/", views.tags_list, name="tags_list"),
     path("tags/table/active/", views.tags_table_active, name="tags_table_active"),

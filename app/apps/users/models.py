@@ -479,6 +479,11 @@ class UserSettings(models.Model):
     )
     hide_amounts = models.BooleanField(default=False)
     mute_sounds = models.BooleanField(default=False)
+    combine_transfers = models.BooleanField(
+        default=True,
+        verbose_name=_("Combine transfers"),
+        help_text=_("Show both sides of a transfer as a single item"),
+    )
     volume = models.PositiveIntegerField(
         default=10,
         validators=[MinValueValidator(0), MaxValueValidator(10)],

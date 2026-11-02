@@ -4,7 +4,7 @@
     <div class="join w-full" role="group" aria-label="{{ field.label }}">
         {% for choice in field.field.choices %}
             <input type="radio"
-                   class="join-item btn {% if forloop.first %}btn-success{% elif forloop.last %}btn-error{% else %}btn-primary{% endif %} {% if field.errors %}input-error{% endif %} btn-outline w-1/2"
+                   class="join-item btn {% if forloop.first %}btn-success{% elif forloop.last %}btn-error{% else %}btn-info{% endif %} {% if field.errors %}input-error{% endif %} btn-outline flex-1"
                    name="{{ field.html_name }}"
                    id="{{ field.html_name }}_{{ forloop.counter }}_tr"
                    value="{{ choice.0 }}"

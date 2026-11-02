@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction as db_transaction
 from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -138,20 +139,27 @@ def quick_transaction_add_as_transaction(request, quick_transaction_id):
             "tags",
             "entities",
             "internal_id",
+            "to_account",
+            "to_amount",
         ],
     )
 
     new_transaction = Transaction(**quick_transaction_data)
+    new_transaction.type = quick_transaction.transaction_type
     new_transaction.account = quick_transaction.account
     new_transaction.category = quick_transaction.category
 
     new_transaction.date = today
     new_transaction.reference_date = today.replace(day=1)
-    new_transaction.save()
-    new_transaction.tags.set(quick_transaction.tags.all())
-    new_transaction.entities.set(quick_transaction.entities.all())
+    with db_transaction.atomic():
+        new_transaction.save()
+        new_transaction.tags.set(quick_transaction.tags.all())
+        new_transaction.entities.set(quick_transaction.entities.all())
+        to_transaction = quick_transaction.complete_transfer(new_transaction)
 
     transaction_created.send(sender=new_transaction)
+    if to_transaction:
+        transaction_created.send(sender=to_transaction)
 
     messages.success(request, _("Transaction added successfully"))
 

@@ -1,8 +1,10 @@
 {% load markdown %}
 {% load i18n %}
+{# With "Combine transfers" on, a transfer is shown once: its "from" side with the "to" side alongside #}
+{% with transaction=transaction.display_transaction transfer_to=transaction.transfer_to is_transfer=transaction.shown_as_transfer %}
 <div
     {% if transaction.id and not dummy %}data-transaction-id="{{ transaction.id }}"{% endif %}
-    class="transaction {% if transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction">
+    class="transaction {% if is_transfer %}transfer{% elif transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction">
   <div class="flex my-1">
     {% if not disable_selection or not dummy %}
       <label class="px-3 flex! items-center justify-center">
@@ -12,7 +14,7 @@
     {% endif %}
     <div class="border-s-4 border-e-0 border-t-0
                 hover:bg-base-200 p-2 {% if transaction.account.is_asset %}border-dashed{% else %}border-solid{% endif %}
-                {% if transaction.type == "EX" %}border-s-error{% else %}border-s-success{% endif %} relative
+                {% if is_transfer %}border-s-info{% elif transaction.type == "EX" %}border-s-error{% else %}border-s-success{% endif %} relative
                 w-full transaction-item bg-base-100 rounded">
       <div class="flex flex-wrap font-mono text-sm items-center">
         <div class="lg:w-auto w-full flex items-center text-2xl lg:text-xl lg:text-center text-center p-0 cursor-pointer">
@@ -46,10 +48,16 @@
           {#      Description#}
           <div class="mb-2 lg:mb-1 text-base-content text-base">
             {% spaceless %}
+              {% if is_transfer %}
+                <span class="text-info text-xs me-1" title="{% translate 'Transfer' %}"><i class="fa-solid fa-right-left fa-fw"></i></span>
+              {% endif %}
               <span class="{% if transaction.description %}mr-2{% endif %}">{{ transaction.description }}</span>
               {% if transaction.installment_plan and transaction.installment_id %}
                 <span
                     class="badge badge-neutral mx-1">{{ transaction.installment_id }}/{{ transaction.installment_plan.installment_total_number }}</span>
+              {% endif %}
+              {% if transaction.linked_transaction_id and not is_transfer %}
+                <span class="text-info text-xs mx-1" title="{% translate 'Transfer' %}"><i class="fa-solid fa-right-left fa-fw"></i></span>
               {% endif %}
               {% if transaction.recurring_transaction %}
                 <span class="text-primary text-xs mx-1"><i class="fa-solid fa-arrows-rotate fa-fw"></i></span>
@@ -83,7 +91,17 @@
               </div>
             {% endif %}
             {#        Category#}
-            {% if transaction.category %}
+            {% if is_transfer %}
+              {# Each side keeps its own category: "from" line, then "to" line with the arrow under the icon #}
+              {% if transaction.category or transfer_to.category %}
+                <div class="grid grid-cols-[auto_1fr] mb-2 lg:mb-1 text-base-content/70">
+                  <div class="w-auto pe-1"><i class="fa-solid fa-icons fa-fw mr-1 fa-xs"></i></div>
+                  <div>{{ transaction.category.name|default:"—" }}</div>
+                  <div class="w-auto pe-1"><i class="fa-solid fa-arrow-right fa-fw mr-1 fa-xs text-base-content/40"></i></div>
+                  <div>{{ transfer_to.category.name|default:"—" }}</div>
+                </div>
+              {% endif %}
+            {% elif transaction.category %}
               <div class="flex flex-wrap mb-2 lg:mb-1 text-base-content/70">
                 <div class="w-auto pe-1"><i class="fa-solid fa-icons fa-fw mr-1 fa-xs"></i></div>
                 <div class="flex-1 ps-0">{{ transaction.category.name }}</div>
@@ -97,6 +115,16 @@
                 <div class="flex-1 ps-0">{{ overriden_tags|join:", " }}</div>
               </div>
 
+            {% elif is_transfer %}
+              {% if transaction.tags.all or transfer_to.tags.all %}
+                <div class="grid grid-cols-[auto_1fr] mb-2 lg:mb-1 text-base-content/70">
+                  <div class="w-auto pe-1"><i class="fa-solid fa-hashtag fa-fw mr-1 fa-xs"></i></div>
+                  <div>{{ transaction.tags.all|join:", "|default:"—" }}</div>
+                  <div class="w-auto pe-1"><i class="fa-solid fa-arrow-right fa-fw mr-1 fa-xs text-base-content/40"></i></div>
+                  <div>{{ transfer_to.tags.all|join:", "|default:"—" }}</div>
+                </div>
+              {% endif %}
+
               {% comment %} If no override, fall back to transaction tags, but ONLY if the transaction has an ID. {% endcomment %}
             {% elif transaction.id and transaction.tags.all %}
               <div class="flex flex-wrap mb-2 lg:mb-1 text-base-content/70">
@@ -108,14 +136,40 @@
         </div>
         <div
             class="lg:w-auto w-full lg:text-right self-end {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}opacity-70{% endif %}">
-          <div class="main-amount mb-2 lg:mb-0">
-            <c-amount.display
-                :amount="transaction.amount"
-                :prefix="transaction.account.currency.prefix"
-                :suffix="transaction.account.currency.suffix"
-                :decimal_places="transaction.account.currency.decimal_places"
-                color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
-          </div>
+          {% if is_transfer %}
+            {# Each side: amount, with its account below, like a regular item #}
+            <div class="main-amount mt-3 lg:mt-0 mb-2 lg:mb-0 grid grid-cols-[auto_minmax(0,auto)] gap-x-2 gap-y-2 items-baseline w-fit lg:ms-auto">
+              <span></span>
+              <div class="min-w-0">
+                <c-amount.display
+                    :amount="transaction.amount"
+                    :prefix="transaction.account.currency.prefix"
+                    :suffix="transaction.account.currency.suffix"
+                    :decimal_places="transaction.account.currency.decimal_places"
+                    color="red"></c-amount.display>
+                <div class="truncate max-w-56">{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
+              </div>
+              <i class="fa-solid fa-arrow-right fa-xs text-base-content/40"></i>
+              <div class="min-w-0">
+                <c-amount.display
+                    :amount="transfer_to.amount"
+                    :prefix="transfer_to.account.currency.prefix"
+                    :suffix="transfer_to.account.currency.suffix"
+                    :decimal_places="transfer_to.account.currency.decimal_places"
+                    color="green"></c-amount.display>
+                <div class="truncate max-w-56">{% if transfer_to.account.group %}{{ transfer_to.account.group.name }} • {% endif %}{{ transfer_to.account.name }}</div>
+              </div>
+            </div>
+          {% else %}
+            <div class="main-amount mb-2 lg:mb-0">
+              <c-amount.display
+                  :amount="transaction.amount"
+                  :prefix="transaction.account.currency.prefix"
+                  :suffix="transaction.account.currency.suffix"
+                  :decimal_places="transaction.account.currency.decimal_places"
+                  color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
+            </div>
+          {% endif %}
           {#    Exchange Rate#}
           {% if not dummy %}
             {% with exchanged=transaction.exchanged_amount %}
@@ -131,9 +185,11 @@
               {% endif %}
             {% endwith %}
           {% endif %}
-          <div>
-            {% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}
-          </div>
+          {% if not is_transfer %}
+            <div>
+              {% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}
+            </div>
+          {% endif %}
         </div>
         {% if not dummy %}
           <div class="z-1000">
@@ -240,11 +296,24 @@
                                    hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
                                 class="fa-solid fa-repeat fa-fw mr-2"></i>{% translate 'Recurring Transaction' %}</a>
                             </li>
-                            <li><a href="#"
-                                   hx-get="{% url 'transaction_convert_to_installment_plan' transaction_id=transaction.id %}"
-                                   hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
-                                class="fa-solid fa-divide fa-fw mr-2"></i>{% translate 'Installment Plan' %}</a>
-                            </li>
+                            {% if transaction.linked_transaction_id %}
+                              <li class="menu-disabled" aria-disabled="true">
+                                <a class="flex items-center">
+                                  <i class="fa-solid fa-divide fa-fw mr-2"></i>
+                                  <div>
+                                    {% translate 'Installment Plan' %}
+                                    <div
+                                        class="block text-base-content/60 text-xs font-medium">{% translate 'Not available for transfers' %}</div>
+                                  </div>
+                                </a>
+                              </li>
+                            {% else %}
+                              <li><a href="#"
+                                     hx-get="{% url 'transaction_convert_to_installment_plan' transaction_id=transaction.id %}"
+                                     hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
+                                  class="fa-solid fa-divide fa-fw mr-2"></i>{% translate 'Installment Plan' %}</a>
+                              </li>
+                            {% endif %}
                           {% endif %}
                         </ul>
                       </li>
@@ -292,3 +361,4 @@
     </div>
   </div>
 </div>
+{% endwith %}

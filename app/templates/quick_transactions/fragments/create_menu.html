@@ -10,7 +10,7 @@
     <ul class="menu bg-base-100 w-full menu-lg">
       {% for qt in quick_transactions %}
         <li><a hx-get="{% url 'quick_transaction_add_as_transaction' quick_transaction_id=qt.id %}"
-          class="menu-item {% if qt.type == 'EX' %}text-error{% else %}text-success{% endif %}">{{ qt.name }}</a></li>
+          class="menu-item {% if qt.type == 'EX' %}text-error{% elif qt.type == 'TR' %}text-info{% else %}text-success{% endif %}">{{ qt.name }}</a></li>
       {% endfor %}
     </ul>
     {% else %}
