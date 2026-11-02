@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-02 04:18+0000\n"
-"PO-Revision-Date: 2026-10-10 21:57+0000\n"
+"PO-Revision-Date: 2026-11-02 19:49+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.10\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #: apps/accounts/forms.py:28
 msgid "Group name"
@@ -95,28 +95,20 @@ msgid "Tags"
 msgstr "Tags"
 
 #: apps/accounts/forms.py:179
-#, fuzzy
-#| msgid "All Transactions"
 msgid "All paid transactions"
-msgstr "Todas as transações"
+msgstr "Todas as transações pagas"
 
 #: apps/accounts/forms.py:180
-#, fuzzy
-#| msgid "Update"
 msgid "Up to date"
-msgstr "Atualizar"
+msgstr "Até a data"
 
 #: apps/accounts/forms.py:181
-#, fuzzy
-#| msgid "Set Reference Date"
 msgid "Up to reference month"
-msgstr "Definir Data de Referência"
+msgstr "Até o mês de referência"
 
 #: apps/accounts/forms.py:185
-#, fuzzy
-#| msgid "Balance"
 msgid "Balance against"
-msgstr "Balancear"
+msgstr "Balancear contra"
 
 #: apps/accounts/forms.py:189 apps/currencies/forms.py:66
 #: apps/dca/models.py:158 apps/rules/forms.py:176 apps/rules/forms.py:190
@@ -130,10 +122,8 @@ msgid "Date"
 msgstr "Data"
 
 #: apps/accounts/forms.py:194
-#, fuzzy
-#| msgid "Reference Date"
 msgid "Reference month"
-msgstr "Data de Referência"
+msgstr "Mês de referência"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:20 apps/rules/models.py:13
@@ -324,7 +314,7 @@ msgstr "Dados da entidade inválidos. Forneça um ID ou nome."
 
 #: apps/api/serializers/transactions.py:141 apps/transactions/models.py:953
 msgid "This field is required."
-msgstr ""
+msgstr "Este campo é obrigatório."
 
 #: apps/api/serializers/transactions.py:205
 msgid "Either 'date' or 'reference_date' must be provided."
@@ -1490,8 +1480,6 @@ msgstr "Upload"
 
 #: apps/transactions/forms.py:355 apps/transactions/forms.py:1089
 #: apps/transactions/models.py:925
-#, fuzzy
-#| msgid "To Account"
 msgid "To account"
 msgstr "Conta de destino"
 
@@ -1614,10 +1602,8 @@ msgid "Recurring Transaction"
 msgstr "Transação Recorrente"
 
 #: apps/transactions/models.py:396
-#, fuzzy
-#| msgid "Link transaction"
 msgid "Linked Transaction"
-msgstr "Conectar transação"
+msgstr "Transação vinculada"
 
 #: apps/transactions/models.py:404
 msgid "Deleted"
@@ -1717,16 +1703,12 @@ msgid "Add notes to transactions"
 msgstr "Adicionar notas às transações"
 
 #: apps/transactions/models.py:932
-#, fuzzy
-#| msgid "To Amount"
 msgid "To amount"
 msgstr "Quantia de destino"
 
 #: apps/transactions/models.py:933
-#, fuzzy
-#| msgid "Leave empty for a non-expiring token."
 msgid "Leave empty to use the same amount"
-msgstr "Deixe em branco para um token sem prazo de validade."
+msgstr "Deixe em branco para usar a mesma quantia"
 
 #: apps/transactions/models.py:974 templates/mini_tools/simulator.html:129
 msgid "day(s)"
@@ -1843,10 +1825,8 @@ msgid "Item added successfully"
 msgstr "Item adicionado com sucesso"
 
 #: apps/transactions/views/conversions.py:91
-#, fuzzy
-#| msgid "Edit quick transaction"
 msgid "Convert into quick transaction"
-msgstr "Editar transação rápida"
+msgstr "Converter em transação rápida"
 
 #: apps/transactions/views/conversions.py:108
 #: apps/transactions/views/recurring_transactions.py:112
@@ -1854,10 +1834,8 @@ msgid "Recurring Transaction added successfully"
 msgstr "Transação Recorrente adicionada com sucesso"
 
 #: apps/transactions/views/conversions.py:129
-#, fuzzy
-#| msgid "Edit recurring transaction"
 msgid "Convert into recurring transaction"
-msgstr "Editar transação recorrente"
+msgstr "Converter em transação recorrente"
 
 #: apps/transactions/views/conversions.py:148
 #: apps/transactions/views/installment_plans.py:87
@@ -1865,10 +1843,8 @@ msgid "Installment Plan added successfully"
 msgstr "Parcelamento adicionado com sucesso"
 
 #: apps/transactions/views/conversions.py:167
-#, fuzzy
-#| msgid "Edit installment plan"
 msgid "Convert into installment plan"
-msgstr "Editar parcelamento"
+msgstr "Converter em parcelamento"
 
 #: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
@@ -1976,10 +1952,8 @@ msgid "Transfer added successfully"
 msgstr "Transferência adicionada com sucesso"
 
 #: apps/transactions/views/transactions.py:562
-#, fuzzy
-#| msgid "Transfer added successfully"
 msgid "Transfer updated successfully"
-msgstr "Transferência adicionada com sucesso"
+msgstr "Transferência atualizada com sucesso"
 
 #: apps/users/admin.py:17
 msgid "Revoke selected API tokens"
@@ -2172,14 +2146,12 @@ msgid "Calendar"
 msgstr "Calendário"
 
 #: apps/users/models.py:484
-#, fuzzy
-#| msgid "New transfer"
 msgid "Combine transfers"
-msgstr "Nova transferência"
+msgstr "Combinar transferências"
 
 #: apps/users/models.py:485
 msgid "Show both sides of a transfer as a single item"
-msgstr ""
+msgstr "Mostrar os dois lados de uma transferência como um único item"
 
 #: apps/users/models.py:509
 msgid "Language"
@@ -2603,10 +2575,8 @@ msgid "Hide from summaries"
 msgstr "Esconder dos sumários"
 
 #: templates/cotton/transaction/item.html:268
-#, fuzzy
-#| msgid "Invert"
 msgid "Convert"
-msgstr "Inverter"
+msgstr "Converter"
 
 #: templates/cotton/transaction/item.html:283
 #: templates/cotton/transaction/item.html:293
@@ -2615,7 +2585,7 @@ msgstr "Já faz parte de um parcelamento ou de uma recorrência"
 
 #: templates/cotton/transaction/item.html:310
 msgid "Not available for transfers"
-msgstr ""
+msgstr "Não disponível para transferências"
 
 #: templates/cotton/transaction/item.html:327
 msgid "Move to previous month"
@@ -3171,10 +3141,8 @@ msgstr "Conversor de Moeda"
 
 #: templates/includes/sidebar.html:136 templates/mini_tools/simulator.html:5
 #: templates/mini_tools/simulator.html:21
-#, fuzzy
-#| msgid "Calculator"
 msgid "Simulator"
-msgstr "Calculadora"
+msgstr "Simulador"
 
 #: templates/includes/sidebar.html:145
 msgid "Management"
@@ -3497,10 +3465,8 @@ msgid "Months to simulate"
 msgstr "Meses para simular"
 
 #: templates/mini_tools/simulator.html:78
-#, fuzzy
-#| msgid "Sequenced"
 msgid "Frequency"
-msgstr "Sequencial"
+msgstr "Frequência"
 
 #: templates/mini_tools/simulator.html:97
 msgid "One time"
@@ -3511,30 +3477,22 @@ msgid "Starting month"
 msgstr "Mês inicial"
 
 #: templates/mini_tools/simulator.html:122
-#, fuzzy
-#| msgid "Fetch every"
 msgid "Repeat every"
-msgstr "Buscar a cada"
+msgstr "Repetir a cada"
 
 #: templates/mini_tools/simulator.html:127
 msgid "Period"
 msgstr "Período"
 
 #: templates/mini_tools/simulator.html:136
-#, fuzzy
-#| msgid "currencies"
 msgid "Occurrences"
-msgstr "moedas"
+msgstr "Ocorrências"
 
 #: templates/mini_tools/simulator.html:139
-#, fuzzy
-#| msgid "Leave empty for a non-expiring token."
 msgid "Leave empty to repeat indefinitely"
-msgstr "Deixe em branco para um token sem prazo de validade."
+msgstr "Deixe em branco para repetir indefinidamente"
 
 #: templates/mini_tools/simulator.html:142
-#, fuzzy
-#| msgid "Number of Installments"
 msgid "Number of installments"
 msgstr "Número de Parcelas"
 
@@ -3556,10 +3514,8 @@ msgid "Final balance with simulation"
 msgstr "Balanço final com simulação"
 
 #: templates/mini_tools/simulator.html:206
-#, fuzzy
-#| msgid "Total Items"
 msgid "Total impact"
-msgstr "Itens Totais"
+msgstr "Impacto total"
 
 #: templates/mini_tools/simulator.html:212
 msgid "Lowest balance with simulation"
@@ -3574,28 +3530,20 @@ msgid "With simulation"
 msgstr "Com simulação"
 
 #: templates/mini_tools/simulator.html:235
-#, fuzzy
-#| msgid "Projected Income"
 msgid "Projected change"
-msgstr "Renda Prevista"
+msgstr "Mudança prevista"
 
 #: templates/mini_tools/simulator.html:236
-#, fuzzy
-#| msgid "Date Range"
 msgid "Simulated change"
-msgstr "Intervalo de Data"
+msgstr "Mudança simulada"
 
 #: templates/mini_tools/simulator.html:237
-#, fuzzy
-#| msgid "Balance reconciliation"
 msgid "Balance without simulation"
-msgstr "Reconciliação do saldo"
+msgstr "Saldo sem simulação"
 
 #: templates/mini_tools/simulator.html:238
-#, fuzzy
-#| msgid "Balance reconciliation"
 msgid "Balance with simulation"
-msgstr "Reconciliação do saldo"
+msgstr "Saldo com simulação"
 
 #: templates/mini_tools/simulator.html:246
 msgid ""
@@ -3808,10 +3756,8 @@ msgid "Activate"
 msgstr "Ativar"
 
 #: templates/rules/fragments/list.html:77
-#, fuzzy
-#| msgid "Only the owner can edit this"
 msgid "Only the owner can change this"
-msgstr "Somente o proprietário pode editar isso"
+msgstr "Somente o proprietário pode mudar isso"
 
 #: templates/rules/fragments/list.html:96
 msgid "No rules"
@@ -4000,10 +3946,8 @@ msgid "No transactions found"
 msgstr "Nenhuma transação encontrada"
 
 #: templates/transactions/fragments/transfer.html:5
-#, fuzzy
-#| msgid "Edit user"
 msgid "Edit transfer"
-msgstr "Editar usuário"
+msgstr "Editar transferência"
 
 #: templates/transactions/fragments/transfer.html:5
 msgid "New transfer"
