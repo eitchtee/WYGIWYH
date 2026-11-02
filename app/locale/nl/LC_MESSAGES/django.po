@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-02 04:18+0000\n"
-"PO-Revision-Date: 2026-10-14 04:57+0000\n"
+"PO-Revision-Date: 2026-11-02 17:58+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -95,28 +95,20 @@ msgid "Tags"
 msgstr "Labels"
 
 #: apps/accounts/forms.py:179
-#, fuzzy
-#| msgid "All Transactions"
 msgid "All paid transactions"
-msgstr "Alle Verrichtingen"
+msgstr "Alle betaalde transacties"
 
 #: apps/accounts/forms.py:180
-#, fuzzy
-#| msgid "Update"
 msgid "Up to date"
-msgstr "Bijwerken"
+msgstr "Actueel"
 
 #: apps/accounts/forms.py:181
-#, fuzzy
-#| msgid "Reference Date"
 msgid "Up to reference month"
-msgstr "Referentiedatum"
+msgstr "Tot en met de referentiemaand"
 
 #: apps/accounts/forms.py:185
-#, fuzzy
-#| msgid "Balance"
 msgid "Balance against"
-msgstr "Saldo"
+msgstr "Evenwicht tegen"
 
 #: apps/accounts/forms.py:189 apps/currencies/forms.py:66
 #: apps/dca/models.py:158 apps/rules/forms.py:176 apps/rules/forms.py:190
@@ -130,10 +122,8 @@ msgid "Date"
 msgstr "Datum"
 
 #: apps/accounts/forms.py:194
-#, fuzzy
-#| msgid "Reference Date"
 msgid "Reference month"
-msgstr "Referentiedatum"
+msgstr "Referentiemaand"
 
 #: apps/accounts/models.py:12 apps/accounts/models.py:29 apps/dca/models.py:13
 #: apps/import_app/models.py:20 apps/rules/models.py:13
@@ -326,7 +316,7 @@ msgstr "Ongeldige bedrijfsgegevens. Geef een ID of naam op."
 
 #: apps/api/serializers/transactions.py:141 apps/transactions/models.py:953
 msgid "This field is required."
-msgstr ""
+msgstr "Dit veld is verplicht."
 
 #: apps/api/serializers/transactions.py:205
 msgid "Either 'date' or 'reference_date' must be provided."
@@ -752,7 +742,7 @@ msgstr "Van rekening"
 
 #: apps/dca/forms.py:70 apps/transactions/forms.py:587
 msgid "To Account"
-msgstr "Naar rekening"
+msgstr "Naar Rekening"
 
 #: apps/dca/forms.py:110 apps/dca/models.py:171
 msgid "Expense Transaction"
@@ -1492,8 +1482,6 @@ msgstr "Uploaden"
 
 #: apps/transactions/forms.py:355 apps/transactions/forms.py:1089
 #: apps/transactions/models.py:925
-#, fuzzy
-#| msgid "To Account"
 msgid "To account"
 msgstr "Naar rekening"
 
@@ -1617,10 +1605,8 @@ msgid "Recurring Transaction"
 msgstr "Terugkerende verrichting"
 
 #: apps/transactions/models.py:396
-#, fuzzy
-#| msgid "Link transaction"
 msgid "Linked Transaction"
-msgstr "Koppel verrichting"
+msgstr "Gekoppelde verrichting"
 
 #: apps/transactions/models.py:404
 msgid "Deleted"
@@ -1720,16 +1706,12 @@ msgid "Add notes to transactions"
 msgstr "Notities toevoegen aan verrichting"
 
 #: apps/transactions/models.py:932
-#, fuzzy
-#| msgid "To Amount"
 msgid "To amount"
-msgstr "Naar Bedrag"
+msgstr "Naar bedrag"
 
 #: apps/transactions/models.py:933
-#, fuzzy
-#| msgid "Leave empty to repeat indefinitely"
 msgid "Leave empty to use the same amount"
-msgstr "Laat leeg om voor onbepaalde tijd te herhalen"
+msgstr "Laat leeg om dezelfde hoeveelheid te gebruiken"
 
 #: apps/transactions/models.py:974 templates/mini_tools/simulator.html:129
 msgid "day(s)"
@@ -1973,10 +1955,8 @@ msgid "Transfer added successfully"
 msgstr "Transactie succesvol toegevoegd"
 
 #: apps/transactions/views/transactions.py:562
-#, fuzzy
-#| msgid "Transfer added successfully"
 msgid "Transfer updated successfully"
-msgstr "Transactie succesvol toegevoegd"
+msgstr "Transactie succesvol bijgewerkt"
 
 #: apps/users/admin.py:17
 msgid "Revoke selected API tokens"
@@ -2168,14 +2148,12 @@ msgid "Calendar"
 msgstr "Kalender"
 
 #: apps/users/models.py:484
-#, fuzzy
-#| msgid "New transfer"
 msgid "Combine transfers"
-msgstr "Nieuwe overschrijving"
+msgstr "Combineer overschrijvingen"
 
 #: apps/users/models.py:485
 msgid "Show both sides of a transfer as a single item"
-msgstr ""
+msgstr "Toon beide kanten van een overboeking als één item"
 
 #: apps/users/models.py:509
 msgid "Language"
@@ -2610,7 +2588,7 @@ msgstr "Reeds onderdeel van een plan of terugkerende verrichting"
 
 #: templates/cotton/transaction/item.html:310
 msgid "Not available for transfers"
-msgstr ""
+msgstr "Niet beschikbaar voor overboekingen"
 
 #: templates/cotton/transaction/item.html:327
 msgid "Move to previous month"
@@ -3979,10 +3957,8 @@ msgid "No transactions found"
 msgstr "Geen Verrichtingen gevonden"
 
 #: templates/transactions/fragments/transfer.html:5
-#, fuzzy
-#| msgid "Edit user"
 msgid "Edit transfer"
-msgstr "Gebruiker bewerken"
+msgstr "Overschrijving bewerken"
 
 #: templates/transactions/fragments/transfer.html:5
 msgid "New transfer"
