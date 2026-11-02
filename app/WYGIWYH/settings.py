@@ -328,7 +328,12 @@ CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
         "LOCATION": "/var/tmp/django_cache",
-    }
+    },
+    # Kept apart from "default": cachalot fills it and FileBasedCache culls random entries past MAX_ENTRIES
+    "update_check": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/var/tmp/django_cache_update_check",
+    },
 }
 
 DJANGO_VITE_ASSETS_PATH = STATIC_ROOT

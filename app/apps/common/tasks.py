@@ -5,7 +5,7 @@ from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.core import management
 from django.db import DEFAULT_DB_ALIAS
-from django.core.cache import cache
+from django.core.cache import caches
 
 from procrastinate import builtin_tasks
 from procrastinate.contrib.django import app
@@ -107,26 +107,13 @@ def check_for_updates(timestamp=None):
 
         if latest_version:
             try:
-                current_v = parse_version(settings.APP_VERSION)
+                latest_version = str(parse_version(latest_version))
             except InvalidVersion:
-                current_v = parse_version("0.0.0")
-            try:
-                latest_v = parse_version(latest_version)
-            except InvalidVersion:
-                latest_v = parse_version("0.0.0")
-
-            update_info = {
-                "update_available": False,
-                "current_version": str(current_v),
-                "latest_version": str(latest_v),
-            }
-
-            if latest_v > current_v:
-                update_info["update_available"] = True
-
-            # Cache the entire dictionary
-            cache.set("update_check", update_info, 60 * 60 * 25)
-            logger.info(f"Update check complete. Result: {update_info}")
+                logger.warning(f"Invalid version tag from GitHub: {latest_version}")
+                return f"Invalid version tag: {latest_version}"
+            # Only the latest tag is stored; it's compared to APP_VERSION at render time so upgrades never leave it stale
+            caches["update_check"].set("latest_version", latest_version, None)
+            logger.info(f"Update check complete. Latest version: {latest_version}")
         else:
             logger.warning("Could not find 'tag_name' in GitHub API response.")
 
