@@ -359,11 +359,12 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIALACCOUNT_PROVIDERS = {"openid_connect": {"APPS": []}}
 
-if (
+OIDC_CONFIGURED = bool(
     os.getenv("OIDC_CLIENT_ID")
     and os.getenv("OIDC_CLIENT_SECRET")
     and os.getenv("OIDC_SERVER_URL")
-):
+)
+if OIDC_CONFIGURED:
     SOCIALACCOUNT_PROVIDERS["openid_connect"]["APPS"].append(
         {
             "provider_id": slugify(os.getenv("OIDC_CLIENT_NAME", "OpenID Connect")),
@@ -396,7 +397,7 @@ SOCIALACCOUNT_ADAPTER = "apps.users.adapters.AutoConnectSocialAccountAdapter"
 # Only takes effect when an OIDC provider is configured, so an instance can't
 # be left without any way to sign in.
 OIDC_DISABLE_LOCAL_LOGIN = (
-    bool(SOCIALACCOUNT_PROVIDERS["openid_connect"]["APPS"])
+    OIDC_CONFIGURED
     and os.getenv("OIDC_DISABLE_LOCAL_LOGIN", "false").lower() == "true"
 )
 if OIDC_DISABLE_LOCAL_LOGIN:

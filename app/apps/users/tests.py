@@ -200,7 +200,8 @@ def _basic_auth(email, password):
 @override_settings(STORAGES=PLAIN_STATIC_FILES, WHITENOISE_AUTOREFRESH=True)
 class LocalLoginEnabledByDefaultTests(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
+        # Superuser so the admin login is allowed; mirrors LocalLoginDisabledTests.
+        self.user = get_user_model().objects.create_superuser(
             email="user@example.com", password="test-password"
         )
 
@@ -214,6 +215,22 @@ class LocalLoginEnabledByDefaultTests(TestCase):
         response = self.client.get(reverse("login"))
 
         self.assertContains(response, 'name="password"')
+
+    def test_login_page_accepts_a_password(self):
+        self.client.post(
+            reverse("login"),
+            {"username": "user@example.com", "password": "test-password"},
+        )
+
+        self.assertEqual(self.client.session.get(SESSION_KEY), str(self.user.pk))
+
+    def test_admin_accepts_a_password(self):
+        self.client.post(
+            reverse("admin:login"),
+            {"username": "user@example.com", "password": "test-password"},
+        )
+
+        self.assertEqual(self.client.session.get(SESSION_KEY), str(self.user.pk))
 
     def test_api_basic_auth_works(self):
         response = self.client.get(
@@ -277,7 +294,7 @@ class LocalLoginDisabledTests(TestCase):
             HTTP_AUTHORIZATION=_basic_auth("user@example.com", "test-password"),
         )
 
-        self.assertIn(response.status_code, (401, 403))
+        self.assertEqual(response.status_code, 401)
 
     def test_oidc_login_still_works(self):
         request = _complete_oidc_login(
