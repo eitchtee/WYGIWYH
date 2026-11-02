@@ -176,6 +176,7 @@ To configure OIDC, you need to set the following environment variables:
 | `OIDC_SERVER_URL`    | The base URL of your OIDC provider's discovery document or authorization server (e.g., `https://your-provider.com/auth/realms/your-realm`). `django-allauth` will use this to discover the necessary endpoints (authorization, token, userinfo, etc.). |
 | `OIDC_ALLOW_SIGNUP`  | Allow the automatic creation of inexistent accounts on a successfull authentication. Defaults to `true`.                                                                                                                                               |
 | `OIDC_TRUST_EMAIL`   | Treat every email sent by your provider as verified, linking it to a matching existing local account even without the `email_verified` claim. Set to `false` to only link verified emails. Defaults to `true`.                                  |
+| `OIDC_DISABLE_LOCAL_LOGIN` | Only allow signing in through your OIDC provider. E-mail and password logins are refused everywhere: the login page, the admin and the API's basic authentication. API tokens and OAuth apps keep working. Only takes effect when OIDC is configured, and changing it signs everyone out once. Defaults to `false`. |
 
 **Callback URL (Redirect URI):**
 

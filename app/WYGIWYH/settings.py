@@ -393,6 +393,15 @@ SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 SOCIALACCOUNT_ADAPTER = "apps.users.adapters.AutoConnectSocialAccountAdapter"
 
+# Only takes effect when an OIDC provider is configured, so an instance can't
+# be left without any way to sign in.
+OIDC_DISABLE_LOCAL_LOGIN = (
+    bool(SOCIALACCOUNT_PROVIDERS["openid_connect"]["APPS"])
+    and os.getenv("OIDC_DISABLE_LOCAL_LOGIN", "false").lower() == "true"
+)
+if OIDC_DISABLE_LOCAL_LOGIN:
+    AUTHENTICATION_BACKENDS = ["apps.users.backends.SocialOnlyAuthenticationBackend"]
+
 # Personal access tokens. last_used_at is only rewritten once per interval to
 # avoid a database write on every authenticated request.
 API_TOKEN_LAST_USED_UPDATE_INTERVAL = int(
