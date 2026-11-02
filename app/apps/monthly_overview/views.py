@@ -83,7 +83,7 @@ def transactions_list(request, month: int, year: int):
     transactions_filtered = f.qs.filter(
         reference_date__year=year,
         reference_date__month=month,
-    ).prefetch_related(
+    ).collapse_transfers().prefetch_related(
         "account",
         "account__group",
         "category",
@@ -94,6 +94,10 @@ def transactions_list(request, month: int, year: int):
         "entities",
         "dca_expense_entries",
         "dca_income_entries",
+        "linked_transaction__account__currency",
+        "linked_transaction__account__group",
+        "linked_transaction__category",
+        "linked_transaction__tags",
     )
 
     # Late transactions: date < today and is_paid = False (only shown for default ordering)

@@ -42,12 +42,15 @@
                 </td>
                 <td>
                   <div
-                      class="{% if qt.type == 'EX' %}text-error{% else %}text-success{% endif %}">
+                      class="{% if qt.type == 'EX' %}text-error{% elif qt.type == 'TR' %}text-info{% else %}text-success{% endif %}">
                     {{ qt.name }}
                   </div>
                 </td>
                 <td>
                   {% if qt.account.group %}{{ qt.account.group }} • {% endif %}{{ qt.account }}
+                  {% if qt.is_transfer %}
+                    <div><i class="fa-solid fa-arrow-right fa-fw fa-xs text-base-content/40"></i> {% if qt.to_account.group %}{{ qt.to_account.group }} • {% endif %}{{ qt.to_account }}</div>
+                  {% endif %}
                 </td>
                 <td>
                   <c-amount.display
@@ -55,7 +58,7 @@
                     :prefix="qt.account.currency.prefix"
                     :suffix="qt.account.currency.suffix"
                     :decimal_places="qt.account.currency.decimal_places"
-                    color="{% if qt.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
+                    color="{% if qt.type == "EX" %}red{% elif qt.type == "IN" %}green{% endif %}"></c-amount.display>
                 </td>
               </tr>
             {% endfor %}

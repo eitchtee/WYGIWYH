@@ -110,6 +110,10 @@ class Command(BaseCommand):
         """Same shape as TransferForm.save(): an expense and an income."""
         out = self.tx(source, EX, amount, when, description, category, mute=mute)
         inc = self.tx(target, IN, to_amount or amount, when, description, category, mute=mute)
+        inc.linked_transaction = out
+        inc.save()
+        out.linked_transaction = inc
+        out.save()
         return out, inc
 
     def rate(self, series, months):

@@ -305,9 +305,11 @@ def overview_results(request):
 @require_http_methods(["GET"])
 def latest_transactions(request):
     limit = timezone.now() - relativedelta(days=3)
-    transactions = Transaction.objects.filter(created_at__gte=limit).order_by("-id")[
-        :30
-    ]
+    transactions = (
+        Transaction.objects.filter(created_at__gte=limit)
+        .collapse_transfers()
+        .order_by("-id")[:30]
+    )
 
     return render(
         request,
@@ -321,7 +323,9 @@ def latest_transactions(request):
 @require_http_methods(["GET"])
 def late_transactions(request):
     now = timezone.localdate(timezone.now())
-    transactions = Transaction.objects.filter(is_paid=False, date__lt=now)
+    transactions = Transaction.objects.filter(
+        is_paid=False, date__lt=now
+    ).collapse_transfers()
 
     return render(
         request,

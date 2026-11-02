@@ -13,6 +13,7 @@ from apps.transactions.forms import (
     TransferForm,
 )
 from apps.transactions.models import FilterPreset, Transaction, TransactionAttachment
+from apps.transactions.views.actions import clone_transaction
 from apps.transactions.utils.calculations import (
     calculate_account_totals,
     calculate_currency_totals,
@@ -344,6 +345,9 @@ def transaction_simple_add(request):
 def transaction_edit(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction, id=transaction_id)
 
+    if transaction.linked_transaction_id:
+        return transaction_transfer_edit(request, transaction_id)
+
     if request.method == "POST":
         form = TransactionForm(request.POST, instance=transaction)
         if form.is_valid():
@@ -424,16 +428,7 @@ def transactions_bulk_edit(request):
 @require_http_methods(["GET", "POST"])
 def transaction_clone(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction, id=transaction_id)
-    new_transaction = deepcopy(transaction)
-    new_transaction.pk = None
-    new_transaction.installment_plan = None
-    new_transaction.installment_id = None
-    new_transaction.recurring_transaction = None
-    new_transaction.internal_id = None
-    new_transaction.save()
-
-    new_transaction.tags.add(*transaction.tags.all())
-    new_transaction.entities.add(*transaction.entities.all())
+    clone_transaction(transaction)
 
     messages.success(request, _("Transaction duplicated successfully"))
 
@@ -474,6 +469,9 @@ def transaction_clone(request, transaction_id, **kwargs):
 @require_http_methods(["DELETE"])
 def transaction_delete(request, transaction_id, **kwargs):
     transaction = get_object_or_404(Transaction.all_objects, id=transaction_id)
+    deleted_ids = [str(transaction_id)]
+    if transaction.linked_transaction_id:
+        deleted_ids.append(str(transaction.linked_transaction_id))
 
     transaction.delete()
 
@@ -487,7 +485,7 @@ def transaction_delete(request, transaction_id, **kwargs):
         headers={
             "HX-Trigger": json.dumps(
                 {
-                    "transactions_deleted": {"ids": [str(transaction_id)]},
+                    "transactions_deleted": {"ids": deleted_ids},
                     "selective_update": None,
                     "toasts": None,
                 }
@@ -500,11 +498,12 @@ def transaction_delete(request, transaction_id, **kwargs):
 @login_required
 @require_http_methods(["GET"])
 def transaction_undelete(request, transaction_id, **kwargs):
-    transaction = get_object_or_404(Transaction.deleted_objects, id=transaction_id)
+    get_object_or_404(Transaction.deleted_objects, id=transaction_id)
 
-    transaction.deleted = False
-    transaction.deleted_at = None
-    transaction.save()
+    # Restores the other side of a transfer too
+    Transaction.deleted_objects.filter(
+        Q(id=transaction_id) | Q(linked_transaction_id=transaction_id)
+    ).update(deleted=False, deleted_at=None, emit_signal=False)
 
     messages.success(request, _("Transaction restored successfully"))
 
@@ -546,6 +545,33 @@ def transactions_transfer(request):
         )
 
     return render(request, "transactions/fragments/transfer.html", {"form": form})
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def transaction_transfer_edit(request, transaction_id):
+    transaction = get_object_or_404(
+        Transaction, id=transaction_id, linked_transaction__isnull=False
+    )
+
+    if request.method == "POST":
+        form = TransferForm(request.POST, instance=transaction)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Transfer updated successfully"))
+            return HttpResponse(
+                status=204,
+                headers={"HX-Trigger": "updated, hide_offcanvas"},
+            )
+    else:
+        form = TransferForm(instance=transaction)
+
+    return render(
+        request,
+        "transactions/fragments/transfer.html",
+        {"form": form, "transaction": transaction},
+    )
 
 
 @only_htmx
@@ -760,6 +786,10 @@ def transaction_all_list(request):
         "entities",
         "dca_expense_entries",
         "dca_income_entries",
+        "linked_transaction__account__currency",
+        "linked_transaction__account__group",
+        "linked_transaction__category",
+        "linked_transaction__tags",
     ).all()
 
     f = TransactionsFilter(request.GET, queryset=transactions)
@@ -767,18 +797,19 @@ def transaction_all_list(request):
     # Late transactions: date < today and is_paid = False (only shown for default ordering on first page)
     late_transactions = None
     page_number = request.GET.get("page", 1)
+    filtered = f.qs.collapse_transfers()
     if order == "default" and str(page_number) == "1":
-        late_transactions = f.qs.filter(
+        late_transactions = filtered.filter(
             date__lt=today,
             is_paid=False,
         ).order_by("date", "id")
         # Exclude late transactions from the main paginated list
-        main_transactions = f.qs.exclude(
+        main_transactions = filtered.exclude(
             date__lt=today,
             is_paid=False,
         )
     else:
-        main_transactions = f.qs
+        main_transactions = filtered
 
     main_transactions = default_order(main_transactions, order=order)
 
@@ -922,10 +953,13 @@ def transactions_trash_can_list(request):
         "account__currency",
         "installment_plan",
         "entities",
-        "entities",
         "dca_expense_entries",
         "dca_income_entries",
-    ).all()
+        "linked_transaction__account__currency",
+        "linked_transaction__account__group",
+        "linked_transaction__category",
+        "linked_transaction__tags",
+    ).collapse_transfers()
 
     return render(
         request,

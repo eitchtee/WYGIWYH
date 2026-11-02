@@ -96,13 +96,16 @@
           </div>
         </td>
         <td>
-          <div class="{% if recurring_transaction.type == 'EX' %}text-error{% else %}text-success{% endif %}">
+          <div class="{% if recurring_transaction.type == 'EX' %}text-error{% elif recurring_transaction.type == 'TR' %}text-info{% else %}text-success{% endif %}">
             {{ recurring_transaction.description }}
           </div>
           <div class="text-sm text-base-content/60">{{ recurring_transaction.notes|linebreaksbr }}</div>
         </td>
         <td class="w-auto">
           {% if recurring_transaction.account.group %}{{ recurring_transaction.account.group }} • {% endif %}{{ recurring_transaction.account }}
+          {% if recurring_transaction.is_transfer %}
+            <div><i class="fa-solid fa-arrow-right fa-fw fa-xs text-base-content/40"></i> {% if recurring_transaction.to_account.group %}{{ recurring_transaction.to_account.group }} • {% endif %}{{ recurring_transaction.to_account }}</div>
+          {% endif %}
         </td>
         <td class="w-auto">
           <c-amount.display
@@ -110,7 +113,7 @@
             :prefix="recurring_transaction.account.currency.prefix"
             :suffix="recurring_transaction.account.currency.suffix"
             :decimal_places="recurring_transaction.account.currency.decimal_places"
-            color="{% if recurring_transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
+            color="{% if recurring_transaction.type == "EX" %}red{% elif recurring_transaction.type == "IN" %}green{% endif %}"></c-amount.display>
         </td>
       </tr>
       {% endfor %}

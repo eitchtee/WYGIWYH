@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction as db_transaction
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -17,7 +17,7 @@ from apps.transactions.models import Transaction
 
 
 def _initial_from_transaction(transaction: Transaction):
-    return {
+    initial = {
         "account": transaction.account_id,
         "type": transaction.type,
         "description": transaction.description,
@@ -26,6 +26,14 @@ def _initial_from_transaction(transaction: Transaction):
         "tags": list(transaction.tags.values_list("name", flat=True)),
         "entities": list(transaction.entities.values_list("name", flat=True)),
     }
+    if transaction.linked_transaction_id:
+        to_transaction = transaction.transfer_to
+        initial.update(
+            type="TR",
+            to_account=to_transaction.account_id,
+            to_amount=to_transaction.amount,
+        )
+    return initial
 
 
 def _get_unlinked_transaction(transaction_id):
@@ -54,7 +62,8 @@ def _render_convert_form(request, form, title, transaction_id, url_name):
 @login_required
 @require_http_methods(["GET", "POST"])
 def transaction_convert_to_quick_transaction(request, transaction_id):
-    transaction = get_object_or_404(Transaction, id=transaction_id)
+    # A transfer converts from its "from" side
+    transaction = get_object_or_404(Transaction, id=transaction_id).transfer_from
 
     if request.method == "POST":
         form = QuickTransactionForm(request.POST)
@@ -89,7 +98,7 @@ def transaction_convert_to_quick_transaction(request, transaction_id):
 @login_required
 @require_http_methods(["GET", "POST"])
 def transaction_convert_to_recurring_transaction(request, transaction_id):
-    transaction = _get_unlinked_transaction(transaction_id)
+    transaction = _get_unlinked_transaction(transaction_id).transfer_from
 
     if request.method == "POST":
         form = RecurringTransactionForm(request.POST)
@@ -128,6 +137,8 @@ def transaction_convert_to_recurring_transaction(request, transaction_id):
 @require_http_methods(["GET", "POST"])
 def transaction_convert_to_installment_plan(request, transaction_id):
     transaction = _get_unlinked_transaction(transaction_id)
+    if transaction.linked_transaction_id:
+        raise Http404()  # Installment plans don't support transfers
 
     if request.method == "POST":
         form = InstallmentPlanForm(request.POST)
