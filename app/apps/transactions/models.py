@@ -509,6 +509,30 @@ class Transaction(OwnedObject):
         self.save()
         return to_transaction
 
+    def transfer_link_error(self, other):
+        """Why ``self`` and ``other`` can't be joined into a transfer, or None."""
+        if self.linked_transaction_id == other.pk and other.linked_transaction_id == self.pk:
+            return None
+        if {self.type, other.type} != {self.Type.INCOME, self.Type.EXPENSE}:
+            return _("A transfer needs one expense and one income.")
+        if self.account_id == other.account_id:
+            return _("A transfer needs two different accounts.")
+        if self.linked_transaction_id not in (None, other.pk) or (
+            other.linked_transaction_id not in (None, self.pk)
+        ):
+            return _("This transaction is already part of another transfer.")
+        return None
+
+    def link_transfer(self, other):
+        """Joins an existing expense and income into a transfer."""
+        error = self.transfer_link_error(other)
+        if error:
+            raise ValidationError(error)
+        # update(): only the link changes; dates, amounts and rules are left alone
+        Transaction.all_objects.filter(pk=self.pk).update(linked_transaction=other)
+        Transaction.all_objects.filter(pk=other.pk).update(linked_transaction=self)
+        self.linked_transaction, other.linked_transaction = other, self
+
     @property
     def transfer_from(self):
         if self.linked_transaction_id and self.type == self.Type.INCOME:
