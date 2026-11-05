@@ -1,10 +1,11 @@
+import datetime
 from decimal import Decimal
 from unittest.mock import patch, MagicMock
 
 from django.test import TestCase
 from django.utils import timezone
 
-from apps.currencies.models import Currency, ExchangeRateService
+from apps.currencies.models import Currency, ExchangeRate, ExchangeRateService
 from apps.currencies.exchange_rates.fetcher import ExchangeRateFetcher
 
 
@@ -107,3 +108,42 @@ class ExchangeRateServiceFailureTrackingTests(TestCase):
         self.service.refresh_from_db()
         self.assertIsNotNone(self.service.last_fetch)
         self.assertEqual(self.service.failure_count, 0)
+
+
+class ExchangeRateRetentionTests(TestCase):
+    def setUp(self):
+        self.usd = Currency.objects.create(code="USD", name="Dollar", decimal_places=2)
+        self.eur = Currency.objects.create(
+            code="EUR", name="Euro", decimal_places=2, exchange_currency=self.usd
+        )
+        self.service = ExchangeRateService.objects.create(
+            name="S", service_type=ExchangeRateService.ServiceType.FRANKFURTER
+        )
+
+    def fetch(self, rate, when):
+        with patch("django.utils.timezone.now", return_value=when):
+            ExchangeRateFetcher._store_rate(self.service, self.eur, self.usd, Decimal(rate))
+
+    def rates(self):
+        return list(
+            ExchangeRate.objects.order_by("date").values_list("rate", flat=True)
+        )
+
+    def test_keeps_every_fetch_by_default(self):
+        for hour in (1, 2, 3):
+            self.fetch(hour, timezone.now().replace(hour=hour))
+        self.assertEqual(len(self.rates()), 3)
+
+    def test_max_rates_deletes_the_oldest(self):
+        self.service.max_rates = 2
+        for hour in (1, 2, 3):
+            self.fetch(hour, timezone.now().replace(hour=hour))
+        self.assertEqual(self.rates(), [Decimal(2), Decimal(3)])
+
+    def test_one_per_day_updates_the_days_rate(self):
+        self.service.one_per_day = True
+        day = timezone.localtime().replace(hour=10)
+        self.fetch(1, day)
+        self.fetch(2, day.replace(hour=11))
+        self.fetch(3, day + datetime.timedelta(days=1))
+        self.assertEqual(self.rates(), [Decimal(2), Decimal(3)])

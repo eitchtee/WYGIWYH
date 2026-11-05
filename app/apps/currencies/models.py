@@ -160,11 +160,20 @@ class ExchangeRateService(models.Model):
         blank=True,
     )
 
-    singleton = models.BooleanField(
-        verbose_name=_("Single exchange rate"),
+    one_per_day = models.BooleanField(
+        verbose_name=_("One exchange rate per day"),
         default=False,
         help_text=_(
-            "Create one exchange rate and keep updating it. Avoids database clutter."
+            "Update the day's exchange rate on each fetch instead of adding a new one."
+        ),
+    )
+    max_rates = models.PositiveIntegerField(
+        verbose_name=_("Exchange rates to keep"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1)],
+        help_text=_(
+            "Keep at most this many automatic exchange rates per currency pair, deleting the oldest first. Leave empty to keep all."
         ),
     )
 
