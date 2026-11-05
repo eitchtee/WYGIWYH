@@ -1,0 +1,8 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate 'Investments' %}{% endblock %}
+
+{% block content %}
+<div hx-get="{% url 'investments_list' %}" hx-trigger="load, updated from:window" class="show-loading"></div>
+{% endblock %}

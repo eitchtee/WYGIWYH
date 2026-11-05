@@ -1,0 +1,8 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ account.name }} :: {% translate 'Investments' %}{% endblock %}
+
+{% block content %}
+<div hx-get="{% url 'investment_detail' account_id=account.id %}" hx-trigger="load, updated from:window" class="show-loading" id="investment-details"></div>
+{% endblock %}

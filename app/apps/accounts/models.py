@@ -57,6 +57,25 @@ class Account(SharedObject):
             "Asset accounts count towards your Net Worth, but not towards your month."
         ),
     )
+    is_investment = models.BooleanField(
+        default=False,
+        verbose_name=_("Investment"),
+        help_text=_(
+            "Show this account in the Investments tracker. Set an exchange currency to "
+            "price it by units (stocks, ETFs, crypto); leave it empty to track it by "
+            "value (fixed income, property, pensions)."
+        ),
+    )
+    income_entities = models.ManyToManyField(
+        "transactions.TransactionEntity",
+        blank=True,
+        related_name="investment_accounts",
+        verbose_name=_("Income entities"),
+        help_text=_(
+            "Income transactions with any of these entities (dividends, interest, "
+            "rent) count towards this investment's return."
+        ),
+    )
     is_archived = models.BooleanField(
         default=False,
         verbose_name=_("Archived"),

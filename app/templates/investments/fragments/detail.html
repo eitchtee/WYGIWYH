@@ -1,0 +1,270 @@
+{% load i18n %}
+{% with c=perf.currency a=account.currency %}
+{# Buy/sell are transfers so the tracker sees them; income uses the account's income entity #}
+<c-components.fab>
+  <c-components.fab_menu_button
+      color="success" hx_target="#generic-offcanvas" hx_trigger="click"
+      hx_vals='{"to_account": {{ account.id }}}'
+      url="{% url 'transactions_transfer' %}"
+      icon="fa-solid fa-arrow-right-to-bracket"
+      title="{% translate 'Buy / Contribute' %}"></c-components.fab_menu_button>
+  <c-components.fab_menu_button
+      color="error" hx_target="#generic-offcanvas" hx_trigger="click"
+      hx_vals='{"from_account": {{ account.id }}}'
+      url="{% url 'transactions_transfer' %}"
+      icon="fa-solid fa-arrow-right-from-bracket"
+      title="{% translate 'Sell / Withdraw' %}"></c-components.fab_menu_button>
+  {% if income_entities %}
+    <c-components.fab_menu_button
+        color="success" hx_target="#generic-offcanvas" hx_trigger="click"
+        hx_vals='{"type": "IN", "entities": "{{ income_entities.0.name|escapejs }}"}'
+        url="{% url 'transaction_add' %}"
+        icon="fa-solid fa-hand-holding-dollar"
+        title="{% translate 'Dividend / Income' %}"></c-components.fab_menu_button>
+  {% endif %}
+  {% if not perf.priced %}
+    <c-components.fab_menu_button
+        color="info" hx_target="#generic-offcanvas" hx_trigger="click"
+        url="{% url 'account_reconciliation' %}"
+        icon="fa-solid fa-scale-balanced"
+        title="{% translate 'Update value' %}"></c-components.fab_menu_button>
+  {% endif %}
+</c-components.fab>
+<div class="container pb-20">
+  <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
+    <div class="min-w-0">
+      <div class="text-3xl font-bold font-mono flex items-center gap-2">
+        <a href="{% url 'investments_index' %}" hx-boost="true" class="no-underline text-base-content/40 hover:text-base-content transition-colors duration-150" aria-label="{% translate 'Investments' %}"><i class="fa-solid fa-arrow-left fa-fw text-lg"></i></a>
+        <span class="truncate">{{ account.name }}</span>
+        <button class="btn btn-ghost btn-sm btn-square text-base-content/40 hover:text-base-content"
+                aria-label="{% translate 'Edit account' %}" data-tippy-content="{% translate 'Edit account' %}"
+                hx-get="{% url 'account_edit' pk=account.id %}" hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-pencil text-base"></i>
+        </button>
+      </div>
+      <div class="text-sm text-base-content/60 mt-1">
+        {% if account.group %}{{ account.group.name }} · {% endif %}
+        {% if perf.priced %}{{ a.name }} → {{ c.name }}{% else %}{% translate 'Tracked by value' %}{% endif %}
+        {% if perf.estimated %}<i class="fa-solid fa-circle-exclamation text-warning ml-1" data-tippy-content="{% translate 'Some incoming units have no linked payment, so their cost was estimated from the market price of that day' %}"></i>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 card-border shadow mb-4">
+    <div class="card-body p-5 gap-5">
+      <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+        <div>
+          <div class="text-xs uppercase tracking-wide text-base-content/60">{% translate 'Market value' %}</div>
+          <div class="text-4xl font-bold tabular-nums">
+            {% if perf.market_value is not None %}<c-amount.display :amount="perf.market_value" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>{% else %}-{% endif %}
+          </div>
+          <div class="text-sm tabular-nums mt-1 flex items-baseline gap-2">
+            <c-amount.display :amount="perf.total_return" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display>
+            {% include 'investments/fragments/_mwr.html' with mw=perf.money_weighted %}
+            <span class="text-base-content/50">{% translate 'total return' %}</span>
+          </div>
+          {% if home %}
+            {% with h=home.currency %}
+            <div class="text-sm tabular-nums mt-1 flex flex-wrap items-baseline gap-x-2 text-base-content/60">
+              <span>{% translate 'In' %} {{ h.name }}:</span>
+              <c-amount.display :amount="home.market_value" :prefix="h.prefix" :suffix="h.suffix" :decimal_places="h.decimal_places" divless></c-amount.display>
+              <span>·</span>
+              <c-amount.display :amount="home.total_return" :prefix="h.prefix" :suffix="h.suffix" :decimal_places="h.decimal_places" color="auto" divless></c-amount.display>
+              {% include 'investments/fragments/_mwr.html' with mw=home.money_weighted %}
+              {% if home.has_rate_history %}
+                <span data-tippy-content="{% translate 'How much of the return came from exchange rates moving since you invested' %}">· {% translate 'currency effect' %}
+                  <c-amount.display :amount="home.currency_effect" :prefix="h.prefix" :suffix="h.suffix" :decimal_places="h.decimal_places" color="auto" divless></c-amount.display>
+                </span>
+              {% else %}
+                <span>· {% translate 'currency effect' %} <i class="fa-solid fa-triangle-exclamation text-warning text-xs" data-tippy-content="{% translate 'Every date is converted with the same rate. Add historical exchange rates (or an automatic rate service) to see how much exchange rates moved your return.' %}"></i></span>
+              {% endif %}
+            </div>
+            {% endwith %}
+          {% endif %}
+        </div>
+        {% if perf.priced %}
+          <div class="sm:text-right text-sm text-base-content/60 tabular-nums">
+            <div><c-amount.display :amount="perf.quantity" :prefix="a.prefix" :suffix="a.suffix" :decimal_places="a.decimal_places" divless></c-amount.display></div>
+            <div>
+              {% if perf.price is not None %}
+                × <c-amount.display :amount="perf.price" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+                {% if perf.price_date %}<span class="text-base-content/40"> · {{ perf.price_date|date:"SHORT_DATE_FORMAT" }}</span>{% endif %}
+              {% else %}
+                <span class="text-error">{% translate "No exchange rate available" %}</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="h-64"
+           _="on htmx:afterSettle from #investment-details
+              set ctx to #investmentChart.getContext('2d')
+              set chartData to {{ chart }}
+              js(ctx, chartData)
+                const muted = 'rgba(127, 127, 127, 0.6)';
+                new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                    labels: chartData.labels,
+                    datasets: [
+                      {
+                        label: '{% translate "Value" %}',
+                        data: chartData.value,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.12)',
+                        fill: true,
+                        tension: 0,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4
+                      },
+                      {
+                        label: '{% translate "Invested" %}',
+                        data: chartData.invested,
+                        borderColor: muted,
+                        stepped: true,
+                        fill: false,
+                        borderWidth: 1.5,
+                        borderDash: [4, 4],
+                        pointRadius: 0,
+                        pointHoverRadius: 3
+                      }
+                    ]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                      x: { grid: { display: false }, ticks: { color: muted, maxTicksLimit: 6, maxRotation: 0 } },
+                      y: { beginAtZero: true, border: { display: false }, grid: { color: 'rgba(127, 127, 127, 0.1)' }, ticks: { display: false } }
+                    },
+                    plugins: {
+                      legend: { align: 'end', labels: { color: muted, boxWidth: 12, boxHeight: 2 } }
+                    }
+                  }
+                })
+              end">
+        <canvas id="investmentChart"></canvas>
+      </div>
+
+      <dl class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-4 border-t border-base-content/10 pt-4 text-sm tabular-nums">
+        <div>
+          <dt class="text-xs text-base-content/50">{% translate 'Invested' %}</dt>
+          <dd><c-amount.display :amount="perf.cost_basis" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></dd>
+        </div>
+        <div>
+          <dt class="text-xs text-base-content/50">{% if perf.priced %}{% translate 'Average cost' %}{% else %}{% translate 'Put in / taken out' %}{% endif %}</dt>
+          <dd>
+            {% if perf.priced %}
+              {% if perf.average_cost is not None %}<c-amount.display :amount="perf.average_cost" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>{% else %}-{% endif %}
+            {% else %}
+              <c-amount.display :amount="perf.contributed" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+              <span class="text-base-content/50">/</span>
+              <c-amount.display :amount="perf.withdrawn" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+            {% endif %}
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs text-base-content/50">{% if perf.priced %}{% translate 'Unrealized' %}{% else %}{% translate 'Earnings' %}{% endif %}</dt>
+          <dd>
+            {% if perf.unrealized is not None %}
+              <c-amount.display :amount="perf.unrealized" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display>
+              {% include 'investments/fragments/_percentage.html' with value=perf.unrealized_percentage css="text-xs" %}
+            {% else %}-{% endif %}
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs text-base-content/50">{% translate 'Realized' %}</dt>
+          <dd><c-amount.display :amount="perf.realized" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display></dd>
+        </div>
+        <div>
+          <dt class="text-xs text-base-content/50">{% translate 'Income' %}{% if income_entities %} · {{ income_entities|join:", " }}{% endif %}</dt>
+          <dd><c-amount.display :amount="perf.income" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display></dd>
+        </div>
+        {% if perf.priced %}
+          <div>
+            <dt class="text-xs text-base-content/50">{% translate 'Put in / taken out' %}</dt>
+            <dd>
+              <c-amount.display :amount="perf.contributed" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+              <span class="text-base-content/50">/</span>
+              <c-amount.display :amount="perf.withdrawn" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+            </dd>
+          </div>
+        {% endif %}
+      </dl>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 {% if income %}xl:grid-cols-3{% endif %} gap-4">
+    <div class="card bg-base-100 card-border shadow {% if income %}xl:col-span-2{% endif %}">
+      <div class="px-5 pt-4 pb-2 font-semibold">{% translate 'Movements' %}</div>
+      {% if transactions %}
+        <div class="overflow-x-auto">
+          <table class="table text-sm">
+            <tbody>
+            {% for tx in transactions %}
+              {% with p=tx.linked_transaction %}
+              <tr class="{% if not tx.is_paid %}opacity-50{% endif %}">
+                <td class="whitespace-nowrap text-base-content/60 tabular-nums w-28">{{ tx.date|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>
+                  <div>{{ tx.description }}</div>
+                  <div class="text-xs text-base-content/50">
+                    {% if p %}
+                      {% if tx.type == 'IN' %}{% translate 'Bought / contributed' %}{% else %}{% translate 'Sold / withdrew' %}{% endif %}
+                      · {{ p.account.name }}
+                    {% else %}
+                      {% if tx.type == 'IN' %}{% if perf.priced %}{% translate 'Gain' %}{% else %}{% translate 'Earnings' %}{% endif %}{% else %}{% translate 'Loss, tax or fee' %}{% endif %}
+                    {% endif %}
+                  </div>
+                </td>
+                <td class="text-end tabular-nums whitespace-nowrap">
+                  <c-amount.display :amount="tx.amount" :prefix="a.prefix" :suffix="a.suffix" :decimal_places="a.decimal_places" color="{% if tx.type == 'IN' %}green{% else %}red{% endif %}" divless></c-amount.display>
+                  {% if p and p.account.currency != a %}
+                    <div class="text-xs text-base-content/50">
+                      <c-amount.display :amount="p.amount" :prefix="p.account.currency.prefix" :suffix="p.account.currency.suffix" :decimal_places="p.account.currency.decimal_places" divless></c-amount.display>
+                    </div>
+                  {% endif %}
+                </td>
+                <td class="w-8 px-1">
+                  <button class="btn btn-ghost btn-xs btn-square text-base-content/40 hover:text-base-content"
+                          aria-label="{% translate 'Edit' %}" data-tippy-content="{% translate 'Edit' %}"
+                          hx-get="{% if p %}{% url 'transaction_transfer_edit' transaction_id=tx.id %}{% else %}{% url 'transaction_edit' transaction_id=tx.id %}{% endif %}" hx-target="#generic-offcanvas"><i class="fa-solid fa-pencil"></i></button>
+                </td>
+              </tr>
+              {% endwith %}
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <c-msg.empty title="{% translate 'No movements yet' %}" subtitle="{% translate 'Use the + button to buy or contribute' %}"></c-msg.empty>
+      {% endif %}
+    </div>
+    {% if income %}
+      <div class="card bg-base-100 card-border shadow">
+        <div class="px-5 pt-4 pb-2 font-semibold">{% translate 'Income' %}</div>
+        <div class="overflow-x-auto">
+          <table class="table text-sm">
+            <tbody>
+            {% for tx in income %}
+              <tr class="{% if not tx.is_paid %}opacity-50{% endif %}">
+                <td class="whitespace-nowrap text-base-content/60 tabular-nums">{{ tx.date|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ tx.description }}<div class="text-xs text-base-content/50">{{ tx.account.name }}</div></td>
+                <td class="text-end tabular-nums whitespace-nowrap"><c-amount.display :amount="tx.amount" :prefix="tx.account.currency.prefix" :suffix="tx.account.currency.suffix" :decimal_places="tx.account.currency.decimal_places" color="green" divless></c-amount.display></td>
+                <td class="w-8 px-1">
+                  <button class="btn btn-ghost btn-xs btn-square text-base-content/40 hover:text-base-content"
+                          aria-label="{% translate 'Edit' %}" data-tippy-content="{% translate 'Edit' %}"
+                          hx-get="{% url 'transaction_edit' transaction_id=tx.id %}" hx-target="#generic-offcanvas"><i class="fa-solid fa-pencil"></i></button>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endwith %}

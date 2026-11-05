@@ -11,7 +11,9 @@ from apps.api.serializers import (
     AccountGroupSerializer,
     AccountSerializer,
     AccountBalanceSerializer,
+    InvestmentPerformanceSerializer,
 )
+from apps.investments.services import get_holding_performance
 
 
 class AccountGroupViewSet(viewsets.ModelViewSet):
@@ -38,6 +40,11 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
         description="Returns the current and projected balance for the account, along with currency data.",
         responses={200: AccountBalanceSerializer},
     ),
+    performance=extend_schema(
+        summary="Get investment performance",
+        description="Returns quantity, cost basis, market value, realized/unrealized gains, income and total return, in the account's exchange currency (or its own currency when it has none).",
+        responses={200: InvestmentPerformanceSerializer},
+    ),
 )
 class AccountViewSet(viewsets.ModelViewSet):
     """ViewSet for managing accounts."""
@@ -51,6 +58,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         "currency": ["exact"],
         "exchange_currency": ["exact", "isnull"],
         "is_asset": ["exact"],
+        "is_investment": ["exact"],
         "is_archived": ["exact"],
         "owner": ["exact"],
     }
@@ -80,3 +88,11 @@ class AccountViewSet(viewsets.ModelViewSet):
         )
 
         return Response(serializer.data)
+
+    @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])
+    def performance(self, request, pk=None):
+        """Get investment performance (cost basis, value, returns) for an account."""
+        account = self.get_object()
+        return Response(
+            InvestmentPerformanceSerializer(get_holding_performance(account)).data
+        )

@@ -9,12 +9,16 @@ from apps.common.widgets.crispy.daisyui import Switch
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.datepicker import AirDatePickerInput, AirMonthYearPickerInput
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
-from apps.common.widgets.tom_select import TomSelect
+from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
 from apps.currencies.models import Currency
-from apps.transactions.models import TransactionCategory, TransactionTag
+from apps.transactions.models import (
+    TransactionCategory,
+    TransactionEntity,
+    TransactionTag,
+)
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column, Field, Layout, Row
+from crispy_forms.layout import HTML, Column, Field, Layout, Row
 from django import forms
 from django.db.models import Q
 from django.utils import timezone
@@ -68,16 +72,25 @@ class AccountForm(forms.ModelForm):
             "exchange_currency",
             "is_asset",
             "is_archived",
+            "is_investment",
+            "income_entities",
         ]
         widgets = {
             "currency": TomSelect(),
             "exchange_currency": TomSelect(),
+            "income_entities": TomSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields["group"].queryset = AccountGroup.objects.all()
+        entities = Q(active=True)
+        if self.instance.id:
+            entities |= Q(investment_accounts=self.instance.id)
+        self.fields["income_entities"].queryset = TransactionEntity.objects.filter(
+            entities
+        ).distinct()
 
         if self.instance.id:
             qs = Currency.objects.filter(
@@ -101,6 +114,17 @@ class AccountForm(forms.ModelForm):
             Switch("is_archived"),
             "currency",
             "exchange_currency",
+            Switch("is_investment"),
+            # Only relevant for investments: shown while the switch above is on
+            Field(
+                "income_entities",
+                wrapper_class="" if self.instance.is_investment else "hidden",
+            ),
+            HTML(
+                '<div class="hidden" _="on change from closest <form/> '
+                "if #id_is_investment.checked remove .hidden from #div_id_income_entities "
+                'else add .hidden to #div_id_income_entities end"></div>'
+            ),
         )
 
         if self.instance and self.instance.pk:

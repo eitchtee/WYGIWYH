@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db.models import Q
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
@@ -50,6 +52,8 @@ class AccountSerializer(serializers.ModelSerializer):
             "exchange_currency",
             "exchange_currency_id",
             "is_asset",
+            "is_investment",
+            "income_entities",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -76,3 +80,44 @@ class AccountBalanceSerializer(serializers.Serializer):
     projected_balance = serializers.DecimalField(max_digits=20, decimal_places=10)
     currency = CurrencySerializer()
 
+
+
+class InvestmentPerformanceSerializer(serializers.Serializer):
+    """Serializer for an investment account's performance."""
+
+    currency = CurrencySerializer()
+    priced = serializers.BooleanField()
+    quantity = serializers.DecimalField(max_digits=42, decimal_places=30)
+    price = serializers.DecimalField(max_digits=42, decimal_places=30, allow_null=True)
+    price_date = serializers.DateTimeField(allow_null=True)
+    average_cost = serializers.DecimalField(
+        max_digits=42, decimal_places=30, allow_null=True
+    )
+    cost_basis = serializers.DecimalField(max_digits=42, decimal_places=30)
+    market_value = serializers.DecimalField(
+        max_digits=42, decimal_places=30, allow_null=True
+    )
+    unrealized = serializers.DecimalField(
+        max_digits=42, decimal_places=30, allow_null=True
+    )
+    realized = serializers.DecimalField(max_digits=42, decimal_places=30)
+    income = serializers.DecimalField(max_digits=42, decimal_places=30)
+    contributed = serializers.DecimalField(max_digits=42, decimal_places=30)
+    withdrawn = serializers.DecimalField(max_digits=42, decimal_places=30)
+    total_return = serializers.DecimalField(max_digits=42, decimal_places=30)
+    return_percentage = serializers.DecimalField(
+        max_digits=42, decimal_places=30, allow_null=True
+    )
+    estimated = serializers.BooleanField()
+    money_weighted_return = serializers.SerializerMethodField(
+        help_text="Return weighted by when money went in and out, in percent: "
+        "annual (XIRR) when the first contribution is a year old or more, "
+        "otherwise over the period held."
+    )
+    money_weighted_annualized = serializers.SerializerMethodField()
+
+    def get_money_weighted_return(self, perf) -> Decimal | None:
+        return perf.money_weighted and perf.money_weighted["percentage"]
+
+    def get_money_weighted_annualized(self, perf) -> bool | None:
+        return perf.money_weighted and perf.money_weighted["annualized"]

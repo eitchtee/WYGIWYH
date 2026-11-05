@@ -1,0 +1,93 @@
+{% load i18n %}
+<c-ui.fab-single-action
+    url="{% url 'transactions_transfer' %}"
+    hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container pb-20">
+  <div class="text-3xl font-bold font-mono w-full mb-4">
+    {% spaceless %}
+      <div>{% translate 'Investments' %}</div>
+    {% endspaceless %}
+  </div>
+
+  {% if groups %}
+    <div class="grid grid-cols-1 {% if totals|length > 1 %}lg:grid-cols-2{% endif %} gap-3 mb-6">
+      {% for total in totals %}
+        {% include 'investments/fragments/_totals.html' %}
+      {% endfor %}
+    </div>
+
+    {% for item in groups %}
+      <div class="card bg-base-100 card-border shadow mb-4">
+        <div class="flex flex-wrap justify-between items-baseline gap-2 px-5 pt-4 pb-2">
+          <span class="font-semibold">{% if item.group %}{{ item.group.name }}{% else %}{% translate 'Ungrouped' %}{% endif %}</span>
+          <div class="flex flex-wrap gap-4 text-sm">
+            {% for total in item.totals %}
+              <div class="flex items-baseline gap-2 tabular-nums">
+                <c-amount.display :amount="total.market_value" :prefix="total.currency.prefix" :suffix="total.currency.suffix" :decimal_places="total.currency.decimal_places" divless></c-amount.display>
+                {% include 'investments/fragments/_mwr.html' with mw=total.money_weighted %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="table table-fixed">
+            <colgroup>
+              <col>
+              <col class="w-36 hidden md:table-column">
+              <col class="w-36 hidden sm:table-column">
+              <col class="w-36">
+            </colgroup>
+            <thead>
+            <tr class="text-xs text-base-content/50">
+              <th class="font-normal">{% translate 'Investment' %}</th>
+              <th class="font-normal text-end hidden md:table-cell">{% translate 'Invested' %}</th>
+              <th class="font-normal text-end hidden sm:table-cell">{% translate 'Value' %}</th>
+              <th class="font-normal text-end"><span class="sm:hidden">{% translate 'Value' %}</span><span class="hidden sm:inline">{% translate 'Return' %}</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for perf in item.holdings %}
+              {% with c=perf.currency a=perf.account.currency %}
+              <tr class="cursor-pointer transition-colors duration-150 hover:bg-base-200/60"
+                  _="on click go to url '{% url 'investment_detail_index' account_id=perf.account.id %}'">
+                <td>
+                  <div class="font-medium truncate">
+                    {{ perf.account.name }}
+                    {% if perf.estimated %}<i class="fa-solid fa-circle-exclamation text-warning text-xs" data-tippy-content="{% translate 'Some costs were estimated from market prices' %}"></i>{% endif %}
+                  </div>
+                  <div class="text-xs text-base-content/50 tabular-nums truncate">
+                    {% if perf.priced %}
+                      <c-amount.display :amount="perf.quantity" :prefix="a.prefix" :suffix="a.suffix" :decimal_places="a.decimal_places" divless></c-amount.display>
+                      {% if perf.price is not None %}× <c-amount.display :amount="perf.price" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>{% else %}· <span class="text-error">{% translate 'No exchange rate available' %}</span>{% endif %}
+                    {% else %}
+                      {% translate 'Tracked by value' %}
+                    {% endif %}
+                  </div>
+                </td>
+                <td class="text-end tabular-nums whitespace-nowrap text-base-content/70 hidden md:table-cell">
+                  <c-amount.display :amount="perf.cost_basis" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+                </td>
+                <td class="text-end tabular-nums whitespace-nowrap hidden sm:table-cell">
+                  {% if perf.market_value is not None %}<c-amount.display :amount="perf.market_value" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>{% else %}-{% endif %}
+                </td>
+                <td class="text-end tabular-nums whitespace-nowrap">
+                  {# Phones show value + return %, wider screens split them into columns #}
+                  <div class="sm:hidden font-medium">{% if perf.market_value is not None %}<c-amount.display :amount="perf.market_value" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>{% else %}-{% endif %}</div>
+                  <div class="hidden sm:block"><c-amount.display :amount="perf.total_return" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display></div>
+                  <div class="text-xs">{% include 'investments/fragments/_mwr.html' with mw=perf.money_weighted %}</div>
+                </td>
+              </tr>
+              {% endwith %}
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <c-msg.empty
+        title="{% translate 'No investments yet' %}"
+        subtitle="{% translate 'Mark an account as an investment in its settings to see it here' %}"></c-msg.empty>
+  {% endif %}
+</div>

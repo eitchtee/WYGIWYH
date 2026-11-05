@@ -115,6 +115,12 @@
 
       <c-components.sidebar-menu-header title="{% translate 'Tools' %}"></c-components.sidebar-menu-header>
       <c-components.sidebar-menu-item
+          title="{% translate 'Investments' %}"
+          url='investments_index'
+          active="investments_index||investment_detail_index"
+          icon="fa-solid fa-chart-pie">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
           title="{% translate 'Dollar Cost Average Tracker' %}"
           url='dca_strategy_index'
           active="dca_strategy_index||dca_strategy_detail_index"
