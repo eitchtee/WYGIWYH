@@ -23,6 +23,12 @@
 
 <img src=".github/img/monthly_view.png" width="18%"></img> <img src=".github/img/yearly.png" width="18%"></img> <img src=".github/img/networth.png" width="18%"></img> <img src=".github/img/calendar.png" width="18%"></img> <img src=".github/img/all_transactions.png" width="18%"></img> 
 
+<p align="center">
+  <a href="https://www.simafri.com/en/managed-vps/"><img alt="Simafri" src="./.github/img/simafri-logo.png" height="40" /></a>
+  <br>
+  Demo and site hosting sponsored by <a href="https://www.simafri.com/en/managed-vps/">Simafri</a> (managed VPS)
+</p>
+
 # Why WYGIWYH?
 Managing money can feel unnecessarily complex, but it doesn’t have to be. WYGIWYH (pronounced "wiggy-wih") is based on a simple principle:
 
