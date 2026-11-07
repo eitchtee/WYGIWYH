@@ -373,8 +373,10 @@ def summarize(performances, convert=False):
                 "has_rate_history": True,
                 "flows": [],
                 "as_of": perf.as_of,
+                "holdings": [],
             },
         )
+        total["holdings"].append(perf)
         for key in ("cost_basis", "total_return", "income", "currency_effect"):
             total[key] += figures[key]
         total["has_rate_history"] &= figures.get("has_rate_history", True)
@@ -387,5 +389,14 @@ def summarize(performances, convert=False):
     for total in totals.values():
         total["money_weighted"] = money_weighted_return(
             total["flows"], total["market_value"], total["as_of"]
+        )
+        # The same holdings in their own currencies, for a converted total
+        total["breakdown"] = (
+            sorted(
+                summarize(total["holdings"]),
+                key=lambda part: part["currency"] != total["currency"],
+            )
+            if total["converted_from"]
+            else []
         )
     return list(totals.values())
