@@ -107,6 +107,10 @@ class ExchangeRateService(models.Model):
         TWELVEDATA_MARKETS = "twelvedatamarkets", "TwelveData Markets"
         YFINANCE = "yfinance", "Yahoo Finance"
         FXMACRODATA = "fxmacrodata", "FXMacroData"
+        ALLRATESTODAY = (
+            "allratestoday",
+            "AllRatesToday Central Banks (bank code as API key)",
+        )
 
     class IntervalType(models.TextChoices):
         ON = "on", _("On")

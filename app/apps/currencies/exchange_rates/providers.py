@@ -1,4 +1,5 @@
 import logging
+import re
 import time
 
 import requests
@@ -679,5 +680,136 @@ class FXMacroDataProvider(ExchangeRateProvider):
                 logger.error(
                     f"Unexpected error processing FXMacroData data for {pair}: {e}"
                 )
+
+        return results
+
+
+class AllRatesTodayProvider(ExchangeRateProvider):
+    """
+    Implementation for the central bank tables served by allratestoday.com.
+
+    Each service reads the latest published table of one central bank. The API
+    Key field holds the bank code (e.g. "bcb" or "rbi"), as this endpoint needs
+    no key. An empty field reads the ECB table.
+    """
+
+    BASE_URL = "https://allratestoday.com/api/open/central-bank"
+    DEFAULT_BANK = "ecb"
+    rates_inverted = False  # A base/quote row says how many quote one base buys
+
+    # A pair can have several rows. Prefer a published mid, else the mean of a buy
+    # and sell quote. Period averages are left out, they are not a current rate
+    MID_TYPES = (
+        "reference",
+        "middle",
+        "official",
+        "indicative",
+        "close",
+        "spot",
+        "informational",
+    )
+    BUY_SELL_TYPES = (("buy", "sell"), ("tt_buy", "tt_sell"))
+
+    def __init__(self, api_key: str = None):
+        super().__init__(api_key)
+        self.bank = (api_key or self.DEFAULT_BANK).strip().lower()
+        self.session = requests.Session()
+
+    @classmethod
+    def requires_api_key(cls) -> bool:
+        return False
+
+    def _parse_table(self, rows: list) -> Dict[Tuple[str, str], Decimal]:
+        """Reduce the table to one rate per pair, in both directions"""
+        grouped = {}
+        for row in rows:
+            if not isinstance(row, dict) or not row.get("value"):
+                continue
+            pair = (row.get("base"), row.get("quote"))
+            grouped.setdefault(pair, {})[row.get("type")] = Decimal(str(row["value"]))
+
+        rates = {}
+        for (base, quote), values in grouped.items():
+            rate = next((values[t] for t in self.MID_TYPES if t in values), None)
+            if rate is None:
+                rate = next(
+                    (
+                        (values[buy] + values[sell]) / 2
+                        for buy, sell in self.BUY_SELL_TYPES
+                        if buy in values and sell in values
+                    ),
+                    None,
+                )
+            if rate is None or rate <= 0:
+                continue
+            rates[(base, quote)] = rate
+            rates.setdefault((quote, base), self.invert_rate(rate))
+
+        return rates
+
+    @staticmethod
+    def _find_rate(
+        rates: Dict[Tuple[str, str], Decimal], base: str, quote: str
+    ) -> Optional[Decimal]:
+        """Look up a pair, crossing it through a shared currency if needed"""
+        if (base, quote) in rates:
+            return rates[(base, quote)]
+
+        for (from_code, via), rate in rates.items():
+            if from_code == base and (via, quote) in rates:
+                return rate * rates[(via, quote)]
+
+        return None
+
+    def get_rates(
+        self, target_currencies: QuerySet, exchange_currencies: set
+    ) -> List[Tuple[Currency, Currency, Decimal]]:
+        results = []
+
+        if not re.fullmatch(r"[a-z0-9_-]{2,20}", self.bank):
+            logger.error("Invalid AllRatesToday bank code, it should look like 'bcb'")
+            return results
+
+        try:
+            response = self.session.get(f"{self.BASE_URL}/{self.bank}", timeout=30)
+            response.raise_for_status()
+            data = response.json()
+
+            if data.get("stale"):
+                logger.warning(
+                    f"AllRatesToday table for {self.bank} is stale, "
+                    f"last published on {data.get('rate_date')}"
+                )
+
+            rates = self._parse_table(data["rates"])
+        except requests.RequestException as e:
+            logger.error(f"Error fetching AllRatesToday table for {self.bank}: {e}")
+            return results
+        except (KeyError, TypeError, ValueError, AttributeError, ArithmeticError) as e:
+            logger.error(
+                f"Unexpected response structure from AllRatesToday "
+                f"for {self.bank}: {e}"
+            )
+            return results
+
+        for target_currency in target_currencies:
+            if target_currency.exchange_currency not in exchange_currencies:
+                continue
+
+            base_currency = target_currency.exchange_currency
+
+            if base_currency.code == target_currency.code:
+                results.append((base_currency, target_currency, Decimal("1")))
+                continue
+
+            rate = self._find_rate(rates, base_currency.code, target_currency.code)
+            if rate is None:
+                logger.error(
+                    f"No rate for {base_currency.code}/{target_currency.code} "
+                    f"in the AllRatesToday table for {self.bank}"
+                )
+                continue
+
+            results.append((base_currency, target_currency, rate))
 
         return results
