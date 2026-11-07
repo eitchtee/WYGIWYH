@@ -10,7 +10,12 @@ from apps.accounts.models import Account
 from apps.common.middleware.thread_local import delete_current_user, write_current_user
 from apps.currencies.models import Currency, ExchangeRate
 from apps.investments.services import get_holding_performance, summarize
-from apps.transactions.models import Transaction, TransactionEntity
+from apps.transactions.models import (
+    Transaction,
+    TransactionCategory,
+    TransactionEntity,
+    TransactionTag,
+)
 
 D = Decimal
 IN, EX = Transaction.Type.INCOME, Transaction.Type.EXPENSE
@@ -99,9 +104,11 @@ class HoldingPerformanceTests(TestCase):
             name="CDB", currency=self.brl, is_investment=True, is_asset=True
         )
         checking = Account.objects.create(name="Checking", currency=self.brl)
+        result = TransactionCategory.objects.create(name="Yield")
+        cdb.income_categories.set([result])
         transfer(checking, "1000", cdb, "1000", self.d1)
-        tx(cdb, IN, "100", self.d2)  # balance reconciliation: yield
-        tx(cdb, EX, "22.50", self.d3)  # income tax withheld
+        tx(cdb, IN, "100", self.d2, category=result)  # balance reconciliation
+        tx(cdb, EX, "22.50", self.d3, category=result)  # income tax withheld
 
         perf = get_holding_performance(cdb)
         self.assertFalse(perf.priced)
@@ -115,6 +122,41 @@ class HoldingPerformanceTests(TestCase):
         self.assertEqual(perf.cost_basis, D("0"))
         self.assertEqual(perf.realized, D("77.50"))
         self.assertEqual(perf.total_return, D("77.50"))
+
+    def test_value_tracked_salary_account_separates_money_from_yield(self):
+        account = Account.objects.create(
+            name="Salary", currency=self.brl, is_investment=True
+        )
+        tag = TransactionTag.objects.create(name="Yield")
+        account.income_tags.set([tag])
+        tx(account, IN, "5000", self.d1)  # salary, from outside
+        tx(account, EX, "1000", self.d2)  # rent, not a loss
+        tx(account, IN, "40", self.d3).tags.add(tag)  # reconciled balance
+
+        perf = get_holding_performance(account)
+
+        self.assertEqual(perf.contributed, D("5000"))
+        self.assertEqual(perf.withdrawn, D("1000"))
+        self.assertEqual(perf.market_value, D("4040"))
+        self.assertEqual(perf.cost_basis, D("4000"))
+        self.assertEqual(perf.total_return, D("40"))
+        self.assertFalse(perf.estimated)
+
+    def test_own_entity_is_a_result_but_only_income_counts_elsewhere(self):
+        account = Account.objects.create(
+            name="Savings", currency=self.brl, is_investment=True
+        )
+        other = Account.objects.create(name="Other", currency=self.brl)
+        bank = TransactionEntity.objects.create(name="Bank")
+        account.income_entities.set([bank])
+        tx(account, IN, "1000", self.d1)
+        tx(account, IN, "10", self.d2).entities.add(bank)
+        tx(other, EX, "99", self.d2).entities.add(bank)
+
+        perf = get_holding_performance(account)
+
+        self.assertEqual(perf.total_return, D("10"))
+        self.assertEqual(perf.income, D("0"))
 
     def test_history_has_one_point_per_month_end(self):
         transfer(self.cash, "1000", self.etf, "10", self.d1)
@@ -200,6 +242,10 @@ class HoldingPerformanceTests(TestCase):
         totals = summarize([perf], convert=True)
         self.assertEqual([t["currency"] for t in totals], [self.brl])
         self.assertEqual(totals[0]["converted_from"], [usd])
+        self.assertEqual(totals[0]["breakdown"][0]["currency"], usd)
+        self.assertEqual(totals[0]["breakdown"][0]["market_value"], D("1000"))
+        # A single-currency total has nothing to break down
+        self.assertEqual(summarize([perf])[0]["breakdown"], [])
         # No rate to anything: stays in its own currency
         self.assertEqual(summarize([get_holding_performance(self.etf)], convert=True)[0]["currency"], self.eur)
 

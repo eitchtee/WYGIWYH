@@ -18,7 +18,7 @@ from apps.transactions.models import (
 )
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Column, Field, Layout, Row
+from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
 from django import forms
 from django.db.models import Q
 from django.utils import timezone
@@ -74,23 +74,30 @@ class AccountForm(forms.ModelForm):
             "is_archived",
             "is_investment",
             "income_entities",
+            "income_categories",
+            "income_tags",
         ]
         widgets = {
             "currency": TomSelect(),
             "exchange_currency": TomSelect(),
             "income_entities": TomSelectMultiple(),
+            "income_categories": TomSelectMultiple(),
+            "income_tags": TomSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields["group"].queryset = AccountGroup.objects.all()
-        entities = Q(active=True)
+        selectable = Q(active=True)
         if self.instance.id:
-            entities |= Q(investment_accounts=self.instance.id)
-        self.fields["income_entities"].queryset = TransactionEntity.objects.filter(
-            entities
-        ).distinct()
+            selectable |= Q(investment_accounts=self.instance.id)
+        for name, model in (
+            ("income_entities", TransactionEntity),
+            ("income_categories", TransactionCategory),
+            ("income_tags", TransactionTag),
+        ):
+            self.fields[name].queryset = model.objects.filter(selectable).distinct()
 
         if self.instance.id:
             qs = Currency.objects.filter(
@@ -116,14 +123,17 @@ class AccountForm(forms.ModelForm):
             "exchange_currency",
             Switch("is_investment"),
             # Only relevant for investments: shown while the switch above is on
-            Field(
+            Div(
                 "income_entities",
-                wrapper_class="" if self.instance.is_investment else "hidden",
+                "income_categories",
+                "income_tags",
+                css_id="investment_income",
+                css_class="" if self.instance.is_investment else "hidden",
             ),
             HTML(
                 '<div class="hidden" _="on change from closest <form/> '
-                "if #id_is_investment.checked remove .hidden from #div_id_income_entities "
-                'else add .hidden to #div_id_income_entities end"></div>'
+                "if #id_is_investment.checked remove .hidden from #investment_income "
+                'else add .hidden to #investment_income end"></div>'
             ),
         )
 

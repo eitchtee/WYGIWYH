@@ -54,6 +54,8 @@ class AccountSerializer(serializers.ModelSerializer):
             "is_asset",
             "is_investment",
             "income_entities",
+            "income_categories",
+            "income_tags",
         ]
 
     def __init__(self, *args, **kwargs):

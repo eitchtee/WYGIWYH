@@ -3,10 +3,13 @@
 Rules (see the account's "Investment" help text):
 - A linked transaction (a transfer) moves money in or out. Its other side says
   what was paid or received, which is the cost or the proceeds.
-- An unlinked transaction is a gain or a loss: a balance reconciliation, interest,
-  a tax withheld. On a unit-priced account an unlinked inflow (a gift, an opening
-  balance) has no known cost, so it is costed at the market price of that day
-  and the result is flagged as estimated.
+- An unlinked transaction on an account tracked by value is money coming in or
+  going out (a salary, a bill), unless it has one of the account's income
+  categories, tags or entities: then it is a gain or a loss (a reconciled balance,
+  interest, a tax withheld).
+- On a unit-priced account an unlinked outflow is a loss, and an unlinked inflow
+  (a gift, an opening balance) has no known cost, so it is costed at the market
+  price of that day and the result is flagged as estimated.
 - Cost is tracked with the average cost method.
 """
 
@@ -39,6 +42,8 @@ class HoldingPerformance:
     contributed: Decimal = ZERO
     withdrawn: Decimal = ZERO
     estimated: bool = False
+    # Unlinked transactions counted as gains or losses, on accounts tracked by value
+    result_ids: set = field(default_factory=set)
     history: list = field(default_factory=list)
     # (date, amount, kind) in the valuation currency: negative = money in ("in"),
     # positive = money out ("out" sales/withdrawals, "income"). Used for
@@ -97,13 +102,30 @@ def _price(account, valuation_currency, date):
     return rate.effective_rate, rate.date
 
 
-def income_entity_ids(account):
-    # The join table, not account.income_entities: that goes through the
-    # entities' per-user manager and comes back empty without a current user
+def _linked_ids(account, field_name):
+    # The join table, not the related manager: that one is per-user and comes back
+    # empty without a current user
+    relation = account._meta.get_field(field_name)
     return list(
-        account.income_entities.through.objects.filter(account=account).values_list(
-            "transactionentity_id", flat=True
+        relation.remote_field.through.objects.filter(account=account).values_list(
+            relation.m2m_reverse_name(), flat=True
         )
+    )
+
+
+def income_entity_ids(account):
+    return _linked_ids(account, "income_entities")
+
+
+def _result_ids(account):
+    return set(
+        Transaction.objects.filter(account=account)
+        .filter(
+            Q(category__in=_linked_ids(account, "income_categories"))
+            | Q(tags__in=_linked_ids(account, "income_tags"))
+            | Q(entities__in=income_entity_ids(account))
+        )
+        .values_list("id", flat=True)
     )
 
 
@@ -126,6 +148,8 @@ def get_holding_performance(account, as_of=None, with_history=False):
     )
 
     month_ends = _month_ends(transactions, as_of) if with_history else []
+    if not perf.priced:
+        perf.result_ids = _result_ids(account)
 
     for tx in transactions:
         while month_ends and month_ends[0] < tx.date:
@@ -140,9 +164,13 @@ def get_holding_performance(account, as_of=None, with_history=False):
             if partner
             else None
         )
+        external = not (perf.priced or partner or tx.id in perf.result_ids)
 
         if tx.type == Transaction.Type.INCOME:
-            if partner_value is not None:
+            if external:
+                cost = tx.amount
+                perf.contributed += cost
+            elif partner_value is not None:
                 cost = partner_value
                 perf.contributed += cost
             elif perf.priced or partner:
@@ -152,7 +180,7 @@ def get_holding_performance(account, as_of=None, with_history=False):
                 if partner:
                     perf.contributed += cost or ZERO
             else:
-                cost = ZERO  # value-tracked: an unlinked inflow is a gain
+                cost = ZERO  # value-tracked: a gain
             if cost:
                 perf.flows.append((tx.date, -cost, "in"))
             perf.quantity += tx.amount
@@ -162,8 +190,8 @@ def get_holding_performance(account, as_of=None, with_history=False):
                 removed = perf.cost_basis * min(tx.amount, perf.quantity) / perf.quantity
             else:
                 removed = ZERO
-            if partner:
-                proceeds = partner_value
+            if partner or external:
+                proceeds = tx.amount if external else partner_value
                 if proceeds is None:
                     proceeds = _to(tx.amount, account.currency, valuation_currency, tx.date) or ZERO
                     perf.estimated = True
@@ -171,7 +199,7 @@ def get_holding_performance(account, as_of=None, with_history=False):
                 perf.withdrawn += proceeds
                 perf.flows.append((tx.date, proceeds, "out"))
                 perf.cost_basis -= removed
-            # unlinked outflow: a loss, tax or fee; cost stays, so value drops
+            # otherwise a loss, tax or fee: cost stays, so value drops
             perf.quantity -= tx.amount
             if perf.quantity <= 0 and perf.cost_basis:
                 perf.realized -= perf.cost_basis

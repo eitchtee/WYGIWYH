@@ -214,7 +214,11 @@
                       {% if tx.type == 'IN' %}{% translate 'Bought / contributed' %}{% else %}{% translate 'Sold / withdrew' %}{% endif %}
                       · {{ p.account.name }}
                     {% else %}
-                      {% if tx.type == 'IN' %}{% if perf.priced %}{% translate 'Gain' %}{% else %}{% translate 'Earnings' %}{% endif %}{% else %}{% translate 'Loss, tax or fee' %}{% endif %}
+                      {% if not perf.priced and tx.id not in perf.result_ids %}
+                        {% if tx.type == 'IN' %}{% translate 'Money in' %}{% else %}{% translate 'Money out' %}{% endif %}
+                      {% else %}
+                        {% if tx.type == 'IN' %}{% if perf.priced %}{% translate 'Gain' %}{% else %}{% translate 'Earnings' %}{% endif %}{% else %}{% translate 'Loss, tax or fee' %}{% endif %}
+                      {% endif %}
                     {% endif %}
                   </div>
                 </td>

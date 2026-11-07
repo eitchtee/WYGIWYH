@@ -72,8 +72,29 @@ class Account(SharedObject):
         related_name="investment_accounts",
         verbose_name=_("Income entities"),
         help_text=_(
-            "Income transactions with any of these entities (dividends, interest, "
-            "rent) count towards this investment's return."
+            "Transactions with any of these entities count towards this investment's "
+            "return: in this account, and income paid into other accounts (dividends, "
+            "rent)."
+        ),
+    )
+    income_categories = models.ManyToManyField(
+        "transactions.TransactionCategory",
+        blank=True,
+        related_name="investment_accounts",
+        verbose_name=_("Income categories"),
+        help_text=_(
+            "Transactions in this account with any of these categories are its result "
+            "(interest, taxes, fees). On accounts tracked by value, everything else "
+            "that isn't a transfer counts as money coming in or going out."
+        ),
+    )
+    income_tags = models.ManyToManyField(
+        "transactions.TransactionTag",
+        blank=True,
+        related_name="investment_accounts",
+        verbose_name=_("Income tags"),
+        help_text=_(
+            "Same as income categories, for transactions with any of these tags."
         ),
     )
     is_archived = models.BooleanField(
