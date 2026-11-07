@@ -23,6 +23,8 @@
 
 <img src=".github/img/monthly_view.png" width="18%"></img> <img src=".github/img/yearly.png" width="18%"></img> <img src=".github/img/networth.png" width="18%"></img> <img src=".github/img/calendar.png" width="18%"></img> <img src=".github/img/all_transactions.png" width="18%"></img> 
 
+<br><br>
+
 <p align="center">
   <a href="https://www.simafri.com/en/managed-vps/"><img alt="Simafri" src="./.github/img/simafri-logo.png" height="40" /></a>
   <br>
@@ -60,7 +62,7 @@ Frustrated by the lack of comprehensive options, I set out to build **WYGIWYH**,
 
 # Demo
 
-You can try WYGIWYH on [wygiwyh-demo.herculino.com](https://wygiwyh-demo.herculino.com/) with the credentials below:
+You can try WYGIWYH on [demo.wygiwyh.herculino.com](https://demo.wygiwyh.herculino.com/) with the credentials below:
 
 > [!NOTE]
 > E-mail: `demo@demo.com`
