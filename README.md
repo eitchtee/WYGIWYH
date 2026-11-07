@@ -149,6 +149,8 @@ To create the first user, open the container's console using Unraid's UI, by cli
 | DJANGO_VITE_DEV_MODE          | true\|false | false                             | Enables Vite dev server mode for frontend development. When true, assets are served from Vite's dev server instead of the build manifest. For development only!                                                                          |
 | DJANGO_VITE_DEV_SERVER_PORT   | int         | 5173                              | The port where Vite's dev server is running. Only used when DJANGO_VITE_DEV_MODE is true. For development only!                                                                                                                          |
 | DJANGO_VITE_DEV_SERVER_HOST   | string      | localhost                         | The host where Vite's dev server is running. Only used when DJANGO_VITE_DEV_MODE is true. For development only!                                                                                                                          |
+| IMPORT_TEMP_ROOT              | string      | temp, in the app folder           | Where uploaded import files wait to be processed. Must be writable and shared between the web and task processes.                                                                                                                        |
+| CACHE_ROOT                    | string      | /var/tmp                          | The writable folder the file-based caches are stored in.                                                                                                                                                                                 |
 
 ## OIDC Configuration
 
