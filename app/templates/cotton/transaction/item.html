@@ -76,6 +76,16 @@
                 <div class="flex-1 ps-0">{{ overriden_entities|join:", " }}</div>
               </div>
 
+            {% elif is_transfer %}
+              {% if transaction.entities.all or transfer_to.entities.all %}
+                <div class="grid grid-cols-[auto_1fr] mb-2 lg:mb-1 text-base-content/70">
+                  <div class="w-auto pe-1"><i class="fa-solid fa-user-group fa-fw mr-1 fa-xs"></i></div>
+                  <div>{{ transaction.entities.all|join:", "|default:"—" }}</div>
+                  <div class="w-auto pe-1"><i class="fa-solid fa-arrow-right fa-fw mr-1 fa-xs text-base-content/40"></i></div>
+                  <div>{{ transfer_to.entities.all|join:", "|default:"—" }}</div>
+                </div>
+              {% endif %}
+
               {% comment %} If no override, fall back to transaction entities, but ONLY if the transaction has an ID. {% endcomment %}
             {% elif transaction.id and transaction.entities.all %}
               <div class="flex flex-wrap mb-2 lg:mb-1 text-base-content/70">

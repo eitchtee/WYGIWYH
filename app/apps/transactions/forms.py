@@ -632,6 +632,23 @@ class TransferForm(forms.Form):
         queryset=TransactionTag.objects.filter(active=True),
     )
 
+    from_entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+    )
+    to_entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+    )
+
+    is_paid = forms.BooleanField(label=_("Paid"), initial=True, required=False)
+
     date = forms.DateField(label=_("Date"))
 
     reference_date = forms.DateField(
@@ -672,11 +689,14 @@ class TransferForm(forms.Form):
                 "to_category": to_t.category,
                 "from_tags": list(from_t.tags.all()),
                 "to_tags": list(to_t.tags.all()),
+                "from_entities": list(from_t.entities.all()),
+                "to_entities": list(to_t.entities.all()),
                 "date": from_t.date,
                 "reference_date": from_t.reference_date,
                 "description": from_t.description,
                 "notes": from_t.notes,
                 "mute": from_t.mute,
+                "is_paid": from_t.is_paid,
             }
         super().__init__(*args, **kwargs)
 
@@ -685,6 +705,7 @@ class TransferForm(forms.Form):
         self.helper.form_method = "post"
 
         self.helper.layout = Layout(
+            Field("is_paid", template="transactions/widgets/paid_toggle_button.html"),
             Row(
                 Column(Field("date")),
                 Column(
@@ -699,6 +720,7 @@ class TransferForm(forms.Form):
                 Column(Field("from_amount")),
                 Column("from_category"),
                 Column("from_tags"),
+                Column("from_entities"),
                 css_class="bg-base-100 rounded-box p-4 border-base-content/60 border my-3",
             ),
             Row(
@@ -710,6 +732,7 @@ class TransferForm(forms.Form):
                 ),
                 Column("to_category"),
                 Column("to_tags"),
+                Column("to_entities"),
                 css_class="bg-base-100 rounded-box p-4 border-base-content/60 border",
             ),
             FormActions(
@@ -725,23 +748,28 @@ class TransferForm(forms.Form):
         self.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()
         self.fields["date"].widget = AirDatePickerInput(clear_button=False)
 
-        self.fields["from_account"].queryset = Account.objects.filter(
-            is_archived=False,
+        # When editing, keep the transfer's own archived/inactive items selectable,
+        # like TransactionForm does, so saving doesn't drop them.
+        own = (
+            [instance.transfer_from.pk, instance.transfer_to.pk] if instance else []
         )
-
-        self.fields["from_category"].queryset = TransactionCategory.objects.filter(
-            active=True
-        )
-        self.fields["from_tags"].queryset = TransactionTag.objects.filter(active=True)
-
-        self.fields["to_account"].queryset = Account.objects.filter(
-            is_archived=False,
-        )
-
-        self.fields["to_category"].queryset = TransactionCategory.objects.filter(
-            active=True
-        )
-        self.fields["to_tags"].queryset = TransactionTag.objects.filter(active=True)
+        accounts = Account.objects.filter(
+            Q(is_archived=False) | Q(transactions__in=own)
+        ).distinct()
+        categories = TransactionCategory.objects.filter(
+            Q(active=True) | Q(transaction__in=own)
+        ).distinct()
+        tags = TransactionTag.objects.filter(
+            Q(active=True) | Q(transaction__in=own)
+        ).distinct()
+        entities = TransactionEntity.objects.filter(
+            Q(active=True) | Q(transactions__in=own)
+        ).distinct()
+        for side in ("from", "to"):
+            self.fields[f"{side}_account"].queryset = accounts
+            self.fields[f"{side}_category"].queryset = categories
+            self.fields[f"{side}_tags"].queryset = tags
+            self.fields[f"{side}_entities"].queryset = entities
 
     def clean(self):
         cleaned_data = super().clean()
@@ -765,8 +793,8 @@ class TransferForm(forms.Form):
                 for t in (from_transaction, to_transaction)
             ]
         else:
-            from_transaction = Transaction(type=Transaction.Type.EXPENSE, is_paid=True)
-            to_transaction = Transaction(type=Transaction.Type.INCOME, is_paid=True)
+            from_transaction = Transaction(type=Transaction.Type.EXPENSE)
+            to_transaction = Transaction(type=Transaction.Type.INCOME)
 
         for transaction, side in ((from_transaction, "from"), (to_transaction, "to")):
             transaction.account = data[f"{side}_account"]
@@ -776,6 +804,7 @@ class TransferForm(forms.Form):
             transaction.description = data["description"]
             transaction.notes = data.get("notes")
             transaction.mute = data["mute"]
+            transaction.is_paid = data["is_paid"]
         from_transaction.amount = data["from_amount"]
         to_transaction.amount = data["to_amount"] or data["from_amount"]
 
@@ -791,6 +820,8 @@ class TransferForm(forms.Form):
 
             from_transaction.tags.set(data.get("from_tags", []))
             to_transaction.tags.set(data.get("to_tags", []))
+            from_transaction.entities.set(data.get("from_entities", []))
+            to_transaction.entities.set(data.get("to_entities", []))
 
         # Rules run for each side, like any other transaction
         for i, transaction in enumerate((from_transaction, to_transaction)):
