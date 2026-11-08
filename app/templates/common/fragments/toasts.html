@@ -2,25 +2,22 @@
 {% load toast_bg %}
 {% if messages %}
   {% for message in messages %}
-      <div class="toasty alert alert-{{ message.tags | toast_bg }}"
+      <div class="toasty alert alert-{{ message.tags | toast_bg }} grid-cols-[auto_1fr_auto] items-start gap-3 pe-2"
            role="alert"
            aria-live="assertive"
            aria-atomic="true">
-          <div class="flex items-center justify-between w-full">
-              <div class="flex items-center gap-2">
-                  <i class="{{ message.tags | toast_icon }} fa-fw"></i>
-                  <div>
-                      <strong>{{ message.tags | toast_title }}</strong>
-                      <div>{{ message }}</div>
-                  </div>
-              </div>
-              <button type="button"
-                      class="btn btn-ghost btn-sm btn-circle"
-                      _="on click remove closest .toasty"
-                      aria-label={% translate 'Close' %}>
-                  <i class="fa-solid fa-xmark"></i>
-              </button>
+          <i class="{{ message.tags | toast_icon }} fa-fw mt-1"></i>
+          <div class="min-w-0 break-words">
+              <strong>{{ message.tags | toast_title }}</strong>
+              <div>{{ message }}</div>
           </div>
+          {# -mt-1 centers the 2rem button on the 1.5rem title line #}
+          <button type="button"
+                  class="btn btn-ghost btn-sm btn-square -mt-1"
+                  _="on click remove closest .toasty"
+                  aria-label="{% translate 'Close' %}">
+              <i class="fa-solid fa-xmark"></i>
+          </button>
       </div>
   {% endfor %}
 {% endif %}
