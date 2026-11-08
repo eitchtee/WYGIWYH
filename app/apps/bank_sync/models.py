@@ -8,6 +8,7 @@ from apps.common.models import OwnedObject, OwnedObjectManager
 class BankSyncService(OwnedObject):
     class ServiceType(models.TextChoices):
         LUNCHFLOW = "lunchflow", "Lunch Flow"
+        SIMPLEFIN = "simplefin", "SimpleFIN"
 
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     service_type = models.CharField(

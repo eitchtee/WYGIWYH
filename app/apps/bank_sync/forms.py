@@ -41,9 +41,11 @@ class BankSyncServiceForm(forms.ModelForm):
             service_type = self.data.get("service_type") or self.initial.get(
                 "service_type"
             )
-        provider = PROVIDER_MAPPING.get(service_type)
+        self.provider = PROVIDER_MAPPING.get(service_type)
         self.setting_names = []
-        for key, field in (provider.settings_fields if provider else {}).items():
+        for key, field in (
+            self.provider.settings_fields if self.provider else {}
+        ).items():
             name = SETTING_PREFIX + key
             self.fields[name] = copy.deepcopy(field)
             if key in self.instance.settings:
@@ -79,12 +81,29 @@ class BankSyncServiceForm(forms.ModelForm):
             ),
         )
 
-    def save(self, commit=True):
-        self.instance.settings = {
-            name.removeprefix(SETTING_PREFIX): self.cleaned_data[name]
-            for name in self.setting_names
-        }
-        return super().save(commit)
+    def clean_sync_interval(self):
+        interval = self.cleaned_data["sync_interval"]
+        if self.provider and interval < self.provider.min_sync_interval:
+            raise forms.ValidationError(
+                _("This service can't sync more often than every %(hours)s hours.")
+                % {"hours": self.provider.min_sync_interval}
+            )
+        return interval
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Only once the rest is valid: a provider may spend a one-time token here
+        if self.provider and not self.errors:
+            try:
+                self.instance.settings = self.provider.clean_settings(
+                    {
+                        name.removeprefix(SETTING_PREFIX): cleaned_data[name]
+                        for name in self.setting_names
+                    }
+                )
+            except forms.ValidationError as e:
+                self.add_error(None, e)
+        return cleaned_data
 
 
 class BankSyncAccountForm(forms.ModelForm):

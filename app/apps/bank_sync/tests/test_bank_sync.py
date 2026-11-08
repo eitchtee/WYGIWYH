@@ -1,3 +1,4 @@
+import base64
 import io
 import os
 import zipfile
@@ -6,6 +7,7 @@ from decimal import Decimal
 from unittest.mock import MagicMock, patch
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
@@ -16,6 +18,8 @@ from apps.bank_sync.forms import BankSyncAccountForm, BankSyncServiceForm
 from apps.bank_sync.models import BankSyncAccount, BankSyncService
 from apps.bank_sync.providers.base import RemoteAccount, RemoteTransaction
 from apps.bank_sync.providers.lunchflow import LunchFlowProvider
+from apps.bank_sync.providers.simplefin import SimpleFINProvider
+from apps.bank_sync.providers.simplefin import _timestamp as _ts
 from apps.bank_sync.sync import is_due, refresh_remote_accounts, sync_service
 from apps.common.middleware.thread_local import delete_current_user, write_current_user
 from apps.currencies.models import Currency
@@ -93,6 +97,115 @@ class LunchFlowProviderTests(TestCase):
                 RemoteTransaction("b", date(2026, 10, 2), Decimal("1000"), "Salary", "", "USD"),
                 RemoteTransaction("d", date(2026, 10, 4), Decimal("-3"), "Same", "", ""),
             ],
+        )
+
+
+class SimpleFINProviderTests(TestCase):
+    def setUp(self):
+        self.enterContext(patch.dict("os.environ"))
+        os.environ.pop("SIMPLEFIN_ALLOWED_HOSTS", None)
+        self.provider = SimpleFINProvider(
+            {"access_url": "https://us%40r:p%3Ass@bridge.simplefin.org/simplefin/"}
+        )
+
+    def test_credentials_are_kept_out_of_the_url(self):
+        self.assertEqual(self.provider.session.auth, ("us@r", "p:ss"))
+        self.assertEqual(self.provider.base_url, "https://bridge.simplefin.org/simplefin")
+
+    def test_claims_setup_token(self):
+        token = base64.b64encode(b"https://bridge.simplefin.org/simplefin/claim/abc").decode()
+        response = MagicMock(text="https://u:p@bridge.simplefin.org/simplefin\n")
+        with patch("requests.post", return_value=response) as post:
+            settings = SimpleFINProvider.clean_settings({"access_url": token})
+        post.assert_called_once_with(
+            "https://bridge.simplefin.org/simplefin/claim/abc", timeout=30
+        )
+        self.assertEqual(settings, {"access_url": "https://u:p@bridge.simplefin.org/simplefin"})
+
+    def test_claimed_url_is_not_claimed_again(self):
+        with patch("requests.post") as post:
+            SimpleFINProvider.clean_settings({"access_url": "https://u:p@bridge.simplefin.org/x"})
+        post.assert_not_called()
+
+    def test_rejects_hosts_not_allowed(self):
+        token = base64.b64encode(b"http://db:5432/claim").decode()
+        with patch("requests.post") as post:
+            for value in (token, "https://u:p@evil.test/x", "not base64!"):
+                with self.assertRaises(ValidationError):
+                    SimpleFINProvider.clean_settings({"access_url": value})
+        post.assert_not_called()
+        with patch.dict("os.environ", {"SIMPLEFIN_ALLOWED_HOSTS": "sfin.local"}):
+            SimpleFINProvider.clean_settings({"access_url": "http://u:p@sfin.local/x"})
+        # Restored settings skip the form, the request itself is checked too
+        provider = SimpleFINProvider({"access_url": "https://u:p@evil.test/x"})
+        with self.assertRaises(ValueError):
+            provider.list_accounts()
+
+    def test_list_accounts(self):
+        payload = {
+            "errlist": [
+                {"code": "con.auth", "msg": "Reconnect", "conn_id": "c2"},
+                {"code": "gen.api", "msg": "Slow down"},
+            ],
+            "connections": [{"conn_id": "c1", "name": "Bank"}, {"conn_id": "c2", "name": "Other"}],
+            "accounts": [
+                {"id": "a1", "name": "Checking", "conn_id": "c1", "currency": "usd"},
+                {"id": "a2", "name": "Card", "conn_id": "c2", "currency": "https://x.test/pts"},
+            ],
+        }
+        with patch.object(self.provider.session, "get", return_value=_response(payload)) as get:
+            accounts = self.provider.list_accounts()
+        get.assert_called_once_with(
+            "https://bridge.simplefin.org/simplefin/accounts",
+            params={"version": "2", "balances-only": "1"},
+            timeout=60,
+        )
+        self.assertEqual(
+            accounts,
+            [
+                RemoteAccount("a1", "Bank - Checking", ("USD",), ""),
+                RemoteAccount("a2", "Other - Card", (), "Reconnect"),
+            ],
+        )
+
+    def test_get_transactions_in_90_day_windows(self):
+        today = timezone.localdate()
+        start = today - timedelta(days=100)
+
+        def get(url, params, timeout):
+            if params["start-date"] != _ts(start):
+                return _response({"accounts": []})
+            return _response(
+                {
+                    "accounts": [
+                        {
+                            "id": "a1",
+                            "currency": "USD",
+                            "transactions": [
+                                {"id": "t1", "posted": _ts(start) + 3600, "amount": "-5.10", "description": "CARD COFFEE", "payee": "Coffee"},
+                                {"id": "t2", "posted": 0, "amount": "-1", "description": "Pending", "pending": True},
+                            ],
+                        },
+                        {"id": "other", "transactions": [{"id": "x", "posted": 0, "amount": "1"}]},
+                    ]
+                }
+            )
+
+        with patch.object(self.provider.session, "get", side_effect=get) as mock_get:
+            transactions = self.provider.get_transactions("a1", start)
+
+        windows = [(c.kwargs["params"]["start-date"], c.kwargs["params"]["end-date"]) for c in mock_get.call_args_list]
+        self.assertEqual(
+            windows,
+            [
+                (_ts(start), _ts(start + timedelta(days=90))),
+                (_ts(start + timedelta(days=90)), _ts(today + timedelta(days=1))),
+            ],
+        )
+        self.assertEqual(mock_get.call_args.kwargs["params"]["account"], "a1")
+        self.assertEqual(
+            transactions,
+            [RemoteTransaction("t1", start, Decimal("-5.10"), "Coffee", "CARD COFFEE", "USD")],
         )
 
 
@@ -400,6 +513,31 @@ class FormTests(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertIn("setting_api_key", form.errors)
+
+    def test_provider_minimum_sync_interval(self):
+        data = {"name": "SF", "service_type": "simplefin", "setting_access_url": "x"}
+        with patch.object(SimpleFINProvider, "clean_settings", side_effect=lambda s: s):
+            form = BankSyncServiceForm({**data, "sync_interval": "5"})
+            self.assertIn("sync_interval", form.errors)
+            self.assertTrue(BankSyncServiceForm({**data, "sync_interval": "6"}).is_valid())
+
+    @patch.object(SimpleFINProvider, "clean_settings")
+    def test_clean_settings_runs_last_and_its_errors_show(self, clean_settings):
+        data = {"service_type": "simplefin", "sync_interval": "24", "setting_access_url": "tok"}
+        # Another field is invalid: a one-time token must not be spent
+        self.assertFalse(BankSyncServiceForm(data).is_valid())
+        clean_settings.assert_not_called()
+
+        clean_settings.side_effect = ValidationError("Token used")
+        form = BankSyncServiceForm({**data, "name": "SF"})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.non_field_errors(), ["Token used"])
+
+        clean_settings.side_effect = None
+        clean_settings.return_value = {"access_url": "https://u:p@bridge.simplefin.org/x"}
+        form = BankSyncServiceForm({**data, "name": "SF"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.save().settings, clean_settings.return_value)
 
     def test_account_link_form(self):
         eur = Currency.objects.create(code="€", name="Euro")

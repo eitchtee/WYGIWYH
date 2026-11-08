@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255, verbose_name='Name')),
-                ('service_type', models.CharField(choices=[('lunchflow', 'Lunch Flow')], max_length=255, verbose_name='Service Type')),
+                ('service_type', models.CharField(choices=[('lunchflow', 'Lunch Flow'), ('simplefin', 'SimpleFIN')], max_length=255, verbose_name='Service Type')),
                 ('is_active', models.BooleanField(default=True, verbose_name='Active')),
                 ('settings', models.JSONField(blank=True, default=dict, verbose_name='Settings')),
                 ('sync_interval', models.PositiveIntegerField(default=24, help_text='Most banks only update once a day.', validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(168)], verbose_name='Sync every X hours')),

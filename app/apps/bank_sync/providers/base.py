@@ -34,9 +34,19 @@ class BankSyncProvider(ABC):
     """
 
     settings_fields: dict = {}
+    # In hours, for services that limit how often they can be called
+    min_sync_interval: int = 1
 
     def __init__(self, settings: dict):
         self.settings = settings or {}
+
+    @classmethod
+    def clean_settings(cls, settings: dict) -> dict:
+        """Validate or transform the settings before they're saved.
+
+        Runs once every other form field is valid. Raise ValidationError to reject.
+        """
+        return settings
 
     @abstractmethod
     def list_accounts(self) -> list[RemoteAccount]:
