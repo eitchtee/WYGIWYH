@@ -8,9 +8,12 @@ from apps.currencies.models import Currency
 
 class ExchangeRateProvider(ABC):
     rates_inverted = False
+    # Help shown under the service's Options field. None hides the field
+    options_help = None
 
-    def __init__(self, api_key: Optional[str] = None):
+    def __init__(self, api_key: Optional[str] = None, options: str = ""):
         self.api_key = api_key
+        self.options = options or ""
 
     @abstractmethod
     def get_rates(
@@ -23,6 +26,11 @@ class ExchangeRateProvider(ABC):
     def requires_api_key(cls) -> bool:
         """Return True if the service requires an API key"""
         return True
+
+    @classmethod
+    def clean_options(cls, options: str) -> str:
+        """Validate the raw Options text on save. Raise ValidationError if invalid"""
+        return options
 
     @staticmethod
     def invert_rate(rate: Decimal) -> Decimal:
