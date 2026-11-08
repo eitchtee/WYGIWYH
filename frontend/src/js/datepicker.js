@@ -117,8 +117,10 @@ let mobileOverlay = null;
 function createAirDatepicker(element, opts) {
     const datepicker = new AirDatepicker(element, opts);
     mobileOverlay ??= document.querySelector('.air-datepicker-overlay');
-    if (mobileOverlay && !mobileOverlay.isConnected) {
-        document.getElementById(AirDatepicker.defaultGlobalContainerId).appendChild(mobileOverlay);
+    const container = document.getElementById(AirDatepicker.defaultGlobalContainerId);
+    if (mobileOverlay && !mobileOverlay.isConnected && container) {
+        mobileOverlay.classList.remove('-active-'); // its picker was swapped out while open
+        container.appendChild(mobileOverlay);
     }
     return datepicker;
 }
