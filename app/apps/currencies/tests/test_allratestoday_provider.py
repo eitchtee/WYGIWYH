@@ -1,11 +1,15 @@
+import json
 from decimal import Decimal
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
 import requests
+from django.core.exceptions import ValidationError
+from django.test import TestCase as DjangoTestCase
 
 from apps.currencies.exchange_rates.fetcher import PROVIDER_MAPPING
 from apps.currencies.exchange_rates.providers import AllRatesTodayProvider
+from apps.currencies.forms import ExchangeRateServiceForm
 from apps.currencies.models import ExchangeRateService
 
 
@@ -31,7 +35,7 @@ class AllRatesTodayProviderTests(TestCase):
         self.brl = _FakeCurrency("BRL")
         self.usd = _FakeCurrency("USD")
         self.eur = _FakeCurrency("EUR")
-        self.provider = AllRatesTodayProvider("bcb")
+        self.provider = AllRatesTodayProvider(options="bcb")
 
     def _get_rates(self, rows, target, base):
         target.exchange_currency = base
@@ -67,14 +71,23 @@ class AllRatesTodayProviderTests(TestCase):
         self.assertEqual(len(rates), 2)
 
     def test_empty_field_reads_the_ecb_table(self):
-        self.assertEqual(AllRatesTodayProvider(None).bank, "ecb")
-        self.assertEqual(AllRatesTodayProvider("").bank, "ecb")
+        for options in (None, "", "   "):
+            self.assertEqual(AllRatesTodayProvider(options=options).bank, "ecb")
 
     def test_normalizes_the_bank_code(self):
-        self.assertEqual(AllRatesTodayProvider("  BCB ").bank, "bcb")
+        self.assertEqual(AllRatesTodayProvider(options="  BCB ").bank, "bcb")
+
+    def test_ignores_the_api_key(self):
+        self.assertEqual(AllRatesTodayProvider("bcb").bank, "ecb")
+
+    def test_clean_options_validates_the_bank_code(self):
+        self.assertEqual(AllRatesTodayProvider.clean_options(" BCB "), "bcb")
+        self.assertEqual(AllRatesTodayProvider.clean_options(""), "")
+        with self.assertRaises(ValidationError):
+            AllRatesTodayProvider.clean_options("../latest/USD")
 
     def test_rejects_malformed_bank_code_without_a_request(self):
-        provider = AllRatesTodayProvider("../latest/USD")
+        provider = AllRatesTodayProvider(options="../latest/USD")
         self.usd.exchange_currency = self.brl
 
         with patch.object(provider.session, "get") as mock_get:
@@ -206,3 +219,40 @@ class AllRatesTodayProviderTests(TestCase):
         self.assertFalse(AllRatesTodayProvider.requires_api_key())
         self.assertIs(PROVIDER_MAPPING["allratestoday"], AllRatesTodayProvider)
         self.assertEqual(ExchangeRateService.ServiceType.ALLRATESTODAY, "allratestoday")
+
+    def test_service_passes_its_options_to_the_provider(self):
+        service = ExchangeRateService(service_type="allratestoday", options="rbi")
+        self.assertEqual(service.get_provider().bank, "rbi")
+
+
+class ExchangeRateServiceFormOptionsTests(DjangoTestCase):
+    def _form(self, **data):
+        return ExchangeRateServiceForm(
+            data={
+                "name": "Rates",
+                "service_type": "allratestoday",
+                "interval_type": "every",
+                "fetch_interval": "24",
+                **data,
+            }
+        )
+
+    def test_saves_cleaned_options(self):
+        form = self._form(options=" BCB ")
+
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertEqual(form.save().options, "bcb")
+
+    def test_rejects_invalid_options_on_save(self):
+        form = self._form(options="../latest/USD")
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("options", form.errors)
+
+    def test_tells_the_page_which_fields_each_provider_uses(self):
+        attrs = self._form().fields["service_type"].widget.attrs
+        providers = json.loads(attrs["data-providers"])
+
+        self.assertEqual(providers["allratestoday"]["api_key"], False)
+        self.assertIn("bank code", providers["allratestoday"]["options"])
+        self.assertEqual(providers["twelvedata"], {"api_key": True, "options": ""})

@@ -6,7 +6,9 @@ import requests
 from decimal import Decimal
 from typing import Tuple, List, Optional, Dict
 
+from django.core.exceptions import ValidationError
 from django.db.models import QuerySet
+from django.utils.translation import gettext_lazy as _
 
 from apps.currencies.models import Currency, ExchangeRate
 from apps.currencies.exchange_rates.base import ExchangeRateProvider
@@ -688,14 +690,18 @@ class AllRatesTodayProvider(ExchangeRateProvider):
     """
     Implementation for the central bank tables served by allratestoday.com.
 
-    Each service reads the latest published table of one central bank. The API
-    Key field holds the bank code (e.g. "bcb" or "rbi"), as this endpoint needs
-    no key. An empty field reads the ECB table.
+    Each service reads the latest published table of one central bank, picked by
+    the bank code in the Options field (e.g. "bcb" or "rbi"). An empty field
+    reads the ECB table. The endpoint needs no API key.
     """
 
     BASE_URL = "https://allratestoday.com/api/open/central-bank"
     DEFAULT_BANK = "ecb"
+    BANK_CODE_RE = re.compile(r"[a-z0-9_-]{2,20}")
     rates_inverted = False  # A base/quote row says how many quote one base buys
+    options_help = _(
+        "Central bank code, e.g. 'bcb' or 'rbi'. Leave empty to use the ECB table."
+    )
 
     # A pair can have several rows. Prefer a published mid, else the mean of a buy
     # and sell quote. Period averages are left out, they are not a current rate
@@ -710,14 +716,24 @@ class AllRatesTodayProvider(ExchangeRateProvider):
     )
     BUY_SELL_TYPES = (("buy", "sell"), ("tt_buy", "tt_sell"))
 
-    def __init__(self, api_key: str = None):
-        super().__init__(api_key)
-        self.bank = (api_key or self.DEFAULT_BANK).strip().lower()
+    def __init__(self, api_key: str = None, options: str = ""):
+        super().__init__(api_key, options)
         self.session = requests.Session()
+
+    @property
+    def bank(self) -> str:
+        return self.options.strip().lower() or self.DEFAULT_BANK
 
     @classmethod
     def requires_api_key(cls) -> bool:
         return False
+
+    @classmethod
+    def clean_options(cls, options: str) -> str:
+        bank = options.strip().lower()
+        if bank and not cls.BANK_CODE_RE.fullmatch(bank):
+            raise ValidationError(_("Invalid bank code, it should look like 'bcb'."))
+        return bank
 
     def _parse_table(self, rows: list) -> Dict[Tuple[str, str], Decimal]:
         """Reduce the table to one rate per pair, in both directions"""
@@ -766,7 +782,7 @@ class AllRatesTodayProvider(ExchangeRateProvider):
     ) -> List[Tuple[Currency, Currency, Decimal]]:
         results = []
 
-        if not re.fullmatch(r"[a-z0-9_-]{2,20}", self.bank):
+        if not self.BANK_CODE_RE.fullmatch(self.bank):
             logger.error("Invalid AllRatesToday bank code, it should look like 'bcb'")
             return results
 

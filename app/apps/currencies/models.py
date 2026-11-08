@@ -107,10 +107,7 @@ class ExchangeRateService(models.Model):
         TWELVEDATA_MARKETS = "twelvedatamarkets", "TwelveData Markets"
         YFINANCE = "yfinance", "Yahoo Finance"
         FXMACRODATA = "fxmacrodata", "FXMacroData"
-        ALLRATESTODAY = (
-            "allratestoday",
-            "AllRatesToday Central Banks (bank code as API key)",
-        )
+        ALLRATESTODAY = "allratestoday", "AllRatesToday Central Banks"
 
     class IntervalType(models.TextChoices):
         ON = "on", _("On")
@@ -128,6 +125,12 @@ class ExchangeRateService(models.Model):
         null=True,
         verbose_name=_("API Key"),
         help_text=_("API key for the service (if required)"),
+    )
+    options = models.TextField(
+        blank=True,
+        default="",
+        verbose_name=_("Options"),
+        help_text=_("Provider specific settings"),
     )
     interval_type = models.CharField(
         max_length=255,
@@ -184,7 +187,9 @@ class ExchangeRateService(models.Model):
         from apps.currencies.exchange_rates.fetcher import PROVIDER_MAPPING
 
         provider_class = PROVIDER_MAPPING[self.service_type]
-        return provider_class(self.api_key)
+        provider = provider_class(self.api_key)
+        provider.options = self.options or ""
+        return provider
 
     @staticmethod
     def _parse_hour_ranges(interval_str: str) -> Set[int]:
