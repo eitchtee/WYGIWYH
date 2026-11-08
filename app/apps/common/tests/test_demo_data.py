@@ -6,8 +6,10 @@ from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from apps.accounts.models import Account
 from apps.common.middleware.thread_local import delete_current_user, write_current_user
 from apps.dca.models import DCAStrategy
+from apps.investments.services import get_holding_performance
 from apps.transactions.models import Transaction
 
 
@@ -53,6 +55,24 @@ class LoadDemoDataTests(TestCase):
         )
         self.assertTrue(user.check_password("wygiwyhdemo"))
 
+    def test_investments_cover_each_kind(self):
+        self.load(date.today())  # the tracker values holdings as of the real today
+        perfs = {
+            a.name: get_holding_performance(a)
+            for a in Account.objects.filter(is_investment=True)
+        }
+        self.assertTrue(any(p.priced for p in perfs.values()))
+        self.assertTrue(any(not p.priced for p in perfs.values()))
+        for name, perf in perfs.items():
+            with self.subTest(name=name):
+                self.assertGreater(perf.quantity, 0)
+                self.assertIsNotNone(perf.market_value)
+        apple = perfs["Brokerage (Apple shares)"]
+        self.assertTrue(apple.estimated)  # gifted shares
+        self.assertGreater(apple.income, 0)  # dividends paid into checking
+        self.assertNotEqual(apple.realized, 0)  # partial sale
+        self.assertTrue(perfs["Retirement Fund"].results)  # gains and losses
+
     def test_running_twice_is_a_no_op(self):
         self.load(date(2031, 7, 14))
         count = Transaction.all_objects.count()
@@ -79,9 +99,16 @@ class LoadDemoDataTests(TestCase):
             reverse("insights_emergency_fund"),
             reverse("quick_transactions_index"),
             reverse("rules_index"),
+            reverse("investments_list"),
+            reverse("investments_charts"),
+            reverse("investments_rebalance"),
+            reverse("investment_classes_list"),
         ] + [
             reverse("dca_strategy_detail", kwargs={"strategy_id": s.id})
             for s in DCAStrategy.objects.all()
+        ] + [
+            reverse("investment_detail", kwargs={"account_id": a.id})
+            for a in Account.objects.filter(is_investment=True)
         ]
         for url in urls:
             with self.subTest(url=url):

@@ -4,7 +4,9 @@ Run on an empty database (the demo reset flushes first). Covers every feature:
 multi-currency accounts, exchange rates, an ETF and Bitcoin tracked as
 currencies with DCA strategies, transfers, a credit card using reference
 dates, installment plans, recurring transactions, quick transactions, rules,
-filter presets, muted/unpaid/archived/deactivated examples.
+filter presets, muted/unpaid/archived/deactivated examples, and investments:
+unit-priced (ETF, crypto, a stock with dividends, a sale and gifted shares, gold)
+and value-tracked (savings, a retirement fund) holdings in asset classes.
 """
 
 import calendar
@@ -19,7 +21,7 @@ from django.db import transaction as db_transaction
 from django.db.models import Q
 from django.utils import timezone
 
-from apps.accounts.models import Account, AccountGroup
+from apps.accounts.models import Account, AccountGroup, InvestmentClass
 from apps.common.middleware.thread_local import delete_current_user, write_current_user
 from apps.currencies.models import Currency, ExchangeRate
 from apps.dca.models import DCAEntry, DCAStrategy
@@ -141,12 +143,24 @@ class Command(BaseCommand):
             code="MILES", name="Airline Miles", decimal_places=0, suffix=" mi",
             exchange_currency=usd,
         )
+        aapl = Currency.objects.create(
+            code="AAPL", name="Apple Inc. shares", decimal_places=4, suffix=" AAPL",
+            exchange_currency=usd,
+        )
+        gold = Currency.objects.create(
+            code="XAU", name="Gold (grams)", decimal_places=2, suffix=" g",
+            exchange_currency=usd,
+        )
 
         # Monthly rate history so net worth charts move; index 0 = oldest month
         n = HISTORY_MONTHS + 1
         eur_usd = [q(1.06 + 0.04 * i / n + rng.uniform(-0.01, 0.01), 4) for i in range(n)]
         btc_usd = [q(58000 + 40000 * i / n + rng.uniform(-4000, 4000)) for i in range(n)]
         vwce_eur = [q(112 + 20 * i / n + rng.uniform(-2, 2)) for i in range(n)]
+        # Own generator, so the investment examples don't shift the rest of the demo
+        inv = random.Random(7)
+        aapl_usd = [q(185 + 45 * i / n + inv.uniform(-9, 9)) for i in range(n)]
+        gold_usd = [q(76 + 18 * i / n + inv.uniform(-2, 2)) for i in range(n)]
         for i in range(n):
             months = i - HISTORY_MONTHS
             first = self.day(months, 1)
@@ -154,7 +168,8 @@ class Command(BaseCommand):
             if months == 0:
                 when = timezone.now()  # latest rate is "today"
             for src, dst, series in [
-                (eur, usd, eur_usd), (btc, usd, btc_usd), (vwce, eur, vwce_eur)
+                (eur, usd, eur_usd), (btc, usd, btc_usd), (vwce, eur, vwce_eur),
+                (aapl, usd, aapl_usd), (gold, usd, gold_usd),
             ]:
                 ExchangeRate.objects.create(
                     from_currency=src, to_currency=dst, rate=series[i], date=when
@@ -164,6 +179,13 @@ class Command(BaseCommand):
             date=timezone.make_aware(datetime.combine(self.day(-HISTORY_MONTHS, 1), time(12))),
         )
 
+        # Asset classes: targets add up to 100%; Commodities has none, so the
+        # rebalance view leaves it out
+        stocks = InvestmentClass.objects.create(name="Stocks", target=Decimal("60"))
+        fixed_income = InvestmentClass.objects.create(name="Fixed income", target=Decimal("25"))
+        crypto = InvestmentClass.objects.create(name="Crypto", target=Decimal("15"))
+        commodities = InvestmentClass.objects.create(name="Commodities")
+
         # Accounts
         everyday = AccountGroup.objects.create(name="Everyday")
         investing = AccountGroup.objects.create(name="Savings & Investing")
@@ -172,17 +194,34 @@ class Command(BaseCommand):
         checking = Account.objects.create(name="Checking", group=everyday, currency=usd)
         card = Account.objects.create(name="Credit Card", group=everyday, currency=usd)
         cash = Account.objects.create(name="Cash Wallet", group=everyday, currency=usd)
+        # No exchange currency on an investment: tracked by value
         savings = Account.objects.create(
-            name="High-Yield Savings", group=investing, currency=usd, is_asset=True
+            name="High-Yield Savings", group=investing, currency=usd, is_asset=True,
+            is_investment=True, investment_class=fixed_income,
         )
         euro = Account.objects.create(
             name="Euro Account", group=investing, currency=eur, exchange_currency=usd
         )
+        # An exchange currency on an investment: priced by units
         brokerage = Account.objects.create(
-            name="Brokerage (VWCE)", group=investing, currency=vwce, is_asset=True
+            name="Brokerage (VWCE)", group=investing, currency=vwce, exchange_currency=eur,
+            is_asset=True, is_investment=True, investment_class=stocks,
         )
         btc_wallet = Account.objects.create(
-            name="Bitcoin Wallet", group=investing, currency=btc, is_asset=True
+            name="Bitcoin Wallet", group=investing, currency=btc, exchange_currency=usd,
+            is_asset=True, is_investment=True, investment_class=crypto,
+        )
+        stock_acc = Account.objects.create(
+            name="Brokerage (Apple shares)", group=investing, currency=aapl,
+            exchange_currency=usd, is_asset=True, is_investment=True, investment_class=stocks,
+        )
+        retirement = Account.objects.create(
+            name="Retirement Fund", group=investing, currency=usd, is_asset=True,
+            is_investment=True, investment_class=stocks,
+        )
+        gold_acc = Account.objects.create(
+            name="Gold Bars", group=investing, currency=gold, exchange_currency=usd,
+            is_asset=True, is_investment=True, investment_class=commodities,
         )
         miles_acc = Account.objects.create(name="Airline Miles", group=rewards, currency=miles)
         old_bank = Account.objects.create(
@@ -195,6 +234,7 @@ class Command(BaseCommand):
                 "Salary", "Freelance", "Interest", "Rent", "Groceries", "Dining",
                 "Transport", "Utilities", "Subscriptions", "Health", "Travel",
                 "Shopping", "Investments", "Fees", "Rewards", "Gifts", "Transfers",
+                "Dividends", "Market result",
             ]
         }
         self.cats["Cable TV"] = TransactionCategory.objects.create(
@@ -210,9 +250,15 @@ class Command(BaseCommand):
                 "Acme Corp", "Northwind (client)", "Landlord", "Power & Light Co.",
                 "FiberNet", "Fresh Market", "Corner Bistro", "Sushi House", "Uber",
                 "City Transit", "StreamFlix", "Iron Gym", "Pharma Plus", "BuyMore",
-                "Alex", "Sky Airlines",
+                "Alex", "Sky Airlines", "Apple Inc.",
             ]
         }
+
+        # What counts as an investment's result rather than money in or out
+        savings.income_categories.set([self.cats["Interest"]])
+        retirement.income_categories.set([self.cats["Market result"], self.cats["Fees"]])
+        # Dividends paid into checking count towards the Apple shares' return
+        stock_acc.income_entities.set([self.ents["Apple Inc."]])
 
         btc_dca = DCAStrategy.objects.create(
             name="Bitcoin monthly", target_currency=btc, payment_currency=usd,
@@ -362,6 +408,30 @@ class Command(BaseCommand):
                                         income_transaction=inc)
                 self.tx(euro, EX, Decimal("1.50"), d, "Broker fee", "Fees")
 
+            # Apple shares every other month; quarterly dividends land in checking
+            d = self.day(m, 18)
+            if m % 2 == 0 and d <= today:
+                self.transfer(checking, stock_acc, Decimal("500.00"), d, "Buy AAPL",
+                              to_amount=q(Decimal(500) / self.rate(aapl_usd, m), 4),
+                              mute=False, category="Investments")
+            d = self.day(m, 14)
+            if m % 3 == 1 and d <= today:
+                self.tx(checking, IN, q(inv.uniform(4, 7)), d, "AAPL dividend", "Dividends",
+                        entities=["Apple Inc."])
+
+            # Retirement fund, tracked by value: contributions plus the quarterly
+            # statement's gain or loss
+            d = self.day(m, 6)
+            if d <= today:
+                self.transfer(checking, retirement, Decimal("300.00"), d,
+                              "Retirement contribution", category="Investments")
+            d = self.day(m, 28)
+            result = {-12: 310, -9: -180, -6: 420, -3: 265, 0: 190}.get(m)
+            if result and d <= today:
+                self.tx(retirement, IN if result > 0 else EX, Decimal(abs(result)), d,
+                        "Quarterly statement result", "Market result",
+                        notes="The fund's gain or loss from its statement.")
+
             # Every 3 months: convert dollars to euros at that month's rate
             if m % 3 == 0 and self.day(m, 7) <= today:
                 usd_amount = Decimal("1000.00")
@@ -381,6 +451,20 @@ class Command(BaseCommand):
                               "ATM withdrawal", category="Transfers")
 
         # ---- one-offs ----
+        # Investments: gifted shares (no known cost, so estimated), a partial sale,
+        # a yearly fund fee, and gold bought twice
+        self.tx(stock_acc, IN, Decimal("5"), self.day(-7, 9), "Shares gifted by grandma",
+                "Gifts", notes="No cost is known, so it's valued at that day's price.")
+        self.transfer(stock_acc, checking, Decimal("3"), self.day(-2, 21), "Sell AAPL",
+                      to_amount=q(3 * self.rate(aapl_usd, -2)), mute=False,
+                      category="Investments")
+        self.tx(retirement, EX, Decimal("45.00"), self.day(-6, 30), "Annual management fee",
+                "Fees")
+        for m, spent in ((-9, 1500), (-3, 800)):
+            self.transfer(checking, gold_acc, Decimal(spent), self.day(m, 12), "Buy gold",
+                          to_amount=q(Decimal(spent) / self.rate(gold_usd, m)), mute=False,
+                          category="Investments")
+
         self.tx(miles_acc, IN, Decimal("30000"), self.day(-HISTORY_MONTHS, 4),
                 "Credit card sign-up bonus", "Rewards", entities=["Sky Airlines"])
         trip = -5
