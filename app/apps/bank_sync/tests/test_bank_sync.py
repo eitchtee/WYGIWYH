@@ -295,6 +295,76 @@ class SyncTests(TestCase):
         self._sync()
         self.assertEqual(self.provider.calls, [("7", date(2026, 10, 25))])
 
+    def _pending(self, days_ago, amount="-20", pending=True):
+        day = timezone.localdate() - timedelta(days=days_ago)
+        return RemoteTransaction("p", day, Decimal(amount), "Hotel", pending=pending)
+
+    def _hotel(self):
+        return Transaction.userless_all_objects.get(internal_id="lunchflow:7:p")
+
+    def test_pending_is_imported_unpaid_and_settled_once_when_it_posts(self):
+        self.link.start_date = timezone.localdate() - timedelta(days=90)
+        self.link.save()
+        self.provider.transactions = [self._pending(30)]
+        self.assertEqual(self._sync(), 1)
+        self.assertFalse(self._hotel().is_paid)
+
+        # Still pending with another amount: left alone, edits stick
+        self.provider.transactions = [self._pending(30, "-22")]
+        self._sync()
+        self.assertEqual(self._hotel().amount, Decimal("20"))
+        # And it's still looked for, way past the overlap
+        self.assertEqual(self.provider.calls[-1][1], timezone.localdate() - timedelta(days=30))
+
+        # Posts with its final amount and date
+        self.provider.transactions = [self._pending(29, "-25.509", pending=False)]
+        self.assertEqual(self._sync(), 0)
+        hotel = self._hotel()
+        self.assertTrue(hotel.is_paid)
+        self.assertEqual(hotel.amount, Decimal("25.50"))
+        self.assertEqual(hotel.date, timezone.localdate() - timedelta(days=29))
+        self.assertEqual(hotel.reference_date, hotel.date.replace(day=1))
+
+        # Settled: later changes on the bank don't touch it, look back is normal
+        self.provider.transactions = [self._pending(29, "-99", pending=False)]
+        self._sync()
+        self.assertEqual(self._hotel().amount, Decimal("25.50"))
+        self.assertEqual(self.provider.calls[-1][1], timezone.localdate() - timedelta(days=7))
+
+    def test_settling_keeps_a_reference_date_picked_by_the_user(self):
+        self.link.start_date = timezone.localdate() - timedelta(days=90)
+        self.link.save()
+        self.provider.transactions = [self._pending(10)]
+        self._sync()
+        Transaction.userless_all_objects.filter(internal_id="lunchflow:7:p").update(
+            emit_signal=False, reference_date=date(2030, 1, 1)
+        )
+        self.provider.transactions = [self._pending(10, pending=False)]
+        self._sync()
+        self.assertEqual(self._hotel().reference_date, date(2030, 1, 1))
+        self.assertTrue(self._hotel().is_paid)
+
+    def test_unpaid_marked_paid_by_hand_is_left_alone(self):
+        self.link.start_date = timezone.localdate() - timedelta(days=90)
+        self.link.save()
+        self.provider.transactions = [self._pending(10)]
+        self._sync()
+        Transaction.userless_all_objects.filter(internal_id="lunchflow:7:p").update(
+            emit_signal=False, is_paid=True
+        )
+        self.provider.transactions = [self._pending(10, "-99", pending=False)]
+        self._sync()
+        self.assertEqual(self._hotel().amount, Decimal("20"))
+
+    def test_old_pending_is_no_longer_followed(self):
+        self.link.start_date = timezone.localdate() - timedelta(days=200)
+        self.link.save()
+        self.provider.transactions = [self._pending(61)]
+        self._sync()
+        self._sync()
+        # Taken as cancelled: back to the normal overlap
+        self.assertEqual(self.provider.calls[-1][1], timezone.localdate() - timedelta(days=7))
+
     def test_unlinked_accounts_are_skipped(self):
         self.link.account = None
         self.link.save()

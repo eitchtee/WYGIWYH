@@ -1,6 +1,7 @@
 import logging
 from datetime import timedelta
 
+from django.db.models import Min
 from django.utils import timezone
 
 from apps.bank_sync.models import BankSyncAccount, BankSyncService
@@ -15,6 +16,9 @@ logger = logging.getLogger(__name__)
 OVERLAP_DAYS = 7
 # How far apart a synced transaction and the one it matches can be dated
 MATCH_DAYS = 3
+# Pending ones older than this are taken as cancelled and no longer followed. A
+# card's bill cycle is at most ~40 days
+PENDING_MAX_DAYS = 60
 
 
 def refresh_remote_accounts(service: BankSyncService, provider=None) -> None:
@@ -58,10 +62,39 @@ def _match_existing(link: BankSyncAccount, internal_id, type_, amount, date) -> 
     return True
 
 
+def _settle(transaction: Transaction, amount, date) -> None:
+    """The bank posted a transaction that was still unpaid: take its final values.
+
+    Happens once, so later edits stick. One marked paid by hand is left alone.
+    """
+    if transaction.is_paid or transaction.deleted:
+        return
+    # Only when it still follows the date, so one picked by the user is kept
+    if transaction.reference_date == transaction.date.replace(day=1):
+        transaction.reference_date = date.replace(day=1)
+    transaction.is_paid = True
+    transaction.amount = amount
+    transaction.date = date
+    # save() keeps a transfer's other side in step. It sends no signal, and as a
+    # bank update rather than a user edit, rules don't run again
+    transaction.save()
+
+
 def _sync_account(service: BankSyncService, link: BankSyncAccount, provider) -> int:
+    prefix = f"{service.service_type}:{link.external_id}:"
     start = link.start_date
     if link.last_synced_date:
         start = max(start, link.last_synced_date - timedelta(days=OVERLAP_DAYS))
+    # Pending ones can post weeks later (a card's bill closing): look back far
+    # enough to see it happen
+    oldest_unpaid = Transaction.userless_all_objects.filter(
+        internal_id__startswith=prefix,
+        is_paid=False,
+        deleted=False,
+        date__gte=timezone.localdate() - timedelta(days=PENDING_MAX_DAYS),
+    ).aggregate(Min("date"))["date__min"]
+    if oldest_unpaid:
+        start = min(start, oldest_unpaid)
 
     created = 0
     seen_currencies = set()
@@ -73,16 +106,22 @@ def _sync_account(service: BankSyncService, link: BankSyncAccount, provider) -> 
             if link.currencies and remote.currency not in link.currencies:
                 continue
 
-        internal_id = f"{service.service_type}:{link.external_id}:{remote.id}"
-        # userless_all_objects: also sees soft deleted ones, so deleting a synced
-        # transaction doesn't bring it back on the next run
-        if Transaction.userless_all_objects.filter(internal_id=internal_id).exists():
-            continue
-
+        internal_id = prefix + remote.id
         type_ = (
             Transaction.Type.INCOME if remote.amount > 0 else Transaction.Type.EXPENSE
         )
         amount = abs(remote.amount)
+
+        # userless_all_objects: also sees soft deleted ones, so deleting a synced
+        # transaction doesn't bring it back on the next run
+        existing = Transaction.userless_all_objects.filter(
+            internal_id=internal_id
+        ).first()
+        if existing:
+            if not remote.pending:
+                _settle(existing, amount, remote.date)
+            continue
+
         if service.match_existing and _match_existing(
             link, internal_id, type_, amount, remote.date
         ):
@@ -96,7 +135,7 @@ def _sync_account(service: BankSyncService, link: BankSyncAccount, provider) -> 
             date=remote.date,
             description=remote.description[:500],
             notes=remote.notes,
-            is_paid=True,
+            is_paid=not remote.pending,
             internal_id=internal_id,
         )
         created += 1

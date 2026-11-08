@@ -23,6 +23,9 @@ class RemoteTransaction:
     description: str = ""
     notes: str = ""
     currency: str = ""
+    # Not settled yet. Imported unpaid and updated when it posts, so only return
+    # these when the provider keeps the id once they post
+    pending: bool = False
 
 
 class BankSyncProvider(ABC):
