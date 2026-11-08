@@ -130,11 +130,18 @@ window.TomSelect = function createDynamicTomSelect(element) {
     }
 
     if (element.dataset.load) {
+        // The server searches and orders; don't let tom-select re-filter or re-sort the results
+        config.score = () => () => 1;
+        config.sortField = [{field: '$order'}];
+        config.preload = 'focus';
+        config.shouldLoad = () => true;
         config.load = function (query, callback) {
             let url = element.dataset.load + '?q=' + encodeURIComponent(query);
             fetch(url)
                 .then(response => response.json())
                 .then(json => {
+                    // Drop results from the previous query, keeping the selected item
+                    this.clearOptions();
                     callback(json);
                 }).catch(() => {
                     callback();

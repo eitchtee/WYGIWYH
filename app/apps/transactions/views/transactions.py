@@ -25,7 +25,7 @@ from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Case, IntegerField, Q, Value, When
+from django.db.models import Case, F, IntegerField, Q, Value, When
 from django.http import FileResponse, Http404, HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
@@ -972,40 +972,20 @@ def transactions_trash_can_list(request):
 @login_required
 @require_http_methods(["GET"])
 def get_recent_transactions(request, filter_type=None):
-    """Return the 100 most recent non-deleted transactions with optional search."""
-    # Get search term from query params
+    """Return up to 100 non-deleted transactions, ordered like the monthly view, with optional search."""
     search_term = request.GET.get("q", "").strip()
 
     today = timezone.localdate(timezone.now())
     yesterday = today - timezone.timedelta(days=1)
     tomorrow = today + timezone.timedelta(days=1)
 
-    # Base queryset with selected fields
-    queryset = (
-        Transaction.objects.filter(deleted=False)
-        .annotate(
-            date_order=Case(
-                When(date=today, then=Value(0)),
-                When(date=tomorrow, then=Value(1)),
-                When(date=yesterday, then=Value(2)),
-                When(date__gt=tomorrow, then=Value(3)),
-                When(date__lt=yesterday, then=Value(4)),
-                default=Value(5),
-                output_field=IntegerField(),
-            )
-        )
-        .select_related("account__currency", "account__group", "category")
-        .prefetch_related("tags", "entities")
-        .order_by("date_order", "date", "id")
-    )
+    queryset = Transaction.objects.filter(deleted=False)
 
-    if filter_type:
-        if filter_type == "expenses":
-            queryset = queryset.filter(type=Transaction.Type.EXPENSE)
-        elif filter_type == "income":
-            queryset = queryset.filter(type=Transaction.Type.INCOME)
+    if filter_type == "expenses":
+        queryset = queryset.filter(type=Transaction.Type.EXPENSE)
+    elif filter_type == "income":
+        queryset = queryset.filter(type=Transaction.Type.INCOME)
 
-    # Apply search if provided
     if search_term:
         queryset = queryset.filter(
             Q(description__icontains=search_term)
@@ -1014,5 +994,25 @@ def get_recent_transactions(request, filter_type=None):
             | Q(tags__name__icontains=search_term)
             | Q(category__name__icontains=search_term)
         )
+
+    # Today, tomorrow, yesterday, then upcoming (soonest first), then past (newest first)
+    queryset = (
+        queryset.annotate(
+            date_order=Case(
+                When(date=today, then=Value(0)),
+                When(date=tomorrow, then=Value(1)),
+                When(date=yesterday, then=Value(2)),
+                When(date__gt=tomorrow, then=Value(3)),
+                default=Value(4),
+                output_field=IntegerField(),
+            ),
+            upcoming_date=Case(When(date__gt=tomorrow, then=F("date"))),
+        )
+        .select_related("account__currency", "account__group", "category")
+        .prefetch_related("tags", "entities")
+        .order_by(
+            "date_order", F("upcoming_date").asc(nulls_last=True), "-date", "-id"
+        )[:100]
+    )
 
     return JsonResponse([transaction_option(t) for t in queryset], safe=False)
