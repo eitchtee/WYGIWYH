@@ -117,6 +117,48 @@ You can now access localhost:OUTBOUND_PORT
 > - If you're planning on running this behind Tailscale or other similar service also add your machine given IP to `DJANGO_ALLOWED_HOSTS`
 > - If you're going to use another IP that isn't localhost, add it to `DJANGO_ALLOWED_HOSTS`, without `http://`
 
+## Development
+
+The development stack runs from `docker-compose.dev.yml`:
+
+```bash
+$ docker compose -f docker-compose.dev.yml up -d
+```
+
+Set `COMPOSE_FILE=docker-compose.dev.yml` in your `.env` to drop the `-f` flag.
+
+### Working in multiple git worktrees
+
+You can run one dev stack per [git worktree](https://git-scm.com/docs/git-worktree), side by side. Each worktree gets its own containers, database and volumes, because Compose names them after the worktree's folder.
+
+A new worktree has no `.env` (it's gitignored). After creating one, run this from the worktree's root:
+
+```bash
+$ sh docker/dev/worktree.sh
+```
+
+It copies `.env` from your main checkout, gives the worktree its own host ports (printed when it finishes) and installs `frontend/node_modules` for tools you run outside Docker. The database starts empty.
+
+To stop the worktree's containers and delete its volumes before removing it:
+
+```bash
+$ sh docker/dev/worktree.sh teardown
+```
+
+The commands work on Linux, macOS and Windows (Git Bash or WSL). PowerShell and cmd have no `sh`, so on Windows set up git aliases once in your clone; they run through Git's bundled shell from any terminal, and every worktree of the clone shares them:
+
+```bash
+git config alias.wt-setup '!sh docker/dev/worktree.sh'
+git config alias.wt-teardown '!sh docker/dev/worktree.sh teardown'
+```
+
+Run those two lines in Git Bash or PowerShell; cmd doesn't understand the single quotes.
+
+Then use `git wt-setup` and `git wt-teardown`. Tools that create worktrees for you, such as Orca, Conductor or Superset, usually have setup and archive hooks: put these commands there.
+
+> [!NOTE]
+> Ports come from the worktree's folder name, so two worktrees can rarely land on the same ones. If `docker compose up` reports a port in use, change `OUTBOUND_PORT`, `WEBPACK_OUTBOUND_PORT` or `SQL_OUTBOUND_PORT` in that worktree's `.env`.
+
 
 ## Latest changes
 Features are only added to `main` when ready, if you want to run the latest version, you must build from source or use the `:nightly` tag on docker. Keep in mind that there can be undocumented breaking changes.
