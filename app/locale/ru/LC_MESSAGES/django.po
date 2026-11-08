@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 19:49+0000\n"
+"POT-Creation-Date: 2026-11-08 06:01+0000\n"
 "PO-Revision-Date: 2026-05-01 07:24+0000\n"
 "Last-Translator: masttera <mail.masttera@gmail.com>\n"
 "Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
@@ -25,8 +25,8 @@ msgid "Group name"
 msgstr "Имя группы"
 
 #: apps/accounts/forms.py:43 apps/accounts/forms.py:109
-#: apps/currencies/forms.py:53 apps/currencies/forms.py:87
-#: apps/currencies/forms.py:136 apps/dca/forms.py:46 apps/dca/forms.py:205
+#: apps/currencies/forms.py:57 apps/currencies/forms.py:91
+#: apps/currencies/forms.py:166 apps/dca/forms.py:46 apps/dca/forms.py:205
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
 #: apps/rules/forms.py:385 apps/transactions/forms.py:219
 #: apps/transactions/forms.py:452 apps/transactions/forms.py:571
@@ -40,8 +40,8 @@ msgid "Update"
 msgstr "Обновить"
 
 #: apps/accounts/forms.py:49 apps/accounts/forms.py:115
-#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:59
-#: apps/currencies/forms.py:93 apps/currencies/forms.py:142
+#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:63
+#: apps/currencies/forms.py:97 apps/currencies/forms.py:172
 #: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
 #: apps/transactions/forms.py:206 apps/transactions/forms.py:226
@@ -119,7 +119,7 @@ msgstr "Перенести на следующий месяц"
 msgid "Balance against"
 msgstr "Баланс"
 
-#: apps/accounts/forms.py:189 apps/currencies/forms.py:66
+#: apps/accounts/forms.py:189 apps/currencies/forms.py:70
 #: apps/dca/models.py:158 apps/rules/forms.py:176 apps/rules/forms.py:190
 #: apps/rules/models.py:38 apps/rules/models.py:279
 #: apps/transactions/forms.py:86 apps/transactions/forms.py:482
@@ -525,11 +525,20 @@ msgstr "Очистить"
 msgid "No results..."
 msgstr "Нет результатов..."
 
-#: apps/currencies/forms.py:16 apps/currencies/models.py:22
+#: apps/currencies/exchange_rates/providers.py:703
+msgid ""
+"Central bank code, e.g. 'bcb' or 'rbi'. Leave empty to use the ECB table."
+msgstr ""
+
+#: apps/currencies/exchange_rates/providers.py:735
+msgid "Invalid bank code, it should look like 'bcb'."
+msgstr ""
+
+#: apps/currencies/forms.py:20 apps/currencies/models.py:22
 msgid "Prefix"
 msgstr "Префикс"
 
-#: apps/currencies/forms.py:17 apps/currencies/models.py:23
+#: apps/currencies/forms.py:21 apps/currencies/models.py:23
 msgid "Suffix"
 msgstr "Суффикс"
 
@@ -591,27 +600,27 @@ msgstr "Обменные курсы"
 msgid "From and To currencies cannot be the same."
 msgstr "Валюты «откуда» и «куда» не могут совпадать."
 
-#: apps/currencies/models.py:112
+#: apps/currencies/models.py:113
 msgid "On"
 msgstr "На"
 
-#: apps/currencies/models.py:113
+#: apps/currencies/models.py:114
 msgid "Every X hours"
 msgstr "Каждые X часов"
 
-#: apps/currencies/models.py:114
+#: apps/currencies/models.py:115
 msgid "Not on"
 msgstr "Не в"
 
-#: apps/currencies/models.py:116
+#: apps/currencies/models.py:117
 msgid "Service Name"
 msgstr "Название услуги"
 
-#: apps/currencies/models.py:118
+#: apps/currencies/models.py:119
 msgid "Service Type"
 msgstr "Тип услуги"
 
-#: apps/currencies/models.py:120 apps/transactions/filters.py:27
+#: apps/currencies/models.py:121 apps/transactions/filters.py:27
 #: apps/transactions/models.py:253 apps/transactions/models.py:277
 #: apps/transactions/models.py:301 templates/categories/fragments/list.html:16
 #: templates/entities/fragments/list.html:16
@@ -623,31 +632,39 @@ msgstr "Тип услуги"
 msgid "Active"
 msgstr "Активный"
 
-#: apps/currencies/models.py:125
+#: apps/currencies/models.py:126
 msgid "API Key"
 msgstr "API ключ"
 
-#: apps/currencies/models.py:126
+#: apps/currencies/models.py:127
 msgid "API key for the service (if required)"
 msgstr "API ключ сервиса (если необходим)"
 
-#: apps/currencies/models.py:131
+#: apps/currencies/models.py:132
+msgid "Options"
+msgstr ""
+
+#: apps/currencies/models.py:133
+msgid "Provider specific settings"
+msgstr ""
+
+#: apps/currencies/models.py:138
 msgid "Interval Type"
 msgstr "Тип интервала"
 
-#: apps/currencies/models.py:135
+#: apps/currencies/models.py:142
 msgid "Interval"
 msgstr "Интервал"
 
-#: apps/currencies/models.py:138
+#: apps/currencies/models.py:145
 msgid "Last Successful Fetch"
 msgstr "Последнее успешное получение данных"
 
-#: apps/currencies/models.py:145
+#: apps/currencies/models.py:152
 msgid "Target Currencies"
 msgstr "Целевые валюты"
 
-#: apps/currencies/models.py:147
+#: apps/currencies/models.py:154
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -655,11 +672,11 @@ msgstr ""
 "Выберите валюты для получения обменных курсов. Курсы будут получены для "
 "каждой валюты по отношению к установленной валюте."
 
-#: apps/currencies/models.py:155
+#: apps/currencies/models.py:162
 msgid "Target Accounts"
 msgstr "Целевой счет"
 
-#: apps/currencies/models.py:157
+#: apps/currencies/models.py:164
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -668,34 +685,34 @@ msgstr ""
 "рассчитаны для валюты каждого счета относительно установленной обменной "
 "валюты."
 
-#: apps/currencies/models.py:164
+#: apps/currencies/models.py:171
 msgid "Single exchange rate"
 msgstr "Единый обменный курс"
 
-#: apps/currencies/models.py:167
+#: apps/currencies/models.py:174
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 "Создайте один обменный курс и постоянно обновляйте его. Это позволит "
 "избежать захламления базы данных."
 
-#: apps/currencies/models.py:172
+#: apps/currencies/models.py:179
 msgid "Exchange Rate Service"
 msgstr "Сервис обмена курсов"
 
-#: apps/currencies/models.py:173
+#: apps/currencies/models.py:180
 msgid "Exchange Rate Services"
 msgstr "Сервисы обмена курсов"
 
-#: apps/currencies/models.py:225
+#: apps/currencies/models.py:234
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr ""
 "Для интервалов типа «Каждые X часов» требуется положительное целое число."
 
-#: apps/currencies/models.py:234
+#: apps/currencies/models.py:243
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "Интервал «каждые X часов» должен составлять от 1 до 24."
 
-#: apps/currencies/models.py:248
+#: apps/currencies/models.py:257
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -703,7 +720,7 @@ msgstr ""
 "Неверный формат времени. Используйте часы, разделенные запятыми (0-23), и/"
 "или диапазоны (например, '1-5,8,10-12')."
 
-#: apps/currencies/models.py:259
+#: apps/currencies/models.py:268
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
