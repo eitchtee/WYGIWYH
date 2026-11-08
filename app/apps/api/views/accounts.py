@@ -4,11 +4,12 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.accounts.models import AccountGroup, Account
+from apps.accounts.models import AccountGroup, Account, InvestmentClass
 from apps.accounts.services import get_account_balance
 from apps.api.permissions import SHARED_OBJECT_PERMISSIONS
 from apps.api.serializers import (
     AccountGroupSerializer,
+    InvestmentClassSerializer,
     AccountSerializer,
     AccountBalanceSerializer,
     InvestmentPerformanceSerializer,
@@ -34,6 +35,20 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
         return AccountGroup.objects.all()
 
 
+class InvestmentClassViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing asset classes and their target allocation."""
+
+    queryset = InvestmentClass.objects.all()
+    serializer_class = InvestmentClassSerializer
+    filterset_fields = {"name": ["exact", "icontains"]}
+    search_fields = ["name"]
+    ordering_fields = "__all__"
+    ordering = ["id"]
+
+    def get_queryset(self):
+        return InvestmentClass.objects.all()
+
+
 @extend_schema_view(
     balance=extend_schema(
         summary="Get account balance",
@@ -55,6 +70,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     filterset_fields = {
         "name": ["exact", "icontains"],
         "group": ["exact", "isnull"],
+        "investment_class": ["exact", "isnull"],
         "currency": ["exact"],
         "exchange_currency": ["exact", "isnull"],
         "is_asset": ["exact"],
@@ -68,7 +84,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Account.objects.all().select_related(
-            "group", "currency", "exchange_currency"
+            "group", "currency", "exchange_currency", "investment_class"
         )
 
     @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])

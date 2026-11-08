@@ -21,8 +21,7 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
 from django import forms
-from django.db.models import Q, Sum
-from django.template.defaultfilters import floatformat
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -79,28 +78,6 @@ class InvestmentClassForm(forms.ModelForm):
                 ),
             ),
         )
-
-    def clean_name(self):
-        name = self.cleaned_data["name"]
-        # owner isn't a form field, so Django skips the (owner, name) check
-        if InvestmentClass.objects.filter(name=name).exclude(pk=self.instance.pk).exists():
-            raise forms.ValidationError(_("You already have an asset class with this name."))
-        return name
-
-    def clean_target(self):
-        target = self.cleaned_data["target"]
-        if target:
-            others = (
-                InvestmentClass.objects.exclude(pk=self.instance.pk)
-                .aggregate(total=Sum("target"))["total"]
-                or 0
-            )
-            if others + target > 100:
-                raise forms.ValidationError(
-                    _("Targets can't add up to more than 100%%. Other classes already "
-                      "take %(taken)s%%.") % {"taken": floatformat(others, -2)}
-                )
-        return target
 
 
 class AccountForm(forms.ModelForm):

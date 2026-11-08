@@ -1,11 +1,13 @@
+from copy import copy
 from decimal import Decimal
 
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db.models import Q
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
+from apps.accounts.models import AccountGroup, Account, InvestmentClass
 from apps.api.serializers.currencies import CurrencySerializer
-from apps.accounts.models import AccountGroup, Account
 from apps.currencies.models import Currency
 
 
@@ -15,6 +17,24 @@ class AccountGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccountGroup
         fields = "__all__"
+
+
+class InvestmentClassSerializer(serializers.ModelSerializer):
+    permission_classes = [IsAuthenticated]
+
+    class Meta:
+        model = InvestmentClass
+        fields = ["id", "name", "target"]
+
+    def validate(self, attrs):
+        instance = copy(self.instance) if self.instance else InvestmentClass()
+        for name, value in attrs.items():
+            setattr(instance, name, value)
+        try:
+            instance.clean()  # unique name and targets up to 100%
+        except DjangoValidationError as e:
+            raise serializers.ValidationError(e.message_dict)
+        return attrs
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -38,6 +58,15 @@ class AccountSerializer(serializers.ModelSerializer):
         allow_null=True,
     )
 
+    investment_class = InvestmentClassSerializer(read_only=True)
+    investment_class_id = serializers.PrimaryKeyRelatedField(
+        queryset=InvestmentClass.objects.all(),
+        source="investment_class",
+        write_only=True,
+        allow_null=True,
+        required=False,
+    )
+
     permission_classes = [IsAuthenticated]
 
     class Meta:
@@ -54,6 +83,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "is_asset",
             "is_investment",
             "investment_class",
+            "investment_class_id",
             "income_entities",
             "income_categories",
             "income_tags",
@@ -65,6 +95,7 @@ class AccountSerializer(serializers.ModelSerializer):
         if request and request.user.is_authenticated:
             # Reload the queryset to get an updated version with the requesting user
             self.fields["group_id"].queryset = AccountGroup.objects.all()
+            self.fields["investment_class_id"].queryset = InvestmentClass.objects.all()
 
     def create(self, validated_data):
         return Account.objects.create(**validated_data)

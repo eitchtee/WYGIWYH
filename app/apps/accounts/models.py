@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.template.defaultfilters import floatformat
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.middleware.thread_local import get_current_user
@@ -48,6 +49,25 @@ class InvestmentClass(OwnedObject):
 
     objects = OwnedObjectManager()
     all_objects = models.Manager()  # Unfiltered manager
+
+    def clean(self):
+        # Shared by the form and the API; owner is set on save, so neither can
+        # rely on Django's (owner, name) unique check.
+        others = InvestmentClass.all_objects.filter(
+            owner=self.owner or get_current_user()
+        ).exclude(pk=self.pk)
+        errors = {}
+        if self.name and others.filter(name=self.name).exists():
+            errors["name"] = _("You already have an asset class with this name.")
+        if self.target:
+            taken = others.aggregate(total=models.Sum("target"))["total"] or 0
+            if taken + self.target > 100:
+                errors["target"] = _(
+                    "Targets can't add up to more than 100%%. Other classes already "
+                    "take %(taken)s%%."
+                ) % {"taken": floatformat(taken, -2)}
+        if errors:
+            raise ValidationError(errors)
 
     class Meta:
         verbose_name = _("Asset class")
