@@ -20,7 +20,10 @@ from apps.transactions.utils.calculations import (
     calculate_percentage_distribution,
 )
 from apps.transactions.utils.default_ordering import default_order
-from apps.transactions.utils.select_search import transaction_option
+from apps.transactions.utils.select_search import (
+    search_transactions,
+    transaction_option,
+)
 from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -987,13 +990,7 @@ def get_recent_transactions(request, filter_type=None):
         queryset = queryset.filter(type=Transaction.Type.INCOME)
 
     if search_term:
-        queryset = queryset.filter(
-            Q(description__icontains=search_term)
-            | Q(notes__icontains=search_term)
-            | Q(internal_note__icontains=search_term)
-            | Q(tags__name__icontains=search_term)
-            | Q(category__name__icontains=search_term)
-        )
+        queryset = search_transactions(queryset, search_term)
 
     # Today, tomorrow, yesterday, then upcoming (soonest first), then past (newest first)
     queryset = (
