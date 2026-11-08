@@ -155,13 +155,35 @@ class AllRatesTodayProviderTests(TestCase):
 
         self.assertEqual(self._get_rates(rows, self.brl, self.usd), [])
 
+    def test_logs_a_table_without_usable_types(self):
+        self.usd.exchange_currency = self.brl
+        payload = {"rates": [_row("USD", "BRL", 5, "monthly_average")]}
+
+        with patch.object(
+            self.provider.session, "get", return_value=_response(payload)
+        ):
+            with self.assertLogs(
+                "apps.currencies.exchange_rates.providers", level="WARNING"
+            ) as logs:
+                self.provider.get_rates([self.usd], {self.brl})
+
+        self.assertIn("monthly_average", logs.output[0])
+
     def test_skips_pair_missing_from_the_table(self):
         rows = [_row("USD", "BRL", 5)]
 
         self.assertEqual(self._get_rates(rows, self.eur, self.usd), [])
 
     def test_ignores_zero_and_malformed_rows(self):
-        rows = ["nope", _row("USD", "BRL", 0), _row("EUR", "BRL", 6)]
+        rows = [
+            "nope",
+            _row("USD", "BRL", 0),
+            _row("USD", "BRL", "5,4"),
+            _row("USD", "BRL", None),
+            _row("USD", "BRL", "Infinity"),
+            _row("USD", "BRL", "NaN"),
+            _row("EUR", "BRL", 6),
+        ]
 
         rates = self._get_rates(rows, self.brl, self.eur)
 

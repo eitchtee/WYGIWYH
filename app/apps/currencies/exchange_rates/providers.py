@@ -739,10 +739,17 @@ class AllRatesTodayProvider(ExchangeRateProvider):
         """Reduce the table to one rate per pair, in both directions"""
         grouped = {}
         for row in rows:
-            if not isinstance(row, dict) or not row.get("value"):
+            if not isinstance(row, dict):
+                continue
+            try:
+                value = Decimal(str(row.get("value")))
+            except ArithmeticError:
+                continue
+            # A bad cell skips its own row, not the whole table
+            if not value.is_finite() or value <= 0:
                 continue
             pair = (row.get("base"), row.get("quote"))
-            grouped.setdefault(pair, {})[row.get("type")] = Decimal(str(row["value"]))
+            grouped.setdefault(pair, {})[row.get("type")] = value
 
         rates = {}
         for (base, quote), values in grouped.items():
@@ -756,10 +763,21 @@ class AllRatesTodayProvider(ExchangeRateProvider):
                     ),
                     None,
                 )
-            if rate is None or rate <= 0:
+            if rate is None:
+                logger.debug(
+                    f"AllRatesToday {self.bank}: no usable rate type for "
+                    f"{base}/{quote}, got {sorted(map(str, values))}"
+                )
                 continue
             rates[(base, quote)] = rate
             rates.setdefault((quote, base), self.invert_rate(rate))
+
+        if grouped and not rates:
+            types = sorted({str(t) for values in grouped.values() for t in values})
+            logger.warning(
+                f"AllRatesToday table for {self.bank} has no usable rate types, "
+                f"got {types}"
+            )
 
         return rates
 
