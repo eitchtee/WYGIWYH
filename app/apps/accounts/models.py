@@ -1,10 +1,16 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.middleware.thread_local import get_current_user
-from apps.common.models import SharedObject, SharedObjectManager
+from apps.common.models import (
+    OwnedObject,
+    OwnedObjectManager,
+    SharedObject,
+    SharedObjectManager,
+)
 from apps.transactions.models import Transaction
 
 
@@ -18,6 +24,35 @@ class AccountGroup(SharedObject):
         verbose_name = _("Account Group")
         verbose_name_plural = _("Account Groups")
         db_table = "account_groups"
+        unique_together = (("owner", "name"),)
+        ordering = ["name", "id"]
+
+    def __str__(self):
+        return self.name
+
+
+class InvestmentClass(OwnedObject):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    target = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        verbose_name=_("Target allocation (%)"),
+        help_text=_(
+            "Share of your investments you want in this class. Leave it empty to "
+            "leave the class out of the targets."
+        ),
+    )
+
+    objects = OwnedObjectManager()
+    all_objects = models.Manager()  # Unfiltered manager
+
+    class Meta:
+        verbose_name = _("Asset class")
+        verbose_name_plural = _("Asset classes")
+        db_table = "investment_classes"
         unique_together = (("owner", "name"),)
         ordering = ["name", "id"]
 
@@ -64,6 +99,18 @@ class Account(SharedObject):
             "Show this account in the Investments tracker. Set an exchange currency to "
             "price it by units (stocks, ETFs, crypto); leave it empty to track it by "
             "value (fixed income, property, pensions)."
+        ),
+    )
+    investment_class = models.ForeignKey(
+        InvestmentClass,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="accounts",
+        verbose_name=_("Asset class"),
+        help_text=_(
+            "Groups investments in the allocation charts, e.g. Fixed income, Stocks, "
+            "Real estate."
         ),
     )
     income_entities = models.ManyToManyField(

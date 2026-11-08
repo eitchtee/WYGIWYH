@@ -96,57 +96,127 @@
         {% endif %}
       </div>
 
-      <div class="h-64"
-           _="on htmx:afterSettle from #investment-details
-              set ctx to #investmentChart.getContext('2d')
-              set chartData to {{ chart }}
-              js(ctx, chartData)
-                const muted = 'rgba(127, 127, 127, 0.6)';
-                new Chart(ctx, {
-                  type: 'line',
-                  data: {
-                    labels: chartData.labels,
-                    datasets: [
-                      {
-                        label: '{% translate "Value" %}',
-                        data: chartData.value,
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        backgroundColor: 'rgba(54, 162, 235, 0.12)',
-                        fill: true,
-                        tension: 0,
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        pointHoverRadius: 4
-                      },
-                      {
-                        label: '{% translate "Invested" %}',
-                        data: chartData.invested,
-                        borderColor: muted,
-                        stepped: true,
-                        fill: false,
-                        borderWidth: 1.5,
-                        borderDash: [4, 4],
-                        pointRadius: 0,
-                        pointHoverRadius: 3
-                      }
-                    ]
-                  },
-                  options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    scales: {
-                      x: { grid: { display: false }, ticks: { color: muted, maxTicksLimit: 6, maxRotation: 0 } },
-                      y: { beginAtZero: true, border: { display: false }, grid: { color: 'rgba(127, 127, 127, 0.1)' }, ticks: { display: false } }
-                    },
-                    plugins: {
-                      legend: { align: 'end', labels: { color: muted, boxWidth: 12, boxHeight: 2 } }
-                    }
-                  }
-                })
-              end">
-        <canvas id="investmentChart"></canvas>
+      <div>
+        {{ chart|json_script:"investment-chart-data" }}
+        {% if chart.price or chart.earnings or chart.income %}
+          <div class="tabs tabs-box tabs-sm w-fit mb-3" role="tablist" id="investment-chart-tabs">
+            <input type="radio" name="investment_chart" class="tab" role="tab" aria-label="{% translate 'Value' %}" value="value" checked>
+            {% if chart.price %}<input type="radio" name="investment_chart" class="tab" role="tab" aria-label="{% translate 'Price' %}" value="price">{% endif %}
+            {% if chart.earnings %}<input type="radio" name="investment_chart" class="tab" role="tab" aria-label="{% translate 'Earnings' %}" value="earnings">{% endif %}
+            {% if chart.income %}<input type="radio" name="investment_chart" class="tab" role="tab" aria-label="{% translate 'Income' %}" value="income">{% endif %}
+          </div>
+        {% endif %}
+        <div class="h-64" data-panel="value"><canvas data-chart="value"></canvas></div>
+        {% if chart.price %}<div class="h-64 hidden" data-panel="price"><canvas data-chart="price"></canvas></div>{% endif %}
+        {% if chart.earnings %}<div class="h-64 hidden" data-panel="earnings"><canvas data-chart="earnings"></canvas></div>{% endif %}
+        {% if chart.income %}<div class="h-64 hidden" data-panel="income"><canvas data-chart="income"></canvas></div>{% endif %}
       </div>
+      <script>
+        (() => {
+          const data = JSON.parse(document.getElementById('investment-chart-data').textContent);
+          const root = document.getElementById('investment-chart-data').parentElement;
+          const ink = chartInk(75);
+          const muted = chartInk(50);
+          const grid = chartInk(12);
+          const fmt = chartMoney(data.currency);
+          const blue = '#2a78d6';
+          const canvas = (name) => root.querySelector(`[data-chart="${name}"]`);
+          const options = (extra = {}) => ({
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: ink, maxTicksLimit: 6, maxRotation: 0 } },
+              y: { border: { display: false }, grid: { color: grid }, ticks: { color: ink, maxTicksLimit: 5, callback: (v) => fmt(v, 0) } },
+            },
+            plugins: {
+              legend: {
+                align: 'end',
+                labels: {
+                  color: ink, boxWidth: 12, boxHeight: 2,
+                  // A series with no points (no sales yet) has nothing to name
+                  filter: (item, chart) => chart.datasets[item.datasetIndex].data.some((v) => v !== null),
+                },
+              },
+              tooltip: { callbacks: { label: (ctx) => ctx.raw === null ? null : ` ${ctx.dataset.label}: ${fmt(ctx.raw)}` } },
+            },
+            ...extra,
+          });
+          const line = (label, values, color, more = {}) => ({
+            label, data: values, borderColor: color, borderWidth: 2, pointRadius: 0, pointHoverRadius: 4, pointStyle: 'line', spanGaps: true, ...more,
+          });
+          const dashed = { borderWidth: 1.5, borderDash: [4, 4], stepped: true };
+          const bars = (label, values) => ({
+            label,
+            data: values,
+            backgroundColor: values.map((v) => (v < 0 ? '#d03b3b' : '#0ca30c')),
+            borderRadius: 4,
+            maxBarThickness: 24,
+          });
+
+          new Chart(canvas('value'), {
+            type: 'line',
+            data: {
+              labels: data.labels,
+              datasets: [
+                line('{% translate "Value" %}', data.value, blue, { fill: true, backgroundColor: 'rgba(42, 120, 214, 0.12)' }),
+                line('{% translate "Invested" %}', data.invested, muted, dashed),
+              ],
+            },
+            options: (() => { const o = options(); o.scales.y.beginAtZero = true; return o; })(),
+          });
+
+          if (data.price) {
+            const marker = (label, values, color, style) => ({
+              type: 'line', label, data: values, showLine: false, pointStyle: style, pointRadius: 6, pointHoverRadius: 8,
+              backgroundColor: color, borderColor: chartInk(100), borderWidth: 1,
+            });
+            new Chart(canvas('price'), {
+              type: 'line',
+              data: {
+                labels: data.labels,
+                datasets: [
+                  line('{% translate "Price" %}', data.price, blue),
+                  line('{% translate "Average cost" %}', data.average_cost, muted, dashed),
+                  marker('{% translate "Buy" %}', data.buys, '#0ca30c', 'triangle'),
+                  marker('{% translate "Sell" %}', data.sells, '#d03b3b', 'rectRot'),
+                ],
+              },
+              options: (() => { const o = options(); o.plugins.legend.labels.usePointStyle = true; o.plugins.legend.labels.boxHeight = 8; return o; })(),
+            });
+          }
+
+          if (data.earnings) {
+            const opts = options();
+            // The month's result against what was invested at the end of the month before
+            opts.plugins.tooltip.callbacks.label = (ctx) => {
+              const base = data.invested[Math.max(ctx.dataIndex - 1, 0)];
+              const share = base ? ` (${(ctx.raw / base * 100).toFixed(2)}%)` : '';
+              return ` ${fmt(ctx.raw)}${share}`;
+            };
+            opts.plugins.legend.display = false;
+            new Chart(canvas('earnings'), {
+              type: 'bar',
+              data: { labels: data.labels, datasets: [bars('{% translate "Earnings" %}', data.earnings)] },
+              options: opts,
+            });
+          }
+
+          if (data.income) {
+            const opts = options();
+            opts.plugins.legend.display = false;
+            new Chart(canvas('income'), {
+              type: 'bar',
+              data: { labels: data.labels, datasets: [bars('{% translate "Income" %}', data.income)] },
+              options: opts,
+            });
+          }
+
+          root.querySelectorAll('input[name=investment_chart]').forEach((tab) => tab.addEventListener('change', () => {
+            root.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('hidden', panel.dataset.panel !== tab.value));
+          }));
+        })();
+      </script>
 
       <dl class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-4 border-t border-base-content/10 pt-4 text-sm tabular-nums">
         <div>

@@ -17,6 +17,9 @@
       {% endfor %}
     </div>
 
+    <div role="tablist" class="tabs tabs-border">
+      <input type="radio" name="investment_tabs" role="tab" class="tab" aria-label="{% translate 'Holdings' %}" checked="checked"/>
+      <div role="tabpanel" class="tab-content pt-4">
     {% for item in groups %}
       <div class="card bg-base-100 card-border shadow mb-4">
         <div class="flex flex-wrap justify-between items-baseline gap-2 px-5 pt-4 pb-2">
@@ -85,6 +88,18 @@
         </div>
       </div>
     {% endfor %}
+      </div>
+      <input type="radio" name="investment_tabs" role="tab" class="tab" aria-label="{% translate 'Charts' %}"
+             hx-get="{% url 'investments_charts' %}" hx-trigger="click once" hx-target="#investment-charts" hx-indicator="#investment-charts"/>
+      <div role="tabpanel" class="tab-content pt-4">
+        <div id="investment-charts" class="show-loading min-h-40"></div>
+      </div>
+      <input type="radio" name="investment_tabs" role="tab" class="tab" aria-label="{% translate 'Rebalance' %}"
+             hx-get="{% url 'investments_rebalance' %}" hx-trigger="click once" hx-target="#investment-rebalance" hx-indicator="#investment-rebalance"/>
+      <div role="tabpanel" class="tab-content pt-4">
+        <div id="investment-rebalance" class="show-loading min-h-40"></div>
+      </div>
+    </div>
   {% else %}
     <c-msg.empty
         title="{% translate 'No investments yet' %}"

@@ -53,6 +53,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "exchange_currency_id",
             "is_asset",
             "is_investment",
+            "investment_class",
             "income_entities",
             "income_categories",
             "income_tags",

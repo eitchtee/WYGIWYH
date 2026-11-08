@@ -1,6 +1,7 @@
 import calendar
 
-from apps.accounts.models import Account, AccountGroup
+from apps.accounts.models import Account, AccountGroup, InvestmentClass
+from apps.common.middleware.thread_local import get_current_user
 from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
@@ -20,7 +21,8 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
 from django import forms
-from django.db.models import Q
+from django.db.models import Q, Sum
+from django.template.defaultfilters import floatformat
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -55,12 +57,66 @@ class AccountGroupForm(forms.ModelForm):
             )
 
 
+class InvestmentClassForm(forms.ModelForm):
+    class Meta:
+        model = InvestmentClass
+        fields = ["name", "target"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            "name",
+            "target",
+            FormActions(
+                NoClassSubmit(
+                    "submit",
+                    _("Update") if self.instance.pk else _("Add"),
+                    css_class="btn btn-primary",
+                ),
+            ),
+        )
+
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        # owner isn't a form field, so Django skips the (owner, name) check
+        if InvestmentClass.objects.filter(name=name).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError(_("You already have an asset class with this name."))
+        return name
+
+    def clean_target(self):
+        target = self.cleaned_data["target"]
+        if target:
+            others = (
+                InvestmentClass.objects.exclude(pk=self.instance.pk)
+                .aggregate(total=Sum("target"))["total"]
+                or 0
+            )
+            if others + target > 100:
+                raise forms.ValidationError(
+                    _("Targets can't add up to more than 100%%. Other classes already "
+                      "take %(taken)s%%.") % {"taken": floatformat(others, -2)}
+                )
+        return target
+
+
 class AccountForm(forms.ModelForm):
     group = DynamicModelChoiceField(
         create_field="name",
         label=_("Group"),
         model=AccountGroup,
         required=False,
+    )
+
+    investment_class = DynamicModelChoiceField(
+        create_field="name",
+        label=_("Asset class"),
+        model=InvestmentClass,
+        required=False,
+        help_text=Account._meta.get_field("investment_class").help_text,
     )
 
     class Meta:
@@ -73,6 +129,7 @@ class AccountForm(forms.ModelForm):
             "is_asset",
             "is_archived",
             "is_investment",
+            "investment_class",
             "income_entities",
             "income_categories",
             "income_tags",
@@ -89,6 +146,12 @@ class AccountForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["group"].queryset = AccountGroup.objects.all()
+        self.fields["investment_class"].queryset = InvestmentClass.all_objects.filter(
+            Q(owner=get_current_user())
+            | Q(owner=None)
+            # Keep a class from the account's owner when it's shared with us
+            | Q(accounts=self.instance.id or 0)
+        ).distinct()
         selectable = Q(active=True)
         if self.instance.id:
             selectable |= Q(investment_accounts=self.instance.id)
@@ -124,6 +187,7 @@ class AccountForm(forms.ModelForm):
             Switch("is_investment"),
             # Only relevant for investments: shown while the switch above is on
             Div(
+                "investment_class",
                 "income_entities",
                 "income_categories",
                 "income_tags",

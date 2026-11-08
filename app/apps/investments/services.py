@@ -45,6 +45,10 @@ class HoldingPerformance:
     # Unlinked transactions counted as gains or losses, on accounts tracked by value
     result_ids: set = field(default_factory=set)
     history: list = field(default_factory=list)
+    # (date, "buy" or "sell", unit price) for linked trades on unit-priced accounts
+    trades: list = field(default_factory=list)
+    # (date, signed amount) for the gains and losses of an account tracked by value
+    results: list = field(default_factory=list)
     # (date, amount, kind) in the valuation currency: negative = money in ("in"),
     # positive = money out ("out" sales/withdrawals, "income"). Used for
     # money-weighted returns and currency conversion.
@@ -165,6 +169,12 @@ def get_holding_performance(account, as_of=None, with_history=False):
             else None
         )
         external = not (perf.priced or partner or tx.id in perf.result_ids)
+        if perf.priced and partner_value is not None and tx.amount:
+            kind = "buy" if tx.type == Transaction.Type.INCOME else "sell"
+            perf.trades.append((tx.date, kind, partner_value / tx.amount))
+        elif not (perf.priced or partner or external):
+            sign = 1 if tx.type == Transaction.Type.INCOME else -1
+            perf.results.append((tx.date, sign * tx.amount))
 
         if tx.type == Transaction.Type.INCOME:
             if external:
@@ -300,6 +310,8 @@ def _snapshot(perf, account, date):
         "date": date,
         "invested": perf.cost_basis,
         "value": perf.quantity * price if price is not None else None,
+        "price": price,
+        "average_cost": perf.average_cost,
     }
 
 
@@ -428,3 +440,76 @@ def summarize(performances, convert=False):
             else []
         )
     return list(totals.values())
+
+
+def portfolio_charts(performances):
+    """Chart data per total currency (as in summarize with ``convert``): value by
+    asset class and by currency, return by investment, and value against invested
+    at each month end. Classes are InvestmentClass objects, None for holdings
+    without one. Unpriced holdings are left out of the value figures."""
+    charts = {}
+    for perf in performances:
+        figures = in_home_currency(perf) or _native(perf)
+        path = figures.get("path", [perf.currency])
+        chart = charts.setdefault(
+            figures["currency"].id,
+            {
+                "currency": figures["currency"],
+                "classes": {},
+                "currencies": {},
+                "returns": [],
+                "history": {},
+            },
+        )
+        value = figures["market_value"]
+        if value:
+            key = perf.account.investment_class
+            chart["classes"][key] = chart["classes"].get(key, ZERO) + value
+            name = perf.currency.name
+            chart["currencies"][name] = chart["currencies"].get(name, ZERO) + value
+        chart["returns"].append((perf.account.name, figures["total_return"]))
+        # shortcut: one rate lookup per holding, month and hop; cache rates per
+        # date if portfolios with long histories make this tab slow.
+        for point in perf.history:
+            totals = chart["history"].setdefault(point["date"], [ZERO, ZERO])
+            for i, amount in enumerate((point["value"], point["invested"])):
+                if amount is not None:
+                    totals[i] += _along(amount, path, point["date"]) or ZERO
+    for chart in charts.values():
+        for key in ("classes", "currencies"):
+            chart[key] = sorted(chart[key].items(), key=lambda item: -item[1])
+        chart["returns"].sort(key=lambda item: -item[1])
+        chart["history"] = sorted(chart["history"].items())
+    return list(charts.values())
+
+
+def drift_limit(target):
+    """How far a class may drift from its target, in percentage points: the
+    common 5/25 rule, 5 points or a quarter of the target, whichever is less."""
+    return min(Decimal(5), target / 4)
+
+
+def rebalance(classes, targeted):
+    """What to buy or sell so the classes in ``targeted`` (InvestmentClass with a
+    target) match their targets, given ``classes`` as (class, value) from
+    portfolio_charts. Holdings without a class or target are left out and their
+    value is returned as ``left_out``. ``move`` is positive to buy."""
+    values = dict(classes)
+    total = sum((values.get(cls, ZERO) for cls in targeted), ZERO)
+    rows = []
+    for cls in targeted:
+        value = values.get(cls, ZERO)
+        share = value / total * 100 if total else ZERO
+        move = total * cls.target / 100 - value
+        rows.append(
+            {
+                "class": cls,
+                "value": value,
+                "share": share,
+                "target": cls.target,
+                "move": move,
+                "off": abs(share - cls.target) > drift_limit(cls.target),
+            }
+        )
+    left_out = sum(values.values(), ZERO) - total
+    return {"total": total, "rows": rows, "left_out": left_out}

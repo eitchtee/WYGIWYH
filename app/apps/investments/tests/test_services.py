@@ -6,7 +6,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
-from apps.accounts.models import Account
+from apps.accounts.models import Account, InvestmentClass
 from apps.common.middleware.thread_local import delete_current_user, write_current_user
 from apps.currencies.models import Currency, ExchangeRate
 from apps.investments.services import get_holding_performance, summarize
@@ -88,6 +88,10 @@ class HoldingPerformanceTests(TestCase):
         self.assertEqual(perf.withdrawn, D("700"))
         self.assertEqual(perf.total_return, D("480"))
         self.assertFalse(perf.estimated)
+        self.assertEqual(
+            perf.trades,
+            [(self.d1, "buy", D("100")), (self.d2, "buy", D("120")), (self.d3, "sell", D("140"))],
+        )
 
     def test_unlinked_inflow_on_priced_account_is_costed_at_market(self):
         self.rate("90", self.d1)
@@ -112,6 +116,7 @@ class HoldingPerformanceTests(TestCase):
 
         perf = get_holding_performance(cdb)
         self.assertFalse(perf.priced)
+        self.assertEqual(perf.results, [(self.d2, D("100")), (self.d3, D("-22.50"))])
         self.assertEqual(perf.market_value, D("1077.50"))
         self.assertEqual(perf.cost_basis, D("1000"))
         self.assertEqual(perf.unrealized, D("77.50"))
@@ -177,6 +182,8 @@ class HoldingPerformanceTests(TestCase):
         )
         self.assertEqual(perf.history[-1]["value"], D("1200"))
         self.assertEqual(perf.history[0]["invested"], D("1000"))
+        self.assertEqual(perf.history[-1]["price"], D("120"))
+        self.assertEqual(perf.history[-1]["average_cost"], D("100"))
 
     def test_summarize_groups_by_currency(self):
         transfer(self.cash, "1000", self.etf, "10", self.d1)
@@ -185,6 +192,67 @@ class HoldingPerformanceTests(TestCase):
         self.assertEqual(len(totals), 1)
         self.assertEqual(totals[0]["market_value"], D("1100"))
         self.assertEqual(totals[0]["total_return"], D("100"))
+
+    def test_portfolio_charts_group_by_asset_class(self):
+        from apps.investments.services import portfolio_charts
+
+        stocks = InvestmentClass.objects.create(name="Stocks")
+        self.etf.investment_class = stocks
+        self.etf.save()
+        cdb = Account.objects.create(name="CDB", currency=self.eur, is_investment=True)
+        transfer(self.cash, "1000", self.etf, "10", self.d1)
+        transfer(self.cash, "500", cdb, "500", self.d1)
+        self.rate("110", self.d1)
+
+        perfs = [get_holding_performance(a, with_history=True) for a in (self.etf, cdb)]
+        [chart] = portfolio_charts(perfs)
+
+        self.assertEqual(chart["classes"], [(stocks, D("1100")), (None, D("500"))])
+        # Priced in euros, so that is its currency exposure
+        self.assertEqual(chart["currencies"], [("Euro", D("1600"))])
+        self.assertEqual(chart["returns"][0], ("VWCE", D("100")))
+        self.assertEqual(chart["history"][-1][1], [D("1600"), D("1500")])
+
+    def test_rebalance_moves_to_targets(self):
+        from apps.investments.services import rebalance
+
+        stocks = InvestmentClass.objects.create(name="Stocks", target=D("60"))
+        bonds = InvestmentClass.objects.create(name="Bonds", target=D("30"))
+        gold = InvestmentClass.objects.create(name="Gold", target=D("10"))
+        loose = InvestmentClass.objects.create(name="Loose")  # no target
+
+        plan = rebalance(
+            [(stocks, D("700")), (bonds, D("300")), (loose, D("50")), (None, D("25"))],
+            [stocks, bonds, gold],
+        )
+
+        self.assertEqual(plan["total"], D("1000"))
+        self.assertEqual(plan["left_out"], D("75"))
+        moves = {row["class"].name: row["move"] for row in plan["rows"]}
+        self.assertEqual(moves, {"Stocks": D("-100"), "Bonds": D("0"), "Gold": D("100")})
+        self.assertEqual(sum(moves.values()), 0)
+        # 70% vs 60%: past the 5 points; gold at 0% vs 10%: past 2.5 (a quarter)
+        off = {row["class"].name: row["off"] for row in plan["rows"]}
+        self.assertEqual(off, {"Stocks": True, "Bonds": False, "Gold": True})
+
+    def test_class_names_are_unique(self):
+        from apps.accounts.forms import InvestmentClassForm
+
+        stocks = InvestmentClass.objects.create(name="Stocks")
+        self.assertFalse(InvestmentClassForm({"name": "Stocks"}).is_valid())
+        self.assertTrue(InvestmentClassForm({"name": "Stocks"}, instance=stocks).is_valid())
+
+    def test_targets_cannot_pass_100(self):
+        from apps.accounts.forms import InvestmentClassForm
+
+        InvestmentClass.objects.create(name="Stocks", target=D("70"))
+        bonds = InvestmentClass.objects.create(name="Bonds", target=D("30"))
+
+        self.assertFalse(InvestmentClassForm({"name": "Gold", "target": "1"}).is_valid())
+        # Editing a class doesn't count its own current target
+        self.assertTrue(
+            InvestmentClassForm({"name": "Bonds", "target": "30"}, instance=bonds).is_valid()
+        )
 
     def test_xirr_and_money_weighted_return(self):
         from apps.investments.services import money_weighted_return, xirr
@@ -280,6 +348,64 @@ class InvestmentViewTests(TestCase):
             reverse("investment_detail", args=[self.account.id]), **self.HTMX
         )
         self.assertEqual(response.status_code, 200)
+
+    def test_shared_account_keeps_its_owners_class(self):
+        from apps.accounts.forms import AccountForm
+
+        cls = InvestmentClass.all_objects.create(name="Stocks", owner=self.owner)
+        self.account.investment_class = cls
+        self.account.save()
+        self.account.shared_with.add(self.stranger)
+
+        write_current_user(self.stranger)
+        try:
+            form = AccountForm(
+                {"name": "CDB", "currency": self.account.currency_id,
+                 "is_investment": "on", "investment_class": str(cls.id)},
+                instance=self.account,
+            )
+            self.assertTrue(form.is_valid(), form.errors)
+            self.assertEqual(form.cleaned_data["investment_class"], cls)
+        finally:
+            delete_current_user()
+        # Not a new class named after the id
+        self.assertEqual(InvestmentClass.all_objects.count(), 1)
+
+    def test_rebalance_and_class_pages_render(self):
+        self.client.force_login(self.owner)
+        stocks = InvestmentClass.all_objects.create(name="Stocks", target=D("60"), owner=self.owner)
+        self.account.investment_class = stocks
+        self.account.save()
+
+        # Targets short of 100%: a warning instead of amounts
+        response = self.client.get(reverse("investments_rebalance"), **self.HTMX)
+        self.assertContains(response, "alert-warning")
+
+        response = self.client.post(
+            reverse("investment_class_add"), {"name": "Bonds", "target": "40"}, **self.HTMX
+        )
+        self.assertEqual(response.status_code, 204)
+        response = self.client.get(reverse("investments_rebalance"), **self.HTMX)
+        self.assertContains(response, "Bonds")
+        self.assertNotContains(response, "alert-warning")
+
+        response = self.client.get(reverse("investment_classes_list"), **self.HTMX)
+        self.assertContains(response, "Stocks")
+        response = self.client.get(
+            reverse("investment_class_edit", args=[stocks.id]), **self.HTMX
+        )
+        self.assertContains(response, "Stocks")
+        # Someone else's class is out of reach
+        self.client.force_login(self.stranger)
+        response = self.client.get(
+            reverse("investment_class_edit", args=[stocks.id]), **self.HTMX
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_charts_render(self):
+        self.client.force_login(self.owner)
+        response = self.client.get(reverse("investments_charts"), **self.HTMX)
+        self.assertContains(response, "investment-charts-0")
 
     def test_stranger_cannot_see_detail(self):
         self.client.force_login(self.stranger)
