@@ -11,7 +11,7 @@
                 {% crispy_field field 'class' 'toggle toggle-sm' %}
             {% endif %}
             {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
-            {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
         </label>
+        {% include 'crispy-daisyui/layout/help_text_and_errors.html' %}
     </{% if tag %}{{ tag }}{% else %}fieldset{% endif %}>
 {% endif %}

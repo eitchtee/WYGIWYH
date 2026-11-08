@@ -123,6 +123,15 @@ def transaction_attachment_delete(request, attachment_id):
     return response
 
 
+def _prefill(request, *fields, entities=False):
+    """Form initial values passed as query parameters; only the named ones, and
+    only when present, so they never override other defaults."""
+    initial = {name: request.GET[name] for name in fields if request.GET.get(name)}
+    if entities and request.GET.getlist("entities"):
+        initial["entities"] = request.GET.getlist("entities")  # entity names
+    return initial
+
+
 @only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -208,6 +217,8 @@ def transaction_add(request):
             initial={
                 "date": expected_date,
                 "type": transaction_type,
+                # Optional prefill, e.g. a dividend from the investments page
+                **_prefill(request, "account", entities=True),
             },
         )
 
@@ -545,6 +556,8 @@ def transactions_transfer(request):
             initial={
                 "reference_date": expected_date,
                 "date": expected_date,
+                # Optional prefill, e.g. buy/sell from the investments page
+                **_prefill(request, "from_account", "to_account"),
             },
         )
 

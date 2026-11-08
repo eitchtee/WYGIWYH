@@ -115,6 +115,12 @@
 
       <c-components.sidebar-menu-header title="{% translate 'Tools' %}"></c-components.sidebar-menu-header>
       <c-components.sidebar-menu-item
+          title="{% translate 'Investments' %}"
+          url='investments_index'
+          active="investments_index||investment_detail_index"
+          icon="fa-solid fa-chart-pie">
+      </c-components.sidebar-menu-item>
+      <c-components.sidebar-menu-item
           title="{% translate 'Dollar Cost Average Tracker' %}"
           url='dca_strategy_index'
           active="dca_strategy_index||dca_strategy_detail_index"
@@ -144,7 +150,7 @@
       <c-components.sidebar-collapsible-panel
           title="{% translate 'Management' %}"
           icon="fa-solid fa-toolbox"
-          active="tags_index||entities_index||categories_index||accounts_index||account_groups_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index">
+          active="tags_index||entities_index||categories_index||accounts_index||account_groups_index||investment_classes_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index">
         <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
         <c-components.sidebar-menu-item
             title="{% translate 'Categories' %}"
@@ -177,6 +183,14 @@
             url='account_groups_index'
             active="account_groups_index"
             icon="fa-solid fa-wallet">
+        </c-components.sidebar-menu-item>
+
+        <c-components.sidebar-menu-header title="{% translate 'Investments' %}"></c-components.sidebar-menu-header>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Asset classes' %}"
+            url='investment_classes_index'
+            active="investment_classes_index"
+            icon="fa-solid fa-chart-pie">
         </c-components.sidebar-menu-item>
 
         <c-components.sidebar-menu-header title="{% translate 'Currencies' %}"></c-components.sidebar-menu-header>

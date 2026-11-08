@@ -167,6 +167,31 @@ class ExchangeRateFetcher:
         return target_currencies_qs, exchange_currencies
 
     @staticmethod
+    def _store_rate(service, from_currency, to_currency, rate):
+        now = timezone.now()
+        rates = ExchangeRate.objects.filter(
+            automatic=True, from_currency=from_currency, to_currency=to_currency
+        )
+        today = rates.filter(date__date=timezone.localdate(now)).order_by("-date")
+        existing = today.first() if service.one_per_day else None
+        if existing:
+            existing.rate, existing.date = rate, now
+            existing.save()
+        else:
+            ExchangeRate.objects.create(
+                automatic=True,
+                from_currency=from_currency,
+                to_currency=to_currency,
+                rate=rate,
+                date=now,
+            )
+        if service.max_rates:
+            stale = rates.order_by("-date").values_list("id", flat=True)[
+                service.max_rates :
+            ]
+            ExchangeRate.objects.filter(id__in=list(stale)).delete()
+
+    @staticmethod
     def _fetch_service_rates(service: ExchangeRateService) -> None:
         """Fetch rates for a specific service"""
         try:
@@ -193,71 +218,15 @@ class ExchangeRateFetcher:
             processed_pairs = set()
 
             for from_currency, to_currency, rate in rates:
-                # Create a unique identifier for this currency pair
+                if provider.rates_inverted:
+                    from_currency, to_currency = to_currency, from_currency
                 pair_key = (from_currency.id, to_currency.id)
                 if pair_key in processed_pairs:
                     continue
-
-                if provider.rates_inverted:
-                    # If rates are inverted, we need to swap currencies
-                    if service.singleton:
-                        # Try to get the last automatically created exchange rate
-                        exchange_rate = (
-                            ExchangeRate.objects.filter(
-                                automatic=True,
-                                from_currency=to_currency,
-                                to_currency=from_currency,
-                            )
-                            .order_by("-date")
-                            .first()
-                        )
-                    else:
-                        exchange_rate = None
-
-                    if not exchange_rate:
-                        ExchangeRate.objects.create(
-                            automatic=True,
-                            from_currency=to_currency,
-                            to_currency=from_currency,
-                            rate=rate,
-                            date=timezone.now(),
-                        )
-                    else:
-                        exchange_rate.rate = rate
-                        exchange_rate.date = timezone.now()
-                        exchange_rate.save()
-
-                    processed_pairs.add((to_currency.id, from_currency.id))
-                else:
-                    # If rates are not inverted, we can use them as is
-                    if service.singleton:
-                        # Try to get the last automatically created exchange rate
-                        exchange_rate = (
-                            ExchangeRate.objects.filter(
-                                automatic=True,
-                                from_currency=from_currency,
-                                to_currency=to_currency,
-                            )
-                            .order_by("-date")
-                            .first()
-                        )
-                    else:
-                        exchange_rate = None
-
-                    if not exchange_rate:
-                        ExchangeRate.objects.create(
-                            automatic=True,
-                            from_currency=from_currency,
-                            to_currency=to_currency,
-                            rate=rate,
-                            date=timezone.now(),
-                        )
-                    else:
-                        exchange_rate.rate = rate
-                        exchange_rate.date = timezone.now()
-                        exchange_rate.save()
-
-                    processed_pairs.add((from_currency.id, to_currency.id))
+                ExchangeRateFetcher._store_rate(
+                    service, from_currency, to_currency, rate
+                )
+                processed_pairs.add(pair_key)
 
             service.last_fetch = timezone.now()
             service.failure_count = 0

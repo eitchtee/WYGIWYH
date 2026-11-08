@@ -4,14 +4,17 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.accounts.models import AccountGroup, Account
+from apps.accounts.models import AccountGroup, Account, InvestmentClass
 from apps.accounts.services import get_account_balance
 from apps.api.permissions import SHARED_OBJECT_PERMISSIONS
 from apps.api.serializers import (
     AccountGroupSerializer,
+    InvestmentClassSerializer,
     AccountSerializer,
     AccountBalanceSerializer,
+    InvestmentPerformanceSerializer,
 )
+from apps.investments.services import get_holding_performance
 
 
 class AccountGroupViewSet(viewsets.ModelViewSet):
@@ -32,11 +35,30 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
         return AccountGroup.objects.all()
 
 
+class InvestmentClassViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing asset classes and their target allocation."""
+
+    queryset = InvestmentClass.objects.all()
+    serializer_class = InvestmentClassSerializer
+    filterset_fields = {"name": ["exact", "icontains"]}
+    search_fields = ["name"]
+    ordering_fields = "__all__"
+    ordering = ["id"]
+
+    def get_queryset(self):
+        return InvestmentClass.objects.all()
+
+
 @extend_schema_view(
     balance=extend_schema(
         summary="Get account balance",
         description="Returns the current and projected balance for the account, along with currency data.",
         responses={200: AccountBalanceSerializer},
+    ),
+    performance=extend_schema(
+        summary="Get investment performance",
+        description="Returns quantity, cost basis, market value, realized/unrealized gains, income and total return, in the account's exchange currency (or its own currency when it has none).",
+        responses={200: InvestmentPerformanceSerializer},
     ),
 )
 class AccountViewSet(viewsets.ModelViewSet):
@@ -48,9 +70,11 @@ class AccountViewSet(viewsets.ModelViewSet):
     filterset_fields = {
         "name": ["exact", "icontains"],
         "group": ["exact", "isnull"],
+        "investment_class": ["exact", "isnull"],
         "currency": ["exact"],
         "exchange_currency": ["exact", "isnull"],
         "is_asset": ["exact"],
+        "is_investment": ["exact"],
         "is_archived": ["exact"],
         "owner": ["exact"],
     }
@@ -60,7 +84,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Account.objects.all().select_related(
-            "group", "currency", "exchange_currency"
+            "group", "currency", "exchange_currency", "investment_class"
         )
 
     @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])
@@ -80,3 +104,11 @@ class AccountViewSet(viewsets.ModelViewSet):
         )
 
         return Response(serializer.data)
+
+    @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])
+    def performance(self, request, pk=None):
+        """Get investment performance (cost basis, value, returns) for an account."""
+        account = self.get_object()
+        return Response(
+            InvestmentPerformanceSerializer(get_holding_performance(account)).data
+        )

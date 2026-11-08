@@ -101,6 +101,7 @@ class ExportForm(forms.Form):
         self.helper.layout = Layout(
             "users",
             "accounts",
+            "investment_classes",
             "currencies",
             "transactions",
             "categories",
@@ -127,6 +128,7 @@ class RestoreForm(forms.Form):
     )
     users = forms.FileField(required=False, label=_("Users"))
     accounts = forms.FileField(required=False, label=_("Accounts"))
+    investment_classes = forms.FileField(required=False, label=_("Asset classes"))
     currencies = forms.FileField(required=False, label=_("Currencies"))
     transactions_categories = forms.FileField(required=False, label=_("Categories"))
     transactions_tags = forms.FileField(required=False, label=_("Tags"))

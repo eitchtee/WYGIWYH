@@ -1,6 +1,7 @@
 import calendar
 
-from apps.accounts.models import Account, AccountGroup
+from apps.accounts.models import Account, AccountGroup, InvestmentClass
+from apps.common.middleware.thread_local import get_current_user
 from apps.common.fields.forms.dynamic_select import (
     DynamicModelChoiceField,
     DynamicModelMultipleChoiceField,
@@ -9,12 +10,16 @@ from apps.common.widgets.crispy.daisyui import Switch
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.datepicker import AirDatePickerInput, AirMonthYearPickerInput
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
-from apps.common.widgets.tom_select import TomSelect
+from apps.common.widgets.tom_select import TomSelect, TomSelectMultiple
 from apps.currencies.models import Currency
-from apps.transactions.models import TransactionCategory, TransactionTag
+from apps.transactions.models import (
+    TransactionCategory,
+    TransactionEntity,
+    TransactionTag,
+)
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column, Field, Layout, Row
+from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
 from django import forms
 from django.db.models import Q
 from django.utils import timezone
@@ -51,12 +56,44 @@ class AccountGroupForm(forms.ModelForm):
             )
 
 
+class InvestmentClassForm(forms.ModelForm):
+    class Meta:
+        model = InvestmentClass
+        fields = ["name", "target"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.form_method = "post"
+        self.helper.layout = Layout(
+            "name",
+            "target",
+            FormActions(
+                NoClassSubmit(
+                    "submit",
+                    _("Update") if self.instance.pk else _("Add"),
+                    css_class="btn btn-primary",
+                ),
+            ),
+        )
+
+
 class AccountForm(forms.ModelForm):
     group = DynamicModelChoiceField(
         create_field="name",
         label=_("Group"),
         model=AccountGroup,
         required=False,
+    )
+
+    investment_class = DynamicModelChoiceField(
+        create_field="name",
+        label=_("Asset class"),
+        model=InvestmentClass,
+        required=False,
+        help_text=Account._meta.get_field("investment_class").help_text,
     )
 
     class Meta:
@@ -68,16 +105,39 @@ class AccountForm(forms.ModelForm):
             "exchange_currency",
             "is_asset",
             "is_archived",
+            "is_investment",
+            "investment_class",
+            "income_entities",
+            "income_categories",
+            "income_tags",
         ]
         widgets = {
             "currency": TomSelect(),
             "exchange_currency": TomSelect(),
+            "income_entities": TomSelectMultiple(),
+            "income_categories": TomSelectMultiple(),
+            "income_tags": TomSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields["group"].queryset = AccountGroup.objects.all()
+        self.fields["investment_class"].queryset = InvestmentClass.all_objects.filter(
+            Q(owner=get_current_user())
+            | Q(owner=None)
+            # Keep a class from the account's owner when it's shared with us
+            | Q(accounts=self.instance.id or 0)
+        ).distinct()
+        selectable = Q(active=True)
+        if self.instance.id:
+            selectable |= Q(investment_accounts=self.instance.id)
+        for name, model in (
+            ("income_entities", TransactionEntity),
+            ("income_categories", TransactionCategory),
+            ("income_tags", TransactionTag),
+        ):
+            self.fields[name].queryset = model.objects.filter(selectable).distinct()
 
         if self.instance.id:
             qs = Currency.objects.filter(
@@ -101,6 +161,21 @@ class AccountForm(forms.ModelForm):
             Switch("is_archived"),
             "currency",
             "exchange_currency",
+            Switch("is_investment"),
+            # Only relevant for investments: shown while the switch above is on
+            Div(
+                "investment_class",
+                "income_entities",
+                "income_categories",
+                "income_tags",
+                css_id="investment_income",
+                css_class="" if self.instance.is_investment else "hidden",
+            ),
+            HTML(
+                '<div class="hidden" _="on change from closest <form/> '
+                "if #id_is_investment.checked remove .hidden from #investment_income "
+                'else add .hidden to #investment_income end"></div>'
+            ),
         )
 
         if self.instance and self.instance.pk:

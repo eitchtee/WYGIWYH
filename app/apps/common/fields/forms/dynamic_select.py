@@ -21,11 +21,19 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
         super().__init__(queryset=self.queryset, *args, **kwargs)
         self._created_instance = None
 
+    def _get(self, **lookup):
+        # The form's queryset may hold choices the default manager hides, like
+        # another user's object already set on a shared record
+        try:
+            return self.queryset.get(**lookup)
+        except self.model.DoesNotExist:
+            return self.model.objects.get(**lookup)
+
     def to_python(self, value):
         if value in self.empty_values:
             return None
         try:
-            return self.model.objects.get(**{self.to_field_name: value})
+            return self._get(**{self.to_field_name: value})
         except (ValueError, TypeError, self.model.DoesNotExist):
             return value  # Return the raw value; we'll handle creation in clean()
 
@@ -49,7 +57,7 @@ class DynamicModelChoiceField(forms.ModelChoiceField):
 
             try:
                 if value.isdigit():
-                    return self.model.objects.get(id=value)
+                    return self._get(id=value)
                 else:
                     raise self.model.DoesNotExist
             except self.model.DoesNotExist:

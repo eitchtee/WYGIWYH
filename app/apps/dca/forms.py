@@ -276,6 +276,14 @@ class DCAEntryForm(forms.ModelForm):
                 raise forms.ValidationError(
                     _("From and To accounts must be different.")
                 )
+        else:
+            # Both sides of a purchase are linked as a transfer on save
+            expense = cleaned_data.get("expense_transaction")
+            income = cleaned_data.get("income_transaction")
+            if expense and income:
+                error = expense.transfer_link_error(income)
+                if error:
+                    self.add_error("income_transaction", error)
 
         return cleaned_data
 
@@ -321,6 +329,8 @@ class DCAEntryForm(forms.ModelForm):
             )
             to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
 
+            from_transaction.link_transfer(to_transaction)
+
             instance.expense_transaction = from_transaction
             instance.income_transaction = to_transaction
         else:
@@ -330,6 +340,8 @@ class DCAEntryForm(forms.ModelForm):
             if instance.income_transaction:
                 instance.income_transaction.amount = instance.amount_received
                 instance.income_transaction.save()
+            if instance.expense_transaction and instance.income_transaction:
+                instance.expense_transaction.link_transfer(instance.income_transaction)
 
         instance.strategy = self.strategy
         instance.save()

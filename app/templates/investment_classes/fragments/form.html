@@ -1,0 +1,11 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% if object.pk %}{% translate 'Edit asset class' %}{% else %}{% translate 'Add asset class' %}{% endif %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% if object.pk %}{% url 'investment_class_edit' pk=object.pk %}{% else %}{% url 'investment_class_add' %}{% endif %}" hx-target="#generic-offcanvas" novalidate>
+    {% crispy form %}
+</form>
+{% endblock %}

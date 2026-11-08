@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="flex flex-col sm:flex-row items-center gap-5">
+  <div class="size-40 shrink-0"><canvas data-chart="{{ kind }}" aria-label="{% translate 'Allocation chart' %}" role="img"></canvas></div>
+  <ul class="w-full flex flex-col gap-2 text-sm">
+    {% for share in shares %}
+      <li class="flex items-center gap-2">
+        <span class="size-2.5 rounded-full shrink-0" style="background: {{ share.color }}"></span>
+        <span class="truncate">{{ share.name }}</span>
+        {% if share.plan.off %}
+          <i class="fa-solid fa-triangle-exclamation text-warning text-xs"
+             data-tippy-content="{% blocktranslate with share=share.plan.share|floatformat:1 target=share.plan.target|floatformat:'-2' %}{{ share }}% of your investments with a target, against a target of {{ target }}%{% endblocktranslate %}"></i>
+        {% endif %}
+        <span class="ms-auto tabular-nums text-base-content/60">{{ share.share|floatformat:1 }}%</span>
+        <span class="w-28 text-end tabular-nums whitespace-nowrap"><c-amount.display :amount="share.amount" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
