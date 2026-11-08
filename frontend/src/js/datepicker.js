@@ -108,6 +108,23 @@ function isMobile() {
     return isMobileDevice() || isTouchDevice();
 }
 
+// AirDatepicker creates a single overlay for all mobile pickers and keeps it in
+// its module scope, inside a global container on the body. A boosted navigation
+// swaps the body: AirDatepicker then rebuilds the container, but keeps the old
+// overlay, which is left detached and can't receive the clicks that close a picker.
+let mobileOverlay = null;
+
+function createAirDatepicker(element, opts) {
+    const datepicker = new AirDatepicker(element, opts);
+    mobileOverlay ??= document.querySelector('.air-datepicker-overlay');
+    const container = document.getElementById(AirDatepicker.defaultGlobalContainerId);
+    if (mobileOverlay && !mobileOverlay.isConnected && container) {
+        mobileOverlay.classList.remove('-active-'); // its picker was swapped out while open
+        container.appendChild(mobileOverlay);
+    }
+    return datepicker;
+}
+
 window.DatePicker = async function createDynamicDatePicker(element) {
     let todayButton = {
         content: element.dataset.nowButtonTxt,
@@ -182,7 +199,7 @@ window.DatePicker = async function createDynamicDatePicker(element) {
         opts["selectedDates"] = [element.dataset.value];
         opts["startDate"] = [element.dataset.value];
     }
-    return new AirDatepicker(element, opts);
+    return createAirDatepicker(element, opts);
 };
 
 window.MonthYearPicker = async function createDynamicDatePicker(element) {
@@ -258,7 +275,7 @@ window.MonthYearPicker = async function createDynamicDatePicker(element) {
         opts["selectedDates"] = [new Date(element.dataset.value + "T00:00:00")];
         opts["startDate"] = [new Date(element.dataset.value + "T00:00:00")];
     }
-    return new AirDatepicker(element, opts);
+    return createAirDatepicker(element, opts);
 };
 
 window.YearPicker = async function createDynamicDatePicker(element) {
@@ -334,5 +351,5 @@ window.YearPicker = async function createDynamicDatePicker(element) {
         opts["selectedDates"] = [new Date(element.dataset.value + "T00:00:00")];
         opts["startDate"] = [new Date(element.dataset.value + "T00:00:00")];
     }
-    return new AirDatepicker(element, opts);
+    return createAirDatepicker(element, opts);
 };
