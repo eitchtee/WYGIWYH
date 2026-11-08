@@ -88,7 +88,7 @@ def _dcr_initial_access_token_ok(request):
     scheme, _, value = header.partition(" ")
     if scheme.lower() != "bearer" or not value:
         return False
-    return hmac.compare_digest(value, expected)
+    return hmac.compare_digest(value.encode(), expected.encode())
 
 
 @require_http_methods(["GET"])
