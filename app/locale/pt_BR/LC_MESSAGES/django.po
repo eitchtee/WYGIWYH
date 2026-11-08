@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-08 19:20+0000\n"
-"PO-Revision-Date: 2026-11-02 19:49+0000\n"
+"PO-Revision-Date: 2026-11-08 19:40+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11.1\n"
 
 #: apps/accounts/forms.py:33
 msgid "Group name"
@@ -63,7 +63,7 @@ msgstr "Grupo"
 #: apps/accounts/models.py:130
 #: templates/investments/fragments/rebalance.html:22
 msgid "Asset class"
-msgstr ""
+msgstr "Classe de ativo"
 
 #: apps/accounts/forms.py:198
 msgid "New balance"
@@ -168,17 +168,19 @@ msgstr "Grupos da Conta"
 
 #: apps/accounts/models.py:43
 msgid "Target allocation (%)"
-msgstr ""
+msgstr "Alocação alvo (%)"
 
 #: apps/accounts/models.py:45
 msgid ""
 "Share of your investments you want in this class. Leave it empty to leave "
 "the class out of the targets."
 msgstr ""
+"Parcela dos seus investimentos que você quer nesta classe. Deixe vazio para "
+"deixar a classe fora dos alvos."
 
 #: apps/accounts/models.py:61
 msgid "You already have an asset class with this name."
-msgstr ""
+msgstr "Você já tem uma classe de ativo com este nome."
 
 #: apps/accounts/models.py:66
 #, python-format
@@ -186,6 +188,7 @@ msgid ""
 "Targets can't add up to more than 100%%. Other classes already take "
 "%(taken)s%%."
 msgstr ""
+"Os alvos não podem somar mais de 100%%. Outras classes já ocupam %(taken)s%%."
 
 #: apps/accounts/models.py:74 apps/export_app/forms.py:139
 #: templates/includes/sidebar.html:190
@@ -194,7 +197,7 @@ msgstr ""
 #: templates/investments/fragments/rebalance.html:6
 #: templates/investments/fragments/rebalance.html:11
 msgid "Asset classes"
-msgstr ""
+msgstr "Classes de ativo"
 
 #: apps/accounts/models.py:94 apps/currencies/models.py:44
 #: templates/accounts/fragments/list.html:24
@@ -224,10 +227,8 @@ msgstr ""
 "mês."
 
 #: apps/accounts/models.py:117 templates/investments/fragments/list.html:46
-#, fuzzy
-#| msgid "Installment"
 msgid "Investment"
-msgstr "Parcelamento"
+msgstr "Investimento"
 
 #: apps/accounts/models.py:119
 msgid ""
@@ -235,18 +236,21 @@ msgid ""
 "price it by units (stocks, ETFs, crypto); leave it empty to track it by "
 "value (fixed income, property, pensions)."
 msgstr ""
+"Mostrar esta conta no acompanhamento de Investimentos. Defina uma moeda de "
+"câmbio para precificá-la por unidades (ações, ETFs, cripto); deixe vazio "
+"para acompanhá-la pelo valor (renda fixa, imóveis, previdência)."
 
 #: apps/accounts/models.py:132
 msgid ""
 "Groups investments in the allocation charts, e.g. Fixed income, Stocks, Real "
 "estate."
 msgstr ""
+"Agrupa investimentos nos gráficos de alocação, ex.: Renda fixa, Ações, "
+"Imóveis."
 
 #: apps/accounts/models.py:140
-#, fuzzy
-#| msgid "No entities"
 msgid "Income entities"
-msgstr "Sem entidades"
+msgstr "Entidades de rendimento"
 
 #: apps/accounts/models.py:142
 msgid ""
@@ -254,12 +258,13 @@ msgid ""
 "return: in this account, and income paid into other accounts (dividends, "
 "rent)."
 msgstr ""
+"Transações com qualquer uma destas entidades contam para o retorno deste "
+"investimento: nesta conta e em rendimentos pagos em outras contas "
+"(dividendos, aluguel)."
 
 #: apps/accounts/models.py:151
-#, fuzzy
-#| msgid "No categories"
 msgid "Income categories"
-msgstr "Nenhum categoria"
+msgstr "Categorias de rendimento"
 
 #: apps/accounts/models.py:153
 msgid ""
@@ -267,16 +272,19 @@ msgid ""
 "(interest, taxes, fees). On accounts tracked by value, everything else that "
 "isn't a transfer counts as money coming in or going out."
 msgstr ""
+"Transações nesta conta com qualquer uma destas categorias são o seu "
+"resultado (juros, impostos, taxas). Em contas acompanhadas por valor, todo o "
+"resto que não for transferência conta como dinheiro entrando ou saindo."
 
 #: apps/accounts/models.py:162
-#, fuzzy
-#| msgid "Income"
 msgid "Income tags"
-msgstr "Renda"
+msgstr "Tags de rendimento"
 
 #: apps/accounts/models.py:164
 msgid "Same as income categories, for transactions with any of these tags."
 msgstr ""
+"O mesmo que as categorias de rendimento, para transações com qualquer uma "
+"destas tags."
 
 #: apps/accounts/models.py:169 apps/currencies/models.py:37
 #: templates/accounts/fragments/list.html:27
@@ -423,6 +431,8 @@ msgstr "É necessário fornecer “date” ou “reference_date”."
 #, python-format
 msgid "This service can't sync more often than every %(hours)s hours."
 msgstr ""
+"Este serviço não pode sincronizar com frequência maior que a cada %(hours)s "
+"horas."
 
 #: apps/bank_sync/forms.py:113 apps/bank_sync/models.py:76
 #: apps/currencies/models.py:45 apps/export_app/forms.py:25
@@ -437,15 +447,15 @@ msgstr "Moedas"
 
 #: apps/bank_sync/forms.py:114 apps/bank_sync/models.py:77
 msgid "Only sync transactions in these currencies. Empty syncs all."
-msgstr ""
+msgstr "Sincronizar apenas transações nestas moedas. Vazio sincroniza todas."
 
 #: apps/bank_sync/forms.py:128
 msgid "Don't sync"
-msgstr ""
+msgstr "Não sincronizar"
 
 #: apps/bank_sync/forms.py:139
 msgid "Required when an account is set."
-msgstr ""
+msgstr "Obrigatório quando uma conta é definida."
 
 #: apps/bank_sync/models.py:16 apps/currencies/models.py:119
 msgid "Service Type"
@@ -469,64 +479,53 @@ msgid "Settings"
 msgstr "Configurações"
 
 #: apps/bank_sync/models.py:24
-#, fuzzy
-#| msgid "Every X hours"
 msgid "Sync every X hours"
-msgstr "A cada X horas"
+msgstr "Sincronizar a cada X horas"
 
 #: apps/bank_sync/models.py:25
 msgid "Most banks only update once a day."
-msgstr ""
+msgstr "A maioria dos bancos atualiza apenas uma vez por dia."
 
 #: apps/bank_sync/models.py:29
-#, fuzzy
-#| msgid "Transaction rules"
 msgid "Trigger transaction rules"
-msgstr "Regra da transação"
+msgstr "Acionar regras de transação"
 
 #: apps/bank_sync/models.py:30
-#, fuzzy
-#| msgid "Edit transaction rule action"
 msgid "Run your transaction rules on synced transactions."
-msgstr "Editar ação de regra de transação"
+msgstr "Executar suas regras de transação nas transações sincronizadas."
 
 #: apps/bank_sync/models.py:34
-#, fuzzy
-#| msgid "Latest Transactions"
 msgid "Match existing transactions"
-msgstr "Últimas Transações"
+msgstr "Associar a transações existentes"
 
 #: apps/bank_sync/models.py:36
 msgid ""
 "Instead of creating a synced transaction, link it to one you already added "
 "on the same account, with the same type and amount, dated up to 3 days apart."
 msgstr ""
+"Em vez de criar uma transação sincronizada, vinculá-la a uma que você já "
+"adicionou na mesma conta, com o mesmo tipo e valor, com datas de até 3 dias "
+"de diferença."
 
 #: apps/bank_sync/models.py:42
-#, fuzzy
-#| msgid "Last Successful Fetch"
 msgid "Last Successful Sync"
-msgstr "Última execução bem-sucedida"
+msgstr "Última Sincronização Bem-sucedida"
 
 #: apps/bank_sync/models.py:50
 msgid "Bank Sync Service"
-msgstr ""
+msgstr "Serviço de Sincronização Bancária"
 
 #: apps/bank_sync/models.py:51 apps/export_app/forms.py:154
-#, fuzzy
-#| msgid "Exchange Rate Services"
 msgid "Bank Sync Services"
-msgstr "Serviços de Taxa de Câmbio"
+msgstr "Serviços de Sincronização Bancária"
 
 #: apps/bank_sync/models.py:94
 msgid "Sync from"
-msgstr ""
+msgstr "Sincronizar a partir de"
 
 #: apps/bank_sync/models.py:95
-#, fuzzy
-#| msgid "No transactions for this year"
 msgid "Transactions before this date are never imported."
-msgstr "Nenhuma transação neste ano"
+msgstr "Transações anteriores a esta data nunca são importadas."
 
 #: apps/bank_sync/providers/lunchflow.py:24 apps/currencies/models.py:126
 msgid "API Key"
@@ -537,6 +536,8 @@ msgid ""
 "Create a REST API destination on Lunch Flow and give it access to the "
 "accounts you want to sync."
 msgstr ""
+"Crie um destino de API REST no Lunch Flow e dê a ele acesso às contas que "
+"você quer sincronizar."
 
 #: apps/bank_sync/providers/lunchflow.py:69
 #, python-format
@@ -544,42 +545,42 @@ msgid ""
 "Lunch Flow reports this account as %(status)s, check the connection on Lunch "
 "Flow."
 msgstr ""
+"O Lunch Flow informa esta conta como %(status)s, verifique a conexão no "
+"Lunch Flow."
 
 #: apps/bank_sync/providers/pluggy.py:28
 msgid "Client ID"
-msgstr ""
+msgstr "Client ID"
 
 #: apps/bank_sync/providers/pluggy.py:32
 msgid "Client Secret"
-msgstr ""
+msgstr "Client Secret"
 
 #: apps/bank_sync/providers/pluggy.py:37
-#, fuzzy
-#| msgid "Item"
 msgid "Item IDs"
-msgstr "Item"
+msgstr "IDs dos itens"
 
 #: apps/bank_sync/providers/pluggy.py:40
 msgid ""
 "The IDs of your Pluggy connections (items), separated by commas. Meu Pluggy "
 "shows them for each connected institution."
 msgstr ""
+"Os IDs das suas conexões Pluggy (itens), separados por vírgulas. O Meu "
+"Pluggy os mostra para cada instituição conectada."
 
 #: apps/bank_sync/providers/pluggy.py:80
 #, python-format
 msgid "Pluggy reports this connection as %(status)s, reconnect it on Pluggy."
-msgstr ""
+msgstr "O Pluggy informa esta conexão como %(status)s, reconecte-a no Pluggy."
 
 #: apps/bank_sync/providers/simplefin.py:35
 #, python-format
 msgid "SimpleFIN server %(host)s isn't allowed on this instance."
-msgstr ""
+msgstr "O servidor SimpleFIN %(host)s não é permitido nesta instância."
 
 #: apps/bank_sync/providers/simplefin.py:56
-#, fuzzy
-#| msgid "Create token"
 msgid "Setup Token"
-msgstr "Criar token"
+msgstr "Token de Configuração"
 
 #: apps/bank_sync/providers/simplefin.py:59
 msgid ""
@@ -587,16 +588,21 @@ msgid ""
 "save it's exchanged for an access URL, which is what you'll see here "
 "afterwards."
 msgstr ""
+"Cole um token de configuração do seu servidor SimpleFIN. Ele só pode ser "
+"usado uma vez: ao salvar, ele é trocado por uma URL de acesso, que é o que "
+"você verá aqui depois."
 
 #: apps/bank_sync/providers/simplefin.py:83
 msgid "This isn't a valid SimpleFIN setup token."
-msgstr ""
+msgstr "Este não é um token de configuração SimpleFIN válido."
 
 #: apps/bank_sync/providers/simplefin.py:91
 #, python-format
 msgid ""
 "Couldn't claim the setup token, it may have been used already: %(error)s"
 msgstr ""
+"Não foi possível resgatar o token de configuração, ele pode já ter sido "
+"usado: %(error)s"
 
 #: apps/bank_sync/views.py:57
 #: apps/currencies/views/exchange_rates_services.py:50
@@ -605,7 +611,7 @@ msgstr "Serviço adicionado com sucesso"
 
 #: apps/bank_sync/views.py:63
 msgid "Add bank sync service"
-msgstr ""
+msgstr "Adicionar serviço de sincronização bancária"
 
 #: apps/bank_sync/views.py:76
 #: apps/currencies/views/exchange_rates_services.py:79
@@ -614,7 +620,7 @@ msgstr "Serviço atualizado com sucesso"
 
 #: apps/bank_sync/views.py:82
 msgid "Edit bank sync service"
-msgstr ""
+msgstr "Editar serviço de sincronização bancária"
 
 #: apps/bank_sync/views.py:92
 #: apps/currencies/views/exchange_rates_services.py:106
@@ -622,21 +628,17 @@ msgid "Service deleted successfully"
 msgstr "Serviço apagado com sucesso"
 
 #: apps/bank_sync/views.py:108
-#, fuzzy
-#| msgid "Account updated successfully"
 msgid "Accounts updated successfully"
-msgstr "Conta atualizada com sucesso"
+msgstr "Contas atualizadas com sucesso"
 
 #: apps/bank_sync/views.py:115
 #, python-format
 msgid "Couldn't load the accounts from the provider: %(error)s"
-msgstr ""
+msgstr "Não foi possível carregar as contas do provedor: %(error)s"
 
 #: apps/bank_sync/views.py:134
-#, fuzzy
-#| msgid "Services queued successfully"
 msgid "Sync queued successfully"
-msgstr "Serviços marcados para execução com sucesso"
+msgstr "Sincronização enfileirada com sucesso"
 
 #: apps/common/admin.py:5
 msgid "Make public"
@@ -830,10 +832,12 @@ msgstr "Sem resultados..."
 msgid ""
 "Central bank code, e.g. 'bcb' or 'rbi'. Leave empty to use the ECB table."
 msgstr ""
+"Código do banco central, ex.: 'bcb' ou 'rbi'. Deixe vazio para usar a tabela "
+"do BCE."
 
 #: apps/currencies/exchange_rates/providers.py:735
 msgid "Invalid bank code, it should look like 'bcb'."
-msgstr ""
+msgstr "Código de banco inválido, deve ser algo como 'bcb'."
 
 #: apps/currencies/forms.py:20 apps/currencies/models.py:22
 msgid "Prefix"
@@ -912,14 +916,12 @@ msgid "API key for the service (if required)"
 msgstr "Chave de API para o serviço (se necessário)"
 
 #: apps/currencies/models.py:132
-#, fuzzy
-#| msgid "Actions"
 msgid "Options"
-msgstr "Ações"
+msgstr "Opções"
 
 #: apps/currencies/models.py:133
 msgid "Provider specific settings"
-msgstr ""
+msgstr "Configurações específicas do provedor"
 
 #: apps/currencies/models.py:138
 msgid "Interval Type"
@@ -959,27 +961,26 @@ msgstr ""
 "definida."
 
 #: apps/currencies/models.py:171
-#, fuzzy
-#| msgid "Single exchange rate"
 msgid "One exchange rate per day"
-msgstr "Taxa de câmbio única"
+msgstr "Uma taxa de câmbio por dia"
 
 #: apps/currencies/models.py:174
 msgid ""
 "Update the day's exchange rate on each fetch instead of adding a new one."
 msgstr ""
+"Atualizar a taxa de câmbio do dia a cada busca em vez de adicionar uma nova."
 
 #: apps/currencies/models.py:178
-#, fuzzy
-#| msgid "Exchange Rates"
 msgid "Exchange rates to keep"
-msgstr "Taxas de Câmbio"
+msgstr "Taxas de câmbio a manter"
 
 #: apps/currencies/models.py:183
 msgid ""
 "Keep at most this many automatic exchange rates per currency pair, deleting "
 "the oldest first. Leave empty to keep all."
 msgstr ""
+"Manter no máximo esta quantidade de taxas de câmbio automáticas por par de "
+"moedas, apagando as mais antigas primeiro. Deixe vazio para manter todas."
 
 #: apps/currencies/models.py:188
 msgid "Exchange Rate Service"
@@ -1220,11 +1221,11 @@ msgstr "Taxas de Câmbio Automáticas"
 #: apps/export_app/forms.py:79 templates/bank_sync/fragments/list.html:8
 #: templates/bank_sync/pages/index.html:4 templates/includes/sidebar.html:238
 msgid "Bank Sync"
-msgstr ""
+msgstr "Sincronização Bancária"
 
 #: apps/export_app/forms.py:80
 msgid "Includes the providers' API keys"
-msgstr ""
+msgstr "Inclui as chaves de API dos provedores"
 
 #: apps/export_app/forms.py:86 templates/includes/sidebar.html:212
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
@@ -1255,10 +1256,8 @@ msgid "ZIP File"
 msgstr "Arquivo ZIP"
 
 #: apps/export_app/forms.py:157
-#, fuzzy
-#| msgid "By account"
 msgid "Bank Sync Accounts"
-msgstr "Por conta"
+msgstr "Contas de Sincronização Bancária"
 
 #: apps/export_app/forms.py:159 apps/rules/models.py:27
 msgid "Transaction rules"
@@ -1460,29 +1459,23 @@ msgstr "Sem entidades"
 
 #: apps/investments/views.py:104
 msgid "Other"
-msgstr ""
+msgstr "Outros"
 
 #: apps/investments/views.py:135
 msgid "Unclassified"
-msgstr ""
+msgstr "Sem classificação"
 
 #: apps/investments/views.py:267
-#, fuzzy
-#| msgid "Installment Plan added successfully"
 msgid "Asset class added successfully"
-msgstr "Parcelamento adicionado com sucesso"
+msgstr "Classe de ativo adicionada com sucesso"
 
 #: apps/investments/views.py:275
-#, fuzzy
-#| msgid "Tag updated successfully"
 msgid "Asset class updated successfully"
-msgstr "Tag atualizada com sucesso"
+msgstr "Classe de ativo atualizada com sucesso"
 
 #: apps/investments/views.py:296
-#, fuzzy
-#| msgid "Tag deleted successfully"
 msgid "Asset class deleted successfully"
-msgstr "Tag apagada com sucesso"
+msgstr "Classe de ativo apagada com sucesso"
 
 #: apps/net_worth/views.py:137 templates/net_worth/net_worth.html:84
 #: templates/net_worth/net_worth.html:85
@@ -1978,15 +1971,15 @@ msgstr "Apagado Em"
 
 #: apps/transactions/models.py:517
 msgid "A transfer needs one expense and one income."
-msgstr ""
+msgstr "Uma transferência precisa de uma despesa e uma receita."
 
 #: apps/transactions/models.py:519
 msgid "A transfer needs two different accounts."
-msgstr ""
+msgstr "Uma transferência precisa de duas contas diferentes."
 
 #: apps/transactions/models.py:523
 msgid "This transaction is already part of another transfer."
-msgstr ""
+msgstr "Esta transação já faz parte de outra transferência."
 
 #: apps/transactions/models.py:615
 msgid "No category"
@@ -2873,10 +2866,8 @@ msgid "No accounts"
 msgstr "Nenhuma conta"
 
 #: templates/bank_sync/fragments/accounts.html:31
-#, fuzzy
-#| msgid "No transactions for this year"
 msgid "No accounts found on this service"
-msgstr "Nenhuma transação neste ano"
+msgstr "Nenhuma conta encontrada neste serviço"
 
 #: templates/bank_sync/fragments/list.html:21
 #: templates/exchange_rates_services/fragments/list.html:29
@@ -2884,20 +2875,16 @@ msgid "Service"
 msgstr "Serviço"
 
 #: templates/bank_sync/fragments/list.html:23
-#, fuzzy
-#| msgid "Last fetch"
 msgid "Last sync"
-msgstr "Última execução"
+msgstr "Última sincronização"
 
 #: templates/bank_sync/fragments/list.html:45
 msgid "Sync now"
-msgstr ""
+msgstr "Sincronizar agora"
 
 #: templates/bank_sync/fragments/list.html:55
-#, fuzzy
-#| msgid "Add transaction rule"
 msgid "Synced transactions are kept."
-msgstr "Adicionar regra de transação"
+msgstr "As transações sincronizadas são mantidas."
 
 #: templates/bank_sync/fragments/list.html:80
 #: templates/exchange_rates_services/fragments/list.html:77
@@ -3539,10 +3526,8 @@ msgstr "Ferramentas"
 #: templates/investments/fragments/list.html:9
 #: templates/investments/pages/detail.html:4
 #: templates/investments/pages/index.html:4
-#, fuzzy
-#| msgid "Installments"
 msgid "Investments"
-msgstr "Parcelas"
+msgstr "Investimentos"
 
 #: templates/includes/sidebar.html:124
 msgid "Dollar Cost Average Tracker"
@@ -3859,36 +3844,35 @@ msgstr "Nenhum parcelamento"
 
 #: templates/investment_classes/fragments/form.html:5
 msgid "Edit asset class"
-msgstr ""
+msgstr "Editar classe de ativo"
 
 #: templates/investment_classes/fragments/form.html:5
 msgid "Add asset class"
-msgstr ""
+msgstr "Adicionar classe de ativo"
 
 #: templates/investment_classes/fragments/list.html:19
 #: templates/investments/fragments/rebalance.html:10
 #, python-format
 msgid "Targets add up to %(total)s%%. Set them to 100%% to see the rebalance."
 msgstr ""
+"Os alvos somam %(total)s%%. Ajuste-os para 100%% para ver o rebalanceamento."
 
 #: templates/investment_classes/fragments/list.html:28
 #: templates/investments/fragments/rebalance.html:25
-#, fuzzy
-#| msgid "Targeting"
 msgid "Target"
-msgstr "Alvos"
+msgstr "Alvo"
 
 #: templates/investment_classes/fragments/list.html:50
 msgid "Its investments will be left without an asset class."
-msgstr ""
+msgstr "Seus investimentos ficarão sem classe de ativo."
 
 #: templates/investment_classes/fragments/list.html:74
 msgid "No asset classes"
-msgstr ""
+msgstr "Nenhuma classe de ativo"
 
 #: templates/investments/fragments/_allocation.html:3
 msgid "Allocation chart"
-msgstr ""
+msgstr "Gráfico de alocação"
 
 #: templates/investments/fragments/_allocation.html:11
 #, python-format
@@ -3896,24 +3880,27 @@ msgid ""
 "%(share)s%% of your investments with a target, against a target of "
 "%(target)s%%"
 msgstr ""
+"%(share)s%% dos seus investimentos com alvo, contra um alvo de %(target)s%%"
 
 #: templates/investments/fragments/_mwr.html:1
 msgid "Annual return, weighted by when money went in and out"
-msgstr ""
+msgstr "Retorno anual, ponderado pelas datas de entrada e saída de dinheiro"
 
 #: templates/investments/fragments/_mwr.html:1
 msgid ""
 "Return since the first contribution, weighted by when money went in and out"
 msgstr ""
+"Retorno desde o primeiro aporte, ponderado pelas datas de entrada e saída de "
+"dinheiro"
 
 #: templates/investments/fragments/_mwr.html:1
 msgid "/yr"
-msgstr ""
+msgstr "/ano"
 
 #: templates/investments/fragments/_totals.html:15
 #: templates/investments/fragments/detail.html:63
 msgid "total return"
-msgstr ""
+msgstr "retorno total"
 
 #: templates/investments/fragments/_totals.html:20
 #: templates/investments/fragments/_totals.html:41
@@ -3921,23 +3908,19 @@ msgstr ""
 #: templates/investments/fragments/detail.html:163
 #: templates/investments/fragments/detail.html:223
 #: templates/investments/fragments/list.html:47
-#, fuzzy
-#| msgid "Total Invested"
 msgid "Invested"
-msgstr "Total investido"
+msgstr "Investido"
 
 #: templates/investments/fragments/_totals.html:24
 #: templates/investments/fragments/detail.html:74
 msgid ""
 "How much of the return came from exchange rates moving since you invested"
-msgstr ""
+msgstr "Quanto do retorno veio da variação cambial desde que você investiu"
 
 #: templates/investments/fragments/_totals.html:24
 #: templates/investments/fragments/_totals.html:26
-#, fuzzy
-#| msgid "Currency Code"
 msgid "Currency effect"
-msgstr "Código da Moeda"
+msgstr "Efeito cambial"
 
 #: templates/investments/fragments/_totals.html:26
 #: templates/investments/fragments/detail.html:78
@@ -3946,15 +3929,18 @@ msgid ""
 "(or an automatic rate service) to see how much exchange rates moved your "
 "return."
 msgstr ""
+"Todas as datas são convertidas com a mesma taxa. Adicione taxas de câmbio "
+"históricas (ou um serviço de taxas automáticas) para ver quanto a variação "
+"cambial afetou seu retorno."
 
 #: templates/investments/fragments/_totals.html:40
 #: templates/investments/fragments/list.html:49
 msgid "Return"
-msgstr ""
+msgstr "Retorno"
 
 #: templates/investments/fragments/charts.html:10
 msgid "By asset class"
-msgstr ""
+msgstr "Por classe de ativo"
 
 #: templates/investments/fragments/charts.html:17
 #: templates/net_worth/net_worth.html:52
@@ -3963,198 +3949,176 @@ msgid "By currency"
 msgstr "Por moeda"
 
 #: templates/investments/fragments/charts.html:24
-#, fuzzy
-#| msgid "Total Invested"
 msgid "Value and invested"
-msgstr "Total investido"
+msgstr "Valor e investido"
 
 #: templates/investments/fragments/charts.html:31
 msgid "Return by investment"
-msgstr ""
+msgstr "Retorno por investimento"
 
 #: templates/investments/fragments/charts.html:38
-#, fuzzy
-#| msgid "Nothing to see here..."
 msgid "Nothing to chart yet"
-msgstr "Nada para ver aqui..."
+msgstr "Nada para exibir no gráfico ainda"
 
 #: templates/investments/fragments/detail.html:10
 msgid "Buy / Contribute"
-msgstr ""
+msgstr "Comprar / Aportar"
 
 #: templates/investments/fragments/detail.html:16
 msgid "Sell / Withdraw"
-msgstr ""
+msgstr "Vender / Resgatar"
 
 #: templates/investments/fragments/detail.html:23
 msgid "Dividend / Income"
-msgstr ""
+msgstr "Dividendo / Rendimento"
 
 #: templates/investments/fragments/detail.html:30
-#, fuzzy
-#| msgid "Updated at"
 msgid "Update value"
-msgstr "Atualizado em"
+msgstr "Atualizar valor"
 
 #: templates/investments/fragments/detail.html:47
 #: templates/investments/fragments/list.html:67
 msgid "Tracked by value"
-msgstr ""
+msgstr "Acompanhado por valor"
 
 #: templates/investments/fragments/detail.html:48
 msgid ""
 "Some incoming units have no linked payment, so their cost was estimated from "
 "the market price of that day"
 msgstr ""
+"Algumas unidades recebidas não têm pagamento vinculado, então seu custo foi "
+"estimado pelo preço de mercado do dia"
 
 #: templates/investments/fragments/detail.html:68
-#, fuzzy
-#| msgid "Info"
 msgid "In"
-msgstr "Informação"
+msgstr "Entrada"
 
 #: templates/investments/fragments/detail.html:74
 #: templates/investments/fragments/detail.html:78
-#, fuzzy
-#| msgid "Currency Code"
 msgid "currency effect"
-msgstr "Código da Moeda"
+msgstr "efeito cambial"
 
 #: templates/investments/fragments/detail.html:104
 #: templates/investments/fragments/detail.html:179
-#, fuzzy
-#| msgid "Entry Price"
 msgid "Price"
-msgstr "Preço de Entrada"
+msgstr "Preço"
 
 #: templates/investments/fragments/detail.html:105
 #: templates/investments/fragments/detail.html:200
 #: templates/investments/fragments/detail.html:239
 #: templates/investments/fragments/detail.html:290
-#, fuzzy
-#| msgid "Warning"
 msgid "Earnings"
-msgstr "Aviso"
+msgstr "Rendimentos"
 
 #: templates/investments/fragments/detail.html:180
 #: templates/investments/fragments/detail.html:227
 msgid "Average cost"
-msgstr ""
+msgstr "Custo médio"
 
 #: templates/investments/fragments/detail.html:181
 #: templates/investments/fragments/rebalance.html:41
-#, fuzzy
-#| msgid "By"
 msgid "Buy"
-msgstr "Por"
+msgstr "Compra"
 
 #: templates/investments/fragments/detail.html:182
 #: templates/investments/fragments/rebalance.html:43
 msgid "Sell"
-msgstr ""
+msgstr "Venda"
 
 #: templates/investments/fragments/detail.html:227
 #: templates/investments/fragments/detail.html:257
 msgid "Put in / taken out"
-msgstr ""
+msgstr "Aportado / resgatado"
 
 #: templates/investments/fragments/detail.html:239
-#, fuzzy
-#| msgid "Uncategorized"
 msgid "Unrealized"
-msgstr "Sem categoria"
+msgstr "Não realizado"
 
 #: templates/investments/fragments/detail.html:248
 msgid "Realized"
-msgstr ""
+msgstr "Realizado"
 
 #: templates/investments/fragments/detail.html:271
-#, fuzzy
-#| msgid "Management"
 msgid "Movements"
-msgstr "Gerenciar"
+msgstr "Movimentações"
 
 #: templates/investments/fragments/detail.html:284
 msgid "Bought / contributed"
-msgstr ""
+msgstr "Comprado / aportado"
 
 #: templates/investments/fragments/detail.html:284
 msgid "Sold / withdrew"
-msgstr ""
+msgstr "Vendido / resgatado"
 
 #: templates/investments/fragments/detail.html:288
 msgid "Money in"
-msgstr ""
+msgstr "Entrada de dinheiro"
 
 #: templates/investments/fragments/detail.html:288
 msgid "Money out"
-msgstr ""
+msgstr "Saída de dinheiro"
 
 #: templates/investments/fragments/detail.html:290
 msgid "Gain"
-msgstr ""
+msgstr "Ganho"
 
 #: templates/investments/fragments/detail.html:290
 msgid "Loss, tax or fee"
-msgstr ""
+msgstr "Perda, imposto ou taxa"
 
 #: templates/investments/fragments/detail.html:315
-#, fuzzy
-#| msgid "No presets yet"
 msgid "No movements yet"
-msgstr "Nenhuma predefinição de importação ainda"
+msgstr "Nenhuma movimentação ainda"
 
 #: templates/investments/fragments/detail.html:315
 msgid "Use the + button to buy or contribute"
-msgstr ""
+msgstr "Use o botão + para comprar ou aportar"
 
 #: templates/investments/fragments/list.html:21
 msgid "Holdings"
-msgstr ""
+msgstr "Posições"
 
 #: templates/investments/fragments/list.html:60
 msgid "Some costs were estimated from market prices"
-msgstr ""
+msgstr "Alguns custos foram estimados a partir de preços de mercado"
 
 #: templates/investments/fragments/list.html:92
 msgid "Charts"
-msgstr ""
+msgstr "Gráficos"
 
 #: templates/investments/fragments/list.html:97
-#, fuzzy
-#| msgid "New balance"
 msgid "Rebalance"
-msgstr "Novo saldo"
+msgstr "Rebalancear"
 
 #: templates/investments/fragments/list.html:105
-#, fuzzy
-#| msgid "No presets yet"
 msgid "No investments yet"
-msgstr "Nenhuma predefinição de importação ainda"
+msgstr "Nenhum investimento ainda"
 
 #: templates/investments/fragments/list.html:106
 msgid "Mark an account as an investment in its settings to see it here"
 msgstr ""
+"Marque uma conta como investimento nas configurações dela para vê-la aqui"
 
 #: templates/investments/fragments/rebalance.html:4
 msgid "No allocation targets"
-msgstr ""
+msgstr "Nenhum alvo de alocação"
 
 #: templates/investments/fragments/rebalance.html:5
 msgid "Set a target for your asset classes to see what to buy and sell"
 msgstr ""
+"Defina um alvo para suas classes de ativo para ver o que comprar e vender"
 
 #: templates/investments/fragments/rebalance.html:26
 msgid "To reach the target"
-msgstr ""
+msgstr "Para atingir o alvo"
 
 #: templates/investments/fragments/rebalance.html:34
 msgid "Off target"
-msgstr ""
+msgstr "Fora do alvo"
 
 #: templates/investments/fragments/rebalance.html:55
 msgid "Left out: investments without an asset class or a target"
-msgstr ""
+msgstr "Excluídos: investimentos sem classe de ativo ou alvo"
 
 #: templates/layouts/base.html:38
 msgid "This is a demo!"
