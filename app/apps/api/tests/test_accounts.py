@@ -8,7 +8,7 @@ from rest_framework.test import APIClient
 
 from apps.accounts.models import Account, AccountGroup
 from apps.currencies.models import Currency
-from apps.transactions.models import Transaction
+from apps.transactions.models import Transaction, TransactionCategory
 
 
 @override_settings(
@@ -97,3 +97,40 @@ class AccountBalanceAPITests(TestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_patch_and_create_with_income_categories(self):
+        category = TransactionCategory.objects.create(name="Interest", owner=self.user)
+        self.account.owner = self.user
+        self.account.save()
+        # Writes need Django model permissions
+        self.user.is_superuser = True
+        self.user.save()
+
+        response = self.client.patch(
+            f"/api/accounts/{self.account.id}/",
+            {"income_categories": [category.id]},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        self.assertEqual(response.data["income_categories"], [category.id])
+        # The join table: the related manager is per-user and empty without one
+        self.assertTrue(
+            Account.income_categories.through.objects.filter(
+                account=self.account, transactioncategory=category
+            ).exists()
+        )
+
+        response = self.client.post(
+            "/api/accounts/",
+            {
+                "name": "Broker",
+                "group_id": None,
+                "currency_id": self.currency.id,
+                "exchange_currency_id": None,
+                "is_investment": True,
+                "income_categories": [category.id],
+            },
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+        self.assertEqual(response.data["income_categories"], [category.id])
