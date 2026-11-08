@@ -18,6 +18,7 @@ from apps.bank_sync.forms import BankSyncAccountForm, BankSyncServiceForm
 from apps.bank_sync.models import BankSyncAccount, BankSyncService
 from apps.bank_sync.providers.base import RemoteAccount, RemoteTransaction
 from apps.bank_sync.providers.lunchflow import LunchFlowProvider
+from apps.bank_sync.providers.pluggy import PluggyProvider
 from apps.bank_sync.providers.simplefin import SimpleFINProvider
 from apps.bank_sync.providers.simplefin import _timestamp as _ts
 from apps.bank_sync.sync import is_due, refresh_remote_accounts, sync_service
@@ -206,6 +207,111 @@ class SimpleFINProviderTests(TestCase):
         self.assertEqual(
             transactions,
             [RemoteTransaction("t1", start, Decimal("-5.10"), "Coffee", "CARD COFFEE", "USD")],
+        )
+
+
+class PluggyProviderTests(TestCase):
+    def setUp(self):
+        self.provider = PluggyProvider(
+            {"client_id": "id", "client_secret": "secret", "item_ids": "i1, i2\n"}
+        )
+        auth = _response({"apiKey": "key"})
+        self.post = self.enterContext(
+            patch.object(self.provider.session, "post", return_value=auth)
+        )
+
+    def test_list_accounts(self):
+        def get(url, params, timeout):
+            self.assertEqual(self.provider.session.headers["X-API-KEY"], "key")
+            if url.endswith("/items/i1"):
+                return _response({"status": "UPDATED", "connector": {"name": "Nubank"}})
+            if url.endswith("/items/i2"):
+                return _response({"status": "LOGIN_ERROR", "connector": {"name": "Itaú"}})
+            return _response(
+                {
+                    "results": [
+                        {"id": f"{params['itemId']}-a", "name": "Conta", "marketingName": None, "number": "0001", "currencyCode": "BRL"}
+                    ]
+                }
+            )
+
+        with patch.object(self.provider.session, "get", side_effect=get):
+            accounts = self.provider.list_accounts()
+
+        self.post.assert_called_once_with(
+            "https://api.pluggy.ai/auth",
+            json={"clientId": "id", "clientSecret": "secret"},
+            timeout=30,
+        )
+        self.assertEqual(accounts[0], RemoteAccount("i1-a", "Nubank - Conta - 0001", ("BRL",), ""))
+        self.assertEqual(accounts[1].id, "i2-a")
+        self.assertIn("LOGIN_ERROR", accounts[1].error)
+
+    def _get_transactions(self, pages):
+        responses = [_response(p) for p in pages]
+        with patch.object(self.provider.session, "get", side_effect=responses) as get:
+            transactions = self.provider.get_transactions("a", date(2026, 10, 1))
+        return transactions, get.call_args_list
+
+    def test_bank_account_follows_cursor_with_own_filters(self):
+        pages = [
+            {
+                "results": [
+                    {"id": "t1", "date": "2026-10-01T03:00:00.000Z", "amount": -12.5, "type": "DEBIT", "status": "POSTED", "description": "Padaria", "currencyCode": "BRL"},
+                    {"id": "t2", "date": "2026-10-02T03:00:00.000Z", "amount": -1, "type": "DEBIT", "status": "PENDING", "description": "Pending"},
+                ],
+                "next": "?accountId=a&after=MjAy%3D",
+            },
+            {
+                "results": [
+                    {"id": "t3", "date": "2026-10-04T03:00:00.000Z", "amount": 100, "type": "CREDIT", "status": "POSTED", "description": "Pix", "currencyCode": "BRL"},
+                ],
+                "next": None,
+            },
+        ]
+        transactions, calls = self._get_transactions(pages)
+
+        self.assertEqual(
+            [c.kwargs["params"] for c in calls],
+            [
+                {"accountId": "a", "dateFrom": "2026-10-01"},
+                {"accountId": "a", "dateFrom": "2026-10-01", "after": "MjAy="},
+            ],
+        )
+        self.assertEqual(
+            transactions,
+            [
+                RemoteTransaction("t1", date(2026, 10, 1), Decimal("-12.5"), "Padaria", "", "BRL"),
+                RemoteTransaction("t2", date(2026, 10, 2), Decimal("-1"), "Pending", "", "", pending=True),
+                RemoteTransaction("t3", date(2026, 10, 4), Decimal("100"), "Pix", "", "BRL"),
+            ],
+        )
+
+    def test_credit_card_follows_type_not_sign(self):
+        # Shapes from a real Meu Pluggy card: purchases are positive DEBITs,
+        # the bill payment a negative CREDIT
+        pages = [
+            {
+                "results": [
+                    {"id": "t1", "date": "2026-10-03T03:00:00.000Z", "amount": 10, "amountInAccountCurrency": 55.3, "type": "DEBIT", "status": "POSTED", "description": "Steam", "currencyCode": "USD"},
+                    {"id": "t2", "date": "2026-10-05T03:00:00.000Z", "amount": -500, "type": "CREDIT", "status": "POSTED", "description": "Pagamento recebido", "currencyCode": "BRL"},
+                    {"id": "t3", "date": "2026-10-13T03:00:00.000Z", "amount": 18.72, "type": "DEBIT", "status": "POSTED", "description": "Loja 2/10", "currencyCode": "BRL",
+                     "creditCardMetadata": {"installmentNumber": 2, "totalInstallments": 10, "purchaseDate": "2026-09-12T03:00:00.000Z"}},
+                    # Future installment, waits for its date
+                    {"id": "t4", "date": "2027-07-13T03:00:00.000Z", "amount": 18.72, "type": "DEBIT", "status": "PENDING", "description": "Loja 10/10", "currencyCode": "BRL"},
+                ],
+                "next": None,
+            },
+        ]
+        transactions, _ = self._get_transactions(pages)
+
+        self.assertEqual(
+            transactions,
+            [
+                RemoteTransaction("t1", date(2026, 10, 3), Decimal("-55.3"), "Steam", "USD 10", ""),
+                RemoteTransaction("t2", date(2026, 10, 5), Decimal("500"), "Pagamento recebido", "", "BRL"),
+                RemoteTransaction("t3", date(2026, 10, 13), Decimal("-18.72"), "Loja 2/10", "", "BRL"),
+            ],
         )
 
 
