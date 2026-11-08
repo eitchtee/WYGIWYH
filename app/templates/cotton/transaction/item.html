@@ -16,7 +16,7 @@
                 hover:bg-base-200 p-2 {% if transaction.account.is_asset %}border-dashed{% else %}border-solid{% endif %}
                 {% if is_transfer %}border-s-info{% elif transaction.type == "EX" %}border-s-error{% else %}border-s-success{% endif %} relative
                 w-full transaction-item bg-base-100 rounded">
-      <div class="flex flex-wrap font-mono text-sm items-center">
+      <div class="flex flex-wrap lg:flex-nowrap font-mono text-sm items-center">
         <div class="lg:w-auto w-full flex items-center text-2xl lg:text-xl lg:text-center text-center p-0 cursor-pointer">
           {% if not transaction.deleted %}
             <a class="no-underline p-3 text-base-content/50"
@@ -135,10 +135,10 @@
           </div>
         </div>
         <div
-            class="lg:w-auto w-full lg:text-right self-end {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}opacity-70{% endif %}">
+            class="lg:w-auto lg:min-w-0 lg:max-w-1/2 w-full lg:text-right self-end {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}opacity-70{% endif %}">
           {% if is_transfer %}
             {# Each side: amount, with its account below, like a regular item #}
-            <div class="main-amount mt-3 lg:mt-0 mb-2 lg:mb-0 grid grid-cols-[auto_minmax(0,auto)] gap-x-2 gap-y-2 items-baseline w-fit lg:ms-auto">
+            <div class="main-amount mt-3 lg:mt-0 mb-2 lg:mb-0 grid grid-cols-[auto_minmax(0,auto)] gap-x-2 gap-y-2 items-baseline w-fit max-w-full lg:ms-auto">
               <span></span>
               <div class="min-w-0">
                 <c-amount.display
@@ -147,7 +147,7 @@
                     :suffix="transaction.account.currency.suffix"
                     :decimal_places="transaction.account.currency.decimal_places"
                     color="red"></c-amount.display>
-                <div class="truncate max-w-56">{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
+                <div class="truncate">{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
               </div>
               <i class="fa-solid fa-arrow-right fa-xs text-base-content/40"></i>
               <div class="min-w-0">
@@ -157,7 +157,7 @@
                     :suffix="transfer_to.account.currency.suffix"
                     :decimal_places="transfer_to.account.currency.decimal_places"
                     color="green"></c-amount.display>
-                <div class="truncate max-w-56">{% if transfer_to.account.group %}{{ transfer_to.account.group.name }} • {% endif %}{{ transfer_to.account.name }}</div>
+                <div class="truncate">{% if transfer_to.account.group %}{{ transfer_to.account.group.name }} • {% endif %}{{ transfer_to.account.name }}</div>
               </div>
             </div>
           {% else %}
