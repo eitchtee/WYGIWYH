@@ -20,6 +20,7 @@ from apps.transactions.utils.calculations import (
     calculate_percentage_distribution,
 )
 from apps.transactions.utils.default_ordering import default_order
+from apps.transactions.utils.select_search import transaction_option
 from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -993,7 +994,8 @@ def get_recent_transactions(request, filter_type=None):
                 output_field=IntegerField(),
             )
         )
-        .select_related("account", "category")
+        .select_related("account__currency", "account__group", "category")
+        .prefetch_related("tags", "entities")
         .order_by("date_order", "date", "id")
     )
 
@@ -1013,9 +1015,4 @@ def get_recent_transactions(request, filter_type=None):
             | Q(category__name__icontains=search_term)
         )
 
-    # Prepare data for JSON response
-    data = []
-    for t in queryset:
-        data.append({"text": str(t), "value": str(t.id)})
-
-    return JsonResponse(data, safe=False)
+    return JsonResponse([transaction_option(t) for t in queryset], safe=False)
