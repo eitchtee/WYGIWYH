@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 18:27+0000\n"
+"POT-Creation-Date: 2026-11-08 19:20+0000\n"
 "PO-Revision-Date: 2025-11-01 01:17+0000\n"
 "Last-Translator: mlystopad <mlystopadt@gmail.com>\n"
 "Language-Team: Ukrainian <https://translations.herculino.com/projects/"
@@ -25,32 +25,33 @@ msgid "Group name"
 msgstr "Назва групи"
 
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:76
-#: apps/accounts/forms.py:184 apps/currencies/forms.py:57
-#: apps/currencies/forms.py:91 apps/currencies/forms.py:168
-#: apps/dca/forms.py:46 apps/dca/forms.py:192 apps/import_app/forms.py:32
-#: apps/rules/forms.py:60 apps/rules/forms.py:100 apps/rules/forms.py:385
-#: apps/transactions/forms.py:219 apps/transactions/forms.py:452
-#: apps/transactions/forms.py:571 apps/transactions/forms.py:718
-#: apps/transactions/forms.py:940 apps/transactions/forms.py:987
-#: apps/transactions/forms.py:1015 apps/transactions/forms.py:1046
-#: apps/transactions/forms.py:1208 apps/users/forms.py:264
-#: apps/users/forms.py:422
+#: apps/accounts/forms.py:184 apps/bank_sync/forms.py:78
+#: apps/currencies/forms.py:57 apps/currencies/forms.py:91
+#: apps/currencies/forms.py:168 apps/dca/forms.py:46 apps/dca/forms.py:192
+#: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
+#: apps/rules/forms.py:385 apps/transactions/forms.py:219
+#: apps/transactions/forms.py:452 apps/transactions/forms.py:571
+#: apps/transactions/forms.py:718 apps/transactions/forms.py:940
+#: apps/transactions/forms.py:987 apps/transactions/forms.py:1015
+#: apps/transactions/forms.py:1046 apps/transactions/forms.py:1208
+#: apps/users/forms.py:264 apps/users/forms.py:422
 #: templates/rules/fragments/transaction_rule/dry_run/updated.html:5
 #: templates/rules/fragments/transaction_rule/view.html:128
 msgid "Update"
 msgstr "Оновлення"
 
 #: apps/accounts/forms.py:54 apps/accounts/forms.py:76
-#: apps/accounts/forms.py:190 apps/common/widgets/tom_select.py:15
-#: apps/currencies/forms.py:63 apps/currencies/forms.py:97
-#: apps/currencies/forms.py:174 apps/dca/forms.py:52 apps/dca/forms.py:198
-#: apps/import_app/forms.py:38 apps/rules/forms.py:66 apps/rules/forms.py:106
-#: apps/rules/forms.py:391 apps/transactions/forms.py:206
-#: apps/transactions/forms.py:226 apps/transactions/forms.py:459
-#: apps/transactions/forms.py:946 apps/transactions/forms.py:993
-#: apps/transactions/forms.py:1021 apps/transactions/forms.py:1052
-#: apps/transactions/forms.py:1214 apps/users/forms.py:270
-#: apps/users/forms.py:428 templates/mini_tools/simulator.html:177
+#: apps/accounts/forms.py:190 apps/bank_sync/forms.py:78
+#: apps/common/widgets/tom_select.py:15 apps/currencies/forms.py:63
+#: apps/currencies/forms.py:97 apps/currencies/forms.py:174
+#: apps/dca/forms.py:52 apps/dca/forms.py:198 apps/import_app/forms.py:38
+#: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
+#: apps/transactions/forms.py:206 apps/transactions/forms.py:226
+#: apps/transactions/forms.py:459 apps/transactions/forms.py:946
+#: apps/transactions/forms.py:993 apps/transactions/forms.py:1021
+#: apps/transactions/forms.py:1052 apps/transactions/forms.py:1214
+#: apps/users/forms.py:270 apps/users/forms.py:428
+#: templates/mini_tools/simulator.html:177
 #: templates/mini_tools/unit_price_calculator.html:168
 msgid "Add"
 msgstr "Додати"
@@ -84,7 +85,7 @@ msgid "Category"
 msgstr "Категорія"
 
 #: apps/accounts/forms.py:211 apps/dca/forms.py:95 apps/dca/forms.py:103
-#: apps/export_app/forms.py:43 apps/export_app/forms.py:134
+#: apps/export_app/forms.py:43 apps/export_app/forms.py:142
 #: apps/insights/views.py:50 apps/rules/forms.py:184 apps/rules/forms.py:194
 #: apps/rules/models.py:45 apps/rules/models.py:315
 #: apps/transactions/filters.py:79 apps/transactions/forms.py:70
@@ -138,12 +139,13 @@ msgid "Reference month"
 msgstr ""
 
 #: apps/accounts/models.py:19 apps/accounts/models.py:36
-#: apps/accounts/models.py:84 apps/dca/models.py:13
+#: apps/accounts/models.py:84 apps/bank_sync/models.py:14 apps/dca/models.py:13
 #: apps/import_app/models.py:20 apps/rules/models.py:13
 #: apps/transactions/models.py:249 apps/transactions/models.py:274
 #: apps/transactions/models.py:298 apps/transactions/models.py:1298
 #: apps/users/models.py:577 templates/account_groups/fragments/list.html:22
 #: templates/accounts/fragments/list.html:22
+#: templates/bank_sync/fragments/list.html:20
 #: templates/categories/fragments/table.html:17
 #: templates/currencies/fragments/list.html:23
 #: templates/entities/fragments/table.html:17
@@ -190,7 +192,7 @@ msgid ""
 "%(taken)s%%."
 msgstr ""
 
-#: apps/accounts/models.py:74 apps/export_app/forms.py:131
+#: apps/accounts/models.py:74 apps/export_app/forms.py:139
 #: templates/includes/sidebar.html:190
 #: templates/investment_classes/fragments/list.html:9
 #: templates/investment_classes/pages/index.html:4
@@ -294,13 +296,13 @@ msgstr ""
 "Заархівовані рахунки не відображаються і не враховуються у вашій чистій "
 "вартості"
 
-#: apps/accounts/models.py:182 apps/rules/forms.py:173 apps/rules/forms.py:187
-#: apps/rules/models.py:35 apps/rules/models.py:267
-#: apps/transactions/forms.py:82 apps/transactions/forms.py:350
-#: apps/transactions/forms.py:477 apps/transactions/forms.py:808
-#: apps/transactions/forms.py:1060 apps/transactions/models.py:329
-#: apps/transactions/models.py:727 apps/transactions/models.py:1005
-#: apps/transactions/models.py:1304
+#: apps/accounts/models.py:182 apps/bank_sync/models.py:89
+#: apps/rules/forms.py:173 apps/rules/forms.py:187 apps/rules/models.py:35
+#: apps/rules/models.py:267 apps/transactions/forms.py:82
+#: apps/transactions/forms.py:350 apps/transactions/forms.py:477
+#: apps/transactions/forms.py:808 apps/transactions/forms.py:1060
+#: apps/transactions/models.py:329 apps/transactions/models.py:727
+#: apps/transactions/models.py:1005 apps/transactions/models.py:1304
 #: templates/installment_plans/fragments/table.html:17
 #: templates/quick_transactions/fragments/list.html:14
 #: templates/recurring_transactions/fragments/table.html:19
@@ -309,10 +311,13 @@ msgid "Account"
 msgstr "Рахунок"
 
 #: apps/accounts/models.py:183 apps/export_app/forms.py:19
-#: apps/export_app/forms.py:130 apps/transactions/filters.py:63
+#: apps/export_app/forms.py:138 apps/transactions/filters.py:63
 #: templates/accounts/fragments/list.html:9
-#: templates/accounts/pages/index.html:4 templates/includes/sidebar.html:174
-#: templates/includes/sidebar.html:176
+#: templates/accounts/pages/index.html:4
+#: templates/bank_sync/fragments/accounts.html:5
+#: templates/bank_sync/fragments/list.html:22
+#: templates/bank_sync/fragments/list.html:39
+#: templates/includes/sidebar.html:174 templates/includes/sidebar.html:176
 #: templates/monthly_overview/pages/overview.html:77
 #: templates/transactions/pages/transactions.html:26
 msgid "Accounts"
@@ -418,6 +423,221 @@ msgstr ""
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "Необхідно вказати або 'date', або 'reference_date'."
 
+#: apps/bank_sync/forms.py:88
+#, python-format
+msgid "This service can't sync more often than every %(hours)s hours."
+msgstr ""
+
+#: apps/bank_sync/forms.py:113 apps/bank_sync/models.py:76
+#: apps/currencies/models.py:45 apps/export_app/forms.py:25
+#: apps/export_app/forms.py:140 apps/transactions/filters.py:70
+#: templates/currencies/fragments/list.html:9
+#: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:196
+#: templates/includes/sidebar.html:198
+#: templates/monthly_overview/pages/overview.html:63
+#: templates/transactions/pages/transactions.html:12
+msgid "Currencies"
+msgstr "Валюти"
+
+#: apps/bank_sync/forms.py:114 apps/bank_sync/models.py:77
+msgid "Only sync transactions in these currencies. Empty syncs all."
+msgstr ""
+
+#: apps/bank_sync/forms.py:128
+msgid "Don't sync"
+msgstr ""
+
+#: apps/bank_sync/forms.py:139
+msgid "Required when an account is set."
+msgstr ""
+
+#: apps/bank_sync/models.py:16 apps/currencies/models.py:119
+msgid "Service Type"
+msgstr "Тип сервісу"
+
+#: apps/bank_sync/models.py:18 apps/currencies/models.py:121
+#: apps/transactions/filters.py:27 apps/transactions/models.py:253
+#: apps/transactions/models.py:277 apps/transactions/models.py:301
+#: templates/categories/fragments/list.html:16
+#: templates/entities/fragments/list.html:16
+#: templates/installment_plans/fragments/list.html:16
+#: templates/recurring_transactions/fragments/list.html:16
+#: templates/tags/fragments/list.html:16
+#: templates/users/fragments/api_tokens.html:54
+#: templates/users/fragments/list.html:25
+msgid "Active"
+msgstr "Активний"
+
+#: apps/bank_sync/models.py:20 templates/includes/navbar/user_menu.html:31
+msgid "Settings"
+msgstr ""
+
+#: apps/bank_sync/models.py:24
+#, fuzzy
+#| msgid "Every X hours"
+msgid "Sync every X hours"
+msgstr "Кожні Х годин"
+
+#: apps/bank_sync/models.py:25
+msgid "Most banks only update once a day."
+msgstr ""
+
+#: apps/bank_sync/models.py:29
+#, fuzzy
+#| msgid "Transaction rules"
+msgid "Trigger transaction rules"
+msgstr "Правила транзакцій"
+
+#: apps/bank_sync/models.py:30
+msgid "Run your transaction rules on synced transactions."
+msgstr ""
+
+#: apps/bank_sync/models.py:34
+#, fuzzy
+#| msgid "Create transaction"
+msgid "Match existing transactions"
+msgstr "Створити транзакцію"
+
+#: apps/bank_sync/models.py:36
+msgid ""
+"Instead of creating a synced transaction, link it to one you already added "
+"on the same account, with the same type and amount, dated up to 3 days apart."
+msgstr ""
+
+#: apps/bank_sync/models.py:42
+#, fuzzy
+#| msgid "Last Successful Fetch"
+msgid "Last Successful Sync"
+msgstr "Остання успішна вибірка"
+
+#: apps/bank_sync/models.py:50
+msgid "Bank Sync Service"
+msgstr ""
+
+#: apps/bank_sync/models.py:51 apps/export_app/forms.py:154
+#, fuzzy
+#| msgid "Exchange Rate Services"
+msgid "Bank Sync Services"
+msgstr "Сервіси Курсів Обміну"
+
+#: apps/bank_sync/models.py:94
+msgid "Sync from"
+msgstr ""
+
+#: apps/bank_sync/models.py:95
+#, fuzzy
+#| msgid "Transactions"
+msgid "Transactions before this date are never imported."
+msgstr "Транзакції"
+
+#: apps/bank_sync/providers/lunchflow.py:24 apps/currencies/models.py:126
+msgid "API Key"
+msgstr "Ключ API"
+
+#: apps/bank_sync/providers/lunchflow.py:28
+msgid ""
+"Create a REST API destination on Lunch Flow and give it access to the "
+"accounts you want to sync."
+msgstr ""
+
+#: apps/bank_sync/providers/lunchflow.py:69
+#, python-format
+msgid ""
+"Lunch Flow reports this account as %(status)s, check the connection on Lunch "
+"Flow."
+msgstr ""
+
+#: apps/bank_sync/providers/pluggy.py:28
+msgid "Client ID"
+msgstr ""
+
+#: apps/bank_sync/providers/pluggy.py:32
+msgid "Client Secret"
+msgstr ""
+
+#: apps/bank_sync/providers/pluggy.py:37
+msgid "Item IDs"
+msgstr ""
+
+#: apps/bank_sync/providers/pluggy.py:40
+msgid ""
+"The IDs of your Pluggy connections (items), separated by commas. Meu Pluggy "
+"shows them for each connected institution."
+msgstr ""
+
+#: apps/bank_sync/providers/pluggy.py:80
+#, python-format
+msgid "Pluggy reports this connection as %(status)s, reconnect it on Pluggy."
+msgstr ""
+
+#: apps/bank_sync/providers/simplefin.py:35
+#, python-format
+msgid "SimpleFIN server %(host)s isn't allowed on this instance."
+msgstr ""
+
+#: apps/bank_sync/providers/simplefin.py:56
+#, fuzzy
+#| msgid "Create transaction"
+msgid "Setup Token"
+msgstr "Створити транзакцію"
+
+#: apps/bank_sync/providers/simplefin.py:59
+msgid ""
+"Paste a setup token from your SimpleFIN server. It can only be used once: on "
+"save it's exchanged for an access URL, which is what you'll see here "
+"afterwards."
+msgstr ""
+
+#: apps/bank_sync/providers/simplefin.py:83
+msgid "This isn't a valid SimpleFIN setup token."
+msgstr ""
+
+#: apps/bank_sync/providers/simplefin.py:91
+#, python-format
+msgid ""
+"Couldn't claim the setup token, it may have been used already: %(error)s"
+msgstr ""
+
+#: apps/bank_sync/views.py:57
+#: apps/currencies/views/exchange_rates_services.py:50
+msgid "Service added successfully"
+msgstr "Сервіс успішно додано"
+
+#: apps/bank_sync/views.py:63
+msgid "Add bank sync service"
+msgstr ""
+
+#: apps/bank_sync/views.py:76
+#: apps/currencies/views/exchange_rates_services.py:79
+msgid "Service updated successfully"
+msgstr "Сервіс успішно оновлено"
+
+#: apps/bank_sync/views.py:82
+msgid "Edit bank sync service"
+msgstr ""
+
+#: apps/bank_sync/views.py:92
+#: apps/currencies/views/exchange_rates_services.py:106
+msgid "Service deleted successfully"
+msgstr "Сервіс успішно видалено"
+
+#: apps/bank_sync/views.py:108
+#, fuzzy
+#| msgid "Account updated successfully"
+msgid "Accounts updated successfully"
+msgstr "Рахунок успішно оновлено"
+
+#: apps/bank_sync/views.py:115
+#, python-format
+msgid "Couldn't load the accounts from the provider: %(error)s"
+msgstr ""
+
+#: apps/bank_sync/views.py:134
+#, fuzzy
+#| msgid "Services queued successfully"
+msgid "Sync queued successfully"
+msgstr "Сервіси успішно поставлено в чергу"
+
 #: apps/common/admin.py:5
 msgid "Make public"
 msgstr "Зробити публічним"
@@ -481,6 +701,7 @@ msgstr ""
 "користувачів. Редагувати може лише власник."
 
 #: apps/common/forms.py:76 apps/users/forms.py:191
+#: templates/bank_sync/fragments/accounts.html:34
 #: templates/transactions/fragments/filter_actions.html:5
 msgid "Save"
 msgstr "Зберегти"
@@ -642,16 +863,6 @@ msgstr "Назва валюти"
 msgid "Decimal Places"
 msgstr "Десяткові знаки"
 
-#: apps/currencies/models.py:45 apps/export_app/forms.py:25
-#: apps/export_app/forms.py:132 apps/transactions/filters.py:70
-#: templates/currencies/fragments/list.html:9
-#: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:196
-#: templates/includes/sidebar.html:198
-#: templates/monthly_overview/pages/overview.html:63
-#: templates/transactions/pages/transactions.html:12
-msgid "Currencies"
-msgstr "Валюти"
-
 #: apps/currencies/models.py:54
 msgid "Currency cannot have itself as exchange currency."
 msgstr "Валюта не може бути валютою обміну."
@@ -678,7 +889,7 @@ msgid "Auto"
 msgstr "Авто"
 
 #: apps/currencies/models.py:82 apps/export_app/forms.py:67
-#: apps/export_app/forms.py:144 templates/exchange_rates/fragments/list.html:10
+#: apps/export_app/forms.py:152 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/sidebar.html:204
 msgid "Exchange Rates"
@@ -703,26 +914,6 @@ msgstr "Not on"
 #: apps/currencies/models.py:117
 msgid "Service Name"
 msgstr "Назва сервісу"
-
-#: apps/currencies/models.py:119
-msgid "Service Type"
-msgstr "Тип сервісу"
-
-#: apps/currencies/models.py:121 apps/transactions/filters.py:27
-#: apps/transactions/models.py:253 apps/transactions/models.py:277
-#: apps/transactions/models.py:301 templates/categories/fragments/list.html:16
-#: templates/entities/fragments/list.html:16
-#: templates/installment_plans/fragments/list.html:16
-#: templates/recurring_transactions/fragments/list.html:16
-#: templates/tags/fragments/list.html:16
-#: templates/users/fragments/api_tokens.html:54
-#: templates/users/fragments/list.html:25
-msgid "Active"
-msgstr "Активний"
-
-#: apps/currencies/models.py:126
-msgid "API Key"
-msgstr "Ключ API"
 
 #: apps/currencies/models.py:127
 msgid "API key for the service (if required)"
@@ -851,18 +1042,6 @@ msgstr "Курс обміну успішно оновлено"
 msgid "Exchange rate deleted successfully"
 msgstr "Курс обміну успішно видалено"
 
-#: apps/currencies/views/exchange_rates_services.py:50
-msgid "Service added successfully"
-msgstr "Сервіс успішно додано"
-
-#: apps/currencies/views/exchange_rates_services.py:79
-msgid "Service updated successfully"
-msgstr "Сервіс успішно оновлено"
-
-#: apps/currencies/views/exchange_rates_services.py:106
-msgid "Service deleted successfully"
-msgstr "Сервіс успішно видалено"
-
 #: apps/currencies/views/exchange_rates_services.py:122
 msgid "Services queued successfully"
 msgstr "Сервіси успішно поставлено в чергу"
@@ -930,7 +1109,7 @@ msgstr "Примітки"
 msgid "DCA Strategy"
 msgstr ""
 
-#: apps/dca/models.py:35 apps/export_app/forms.py:152
+#: apps/dca/models.py:35 apps/export_app/forms.py:166
 msgid "DCA Strategies"
 msgstr ""
 
@@ -950,7 +1129,7 @@ msgstr "Отримана Сума"
 msgid "DCA Entry"
 msgstr ""
 
-#: apps/dca/models.py:187 apps/export_app/forms.py:153
+#: apps/dca/models.py:187 apps/export_app/forms.py:167
 msgid "DCA Entries"
 msgstr ""
 
@@ -978,13 +1157,13 @@ msgstr "Запис успішно оновлено"
 msgid "Entry deleted successfully"
 msgstr "Запис успішно видалено"
 
-#: apps/export_app/forms.py:13 apps/export_app/forms.py:129
-#: templates/includes/sidebar.html:241 templates/users/fragments/list.html:10
+#: apps/export_app/forms.py:13 apps/export_app/forms.py:137
+#: templates/includes/sidebar.html:247 templates/users/fragments/list.html:10
 #: templates/users/pages/index.html:4
 msgid "Users"
 msgstr "Користувачі"
 
-#: apps/export_app/forms.py:31 apps/export_app/forms.py:136
+#: apps/export_app/forms.py:31 apps/export_app/forms.py:144
 #: apps/transactions/models.py:422 templates/includes/sidebar.html:81
 #: templates/includes/sidebar.html:154
 #: templates/recurring_transactions/fragments/list_transactions.html:5
@@ -993,7 +1172,7 @@ msgstr "Користувачі"
 msgid "Transactions"
 msgstr "Транзакції"
 
-#: apps/export_app/forms.py:37 apps/export_app/forms.py:133
+#: apps/export_app/forms.py:37 apps/export_app/forms.py:141
 #: apps/insights/views.py:43 apps/transactions/filters.py:74
 #: templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:156
@@ -1004,7 +1183,7 @@ msgstr "Транзакції"
 msgid "Categories"
 msgstr "Категорії"
 
-#: apps/export_app/forms.py:49 apps/export_app/forms.py:135
+#: apps/export_app/forms.py:49 apps/export_app/forms.py:143
 #: apps/insights/views.py:57 apps/rules/forms.py:185 apps/rules/forms.py:195
 #: apps/rules/models.py:46 apps/rules/models.py:307
 #: apps/transactions/filters.py:84 apps/transactions/forms.py:78
@@ -1021,87 +1200,102 @@ msgstr "Категорії"
 msgid "Entities"
 msgstr ""
 
-#: apps/export_app/forms.py:55 apps/export_app/forms.py:139
+#: apps/export_app/forms.py:55 apps/export_app/forms.py:147
 #: apps/transactions/models.py:1070 templates/includes/sidebar.html:110
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
 msgstr "Регулярні транзакції"
 
-#: apps/export_app/forms.py:61 apps/export_app/forms.py:137
+#: apps/export_app/forms.py:61 apps/export_app/forms.py:145
 #: apps/transactions/models.py:790 templates/includes/sidebar.html:104
 #: templates/installment_plans/fragments/list.html:9
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
 msgstr "Плани Розстрочки"
 
-#: apps/export_app/forms.py:73 apps/export_app/forms.py:142
+#: apps/export_app/forms.py:73 apps/export_app/forms.py:150
 #: templates/exchange_rates_services/fragments/list.html:10
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/sidebar.html:232
 msgid "Automatic Exchange Rates"
 msgstr "Автоматичні Курси Обміну"
 
-#: apps/export_app/forms.py:79 templates/includes/sidebar.html:212
+#: apps/export_app/forms.py:79 templates/bank_sync/fragments/list.html:8
+#: templates/bank_sync/pages/index.html:4 templates/includes/sidebar.html:238
+msgid "Bank Sync"
+msgstr ""
+
+#: apps/export_app/forms.py:80
+msgid "Includes the providers' API keys"
+msgstr ""
+
+#: apps/export_app/forms.py:86 templates/includes/sidebar.html:212
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Правила"
 
-#: apps/export_app/forms.py:85 templates/cotton/transaction/item.html:66
+#: apps/export_app/forms.py:92 templates/cotton/transaction/item.html:66
 msgid "DCA"
 msgstr ""
 
-#: apps/export_app/forms.py:91 apps/export_app/forms.py:154
+#: apps/export_app/forms.py:98 apps/export_app/forms.py:168
 #: templates/import_app/fragments/profiles/list.html:21
 #: templates/import_app/pages/profiles_index.html:4
 msgid "Import Profiles"
 msgstr "Імпортувати Профілі"
 
-#: apps/export_app/forms.py:118 templates/export_app/fragments/export.html:5
+#: apps/export_app/forms.py:126 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:13
 msgid "Export"
 msgstr "Експортувати"
 
-#: apps/export_app/forms.py:126
+#: apps/export_app/forms.py:134
 msgid "Import a ZIP file exported from WYGIWYH"
 msgstr "Імпортувати ZIP-файл, експортований із WYGIWYH"
 
-#: apps/export_app/forms.py:127
+#: apps/export_app/forms.py:135
 msgid "ZIP File"
 msgstr "ZIP-Файл"
 
-#: apps/export_app/forms.py:145 apps/rules/models.py:27
+#: apps/export_app/forms.py:157
+#, fuzzy
+#| msgid "Accounts"
+msgid "Bank Sync Accounts"
+msgstr "Рахунки"
+
+#: apps/export_app/forms.py:159 apps/rules/models.py:27
 msgid "Transaction rules"
 msgstr "Правила транзакцій"
 
-#: apps/export_app/forms.py:147 apps/rules/models.py:68
+#: apps/export_app/forms.py:161 apps/rules/models.py:68
 msgid "Edit transaction action"
 msgstr ""
 
-#: apps/export_app/forms.py:150 apps/rules/models.py:327
+#: apps/export_app/forms.py:164 apps/rules/models.py:327
 msgid "Update or create transaction actions"
 msgstr ""
 
-#: apps/export_app/forms.py:183 templates/cotton/transaction/item.html:341
+#: apps/export_app/forms.py:199 templates/cotton/transaction/item.html:341
 #: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
 msgid "Restore"
 msgstr "Відновити"
 
-#: apps/export_app/forms.py:193
+#: apps/export_app/forms.py:209
 msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr "Будь ласка, завантажте або ZIP-файл, або принаймні один CSV-файл"
 
-#: apps/export_app/views.py:183
+#: apps/export_app/views.py:190
 msgid "You have to select at least one export"
 msgstr "Ви повинні обрати принаймні один експорт"
 
-#: apps/export_app/views.py:203
+#: apps/export_app/views.py:210
 msgid "Data restored successfully"
 msgstr "Дані успішно відновлено"
 
-#: apps/export_app/views.py:215
+#: apps/export_app/views.py:222
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
@@ -2475,6 +2669,7 @@ msgstr ""
 
 #: templates/account_groups/fragments/list.html:29
 #: templates/accounts/fragments/list.html:34
+#: templates/bank_sync/fragments/list.html:30
 #: templates/categories/fragments/table.html:25
 #: templates/currencies/fragments/list.html:31
 #: templates/dca/fragments/strategy/details.html:60
@@ -2495,6 +2690,7 @@ msgstr ""
 
 #: templates/account_groups/fragments/list.html:32
 #: templates/accounts/fragments/list.html:37
+#: templates/bank_sync/fragments/list.html:33
 #: templates/categories/fragments/table.html:29
 #: templates/cotton/transaction/item.html:209
 #: templates/cotton/ui/transactions_action_bar.html:54
@@ -2544,6 +2740,7 @@ msgstr ""
 
 #: templates/account_groups/fragments/list.html:54
 #: templates/accounts/fragments/list.html:71
+#: templates/bank_sync/fragments/list.html:50
 #: templates/categories/fragments/table.html:51
 #: templates/cotton/transaction/item.html:221
 #: templates/cotton/transaction/item.html:347
@@ -2577,6 +2774,7 @@ msgstr ""
 
 #: templates/account_groups/fragments/list.html:58
 #: templates/accounts/fragments/list.html:75
+#: templates/bank_sync/fragments/list.html:54
 #: templates/categories/fragments/table.html:56
 #: templates/cotton/transaction/item.html:223
 #: templates/cotton/transaction/item.html:353
@@ -2630,6 +2828,7 @@ msgstr ""
 
 #: templates/account_groups/fragments/list.html:60
 #: templates/accounts/fragments/list.html:77
+#: templates/bank_sync/fragments/list.html:56
 #: templates/categories/fragments/table.html:58
 #: templates/cotton/transaction/item.html:225
 #: templates/cotton/transaction/item.html:355
@@ -2710,6 +2909,34 @@ msgstr ""
 
 #: templates/accounts/fragments/list.html:93
 msgid "No accounts"
+msgstr ""
+
+#: templates/bank_sync/fragments/accounts.html:31
+#, fuzzy
+#| msgid "Transactions"
+msgid "No accounts found on this service"
+msgstr "Транзакції"
+
+#: templates/bank_sync/fragments/list.html:21
+#: templates/exchange_rates_services/fragments/list.html:29
+msgid "Service"
+msgstr ""
+
+#: templates/bank_sync/fragments/list.html:23
+msgid "Last sync"
+msgstr ""
+
+#: templates/bank_sync/fragments/list.html:45
+msgid "Sync now"
+msgstr ""
+
+#: templates/bank_sync/fragments/list.html:55
+msgid "Synced transactions are kept."
+msgstr ""
+
+#: templates/bank_sync/fragments/list.html:80
+#: templates/exchange_rates_services/fragments/list.html:77
+msgid "No services configured"
 msgstr ""
 
 #: templates/calendar_view/fragments/list.html:7
@@ -3146,10 +3373,6 @@ msgstr ""
 msgid "Fetch all"
 msgstr ""
 
-#: templates/exchange_rates_services/fragments/list.html:29
-msgid "Service"
-msgstr ""
-
 #: templates/exchange_rates_services/fragments/list.html:30
 msgid "Targeting"
 msgstr ""
@@ -3172,10 +3395,6 @@ msgstr ""
 
 #: templates/exchange_rates_services/fragments/list.html:69
 msgid "accounts"
-msgstr ""
-
-#: templates/exchange_rates_services/fragments/list.html:77
-msgid "No services configured"
 msgstr ""
 
 #: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:225
@@ -3273,10 +3492,6 @@ msgstr ""
 
 #: templates/includes/navbar/user_menu.html:4
 msgid "Toggle theme"
-msgstr ""
-
-#: templates/includes/navbar/user_menu.html:31
-msgid "Settings"
 msgstr ""
 
 #: templates/includes/navbar/user_menu.html:36
@@ -3389,23 +3604,23 @@ msgstr ""
 msgid "Automation"
 msgstr ""
 
-#: templates/includes/sidebar.html:239
+#: templates/includes/sidebar.html:245
 msgid "Admin"
 msgstr ""
 
-#: templates/includes/sidebar.html:247
+#: templates/includes/sidebar.html:253
 msgid "Django Admin"
 msgstr ""
 
-#: templates/includes/sidebar.html:248
+#: templates/includes/sidebar.html:254
 msgid "Only use this if you know what you're doing"
 msgstr ""
 
-#: templates/includes/sidebar.html:263
+#: templates/includes/sidebar.html:269
 msgid "is available"
 msgstr ""
 
-#: templates/includes/sidebar.html:271
+#: templates/includes/sidebar.html:277
 msgid "Calculator"
 msgstr ""
 
