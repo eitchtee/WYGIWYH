@@ -11,7 +11,6 @@ services:
       context: .
       dockerfile: ./docker/dev/django/Dockerfile
     image: wygiwyh_dev_server
-    container_name: wygiwyh_dev_server
     volumes:
       - ./app/:/usr/src/app/:z
       - ./frontend/:/usr/src/frontend:z
@@ -21,6 +20,9 @@ services:
       - "${OUTBOUND_PORT:-8000}:${INTERNAL_PORT:-8000}"
     env_file:
       - .env
+    environment:
+      # The browser loads assets straight from vite, so Django must point at the published port
+      - DJANGO_VITE_DEV_SERVER_PORT=${WEBPACK_OUTBOUND_PORT:-5173}
     depends_on:
       - db
       - vite
@@ -31,21 +33,20 @@ services:
       context: .
       dockerfile: ./docker/dev/vite/Dockerfile
     image: wygiwyh_dev_node
-    container_name: wygiwyh_dev_node
     volumes:
       - ./frontend/:/usr/src/frontend
       - ./app/:/usr/src/app/
       # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
       - wygiwyh_node_modules:/usr/src/frontend/node_modules
     ports:
-      - '${WEBPACK_OUTBOUND_PORT}:5173'
+      - '${WEBPACK_OUTBOUND_PORT:-5173}:${WEBPACK_OUTBOUND_PORT:-5173}'
     environment:
       - WATCHPACK_POLLING=true
+      - VITE_DEV_SERVER_PORT=${WEBPACK_OUTBOUND_PORT:-5173}
     restart: unless-stopped
 
   db:
     image: postgres:15
-    container_name: ${SQL_HOST}
     volumes:
       - wygiwyh_dev_postgres_data:/var/lib/postgresql/data/
     environment:
@@ -53,5 +54,10 @@ services:
       - POSTGRES_PASSWORD=${SQL_PASSWORD}
       - POSTGRES_DB=${SQL_DATABASE}
     ports:
-      - '${SQL_PORT}:5432'
+      - '${SQL_OUTBOUND_PORT:-${SQL_PORT:-5432}}:5432'
+    networks:
+      default:
+        # Keeps .env files that point SQL_HOST at the old fixed container name working
+        aliases:
+          - ${SQL_HOST:-db}
     restart: unless-stopped
