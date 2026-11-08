@@ -12,7 +12,7 @@ from apps.dca.models import DCAEntry, DCAStrategy
 from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
 from crispy_forms.bootstrap import AccordionGroup, FormActions, Accordion
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Column, Layout, Row
+from crispy_forms.layout import HTML, Column, Div, Layout, Row
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -157,34 +157,21 @@ class DCAEntryForm(forms.ModelForm):
                 AccordionGroup(
                     _("Create transaction"),
                     Switch("create_transaction"),
-                    Row(
-                        Column(
-                            Row(
-                                Column(
-                                    "from_account",
-                                ),
-                            ),
-                            Row(
-                                Column("from_category"),
-                                Column("from_tags"),
-                            ),
+                    Div(
+                        "from_account",
+                        Row(
+                            Column("from_category"),
+                            Column("from_tags"),
                         ),
-                        css_class="p-1 mx-1 my-3 border rounded-3",
+                        css_class="bg-base-100 rounded-box p-4 border-base-content/60 border my-3",
                     ),
-                    Row(
-                        Column(
-                            Row(
-                                Column(
-                                    "to_account",
-                                    css_class="form-group",
-                                ),
-                            ),
-                            Row(
-                                Column("to_category"),
-                                Column("to_tags"),
-                            ),
+                    Div(
+                        "to_account",
+                        Row(
+                            Column("to_category"),
+                            Column("to_tags"),
                         ),
-                        css_class="p-1 mx-1 my-3 border rounded-3",
+                        css_class="bg-base-100 rounded-box p-4 border-base-content/60 border",
                     ),
                     active=False,
                 ),
@@ -289,6 +276,14 @@ class DCAEntryForm(forms.ModelForm):
                 raise forms.ValidationError(
                     _("From and To accounts must be different.")
                 )
+        else:
+            # Both sides of a purchase are linked as a transfer on save
+            expense = cleaned_data.get("expense_transaction")
+            income = cleaned_data.get("income_transaction")
+            if expense and income:
+                error = expense.transfer_link_error(income)
+                if error:
+                    self.add_error("income_transaction", error)
 
         return cleaned_data
 
@@ -334,6 +329,8 @@ class DCAEntryForm(forms.ModelForm):
             )
             to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
 
+            from_transaction.link_transfer(to_transaction)
+
             instance.expense_transaction = from_transaction
             instance.income_transaction = to_transaction
         else:
@@ -343,6 +340,8 @@ class DCAEntryForm(forms.ModelForm):
             if instance.income_transaction:
                 instance.income_transaction.amount = instance.amount_received
                 instance.income_transaction.save()
+            if instance.expense_transaction and instance.income_transaction:
+                instance.expense_transaction.link_transfer(instance.income_transaction)
 
         instance.strategy = self.strategy
         instance.save()

@@ -1,0 +1,78 @@
+{% load i18n %}
+<c-ui.fab-single-action
+    url="{% url 'investment_class_add' %}"
+    hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container">
+  <div class="text-3xl font-bold font-mono w-full mb-3">
+    {% spaceless %}
+      <div>{% translate 'Asset classes' %}</div>
+    {% endspaceless %}
+  </div>
+
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      {% if classes %}
+        {% if total_target and total_target != 100 %}
+          <div role="alert" class="alert alert-warning alert-soft">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>{% blocktranslate with total=total_target|floatformat:"-2" %}Targets add up to {{ total }}%. Set them to 100% to see the rebalance.{% endblocktranslate %}</span>
+          </div>
+        {% endif %}
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <thead>
+            <tr>
+              <th scope="col" class="table-col-auto"></th>
+              <th scope="col">{% translate 'Name' %}</th>
+              <th scope="col" class="text-end">{% translate 'Target' %}</th>
+              <th scope="col" class="text-end">{% translate 'Investments' %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cls in classes %}
+              <tr>
+                <td class="table-col-auto">
+                  <div class="join" role="group" aria-label="{% translate 'Actions' %}">
+                    <a class="btn btn-secondary btn-sm join-item"
+                       role="button"
+                       data-tippy-content="{% translate "Edit" %}"
+                       hx-get="{% url 'investment_class_edit' pk=cls.id %}"
+                       hx-target="#generic-offcanvas">
+                      <i class="fa-solid fa-pencil fa-fw"></i></a>
+                    <a class="btn btn-error btn-sm join-item"
+                       role="button"
+                       data-tippy-content="{% translate "Delete" %}"
+                       hx-delete="{% url 'investment_class_delete' pk=cls.id %}"
+                       hx-trigger='confirmed'
+                       data-bypass-on-ctrl="true"
+                       data-title="{% translate "Are you sure?" %}"
+                       data-text="{% translate "Its investments will be left without an asset class." %}"
+                       data-confirm-text="{% translate "Yes, delete it!" %}"
+                       _="install prompt_swal"><i class="fa-solid fa-trash fa-fw"></i></a>
+                  </div>
+                </td>
+                <td>{{ cls.name }}</td>
+                <td class="text-end tabular-nums">{% if cls.target is not None %}{{ cls.target|floatformat:"-2" }}%{% else %}<span class="text-base-content/50">-</span>{% endif %}</td>
+                <td class="text-end tabular-nums">{{ cls.accounts.count }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+            {% if total_target %}
+              <tfoot>
+              <tr>
+                <td></td>
+                <td>{% translate 'Total' %}</td>
+                <td class="text-end tabular-nums">{{ total_target|floatformat:"-2" }}%</td>
+                <td></td>
+              </tr>
+              </tfoot>
+            {% endif %}
+          </table>
+        </div>
+      {% else %}
+        <c-msg.empty title="{% translate "No asset classes" %}" remove-padding></c-msg.empty>
+      {% endif %}
+    </div>
+  </div>
+</div>

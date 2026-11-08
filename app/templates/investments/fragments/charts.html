@@ -1,0 +1,149 @@
+{% load i18n %}
+{% for chart in charts %}
+  {% with c=chart.currency %}
+  {% if charts|length > 1 %}<div class="font-semibold mb-2 {% if not forloop.first %}mt-6{% endif %}">{{ c.name }}</div>{% endif %}
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3" data-investment-charts="{{ chart.data_id }}">
+    {{ chart.data|json_script:chart.data_id }}
+
+    <div class="card bg-base-100 card-border shadow">
+      <div class="card-body p-5">
+        <div class="font-semibold">{% translate 'By asset class' %}</div>
+        {% include 'investments/fragments/_allocation.html' with shares=chart.classes kind='classes' %}
+      </div>
+    </div>
+
+    <div class="card bg-base-100 card-border shadow">
+      <div class="card-body p-5">
+        <div class="font-semibold">{% translate 'By currency' %}</div>
+        {% include 'investments/fragments/_allocation.html' with shares=chart.currencies kind='currencies' %}
+      </div>
+    </div>
+
+    <div class="card bg-base-100 card-border shadow lg:col-span-2">
+      <div class="card-body p-5">
+        <div class="font-semibold">{% translate 'Value and invested' %}</div>
+        <div class="h-64"><canvas data-chart="history"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 card-border shadow lg:col-span-2">
+      <div class="card-body p-5">
+        <div class="font-semibold">{% translate 'Return by investment' %}</div>
+        <div style="height: {{ chart.returns_height }}px"><canvas data-chart="returns"></canvas></div>
+      </div>
+    </div>
+  </div>
+  {% endwith %}
+{% empty %}
+  <c-msg.empty title="{% translate 'Nothing to chart yet' %}"></c-msg.empty>
+{% endfor %}
+
+<script>
+  document.querySelectorAll('[data-investment-charts]').forEach((root) => {
+    const data = JSON.parse(document.getElementById(root.dataset.investmentCharts).textContent);
+    const ink = chartInk(75);
+    const muted = chartInk(50);
+    const grid = chartInk(12);
+    const fmt = chartMoney(data.currency);
+    const tick = (v) => fmt(v, 0);
+    // A few cents below zero shouldn't stretch the axis down a whole step
+    const floor = (values) => (Math.min(...values) > -Math.max(...values) * 0.01 ? 0 : undefined);
+    const canvas = (name) => root.querySelector(`[data-chart="${name}"]`);
+
+    for (const kind of ['classes', 'currencies']) {
+      const el = canvas(kind);
+      if (!el) continue;
+      const total = data[kind].reduce((sum, row) => sum + row[1], 0);
+      new Chart(el, {
+        type: 'doughnut',
+        data: {
+          labels: data[kind].map((row) => row[0]),
+          datasets: [{
+            data: data[kind].map((row) => row[1]),
+            backgroundColor: data[kind].map((row) => row[2]),
+            borderColor: getComputedStyle(root).getPropertyValue('--color-base-100') || '#fff',
+            borderWidth: 2,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '65%',
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: (ctx) => ` ${fmt(ctx.raw)} · ${(ctx.raw / total * 100).toFixed(1)}%` } },
+          },
+        },
+      });
+    }
+
+    new Chart(canvas('history'), {
+      type: 'line',
+      data: {
+        labels: data.history.labels,
+        datasets: [
+          {
+            label: '{% translate "Value" %}',
+            data: data.history.value,
+            borderColor: '#2a78d6',
+            backgroundColor: 'rgba(42, 120, 214, 0.12)',
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+          },
+          {
+            label: '{% translate "Invested" %}',
+            data: data.history.invested,
+            borderColor: muted,
+            stepped: true,
+            borderWidth: 1.5,
+            borderDash: [4, 4],
+            pointRadius: 0,
+            pointHoverRadius: 3,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: ink, maxTicksLimit: 6, maxRotation: 0 } },
+          y: { beginAtZero: true, min: floor(data.history.value), border: { display: false }, grid: { color: grid }, ticks: { color: ink, maxTicksLimit: 5, callback: tick } },
+        },
+        plugins: {
+          legend: { align: 'end', labels: { color: ink, boxWidth: 12, boxHeight: 2 } },
+          tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${fmt(ctx.raw)}` } },
+        },
+      },
+    });
+
+    new Chart(canvas('returns'), {
+      type: 'bar',
+      data: {
+        labels: data.returns.map((row) => row[0]),
+        datasets: [{
+          data: data.returns.map((row) => row[1]),
+          backgroundColor: data.returns.map((row) => (row[1] < 0 ? '#d03b3b' : '#0ca30c')),
+          borderRadius: 4,
+          borderSkipped: false,
+          barThickness: 14,
+        }],
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { border: { display: false }, grid: { color: grid }, ticks: { color: ink, maxTicksLimit: 5, callback: tick } },
+          y: { grid: { display: false }, border: { display: false }, ticks: { color: ink } },
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: (ctx) => ` ${fmt(ctx.raw)}` } },
+        },
+      },
+    });
+  });
+</script>

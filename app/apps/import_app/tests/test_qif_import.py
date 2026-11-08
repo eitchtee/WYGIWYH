@@ -1,7 +1,7 @@
 from decimal import Decimal
 import os
 import shutil
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.contrib.auth import get_user_model
 from apps.accounts.models import Account, AccountGroup
 from apps.currencies.models import Currency
@@ -15,10 +15,11 @@ from apps.transactions.models import (
 
 class QIFImportTests(TestCase):
     def setUp(self):
-        # Patch TEMP_DIR for testing
-        self.original_temp_dir = ImportService.TEMP_DIR
+        # Point the import temp folder somewhere disposable for testing
         self.test_dir = os.path.abspath("temp_test_import")
-        ImportService.TEMP_DIR = self.test_dir
+        temp_root_override = override_settings(IMPORT_TEMP_ROOT=self.test_dir)
+        temp_root_override.enable()
+        self.addCleanup(temp_root_override.disable)
         os.makedirs(self.test_dir, exist_ok=True)
 
         # Create user and set context
@@ -41,7 +42,6 @@ class QIFImportTests(TestCase):
 
     def tearDown(self):
         delete_current_user()
-        ImportService.TEMP_DIR = self.original_temp_dir
         if os.path.exists(self.test_dir):
             shutil.rmtree(self.test_dir)
 

@@ -1,0 +1,62 @@
+{% load i18n %}
+{% if not targeted %}
+  <c-msg.empty
+      title="{% translate 'No allocation targets' %}"
+      subtitle="{% translate 'Set a target for your asset classes to see what to buy and sell' %}"></c-msg.empty>
+  <div class="text-center"><a class="btn btn-sm" href="{% url 'investment_classes_index' %}">{% translate 'Asset classes' %}</a></div>
+{% elif total_target != 100 %}
+  <div role="alert" class="alert alert-warning alert-soft">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <span>{% blocktranslate with total=total_target|floatformat:"-2" %}Targets add up to {{ total }}%. Set them to 100% to see the rebalance.{% endblocktranslate %}</span>
+    <a class="btn btn-sm" href="{% url 'investment_classes_index' %}">{% translate 'Asset classes' %}</a>
+  </div>
+{% else %}
+  {% for plan in plans %}
+    {% with c=plan.currency %}
+    <div class="card bg-base-100 card-border shadow mb-4">
+      {% if plans|length > 1 %}<div class="font-semibold px-5 pt-4">{{ c.name }}</div>{% endif %}
+      <div class="overflow-x-auto">
+        <table class="table">
+          <thead>
+          <tr class="text-xs text-base-content/50">
+            <th class="font-normal">{% translate 'Asset class' %}</th>
+            <th class="font-normal text-end">{% translate 'Value' %}</th>
+            <th class="font-normal text-end">{% translate 'Now' %}</th>
+            <th class="font-normal text-end">{% translate 'Target' %}</th>
+            <th class="font-normal text-end">{% translate 'To reach the target' %}</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for row in plan.rows %}
+            <tr>
+              <td class="font-medium">
+                {{ row.class.name }}
+                {% if row.off %}<i class="fa-solid fa-triangle-exclamation text-warning text-xs" data-tippy-content="{% translate 'Off target' %}"></i>{% endif %}
+              </td>
+              <td class="text-end tabular-nums whitespace-nowrap"><c-amount.display :amount="row.value" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+              <td class="text-end tabular-nums">{{ row.share|floatformat:1 }}%</td>
+              <td class="text-end tabular-nums text-base-content/70">{{ row.target|floatformat:"-2" }}%</td>
+              <td class="text-end tabular-nums whitespace-nowrap">
+                {% if row.move > 0 %}
+                  <span class="text-success">{% translate 'Buy' %}</span> <c-amount.display :amount="row.size" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+                {% elif row.move < 0 %}
+                  <span class="text-error">{% translate 'Sell' %}</span> <c-amount.display :amount="row.size" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+                {% else %}
+                  <span class="text-base-content/50">-</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if plan.left_out %}
+        <div class="text-xs text-base-content/60 px-5 pb-4">
+          {% translate 'Left out: investments without an asset class or a target' %} ·
+          <c-amount.display :amount="plan.left_out" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+        </div>
+      {% endif %}
+    </div>
+    {% endwith %}
+  {% endfor %}
+{% endif %}

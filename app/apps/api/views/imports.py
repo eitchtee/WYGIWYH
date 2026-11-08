@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view, inline_serializer
@@ -130,7 +131,7 @@ class ImportViewSet(viewsets.ViewSet):
         uploaded_file = serializer.validated_data["file"]
 
         # Save file to temp location
-        fs = FileSystemStorage(location="/usr/src/app/temp")
+        fs = FileSystemStorage(location=settings.IMPORT_TEMP_ROOT)
         filename = fs.save(uploaded_file.name, uploaded_file)
         file_path = fs.path(filename)
 

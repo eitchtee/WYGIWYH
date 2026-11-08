@@ -20,11 +20,15 @@ from apps.transactions.utils.calculations import (
     calculate_percentage_distribution,
 )
 from apps.transactions.utils.default_ordering import default_order
+from apps.transactions.utils.select_search import (
+    search_transactions,
+    transaction_option,
+)
 from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Case, IntegerField, Q, Value, When
+from django.db.models import Case, F, IntegerField, Q, Value, When
 from django.http import FileResponse, Http404, HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
@@ -119,6 +123,15 @@ def transaction_attachment_delete(request, attachment_id):
     return response
 
 
+def _prefill(request, *fields, entities=False):
+    """Form initial values passed as query parameters; only the named ones, and
+    only when present, so they never override other defaults."""
+    initial = {name: request.GET[name] for name in fields if request.GET.get(name)}
+    if entities and request.GET.getlist("entities"):
+        initial["entities"] = request.GET.getlist("entities")  # entity names
+    return initial
+
+
 @only_htmx
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -204,6 +217,8 @@ def transaction_add(request):
             initial={
                 "date": expected_date,
                 "type": transaction_type,
+                # Optional prefill, e.g. a dividend from the investments page
+                **_prefill(request, "account", entities=True),
             },
         )
 
@@ -541,6 +556,8 @@ def transactions_transfer(request):
             initial={
                 "reference_date": expected_date,
                 "date": expected_date,
+                # Optional prefill, e.g. buy/sell from the investments page
+                **_prefill(request, "from_account", "to_account"),
             },
         )
 
@@ -971,51 +988,41 @@ def transactions_trash_can_list(request):
 @login_required
 @require_http_methods(["GET"])
 def get_recent_transactions(request, filter_type=None):
-    """Return the 100 most recent non-deleted transactions with optional search."""
-    # Get search term from query params
+    """Return up to 100 non-deleted transactions, ordered like the monthly view, with optional search."""
     search_term = request.GET.get("q", "").strip()
 
     today = timezone.localdate(timezone.now())
     yesterday = today - timezone.timedelta(days=1)
     tomorrow = today + timezone.timedelta(days=1)
 
-    # Base queryset with selected fields
+    queryset = Transaction.objects.filter(deleted=False)
+
+    if filter_type == "expenses":
+        queryset = queryset.filter(type=Transaction.Type.EXPENSE)
+    elif filter_type == "income":
+        queryset = queryset.filter(type=Transaction.Type.INCOME)
+
+    if search_term:
+        queryset = search_transactions(queryset, search_term)
+
+    # Today, tomorrow, yesterday, then upcoming (soonest first), then past (newest first)
     queryset = (
-        Transaction.objects.filter(deleted=False)
-        .annotate(
+        queryset.annotate(
             date_order=Case(
                 When(date=today, then=Value(0)),
                 When(date=tomorrow, then=Value(1)),
                 When(date=yesterday, then=Value(2)),
                 When(date__gt=tomorrow, then=Value(3)),
-                When(date__lt=yesterday, then=Value(4)),
-                default=Value(5),
+                default=Value(4),
                 output_field=IntegerField(),
-            )
+            ),
+            upcoming_date=Case(When(date__gt=tomorrow, then=F("date"))),
         )
-        .select_related("account", "category")
-        .order_by("date_order", "date", "id")
+        .select_related("account__currency", "account__group", "category")
+        .prefetch_related("tags", "entities")
+        .order_by(
+            "date_order", F("upcoming_date").asc(nulls_last=True), "-date", "-id"
+        )[:100]
     )
 
-    if filter_type:
-        if filter_type == "expenses":
-            queryset = queryset.filter(type=Transaction.Type.EXPENSE)
-        elif filter_type == "income":
-            queryset = queryset.filter(type=Transaction.Type.INCOME)
-
-    # Apply search if provided
-    if search_term:
-        queryset = queryset.filter(
-            Q(description__icontains=search_term)
-            | Q(notes__icontains=search_term)
-            | Q(internal_note__icontains=search_term)
-            | Q(tags__name__icontains=search_term)
-            | Q(category__name__icontains=search_term)
-        )
-
-    # Prepare data for JSON response
-    data = []
-    for t in queryset:
-        data.append({"text": str(t), "value": str(t.id)})
-
-    return JsonResponse(data, safe=False)
+    return JsonResponse([transaction_option(t) for t in queryset], safe=False)

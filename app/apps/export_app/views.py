@@ -14,7 +14,10 @@ from tablib import Dataset
 
 from apps.common.decorators.htmx import only_htmx
 from apps.export_app.forms import ExportForm, RestoreForm
-from apps.export_app.resources.accounts import AccountResource
+from apps.export_app.resources.accounts import (
+    AccountResource,
+    InvestmentClassResource,
+)
 from apps.export_app.resources.bank_sync import (
     BankSyncAccountResource,
     BankSyncServiceResource,
@@ -95,6 +98,9 @@ def export_form(request):
                 exports.append((UserResource().export(), "users"))
             if export_accounts:
                 exports.append((AccountResource().export(), "accounts"))
+                exports.append(
+                    (InvestmentClassResource().export(), "investment_classes")
+                )
             if export_currencies:
                 exports.append((CurrencyResource().export(), "currencies"))
             if export_transactions:
@@ -233,10 +239,13 @@ def process_imports(request, cleaned_data):
             "currencies",
             CurrencyResource,
         ),  # We do a double pass because exchange_currency may not exist when currency is initially created
+        ("investment_classes", InvestmentClassResource),
         ("accounts", AccountResource),
         ("transactions_categories", TransactionCategoyResource),
         ("transactions_tags", TransactionTagResource),
         ("transactions_entities", TransactionEntityResource),
+        # Again: income categories, tags and entities don't exist on the first pass
+        ("accounts", AccountResource),
         ("automatic_exchange_rates", ExchangeRateServiceResource),
         ("exchange_rates", ExchangeRateResource),
         ("installment_plans", InstallmentPlanResource),

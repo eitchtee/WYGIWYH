@@ -1,17 +1,17 @@
 import json
 from pathlib import Path
 
+from django.conf import settings
+
 from apps.import_app.models import ImportProfile
 
 
 class PresetService:
-    PRESET_PATH = "/usr/src/app/import_presets"
-
     @classmethod
     def get_all_presets(cls):
         presets = []
 
-        for folder in Path(cls.PRESET_PATH).iterdir():
+        for folder in settings.IMPORT_PRESETS_ROOT.iterdir():
             if folder.is_dir():
                 manifest_path = folder / "manifest.json"
                 config_path = folder / "config.yml"

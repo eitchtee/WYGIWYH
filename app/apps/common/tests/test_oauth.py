@@ -224,6 +224,18 @@ class DynamicClientRegistrationInitialAccessTokenTests(TestCase):
         self.assertEqual(response.json()["error"], "invalid_token")
         self.assertEqual(Application.objects.count(), 0)
 
+    def test_rejects_registration_with_non_ascii_initial_access_token(self):
+        response = self.client.post(
+            reverse("oauth-dynamic-client-registration"),
+            data=json.dumps({"redirect_uris": ["http://127.0.0.1:8765/callback"]}),
+            content_type="application/json",
+            HTTP_AUTHORIZATION="Bearer s3cret-iat\u00e9",
+        )
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["error"], "invalid_token")
+        self.assertEqual(Application.objects.count(), 0)
+
     def test_allows_registration_with_initial_access_token(self):
         response = self.client.post(
             reverse("oauth-dynamic-client-registration"),

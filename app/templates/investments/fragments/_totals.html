@@ -1,0 +1,51 @@
+{% load i18n %}
+{% with c=total.currency %}
+<div class="card bg-base-100 card-border shadow">
+  <div class="card-body p-5 gap-4">
+    <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+      <div>
+        <div class="text-3xl font-bold tabular-nums">
+          <c-amount.display :amount="total.market_value" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+        </div>
+      </div>
+      <div class="sm:text-right">
+        <div class="text-lg tabular-nums flex items-baseline gap-2 sm:justify-end">
+          <c-amount.display :amount="total.total_return" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display>
+          <span class="text-sm">{% include 'investments/fragments/_mwr.html' with mw=total.money_weighted %}</span>
+          <span class="text-sm text-base-content/50">{% translate 'total return' %}</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-base-content/60">
+      <div>{% translate 'Invested' %} <span class="text-base-content tabular-nums"><c-amount.display :amount="total.cost_basis" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></span></div>
+      <div>{% translate 'Income' %} <span class="text-base-content tabular-nums"><c-amount.display :amount="total.income" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></span></div>
+      {% if total.converted_from %}
+        {% if total.has_rate_history %}
+          <div data-tippy-content="{% translate 'How much of the return came from exchange rates moving since you invested' %}">{% translate 'Currency effect' %} <span class="tabular-nums"><c-amount.display :amount="total.currency_effect" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display></span></div>
+        {% else %}
+          <div>{% translate 'Currency effect' %} <i class="fa-solid fa-triangle-exclamation text-warning text-xs" data-tippy-content="{% translate 'Every date is converted with the same rate. Add historical exchange rates (or an automatic rate service) to see how much exchange rates moved your return.' %}"></i></div>
+        {% endif %}
+      {% endif %}
+    </div>
+    {% if total.breakdown %}
+      <div class="flex flex-col gap-1 -mx-2 -mb-2">
+        {% for part in total.breakdown %}
+          {% with p=part.currency %}
+          <details class="collapse collapse-arrow rounded-box">
+            <summary class="collapse-title min-h-0 py-2 px-2 pe-10 text-sm flex items-baseline justify-between gap-4">
+              <span class="text-base-content/60">{{ p.name }}</span>
+              <span class="tabular-nums"><c-amount.display :amount="part.market_value" :prefix="p.prefix" :suffix="p.suffix" :decimal_places="p.decimal_places" divless></c-amount.display></span>
+            </summary>
+            <div class="collapse-content px-2 text-sm text-base-content/60 flex flex-wrap gap-x-6 gap-y-1">
+              <div>{% translate 'Return' %} <span class="tabular-nums"><c-amount.display :amount="part.total_return" :prefix="p.prefix" :suffix="p.suffix" :decimal_places="p.decimal_places" color="auto" divless></c-amount.display></span> {% include 'investments/fragments/_mwr.html' with mw=part.money_weighted %}</div>
+              <div>{% translate 'Invested' %} <span class="text-base-content tabular-nums"><c-amount.display :amount="part.cost_basis" :prefix="p.prefix" :suffix="p.suffix" :decimal_places="p.decimal_places" divless></c-amount.display></span></div>
+              <div>{% translate 'Income' %} <span class="text-base-content tabular-nums"><c-amount.display :amount="part.income" :prefix="p.prefix" :suffix="p.suffix" :decimal_places="p.decimal_places" divless></c-amount.display></span></div>
+            </div>
+          </details>
+          {% endwith %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endwith %}

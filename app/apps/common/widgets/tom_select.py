@@ -1,3 +1,5 @@
+import json
+
 from django.forms import SelectMultiple, widgets
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -142,6 +144,7 @@ class TransactionSelect(TomSelect):
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
+        attrs["data-render"] = "transaction"
 
         if self.load_income and self.load_expense:
             attrs["data-load"] = reverse("transactions_search")
@@ -155,3 +158,13 @@ class TransactionSelect(TomSelect):
             )
 
         return attrs
+
+    def create_option(self, name, value, *args, **kwargs):
+        option = super().create_option(name, value, *args, **kwargs)
+        instance = getattr(value, "instance", None)
+        if instance is not None:
+            from apps.transactions.utils.select_search import transaction_option
+
+            # tom-select reads this to render the selected transaction like the search results
+            option["attrs"]["data-data"] = json.dumps(transaction_option(instance))
+        return option

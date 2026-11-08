@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "apps.rules.apps.RulesConfig",
     "apps.calendar_view.apps.CalendarViewConfig",
     "apps.dca.apps.DcaConfig",
+    "apps.investments.apps.InvestmentsConfig",
     "pwa",
     "allauth",
     "allauth.account",
@@ -314,6 +315,9 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static_files"
 ATTACHMENT_MEDIA_ROOT = BASE_DIR / "attachments"
+IMPORT_PRESETS_ROOT = BASE_DIR / "import_presets"
+# Web and task workers must see the same folder: uploads wait here to be processed
+IMPORT_TEMP_ROOT = Path(os.getenv("IMPORT_TEMP_ROOT") or BASE_DIR / "temp").resolve()
 
 STATICFILES_DIRS = [
     ROOT_DIR / "frontend" / "build",
@@ -325,15 +329,17 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+CACHE_ROOT = Path(os.getenv("CACHE_ROOT") or "/var/tmp").resolve()
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": "/var/tmp/django_cache",
+        "LOCATION": CACHE_ROOT / "django_cache",
     },
     # Kept apart from "default": cachalot fills it and FileBasedCache culls random entries past MAX_ENTRIES
     "update_check": {
         "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": "/var/tmp/django_cache_update_check",
+        "LOCATION": CACHE_ROOT / "django_cache_update_check",
     },
 }
 

@@ -112,7 +112,8 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "fetch_interval",
             "target_currencies",
             "target_accounts",
-            "singleton",
+            "one_per_day",
+            "max_rates",
         ]
         widgets = {"options": forms.Textarea(attrs={"rows": 2})}
 
@@ -149,7 +150,6 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "name",
             "service_type",
             Switch("is_active"),
-            Switch("singleton"),
             "api_key",
             "options",
             Row(
@@ -158,6 +158,8 @@ class ExchangeRateServiceForm(forms.ModelForm):
             ),
             "target_currencies",
             "target_accounts",
+            Switch("one_per_day"),
+            "max_rates",
         )
 
         if self.instance and self.instance.pk:
