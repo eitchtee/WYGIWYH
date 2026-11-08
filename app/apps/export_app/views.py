@@ -15,6 +15,10 @@ from tablib import Dataset
 from apps.common.decorators.htmx import only_htmx
 from apps.export_app.forms import ExportForm, RestoreForm
 from apps.export_app.resources.accounts import AccountResource
+from apps.export_app.resources.bank_sync import (
+    BankSyncAccountResource,
+    BankSyncServiceResource,
+)
 from apps.export_app.resources.currencies import (
     CurrencyResource,
     ExchangeRateResource,
@@ -119,6 +123,9 @@ def export_form(request):
                 )
             if export_exchange_rates:
                 exports.append((ExchangeRateResource().export(), "exchange_rates"))
+            if form.cleaned_data.get("bank_sync"):
+                exports.append((BankSyncServiceResource().export(), "bank_sync_services"))
+                exports.append((BankSyncAccountResource().export(), "bank_sync_accounts"))
             if export_rules:
                 exports.append(
                     (TransactionRuleResource().export(), "transaction_rules")
@@ -235,6 +242,8 @@ def process_imports(request, cleaned_data):
         ("installment_plans", InstallmentPlanResource),
         ("recurring_transactions", RecurringTransactionResource),
         ("transactions", TransactionResource),
+        ("bank_sync_services", BankSyncServiceResource),
+        ("bank_sync_accounts", BankSyncAccountResource),
         ("dca_strategies", DCAStrategyResource),
         ("dca_entries", DCAEntryResource),
         ("import_profiles", ImportProfileResource),
