@@ -151,8 +151,8 @@ class Account(SharedObject):
         verbose_name=_("Income categories"),
         help_text=_(
             "Transactions in this account with any of these categories are its result "
-            "(interest, taxes, fees). On accounts tracked by value, everything else "
-            "that isn't a transfer counts as money coming in or going out."
+            "(interest, taxes, fees). Everything else that isn't a transfer counts as "
+            "money coming in or going out."
         ),
     )
     income_tags = models.ManyToManyField(
