@@ -14,7 +14,7 @@ def max_rates_to_singleton(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("currencies", "0025_alter_exchangerateservice_service_type"),
+        ("currencies", "0026_exchangerateservice_options"),
     ]
 
     operations = [
