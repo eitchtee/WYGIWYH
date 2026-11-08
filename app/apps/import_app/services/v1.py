@@ -7,12 +7,14 @@ import zipfile
 from django.db import transaction
 from datetime import datetime, date
 from decimal import Decimal, InvalidOperation
+from pathlib import Path
 from typing import Dict, Any, Literal, Union
 
 import openpyxl
 import xlrd
 import yaml
 from cachalot.api import cachalot_disabled
+from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.utils import timezone
 from openpyxl.utils.exceptions import InvalidFileException
@@ -39,8 +41,6 @@ logger = logging.getLogger(__name__)
 
 
 class ImportService:
-    TEMP_DIR = "/usr/src/app/temp"
-
     def __init__(self, import_run: ImportRun):
         self.import_run: ImportRun = import_run
         self.profile: ImportProfile = import_run.profile
@@ -54,7 +54,7 @@ class ImportService:
         self.mapping: Dict[str, version_1.ColumnMapping] = self.config.mapping
 
         # Ensure temp directory exists
-        os.makedirs(self.TEMP_DIR, exist_ok=True)
+        os.makedirs(settings.IMPORT_TEMP_ROOT, exist_ok=True)
 
     def _load_config(self) -> version_1.ImportProfileSchema:
         yaml_data = yaml.safe_load(self.profile.yaml_config)
@@ -1131,9 +1131,12 @@ class ImportService:
         Validates that the file path is within the allowed temporary directory.
         Returns the absolute path.
         """
-        abs_path = os.path.abspath(file_path)
-        if not abs_path.startswith(self.TEMP_DIR):
-            raise ValueError(f"Invalid file path. File must be in {self.TEMP_DIR}")
+        # resolve() like IMPORT_TEMP_ROOT, so symlinks can't point outside it
+        abs_path = str(Path(file_path).resolve())
+        if not Path(abs_path).is_relative_to(settings.IMPORT_TEMP_ROOT):
+            raise ValueError(
+                f"Invalid file path. File must be in {settings.IMPORT_TEMP_ROOT}"
+            )
         return abs_path
 
     def process_file(self, file_path: str):

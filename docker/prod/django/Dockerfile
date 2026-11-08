@@ -69,9 +69,7 @@ RUN sed -i 's/\r$//g' /start && \
 COPY --chown=app:app ./app .
 
 RUN chown -R app:app /usr/src/app && \
-    chown -R app:app /usr/src/frontend && \
-    mkdir /temp && \
-    chown -R app:app /temp
+    chown -R app:app /usr/src/frontend
 
 USER app
 
