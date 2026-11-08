@@ -1,0 +1,37 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Accounts' %} - {{ service.name }}{% endblock %}
+
+{% block body %}
+{% if error %}
+  <div role="alert" class="alert alert-error mb-3">{{ error }}</div>
+{% endif %}
+<form hx-post="{% url 'bank_sync_accounts' pk=service.id %}" hx-target="#generic-offcanvas" novalidate>
+  {% csrf_token %}
+  {{ formset.management_form }}
+  {% for form in formset %}
+    <fieldset class="fieldset border border-base-300 rounded-box p-3 mb-3">
+      <legend class="fieldset-legend">
+        {{ form.instance.external_name|default:form.instance.external_id }}
+        <span class="text-base-content/60 font-mono text-xs">#{{ form.instance.external_id }}</span>
+      </legend>
+      {% if form.instance.remote_error %}
+        <div role="alert" class="alert alert-warning alert-soft mb-2">{{ form.instance.remote_error }}</div>
+      {% elif form.instance.last_error %}
+        <div role="alert" class="alert alert-error alert-soft mb-2">{{ form.instance.last_error }}</div>
+      {% endif %}
+      {{ form.id }}
+      {{ form.account|as_crispy_field }}
+      {{ form.start_date|as_crispy_field }}
+      {% if form.currencies.field.choices %}{{ form.currencies|as_crispy_field }}{% endif %}
+    </fieldset>
+  {% empty %}
+    <c-msg.empty title="{% translate 'No accounts found on this service' %}" remove-padding></c-msg.empty>
+  {% endfor %}
+  {% if formset.forms %}
+    <button type="submit" class="btn btn-primary">{% translate 'Save' %}</button>
+  {% endif %}
+</form>
+{% endblock %}

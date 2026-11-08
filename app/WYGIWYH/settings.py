@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "procrastinate.contrib.django",
     "apps.transactions.apps.TransactionsConfig",
     "apps.currencies.apps.CurrenciesConfig",
+    "apps.bank_sync.apps.BankSyncConfig",
     "apps.accounts.apps.AccountsConfig",
     "apps.net_worth.apps.NetWorthConfig",
     "apps.import_app.apps.ImportConfig",

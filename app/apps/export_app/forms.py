@@ -73,6 +73,13 @@ class ExportForm(forms.Form):
         label=_("Automatic Exchange Rates"),
         initial=False,
     )
+    bank_sync = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(),
+        label=_("Bank Sync"),
+        help_text=_("Includes the providers' API keys"),
+        initial=False,
+    )
     rules = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(),
@@ -111,6 +118,7 @@ class ExportForm(forms.Form):
             "recurring_transactions",
             "exchange_rates_services",
             "exchange_rates",
+            "bank_sync",
             "rules",
             "dca",
             "import_profiles",
@@ -142,6 +150,12 @@ class RestoreForm(forms.Form):
         required=False, label=_("Automatic Exchange Rates")
     )
     exchange_rates = forms.FileField(required=False, label=_("Exchange Rates"))
+    bank_sync_services = forms.FileField(
+        required=False, label=_("Bank Sync Services")
+    )
+    bank_sync_accounts = forms.FileField(
+        required=False, label=_("Bank Sync Accounts")
+    )
     transaction_rules = forms.FileField(required=False, label=_("Transaction rules"))
     transaction_rules_actions = forms.FileField(
         required=False, label=_("Edit transaction action")
@@ -173,6 +187,8 @@ class RestoreForm(forms.Form):
             "recurring_transactions",
             "automatic_exchange_rates",
             "exchange_rates",
+            "bank_sync_services",
+            "bank_sync_accounts",
             "transaction_rules",
             "transaction_rules_actions",
             "transaction_rules_update_or_create",

@@ -150,7 +150,7 @@
       <c-components.sidebar-collapsible-panel
           title="{% translate 'Management' %}"
           icon="fa-solid fa-toolbox"
-          active="tags_index||entities_index||categories_index||accounts_index||account_groups_index||investment_classes_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||export_index||users_index">
+          active="tags_index||entities_index||categories_index||accounts_index||account_groups_index||investment_classes_index||currencies_index||exchange_rates_index||rules_index||import_profiles_index||automatic_exchange_rates_index||bank_sync_index||export_index||users_index">
         <c-components.sidebar-menu-header title="{% translate 'Transactions' %}"></c-components.sidebar-menu-header>
         <c-components.sidebar-menu-item
             title="{% translate 'Categories' %}"
@@ -233,6 +233,12 @@
             url='automatic_exchange_rates_index'
             active="automatic_exchange_rates_index"
             icon="fa-solid fa-right-left">
+        </c-components.sidebar-menu-item>
+        <c-components.sidebar-menu-item
+            title="{% translate 'Bank Sync' %}"
+            url='bank_sync_index'
+            active="bank_sync_index"
+            icon="fa-solid fa-building-columns">
         </c-components.sidebar-menu-item>
 
         {% if user.is_superuser %}

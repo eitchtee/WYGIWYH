@@ -90,6 +90,7 @@ urlpatterns = [
     path("", include("apps.monthly_overview.urls")),
     path("", include("apps.yearly_overview.urls")),
     path("", include("apps.currencies.urls")),
+    path("", include("apps.bank_sync.urls")),
     path("", include("apps.rules.urls")),
     path("", include("apps.calendar_view.urls")),
     path("", include("apps.dca.urls")),
