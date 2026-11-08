@@ -15,6 +15,7 @@ from apps.transactions.models import (
     RecurringTransaction,
     Transaction,
     TransactionCategory,
+    TransactionEntity,
     TransactionTag,
 )
 from apps.rules.signals import transaction_created, transaction_updated
@@ -53,6 +54,7 @@ class TransferTestBase(TestCase):
             "reference_date": "2026-03-01",
             "description": "Move money",
             "mute": True,
+            "is_paid": "true",
             **overrides,
         }
         form = TransferForm(data)
@@ -72,6 +74,12 @@ class TransferTests(TransferTestBase):
         self.assertEqual(to_t.type, Transaction.Type.INCOME)
         self.assertEqual(from_t.amount, Decimal("100"))
         self.assertEqual(to_t.amount, Decimal("98"))
+
+    def test_paid_toggle_applies_to_both_sides(self):
+        from_t, to_t = self._transfer(is_paid="false")
+        self.assertFalse(from_t.is_paid)
+        self.assertFalse(to_t.is_paid)
+        self.assertFalse(TransferForm(instance=from_t).initial["is_paid"])
 
     def test_listing_collapses_pair_unless_one_side_is_filtered_out(self):
         from_t, to_t = self._transfer()
@@ -195,20 +203,48 @@ class TransferTests(TransferTestBase):
         in_cat = TransactionCategory.objects.create(name="InCat")
         out_tag = TransactionTag.objects.create(name="OutTag")
         in_tag = TransactionTag.objects.create(name="InTag")
-        self._transfer(
+        out_ent = TransactionEntity.objects.create(name="OutEnt")
+        in_ent = TransactionEntity.objects.create(name="InEnt")
+        from_t, to_t = self._transfer(
             from_category=str(out_cat.id),
             to_category=str(in_cat.id),
             from_tags=[out_tag.name],
             to_tags=[in_tag.name],
+            from_entities=[out_ent.name],
+            to_entities=[in_ent.name],
         )
+        self.assertEqual(list(from_t.entities.all()), [out_ent])
+        self.assertEqual(list(to_t.entities.all()), [in_ent])
 
         response = self.client.get(
             reverse("monthly_transactions_list", kwargs={"month": 3, "year": 2026}),
             HTTP_HX_REQUEST="true",
         )
         content = response.content.decode()
-        for name in ("OutCat", "InCat", "OutTag", "InTag"):
+        for name in ("OutCat", "InCat", "OutTag", "InTag", "OutEnt", "InEnt"):
             self.assertIn(name, content)
+
+    def test_edit_keeps_inactive_tag_and_archived_account(self):
+        tag = TransactionTag.objects.create(name="OldTag")
+        from_t, to_t = self._transfer(from_tags=[tag.name])
+        tag.active = False
+        tag.save()
+        self.savings.is_archived = True
+        self.savings.save()
+
+        form = TransferForm(
+            {
+                "from_account": self.checking.id,
+                "to_account": self.savings.id,
+                "from_amount": "100",
+                "date": "2026-03-10",
+                "from_tags": [tag.name],
+            },
+            instance=from_t,
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        form.save()
+        self.assertEqual(list(from_t.tags.all()), [tag])
 
 
 class TransferTemplateTests(TransferTestBase):
