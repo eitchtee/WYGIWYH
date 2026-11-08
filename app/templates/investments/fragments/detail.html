@@ -45,7 +45,7 @@
       <div class="text-sm text-base-content/60 mt-1">
         {% if account.group %}{{ account.group.name }} · {% endif %}
         {% if perf.priced %}{{ a.name }} → {{ c.name }}{% else %}{% translate 'Tracked by value' %}{% endif %}
-        {% if perf.estimated %}<i class="fa-solid fa-circle-exclamation text-warning ml-1" data-tippy-content="{% translate 'Some incoming units have no linked payment, so their cost was estimated from the market price of that day' %}"></i>{% endif %}
+        {% if perf.estimated %}<i class="fa-solid fa-circle-exclamation text-warning ml-1" data-tippy-content="{% translate 'Some units moved in or out without a linked payment, so they were valued at the market price of that day' %}"></i>{% endif %}
       </div>
     </div>
   </div>
@@ -284,7 +284,7 @@
                       {% if tx.type == 'IN' %}{% translate 'Bought / contributed' %}{% else %}{% translate 'Sold / withdrew' %}{% endif %}
                       · {{ p.account.name }}
                     {% else %}
-                      {% if not perf.priced and tx.id not in perf.result_ids %}
+                      {% if tx.id not in perf.result_ids %}
                         {% if tx.type == 'IN' %}{% translate 'Money in' %}{% else %}{% translate 'Money out' %}{% endif %}
                       {% else %}
                         {% if tx.type == 'IN' %}{% if perf.priced %}{% translate 'Gain' %}{% else %}{% translate 'Earnings' %}{% endif %}{% else %}{% translate 'Loss, tax or fee' %}{% endif %}

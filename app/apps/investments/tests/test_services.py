@@ -101,7 +101,41 @@ class HoldingPerformanceTests(TestCase):
 
         self.assertEqual(perf.cost_basis, D("180"))
         self.assertTrue(perf.estimated)
-        self.assertEqual(perf.contributed, D("0"))
+        self.assertEqual(perf.contributed, D("180"))
+
+    def test_priced_account_separates_money_from_yield(self):
+        # A foreign-currency account: pay in, interest, then money out unlinked
+        self.rate("100", self.d1)
+        result = TransactionCategory.objects.create(name="Interest")
+        self.etf.income_categories.set([result])
+        tx(self.etf, IN, "10", self.d1)  # paid in from outside
+        tx(self.etf, IN, "1", self.d2, category=result)
+        tx(self.etf, EX, "5", self.d3)  # taken out, not a loss
+
+        perf = get_holding_performance(self.etf)
+
+        self.assertEqual(perf.contributed, D("1000"))
+        self.assertEqual(perf.withdrawn, D("500"))
+        self.assertEqual(perf.quantity, D("6"))
+        self.assertEqual(perf.market_value, D("600"))
+        # The interest is the whole return: 600 held + 500 out - 1000 in
+        self.assertEqual(perf.total_return, D("100"))
+        self.assertEqual(perf.results, [])
+
+    def test_value_tracked_transfer_counts_its_own_amount(self):
+        # Paying 1000 for units now worth 900 is the units' loss, not the cash's
+        cash = Account.objects.create(
+            name="Savings", currency=self.eur, is_investment=True
+        )
+        tx(cash, IN, "5000", self.d1)
+        transfer(cash, "1000", self.etf, "10", self.d2)
+        self.rate("90", timezone.localdate())
+
+        perf = get_holding_performance(cash)
+
+        self.assertEqual(perf.withdrawn, D("1000"))
+        self.assertEqual(perf.total_return, D("0"))
+        self.assertEqual(get_holding_performance(self.etf).total_return, D("-100"))
 
     def test_value_tracked_cdb_with_tax_on_redemption(self):
         cdb = Account.objects.create(
