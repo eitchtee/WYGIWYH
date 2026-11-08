@@ -149,3 +149,13 @@ class ImportTempRootTests(ImportObjectPermissionTestCase):
         ):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 service._validate_file_path(str(path))
+
+    def test_service_rejects_symlinks_pointing_outside_temp_root(self):
+        link = self.temp_root / "link.csv"
+        try:
+            link.symlink_to("/etc/passwd")
+        except OSError:
+            self.skipTest("symlinks not available")
+
+        with self.assertRaises(ValueError):
+            self._service()._validate_file_path(str(link))

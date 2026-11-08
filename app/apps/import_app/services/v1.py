@@ -1131,7 +1131,8 @@ class ImportService:
         Validates that the file path is within the allowed temporary directory.
         Returns the absolute path.
         """
-        abs_path = os.path.abspath(file_path)
+        # resolve() like IMPORT_TEMP_ROOT, so symlinks can't point outside it
+        abs_path = str(Path(file_path).resolve())
         if not Path(abs_path).is_relative_to(settings.IMPORT_TEMP_ROOT):
             raise ValueError(
                 f"Invalid file path. File must be in {settings.IMPORT_TEMP_ROOT}"
