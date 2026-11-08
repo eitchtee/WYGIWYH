@@ -12,7 +12,7 @@ from apps.dca.models import DCAEntry, DCAStrategy
 from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
 from crispy_forms.bootstrap import AccordionGroup, FormActions, Accordion
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Column, Layout, Row
+from crispy_forms.layout import HTML, Column, Div, Layout, Row
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -157,34 +157,21 @@ class DCAEntryForm(forms.ModelForm):
                 AccordionGroup(
                     _("Create transaction"),
                     Switch("create_transaction"),
-                    Row(
-                        Column(
-                            Row(
-                                Column(
-                                    "from_account",
-                                ),
-                            ),
-                            Row(
-                                Column("from_category"),
-                                Column("from_tags"),
-                            ),
+                    Div(
+                        "from_account",
+                        Row(
+                            Column("from_category"),
+                            Column("from_tags"),
                         ),
-                        css_class="p-1 mx-1 my-3 border rounded-3",
+                        css_class="bg-base-100 rounded-box p-4 border-base-content/60 border my-3",
                     ),
-                    Row(
-                        Column(
-                            Row(
-                                Column(
-                                    "to_account",
-                                    css_class="form-group",
-                                ),
-                            ),
-                            Row(
-                                Column("to_category"),
-                                Column("to_tags"),
-                            ),
+                    Div(
+                        "to_account",
+                        Row(
+                            Column("to_category"),
+                            Column("to_tags"),
                         ),
-                        css_class="p-1 mx-1 my-3 border rounded-3",
+                        css_class="bg-base-100 rounded-box p-4 border-base-content/60 border",
                     ),
                     active=False,
                 ),
