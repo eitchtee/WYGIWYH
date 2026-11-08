@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 13:18+0000\n"
+"POT-Creation-Date: 2026-11-08 13:19+0000\n"
 "PO-Revision-Date: 2026-11-02 19:49+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -25,7 +25,7 @@ msgstr "Nome do grupo"
 
 #: apps/accounts/forms.py:43 apps/accounts/forms.py:109
 #: apps/currencies/forms.py:57 apps/currencies/forms.py:91
-#: apps/currencies/forms.py:166 apps/dca/forms.py:46 apps/dca/forms.py:205
+#: apps/currencies/forms.py:166 apps/dca/forms.py:46 apps/dca/forms.py:192
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
 #: apps/rules/forms.py:385 apps/transactions/forms.py:219
 #: apps/transactions/forms.py:452 apps/transactions/forms.py:571
@@ -39,9 +39,9 @@ msgid "Update"
 msgstr "Atualizar"
 
 #: apps/accounts/forms.py:49 apps/accounts/forms.py:115
-#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:63
+#: apps/common/widgets/tom_select.py:15 apps/currencies/forms.py:63
 #: apps/currencies/forms.py:97 apps/currencies/forms.py:172
-#: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
+#: apps/dca/forms.py:52 apps/dca/forms.py:198 apps/import_app/forms.py:38
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
 #: apps/transactions/forms.py:206 apps/transactions/forms.py:226
 #: apps/transactions/forms.py:459 apps/transactions/forms.py:946
@@ -338,7 +338,7 @@ msgid "Error creating new instance"
 msgstr "Erro criando nova instância"
 
 #: apps/common/fields/forms/grouped_select.py:24
-#: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
+#: apps/common/widgets/tom_select.py:94 apps/common/widgets/tom_select.py:97
 msgid "Ungrouped"
 msgstr "Não agrupado"
 
@@ -489,11 +489,11 @@ msgstr "Hoje"
 msgid "Now"
 msgstr "Agora"
 
-#: apps/common/widgets/tom_select.py:11
+#: apps/common/widgets/tom_select.py:13
 msgid "Remove"
 msgstr "Remover"
 
-#: apps/common/widgets/tom_select.py:15 templates/mini_tools/simulator.html:187
+#: apps/common/widgets/tom_select.py:17 templates/mini_tools/simulator.html:187
 #: templates/mini_tools/unit_price_calculator.html:180
 #: templates/monthly_overview/pages/overview.html:286
 #: templates/transactions/fragments/filter_actions.html:48
@@ -501,7 +501,7 @@ msgstr "Remover"
 msgid "Clear"
 msgstr "Limpar"
 
-#: apps/common/widgets/tom_select.py:16
+#: apps/common/widgets/tom_select.py:18
 msgid "No results..."
 msgstr "Sem resultados..."
 
@@ -774,21 +774,21 @@ msgstr "Digite para buscar uma transação para conectar à esta entrada"
 msgid "Income Transaction"
 msgstr "Transação de entrada"
 
-#: apps/dca/forms.py:192
+#: apps/dca/forms.py:179
 msgid "Link transaction"
 msgstr "Conectar transação"
 
-#: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
-#: apps/dca/forms.py:285
+#: apps/dca/forms.py:262 apps/dca/forms.py:263 apps/dca/forms.py:268
+#: apps/dca/forms.py:272
 msgid "You must provide an account."
 msgstr "Você deve informar uma conta."
 
-#: apps/dca/forms.py:290 apps/transactions/forms.py:752
+#: apps/dca/forms.py:277 apps/transactions/forms.py:752
 #: apps/transactions/models.py:956
 msgid "From and To accounts must be different."
 msgstr "As contas De e Para devem ser diferentes."
 
-#: apps/dca/forms.py:304
+#: apps/dca/forms.py:291
 #, python-format
 msgid "DCA for %(strategy_name)s"
 msgstr "CMP para %(strategy_name)s"
@@ -1898,8 +1898,8 @@ msgid "Item deleted successfully"
 msgstr "Item apagado com sucesso"
 
 #: apps/transactions/views/quick_transactions.py:164
-#: apps/transactions/views/transactions.py:143
-#: apps/transactions/views/transactions.py:328
+#: apps/transactions/views/transactions.py:147
+#: apps/transactions/views/transactions.py:332
 msgid "Transaction added successfully"
 msgstr "Transação adicionada com sucesso"
 
@@ -1935,42 +1935,42 @@ msgstr "Tag atualizada com sucesso"
 msgid "Tag deleted successfully"
 msgstr "Tag apagada com sucesso"
 
-#: apps/transactions/views/transactions.py:61
+#: apps/transactions/views/transactions.py:65
 msgid "Attachment uploaded successfully"
 msgstr "Anexo enviado com sucesso"
 
-#: apps/transactions/views/transactions.py:112
+#: apps/transactions/views/transactions.py:116
 msgid "Attachment deleted successfully"
 msgstr "Anexo apagado com sucesso"
 
-#: apps/transactions/views/transactions.py:355
+#: apps/transactions/views/transactions.py:359
 msgid "Transaction updated successfully"
 msgstr "Transação atualizada com sucesso"
 
-#: apps/transactions/views/transactions.py:406
+#: apps/transactions/views/transactions.py:410
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s transação atualizada com sucesso"
 msgstr[1] "%(count)s transações atualizadas com sucesso"
 
-#: apps/transactions/views/transactions.py:433
+#: apps/transactions/views/transactions.py:437
 msgid "Transaction duplicated successfully"
 msgstr "Transação duplicada com sucesso"
 
-#: apps/transactions/views/transactions.py:478
+#: apps/transactions/views/transactions.py:482
 msgid "Transaction deleted successfully"
 msgstr "Transação apagada com sucesso"
 
-#: apps/transactions/views/transactions.py:508
+#: apps/transactions/views/transactions.py:512
 msgid "Transaction restored successfully"
 msgstr "Transação restaurada com sucesso"
 
-#: apps/transactions/views/transactions.py:534
+#: apps/transactions/views/transactions.py:538
 msgid "Transfer added successfully"
 msgstr "Transferência adicionada com sucesso"
 
-#: apps/transactions/views/transactions.py:562
+#: apps/transactions/views/transactions.py:566
 msgid "Transfer updated successfully"
 msgstr "Transferência atualizada com sucesso"
 
