@@ -1,13 +1,17 @@
+import json
+
 from apps.common.widgets.crispy.daisyui import Switch
 from apps.common.widgets.crispy.submit import NoClassSubmit
 from apps.common.widgets.datepicker import AirDateTimePickerInput
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelect
+from apps.currencies.exchange_rates.fetcher import PROVIDER_MAPPING
 from apps.currencies.models import Currency, ExchangeRate, ExchangeRateService
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import CharField
 from django.utils.translation import gettext_lazy as _
 
@@ -103,6 +107,7 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "service_type",
             "is_active",
             "api_key",
+            "options",
             "interval_type",
             "fetch_interval",
             "target_currencies",
@@ -110,9 +115,33 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "one_per_day",
             "max_rates",
         ]
+        widgets = {"options": forms.Textarea(attrs={"rows": 2})}
+
+    # Shows API Key and Options only for providers that use them
+    SERVICE_TYPE_SCRIPT = """
+        init send change to me end
+        on change js(me)
+            const p = JSON.parse(me.dataset.providers)[me.value] || {};
+            document.getElementById('div_id_api_key').classList.toggle('hidden', !p.api_key);
+            document.getElementById('div_id_options').classList.toggle('hidden', !p.options);
+            const help = document.getElementById('id_options_helptext');
+            if (help) help.textContent = p.options || '';
+        end
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        providers = {
+            key: {
+                "api_key": provider.requires_api_key(),
+                "options": str(provider.options_help or ""),
+            }
+            for key, provider in PROVIDER_MAPPING.items()
+        }
+        self.fields["service_type"].widget.attrs.update(
+            {"data-providers": json.dumps(providers), "_": self.SERVICE_TYPE_SCRIPT}
+        )
 
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -122,6 +151,7 @@ class ExchangeRateServiceForm(forms.ModelForm):
             "service_type",
             Switch("is_active"),
             "api_key",
+            "options",
             Row(
                 Column("interval_type"),
                 Column("fetch_interval"),
@@ -144,3 +174,15 @@ class ExchangeRateServiceForm(forms.ModelForm):
                     NoClassSubmit("submit", _("Add"), css_class="btn btn-primary"),
                 ),
             )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        provider = PROVIDER_MAPPING.get(cleaned_data.get("service_type"))
+        if provider:
+            try:
+                cleaned_data["options"] = provider.clean_options(
+                    cleaned_data.get("options") or ""
+                )
+            except ValidationError as e:
+                self.add_error("options", e)
+        return cleaned_data

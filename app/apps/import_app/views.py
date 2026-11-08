@@ -1,5 +1,6 @@
 import shutil
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -204,7 +205,7 @@ def import_run_add(request, profile_id):
 
         if form.is_valid():
             uploaded_file = request.FILES["file"]
-            fs = FileSystemStorage(location="/usr/src/app/temp")
+            fs = FileSystemStorage(location=settings.IMPORT_TEMP_ROOT)
             filename = fs.save(uploaded_file.name, uploaded_file)
             file_path = fs.path(filename)
 

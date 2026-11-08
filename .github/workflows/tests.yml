@@ -60,12 +60,6 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
-      # Import code reads/writes the Docker image's paths directly
-      - name: Create container paths used by the app
-        run: |
-          sudo mkdir -p /usr/src/app/temp /usr/src/app/import_presets
-          sudo chown -R "$(id -u):$(id -g)" /usr/src/app
-
       - name: Check for missing migrations
         working-directory: app
         run: uv run python manage.py makemigrations --check --dry-run

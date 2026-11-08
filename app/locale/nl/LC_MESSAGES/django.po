@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 19:49+0000\n"
+"POT-Creation-Date: 2026-11-08 13:19+0000\n"
 "PO-Revision-Date: 2026-11-02 17:58+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
@@ -24,8 +24,8 @@ msgid "Group name"
 msgstr "Groepsnaam"
 
 #: apps/accounts/forms.py:43 apps/accounts/forms.py:109
-#: apps/currencies/forms.py:53 apps/currencies/forms.py:87
-#: apps/currencies/forms.py:136 apps/dca/forms.py:46 apps/dca/forms.py:205
+#: apps/currencies/forms.py:57 apps/currencies/forms.py:91
+#: apps/currencies/forms.py:166 apps/dca/forms.py:46 apps/dca/forms.py:192
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
 #: apps/rules/forms.py:385 apps/transactions/forms.py:219
 #: apps/transactions/forms.py:452 apps/transactions/forms.py:571
@@ -39,9 +39,9 @@ msgid "Update"
 msgstr "Bijwerken"
 
 #: apps/accounts/forms.py:49 apps/accounts/forms.py:115
-#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:59
-#: apps/currencies/forms.py:93 apps/currencies/forms.py:142
-#: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
+#: apps/common/widgets/tom_select.py:15 apps/currencies/forms.py:63
+#: apps/currencies/forms.py:97 apps/currencies/forms.py:172
+#: apps/dca/forms.py:52 apps/dca/forms.py:198 apps/import_app/forms.py:38
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
 #: apps/transactions/forms.py:206 apps/transactions/forms.py:226
 #: apps/transactions/forms.py:459 apps/transactions/forms.py:946
@@ -110,7 +110,7 @@ msgstr "Tot en met de referentiemaand"
 msgid "Balance against"
 msgstr "Evenwicht tegen"
 
-#: apps/accounts/forms.py:189 apps/currencies/forms.py:66
+#: apps/accounts/forms.py:189 apps/currencies/forms.py:70
 #: apps/dca/models.py:158 apps/rules/forms.py:176 apps/rules/forms.py:190
 #: apps/rules/models.py:38 apps/rules/models.py:279
 #: apps/transactions/forms.py:86 apps/transactions/forms.py:482
@@ -240,7 +240,7 @@ msgstr "Rekeninggroep succesvol verwijderd"
 
 #: apps/accounts/views/account_groups.py:109
 #: apps/accounts/views/accounts.py:137 apps/dca/views.py:106
-#: apps/import_app/views.py:147 apps/rules/views.py:191
+#: apps/import_app/views.py:148 apps/rules/views.py:191
 #: apps/transactions/views/categories.py:163
 #: apps/transactions/views/entities.py:135 apps/transactions/views/tags.py:131
 msgid "Item no longer shared with you"
@@ -248,7 +248,7 @@ msgstr "Item is niet langer met jouw gedeeld"
 
 #: apps/accounts/views/account_groups.py:132
 #: apps/accounts/views/accounts.py:182 apps/dca/views.py:131
-#: apps/import_app/views.py:273 apps/rules/views.py:217
+#: apps/import_app/views.py:274 apps/rules/views.py:217
 #: apps/transactions/views/categories.py:188
 #: apps/transactions/views/entities.py:160 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
@@ -256,7 +256,7 @@ msgstr "Eigendom succesvol genomen"
 
 #: apps/accounts/views/account_groups.py:152
 #: apps/accounts/views/accounts.py:106 apps/dca/views.py:151
-#: apps/import_app/views.py:294 apps/rules/views.py:238
+#: apps/import_app/views.py:295 apps/rules/views.py:238
 #: apps/transactions/views/categories.py:130
 #: apps/transactions/views/entities.py:180 apps/transactions/views/tags.py:174
 msgid "Configuration saved successfully"
@@ -340,7 +340,7 @@ msgid "Error creating new instance"
 msgstr "Fout bij het aanmaken van een nieuwe instantie"
 
 #: apps/common/fields/forms/grouped_select.py:24
-#: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
+#: apps/common/widgets/tom_select.py:94 apps/common/widgets/tom_select.py:97
 msgid "Ungrouped"
 msgstr "Niet gegroepeerd"
 
@@ -491,11 +491,11 @@ msgstr "Vandaag"
 msgid "Now"
 msgstr "Nu"
 
-#: apps/common/widgets/tom_select.py:11
+#: apps/common/widgets/tom_select.py:13
 msgid "Remove"
 msgstr "Verwijder"
 
-#: apps/common/widgets/tom_select.py:15 templates/mini_tools/simulator.html:187
+#: apps/common/widgets/tom_select.py:17 templates/mini_tools/simulator.html:187
 #: templates/mini_tools/unit_price_calculator.html:180
 #: templates/monthly_overview/pages/overview.html:286
 #: templates/transactions/fragments/filter_actions.html:48
@@ -503,15 +503,24 @@ msgstr "Verwijder"
 msgid "Clear"
 msgstr "Leegmaken"
 
-#: apps/common/widgets/tom_select.py:16
+#: apps/common/widgets/tom_select.py:18
 msgid "No results..."
 msgstr "Geen resultaten..."
 
-#: apps/currencies/forms.py:16 apps/currencies/models.py:22
+#: apps/currencies/exchange_rates/providers.py:703
+msgid ""
+"Central bank code, e.g. 'bcb' or 'rbi'. Leave empty to use the ECB table."
+msgstr ""
+
+#: apps/currencies/exchange_rates/providers.py:735
+msgid "Invalid bank code, it should look like 'bcb'."
+msgstr ""
+
+#: apps/currencies/forms.py:20 apps/currencies/models.py:22
 msgid "Prefix"
 msgstr "Voorvoegsel"
 
-#: apps/currencies/forms.py:17 apps/currencies/models.py:23
+#: apps/currencies/forms.py:21 apps/currencies/models.py:23
 msgid "Suffix"
 msgstr "Achtervoegsel"
 
@@ -573,27 +582,27 @@ msgstr "Wisselkoersen"
 msgid "From and To currencies cannot be the same."
 msgstr "Van en Naar munteenheid kunnen niet dezelfde zijn."
 
-#: apps/currencies/models.py:112
+#: apps/currencies/models.py:113
 msgid "On"
 msgstr "Op"
 
-#: apps/currencies/models.py:113
+#: apps/currencies/models.py:114
 msgid "Every X hours"
 msgstr "Elke X Uren"
 
-#: apps/currencies/models.py:114
+#: apps/currencies/models.py:115
 msgid "Not on"
 msgstr "Niet op"
 
-#: apps/currencies/models.py:116
+#: apps/currencies/models.py:117
 msgid "Service Name"
 msgstr "Dienstnaam"
 
-#: apps/currencies/models.py:118
+#: apps/currencies/models.py:119
 msgid "Service Type"
 msgstr "Soort Dienst"
 
-#: apps/currencies/models.py:120 apps/transactions/filters.py:27
+#: apps/currencies/models.py:121 apps/transactions/filters.py:27
 #: apps/transactions/models.py:253 apps/transactions/models.py:277
 #: apps/transactions/models.py:301 templates/categories/fragments/list.html:16
 #: templates/entities/fragments/list.html:16
@@ -605,31 +614,41 @@ msgstr "Soort Dienst"
 msgid "Active"
 msgstr "Actief"
 
-#: apps/currencies/models.py:125
+#: apps/currencies/models.py:126
 msgid "API Key"
 msgstr "API Sleutel"
 
-#: apps/currencies/models.py:126
+#: apps/currencies/models.py:127
 msgid "API key for the service (if required)"
 msgstr "API sleutel voor de dienst (indien verplicht)"
 
-#: apps/currencies/models.py:131
+#: apps/currencies/models.py:132
+#, fuzzy
+#| msgid "Actions"
+msgid "Options"
+msgstr "Acties"
+
+#: apps/currencies/models.py:133
+msgid "Provider specific settings"
+msgstr ""
+
+#: apps/currencies/models.py:138
 msgid "Interval Type"
 msgstr "Soort Interval"
 
-#: apps/currencies/models.py:135
+#: apps/currencies/models.py:142
 msgid "Interval"
 msgstr "Interval"
 
-#: apps/currencies/models.py:138
+#: apps/currencies/models.py:145
 msgid "Last Successful Fetch"
 msgstr "Laatste Succesvolle Ophaling"
 
-#: apps/currencies/models.py:145
+#: apps/currencies/models.py:152
 msgid "Target Currencies"
 msgstr "Doel Munteenheden"
 
-#: apps/currencies/models.py:147
+#: apps/currencies/models.py:154
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -637,11 +656,11 @@ msgstr ""
 "Selecteer munteenheden om wisselkoersen voor op te halen. De koersen worden "
 "voor elke munteenheid opgehaald ten opzichte van de ingestelde wisselkoers."
 
-#: apps/currencies/models.py:155
+#: apps/currencies/models.py:162
 msgid "Target Accounts"
 msgstr "Naar rekeningen"
 
-#: apps/currencies/models.py:157
+#: apps/currencies/models.py:164
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -650,33 +669,33 @@ msgstr ""
 "opgehaald voor de munteenheid van elke rekening ten opzichte van de "
 "ingestelde wisselkoers."
 
-#: apps/currencies/models.py:164
+#: apps/currencies/models.py:171
 msgid "Single exchange rate"
 msgstr "Enkele Wisselkoers"
 
-#: apps/currencies/models.py:167
+#: apps/currencies/models.py:174
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 "Maak één wisselkoers aan en houd deze bijgewerkt. Voorkomt een overvolle "
 "database."
 
-#: apps/currencies/models.py:172
+#: apps/currencies/models.py:179
 msgid "Exchange Rate Service"
 msgstr "Wisselkoersdienst"
 
-#: apps/currencies/models.py:173
+#: apps/currencies/models.py:180
 msgid "Exchange Rate Services"
 msgstr "Wisselkoersdiensten"
 
-#: apps/currencies/models.py:225
+#: apps/currencies/models.py:234
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "Voor het intervaltype ‘Elke X uur’ is een positief geheel getal nodig."
 
-#: apps/currencies/models.py:234
+#: apps/currencies/models.py:243
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "Het interval ‘Elke X uur’ moet tussen 1 en 24 liggen."
 
-#: apps/currencies/models.py:248
+#: apps/currencies/models.py:257
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -684,7 +703,7 @@ msgstr ""
 "Ongeldige urennotatie. Gebruik door komma's gescheiden uren (0-23) en/of "
 "reeksen (bijv. ‘1-5,8,10-12’)."
 
-#: apps/currencies/models.py:259
+#: apps/currencies/models.py:268
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
@@ -757,21 +776,21 @@ msgstr ""
 msgid "Income Transaction"
 msgstr "Ontvangsten Transactie"
 
-#: apps/dca/forms.py:192
+#: apps/dca/forms.py:179
 msgid "Link transaction"
 msgstr "Koppel verrichting"
 
-#: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
-#: apps/dca/forms.py:285
+#: apps/dca/forms.py:262 apps/dca/forms.py:263 apps/dca/forms.py:268
+#: apps/dca/forms.py:272
 msgid "You must provide an account."
 msgstr "Je moet een account opgeven."
 
-#: apps/dca/forms.py:290 apps/transactions/forms.py:752
+#: apps/dca/forms.py:277 apps/transactions/forms.py:752
 #: apps/transactions/models.py:956
 msgid "From and To accounts must be different."
 msgstr "Van en Naar rekening moeten verschillend zijn."
 
-#: apps/dca/forms.py:304
+#: apps/dca/forms.py:291
 #, python-format
 msgid "DCA for %(strategy_name)s"
 msgstr "DCA voor %(strategy_name)s"
@@ -1028,23 +1047,23 @@ msgstr "Status"
 msgid "File name"
 msgstr "Bestandsnaam"
 
-#: apps/import_app/views.py:75
+#: apps/import_app/views.py:76
 msgid "Import Profile added successfully"
 msgstr "Importprofiel succesvol toegevoegd"
 
-#: apps/import_app/views.py:113
+#: apps/import_app/views.py:114
 msgid "Import Profile update successfully"
 msgstr "Importprofiel succesvol bijgewerkt"
 
-#: apps/import_app/views.py:142
+#: apps/import_app/views.py:143
 msgid "Import Profile deleted successfully"
 msgstr "Importprofiel succesvol verwijderd"
 
-#: apps/import_app/views.py:222
+#: apps/import_app/views.py:223
 msgid "Import Run queued successfully"
 msgstr "Importrun met succes in de wachtrij geplaatst"
 
-#: apps/import_app/views.py:249
+#: apps/import_app/views.py:250
 msgid "Run deleted successfully"
 msgstr "Run met succes verwijderd"
 
@@ -1882,8 +1901,8 @@ msgid "Item deleted successfully"
 msgstr "Item succesvol verwijderd"
 
 #: apps/transactions/views/quick_transactions.py:164
-#: apps/transactions/views/transactions.py:143
-#: apps/transactions/views/transactions.py:328
+#: apps/transactions/views/transactions.py:147
+#: apps/transactions/views/transactions.py:332
 msgid "Transaction added successfully"
 msgstr "Verrichting succesvol toegevoegd"
 
@@ -1919,42 +1938,42 @@ msgstr "Label succesvol bijgewerkt"
 msgid "Tag deleted successfully"
 msgstr "Label succesvol verwijderd"
 
-#: apps/transactions/views/transactions.py:61
+#: apps/transactions/views/transactions.py:65
 msgid "Attachment uploaded successfully"
 msgstr "Bijlage succesvol geüpload"
 
-#: apps/transactions/views/transactions.py:112
+#: apps/transactions/views/transactions.py:116
 msgid "Attachment deleted successfully"
 msgstr "Bijlage succesvol verwijderd"
 
-#: apps/transactions/views/transactions.py:355
+#: apps/transactions/views/transactions.py:359
 msgid "Transaction updated successfully"
 msgstr "Verrichting succesvol bijgewerkt"
 
-#: apps/transactions/views/transactions.py:406
+#: apps/transactions/views/transactions.py:410
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s verrichting succesvol bijgewerkt"
 msgstr[1] "%(count)s verrichtingen succesvol bijgewerkt"
 
-#: apps/transactions/views/transactions.py:433
+#: apps/transactions/views/transactions.py:437
 msgid "Transaction duplicated successfully"
 msgstr "Verrichting succesvol gedupliceerd"
 
-#: apps/transactions/views/transactions.py:478
+#: apps/transactions/views/transactions.py:482
 msgid "Transaction deleted successfully"
 msgstr "Verrichting succesvol verwijderd"
 
-#: apps/transactions/views/transactions.py:508
+#: apps/transactions/views/transactions.py:512
 msgid "Transaction restored successfully"
 msgstr "Verrichting succesvol hersteld"
 
-#: apps/transactions/views/transactions.py:534
+#: apps/transactions/views/transactions.py:538
 msgid "Transfer added successfully"
 msgstr "Transactie succesvol toegevoegd"
 
-#: apps/transactions/views/transactions.py:562
+#: apps/transactions/views/transactions.py:566
 msgid "Transfer updated successfully"
 msgstr "Transactie succesvol bijgewerkt"
 
@@ -2540,7 +2559,7 @@ msgstr "Categorie bewerken"
 msgid "Pick a month"
 msgstr "Kies een maand"
 
-#: templates/common/fragments/toasts.html:20
+#: templates/common/fragments/toasts.html:18
 #: templates/cotton/components/fab.html:9
 #: templates/cotton/components/sidebar_collapsible_panel.html:28
 #: templates/extends/offcanvas.html:4 templates/includes/sidebar.html:44

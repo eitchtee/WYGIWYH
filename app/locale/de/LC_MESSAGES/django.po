@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 19:49+0000\n"
+"POT-Creation-Date: 2026-11-08 13:19+0000\n"
 "PO-Revision-Date: 2026-08-10 12:57+0000\n"
 "Last-Translator: GitEbu <ebu@buol.ch>\n"
 "Language-Team: German <https://translations.herculino.com/projects/wygiwyh/"
@@ -24,8 +24,8 @@ msgid "Group name"
 msgstr "Gruppe Name"
 
 #: apps/accounts/forms.py:43 apps/accounts/forms.py:109
-#: apps/currencies/forms.py:53 apps/currencies/forms.py:87
-#: apps/currencies/forms.py:136 apps/dca/forms.py:46 apps/dca/forms.py:205
+#: apps/currencies/forms.py:57 apps/currencies/forms.py:91
+#: apps/currencies/forms.py:166 apps/dca/forms.py:46 apps/dca/forms.py:192
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
 #: apps/rules/forms.py:385 apps/transactions/forms.py:219
 #: apps/transactions/forms.py:452 apps/transactions/forms.py:571
@@ -39,9 +39,9 @@ msgid "Update"
 msgstr "Aktualisierung"
 
 #: apps/accounts/forms.py:49 apps/accounts/forms.py:115
-#: apps/common/widgets/tom_select.py:13 apps/currencies/forms.py:59
-#: apps/currencies/forms.py:93 apps/currencies/forms.py:142
-#: apps/dca/forms.py:52 apps/dca/forms.py:211 apps/import_app/forms.py:38
+#: apps/common/widgets/tom_select.py:15 apps/currencies/forms.py:63
+#: apps/currencies/forms.py:97 apps/currencies/forms.py:172
+#: apps/dca/forms.py:52 apps/dca/forms.py:198 apps/import_app/forms.py:38
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
 #: apps/transactions/forms.py:206 apps/transactions/forms.py:226
 #: apps/transactions/forms.py:459 apps/transactions/forms.py:946
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Balance against"
 msgstr "Saldo"
 
-#: apps/accounts/forms.py:189 apps/currencies/forms.py:66
+#: apps/accounts/forms.py:189 apps/currencies/forms.py:70
 #: apps/dca/models.py:158 apps/rules/forms.py:176 apps/rules/forms.py:190
 #: apps/rules/models.py:38 apps/rules/models.py:279
 #: apps/transactions/forms.py:86 apps/transactions/forms.py:482
@@ -248,7 +248,7 @@ msgstr "Kontengruppe erfolgreich gelöscht"
 
 #: apps/accounts/views/account_groups.py:109
 #: apps/accounts/views/accounts.py:137 apps/dca/views.py:106
-#: apps/import_app/views.py:147 apps/rules/views.py:191
+#: apps/import_app/views.py:148 apps/rules/views.py:191
 #: apps/transactions/views/categories.py:163
 #: apps/transactions/views/entities.py:135 apps/transactions/views/tags.py:131
 msgid "Item no longer shared with you"
@@ -256,7 +256,7 @@ msgstr "Einheit wird nicht länger mit dir geteilt"
 
 #: apps/accounts/views/account_groups.py:132
 #: apps/accounts/views/accounts.py:182 apps/dca/views.py:131
-#: apps/import_app/views.py:273 apps/rules/views.py:217
+#: apps/import_app/views.py:274 apps/rules/views.py:217
 #: apps/transactions/views/categories.py:188
 #: apps/transactions/views/entities.py:160 apps/transactions/views/tags.py:154
 msgid "Ownership taken successfully"
@@ -264,7 +264,7 @@ msgstr "Besitzeigenschaft erfolgreich übernommen"
 
 #: apps/accounts/views/account_groups.py:152
 #: apps/accounts/views/accounts.py:106 apps/dca/views.py:151
-#: apps/import_app/views.py:294 apps/rules/views.py:238
+#: apps/import_app/views.py:295 apps/rules/views.py:238
 #: apps/transactions/views/categories.py:130
 #: apps/transactions/views/entities.py:180 apps/transactions/views/tags.py:174
 msgid "Configuration saved successfully"
@@ -350,7 +350,7 @@ msgid "Error creating new instance"
 msgstr "Fehler bei der Erstellung einer neuen Instanz"
 
 #: apps/common/fields/forms/grouped_select.py:24
-#: apps/common/widgets/tom_select.py:92 apps/common/widgets/tom_select.py:95
+#: apps/common/widgets/tom_select.py:94 apps/common/widgets/tom_select.py:97
 msgid "Ungrouped"
 msgstr "Ohne Gruppierung"
 
@@ -500,11 +500,11 @@ msgstr "Heute"
 msgid "Now"
 msgstr "Jetzt"
 
-#: apps/common/widgets/tom_select.py:11
+#: apps/common/widgets/tom_select.py:13
 msgid "Remove"
 msgstr "Löschen"
 
-#: apps/common/widgets/tom_select.py:15 templates/mini_tools/simulator.html:187
+#: apps/common/widgets/tom_select.py:17 templates/mini_tools/simulator.html:187
 #: templates/mini_tools/unit_price_calculator.html:180
 #: templates/monthly_overview/pages/overview.html:286
 #: templates/transactions/fragments/filter_actions.html:48
@@ -512,15 +512,24 @@ msgstr "Löschen"
 msgid "Clear"
 msgstr "Zurücksetzen"
 
-#: apps/common/widgets/tom_select.py:16
+#: apps/common/widgets/tom_select.py:18
 msgid "No results..."
 msgstr "Keine Ergebnisse..."
 
-#: apps/currencies/forms.py:16 apps/currencies/models.py:22
+#: apps/currencies/exchange_rates/providers.py:703
+msgid ""
+"Central bank code, e.g. 'bcb' or 'rbi'. Leave empty to use the ECB table."
+msgstr ""
+
+#: apps/currencies/exchange_rates/providers.py:735
+msgid "Invalid bank code, it should look like 'bcb'."
+msgstr ""
+
+#: apps/currencies/forms.py:20 apps/currencies/models.py:22
 msgid "Prefix"
 msgstr "Präfix"
 
-#: apps/currencies/forms.py:17 apps/currencies/models.py:23
+#: apps/currencies/forms.py:21 apps/currencies/models.py:23
 msgid "Suffix"
 msgstr "Suffix"
 
@@ -582,27 +591,27 @@ msgstr "Umrechnungskurse"
 msgid "From and To currencies cannot be the same."
 msgstr "Start- und Zielwährung dürfen nicht identisch sein."
 
-#: apps/currencies/models.py:112
+#: apps/currencies/models.py:113
 msgid "On"
 msgstr "An"
 
-#: apps/currencies/models.py:113
+#: apps/currencies/models.py:114
 msgid "Every X hours"
 msgstr "Alle X Stunden"
 
-#: apps/currencies/models.py:114
+#: apps/currencies/models.py:115
 msgid "Not on"
 msgstr "Nicht an"
 
-#: apps/currencies/models.py:116
+#: apps/currencies/models.py:117
 msgid "Service Name"
 msgstr "Dienstname"
 
-#: apps/currencies/models.py:118
+#: apps/currencies/models.py:119
 msgid "Service Type"
 msgstr "Diensttyp"
 
-#: apps/currencies/models.py:120 apps/transactions/filters.py:27
+#: apps/currencies/models.py:121 apps/transactions/filters.py:27
 #: apps/transactions/models.py:253 apps/transactions/models.py:277
 #: apps/transactions/models.py:301 templates/categories/fragments/list.html:16
 #: templates/entities/fragments/list.html:16
@@ -614,31 +623,41 @@ msgstr "Diensttyp"
 msgid "Active"
 msgstr "Aktiv"
 
-#: apps/currencies/models.py:125
+#: apps/currencies/models.py:126
 msgid "API Key"
 msgstr "API-Schlüssel"
 
-#: apps/currencies/models.py:126
+#: apps/currencies/models.py:127
 msgid "API key for the service (if required)"
 msgstr "API-Schlüssel für den Dienst (falls benötigt)"
 
-#: apps/currencies/models.py:131
+#: apps/currencies/models.py:132
+#, fuzzy
+#| msgid "Actions"
+msgid "Options"
+msgstr "Aktionen"
+
+#: apps/currencies/models.py:133
+msgid "Provider specific settings"
+msgstr ""
+
+#: apps/currencies/models.py:138
 msgid "Interval Type"
 msgstr "Intervalltyp"
 
-#: apps/currencies/models.py:135
+#: apps/currencies/models.py:142
 msgid "Interval"
 msgstr "Intervall"
 
-#: apps/currencies/models.py:138
+#: apps/currencies/models.py:145
 msgid "Last Successful Fetch"
 msgstr "Letzter erfolgreicher Abruf"
 
-#: apps/currencies/models.py:145
+#: apps/currencies/models.py:152
 msgid "Target Currencies"
 msgstr "Zielwährungen"
 
-#: apps/currencies/models.py:147
+#: apps/currencies/models.py:154
 msgid ""
 "Select currencies to fetch exchange rates for. Rates will be fetched for "
 "each currency against their set exchange currency."
@@ -646,11 +665,11 @@ msgstr ""
 "Währung auswählen, dessen Umrechnungskurs abgerufen werden sollen. Für jede "
 "Währung wird der Kurs der entsprechenden Umrechnungs-Währung abgerufen."
 
-#: apps/currencies/models.py:155
+#: apps/currencies/models.py:162
 msgid "Target Accounts"
 msgstr "Zielkonten"
 
-#: apps/currencies/models.py:157
+#: apps/currencies/models.py:164
 msgid ""
 "Select accounts to fetch exchange rates for. Rates will be fetched for each "
 "account's currency against their set exchange currency."
@@ -658,33 +677,33 @@ msgstr ""
 "Konten auswählen, für die Umrechungskurse abgerufen werden solen. Für jedes "
 "Konto wird der Kurs der entsprechenden Umrechnungs-Währung abgerufen."
 
-#: apps/currencies/models.py:164
+#: apps/currencies/models.py:171
 msgid "Single exchange rate"
 msgstr "Umrechnungskurs bearbeiten"
 
-#: apps/currencies/models.py:167
+#: apps/currencies/models.py:174
 msgid "Create one exchange rate and keep updating it. Avoids database clutter."
 msgstr ""
 "Legen Sie einen Wechselkurs an und aktualisieren Sie ihn regelmäßig. So "
 "vermeiden Sie Unübersichtlichkeit in der Datenbank."
 
-#: apps/currencies/models.py:172
+#: apps/currencies/models.py:179
 msgid "Exchange Rate Service"
 msgstr "Umrechnungskurs-Dienst"
 
-#: apps/currencies/models.py:173
+#: apps/currencies/models.py:180
 msgid "Exchange Rate Services"
 msgstr "Umrechnungskurs-Dienste"
 
-#: apps/currencies/models.py:225
+#: apps/currencies/models.py:234
 msgid "'Every X hours' interval type requires a positive integer."
 msgstr "\"Jede X Stunden\"-Intervalltyp benötigt eine positive Ganzzahl."
 
-#: apps/currencies/models.py:234
+#: apps/currencies/models.py:243
 msgid "'Every X hours' interval must be between 1 and 24."
 msgstr "\"Jede X Stunden\"-Intervall muss zwischen 1 und 24 liegen."
 
-#: apps/currencies/models.py:248
+#: apps/currencies/models.py:257
 msgid ""
 "Invalid hour format. Use comma-separated hours (0-23) and/or ranges (e.g., "
 "'1-5,8,10-12')."
@@ -692,7 +711,7 @@ msgstr ""
 "Ungültiges Stundenformat. Nutze kommagetrennte Stunden (0-23) und/oder "
 "Zeiträume (z.B. \"1-5,8,10-12\")."
 
-#: apps/currencies/models.py:259
+#: apps/currencies/models.py:268
 msgid ""
 "Invalid format. Please check the requirements for your selected interval "
 "type."
@@ -766,21 +785,21 @@ msgstr ""
 msgid "Income Transaction"
 msgstr "Einnahmen-Transaktion"
 
-#: apps/dca/forms.py:192
+#: apps/dca/forms.py:179
 msgid "Link transaction"
 msgstr "Verknüpfe Transaktion"
 
-#: apps/dca/forms.py:275 apps/dca/forms.py:276 apps/dca/forms.py:281
-#: apps/dca/forms.py:285
+#: apps/dca/forms.py:262 apps/dca/forms.py:263 apps/dca/forms.py:268
+#: apps/dca/forms.py:272
 msgid "You must provide an account."
 msgstr "Du musst ein Konto angeben."
 
-#: apps/dca/forms.py:290 apps/transactions/forms.py:752
+#: apps/dca/forms.py:277 apps/transactions/forms.py:752
 #: apps/transactions/models.py:956
 msgid "From and To accounts must be different."
 msgstr "Start- und Zielkonten müssen unterschiedlich sein."
 
-#: apps/dca/forms.py:304
+#: apps/dca/forms.py:291
 #, python-format
 msgid "DCA for %(strategy_name)s"
 msgstr "DCA für %(strategy_name)s"
@@ -1037,23 +1056,23 @@ msgstr "Status"
 msgid "File name"
 msgstr "Dateiname"
 
-#: apps/import_app/views.py:75
+#: apps/import_app/views.py:76
 msgid "Import Profile added successfully"
 msgstr "Importprofil erfolgreich hinzugefügt"
 
-#: apps/import_app/views.py:113
+#: apps/import_app/views.py:114
 msgid "Import Profile update successfully"
 msgstr "Importprofil erfolgreich aktualisiert"
 
-#: apps/import_app/views.py:142
+#: apps/import_app/views.py:143
 msgid "Import Profile deleted successfully"
 msgstr "Importprofil erfolreich gelöscht"
 
-#: apps/import_app/views.py:222
+#: apps/import_app/views.py:223
 msgid "Import Run queued successfully"
 msgstr "Importvorgang erfolgreich in die Warteschlange eingereiht"
 
-#: apps/import_app/views.py:249
+#: apps/import_app/views.py:250
 msgid "Run deleted successfully"
 msgstr "Vorgang erfolgreich gelöscht"
 
@@ -1926,8 +1945,8 @@ msgid "Item deleted successfully"
 msgstr "Objekt erfolgreich gelöscht"
 
 #: apps/transactions/views/quick_transactions.py:164
-#: apps/transactions/views/transactions.py:143
-#: apps/transactions/views/transactions.py:328
+#: apps/transactions/views/transactions.py:147
+#: apps/transactions/views/transactions.py:332
 msgid "Transaction added successfully"
 msgstr "Transaktion erfolgreich hinzugefügt"
 
@@ -1963,46 +1982,46 @@ msgstr "Tag erfolgreich aktualisiert"
 msgid "Tag deleted successfully"
 msgstr "Tag erfolgreich gelöscht"
 
-#: apps/transactions/views/transactions.py:61
+#: apps/transactions/views/transactions.py:65
 #, fuzzy
 #| msgid "Account updated successfully"
 msgid "Attachment uploaded successfully"
 msgstr "Konto erfolgreich aktualisiert"
 
-#: apps/transactions/views/transactions.py:112
+#: apps/transactions/views/transactions.py:116
 #, fuzzy
 #| msgid "Account deleted successfully"
 msgid "Attachment deleted successfully"
 msgstr "Konto erfolgreich gelöscht"
 
-#: apps/transactions/views/transactions.py:355
+#: apps/transactions/views/transactions.py:359
 msgid "Transaction updated successfully"
 msgstr "Transaktion erfolgreich aktualisiert"
 
-#: apps/transactions/views/transactions.py:406
+#: apps/transactions/views/transactions.py:410
 #, python-format
 msgid "%(count)s transaction updated successfully"
 msgid_plural "%(count)s transactions updated successfully"
 msgstr[0] "%(count)s Transaktion erfolgreich aktualisiert"
 msgstr[1] "%(count)s Transaktionen erfolgreich aktualisiert"
 
-#: apps/transactions/views/transactions.py:433
+#: apps/transactions/views/transactions.py:437
 msgid "Transaction duplicated successfully"
 msgstr "Transaktion erfolgreich duplisiert"
 
-#: apps/transactions/views/transactions.py:478
+#: apps/transactions/views/transactions.py:482
 msgid "Transaction deleted successfully"
 msgstr "Transaktion erfolgreich gelöscht"
 
-#: apps/transactions/views/transactions.py:508
+#: apps/transactions/views/transactions.py:512
 msgid "Transaction restored successfully"
 msgstr "Transaktion erfolgreich wiederhergestellt"
 
-#: apps/transactions/views/transactions.py:534
+#: apps/transactions/views/transactions.py:538
 msgid "Transfer added successfully"
 msgstr "Transfer erfolgreich hinzugefügt"
 
-#: apps/transactions/views/transactions.py:562
+#: apps/transactions/views/transactions.py:566
 #, fuzzy
 #| msgid "Transfer added successfully"
 msgid "Transfer updated successfully"
@@ -2614,7 +2633,7 @@ msgstr "Kategorie bearbeiten"
 msgid "Pick a month"
 msgstr "Monat auswählen"
 
-#: templates/common/fragments/toasts.html:20
+#: templates/common/fragments/toasts.html:18
 #: templates/cotton/components/fab.html:9
 #: templates/cotton/components/sidebar_collapsible_panel.html:28
 #: templates/extends/offcanvas.html:4 templates/includes/sidebar.html:44
