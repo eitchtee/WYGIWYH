@@ -5,6 +5,11 @@ from . import views
 urlpatterns = [
     path("investments/", views.investments_index, name="investments_index"),
     path("investments/list/", views.investments_list, name="investments_list"),
+    path(
+        "investments/group-by/",
+        views.investments_group_by,
+        name="investments_group_by",
+    ),
     path("investments/charts/", views.investments_charts, name="investments_charts"),
     path(
         "investments/rebalance/",
