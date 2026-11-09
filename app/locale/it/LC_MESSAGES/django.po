@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 22:23+0000\n"
+"POT-Creation-Date: 2026-11-09 02:35+0000\n"
 "PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -60,7 +60,7 @@ msgid "Group"
 msgstr "Gruppo"
 
 #: apps/accounts/forms.py:93 apps/accounts/models.py:73
-#: apps/accounts/models.py:130
+#: apps/accounts/models.py:130 templates/investments/fragments/list.html:32
 #: templates/investments/fragments/rebalance.html:22
 msgid "Asset class"
 msgstr ""
@@ -233,7 +233,7 @@ msgstr ""
 "I conti patrimoniali vengono conteggiati nel tuo patrimonio netto, ma non "
 "nel bilancio mensile."
 
-#: apps/accounts/models.py:117 templates/investments/fragments/list.html:46
+#: apps/accounts/models.py:117
 #, fuzzy
 #| msgid "Installment"
 msgid "Investment"
@@ -669,7 +669,7 @@ msgstr "Errore durante la creazione della nuova istanza"
 
 #: apps/common/fields/forms/grouped_select.py:24
 #: apps/common/widgets/tom_select.py:94 apps/common/widgets/tom_select.py:97
-#: templates/investments/fragments/list.html:26
+#: templates/investments/fragments/list.html:39
 msgid "Ungrouped"
 msgstr "Non raggruppato"
 
@@ -1472,27 +1472,27 @@ msgstr "Nessun beneficiario"
 msgid "No entities"
 msgstr "Nessun beneficiario"
 
-#: apps/investments/views.py:104
+#: apps/investments/views.py:120
 msgid "Other"
 msgstr ""
 
-#: apps/investments/views.py:135
+#: apps/investments/views.py:151 templates/investments/fragments/list.html:39
 msgid "Unclassified"
 msgstr ""
 
-#: apps/investments/views.py:267
+#: apps/investments/views.py:283
 #, fuzzy
 #| msgid "Installment Plan added successfully"
 msgid "Asset class added successfully"
 msgstr "Piano di rateizzazione aggiunto correttamente"
 
-#: apps/investments/views.py:275
+#: apps/investments/views.py:291
 #, fuzzy
 #| msgid "Tag updated successfully"
 msgid "Asset class updated successfully"
 msgstr "Tag aggiornato con successo"
 
-#: apps/investments/views.py:296
+#: apps/investments/views.py:312
 #, fuzzy
 #| msgid "Tag deleted successfully"
 msgid "Asset class deleted successfully"
@@ -1662,10 +1662,9 @@ msgid "Field"
 msgstr "Campo"
 
 #: apps/rules/models.py:61 templates/investments/fragments/charts.html:86
-#: templates/investments/fragments/detail.html:103
-#: templates/investments/fragments/detail.html:162
-#: templates/investments/fragments/list.html:48
-#: templates/investments/fragments/list.html:49
+#: templates/investments/fragments/detail.html:68
+#: templates/investments/fragments/detail.html:127
+#: templates/investments/fragments/detail.html:245
 #: templates/investments/fragments/rebalance.html:23
 msgid "Value"
 msgstr "Valore"
@@ -1950,12 +1949,11 @@ msgstr ""
 #: templates/cotton/ui/quick_transactions_buttons.html:10
 #: templates/cotton/ui/transactions_fab.html:10
 #: templates/insights/fragments/overview/_results.html:12
-#: templates/investments/fragments/_totals.html:21
-#: templates/investments/fragments/_totals.html:42
-#: templates/investments/fragments/detail.html:106
-#: templates/investments/fragments/detail.html:210
-#: templates/investments/fragments/detail.html:252
-#: templates/investments/fragments/detail.html:320
+#: templates/investments/fragments/_totals.html:26
+#: templates/investments/fragments/detail.html:71
+#: templates/investments/fragments/detail.html:175
+#: templates/investments/fragments/detail.html:227
+#: templates/investments/fragments/detail.html:313
 #: templates/mini_tools/simulator.html:66
 #: templates/monthly_overview/fragments/monthly_summary.html:42
 msgid "Income"
@@ -2745,8 +2743,8 @@ msgstr "Azioni"
 #: templates/import_app/fragments/profiles/list.html:46
 #: templates/installment_plans/fragments/table.html:28
 #: templates/investment_classes/fragments/list.html:39
-#: templates/investments/fragments/detail.html:305
-#: templates/investments/fragments/detail.html:331
+#: templates/investments/fragments/detail.html:297
+#: templates/investments/fragments/detail.html:325
 #: templates/quick_transactions/fragments/list.html:25
 #: templates/recurring_transactions/fragments/table.html:30
 #: templates/rules/fragments/transaction_rule/view.html:22
@@ -2932,7 +2930,7 @@ msgid "Add account"
 msgstr "Aggiungi conto"
 
 #: templates/accounts/fragments/edit.html:5
-#: templates/investments/fragments/detail.html:40
+#: templates/investments/fragments/detail.html:38
 msgid "Edit account"
 msgstr "Modifica conto"
 
@@ -3270,8 +3268,8 @@ msgid "Add DCA strategy"
 msgstr "Aggiungi strategia DCA"
 
 #: templates/dca/fragments/strategy/details.html:28
-#: templates/investments/fragments/detail.html:92
-#: templates/investments/fragments/list.html:65
+#: templates/investments/fragments/detail.html:207
+#: templates/investments/fragments/list.html:57
 msgid "No exchange rate available"
 msgstr "Nessun cambio valuta disponibile"
 
@@ -3622,7 +3620,7 @@ msgstr "Strumenti"
 
 #: templates/includes/sidebar.html:118 templates/includes/sidebar.html:188
 #: templates/investment_classes/fragments/list.html:29
-#: templates/investments/fragments/detail.html:37
+#: templates/investments/fragments/detail.html:35
 #: templates/investments/fragments/list.html:9
 #: templates/investments/pages/detail.html:4
 #: templates/investments/pages/index.html:4
@@ -3998,66 +3996,54 @@ msgstr ""
 msgid "Allocation chart"
 msgstr ""
 
-#: templates/investments/fragments/_allocation.html:11
+#: templates/investments/fragments/_allocation.html:10
 #, python-format
-msgid ""
-"%(share)s%% of your investments with a target, against a target of "
-"%(target)s%%"
-msgstr ""
-
-#: templates/investments/fragments/_mwr.html:1
-msgid "Annual return, weighted by when money went in and out"
-msgstr ""
-
-#: templates/investments/fragments/_mwr.html:1
-msgid ""
-"Return since the first contribution, weighted by when money went in and out"
+msgid "target %(target)s%%"
 msgstr ""
 
 #: templates/investments/fragments/_mwr.html:1
 msgid "/yr"
 msgstr ""
 
-#: templates/investments/fragments/_totals.html:15
-#: templates/investments/fragments/detail.html:63
-msgid "total return"
+#: templates/investments/fragments/_totals.html:5
+msgid "Portfolio value"
 msgstr ""
 
-#: templates/investments/fragments/_totals.html:20
-#: templates/investments/fragments/_totals.html:41
+#: templates/investments/fragments/_totals.html:12
+#: templates/investments/fragments/detail.html:57
+msgid "all time"
+msgstr ""
+
+#: templates/investments/fragments/_totals.html:18
+msgid "Details"
+msgstr ""
+
+#: templates/investments/fragments/_totals.html:22
 #: templates/investments/fragments/charts.html:96
-#: templates/investments/fragments/detail.html:163
-#: templates/investments/fragments/detail.html:223
-#: templates/investments/fragments/list.html:47
+#: templates/investments/fragments/detail.html:128
+#: templates/investments/fragments/detail.html:215
 #, fuzzy
 #| msgid "Total Invested"
 msgid "Invested"
 msgstr "Totale investito"
 
-#: templates/investments/fragments/_totals.html:24
-#: templates/investments/fragments/detail.html:74
-msgid ""
-"How much of the return came from exchange rates moving since you invested"
-msgstr ""
-
-#: templates/investments/fragments/_totals.html:24
-#: templates/investments/fragments/_totals.html:26
+#: templates/investments/fragments/_totals.html:31
 #, fuzzy
 #| msgid "Currency Code"
 msgid "Currency effect"
 msgstr "Codice valuta"
 
-#: templates/investments/fragments/_totals.html:26
-#: templates/investments/fragments/detail.html:78
-msgid ""
-"Every date is converted with the same rate. Add historical exchange rates "
-"(or an automatic rate service) to see how much exchange rates moved your "
-"return."
-msgstr ""
+#: templates/investments/fragments/_totals.html:36
+#: templates/investments/fragments/detail.html:254
+#, fuzzy
+#| msgid "No exchange rates"
+msgid "Needs historical exchange rates"
+msgstr "Nessun cambio valuta"
 
-#: templates/investments/fragments/_totals.html:40
-#: templates/investments/fragments/list.html:49
-msgid "Return"
+#: templates/investments/fragments/_totals.html:44
+#: templates/investments/fragments/detail.html:242
+#, python-format
+msgid "In %(name)s"
 msgstr ""
 
 #: templates/investments/fragments/charts.html:10
@@ -4104,115 +4090,124 @@ msgstr ""
 msgid "Update value"
 msgstr "Aggiorna"
 
-#: templates/investments/fragments/detail.html:47
-#: templates/investments/fragments/list.html:67
+#: templates/investments/fragments/detail.html:45
+#: templates/investments/fragments/list.html:59
 msgid "Tracked by value"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:48
-msgid ""
-"Some units moved in or out without a linked payment, so they were valued at "
-"the market price of that day"
-msgstr ""
-
-#: templates/investments/fragments/detail.html:68
-#, fuzzy
-#| msgid "Info"
-msgid "In"
-msgstr "Info"
-
-#: templates/investments/fragments/detail.html:74
-#: templates/investments/fragments/detail.html:78
-#, fuzzy
-#| msgid "Currency Code"
-msgid "currency effect"
-msgstr "Codice valuta"
-
-#: templates/investments/fragments/detail.html:104
-#: templates/investments/fragments/detail.html:179
+#: templates/investments/fragments/detail.html:69
+#: templates/investments/fragments/detail.html:144
+#: templates/investments/fragments/detail.html:206
 #, fuzzy
 #| msgid "Entry Price"
 msgid "Price"
 msgstr "Prezzo di ingresso"
 
-#: templates/investments/fragments/detail.html:105
-#: templates/investments/fragments/detail.html:200
-#: templates/investments/fragments/detail.html:239
-#: templates/investments/fragments/detail.html:290
+#: templates/investments/fragments/detail.html:70
+#: templates/investments/fragments/detail.html:165
+#: templates/investments/fragments/detail.html:219
+#: templates/investments/fragments/detail.html:282
 #, fuzzy
 #| msgid "Warning"
 msgid "Earnings"
 msgstr "Avviso"
 
-#: templates/investments/fragments/detail.html:180
-#: templates/investments/fragments/detail.html:227
+#: templates/investments/fragments/detail.html:145
+#: templates/investments/fragments/detail.html:210
 msgid "Average cost"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:181
-#: templates/investments/fragments/rebalance.html:41
+#: templates/investments/fragments/detail.html:146
+#: templates/investments/fragments/rebalance.html:40
 #, fuzzy
 #| msgid "By"
 msgid "Buy"
 msgstr "Da"
 
-#: templates/investments/fragments/detail.html:182
-#: templates/investments/fragments/rebalance.html:43
+#: templates/investments/fragments/detail.html:147
+#: templates/investments/fragments/rebalance.html:42
 msgid "Sell"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:227
-#: templates/investments/fragments/detail.html:257
-msgid "Put in / taken out"
+#: templates/investments/fragments/detail.html:191
+msgid ""
+"Some units moved in or out without a linked payment, so they were valued at "
+"the market price of that day."
 msgstr ""
 
-#: templates/investments/fragments/detail.html:239
+#: templates/investments/fragments/detail.html:198
+msgid "Your position"
+msgstr ""
+
+#: templates/investments/fragments/detail.html:202
+msgid "Units"
+msgstr ""
+
+#: templates/investments/fragments/detail.html:219
 #, fuzzy
 #| msgid "Uncategorized"
 msgid "Unrealized"
 msgstr "Senza categoria"
 
-#: templates/investments/fragments/detail.html:248
+#: templates/investments/fragments/detail.html:223
 msgid "Realized"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:271
+#: templates/investments/fragments/detail.html:231
+msgid "Put in"
+msgstr ""
+
+#: templates/investments/fragments/detail.html:235
+msgid "Taken out"
+msgstr ""
+
+#: templates/investments/fragments/detail.html:249
+msgid "Return"
+msgstr ""
+
+#: templates/investments/fragments/detail.html:253
+#, fuzzy
+#| msgid "No exchange rates"
+msgid "From exchange rates"
+msgstr "Nessun cambio valuta"
+
+#: templates/investments/fragments/detail.html:263
 #, fuzzy
 #| msgid "Management"
 msgid "Movements"
 msgstr "Gestione"
 
-#: templates/investments/fragments/detail.html:284
+#: templates/investments/fragments/detail.html:276
 msgid "Bought / contributed"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:284
+#: templates/investments/fragments/detail.html:276
 msgid "Sold / withdrew"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:288
+#: templates/investments/fragments/detail.html:280
 msgid "Money in"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:288
+#: templates/investments/fragments/detail.html:280
 msgid "Money out"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:290
+#: templates/investments/fragments/detail.html:282
 msgid "Gain"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:290
+#: templates/investments/fragments/detail.html:282
 msgid "Loss, tax or fee"
 msgstr ""
 
-#: templates/investments/fragments/detail.html:315
+#: templates/investments/fragments/detail.html:307
 #, fuzzy
 #| msgid "No presets yet"
 msgid "No movements yet"
 msgstr "Ancora nessun preset"
 
-#: templates/investments/fragments/detail.html:315
+#: templates/investments/fragments/detail.html:307
 msgid "Use the + button to buy or contribute"
 msgstr ""
 
@@ -4220,27 +4215,29 @@ msgstr ""
 msgid "Holdings"
 msgstr ""
 
-#: templates/investments/fragments/list.html:60
-msgid "Some costs were estimated from market prices"
-msgstr ""
+#: templates/investments/fragments/list.html:27
+#, fuzzy
+#| msgid "Account Group"
+msgid "Account group"
+msgstr "Gruppo conto"
 
-#: templates/investments/fragments/list.html:92
+#: templates/investments/fragments/list.html:77
 msgid "Charts"
 msgstr ""
 
-#: templates/investments/fragments/list.html:97
+#: templates/investments/fragments/list.html:82
 #, fuzzy
 #| msgid "New balance"
 msgid "Rebalance"
 msgstr "Nuovo saldo"
 
-#: templates/investments/fragments/list.html:105
+#: templates/investments/fragments/list.html:90
 #, fuzzy
 #| msgid "No presets yet"
 msgid "No investments yet"
 msgstr "Ancora nessun preset"
 
-#: templates/investments/fragments/list.html:106
+#: templates/investments/fragments/list.html:91
 msgid "Mark an account as an investment in its settings to see it here"
 msgstr ""
 
@@ -4256,11 +4253,7 @@ msgstr ""
 msgid "To reach the target"
 msgstr ""
 
-#: templates/investments/fragments/rebalance.html:34
-msgid "Off target"
-msgstr ""
-
-#: templates/investments/fragments/rebalance.html:55
+#: templates/investments/fragments/rebalance.html:54
 msgid "Left out: investments without an asset class or a target"
 msgstr ""
 
@@ -4955,6 +4948,16 @@ msgstr "Accedi con"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "Panoramica annuale"
+
+#, fuzzy
+#~| msgid "Info"
+#~ msgid "In"
+#~ msgstr "Info"
+
+#, fuzzy
+#~| msgid "Currency Code"
+#~ msgid "currency effect"
+#~ msgstr "Codice valuta"
 
 #~ msgid ""
 #~ "Create one exchange rate and keep updating it. Avoids database clutter."
