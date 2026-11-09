@@ -31,10 +31,9 @@
             <tr>
               <td class="font-medium">
                 {{ row.class.name }}
-                {% if row.off %}<i class="fa-solid fa-triangle-exclamation text-warning text-xs" data-tippy-content="{% translate 'Off target' %}"></i>{% endif %}
               </td>
               <td class="text-end tabular-nums whitespace-nowrap"><c-amount.display :amount="row.value" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
-              <td class="text-end tabular-nums">{{ row.share|floatformat:1 }}%</td>
+              <td class="text-end tabular-nums {% if row.off %}text-warning{% endif %}">{{ row.share|floatformat:1 }}%</td>
               <td class="text-end tabular-nums text-base-content/70">{{ row.target|floatformat:"-2" }}%</td>
               <td class="text-end tabular-nums whitespace-nowrap">
                 {% if row.move > 0 %}

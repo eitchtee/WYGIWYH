@@ -25,7 +25,7 @@ from apps.transactions.models import Transaction
 
 def _holdings():
     return Account.objects.filter(is_investment=True, is_archived=False).select_related(
-        "group", "currency", "exchange_currency"
+        "group", "investment_class", "currency", "exchange_currency"
     )
 
 
@@ -34,29 +34,45 @@ def investments_index(request):
     return render(request, "investments/pages/index.html")
 
 
+GROUP_BY = ("group", "investment_class")
+
+
+def _grouped(performances, attr):
+    groups = {}
+    for perf in performances:
+        group = getattr(perf.account, attr)
+        groups.setdefault(group.id if group else None, (group, []))[1].append(perf)
+    return [
+        {"group": group, "holdings": items, "totals": summarize(items)}
+        for group, items in sorted(
+            groups.values(), key=lambda g: (g[0] is None, g[0] and g[0].name)
+        )
+    ]
+
+
 @only_htmx
 @login_required
 def investments_list(request):
     performances = [get_holding_performance(account) for account in _holdings()]
 
-    groups = {}
-    for perf in performances:
-        group = perf.account.group
-        groups.setdefault(group.id if group else None, (group, []))[1].append(perf)
-
+    # Both groupings are rendered so the toggle flips client-side without recomputing
     return render(
         request,
         "investments/fragments/list.html",
         {
-            "groups": [
-                {"group": group, "holdings": items, "totals": summarize(items)}
-                for group, items in sorted(
-                    groups.values(), key=lambda g: (g[0] is None, g[0] and g[0].name)
-                )
-            ],
+            "groupings": [(attr, _grouped(performances, attr)) for attr in GROUP_BY],
             "totals": summarize(performances, convert=True),
+            "group_by": request.session.get("investments_group_by", "group"),
         },
     )
+
+
+@only_htmx
+@login_required
+def investments_group_by(request):
+    if request.GET.get("group_by") in GROUP_BY:
+        request.session["investments_group_by"] = request.GET["group_by"]
+    return HttpResponse(status=204)
 
 
 def _money(currency):
