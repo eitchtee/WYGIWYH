@@ -242,6 +242,30 @@ class RecurringTransactionTests(TestCase):
         self.assertEqual(recurring.recurrence_interval, 1)
         self.assertEqual(recurring.account.currency.code, "USD")
 
+    def test_month_end_recurrence_returns_to_its_day(self):
+        """A recurrence on the 31st goes back to it after a short month"""
+        recurring = RecurringTransaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            amount=Decimal("100.00"),
+            description="Rent",
+            start_date=datetime.date(2026, 1, 31),
+            recurrence_type=RecurringTransaction.RecurrenceType.MONTH,
+            recurrence_interval=1,
+        )
+
+        feb = recurring.get_next_date(datetime.date(2026, 1, 31))
+        march = recurring.get_next_date(feb)
+        april = recurring.get_next_date(march)
+
+        self.assertEqual(feb, datetime.date(2026, 2, 28))
+        self.assertEqual(march, datetime.date(2026, 3, 31))
+        self.assertEqual(april, datetime.date(2026, 4, 30))
+        self.assertEqual(
+            recurring.get_next_date(datetime.date(2026, 2, 1)),
+            datetime.date(2026, 3, 1),
+        )
+
     def test_generate_upcoming_transactions_keeps_tags_and_entities(self):
         """Generation must copy tags/entities even with no current user"""
         tag = TransactionTag.objects.create(name="Essential")
