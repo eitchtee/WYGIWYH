@@ -55,3 +55,21 @@
         aria-valuemax="100">
     </div>
 </div>
+{% with p=percentage.percentages %}
+{% if p.income_projected > 0 and p.income_current > 0 or p.expense_projected > 0 and p.expense_current > 0 %}
+<div class="flex w-full text-xs text-base-content/70" aria-hidden="true">
+    <div style="width: {{ p.income_total|floatformat:'2u' }}%">
+        {% if p.income_projected > 0 and p.income_current > 0 %}
+        <div class="h-1.5 border-x border-b border-base-content/40 rounded-b mx-px"></div>
+        <div class="text-center">{{ p.income_total|floatformat:2 }}%</div>
+        {% endif %}
+    </div>
+    <div style="width: {{ p.expense_total|floatformat:'2u' }}%">
+        {% if p.expense_projected > 0 and p.expense_current > 0 %}
+        <div class="h-1.5 border-x border-b border-base-content/40 rounded-b mx-px"></div>
+        <div class="text-center">{{ p.expense_total|floatformat:2 }}%</div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endwith %}
