@@ -1,0 +1,50 @@
+{% load i18n %}
+{# One side of a combined transfer, laid out like a mini transaction: account + metadata | amount #}
+{# Only the divider between legs gets the extra space; the outer edges stay flush #}
+<div class="relative flex items-start gap-x-3 py-3.5 first:pt-0 last:pb-0">
+  {# Timeline rail: x sits under the transfer icon's center (7.5px into the column, minus the container's ps-5 = 20px). #}
+  {# The first leg's rail reaches up past the description's mb + container mt to the icon; the last one stops at its icon, making └ #}
+  <span aria-hidden="true" class="absolute -left-[13px] w-px bg-base-content/20
+    {% if first %}-top-[20px] lg:-top-[16px] bottom-0{% else %}top-0 h-[24px]{% endif %}"></span>
+  {# Stub from the rail into this leg's icon, at the icon's vertical center #}
+  <span aria-hidden="true" class="absolute -left-[13px] w-[13px] h-px bg-base-content/20
+    {% if first %}top-[10px]{% else %}top-[24px]{% endif %}"></span>
+  {# h-5 matches the account line's height so the icon centers on it #}
+  <div class="h-5 flex items-center" title="{{ label }}">
+    <i class="fa-solid {{ icon }} fa-fw fa-xs {% if color == 'red' %}text-expense{% else %}text-income{% endif %}"></i>
+  </div>
+  {# Like a regular item: amount drops below on small screens, bottom-right on lg #}
+  <div class="flex-1 min-w-0 flex flex-wrap lg:flex-nowrap gap-x-3 gap-y-2 lg:gap-y-1">
+  <div class="w-full lg:flex-1 min-w-0">
+    <div class="text-base-content truncate">{% if leg.account.group %}{{ leg.account.group.name }} • {% endif %}{{ leg.account.name }}</div>
+    {# Same rhythm as a regular item's metadata rows: mb-2 lg:mb-1 between rows, pe-1 + mr-1 after the icon #}
+    <div class="flex flex-col gap-2 lg:gap-1 mt-1 text-xs text-base-content/60">
+      {# h-4 = one text-xs line, so each icon centers on its row's first line #}
+      {% if leg.category %}<div class="flex gap-2"><span class="h-4 flex items-center"><i class="fa-solid fa-icons fa-fw fa-xs"></i></span><span>{{ leg.category.name }}</span></div>{% endif %}
+      {% if leg.tags.all %}<div class="flex gap-2"><span class="h-4 flex items-center"><i class="fa-solid fa-hashtag fa-fw fa-xs"></i></span><span>{{ leg.tags.all|join:", " }}</span></div>{% endif %}
+      {% if leg.entities.all %}<div class="flex gap-2"><span class="h-4 flex items-center"><i class="fa-solid fa-user-group fa-fw fa-xs"></i></span><span>{{ leg.entities.all|join:", " }}</span></div>{% endif %}
+    </div>
+  </div>
+  {# Mobile gaps match a regular item's amount rows (mb-2 lg:mb-0) #}
+  <div class="w-full lg:w-auto lg:text-right lg:self-end lg:pe-1 shrink-0 flex flex-col gap-2 lg:gap-0">
+    <c-amount.display
+        :amount="leg.amount"
+        :prefix="leg.account.currency.prefix"
+        :suffix="leg.account.currency.suffix"
+        :decimal_places="leg.account.currency.decimal_places"
+        :color="color"></c-amount.display>
+    {% if not dummy %}
+      {% with exchanged=leg.exchanged_amount %}
+        {% if exchanged %}
+          <c-amount.display
+              :amount="exchanged.amount"
+              :prefix="exchanged.prefix"
+              :suffix="exchanged.suffix"
+              :decimal_places="exchanged.decimal_places"
+              color="grey"></c-amount.display>
+        {% endif %}
+      {% endwith %}
+    {% endif %}
+  </div>
+  </div>
+</div>

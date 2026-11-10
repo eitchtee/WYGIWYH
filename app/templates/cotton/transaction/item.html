@@ -76,42 +76,22 @@
                 <div class="flex-1 ps-0">{{ overriden_entities|join:", " }}</div>
               </div>
 
-            {% elif is_transfer %}
-              {% if transaction.entities.all or transfer_to.entities.all %}
-                <div class="grid grid-cols-[auto_1fr] mb-2 lg:mb-1 text-base-content/70">
-                  <div class="w-auto pe-1"><i class="fa-solid fa-user-group fa-fw mr-1 fa-xs"></i></div>
-                  <div>{{ transaction.entities.all|join:", "|default:"—" }}</div>
-                  <div class="w-auto pe-1"><i class="fa-solid fa-arrow-right fa-fw mr-1 fa-xs text-base-content/40"></i></div>
-                  <div>{{ transfer_to.entities.all|join:", "|default:"—" }}</div>
-                </div>
-              {% endif %}
-
               {% comment %} If no override, fall back to transaction entities, but ONLY if the transaction has an ID. {% endcomment %}
-            {% elif transaction.id and transaction.entities.all %}
+            {% elif transaction.id and transaction.entities.all and not is_transfer %}
               <div class="flex flex-wrap mb-2 lg:mb-1 text-base-content/70">
                 <div class="w-auto pe-1"><i class="fa-solid fa-user-group fa-fw mr-1 fa-xs"></i></div>
                 <div class="flex-1 ps-0">{{ transaction.entities.all|join:", " }}</div>
               </div>
             {% endif %}
             {#        Notes#}
-            {% if transaction.notes %}
+            {% if transaction.notes and not is_transfer %}
               <div class="flex flex-wrap mb-2 lg:mb-1 text-base-content/70">
                 <div class="w-auto pe-1"><i class="fa-solid fa-align-left fa-fw mr-1 fa-xs"></i></div>
                 <div class="flex-1 ps-0">{{ transaction.notes | limited_markdown | linebreaksbr }}</div>
               </div>
             {% endif %}
             {#        Category#}
-            {% if is_transfer %}
-              {# Each side keeps its own category: "from" line, then "to" line with the arrow under the icon #}
-              {% if transaction.category or transfer_to.category %}
-                <div class="grid grid-cols-[auto_1fr] mb-2 lg:mb-1 text-base-content/70">
-                  <div class="w-auto pe-1"><i class="fa-solid fa-icons fa-fw mr-1 fa-xs"></i></div>
-                  <div>{{ transaction.category.name|default:"—" }}</div>
-                  <div class="w-auto pe-1"><i class="fa-solid fa-arrow-right fa-fw mr-1 fa-xs text-base-content/40"></i></div>
-                  <div>{{ transfer_to.category.name|default:"—" }}</div>
-                </div>
-              {% endif %}
-            {% elif transaction.category %}
+            {% if transaction.category and not is_transfer %}
               <div class="flex flex-wrap mb-2 lg:mb-1 text-base-content/70">
                 <div class="w-auto pe-1"><i class="fa-solid fa-icons fa-fw mr-1 fa-xs"></i></div>
                 <div class="flex-1 ps-0">{{ transaction.category.name }}</div>
@@ -125,52 +105,33 @@
                 <div class="flex-1 ps-0">{{ overriden_tags|join:", " }}</div>
               </div>
 
-            {% elif is_transfer %}
-              {% if transaction.tags.all or transfer_to.tags.all %}
-                <div class="grid grid-cols-[auto_1fr] mb-2 lg:mb-1 text-base-content/70">
-                  <div class="w-auto pe-1"><i class="fa-solid fa-hashtag fa-fw mr-1 fa-xs"></i></div>
-                  <div>{{ transaction.tags.all|join:", "|default:"—" }}</div>
-                  <div class="w-auto pe-1"><i class="fa-solid fa-arrow-right fa-fw mr-1 fa-xs text-base-content/40"></i></div>
-                  <div>{{ transfer_to.tags.all|join:", "|default:"—" }}</div>
-                </div>
-              {% endif %}
-
               {% comment %} If no override, fall back to transaction tags, but ONLY if the transaction has an ID. {% endcomment %}
-            {% elif transaction.id and transaction.tags.all %}
+            {% elif transaction.id and transaction.tags.all and not is_transfer %}
               <div class="flex flex-wrap mb-2 lg:mb-1 text-base-content/70">
                 <div class="w-auto pe-1"><i class="fa-solid fa-hashtag fa-fw mr-1 fa-xs"></i></div>
                 <div class="flex-1 ps-0">{{ transaction.tags.all|join:", " }}</div>
               </div>
             {% endif %}
           </div>
+          {% if is_transfer %}
+            {# ps-5 leaves room for the timeline rail that drops from the transfer icon (see _transfer_leg) #}
+            <div class="main-amount mt-2 mb-1 ps-5 text-sm">
+              {% translate 'From' as from_label %}{% translate 'To' as to_label %}
+              {% include "cotton/transaction/_transfer_leg.html" with leg=transaction color="red" icon="fa-arrow-right-from-bracket" label=from_label first=True %}
+              {% include "cotton/transaction/_transfer_leg.html" with leg=transfer_to color="green" icon="fa-arrow-right-to-bracket" label=to_label first=False %}
+            </div>
+            {# Notes go below the legs so they don't sit in the rail's path #}
+            {% if transaction.notes %}
+              <div class="flex flex-wrap mt-2 text-sm text-base-content/70">
+                <div class="w-auto pe-1"><i class="fa-solid fa-align-left fa-fw mr-1 fa-xs"></i></div>
+                <div class="flex-1 ps-0">{{ transaction.notes | limited_markdown | linebreaksbr }}</div>
+              </div>
+            {% endif %}
+          {% endif %}
         </div>
+        {% if not is_transfer %}
         <div
             class="lg:w-auto lg:min-w-0 lg:max-w-1/2 w-full lg:text-right self-end {% if transaction.account.is_untracked_by or transaction.category.mute or transaction.mute %}opacity-70{% endif %}">
-          {% if is_transfer %}
-            {# Each side: amount, with its account below, like a regular item #}
-            <div class="main-amount mt-3 lg:mt-0 mb-2 lg:mb-0 grid grid-cols-[auto_minmax(0,auto)] gap-x-2 gap-y-2 items-baseline w-fit max-w-full lg:ms-auto">
-              <span></span>
-              <div class="min-w-0">
-                <c-amount.display
-                    :amount="transaction.amount"
-                    :prefix="transaction.account.currency.prefix"
-                    :suffix="transaction.account.currency.suffix"
-                    :decimal_places="transaction.account.currency.decimal_places"
-                    color="red"></c-amount.display>
-                <div class="truncate">{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
-              </div>
-              <i class="fa-solid fa-arrow-right fa-xs text-base-content/40"></i>
-              <div class="min-w-0">
-                <c-amount.display
-                    :amount="transfer_to.amount"
-                    :prefix="transfer_to.account.currency.prefix"
-                    :suffix="transfer_to.account.currency.suffix"
-                    :decimal_places="transfer_to.account.currency.decimal_places"
-                    color="green"></c-amount.display>
-                <div class="truncate">{% if transfer_to.account.group %}{{ transfer_to.account.group.name }} • {% endif %}{{ transfer_to.account.name }}</div>
-              </div>
-            </div>
-          {% else %}
             <div class="main-amount mb-2 lg:mb-0">
               <c-amount.display
                   :amount="transaction.amount"
@@ -179,7 +140,6 @@
                   :decimal_places="transaction.account.currency.decimal_places"
                   color="{% if transaction.type == "EX" %}red{% else %}green{% endif %}"></c-amount.display>
             </div>
-          {% endif %}
           {#    Exchange Rate#}
           {% if not dummy %}
             {% with exchanged=transaction.exchanged_amount %}
@@ -195,12 +155,11 @@
               {% endif %}
             {% endwith %}
           {% endif %}
-          {% if not is_transfer %}
-            <div>
-              {% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}
-            </div>
-          {% endif %}
+          <div>
+            {% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}
+          </div>
         </div>
+        {% endif %}
         {% if not dummy %}
           <div class="z-1000">
             {#      Item actions#}
