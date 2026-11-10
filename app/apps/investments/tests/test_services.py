@@ -306,6 +306,12 @@ class HoldingPerformanceTests(TestCase):
         self.assertFalse(mw["annualized"])
         self.assertAlmostEqual(float(mw["percentage"]), 5, places=3)
 
+        # A day old with a big move: annualized it'd be far past what xirr can solve
+        day = datetime.date(2025, 1, 2)
+        mw = money_weighted_return([(start, D(-1000), "in")], D(1050), day)
+        self.assertFalse(mw["annualized"])
+        self.assertAlmostEqual(float(mw["percentage"]), 5, places=3)
+
         # Money added late weighs less: +100 on 1000 held all year beats the
         # simple +100 / 2000 = 5% when the second 1000 only came in at the end
         flows = [(start, D(-1000), "in"), (datetime.date(2025, 12, 31), D(-1000), "in")]
