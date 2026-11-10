@@ -157,6 +157,18 @@
                     :suffix="transaction.account.currency.suffix"
                     :decimal_places="transaction.account.currency.decimal_places"
                     color="red"></c-amount.display>
+                {% if not dummy %}
+                  {% with exchanged=transaction.exchanged_amount %}
+                    {% if exchanged %}
+                      <c-amount.display
+                          :amount="exchanged.amount"
+                          :prefix="exchanged.prefix"
+                          :suffix="exchanged.suffix"
+                          :decimal_places="exchanged.decimal_places"
+                          color="grey"></c-amount.display>
+                    {% endif %}
+                  {% endwith %}
+                {% endif %}
                 <div class="truncate">{% if transaction.account.group %}{{ transaction.account.group.name }} • {% endif %}{{ transaction.account.name }}</div>
               </div>
               <i class="fa-solid fa-arrow-right fa-xs text-base-content/40"></i>
@@ -167,6 +179,18 @@
                     :suffix="transfer_to.account.currency.suffix"
                     :decimal_places="transfer_to.account.currency.decimal_places"
                     color="green"></c-amount.display>
+                {% if not dummy %}
+                  {% with exchanged=transfer_to.exchanged_amount %}
+                    {% if exchanged %}
+                      <c-amount.display
+                          :amount="exchanged.amount"
+                          :prefix="exchanged.prefix"
+                          :suffix="exchanged.suffix"
+                          :decimal_places="exchanged.decimal_places"
+                          color="grey"></c-amount.display>
+                    {% endif %}
+                  {% endwith %}
+                {% endif %}
                 <div class="truncate">{% if transfer_to.account.group %}{{ transfer_to.account.group.name }} • {% endif %}{{ transfer_to.account.name }}</div>
               </div>
             </div>
@@ -181,7 +205,7 @@
             </div>
           {% endif %}
           {#    Exchange Rate#}
-          {% if not dummy %}
+          {% if not dummy and not is_transfer %}
             {% with exchanged=transaction.exchanged_amount %}
               {% if exchanged %}
                 <div class="exchanged-amount mb-2 lg:mb-0">
