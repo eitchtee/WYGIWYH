@@ -239,13 +239,14 @@ def get_holding_performance(account, as_of=None, with_history=False):
     return perf
 
 
-def xirr(flows):
-    """Annual rate r where the dated flows' present value is zero, as a float
-    (0.138 = 13.8% a year). None when it can't be solved."""
+def xirr(flows, period_days=365):
+    """Rate r per ``period_days`` (a year by default) where the dated flows'
+    present value is zero, as a float (0.138 = 13.8% a period). None when it
+    can't be solved."""
     if not flows:
         return None
     start = min(flow[0] for flow in flows)
-    points = [((flow[0] - start).days / 365, float(flow[1])) for flow in flows]
+    points = [((flow[0] - start).days / period_days, float(flow[1])) for flow in flows]
     if not (any(a < 0 for _, a in points) and any(a > 0 for _, a in points)):
         return None
 
@@ -272,17 +273,16 @@ def money_weighted_return(flows, market_value, as_of):
     ``{"percentage": Decimal, "annualized": bool}`` or None.
 
     Over a year or more it is annualized (XIRR). Below a year an annual rate
-    exaggerates, so it is turned back into the return over the period held."""
+    exaggerates, so the rate is solved over the period held instead: annualizing
+    a few days blows past what xirr can solve (+1.3% in one day is ~10,600% a year)."""
     if not flows or market_value is None:
         return None
-    rate = xirr(flows + [(as_of, market_value)])
+    days = (as_of - min(flow[0] for flow in flows)).days
+    annualized = days >= 365
+    rate = xirr(flows + [(as_of, market_value)], 365 if annualized else max(days, 1))
     if rate is None:
         return None
-    days = (as_of - min(flow[0] for flow in flows)).days
-    if days >= 365:
-        return {"percentage": Decimal(str(round(rate * 100, 4))), "annualized": True}
-    period = (1 + rate) ** (days / 365) - 1
-    return {"percentage": Decimal(str(round(period * 100, 4))), "annualized": False}
+    return {"percentage": Decimal(str(round(rate * 100, 4))), "annualized": annualized}
 
 
 def _month_ends(transactions, as_of):
