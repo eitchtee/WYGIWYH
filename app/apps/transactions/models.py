@@ -1,3 +1,4 @@
+import calendar
 import decimal
 import logging
 import uuid
@@ -1183,7 +1184,21 @@ class RecurringTransaction(TransferTemplate):
             return relativedelta(years=self.recurrence_interval)
 
     def get_next_date(self, current_date):
-        return current_date + self.get_recurrence_delta()
+        next_date = current_date + self.get_recurrence_delta()
+
+        # A start on the 29th-31st is clamped in shorter months; return to that day
+        # afterwards instead of keeping the clamped one.
+        if (
+            self.recurrence_type
+            in (self.RecurrenceType.MONTH, self.RecurrenceType.YEAR)
+            and self.start_date.day > current_date.day
+            and current_date.day
+            == calendar.monthrange(current_date.year, current_date.month)[1]
+        ):
+            last_day = calendar.monthrange(next_date.year, next_date.month)[1]
+            next_date = next_date.replace(day=min(self.start_date.day, last_day))
+
+        return next_date
 
     @classmethod
     def generate_upcoming_transactions(cls):
