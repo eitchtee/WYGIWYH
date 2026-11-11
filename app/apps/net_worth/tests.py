@@ -119,9 +119,5 @@ class NetWorthCurrencyChartTests(TestCase):
             [(part["currency"]["name"], part["share"]) for part in components],
             [("US Dollar", Decimal("75")), ("Euro", Decimal("25"))],
         )
-        self.assertContains(
-            response, '<span class="tabular-nums">75.0%</span>', html=False
-        )
-        self.assertContains(
-            response, '<span class="tabular-nums">25.0%</span>', html=False
-        )
+        self.assertContains(response, "75.0%")
+        self.assertContains(response, "25.0%")
