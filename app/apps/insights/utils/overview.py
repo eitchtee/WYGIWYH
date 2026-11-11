@@ -148,6 +148,11 @@ def _build_currency_data(metric, showing):
                         "name": exchange_currency.name,
                     }
         if exchanged:
+            exchanged["shown"] = {
+                "income": exchanged.get(income),
+                "expense": exchanged.get(expense),
+                "total": exchanged.get(total),
+            }
             currency_data["exchanged"] = exchanged
 
     return currency_data

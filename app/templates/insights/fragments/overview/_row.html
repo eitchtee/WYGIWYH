@@ -20,6 +20,15 @@
             :suffix="currency.currency.suffix"
             :decimal_places="currency.currency.decimal_places"
             color="green"></c-amount.display>
+        {% if currency.exchanged %}
+          <div class="text-xs text-base-content/60">
+            <c-amount.display
+                :amount="currency.exchanged.shown.income"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
+        {% endif %}
       {% else %}
         <div>-</div>
       {% endif %}
@@ -34,6 +43,15 @@
             :suffix="currency.currency.suffix"
             :decimal_places="currency.currency.decimal_places"
             color="red"></c-amount.display>
+        {% if currency.exchanged %}
+          <div class="text-xs text-base-content/60">
+            <c-amount.display
+                :amount="currency.exchanged.shown.expense"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
+        {% endif %}
       {% else %}
         <div>-</div>
       {% endif %}
@@ -48,6 +66,15 @@
             :suffix="currency.currency.suffix"
             :decimal_places="currency.currency.decimal_places"
             color="{% if currency.total_final < 0 %}red{% else %}green{% endif %}"></c-amount.display>
+        {% if currency.exchanged %}
+          <div class="text-xs text-base-content/60">
+            <c-amount.display
+                :amount="currency.exchanged.shown.total"
+                :prefix="currency.exchanged.currency.prefix"
+                :suffix="currency.exchanged.currency.suffix"
+                :decimal_places="currency.exchanged.currency.decimal_places"></c-amount.display>
+          </div>
+        {% endif %}
       {% else %}
         <div>-</div>
       {% endif %}

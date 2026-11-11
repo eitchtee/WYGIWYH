@@ -9,6 +9,7 @@ from apps.accounts.models import Account, AccountGroup
 from apps.common.middleware.thread_local import delete_current_user, write_current_user
 from apps.currencies.models import Currency, ExchangeRate
 from apps.insights.utils.month_by_month import get_month_by_month_data
+from apps.insights.utils.overview import get_grouped_totals
 from apps.insights.utils.year_by_year import get_year_by_year_data
 from apps.transactions.models import Transaction, TransactionCategory
 from apps.transactions.utils.calculations import (
@@ -161,12 +162,18 @@ class TotalsExchangedAmountTests(ExchangedAmountsTestBase):
                 year_data["year_totals"][2026]["currencies"][self.eur.id],
             ]
 
+        def overview_total():
+            overview = get_grouped_totals(Transaction.objects.all(), ["categories"])
+            return next(iter(overview.values()))["currencies"][self.eur.id]
+
         for total in exchanged_totals():
             self.assertEqual(total["exchanged"]["final_total"], Decimal("200"))
+        self.assertEqual(overview_total()["exchanged"]["shown"]["total"], Decimal("200"))
 
         self._hide_for(self.eur)
         for total in exchanged_totals():
             self.assertNotIn("exchanged", total)
+        self.assertNotIn("exchanged", overview_total())
 
     def test_net_worth_keeps_the_consolidated_total(self):
         self._hide_for(self.eur)
