@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-10 13:55+0000\n"
+"POT-Creation-Date: 2026-11-11 01:04+0000\n"
 "PO-Revision-Date: 2025-10-08 16:17+0000\n"
 "Last-Translator: doody <doodykimo@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
@@ -26,7 +26,7 @@ msgstr "群組名稱"
 #: apps/accounts/forms.py:48 apps/accounts/forms.py:76
 #: apps/accounts/forms.py:184 apps/bank_sync/forms.py:78
 #: apps/currencies/forms.py:57 apps/currencies/forms.py:91
-#: apps/currencies/forms.py:168 apps/dca/forms.py:46 apps/dca/forms.py:192
+#: apps/currencies/forms.py:168 apps/dca/forms.py:51 apps/dca/forms.py:216
 #: apps/import_app/forms.py:32 apps/rules/forms.py:60 apps/rules/forms.py:100
 #: apps/rules/forms.py:385 apps/transactions/forms.py:219
 #: apps/transactions/forms.py:452 apps/transactions/forms.py:571
@@ -41,9 +41,9 @@ msgstr "更新"
 
 #: apps/accounts/forms.py:54 apps/accounts/forms.py:76
 #: apps/accounts/forms.py:190 apps/bank_sync/forms.py:78
-#: apps/common/widgets/tom_select.py:15 apps/currencies/forms.py:63
+#: apps/common/widgets/tom_select.py:16 apps/currencies/forms.py:63
 #: apps/currencies/forms.py:97 apps/currencies/forms.py:174
-#: apps/dca/forms.py:52 apps/dca/forms.py:198 apps/import_app/forms.py:38
+#: apps/dca/forms.py:57 apps/dca/forms.py:222 apps/import_app/forms.py:38
 #: apps/rules/forms.py:66 apps/rules/forms.py:106 apps/rules/forms.py:391
 #: apps/transactions/forms.py:206 apps/transactions/forms.py:226
 #: apps/transactions/forms.py:459 apps/transactions/forms.py:977
@@ -69,7 +69,7 @@ msgstr ""
 msgid "New balance"
 msgstr "新的餘額"
 
-#: apps/accounts/forms.py:204 apps/dca/forms.py:79 apps/dca/forms.py:86
+#: apps/accounts/forms.py:204 apps/dca/forms.py:84 apps/dca/forms.py:91
 #: apps/insights/forms.py:117 apps/insights/views.py:44 apps/rules/forms.py:181
 #: apps/rules/forms.py:197 apps/rules/models.py:44 apps/rules/models.py:311
 #: apps/transactions/forms.py:62 apps/transactions/forms.py:330
@@ -83,7 +83,7 @@ msgstr "新的餘額"
 msgid "Category"
 msgstr "分類"
 
-#: apps/accounts/forms.py:211 apps/dca/forms.py:95 apps/dca/forms.py:103
+#: apps/accounts/forms.py:211 apps/dca/forms.py:100 apps/dca/forms.py:108
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:142
 #: apps/insights/views.py:50 apps/rules/forms.py:184 apps/rules/forms.py:194
 #: apps/rules/models.py:45 apps/rules/models.py:315
@@ -418,7 +418,8 @@ msgstr "這個ID的實體不存在。"
 msgid "Invalid entity data. Provide an ID or name."
 msgstr "無效的實體資訊，請提供ID或名稱。"
 
-#: apps/api/serializers/transactions.py:141 apps/transactions/models.py:978
+#: apps/api/serializers/transactions.py:141 apps/dca/forms.py:298
+#: apps/transactions/models.py:978
 msgid "This field is required."
 msgstr ""
 
@@ -663,7 +664,7 @@ msgid "Error creating new instance"
 msgstr "無法建立新的物件"
 
 #: apps/common/fields/forms/grouped_select.py:24
-#: apps/common/widgets/tom_select.py:94 apps/common/widgets/tom_select.py:97
+#: apps/common/widgets/tom_select.py:95 apps/common/widgets/tom_select.py:98
 #: templates/investments/fragments/list.html:39
 msgid "Ungrouped"
 msgstr "未分組"
@@ -810,11 +811,11 @@ msgstr "今天"
 msgid "Now"
 msgstr "現在"
 
-#: apps/common/widgets/tom_select.py:13
+#: apps/common/widgets/tom_select.py:14
 msgid "Remove"
 msgstr "移除"
 
-#: apps/common/widgets/tom_select.py:17 templates/mini_tools/simulator.html:187
+#: apps/common/widgets/tom_select.py:18 templates/mini_tools/simulator.html:187
 #: templates/mini_tools/unit_price_calculator.html:180
 #: templates/monthly_overview/pages/overview.html:286
 #: templates/transactions/fragments/filter_actions.html:48
@@ -822,7 +823,7 @@ msgstr "移除"
 msgid "Clear"
 msgstr "清除"
 
-#: apps/common/widgets/tom_select.py:18
+#: apps/common/widgets/tom_select.py:19
 msgid "No results..."
 msgstr "沒有結果…"
 
@@ -1034,45 +1035,70 @@ msgstr "成功刪除匯率"
 msgid "Services queued successfully"
 msgstr "成功排程服務"
 
-#: apps/dca/forms.py:59 apps/dca/forms.py:158
+#: apps/dca/forms.py:64 apps/dca/forms.py:180
 msgid "Create transaction"
 msgstr "建立交易"
 
-#: apps/dca/forms.py:64 apps/transactions/forms.py:582
+#: apps/dca/forms.py:69 apps/transactions/forms.py:582
 msgid "From Account"
 msgstr "來源帳戶"
 
-#: apps/dca/forms.py:70 apps/transactions/forms.py:587
+#: apps/dca/forms.py:75 apps/transactions/forms.py:587
 msgid "To Account"
 msgstr "目標帳戶"
 
-#: apps/dca/forms.py:110 apps/dca/models.py:171
+#: apps/dca/forms.py:117 apps/dca/forms.py:125 apps/export_app/forms.py:49
+#: apps/export_app/forms.py:143 apps/insights/views.py:57
+#: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
+#: apps/rules/models.py:307 apps/transactions/filters.py:84
+#: apps/transactions/forms.py:78 apps/transactions/forms.py:346
+#: apps/transactions/forms.py:526 apps/transactions/forms.py:640
+#: apps/transactions/forms.py:647 apps/transactions/forms.py:862
+#: apps/transactions/forms.py:1114 apps/transactions/models.py:313
+#: apps/transactions/models.py:369 apps/transactions/models.py:773
+#: apps/transactions/models.py:1031 apps/transactions/models.py:1356
+#: templates/entities/fragments/list.html:9
+#: templates/entities/pages/index.html:4 templates/includes/sidebar.html:168
+#: templates/insights/fragments/month_by_month.html:40
+#: templates/insights/fragments/month_by_month.html:43
+#: templates/insights/fragments/year_by_year.html:35
+#: templates/insights/fragments/year_by_year.html:38
+msgid "Entities"
+msgstr "實體"
+
+#: apps/dca/forms.py:132 apps/dca/models.py:171
 msgid "Expense Transaction"
 msgstr "支出"
 
-#: apps/dca/forms.py:114 apps/dca/forms.py:124
+#: apps/dca/forms.py:136 apps/dca/forms.py:146
 msgid "Type to search for a transaction to link to this entry"
 msgstr "輸入內容來搜尋這筆資料的交易資訊並建立連結"
 
-#: apps/dca/forms.py:120 apps/dca/models.py:179
+#: apps/dca/forms.py:142 apps/dca/models.py:179
 msgid "Income Transaction"
 msgstr "收入"
 
-#: apps/dca/forms.py:179
+#: apps/dca/forms.py:203
 msgid "Link transaction"
 msgstr "連結交易"
 
-#: apps/dca/forms.py:262 apps/dca/forms.py:263 apps/dca/forms.py:268
-#: apps/dca/forms.py:272
+#: apps/dca/forms.py:289
+#, fuzzy, python-format
+#| msgid "Transaction amounts are now hidden"
+msgid "Transaction must be in %(currency)s."
+msgstr "已隱藏交易金額"
+
+#: apps/dca/forms.py:307 apps/dca/forms.py:308 apps/dca/forms.py:313
+#: apps/dca/forms.py:317
 msgid "You must provide an account."
 msgstr "務必選擇一個帳戶。"
 
-#: apps/dca/forms.py:277 apps/transactions/forms.py:780
+#: apps/dca/forms.py:322 apps/transactions/forms.py:780
 #: apps/transactions/models.py:981
 msgid "From and To accounts must be different."
 msgstr "來源跟目標帳戶不得相同。"
 
-#: apps/dca/forms.py:299
+#: apps/dca/forms.py:344
 #, python-format
 msgid "DCA for %(strategy_name)s"
 msgstr "%(strategy_name)s的定期定額"
@@ -1170,24 +1196,6 @@ msgstr "交易"
 #: templates/insights/fragments/year_by_year.html:16
 msgid "Categories"
 msgstr "類別"
-
-#: apps/export_app/forms.py:49 apps/export_app/forms.py:143
-#: apps/insights/views.py:57 apps/rules/forms.py:185 apps/rules/forms.py:195
-#: apps/rules/models.py:46 apps/rules/models.py:307
-#: apps/transactions/filters.py:84 apps/transactions/forms.py:78
-#: apps/transactions/forms.py:346 apps/transactions/forms.py:526
-#: apps/transactions/forms.py:640 apps/transactions/forms.py:647
-#: apps/transactions/forms.py:862 apps/transactions/forms.py:1114
-#: apps/transactions/models.py:313 apps/transactions/models.py:369
-#: apps/transactions/models.py:773 apps/transactions/models.py:1031
-#: apps/transactions/models.py:1356 templates/entities/fragments/list.html:9
-#: templates/entities/pages/index.html:4 templates/includes/sidebar.html:168
-#: templates/insights/fragments/month_by_month.html:40
-#: templates/insights/fragments/month_by_month.html:43
-#: templates/insights/fragments/year_by_year.html:35
-#: templates/insights/fragments/year_by_year.html:38
-msgid "Entities"
-msgstr "實體"
 
 #: apps/export_app/forms.py:55 apps/export_app/forms.py:147
 #: apps/transactions/models.py:1071 templates/includes/sidebar.html:110
