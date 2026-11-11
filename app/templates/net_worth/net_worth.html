@@ -92,6 +92,27 @@
                                               text-end></c-amount.display>
                           </span>
                           </a>
+                          <ul>
+                            {% for component in currency.consolidated.components %}
+                              <li>
+                                <a class="cursor-pointer text-base-content/60 select-auto flex justify-between items-center w-full text-sm"
+                                   _="on click showOnlyCurrencyDataset('{{ component.currency.name }}', '{{ component.currency.name }}')">
+                                  <span class="currency-name text-start font-mono shrink text-ellipsis">{{ component.currency.name }}</span>
+                                  <span class="text-end shrink-0 flex items-center gap-2">
+                                  {% if component.share is not None %}
+                                    <span class="tabular-nums">{{ component.share|floatformat:1 }}%</span>
+                                  {% endif %}
+                                  <c-amount.display :amount="component.total_final"
+                                                    :prefix="currency.consolidated.currency.prefix"
+                                                    :suffix="currency.consolidated.currency.suffix"
+                                                    :decimal_places="currency.consolidated.currency.decimal_places"
+                                                    color="grey"
+                                                    divless></c-amount.display>
+                                </span>
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
                         </li>
                       </ul>
                     {% else %}

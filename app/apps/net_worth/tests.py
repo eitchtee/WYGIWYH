@@ -80,3 +80,48 @@ class NetWorthCurrencyChartTests(TestCase):
             '<span class="text-start shrink">Consolidated</span>',
             html=False,
         )
+
+    def test_consolidated_total_lists_each_currency_share(self):
+        user = get_user_model().objects.create_user(
+            email="shares@example.com", password="password"
+        )
+        usd = Currency.objects.create(code="USD", name="US Dollar", prefix="$ ")
+        eur = Currency.objects.create(
+            code="EUR", name="Euro", prefix="€ ", exchange_currency=usd
+        )
+        ExchangeRate.objects.create(
+            from_currency=eur,
+            to_currency=usd,
+            rate=Decimal("2"),
+            date=timezone.now(),
+        )
+        for currency, amount in ((usd, "300"), (eur, "50")):
+            Transaction.userless_all_objects.create(
+                account=Account.all_objects.create(
+                    name=f"{currency.code} account", currency=currency, owner=user
+                ),
+                owner=user,
+                type=Transaction.Type.INCOME,
+                amount=Decimal(amount),
+                date=date(2026, 1, 15),
+                reference_date=date(2026, 1, 1),
+                is_paid=True,
+            )
+
+        self.client.force_login(user)
+        response = self.client.get(reverse("net_worth"))
+
+        self.assertEqual(response.status_code, 200)
+        components = response.context["currency_net_worth"][usd.id]["consolidated"][
+            "components"
+        ]
+        self.assertEqual(
+            [(part["currency"]["name"], part["share"]) for part in components],
+            [("US Dollar", Decimal("75")), ("Euro", Decimal("25"))],
+        )
+        self.assertContains(
+            response, '<span class="tabular-nums">75.0%</span>', html=False
+        )
+        self.assertContains(
+            response, '<span class="tabular-nums">25.0%</span>', html=False
+        )

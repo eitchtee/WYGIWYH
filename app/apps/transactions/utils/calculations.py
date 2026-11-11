@@ -303,12 +303,28 @@ def calculate_currency_totals(
             "total_projected": data_consolidated_currency["total_projected"],
             "total_final": data_consolidated_currency["total_final"],
         }
+        # What each currency adds to the consolidated total, in the
+        # consolidated currency, starting with the currency's own total
+        components = [
+            {
+                "currency": data_consolidated_currency["currency"],
+                "total_final": data_consolidated_currency["total_final"],
+            }
+        ]
 
         if currency_id_consolidated in currencies_using_exchange:
             for original_currency_info in currencies_using_exchange[
                 currency_id_consolidated
             ]:
                 exchanged_values_from_original = original_currency_info["exchanged"]
+                components.append(
+                    {
+                        "currency": result[original_currency_info["currency_id"]][
+                            "currency"
+                        ],
+                        "total_final": exchanged_values_from_original["total_final"],
+                    }
+                )
                 for field in [
                     "expense_current",
                     "expense_projected",
@@ -323,6 +339,9 @@ def calculate_currency_totals(
                             field
                         ]
 
+        consolidated_data["components"] = calculate_consolidated_shares(
+            components, consolidated_data["total_final"]
+        )
         result[currency_id_consolidated]["consolidated"] = consolidated_data
 
     # Sort currencies by their final_total or consolidated final_total, descending
@@ -339,6 +358,36 @@ def calculate_currency_totals(
     }
 
     return result
+
+
+def calculate_consolidated_shares(components, consolidated_total):
+    """
+    Give each component of a consolidated total its share of that total, as a
+    percentage. Components that add nothing are left out and the rest are sorted
+    from the largest to the smallest.
+
+    Shares are taken over the absolute total, so a component that adds to it
+    always has a positive share and one that takes from it (a debt, for
+    example) a negative one. Without a total to divide by, the share is None.
+    """
+    shares = []
+
+    for component in components:
+        if not component["total_final"]:
+            continue
+
+        shares.append(
+            {
+                **component,
+                "share": (
+                    component["total_final"] / abs(consolidated_total) * 100
+                    if consolidated_total
+                    else None
+                ),
+            }
+        )
+
+    return sorted(shares, key=lambda share: share["total_final"], reverse=True)
 
 
 def calculate_percentage_distribution(currency_totals):
