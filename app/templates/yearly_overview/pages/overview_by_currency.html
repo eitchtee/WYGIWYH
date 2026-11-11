@@ -35,7 +35,7 @@
       {% translate 'All' %}
     </button>
     {% for currency in currencies %}
-      <button class="btn btn-ghost justify-start w-full"
+      <button class="btn btn-ghost btn-free justify-start text-start w-full"
               role="tab"
               hx-get="{% url 'yearly_overview_currency_data' year=year %}"
               hx-target="#data-content"
