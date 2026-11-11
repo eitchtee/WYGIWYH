@@ -286,11 +286,16 @@
                 </td>
                 <td class="text-end tabular-nums whitespace-nowrap">
                   <c-amount.display :amount="tx.amount" :prefix="a.prefix" :suffix="a.suffix" :decimal_places="a.decimal_places" color="{% if tx.type == 'IN' %}green{% else %}red{% endif %}" divless></c-amount.display>
+                  {# What the other side paid beats a rate conversion, so it's shown first #}
                   {% if p and p.account.currency != a %}
                     <div class="text-xs text-base-content/50">
                       <c-amount.display :amount="p.amount" :prefix="p.account.currency.prefix" :suffix="p.account.currency.suffix" :decimal_places="p.account.currency.decimal_places" divless></c-amount.display>
                     </div>
-                  {% endif %}
+                  {% else %}{% with exchanged=tx.displayed_exchanged_amount %}{% if exchanged %}
+                    <div class="text-xs text-base-content/50">
+                      <c-amount.display :amount="exchanged.amount" :prefix="exchanged.prefix" :suffix="exchanged.suffix" :decimal_places="exchanged.decimal_places" divless></c-amount.display>
+                    </div>
+                  {% endif %}{% endwith %}{% endif %}
                 </td>
                 <td class="w-8 px-1">
                   <button class="btn btn-ghost btn-xs btn-square text-base-content/40 hover:text-base-content"
