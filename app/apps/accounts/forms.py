@@ -103,6 +103,7 @@ class AccountForm(forms.ModelForm):
             "group",
             "currency",
             "exchange_currency",
+            "show_exchanged_amounts",
             "is_asset",
             "is_archived",
             "is_investment",
@@ -161,6 +162,7 @@ class AccountForm(forms.ModelForm):
             Switch("is_archived"),
             "currency",
             "exchange_currency",
+            Switch("show_exchanged_amounts"),
             Switch("is_investment"),
             # Only relevant for investments: shown while the switch above is on
             Div(

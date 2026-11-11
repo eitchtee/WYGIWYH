@@ -80,6 +80,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "currency_id",
             "exchange_currency",
             "exchange_currency_id",
+            "show_exchanged_amounts",
             "is_asset",
             "is_investment",
             "investment_class",

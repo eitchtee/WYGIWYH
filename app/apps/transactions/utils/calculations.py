@@ -6,6 +6,7 @@ from django.db.models.functions import Coalesce
 
 from apps.transactions.models import Transaction
 from apps.currencies.utils.convert import convert
+from apps.currencies.utils.display import shown_exchange_currency
 from apps.currencies.models import Currency
 
 
@@ -29,6 +30,7 @@ def calculate_currency_totals(
             "account__currency__exchange_currency__decimal_places",
             "account__currency__exchange_currency__prefix",
             "account__currency__exchange_currency__suffix",
+            "account__currency__show_exchanged_amounts",
         )
         .annotate(
             expense_current=Coalesce(
@@ -177,7 +179,10 @@ def calculate_currency_totals(
                     converted_val if converted_val is not None else Decimal("0")
                 )
 
-            currency_data["exchanged"] = exchanged_details
+            # Consolidated totals below need the exchanged values either way;
+            # the currency's setting only hides them from display
+            if total["account__currency__show_exchanged_amounts"]:
+                currency_data["exchanged"] = exchanged_details
 
             if exchange_currency_obj_for_this_total.id not in currencies_using_exchange:
                 currencies_using_exchange[exchange_currency_obj_for_this_total.id] = []
@@ -255,9 +260,10 @@ def calculate_currency_totals(
                             converted_val if converted_val is not None else Decimal("0")
                         )
 
-                    currency_data_for_db_currency["exchanged"] = (
-                        exchanged_details_for_db_currency
-                    )
+                    if db_currency.show_exchanged_amounts:
+                        currency_data_for_db_currency["exchanged"] = (
+                            exchanged_details_for_db_currency
+                        )
 
                     # Ensure its own exchange_currency is registered in currencies_using_exchange
                     # and add it to the queue if it hasn't been processed yet for deep add.
@@ -399,7 +405,7 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         "account__currency__decimal_places",
         "account__currency__prefix",
         "account__currency__suffix",
-        "account__exchange_currency",
+        exchange_currency_id=shown_exchange_currency("account__"),
     ).annotate(
         expense_current=Coalesce(
             Sum(
@@ -466,8 +472,8 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         account_id = total["account"]
         currency = Currency.objects.get(id=total["account__currency__id"])
         exchange_currency = (
-            Currency.objects.get(id=total["account__exchange_currency"])
-            if total["account__exchange_currency"]
+            Currency.objects.get(id=total["exchange_currency_id"])
+            if total["exchange_currency_id"]
             else None
         )
 

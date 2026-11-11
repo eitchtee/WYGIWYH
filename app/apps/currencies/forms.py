@@ -29,6 +29,7 @@ class CurrencyForm(forms.ModelForm):
             "suffix",
             "code",
             "exchange_currency",
+            "show_exchanged_amounts",
             "is_archived",
         ]
         widgets = {
@@ -49,6 +50,7 @@ class CurrencyForm(forms.ModelForm):
             "prefix",
             "suffix",
             "exchange_currency",
+            Switch("show_exchanged_amounts"),
         )
 
         if self.instance and self.instance.pk:

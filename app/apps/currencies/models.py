@@ -31,6 +31,15 @@ class Currency(models.Model):
         blank=True,
         help_text=_("Default currency for exchange calculations"),
     )
+    show_exchanged_amounts = models.BooleanField(
+        default=True,
+        verbose_name=_("Show exchanged amounts"),
+        help_text=_(
+            "Show amounts converted to the exchange currency next to transactions and "
+            "totals in this currency. Accounts with their own exchange currency use "
+            "their own setting, and consolidated totals are calculated either way."
+        ),
+    )
 
     is_archived = models.BooleanField(
         default=False,

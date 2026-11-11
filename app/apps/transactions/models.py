@@ -573,34 +573,31 @@ class Transaction(OwnedObject):
         super().delete(*args, **kwargs)
 
     def exchanged_amount(self):
-        if self.account.exchange_currency:
-            converted_amount, prefix, suffix, decimal_places = convert(
-                self.amount,
-                to_currency=self.account.exchange_currency,
-                from_currency=self.account.currency,
-                date=self.date,
-            )
-            if converted_amount:
-                return {
-                    "amount": converted_amount,
-                    "prefix": prefix,
-                    "suffix": suffix,
-                    "decimal_places": decimal_places,
-                }
-        elif self.account.currency.exchange_currency:
-            converted_amount, prefix, suffix, decimal_places = convert(
-                self.amount,
-                to_currency=self.account.currency.exchange_currency,
-                from_currency=self.account.currency,
-                date=self.date,
-            )
-            if converted_amount:
-                return {
-                    "amount": converted_amount,
-                    "prefix": prefix,
-                    "suffix": suffix,
-                    "decimal_places": decimal_places,
-                }
+        return self._exchanged_to(
+            self.account.exchange_currency or self.account.currency.exchange_currency
+        )
+
+    def displayed_exchanged_amount(self):
+        """The exchanged amount to display, or None when it's hidden."""
+        return self._exchanged_to(self.account.displayed_exchange_currency)
+
+    def _exchanged_to(self, exchange_currency):
+        if not exchange_currency:
+            return None
+
+        converted_amount, prefix, suffix, decimal_places = convert(
+            self.amount,
+            to_currency=exchange_currency,
+            from_currency=self.account.currency,
+            date=self.date,
+        )
+        if converted_amount:
+            return {
+                "amount": converted_amount,
+                "prefix": prefix,
+                "suffix": suffix,
+                "decimal_places": decimal_places,
+            }
 
         return None
 

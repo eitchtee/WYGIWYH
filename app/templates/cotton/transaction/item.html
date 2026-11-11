@@ -142,7 +142,7 @@
             </div>
           {#    Exchange Rate#}
           {% if not dummy %}
-            {% with exchanged=transaction.exchanged_amount %}
+            {% with exchanged=transaction.displayed_exchanged_amount %}
               {% if exchanged %}
                 <div class="exchanged-amount mb-2 lg:mb-0">
                   <c-amount.display

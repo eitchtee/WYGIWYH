@@ -7,6 +7,7 @@ from django.db.models.functions import Coalesce
 
 from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
+from apps.currencies.utils.display import shown_exchange_currency
 from apps.transactions.models import Transaction
 
 
@@ -83,7 +84,7 @@ def get_year_by_year_data(group_by="categories"):
             "account__currency__decimal_places",
             "account__currency__prefix",
             "account__currency__suffix",
-            "account__currency__exchange_currency",
+            exchange_currency_id=shown_exchange_currency("account__currency__"),
         )
         .annotate(
             expense_total=Coalesce(
@@ -126,6 +127,7 @@ def get_year_by_year_data(group_by="categories"):
         item_name = metric[name_field]
         year = metric["reference_date__year"]
         currency_id = metric["account__currency"]
+        exchange_currency_id = metric["exchange_currency_id"]
 
         # Use a consistent key for None (uncategorized/untagged/no entity)
         item_key = item_id if item_id is not None else "__none__"
@@ -151,7 +153,7 @@ def get_year_by_year_data(group_by="categories"):
                 "decimal_places": metric["account__currency__decimal_places"],
                 "prefix": metric["account__currency__prefix"],
                 "suffix": metric["account__currency__suffix"],
-                "exchange_currency_id": metric["account__currency__exchange_currency"],
+                "exchange_currency_id": exchange_currency_id,
             }
 
         currency_data = {
@@ -168,11 +170,9 @@ def get_year_by_year_data(group_by="categories"):
         }
 
         # Handle currency conversion if exchange currency is set
-        if metric["account__currency__exchange_currency"]:
+        if exchange_currency_id:
             from_currency = Currency.objects.get(id=currency_id)
-            exchange_currency = Currency.objects.get(
-                id=metric["account__currency__exchange_currency"]
-            )
+            exchange_currency = Currency.objects.get(id=exchange_currency_id)
 
             converted_amount, prefix, suffix, decimal_places = convert(
                 amount=final_total,

@@ -104,6 +104,14 @@ class Account(SharedObject):
         blank=True,
         help_text=_("Default currency for exchange calculations"),
     )
+    show_exchanged_amounts = models.BooleanField(
+        default=True,
+        verbose_name=_("Show exchanged amounts"),
+        help_text=_(
+            "Show amounts converted to this account's exchange currency next to its "
+            "transactions and totals."
+        ),
+    )
 
     is_asset = models.BooleanField(
         default=False,
@@ -190,6 +198,19 @@ class Account(SharedObject):
     def is_untracked_by(self):
         user = get_current_user()
         return self.untracked_by.filter(pk=user.pk).exists()
+
+    @property
+    def displayed_exchange_currency(self):
+        """The exchange currency to show amounts in, or None when they're hidden.
+
+        The account's exchange currency takes precedence over its currency's, so
+        whichever one provides it also decides whether it's shown.
+        """
+        if self.exchange_currency_id:
+            return self.exchange_currency if self.show_exchanged_amounts else None
+        if self.currency.show_exchanged_amounts:
+            return self.currency.exchange_currency
+        return None
 
     def clean(self):
         super().clean()
