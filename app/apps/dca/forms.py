@@ -250,6 +250,7 @@ class DCAEntryForm(forms.ModelForm):
 
         self.fields["from_account"].queryset = Account.objects.filter(
             is_archived=False,
+            currency=self.strategy.payment_currency,
         )
 
         self.fields["from_category"].queryset = TransactionCategory.objects.filter(
@@ -259,6 +260,7 @@ class DCAEntryForm(forms.ModelForm):
 
         self.fields["to_account"].queryset = Account.objects.filter(
             is_archived=False,
+            currency=self.strategy.target_currency,
         )
 
         self.fields["to_category"].queryset = TransactionCategory.objects.filter(

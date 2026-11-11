@@ -150,3 +150,17 @@ class DCATransferLinkingTests(TestCase):
         entry = form.save()
         self.assertEqual(list(entry.expense_transaction.entities.all()), [broker])
         self.assertEqual(list(entry.income_transaction.entities.all()), [broker])
+
+    def test_create_accounts_must_hold_strategy_currency(self):
+        # Swapped: paying from the BTC wallet into the BRL cash account
+        form = DCAEntryForm(
+            data=self.entry_data(
+                create_transaction="on",
+                from_account=self.wallet.id,
+                to_account=self.cash.id,
+            ),
+            strategy=self.strategy,
+        )
+        self.assertFalse(form.is_valid())
+        self.assertIn("from_account", form.errors)
+        self.assertIn("to_account", form.errors)
