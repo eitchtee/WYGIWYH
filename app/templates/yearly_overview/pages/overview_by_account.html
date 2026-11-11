@@ -33,7 +33,7 @@
       {% translate 'All' %}
     </button>
     {% for account in accounts %}
-      <button class="btn btn-ghost justify-start w-full"
+      <button class="btn btn-ghost btn-free justify-start text-start w-full"
               role="tab"
               hx-get="{% url 'yearly_overview_account_data' year=year %}"
               hx-target="#data-content"
