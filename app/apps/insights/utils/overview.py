@@ -6,6 +6,7 @@ from django.db.models.functions import Coalesce
 
 from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
+from apps.currencies.utils.display import shown_exchange_currency
 from apps.transactions.models import Transaction
 
 # Grouping levels the overview can be built from. Any ordering of these keys is
@@ -25,8 +26,6 @@ CURRENCY_FIELDS = (
     "account__currency__decimal_places",
     "account__currency__prefix",
     "account__currency__suffix",
-    "account__currency__exchange_currency",
-    "account__currency__show_exchanged_amounts",
 )
 
 # Aggregated amounts, plus the totals derived from them. Every one of these is
@@ -80,7 +79,12 @@ def _sum_of(transaction_type, is_paid):
 def _aggregate(transactions_queryset, group_fields, name_field):
     """Sum income/expense per currency, grouped by the given fields."""
     return (
-        transactions_queryset.values(*group_fields, name_field, *CURRENCY_FIELDS)
+        transactions_queryset.values(
+            *group_fields,
+            name_field,
+            *CURRENCY_FIELDS,
+            exchange_currency_id=shown_exchange_currency("account__currency__"),
+        )
         .annotate(
             expense_current=_sum_of(Transaction.Type.EXPENSE, is_paid=True),
             expense_projected=_sum_of(Transaction.Type.EXPENSE, is_paid=False),
@@ -122,14 +126,9 @@ def _build_currency_data(metric, showing):
         "total": currency_data[total],
     }
 
-    if (
-        metric["account__currency__exchange_currency"]
-        and metric["account__currency__show_exchanged_amounts"]
-    ):
+    if metric["exchange_currency_id"]:
         from_currency = Currency.objects.get(id=metric["account__currency"])
-        exchange_currency = Currency.objects.get(
-            id=metric["account__currency__exchange_currency"]
-        )
+        exchange_currency = Currency.objects.get(id=metric["exchange_currency_id"])
 
         exchanged = {}
         for field in AGGREGATED_FIELDS + TOTAL_FIELDS:

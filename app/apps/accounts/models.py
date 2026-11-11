@@ -199,6 +199,19 @@ class Account(SharedObject):
         user = get_current_user()
         return self.untracked_by.filter(pk=user.pk).exists()
 
+    @property
+    def displayed_exchange_currency(self):
+        """The exchange currency to show amounts in, or None when they're hidden.
+
+        The account's exchange currency takes precedence over its currency's, so
+        whichever one provides it also decides whether it's shown.
+        """
+        if self.exchange_currency_id:
+            return self.exchange_currency if self.show_exchanged_amounts else None
+        if self.currency.show_exchanged_amounts:
+            return self.currency.exchange_currency
+        return None
+
     def clean(self):
         super().clean()
         if self.exchange_currency == self.currency:

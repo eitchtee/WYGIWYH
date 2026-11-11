@@ -6,6 +6,7 @@ from django.db.models.functions import Coalesce
 
 from apps.transactions.models import Transaction
 from apps.currencies.utils.convert import convert
+from apps.currencies.utils.display import shown_exchange_currency
 from apps.currencies.models import Currency
 
 
@@ -404,8 +405,7 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         "account__currency__decimal_places",
         "account__currency__prefix",
         "account__currency__suffix",
-        "account__exchange_currency",
-        "account__show_exchanged_amounts",
+        exchange_currency_id=shown_exchange_currency("account__"),
     ).annotate(
         expense_current=Coalesce(
             Sum(
@@ -472,9 +472,8 @@ def calculate_account_totals(transactions_queryset, ignore_empty=False):
         account_id = total["account"]
         currency = Currency.objects.get(id=total["account__currency__id"])
         exchange_currency = (
-            Currency.objects.get(id=total["account__exchange_currency"])
-            if total["account__exchange_currency"]
-            and total["account__show_exchanged_amounts"]
+            Currency.objects.get(id=total["exchange_currency_id"])
+            if total["exchange_currency_id"]
             else None
         )
 

@@ -7,6 +7,7 @@ from django.db.models.functions import Coalesce
 
 from apps.currencies.models import Currency
 from apps.currencies.utils.convert import convert
+from apps.currencies.utils.display import shown_exchange_currency
 from apps.transactions.models import Transaction
 
 
@@ -83,8 +84,7 @@ def get_year_by_year_data(group_by="categories"):
             "account__currency__decimal_places",
             "account__currency__prefix",
             "account__currency__suffix",
-            "account__currency__exchange_currency",
-            "account__currency__show_exchanged_amounts",
+            exchange_currency_id=shown_exchange_currency("account__currency__"),
         )
         .annotate(
             expense_total=Coalesce(
@@ -127,12 +127,7 @@ def get_year_by_year_data(group_by="categories"):
         item_name = metric[name_field]
         year = metric["reference_date__year"]
         currency_id = metric["account__currency"]
-        # Currencies can hide their exchanged amounts
-        exchange_currency_id = (
-            metric["account__currency__exchange_currency"]
-            if metric["account__currency__show_exchanged_amounts"]
-            else None
-        )
+        exchange_currency_id = metric["exchange_currency_id"]
 
         # Use a consistent key for None (uncategorized/untagged/no entity)
         item_key = item_id if item_id is not None else "__none__"
