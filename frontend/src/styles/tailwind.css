@@ -189,6 +189,12 @@
         @apply min-h-(--size) py-1;
         height: unset;
     }
+
+    /* daisyUI fixes the badge height, so long names wrap outside the border */
+    .badge {
+        @apply min-h-(--size);
+        height: unset;
+    }
 }
 
 
