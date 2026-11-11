@@ -985,6 +985,13 @@ def transactions_trash_can_list(request):
     )
 
 
+# Query params the transaction picker may filter by (TransactionSelect.filters)
+SEARCH_FILTERS = {
+    "currency": "account__currency_id",
+    "account": "account_id",
+}
+
+
 @login_required
 @require_http_methods(["GET"])
 def get_recent_transactions(request, filter_type=None):
@@ -1001,6 +1008,11 @@ def get_recent_transactions(request, filter_type=None):
         queryset = queryset.filter(type=Transaction.Type.EXPENSE)
     elif filter_type == "income":
         queryset = queryset.filter(type=Transaction.Type.INCOME)
+
+    for param, lookup in SEARCH_FILTERS.items():
+        value = request.GET.get(param, "")
+        if value.isdigit():
+            queryset = queryset.filter(**{lookup: value})
 
     if search_term:
         queryset = search_transactions(queryset, search_term)

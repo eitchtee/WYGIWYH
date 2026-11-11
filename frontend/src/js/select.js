@@ -136,7 +136,8 @@ window.TomSelect = function createDynamicTomSelect(element) {
         config.preload = 'focus';
         config.shouldLoad = () => true;
         config.load = function (query, callback) {
-            let url = element.dataset.load + '?q=' + encodeURIComponent(query);
+            const url = new URL(element.dataset.load, window.location.origin);
+            url.searchParams.set('q', query);
             fetch(url)
                 .then(response => response.json())
                 .then(json => {
