@@ -51,7 +51,7 @@
           <div>
             <c-ui.info-card color="yellow" icon="fa-solid fa-coins" title="{% trans "By currency" %}"
                             title_css_classes="cursor-pointer" _="on click showAllDatasetsCurrency()">
-              <ul class="menu bg-base-100 w-full rounded-box">
+              <ul class="menu bg-base-100 rounded-box p-0 -mx-3 w-[calc(100%+1.5rem)]">
                 {% for currency in currency_net_worth.values %}
                   <li>
                     {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
@@ -80,8 +80,14 @@
                       </a>
                       <ul>
                         <li>
-                          <a class="cursor-pointer text-base-content/60 select-auto flex justify-between items-center w-full"
+                          {# Collapsed by default; each currency's open state is remembered per browser #}
+                          <details _="init if localStorage.getItem('net-worth-consolidated-{{ currency.currency.id }}') is 'open' set my.open to true end
+                                      on toggle if my.open call localStorage.setItem('net-worth-consolidated-{{ currency.currency.id }}', 'open')
+                                      else call localStorage.setItem('net-worth-consolidated-{{ currency.currency.id }}', 'closed') end
+                                      catch e log e end">
+                          <summary class="cursor-pointer text-base-content/60 select-auto flex"
                              _="on click showOnlyCurrencyDataset('{{ currency.currency.name }} {% trans "Consolidated" %}', '{{ currency.currency.name }}')">
+                            <span class="flex justify-between items-center w-full">
                             <span class="text-start shrink">{% trans "Consolidated" %}</span>
                             <span class="text-end shrink-0">
                             <c-amount.display :amount="currency.consolidated.total_final"
@@ -90,29 +96,34 @@
                                               :decimal_places="currency.consolidated.currency.decimal_places"
                                               color="{% if currency.consolidated.total_final > 0 %}green{% elif currency.consolidated.total_final < 0 %}red{% endif %}"
                                               text-end></c-amount.display>
-                          </span>
-                          </a>
-                          <ul>
+                            </span>
+                            </span>
+                          </summary>
+                          {# Rows share the ul's columns via subgrid so badges line up regardless of amount width #}
+                          <ul class="grid grid-cols-[minmax(0,1fr)_auto_auto]">
                             {% for component in currency.consolidated.components %}
-                              <li>
-                                <a class="cursor-pointer text-base-content/60 select-auto flex justify-between items-center w-full text-sm"
+                              <li class="col-span-3 grid grid-cols-subgrid">
+                                <a class="col-span-3 grid grid-cols-subgrid items-center cursor-pointer text-base-content/60 select-auto text-sm"
                                    _="on click showOnlyCurrencyDataset('{{ component.currency.name }}', '{{ component.currency.name }}')">
-                                  <span class="currency-name text-start font-mono shrink text-ellipsis">{{ component.currency.name }}</span>
-                                  <span class="text-end shrink-0 flex items-center gap-2">
+                                  <span class="currency-name text-start font-mono truncate">{{ component.currency.name }}</span>
+                                  <span class="justify-self-start">
                                   {% if component.share is not None %}
-                                    <span class="tabular-nums">{{ component.share|floatformat:1 }}%</span>
+                                    <span class="badge badge-sm badge-ghost tabular-nums">{{ component.share|floatformat:1 }}%</span>
                                   {% endif %}
+                                  </span>
+                                  <span class="text-end whitespace-nowrap">
                                   <c-amount.display :amount="component.total_final"
                                                     :prefix="currency.consolidated.currency.prefix"
                                                     :suffix="currency.consolidated.currency.suffix"
                                                     :decimal_places="currency.consolidated.currency.decimal_places"
                                                     color="grey"
                                                     divless></c-amount.display>
-                                </span>
+                                  </span>
                                 </a>
                               </li>
                             {% endfor %}
                           </ul>
+                          </details>
                         </li>
                       </ul>
                     {% else %}
@@ -183,7 +194,7 @@
           <div>
             <c-ui.info-card color="blue" icon="fa-solid fa-wallet" title="{% trans "By account" %}"
                             title_css_classes="cursor-pointer" _="on click showAllDatasetsAccount()">
-              <ul class="menu bg-base-100 w-full rounded-box">
+              <ul class="menu bg-base-100 rounded-box p-0 -mx-3 w-[calc(100%+1.5rem)]">
                 {% regroup account_net_worth.values by account.group as account_data %}
                 {% for data in account_data %}
                   {% if data.grouper %}
