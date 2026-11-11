@@ -1,4 +1,5 @@
 import json
+from urllib.parse import urlencode
 
 from django.forms import SelectMultiple, widgets
 from django.urls import reverse
@@ -141,6 +142,9 @@ class TransactionSelect(TomSelect):
         self.load_income = income
         self.load_expense = expense
         self.create = False
+        # Extra search filters sent as query params, e.g. {"currency": 1};
+        # keys must be in SEARCH_FILTERS of the transactions_search view
+        self.filters = {}
 
     def build_attrs(self, base_attrs, extra_attrs=None):
         attrs = super().build_attrs(base_attrs, extra_attrs)
@@ -156,6 +160,8 @@ class TransactionSelect(TomSelect):
             attrs["data-load"] = reverse(
                 "transactions_search", kwargs={"filter_type": "expenses"}
             )
+        if self.filters:
+            attrs["data-load"] += "?" + urlencode(self.filters)
 
         return attrs
 

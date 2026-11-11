@@ -10,7 +10,7 @@ from apps.common.middleware.thread_local import delete_current_user, write_curre
 from apps.currencies.models import Currency
 from apps.dca.forms import DCAEntryForm
 from apps.dca.models import DCAStrategy
-from apps.transactions.models import Transaction
+from apps.transactions.models import Transaction, TransactionEntity
 
 IN, EX = Transaction.Type.INCOME, Transaction.Type.EXPENSE
 
@@ -97,3 +97,70 @@ class DCATransferLinkingTests(TestCase):
         expense.link_transfer(income)
         expense.link_transfer(income)  # already linked to each other: no-op
         self.assertEqual(Transaction.objects.get(pk=income.pk).linked_transaction, expense)
+
+    def test_amounts_come_from_linked_transactions(self):
+        expense, income = self.tx(self.cash, EX, "500"), self.tx(self.wallet, IN, "0.001")
+        form = DCAEntryForm(
+            data=self.entry_data(
+                amount_paid="",
+                amount_received="",
+                expense_transaction=str(expense.id),
+                income_transaction=str(income.id),
+            ),
+            strategy=self.strategy,
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        entry = form.save()
+        self.assertEqual(entry.amount_paid, Decimal("500"))
+        self.assertEqual(entry.amount_received, Decimal("0.001"))
+
+    def test_amount_required_without_link(self):
+        form = DCAEntryForm(
+            data=self.entry_data(amount_received=""), strategy=self.strategy
+        )
+        self.assertFalse(form.is_valid())
+        self.assertIn("amount_received", form.errors)
+
+    def test_link_in_wrong_currency_is_rejected(self):
+        # Expense must be in the payment currency, income in the target currency
+        expense, income = self.tx(self.wallet, EX, "1"), self.tx(self.cash, IN, "500")
+        form = DCAEntryForm(
+            data=self.entry_data(
+                expense_transaction=str(expense.id), income_transaction=str(income.id)
+            ),
+            strategy=self.strategy,
+        )
+        self.assertFalse(form.is_valid())
+        self.assertIn("expense_transaction", form.errors)
+        self.assertIn("income_transaction", form.errors)
+
+    def test_created_transactions_get_entities(self):
+        broker = TransactionEntity.objects.create(name="Broker")
+        form = DCAEntryForm(
+            data=self.entry_data(
+                create_transaction="on",
+                from_account=self.cash.id,
+                to_account=self.wallet.id,
+                from_entities=["Broker"],
+                to_entities=["Broker"],
+            ),
+            strategy=self.strategy,
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        entry = form.save()
+        self.assertEqual(list(entry.expense_transaction.entities.all()), [broker])
+        self.assertEqual(list(entry.income_transaction.entities.all()), [broker])
+
+    def test_create_accounts_must_hold_strategy_currency(self):
+        # Swapped: paying from the BTC wallet into the BRL cash account
+        form = DCAEntryForm(
+            data=self.entry_data(
+                create_transaction="on",
+                from_account=self.wallet.id,
+                to_account=self.cash.id,
+            ),
+            strategy=self.strategy,
+        )
+        self.assertFalse(form.is_valid())
+        self.assertIn("from_account", form.errors)
+        self.assertIn("to_account", form.errors)

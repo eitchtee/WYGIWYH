@@ -9,7 +9,12 @@ from apps.common.widgets.datepicker import AirDatePickerInput
 from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelect, TransactionSelect
 from apps.dca.models import DCAEntry, DCAStrategy
-from apps.transactions.models import Transaction, TransactionCategory, TransactionTag
+from apps.transactions.models import (
+    Transaction,
+    TransactionCategory,
+    TransactionEntity,
+    TransactionTag,
+)
 from crispy_forms.bootstrap import AccordionGroup, FormActions, Accordion
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Column, Div, Layout, Row
@@ -104,6 +109,23 @@ class DCAEntryForm(forms.ModelForm):
         queryset=TransactionTag.objects.filter(active=True),
     )
 
+    from_entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+        queryset=TransactionEntity.objects.filter(active=True),
+    )
+    to_entities = DynamicModelMultipleChoiceField(
+        model=TransactionEntity,
+        to_field_name="name",
+        create_field="name",
+        required=False,
+        label=_("Entities"),
+        queryset=TransactionEntity.objects.filter(active=True),
+    )
+
     expense_transaction = DynamicModelChoiceField(
         model=Transaction,
         to_field_name="id",
@@ -163,6 +185,7 @@ class DCAEntryForm(forms.ModelForm):
                             Column("from_category"),
                             Column("from_tags"),
                         ),
+                        "from_entities",
                         css_class="bg-base-100 rounded-box p-4 border-base-content/60 border my-3",
                     ),
                     Div(
@@ -171,6 +194,7 @@ class DCAEntryForm(forms.ModelForm):
                             Column("to_category"),
                             Column("to_tags"),
                         ),
+                        "to_entities",
                         css_class="bg-base-100 rounded-box p-4 border-base-content/60 border",
                     ),
                     active=False,
@@ -203,36 +227,30 @@ class DCAEntryForm(forms.ModelForm):
         self.fields["amount_received"].widget = ArbitraryDecimalDisplayNumberInput()
         self.fields["date"].widget = AirDatePickerInput(clear_button=False)
 
-        expense_transaction = None
-        income_transaction = None
-        if self.instance and self.instance.pk:
-            # Edit mode - get from instance
-            expense_transaction = self.instance.expense_transaction
-            income_transaction = self.instance.income_transaction
-        elif self.data.get("expense_transaction"):
-            # Form validation - get from submitted data
-            try:
-                expense_transaction = Transaction.objects.get(
-                    id=self.data["expense_transaction"]
-                )
-                income_transaction = Transaction.objects.get(
-                    id=self.data["income_transaction"]
-                )
-            except Transaction.DoesNotExist:
-                pass
+        # Amounts can come from the linked transactions instead
+        self.fields["amount_paid"].required = False
+        self.fields["amount_received"].required = False
 
-            # If we have a current transaction, ensure it's in the queryset
-        if income_transaction:
-            self.fields["income_transaction"].queryset = Transaction.objects.filter(
-                id=income_transaction.id
+        # The picker only searches the currency each side expects (enforced in clean)
+        for name, currency in (
+            ("expense_transaction", self.strategy.payment_currency),
+            ("income_transaction", self.strategy.target_currency),
+        ):
+            field = self.fields[name]
+            field.widget.filters = {"currency": currency.id}
+            selected = (
+                self.data.get(name)
+                if self.is_bound
+                else getattr(self.instance, f"{name}_id", None)
             )
-        if expense_transaction:
-            self.fields["expense_transaction"].queryset = Transaction.objects.filter(
-                id=expense_transaction.id
+            # Only the selected one: the picker loads the rest by search
+            field.queryset = Transaction.objects.filter(
+                id=selected if str(selected or "").isdigit() else None
             )
 
         self.fields["from_account"].queryset = Account.objects.filter(
             is_archived=False,
+            currency=self.strategy.payment_currency,
         )
 
         self.fields["from_category"].queryset = TransactionCategory.objects.filter(
@@ -242,15 +260,42 @@ class DCAEntryForm(forms.ModelForm):
 
         self.fields["to_account"].queryset = Account.objects.filter(
             is_archived=False,
+            currency=self.strategy.target_currency,
         )
 
         self.fields["to_category"].queryset = TransactionCategory.objects.filter(
             active=True
         )
         self.fields["to_tags"].queryset = TransactionTag.objects.filter(active=True)
+        self.fields["from_entities"].queryset = TransactionEntity.objects.filter(
+            active=True
+        )
+        self.fields["to_entities"].queryset = TransactionEntity.objects.filter(
+            active=True
+        )
 
     def clean(self):
         cleaned_data = super().clean()
+
+        creating = cleaned_data.get("create_transaction")
+        for amount_field, link_field, currency in (
+            ("amount_paid", "expense_transaction", self.strategy.payment_currency),
+            ("amount_received", "income_transaction", self.strategy.target_currency),
+        ):
+            linked = cleaned_data.get(link_field)
+            if linked and linked.account.currency_id != currency.id:
+                self.add_error(
+                    link_field,
+                    _("Transaction must be in %(currency)s.")
+                    % {"currency": currency.name},
+                )
+                linked = cleaned_data[link_field] = None
+            if cleaned_data.get(amount_field) is not None:
+                continue
+            if linked and not creating:
+                cleaned_data[amount_field] = linked.amount
+            elif amount_field not in self.errors:
+                self.add_error(amount_field, _("This field is required."))
 
         if cleaned_data.get("create_transaction"):
             from_account = cleaned_data.get("from_account")
@@ -315,6 +360,7 @@ class DCAEntryForm(forms.ModelForm):
                 notes=notes,
             )
             from_transaction.tags.set(self.cleaned_data.get("from_tags", []))
+            from_transaction.entities.set(self.cleaned_data.get("from_entities", []))
 
             # Create "To" transaction
             to_transaction = Transaction.objects.create(
@@ -328,6 +374,7 @@ class DCAEntryForm(forms.ModelForm):
                 notes=notes,
             )
             to_transaction.tags.set(self.cleaned_data.get("to_tags", []))
+            to_transaction.entities.set(self.cleaned_data.get("to_entities", []))
 
             from_transaction.link_transfer(to_transaction)
 

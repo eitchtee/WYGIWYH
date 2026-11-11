@@ -32,7 +32,7 @@ class TransactionSearchTests(TestCase):
 
     def make(self, days, description="", amount="10", **kwargs):
         return Transaction.objects.create(
-            account=self.account,
+            account=kwargs.pop("account", self.account),
             type=Transaction.Type.EXPENSE,
             date=self.today + timedelta(days=days),
             reference_date=(self.today + timedelta(days=days)).replace(day=1),
@@ -72,3 +72,13 @@ class TransactionSearchTests(TestCase):
 
         self.assertEqual(self.search("wallet"), ["Groceries", "Other"])
         self.assertEqual(self.search("groceries nomatch"), [])
+
+    def test_filters_by_currency(self):
+        usd = Currency.objects.create(code="USD", name="Dollar", decimal_places=2)
+        other = Account.objects.create(name="Bank", currency=usd)
+        self.make(0, "brl")
+        self.make(0, "usd", account=other)
+        response = self.client.get(
+            reverse("transactions_search"), {"q": "", "currency": usd.id}
+        )
+        self.assertEqual([r["description"] for r in response.json()], ["usd"])
