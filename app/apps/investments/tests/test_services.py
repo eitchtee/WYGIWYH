@@ -447,6 +447,34 @@ class InvestmentViewTests(TestCase):
         response = self.client.get(reverse("investments_charts"), **self.HTMX)
         self.assertContains(response, "investment-charts-0")
 
+    def test_detail_follows_show_exchanged_amounts(self):
+        brl = self.account.currency
+        usd = Currency.objects.create(
+            code="USD", name="Dollar", decimal_places=2, prefix="US$ ",
+            exchange_currency=brl,
+        )
+        ExchangeRate.objects.create(
+            from_currency=usd, to_currency=brl, rate=D("5"),
+            date=timezone.make_aware(datetime.datetime(2026, 1, 1)),
+        )
+        # Tracked by value in USD: movements and the "In Real" card come from USD's chain
+        account = Account.all_objects.create(
+            name="Broker", currency=usd, is_investment=True, owner=self.owner
+        )
+        tx(account, IN, "10", datetime.date(2026, 1, 2))
+        self.client.force_login(self.owner)
+        url = reverse("investment_detail", args=[account.id])
+
+        response = self.client.get(url, **self.HTMX)
+        self.assertContains(response, 'data-amount="50"', count=3)  # 10 USD at 5: ≈ line, card, movement
+        self.assertContains(response, "In Real")
+
+        usd.show_exchanged_amounts = False
+        usd.save()
+        response = self.client.get(url, **self.HTMX)
+        self.assertNotContains(response, 'data-amount="50"')
+        self.assertNotContains(response, "In Real")
+
     def test_stranger_cannot_see_detail(self):
         self.client.force_login(self.stranger)
         response = self.client.get(

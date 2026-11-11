@@ -209,7 +209,12 @@ def investment_detail(request, account_id):
     perf = get_holding_performance(account, with_history=True)
     transactions = (
         Transaction.objects.filter(account=account)
-        .select_related("linked_transaction__account__currency", "category")
+        .select_related(
+            "linked_transaction__account__currency",
+            "category",
+            "account__currency__exchange_currency",
+            "account__exchange_currency",
+        )
         .order_by("-date", "-id")[:50]
     )
     income = []
@@ -246,7 +251,8 @@ def investment_detail(request, account_id):
         {
             "account": account,
             "perf": perf,
-            "home": in_home_currency(perf),
+            # The valuation currency provides the next hop, so its switch decides
+            "home": in_home_currency(perf) if perf.currency.show_exchanged_amounts else None,
             "transactions": transactions,
             "income": income,
             "income_entities": list(account.income_entities.all()),
