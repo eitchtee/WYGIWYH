@@ -289,7 +289,8 @@ class ImportService:
                     # Ignore if category doesn't exist and create is False or not set
                     data["category"] = None
 
-        if "account" in data:
+        # Look the account up, unless the run already picked one
+        if "account" in data and not isinstance(data["account"], Account):
             account_id = data.pop("account")
             account_mapping = next(
                 (
@@ -710,6 +711,10 @@ class ImportService:
             if mapped_data:
                 # Handle different import types
                 if self.settings.importing == "transactions":
+                    if self.import_run.account:
+                        # The run's account wins over the profile's account mapping
+                        mapped_data["account"] = self.import_run.account
+
                     if self.deduplication and self._check_duplicate_transaction(
                         mapped_data
                     ):
@@ -920,7 +925,9 @@ class ImportService:
         current_transaction = {}
         raw_lines_buffer = []
 
-        account = Account.objects.filter(name=account_name).first()
+        account = (
+            self.import_run.account or Account.objects.filter(name=account_name).first()
+        )
         if not account:
             raise ValueError(f"Account '{account_name}' not found.")
 
@@ -1149,6 +1156,11 @@ class ImportService:
             self.import_run.save(update_fields=["started_at"])
 
             self._log("info", "Starting import process")
+            if self.import_run.account:
+                self._log(
+                    "info",
+                    f"Importing transactions into account '{self.import_run.account.name}'",
+                )
 
             try:
                 if isinstance(self.settings, version_1.CSVImportSettings):

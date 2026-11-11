@@ -38,6 +38,15 @@ class ImportProfile(SharedObject):
         version_number = self.Versions(self.version).name.split("_")[1]
         return _("Version {number}").format(number=version_number)
 
+    @property
+    def imports_transactions(self):
+        """Whether this profile creates transactions, as opposed to accounts, tags, etc."""
+        try:
+            config = version_1.ImportProfileSchema(**yaml.safe_load(self.yaml_config))
+        except Exception:
+            return False
+        return config.settings.importing == "transactions"
+
     def clean(self):
         if self.version and self.version == self.Versions.VERSION_1:
             try:
@@ -69,6 +78,18 @@ class ImportRun(OwnedObject):
     file_name = models.CharField(
         max_length=10000,
         help_text=_("File name"),
+    )
+    account = models.ForeignKey(
+        "accounts.Account",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="import_runs",
+        verbose_name=_("Account"),
+        help_text=_(
+            "Import every transaction into this account. Leave empty to let the "
+            "profile pick the account."
+        ),
     )
     transactions = models.ManyToManyField(
         "transactions.Transaction", related_name="import_runs"

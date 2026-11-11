@@ -168,7 +168,11 @@ def import_runs_list(request, profile_id):
 
     # ImportRun.objects only returns the requesting user's runs, so a shared
     # profile does not expose the runs other users made with it.
-    runs = ImportRun.objects.filter(profile=profile).order_by("-id")
+    runs = (
+        ImportRun.objects.filter(profile=profile)
+        .select_related("account")
+        .order_by("-id")
+    )
 
     return render(
         request,
@@ -201,7 +205,7 @@ def import_run_add(request, profile_id):
     )
 
     if request.method == "POST":
-        form = ImportRunFileUploadForm(request.POST, request.FILES)
+        form = ImportRunFileUploadForm(request.POST, request.FILES, profile=profile)
 
         if form.is_valid():
             uploaded_file = request.FILES["file"]
@@ -210,7 +214,10 @@ def import_run_add(request, profile_id):
             file_path = fs.path(filename)
 
             import_run = ImportRun.objects.create(
-                profile=profile, file_name=filename, owner=request.user
+                profile=profile,
+                file_name=filename,
+                account=form.cleaned_data.get("account"),
+                owner=request.user,
             )
 
             # Defer the procrastinate task
@@ -229,7 +236,7 @@ def import_run_add(request, profile_id):
                 },
             )
     else:
-        form = ImportRunFileUploadForm()
+        form = ImportRunFileUploadForm(profile=profile)
 
     return render(
         request,
