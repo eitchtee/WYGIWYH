@@ -604,6 +604,19 @@ class Transaction(OwnedObject):
 
         return None
 
+    def displayed_exchanged_amount(self):
+        """The exchanged amount to display, or None when it's hidden.
+
+        The account's exchange currency takes precedence over its currency's, so
+        whichever one provides it also decides whether it's shown.
+        """
+        if self.account.exchange_currency_id:
+            show = self.account.show_exchanged_amounts
+        else:
+            show = self.account.currency.show_exchanged_amounts
+
+        return self.exchanged_amount() if show else None
+
     def __str__(self):
         type_display = self.get_type_display()
         frmt_date = date(self.date, "SHORT_DATE_FORMAT")

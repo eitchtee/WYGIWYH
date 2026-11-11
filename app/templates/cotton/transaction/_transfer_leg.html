@@ -34,7 +34,7 @@
         :decimal_places="leg.account.currency.decimal_places"
         :color="color"></c-amount.display>
     {% if not dummy %}
-      {% with exchanged=leg.exchanged_amount %}
+      {% with exchanged=leg.displayed_exchanged_amount %}
         {% if exchanged %}
           <c-amount.display
               :amount="exchanged.amount"

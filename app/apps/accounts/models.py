@@ -104,6 +104,14 @@ class Account(SharedObject):
         blank=True,
         help_text=_("Default currency for exchange calculations"),
     )
+    show_exchanged_amounts = models.BooleanField(
+        default=True,
+        verbose_name=_("Show exchanged amounts"),
+        help_text=_(
+            "Show amounts converted to this account's exchange currency next to its "
+            "transactions and totals."
+        ),
+    )
 
     is_asset = models.BooleanField(
         default=False,

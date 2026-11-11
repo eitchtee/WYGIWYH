@@ -26,10 +26,12 @@ CURRENCY_FIELDS = (
     "account__currency__prefix",
     "account__currency__suffix",
     "account__currency__exchange_currency",
+    "account__currency__show_exchanged_amounts",
 )
 
 # Aggregated amounts, plus the totals derived from them. Every one of these is
-# converted when the account's currency has an exchange currency.
+# converted when the account's currency has an exchange currency and shows
+# exchanged amounts.
 AGGREGATED_FIELDS = (
     "expense_current",
     "expense_projected",
@@ -120,7 +122,10 @@ def _build_currency_data(metric, showing):
         "total": currency_data[total],
     }
 
-    if metric["account__currency__exchange_currency"]:
+    if (
+        metric["account__currency__exchange_currency"]
+        and metric["account__currency__show_exchanged_amounts"]
+    ):
         from_currency = Currency.objects.get(id=metric["account__currency"])
         exchange_currency = Currency.objects.get(
             id=metric["account__currency__exchange_currency"]
