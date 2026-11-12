@@ -53,6 +53,15 @@ class ImportService:
         )
         self.mapping: Dict[str, version_1.ColumnMapping] = self.config.mapping
 
+        # Lines read by `line` transformations, captured as (text, cells) while the file is read
+        self._wanted_lines = {
+            transform.line
+            for mapping in self.mapping.values()
+            for transform in mapping.transformations or []
+            if transform.type == "line"
+        }
+        self._file_lines: Dict[int, tuple[str, list[str]]] = {}
+
         # Ensure temp directory exists
         os.makedirs(settings.IMPORT_TEMP_ROOT, exist_ok=True)
 
@@ -189,6 +198,15 @@ class ImportService:
                         transform.pattern, transform.replacement, transformed
                     )
 
+            elif transform.type == "line":
+                text, cells = self._file_lines.get(transform.line, ("", []))
+                if transform.column is None:
+                    transformed = text
+                elif transform.column <= len(cells):
+                    transformed = cells[transform.column - 1]
+                else:
+                    transformed = ""
+
             elif transform.type == "date_format":
                 transformed = datetime.strptime(
                     transformed, transform.original_format
@@ -289,7 +307,8 @@ class ImportService:
                     # Ignore if category doesn't exist and create is False or not set
                     data["category"] = None
 
-        if "account" in data:
+        # Look the account up, unless the run already picked one
+        if "account" in data and not isinstance(data["account"], Account):
             account_id = data.pop("account")
             account_mapping = next(
                 (
@@ -710,6 +729,10 @@ class ImportService:
             if mapped_data:
                 # Handle different import types
                 if self.settings.importing == "transactions":
+                    if self.import_run.account:
+                        # The run's account wins over the profile's account mapping
+                        mapped_data["account"] = self.import_run.account
+
                     if self.deduplication and self._check_duplicate_transaction(
                         mapped_data
                     ):
@@ -744,14 +767,31 @@ class ImportService:
 
             logger.error(f"Fatal error processing row {row_number}", exc_info=e)
 
+    def _capture_csv_lines(self, csv_file):
+        """Pass the file's lines through, keeping the ones `line` transformations read."""
+        for number, line in enumerate(csv_file, start=1):
+            if number in self._wanted_lines:
+                text = line.rstrip("\r\n")
+                cells = next(csv.reader([text], delimiter=self.settings.delimiter), [])
+                self._file_lines[number] = (text, cells)
+            yield line
+
+    def _capture_excel_lines(self, read_row):
+        """Keep the sheet rows `line` transformations read. read_row(n) returns row n's values."""
+        self._file_lines = {}
+        for number in self._wanted_lines:
+            cells = ["" if value is None else str(value) for value in read_row(number)]
+            self._file_lines[number] = (",".join(cells), cells)
+
     def _process_csv(self, file_path):
-        # First pass: count rows
+        # First pass: count rows, and capture the lines `line` transformations read
         with open(file_path, "r", encoding=self.settings.encoding) as csv_file:
+            lines = self._capture_csv_lines(csv_file)
             # Skip specified number of rows
             for _ in range(self.settings.skip_lines):
-                next(csv_file)
+                next(lines)
 
-            reader = csv.DictReader(csv_file, delimiter=self.settings.delimiter)
+            reader = csv.DictReader(lines, delimiter=self.settings.delimiter)
             self._update_totals("total", value=sum(1 for _ in reader))
 
         with open(file_path, "r", encoding=self.settings.encoding) as csv_file:
@@ -803,6 +843,14 @@ class ImportService:
 
                     sheet = workbook[sheet_name]
                     self._log("info", f"Processing sheet: {sheet_name}")
+                    self._capture_excel_lines(
+                        lambda number: next(
+                            sheet.iter_rows(
+                                min_row=number, max_row=number, values_only=True
+                            ),
+                            (),
+                        )
+                    )
                     headers = [
                         str(cell.value or "") for cell in sheet[self.settings.start_row]
                     ]
@@ -863,6 +911,13 @@ class ImportService:
                         continue
                     sheet = workbook.sheet_by_name(sheet_name)
                     self._log("info", f"Processing sheet: {sheet_name}")
+                    self._capture_excel_lines(
+                        lambda number: (
+                            sheet.row_values(number - 1)
+                            if number <= sheet.nrows
+                            else []
+                        )
+                    )
                     headers = [
                         str(sheet.cell_value(self.settings.start_row - 1, col) or "")
                         for col in range(sheet.ncols)
@@ -920,7 +975,9 @@ class ImportService:
         current_transaction = {}
         raw_lines_buffer = []
 
-        account = Account.objects.filter(name=account_name).first()
+        account = (
+            self.import_run.account or Account.objects.filter(name=account_name).first()
+        )
         if not account:
             raise ValueError(f"Account '{account_name}' not found.")
 
@@ -1149,6 +1206,11 @@ class ImportService:
             self.import_run.save(update_fields=["started_at"])
 
             self._log("info", "Starting import process")
+            if self.import_run.account:
+                self._log(
+                    "info",
+                    f"Importing transactions into account '{self.import_run.account.name}'",
+                )
 
             try:
                 if isinstance(self.settings, version_1.CSVImportSettings):

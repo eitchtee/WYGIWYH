@@ -102,6 +102,7 @@ class ImportRunViewSet(viewsets.ReadOnlyModelViewSet):
                 "properties": {
                     "profile_id": {"type": "integer", "description": "ID of the ImportProfile to use"},
                     "file": {"type": "string", "format": "binary", "description": "CSV or XLSX file to import"},
+                    "account_id": {"type": "integer", "description": "ID of the Account to import every transaction into. Leave empty to let the profile pick the account. Only for profiles that import transactions"},
                 },
                 "required": ["profile_id", "file"],
             },
@@ -137,7 +138,10 @@ class ImportViewSet(viewsets.ViewSet):
 
         # Create ImportRun record
         import_run = ImportRun.objects.create(
-            profile=profile, file_name=filename, owner=request.user
+            profile=profile,
+            file_name=filename,
+            account=serializer.validated_data.get("account"),
+            owner=request.user,
         )
 
         # Queue import task
