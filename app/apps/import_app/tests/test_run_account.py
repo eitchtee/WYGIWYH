@@ -360,6 +360,16 @@ class ImportRunAccountAPITests(ImportRunAccountTestCase):
         mock_defer.assert_not_called()
 
     @patch("apps.api.views.imports.process_import.defer")
+    def test_api_rejects_an_archived_account(self, mock_defer):
+        response = self._post(
+            self.private_profile, account_id=self.archived_account.id
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("account_id", response.data)
+        mock_defer.assert_not_called()
+
+    @patch("apps.api.views.imports.process_import.defer")
     def test_api_rejects_an_account_for_profiles_not_importing_transactions(
         self, mock_defer
     ):

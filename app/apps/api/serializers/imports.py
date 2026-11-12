@@ -43,7 +43,7 @@ class ImportFileSerializer(serializers.Serializer):
     )
     file = serializers.FileField()
     account_id = serializers.PrimaryKeyRelatedField(
-        queryset=Account.objects.all(),
+        queryset=Account.objects.filter(is_archived=False),
         source="account",
         required=False,
         allow_null=True,
@@ -53,7 +53,7 @@ class ImportFileSerializer(serializers.Serializer):
         super().__init__(*args, **kwargs)
         # Reload the querysets to get an updated version with the requesting user
         self.fields["profile_id"].queryset = ImportProfile.objects.all()
-        self.fields["account_id"].queryset = Account.objects.all()
+        self.fields["account_id"].queryset = Account.objects.filter(is_archived=False)
 
     def validate(self, data):
         if data.get("account") and not data["profile"].imports_transactions:
