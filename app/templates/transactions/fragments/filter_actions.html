@@ -11,20 +11,32 @@
         hx-target="#filter-presets"
         hx-swap="outerHTML">
     <input id="filter-preset-name" type="hidden" name="name">
+    <input id="filter-preset-relative-dates" type="hidden" name="relative_dates">
+    <template id="filter-preset-relative-dates-option">
+      <label class="label cursor-pointer justify-center gap-2 whitespace-normal">
+        <input type="checkbox" class="checkbox checkbox-sm checkbox-primary">
+        <span>{% translate 'Keep dates relative to today' %}</span>
+      </label>
+    </template>
     <button class="btn btn-outline btn-primary btn-sm" type="button"
             data-title="{{ save_filter_preset_title }}"
             data-input-label="{{ preset_name_label }}"
             data-cancel-text="{{ cancel_label }}"
             data-confirm-text="{{ save_label }}"
             _="on click
+                 set relativeDatesTemplate to #filter-preset-relative-dates-option
+                 set relativeDatesOption to relativeDatesTemplate.content.firstElementChild.cloneNode(true)
                  call Swal.fire({title: @data-title,
                                  input: 'text',
                                  inputLabel: @data-input-label,
                                  inputAttributes: {maxlength: '100'},
+                                 html: relativeDatesOption,
                                  showCancelButton: true,
                                  cancelButtonText: @data-cancel-text,
                                  confirmButtonText: @data-confirm-text,
                                  customClass: {
+                                   htmlContainer: 'order-1',
+                                   actions: 'order-2',
                                    confirmButton: 'btn btn-primary me-3',
                                    cancelButton: 'btn btn-error'
                                  },
@@ -32,7 +44,9 @@
                  if result.isConfirmed
                    set presetName to result.value.trim()
                    if presetName is not ''
+                     set relativeDatesCheckbox to the first <input/> in relativeDatesOption
                      set #filter-preset-name.value to presetName
+                     set #filter-preset-relative-dates.value to relativeDatesCheckbox.checked
                      trigger submit on #save-filter-preset
                    end
                  end">

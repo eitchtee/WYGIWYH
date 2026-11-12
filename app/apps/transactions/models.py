@@ -45,6 +45,9 @@ class FilterPreset(models.Model):
     )
     name = models.CharField(max_length=100)
     parameters = models.JSONField(default=dict)
+    # When set, the saved dates are moved along with today when the preset is
+    # applied, keeping the distance they had to this date
+    relative_to = models.DateField(null=True, blank=True)
 
     class Meta:
         ordering = ["name", "id"]

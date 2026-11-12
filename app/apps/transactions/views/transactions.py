@@ -713,10 +713,18 @@ def filter_preset_create(request):
         for key in TransactionsFilter.base_filters
         if key in request.POST
     }
+    has_dates = any(
+        any(parameters.get(key, [])) for key in TransactionsFilter.relative_date_units
+    )
+    relative_to = None
+    if has_dates and request.POST.get("relative_dates") == "true":
+        relative_to = timezone.localdate(timezone.now())
+
     FilterPreset.objects.create(
         owner=request.user,
         name=name,
         parameters=parameters,
+        relative_to=relative_to,
     )
     return render(
         request,
@@ -736,6 +744,11 @@ def filter_preset_apply(request, preset_id):
             data.setlist(key, values)
 
     transaction_filter = TransactionsFilter(data)
+    if preset.relative_to:
+        transaction_filter.shift_dates(
+            since=preset.relative_to, until=timezone.localdate(timezone.now())
+        )
+
     response = render(
         request,
         "transactions/fragments/filter_form.html",

@@ -1,3 +1,6 @@
+import datetime
+from unittest import mock
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -51,6 +54,53 @@ class FilterPresetViewTests(TestCase):
         )
         self.assertContains(response, "Account X Unpaid")
 
+    def test_create_keeps_dates_relative_to_today_when_asked(self):
+        today = datetime.date(2026, 8, 20)
+
+        with mock.patch("django.utils.timezone.localdate", return_value=today):
+            self.client.post(
+                reverse("filter_preset_create"),
+                {
+                    "name": "Today",
+                    "date_start": "20/08/2026",
+                    "relative_dates": "true",
+                },
+                HTTP_HX_REQUEST="true",
+            )
+
+        preset = FilterPreset.objects.get(owner=self.user, name="Today")
+        self.assertEqual(preset.relative_to, today)
+        self.assertEqual(preset.parameters, {"date_start": ["20/08/2026"]})
+
+    def test_create_keeps_dates_fixed_by_default(self):
+        self.client.post(
+            reverse("filter_preset_create"),
+            {
+                "name": "August",
+                "reference_date_start": "August 2026",
+                "relative_dates": "false",
+            },
+            HTTP_HX_REQUEST="true",
+        )
+
+        preset = FilterPreset.objects.get(owner=self.user, name="August")
+        self.assertIsNone(preset.relative_to)
+
+    def test_create_ignores_relative_dates_without_a_date_filter(self):
+        self.client.post(
+            reverse("filter_preset_create"),
+            {
+                "name": "Unpaid without dates",
+                "is_paid": ["0"],
+                "date_start": "",
+                "relative_dates": "true",
+            },
+            HTTP_HX_REQUEST="true",
+        )
+
+        preset = FilterPreset.objects.get(owner=self.user, name="Unpaid without dates")
+        self.assertIsNone(preset.relative_to)
+
     def test_create_rejects_a_blank_name(self):
         response = self.client.post(
             reverse("filter_preset_create"),
@@ -81,6 +131,79 @@ class FilterPresetViewTests(TestCase):
             response.headers["HX-Trigger-After-Settle"],
             "updated",
         )
+
+    def test_apply_moves_relative_dates_along_with_today(self):
+        self.user.settings.date_format = "d/m/Y"
+        self.user.settings.save()
+        preset = FilterPreset.objects.create(
+            owner=self.user,
+            name="Next days",
+            parameters={
+                "date_start": ["20/08/2026"],
+                "date_end": ["31/08/2026"],
+                "reference_date_start": ["August 2026"],
+                "reference_date_end": ["September 2026"],
+            },
+            relative_to=datetime.date(2026, 8, 20),
+        )
+
+        with mock.patch(
+            "django.utils.timezone.localdate",
+            return_value=datetime.date(2027, 1, 5),
+        ):
+            response = self.client.get(
+                reverse("filter_preset_apply", args=[preset.pk]),
+                HTTP_HX_REQUEST="true",
+            )
+
+        data = response.context["filter"].data
+        self.assertEqual(data["date_start"], "05/01/2027")
+        self.assertEqual(data["date_end"], "16/01/2027")
+        self.assertEqual(data["reference_date_start"], "January 2027")
+        self.assertEqual(data["reference_date_end"], "February 2027")
+        self.assertContains(response, 'data-value="2027-01-05"')
+        self.assertContains(response, 'data-value="2027-01-16"')
+        self.assertContains(response, 'data-value="2027-01-01"')
+        self.assertContains(response, 'data-value="2027-02-01"')
+
+    def test_apply_keeps_fixed_dates_unchanged(self):
+        self.user.settings.date_format = "d/m/Y"
+        self.user.settings.save()
+        preset = FilterPreset.objects.create(
+            owner=self.user,
+            name="August",
+            parameters={
+                "date_start": ["20/08/2026"],
+                "reference_date_start": ["August 2026"],
+            },
+        )
+
+        with mock.patch(
+            "django.utils.timezone.localdate",
+            return_value=datetime.date(2027, 1, 5),
+        ):
+            response = self.client.get(
+                reverse("filter_preset_apply", args=[preset.pk]),
+                HTTP_HX_REQUEST="true",
+            )
+
+        data = response.context["filter"].data
+        self.assertEqual(data["date_start"], "20/08/2026")
+        self.assertEqual(data["reference_date_start"], "August 2026")
+        self.assertContains(response, 'data-value="2026-08-20"')
+        self.assertContains(response, 'data-value="2026-08-01"')
+
+    def test_presets_with_relative_dates_are_marked_in_the_list(self):
+        FilterPreset.objects.create(
+            owner=self.user,
+            name="Today",
+            parameters={"date_start": ["20/08/2026"]},
+            relative_to=datetime.date(2026, 8, 20),
+        )
+
+        response = self.client.get(reverse("transactions_all_index"))
+
+        self.assertContains(response, "Dates relative to today", count=1)
 
     def test_clear_returns_the_default_filter_form_without_changing_the_url(self):
         response = self.client.get(

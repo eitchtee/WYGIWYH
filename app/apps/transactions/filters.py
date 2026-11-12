@@ -1,3 +1,5 @@
+import datetime
+
 import django_filters
 from apps.accounts.models import Account
 from apps.common.fields.month_year import MonthYearFormField
@@ -13,6 +15,7 @@ from apps.transactions.models import (
 )
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Field, Layout, Row
+from dateutil.relativedelta import relativedelta
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -45,6 +48,13 @@ class TransactionsFilter(django_filters.FilterSet):
         "type": {"IN", "EX"},
         "is_paid": {"1", "0"},
         "mute_status": {"active", "muted"},
+    }
+    # How each date filter moves when a preset keeps its dates relative to today
+    relative_date_units = {
+        "date_start": "days",
+        "date_end": "days",
+        "reference_date_start": "months",
+        "reference_date_end": "months",
     }
 
     description = django_filters.CharFilter(
@@ -239,6 +249,27 @@ class TransactionsFilter(django_filters.FilterSet):
                 continue
             return True
         return False
+
+    def shift_dates(self, since, until):
+        """
+        Move the date filters forward by the time elapsed between two dates.
+
+        Dates move by days and reference months by months, so a preset saved
+        from today, or for the current month, keeps meaning that later on.
+        """
+        elapsed = {
+            "days": (until - since).days,
+            "months": (until.year - since.year) * 12 + until.month - since.month,
+        }
+
+        for name, unit in self.relative_date_units.items():
+            try:
+                value = datetime.date.fromisoformat(self.form[name].data)
+            except (TypeError, ValueError):
+                continue
+
+            shifted = value + relativedelta(**{unit: elapsed[unit]})
+            self.data[name] = self.form.fields[name].widget.format_value(shifted)
 
     @staticmethod
     def filter_category(queryset, name, value):
