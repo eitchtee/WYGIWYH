@@ -75,6 +75,20 @@ class SubtractTransformationRule(BaseModel):
     )
 
 
+class LineTransformationRule(BaseModel):
+    type: Literal["line"]
+    line: int = Field(
+        ...,
+        ge=1,
+        description="Line of the file to read, counted from 1 at the top of the file, including skipped lines",
+    )
+    column: int | None = Field(
+        default=None,
+        ge=1,
+        description="Column of that line to read, counted from 1. Empty to read the whole line (Excel cells are joined with commas).",
+    )
+
+
 class CSVImportSettings(BaseModel):
     skip_errors: bool = Field(
         default=False,
@@ -133,6 +147,7 @@ class ColumnMapping(BaseModel):
             | SplitTransformationRule
             | AddTransformationRule
             | SubtractTransformationRule
+            | LineTransformationRule
         ]
     ] = Field(default_factory=list)
 
