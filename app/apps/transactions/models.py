@@ -1359,38 +1359,65 @@ class RecurringTransaction(TransferTemplate):
         """
         Updates all unpaid transactions associated with this RecurringTransaction.
 
-        Only unpaid transactions (`is_paid=False`) are modified. Updates fields like
-        amount, description, category, notes, and many-to-many relationships (tags, entities).
+        Only unpaid transactions (`is_paid=False`) are modified. They keep their dates
+        and take the account, type, amount, description, category, notes, tags and
+        entities of the recurrence; a transfer's "to" side takes the "to" account and
+        amount. Turning the recurrence into a transfer adds the missing "to" sides,
+        and turning it into an income or expense removes them.
         """
-        unpaid_transactions = self.transactions.filter(is_paid=False)
+        unpaid_transactions = list(
+            self.transactions.filter(is_paid=False).select_related(
+                "linked_transaction"
+            )
+        )
+        to_side_ids = {
+            existing_transaction.pk
+            for existing_transaction in unpaid_transactions
+            if self._is_to_side(existing_transaction)
+        }
 
         for existing_transaction in unpaid_transactions:
-            # Update fields based on RecurringTransaction
-            is_to_side = (
-                existing_transaction.linked_transaction_id
-                and existing_transaction.type == Transaction.Type.INCOME
-            )
-            existing_transaction.amount = (
-                self.to_amount or self.amount if is_to_side else self.amount
-            )
-            existing_transaction.description = (
-                self.description if self.add_description_to_transaction else ""
-            )
-            existing_transaction.category = self.category
-            existing_transaction.notes = (
-                self.notes if self.add_notes_to_transaction else ""
-            )
+            if existing_transaction.pk in to_side_ids:
+                if self.is_transfer:
+                    self._apply_to(
+                        existing_transaction,
+                        self.to_account,
+                        Transaction.Type.INCOME,
+                        self.to_amount or self.amount,
+                        existing_transaction.date,
+                        existing_transaction.reference_date,
+                    )
+                # Otherwise its unpaid "from" side removes it below
+                continue
 
-            # Update many-to-many relationships (see create_transaction)
-            existing_transaction.tags.set(self.tags(manager="all_objects").all())
-            existing_transaction.entities.set(
-                self.entities(manager="all_objects").all()
+            if (
+                not self.is_transfer
+                and existing_transaction.linked_transaction_id in to_side_ids
+            ):
+                to_side = existing_transaction.linked_transaction
+                existing_transaction.linked_transaction = None
+                to_side.linked_transaction = None
+                to_side.delete(_with_partner=False)
+
+            self._apply_to(
+                existing_transaction,
+                self.account,
+                self.transaction_type,
+                self.amount,
+                existing_transaction.date,
+                existing_transaction.reference_date,
             )
+            if not existing_transaction.linked_transaction_id:
+                self.complete_transfer(existing_transaction)
 
-            existing_transaction.copy_sub_transactions_from(self)
-
-            # Save updated transaction
-            existing_transaction.save()
+    def _is_to_side(self, existing_transaction):
+        """Whether a transaction is the "to" side of a transfer this generated."""
+        return bool(
+            existing_transaction.linked_transaction_id
+            and existing_transaction.type == Transaction.Type.INCOME
+            and existing_transaction.linked_transaction.recurring_transaction_id
+            == self.pk
+        )
 
     def delete_unpaid_transactions(self):
         """

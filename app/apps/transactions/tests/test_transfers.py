@@ -251,19 +251,20 @@ class TransferTemplateTests(TransferTestBase):
     """Recurring and quick transactions of type Transfer."""
 
     def _recurring(self, **overrides):
-        return RecurringTransaction.objects.create(
-            account=self.checking,
-            type=RecurringTransaction.Type.TRANSFER,
-            to_account=self.savings,
-            amount=Decimal("100"),
-            to_amount=Decimal("95"),
-            description="Savings",
-            start_date=timezone.localdate(),
-            recurrence_type=RecurringTransaction.RecurrenceType.MONTH,
-            recurrence_interval=1,
-            keep_at_most=2,
+        data = {
+            "account": self.checking,
+            "type": RecurringTransaction.Type.TRANSFER,
+            "to_account": self.savings,
+            "amount": Decimal("100"),
+            "to_amount": Decimal("95"),
+            "description": "Savings",
+            "start_date": timezone.localdate(),
+            "recurrence_type": RecurringTransaction.RecurrenceType.MONTH,
+            "recurrence_interval": 1,
+            "keep_at_most": 2,
             **overrides,
-        )
+        }
+        return RecurringTransaction.objects.create(**data)
 
     def test_recurring_transfer_generates_linked_pairs(self):
         recurring = self._recurring()
@@ -292,6 +293,157 @@ class TransferTemplateTests(TransferTestBase):
         self.assertEqual(
             amounts,
             {(Transaction.Type.EXPENSE, Decimal("10")), (Transaction.Type.INCOME, Decimal("9"))},
+        )
+
+    def test_recurring_update_moves_unpaid_to_new_account_and_type(self):
+        recurring = self._recurring(type=RecurringTransaction.Type.EXPENSE)
+        recurring.create_upcoming_transactions()
+        paid = recurring.transactions.earliest("date")
+        paid.is_paid = True
+        paid.save()
+
+        recurring.account = self.savings
+        recurring.type = RecurringTransaction.Type.INCOME
+        recurring.save()
+        recurring.update_unpaid_transactions()
+
+        paid.refresh_from_db()
+        self.assertEqual(
+            (paid.account, paid.type), (self.checking, Transaction.Type.EXPENSE)
+        )
+        unpaid = recurring.transactions.filter(is_paid=False)
+        self.assertTrue(unpaid.exists())
+        self.assertEqual(
+            set(unpaid.values_list("account", "type")),
+            {(self.savings.id, Transaction.Type.INCOME)},
+        )
+
+    def test_recurring_transfer_update_moves_to_sides_to_new_account(self):
+        recurring = self._recurring()
+        recurring.create_upcoming_transactions()
+        brokerage = Account.objects.create(
+            name="Brokerage", group=self.checking.group, currency=self.checking.currency
+        )
+
+        recurring.to_account = brokerage
+        recurring.save()
+        recurring.update_unpaid_transactions()
+
+        self.assertEqual(
+            set(recurring.transactions.values_list("type", "account")),
+            {
+                (Transaction.Type.EXPENSE, self.checking.id),
+                (Transaction.Type.INCOME, brokerage.id),
+            },
+        )
+
+    def test_recurring_update_into_transfer_adds_to_sides(self):
+        recurring = self._recurring(type=RecurringTransaction.Type.INCOME)
+        recurring.create_upcoming_transactions()
+        occurrences = recurring.transactions.count()
+
+        recurring.type = RecurringTransaction.Type.TRANSFER
+        recurring.save()
+        recurring.update_unpaid_transactions()
+
+        expenses = recurring.transactions.filter(type=Transaction.Type.EXPENSE)
+        self.assertEqual(expenses.count(), occurrences)
+        self.assertEqual(recurring.transactions.count(), occurrences * 2)
+        for from_t in expenses:
+            to_t = from_t.linked_transaction
+            self.assertEqual(from_t.account, self.checking)
+            self.assertEqual(to_t.linked_transaction, from_t)
+            self.assertEqual(to_t.account, self.savings)
+            self.assertEqual(to_t.amount, Decimal("95"))
+            self.assertEqual(to_t.recurring_transaction, recurring)
+
+    def _assert_update_out_of_transfer_removes_to_sides(self):
+        recurring = self._recurring()
+        recurring.create_upcoming_transactions()
+        paid_from = recurring.transactions.filter(
+            type=Transaction.Type.EXPENSE
+        ).earliest("date")
+        paid_from.is_paid = True
+        paid_from.save()
+        paid_to = paid_from.linked_transaction
+        occurrences = recurring.transactions.filter(
+            type=Transaction.Type.EXPENSE
+        ).count()
+
+        recurring.type = RecurringTransaction.Type.EXPENSE
+        recurring.save()
+        recurring.update_unpaid_transactions()
+
+        unpaid = recurring.transactions.filter(is_paid=False)
+        self.assertEqual(unpaid.count(), occurrences - 1)
+        self.assertEqual(
+            set(unpaid.values_list("account", "type", "linked_transaction")),
+            {(self.checking.id, Transaction.Type.EXPENSE, None)},
+        )
+        paid_from.refresh_from_db()
+        self.assertEqual(paid_from.linked_transaction, paid_to)
+
+    def test_recurring_update_out_of_transfer_removes_to_sides(self):
+        self._assert_update_out_of_transfer_removes_to_sides()
+        self.assertFalse(Transaction.deleted_objects.exists())
+
+    @override_settings(ENABLE_SOFT_DELETE=True)
+    def test_recurring_update_out_of_transfer_soft_deletes_to_sides(self):
+        self._assert_update_out_of_transfer_removes_to_sides()
+        self.assertTrue(Transaction.deleted_objects.exists())
+        self.assertFalse(
+            Transaction.deleted_objects.exclude(linked_transaction=None).exists()
+        )
+
+    def test_recurring_update_keeps_transfer_linked_by_hand(self):
+        recurring = self._recurring(type=RecurringTransaction.Type.INCOME)
+        recurring.create_upcoming_transactions()
+        income = recurring.transactions.earliest("date")
+        expense = Transaction.objects.create(
+            account=self.savings,
+            type=Transaction.Type.EXPENSE,
+            amount=Decimal("100"),
+            date=income.date,
+            description="Outside",
+            is_paid=False,
+        )
+        expense.link_transfer(income)
+
+        recurring.amount = Decimal("120")
+        recurring.save()
+        recurring.update_unpaid_transactions()
+
+        income.refresh_from_db()
+        self.assertEqual(income.linked_transaction, expense)
+        self.assertEqual(income.amount, Decimal("120"))
+        self.assertTrue(Transaction.objects.filter(pk=expense.pk).exists())
+
+    def test_edit_view_moves_unpaid_transactions(self):
+        recurring = self._recurring(type=RecurringTransaction.Type.EXPENSE)
+        recurring.create_upcoming_transactions()
+
+        response = self.client.post(
+            reverse(
+                "recurring_transaction_edit",
+                kwargs={"recurring_transaction_id": recurring.id},
+            ),
+            {
+                "type": "EX",
+                "account": self.savings.id,
+                "amount": "100",
+                "description": "Savings",
+                "start_date": recurring.start_date.isoformat(),
+                "recurrence_type": "month",
+                "recurrence_interval": "1",
+                "keep_at_most": "2",
+            },
+            HTTP_HX_REQUEST="true",
+        )
+
+        self.assertEqual(response.status_code, 204)
+        self.assertEqual(
+            set(recurring.transactions.values_list("account", flat=True)),
+            {self.savings.id},
         )
 
     def test_transfer_type_requires_other_account(self):
