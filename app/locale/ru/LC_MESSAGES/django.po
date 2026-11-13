@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 21:50+0000\n"
+"POT-Creation-Date: 2026-11-13 21:56+0000\n"
 "PO-Revision-Date: 2026-11-10 07:58+0000\n"
 "Last-Translator: masttera <mail.masttera@gmail.com>\n"
 "Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
@@ -1301,7 +1301,7 @@ msgstr "Редактировать действие транзакции"
 msgid "Update or create transaction actions"
 msgstr "Обновление или создание действий транзакции"
 
-#: apps/export_app/forms.py:199 templates/cotton/transaction/item.html:310
+#: apps/export_app/forms.py:199 templates/cotton/transaction/item.html:325
 #: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
@@ -1895,6 +1895,8 @@ msgstr ""
 #: apps/transactions/forms.py:741 apps/transactions/models.py:992
 #: apps/transactions/models.py:1303 templates/cotton/transaction/item.html:52
 #: templates/cotton/transaction/item.html:60
+#: templates/cotton/transaction/item.html:270
+#: templates/cotton/transaction/item.html:302
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
 msgid "Transfer"
@@ -1990,14 +1992,14 @@ msgstr "Расход"
 
 #: apps/transactions/models.py:380 apps/transactions/models.py:787
 #: templates/cotton/transaction/item.html:260
-#: templates/cotton/transaction/item.html:277
 #: templates/cotton/transaction/item.html:287
+#: templates/cotton/transaction/item.html:297
 msgid "Installment Plan"
 msgstr "План рассрочки"
 
 #: apps/transactions/models.py:389 apps/transactions/models.py:1067
 #: templates/cotton/transaction/item.html:250
-#: templates/cotton/transaction/item.html:270
+#: templates/cotton/transaction/item.html:280
 msgid "Recurring Transaction"
 msgstr "Повторяющаяся транзакция"
 
@@ -2245,35 +2247,44 @@ msgstr "Категория успешно обновлена"
 msgid "Category deleted successfully"
 msgstr "Категория успешно удалена"
 
-#: apps/transactions/views/conversions.py:72
+#: apps/transactions/views/conversions.py:73
 #: apps/transactions/views/quick_transactions.py:46 apps/users/views.py:252
 msgid "Item added successfully"
 msgstr "Элемент успешно добавлен"
 
-#: apps/transactions/views/conversions.py:91
+#: apps/transactions/views/conversions.py:92
 #, fuzzy
 msgid "Convert into quick transaction"
 msgstr "Редактировать быструю транзакцию"
 
-#: apps/transactions/views/conversions.py:108
+#: apps/transactions/views/conversions.py:109
 #: apps/transactions/views/recurring_transactions.py:112
 msgid "Recurring Transaction added successfully"
 msgstr "Повторяющаяся транзакция успешно добавлена"
 
-#: apps/transactions/views/conversions.py:129
+#: apps/transactions/views/conversions.py:130
 #, fuzzy
 msgid "Convert into recurring transaction"
 msgstr "Редактировать повторяющуюся транзакцию"
 
-#: apps/transactions/views/conversions.py:148
+#: apps/transactions/views/conversions.py:149
 #: apps/transactions/views/installment_plans.py:87
 msgid "Installment Plan added successfully"
 msgstr "План рассрочки успешно добавлен"
 
-#: apps/transactions/views/conversions.py:167
+#: apps/transactions/views/conversions.py:168
 #, fuzzy
 msgid "Convert into installment plan"
 msgstr "Изменить план рассрочки"
+
+#: apps/transactions/views/conversions.py:188
+msgid "Transaction converted into a transfer"
+msgstr ""
+
+#: apps/transactions/views/conversions.py:219
+#, fuzzy
+msgid "Convert into transfer"
+msgstr "Редактировать быструю транзакцию"
 
 #: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
@@ -2761,7 +2772,7 @@ msgstr "Поделиться"
 #: templates/bank_sync/fragments/list.html:50
 #: templates/categories/fragments/table.html:51
 #: templates/cotton/transaction/item.html:190
-#: templates/cotton/transaction/item.html:316
+#: templates/cotton/transaction/item.html:331
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
 #: templates/cotton/ui/transactions_action_bar.html:75
 #: templates/cotton/ui/transactions_action_bar.html:107
@@ -2796,7 +2807,7 @@ msgstr "Удалить"
 #: templates/bank_sync/fragments/list.html:54
 #: templates/categories/fragments/table.html:56
 #: templates/cotton/transaction/item.html:192
-#: templates/cotton/transaction/item.html:322
+#: templates/cotton/transaction/item.html:337
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:76
 #: templates/cotton/ui/transactions_action_bar.html:105
@@ -2828,7 +2839,7 @@ msgstr "Вы уверены?"
 #: templates/accounts/fragments/list.html:76
 #: templates/categories/fragments/table.html:57
 #: templates/cotton/transaction/item.html:193
-#: templates/cotton/transaction/item.html:323
+#: templates/cotton/transaction/item.html:338
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
 #: templates/cotton/ui/transactions_action_bar.html:76
 #: templates/cotton/ui/transactions_action_bar.html:105
@@ -2852,7 +2863,7 @@ msgstr "Вы не сможете отменить это!"
 #: templates/bank_sync/fragments/list.html:56
 #: templates/categories/fragments/table.html:58
 #: templates/cotton/transaction/item.html:194
-#: templates/cotton/transaction/item.html:324
+#: templates/cotton/transaction/item.html:339
 #: templates/currencies/fragments/list.html:46
 #: templates/dca/fragments/strategy/details.html:77
 #: templates/dca/fragments/strategy/list.html:44
@@ -3061,29 +3072,30 @@ msgstr ""
 
 #: templates/cotton/transaction/item.html:252
 #: templates/cotton/transaction/item.html:262
+#: templates/cotton/transaction/item.html:272
 msgid "Already part of a plan or recurrence"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:279
+#: templates/cotton/transaction/item.html:289
 msgid "Not available for transfers"
 msgstr ""
 
-#: templates/cotton/transaction/item.html:296
+#: templates/cotton/transaction/item.html:311
 #: templates/includes/transactions_bulk_actions.html:22
 msgid "Move to previous month"
 msgstr "Перейти к предыдущему месяцу"
 
-#: templates/cotton/transaction/item.html:300
+#: templates/cotton/transaction/item.html:315
 #: templates/includes/transactions_bulk_actions.html:28
 msgid "Move to next month"
 msgstr "Перенести на следующий месяц"
 
-#: templates/cotton/transaction/item.html:303
+#: templates/cotton/transaction/item.html:318
 #: templates/includes/transactions_bulk_actions.html:33
 msgid "Move to today"
 msgstr "Перейдите к сегодняшнему дню"
 
-#: templates/cotton/transaction/item.html:307
+#: templates/cotton/transaction/item.html:322
 #: templates/cotton/ui/transactions_action_bar.html:71
 #: templates/cotton/ui/transactions_action_bar.html:98
 msgid "Duplicate"
