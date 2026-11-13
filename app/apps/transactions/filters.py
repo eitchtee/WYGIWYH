@@ -12,7 +12,7 @@ from apps.transactions.models import (
     TransactionTag,
 )
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column, Field, Layout, Row
+from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -34,6 +34,18 @@ def content_filter(queryset, name, value):
         Q(description__icontains=value) | Q(notes__icontains=value)
     )
     return queryset
+
+
+def exclude_matching(positive_filter):
+    """Turn a positive filter method into one that drops the rows it would keep."""
+
+    def method(queryset, name, value):
+        if not value:
+            return queryset
+        matching = positive_filter(queryset, name, value)
+        return queryset.exclude(pk__in=matching.values("pk"))
+
+    return method
 
 
 class MonthYearFilter(Filter):
@@ -124,6 +136,42 @@ class TransactionsFilter(django_filters.FilterSet):
         lookup_expr="lte",
         label=_("Amount max"),
     )
+    exclude_description = django_filters.CharFilter(
+        label=_("Content"),
+        method=exclude_matching(content_filter),
+        widget=forms.TextInput(attrs={"type": "search"}),
+    )
+    exclude_account = django_filters.ModelMultipleChoiceFilter(
+        field_name="account__name",
+        queryset=Account.objects.all(),
+        to_field_name="name",
+        exclude=True,
+        label=_("Accounts"),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True, group_by="group"),
+    )
+    exclude_currency = django_filters.ModelMultipleChoiceFilter(
+        field_name="account__currency",
+        queryset=Currency.objects.all(),
+        to_field_name="id",
+        exclude=True,
+        label=_("Currencies"),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+    )
+    exclude_category = django_filters.MultipleChoiceFilter(
+        label=_("Categories"),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+        method="filter_exclude_category",
+    )
+    exclude_tags = django_filters.MultipleChoiceFilter(
+        label=_("Tags"),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+        method="filter_exclude_tags",
+    )
+    exclude_entities = django_filters.MultipleChoiceFilter(
+        label=_("Entities"),
+        widget=TomSelectMultiple(checkboxes=True, remove_button=True),
+        method="filter_exclude_entities",
+    )
 
     class Meta:
         model = Transaction
@@ -178,21 +226,53 @@ class TransactionsFilter(django_filters.FilterSet):
                 "mute_status",
                 template="transactions/widgets/transaction_type_filter_buttons.html",
             ),
-            Field("description"),
-            Row(Column("date_start"), Column("date_end")),
-            Row(
-                Column("reference_date_start"),
-                Column("reference_date_end"),
+            Div(
+                HTML(
+                    '<div role="tablist" class="tabs tabs-border mb-2">'
+                    '<button type="button" role="tab" class="tab" '
+                    ":class=\"{'tab-active': tab === 'include'}\" "
+                    ":aria-selected=\"tab === 'include'\" "
+                    "@click=\"tab = 'include'\">"
+                    f"{_('Include')}</button>"
+                    '<button type="button" role="tab" class="tab" '
+                    ":class=\"{'tab-active': tab === 'exclude'}\" "
+                    ":aria-selected=\"tab === 'exclude'\" "
+                    "@click=\"tab = 'exclude'\">"
+                    f"{_('Exclude')}</button>"
+                    "</div>"
+                ),
+                Div(
+                    Field("description"),
+                    Row(Column("date_start"), Column("date_end")),
+                    Row(
+                        Column("reference_date_start"),
+                        Column("reference_date_end"),
+                    ),
+                    Row(
+                        Column("from_amount"),
+                        Column("to_amount"),
+                    ),
+                    Field("account", size=1),
+                    Field("currency", size=1),
+                    Field("category", size=1),
+                    Field("tags", size=1),
+                    Field("entities", size=1),
+                    role="tabpanel",
+                    x_show="tab === 'include'",
+                ),
+                Div(
+                    Field("exclude_description"),
+                    Field("exclude_account", size=1),
+                    Field("exclude_currency", size=1),
+                    Field("exclude_category", size=1),
+                    Field("exclude_tags", size=1),
+                    Field("exclude_entities", size=1),
+                    role="tabpanel",
+                    x_show="tab === 'exclude'",
+                    x_cloak="",
+                ),
+                x_data="{ tab: 'include' }",
             ),
-            Row(
-                Column("from_amount"),
-                Column("to_amount"),
-            ),
-            Field("account", size=1),
-            Field("currency", size=1),
-            Field("category", size=1),
-            Field("tags", size=1),
-            Field("entities", size=1),
         )
 
         self.form.fields["to_amount"].widget = ArbitraryDecimalDisplayNumberInput()
@@ -201,6 +281,7 @@ class TransactionsFilter(django_filters.FilterSet):
         self.form.fields["date_end"].widget = AirDatePickerInput()
 
         self.form.fields["account"].queryset = Account.objects.all()
+        self.form.fields["exclude_account"].queryset = Account.objects.all()
         category_choices = list(
             TransactionCategory.objects.values_list("name", "name").order_by("name")
         )
@@ -209,11 +290,15 @@ class TransactionsFilter(django_filters.FilterSet):
             ("uncategorized", _("Uncategorized")),
         ]
         self.form.fields["category"].choices = custom_choices + category_choices
+        self.form.fields["exclude_category"].choices = (
+            custom_choices + category_choices
+        )
         tag_choices = list(
             TransactionTag.objects.values_list("name", "name").order_by("name")
         )
         custom_tag_choices = [("any", _("Tagged")), ("untagged", _("Untagged"))]
         self.form.fields["tags"].choices = custom_tag_choices + tag_choices
+        self.form.fields["exclude_tags"].choices = custom_tag_choices + tag_choices
         entity_choices = list(
             TransactionEntity.objects.values_list("name", "name").order_by("name")
         )
@@ -222,6 +307,9 @@ class TransactionsFilter(django_filters.FilterSet):
             ("no_entity", _("No entity")),
         ]
         self.form.fields["entities"].choices = custom_entity_choices + entity_choices
+        self.form.fields["exclude_entities"].choices = (
+            custom_entity_choices + entity_choices
+        )
 
     @property
     def has_active_filters(self):
@@ -308,6 +396,15 @@ class TransactionsFilter(django_filters.FilterSet):
             return queryset.filter(q).distinct()
 
         return queryset
+
+    def filter_exclude_category(self, queryset, name, value):
+        return exclude_matching(self.filter_category)(queryset, name, value)
+
+    def filter_exclude_tags(self, queryset, name, value):
+        return exclude_matching(self.filter_tags)(queryset, name, value)
+
+    def filter_exclude_entities(self, queryset, name, value):
+        return exclude_matching(self.filter_entities)(queryset, name, value)
 
     @staticmethod
     def filter_mute_status(queryset, name, value):
