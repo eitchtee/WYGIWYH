@@ -113,6 +113,7 @@ function isMobile() {
 // swaps the body: AirDatepicker then rebuilds the container, but keeps the old
 // overlay, which is left detached and can't receive the clicks that close a picker.
 let mobileOverlay = null;
+let globalContainer = null;
 
 function createAirDatepicker(element, opts) {
     const datepicker = new AirDatepicker(element, opts);
@@ -122,8 +123,23 @@ function createAirDatepicker(element, opts) {
         mobileOverlay.classList.remove('-active-'); // its picker was swapped out while open
         container.appendChild(mobileOverlay);
     }
+    globalContainer = document.getElementById(AirDatepicker.defaultGlobalContainerId) ?? globalContainer;
     return datepicker;
 }
+
+// Pickers kept across a boosted navigation by hx-preserve aren't recreated, but the
+// global container they render into was swapped out with the body. htmx:load (which
+// creates the new pickers) runs before htmx:afterSwap, so by now any new container exists.
+document.addEventListener('htmx:afterSwap', () => {
+    if (!globalContainer || globalContainer.isConnected) return;
+    const current = document.getElementById(AirDatepicker.defaultGlobalContainerId);
+    if (current) {
+        current.append(...globalContainer.children);
+        globalContainer = current;
+    } else {
+        document.body.appendChild(globalContainer);
+    }
+});
 
 window.DatePicker = async function createDynamicDatePicker(element) {
     let todayButton = {
