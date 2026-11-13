@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 03:24+0000\n"
+"POT-Creation-Date: 2026-11-13 21:50+0000\n"
 "PO-Revision-Date: 2026-01-10 03:09+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Hungarian <https://translations.herculino.com/projects/"
@@ -87,13 +87,13 @@ msgstr "Kategória"
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:142
 #: apps/insights/views.py:50 apps/rules/forms.py:184 apps/rules/forms.py:194
 #: apps/rules/models.py:45 apps/rules/models.py:315
-#: apps/transactions/filters.py:79 apps/transactions/forms.py:70
-#: apps/transactions/forms.py:338 apps/transactions/forms.py:518
-#: apps/transactions/forms.py:623 apps/transactions/forms.py:631
-#: apps/transactions/forms.py:847 apps/transactions/forms.py:1099
-#: apps/transactions/models.py:364 apps/transactions/models.py:767
-#: apps/transactions/models.py:1025 apps/transactions/models.py:1348
-#: templates/includes/sidebar.html:162
+#: apps/transactions/filters.py:91 apps/transactions/filters.py:166
+#: apps/transactions/forms.py:70 apps/transactions/forms.py:338
+#: apps/transactions/forms.py:518 apps/transactions/forms.py:623
+#: apps/transactions/forms.py:631 apps/transactions/forms.py:847
+#: apps/transactions/forms.py:1099 apps/transactions/models.py:364
+#: apps/transactions/models.py:767 apps/transactions/models.py:1025
+#: apps/transactions/models.py:1348 templates/includes/sidebar.html:162
 #: templates/insights/fragments/month_by_month.html:29
 #: templates/insights/fragments/month_by_month.html:32
 #: templates/insights/fragments/year_by_year.html:24
@@ -324,8 +324,8 @@ msgid "Account"
 msgstr "Számla"
 
 #: apps/accounts/models.py:191 apps/export_app/forms.py:19
-#: apps/export_app/forms.py:138 apps/transactions/filters.py:63
-#: templates/accounts/fragments/list.html:9
+#: apps/export_app/forms.py:138 apps/transactions/filters.py:75
+#: apps/transactions/filters.py:149 templates/accounts/fragments/list.html:9
 #: templates/accounts/pages/index.html:4
 #: templates/bank_sync/fragments/accounts.html:5
 #: templates/bank_sync/fragments/list.html:22
@@ -448,8 +448,8 @@ msgstr ""
 
 #: apps/bank_sync/forms.py:113 apps/bank_sync/models.py:76
 #: apps/currencies/models.py:54 apps/export_app/forms.py:25
-#: apps/export_app/forms.py:140 apps/transactions/filters.py:70
-#: templates/currencies/fragments/list.html:9
+#: apps/export_app/forms.py:140 apps/transactions/filters.py:82
+#: apps/transactions/filters.py:157 templates/currencies/fragments/list.html:9
 #: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:196
 #: templates/includes/sidebar.html:198
 #: templates/monthly_overview/pages/overview.html:63
@@ -1058,14 +1058,14 @@ msgstr "Cél számla"
 #: apps/dca/forms.py:117 apps/dca/forms.py:125 apps/export_app/forms.py:49
 #: apps/export_app/forms.py:143 apps/insights/views.py:57
 #: apps/rules/forms.py:185 apps/rules/forms.py:195 apps/rules/models.py:46
-#: apps/rules/models.py:307 apps/transactions/filters.py:84
-#: apps/transactions/forms.py:78 apps/transactions/forms.py:346
-#: apps/transactions/forms.py:526 apps/transactions/forms.py:640
-#: apps/transactions/forms.py:647 apps/transactions/forms.py:862
-#: apps/transactions/forms.py:1114 apps/transactions/models.py:313
-#: apps/transactions/models.py:369 apps/transactions/models.py:770
-#: apps/transactions/models.py:1028 apps/transactions/models.py:1353
-#: templates/entities/fragments/list.html:9
+#: apps/rules/models.py:307 apps/transactions/filters.py:96
+#: apps/transactions/filters.py:171 apps/transactions/forms.py:78
+#: apps/transactions/forms.py:346 apps/transactions/forms.py:526
+#: apps/transactions/forms.py:640 apps/transactions/forms.py:647
+#: apps/transactions/forms.py:862 apps/transactions/forms.py:1114
+#: apps/transactions/models.py:313 apps/transactions/models.py:369
+#: apps/transactions/models.py:770 apps/transactions/models.py:1028
+#: apps/transactions/models.py:1353 templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:168
 #: templates/insights/fragments/month_by_month.html:40
 #: templates/insights/fragments/month_by_month.html:43
@@ -1194,8 +1194,8 @@ msgid "Transactions"
 msgstr "Tranzakciók"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:141
-#: apps/insights/views.py:43 apps/transactions/filters.py:74
-#: templates/categories/fragments/list.html:9
+#: apps/insights/views.py:43 apps/transactions/filters.py:86
+#: apps/transactions/filters.py:161 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:156
 #: templates/insights/fragments/month_by_month.html:18
 #: templates/insights/fragments/month_by_month.html:21
@@ -1386,7 +1386,7 @@ msgstr ""
 
 #: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167 apps/insights/views.py:45
-#: apps/transactions/filters.py:209
+#: apps/transactions/filters.py:290
 #: templates/insights/fragments/month_by_month.html:119
 #: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
@@ -1445,7 +1445,7 @@ msgstr ""
 msgid "Tag"
 msgstr "Tags"
 
-#: apps/insights/views.py:52 apps/transactions/filters.py:215
+#: apps/insights/views.py:52 apps/transactions/filters.py:299
 #: templates/insights/fragments/month_by_month.html:121
 #: templates/insights/fragments/year_by_year.html:75
 msgid "Untagged"
@@ -1462,7 +1462,7 @@ msgstr ""
 msgid "Entity"
 msgstr ""
 
-#: apps/insights/views.py:59 apps/transactions/filters.py:222
+#: apps/insights/views.py:59 apps/transactions/filters.py:307
 #: templates/insights/fragments/month_by_month.html:123
 #: templates/insights/fragments/year_by_year.html:77
 msgid "No entity"
@@ -1776,47 +1776,55 @@ msgstr "Várható"
 msgid "Muted"
 msgstr ""
 
-#: apps/transactions/filters.py:51
+#: apps/transactions/filters.py:63 apps/transactions/filters.py:140
 msgid "Content"
 msgstr ""
 
-#: apps/transactions/filters.py:57
+#: apps/transactions/filters.py:69
 msgid "Transaction Type"
 msgstr ""
 
-#: apps/transactions/filters.py:95
+#: apps/transactions/filters.py:107
 msgid "Mute Status"
 msgstr ""
 
-#: apps/transactions/filters.py:100
+#: apps/transactions/filters.py:112
 msgid "Date from"
 msgstr ""
 
-#: apps/transactions/filters.py:105 apps/transactions/filters.py:115
+#: apps/transactions/filters.py:117 apps/transactions/filters.py:127
 msgid "Until"
 msgstr ""
 
-#: apps/transactions/filters.py:110
+#: apps/transactions/filters.py:122
 msgid "Reference date from"
 msgstr ""
 
-#: apps/transactions/filters.py:120
+#: apps/transactions/filters.py:132
 msgid "Amount min"
 msgstr ""
 
-#: apps/transactions/filters.py:125
+#: apps/transactions/filters.py:137
 msgid "Amount max"
 msgstr ""
 
-#: apps/transactions/filters.py:208
+#: apps/transactions/filters.py:236
+msgid "Include"
+msgstr ""
+
+#: apps/transactions/filters.py:241
+msgid "Exclude"
+msgstr ""
+
+#: apps/transactions/filters.py:289
 msgid "Categorized"
 msgstr ""
 
-#: apps/transactions/filters.py:215
+#: apps/transactions/filters.py:299
 msgid "Tagged"
 msgstr ""
 
-#: apps/transactions/filters.py:221
+#: apps/transactions/filters.py:306
 msgid "Any entity"
 msgstr ""
 
@@ -2166,35 +2174,43 @@ msgstr ""
 msgid "%(value)s is not a non-negative number"
 msgstr ""
 
-#: apps/transactions/views/actions.py:58
+#: apps/transactions/views/actions.py:60
 #, python-format
 msgid "%(count)s transaction marked as paid"
 msgid_plural "%(count)s transactions marked as paid"
 msgstr[0] ""
 msgstr[1] ""
 
-#: apps/transactions/views/actions.py:81
+#: apps/transactions/views/actions.py:83
 #, python-format
 msgid "%(count)s transaction marked as not paid"
 msgid_plural "%(count)s transactions marked as not paid"
 msgstr[0] ""
 msgstr[1] ""
 
-#: apps/transactions/views/actions.py:105
+#: apps/transactions/views/actions.py:107
 #, python-format
 msgid "%(count)s transaction deleted successfully"
 msgid_plural "%(count)s transactions deleted successfully"
 msgstr[0] ""
 msgstr[1] ""
 
-#: apps/transactions/views/actions.py:139
+#: apps/transactions/views/actions.py:141
 #, python-format
 msgid "%(count)s transaction restored successfully"
 msgid_plural "%(count)s transactions restored successfully"
 msgstr[0] ""
 msgstr[1] ""
 
-#: apps/transactions/views/actions.py:170
+#: apps/transactions/views/actions.py:173
+#: apps/transactions/views/transactions.py:421
+#, python-format
+msgid "%(count)s transaction updated successfully"
+msgid_plural "%(count)s transactions updated successfully"
+msgstr[0] ""
+msgstr[1] ""
+
+#: apps/transactions/views/actions.py:246
 #, python-format
 msgid "%(count)s transaction duplicated successfully"
 msgid_plural "%(count)s transactions duplicated successfully"
@@ -2329,13 +2345,6 @@ msgstr "A számla törlésre került"
 #: apps/transactions/views/transactions.py:370
 msgid "Transaction updated successfully"
 msgstr ""
-
-#: apps/transactions/views/transactions.py:421
-#, python-format
-msgid "%(count)s transaction updated successfully"
-msgid_plural "%(count)s transactions updated successfully"
-msgstr[0] ""
-msgstr[1] ""
 
 #: apps/transactions/views/transactions.py:448
 msgid "Transaction duplicated successfully"
@@ -2692,7 +2701,8 @@ msgstr ""
 #: templates/bank_sync/fragments/list.html:33
 #: templates/categories/fragments/table.html:29
 #: templates/cotton/transaction/item.html:178
-#: templates/cotton/ui/transactions_action_bar.html:54
+#: templates/cotton/ui/transactions_action_bar.html:56
+#: templates/cotton/ui/transactions_action_bar.html:90
 #: templates/currencies/fragments/list.html:34
 #: templates/dca/fragments/strategy/details.html:63
 #: templates/dca/fragments/strategy/list.html:31
@@ -2744,7 +2754,8 @@ msgstr ""
 #: templates/cotton/transaction/item.html:190
 #: templates/cotton/transaction/item.html:316
 #: templates/cotton/ui/deleted_transactions_action_bar.html:57
-#: templates/cotton/ui/transactions_action_bar.html:82
+#: templates/cotton/ui/transactions_action_bar.html:75
+#: templates/cotton/ui/transactions_action_bar.html:107
 #: templates/currencies/fragments/list.html:40
 #: templates/dca/fragments/strategy/details.html:70
 #: templates/dca/fragments/strategy/list.html:38
@@ -2778,7 +2789,8 @@ msgstr ""
 #: templates/cotton/transaction/item.html:192
 #: templates/cotton/transaction/item.html:322
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
+#: templates/cotton/ui/transactions_action_bar.html:76
+#: templates/cotton/ui/transactions_action_bar.html:105
 #: templates/currencies/fragments/list.html:44
 #: templates/dca/fragments/strategy/details.html:75
 #: templates/dca/fragments/strategy/list.html:42
@@ -2809,7 +2821,8 @@ msgstr ""
 #: templates/cotton/transaction/item.html:193
 #: templates/cotton/transaction/item.html:323
 #: templates/cotton/ui/deleted_transactions_action_bar.html:58
-#: templates/cotton/ui/transactions_action_bar.html:83
+#: templates/cotton/ui/transactions_action_bar.html:76
+#: templates/cotton/ui/transactions_action_bar.html:105
 #: templates/currencies/fragments/list.html:45
 #: templates/dca/fragments/strategy/details.html:76
 #: templates/dca/fragments/strategy/list.html:43
@@ -3028,6 +3041,7 @@ msgid "Controlled by category"
 msgstr ""
 
 #: templates/cotton/transaction/item.html:233
+#: templates/includes/transactions_bulk_actions.html:15
 msgid "Hide from summaries"
 msgstr ""
 
@@ -3045,19 +3059,23 @@ msgid "Not available for transfers"
 msgstr ""
 
 #: templates/cotton/transaction/item.html:296
+#: templates/includes/transactions_bulk_actions.html:22
 msgid "Move to previous month"
 msgstr ""
 
 #: templates/cotton/transaction/item.html:300
+#: templates/includes/transactions_bulk_actions.html:28
 msgid "Move to next month"
 msgstr ""
 
 #: templates/cotton/transaction/item.html:303
+#: templates/includes/transactions_bulk_actions.html:33
 msgid "Move to today"
 msgstr ""
 
 #: templates/cotton/transaction/item.html:307
-#: templates/cotton/ui/transactions_action_bar.html:78
+#: templates/cotton/ui/transactions_action_bar.html:71
+#: templates/cotton/ui/transactions_action_bar.html:98
 msgid "Duplicate"
 msgstr ""
 
@@ -3096,22 +3114,26 @@ msgstr ""
 msgid "final total"
 msgstr ""
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:34
-#: templates/cotton/ui/transactions_action_bar.html:34
-msgid "Select All"
-msgstr ""
-
-#: templates/cotton/ui/deleted_transactions_action_bar.html:40
-#: templates/cotton/ui/transactions_action_bar.html:40
+#: templates/cotton/ui/deleted_transactions_action_bar.html:25
+#: templates/cotton/ui/deleted_transactions_action_bar.html:26
+#: templates/cotton/ui/transactions_action_bar.html:25
+#: templates/cotton/ui/transactions_action_bar.html:26
 msgid "Unselect All"
 msgstr ""
 
-#: templates/cotton/ui/deleted_transactions_action_bar.html:46
-msgid "Invert election"
+#: templates/cotton/ui/deleted_transactions_action_bar.html:39
+#: templates/cotton/ui/transactions_action_bar.html:39
+msgid "Select All"
+msgstr ""
+
+#: templates/cotton/ui/deleted_transactions_action_bar.html:45
+#: templates/cotton/ui/transactions_action_bar.html:45
+msgid "Invert selection"
 msgstr ""
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:59
-#: templates/cotton/ui/transactions_action_bar.html:84
+#: templates/cotton/ui/transactions_action_bar.html:77
+#: templates/cotton/ui/transactions_action_bar.html:106
 msgid "Yes, delete them!"
 msgstr ""
 
@@ -3122,43 +3144,43 @@ msgstr ""
 #: templates/cotton/ui/deleted_transactions_action_bar.html:166
 #: templates/cotton/ui/deleted_transactions_action_bar.html:182
 #: templates/cotton/ui/deleted_transactions_action_bar.html:198
-#: templates/cotton/ui/transactions_action_bar.html:128
-#: templates/cotton/ui/transactions_action_bar.html:143
-#: templates/cotton/ui/transactions_action_bar.html:159
-#: templates/cotton/ui/transactions_action_bar.html:175
-#: templates/cotton/ui/transactions_action_bar.html:191
-#: templates/cotton/ui/transactions_action_bar.html:207
-#: templates/cotton/ui/transactions_action_bar.html:223
+#: templates/cotton/ui/transactions_action_bar.html:153
+#: templates/cotton/ui/transactions_action_bar.html:168
+#: templates/cotton/ui/transactions_action_bar.html:184
+#: templates/cotton/ui/transactions_action_bar.html:200
+#: templates/cotton/ui/transactions_action_bar.html:216
+#: templates/cotton/ui/transactions_action_bar.html:232
+#: templates/cotton/ui/transactions_action_bar.html:248
 msgid "copied!"
 msgstr ""
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:123
-#: templates/cotton/ui/transactions_action_bar.html:148
+#: templates/cotton/ui/transactions_action_bar.html:173
 msgid "Flat Total"
 msgstr ""
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:139
-#: templates/cotton/ui/transactions_action_bar.html:164
+#: templates/cotton/ui/transactions_action_bar.html:189
 msgid "Real Total"
 msgstr ""
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:155
-#: templates/cotton/ui/transactions_action_bar.html:180
+#: templates/cotton/ui/transactions_action_bar.html:205
 msgid "Mean"
 msgstr ""
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:171
-#: templates/cotton/ui/transactions_action_bar.html:196
+#: templates/cotton/ui/transactions_action_bar.html:221
 msgid "Max"
 msgstr ""
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:187
-#: templates/cotton/ui/transactions_action_bar.html:212
+#: templates/cotton/ui/transactions_action_bar.html:237
 msgid "Min"
 msgstr ""
 
 #: templates/cotton/ui/deleted_transactions_action_bar.html:203
-#: templates/cotton/ui/transactions_action_bar.html:228
+#: templates/cotton/ui/transactions_action_bar.html:253
 msgid "Count"
 msgstr ""
 
@@ -3182,17 +3204,11 @@ msgstr ""
 msgid "Balance"
 msgstr ""
 
-#: templates/cotton/ui/transactions_action_bar.html:46
-msgid "Invert selection"
-msgstr ""
-
-#: templates/cotton/ui/transactions_action_bar.html:66
-msgid "Mark as unpaid"
-msgstr ""
-
-#: templates/cotton/ui/transactions_action_bar.html:71
-msgid "Mark as paid"
-msgstr ""
+#: templates/cotton/ui/transactions_action_bar.html:83
+#, fuzzy
+#| msgid "Transactions"
+msgid "More actions"
+msgstr "Tranzakciók"
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
@@ -3621,6 +3637,14 @@ msgstr ""
 
 #: templates/includes/sidebar.html:277
 msgid "Calculator"
+msgstr ""
+
+#: templates/includes/transactions_bulk_actions.html:4
+msgid "Mark as unpaid"
+msgstr ""
+
+#: templates/includes/transactions_bulk_actions.html:9
+msgid "Mark as paid"
 msgstr ""
 
 #: templates/insights/fragments/category_explorer/charts/account.html:100
