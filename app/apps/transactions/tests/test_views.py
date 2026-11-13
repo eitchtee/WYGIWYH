@@ -312,6 +312,54 @@ class TransactionConvertViewTests(TestCase):
             set(plan.transactions.values_list("amount", flat=True)), {70}
         )
 
+    def test_transfer_form_prefills_side_from_type(self):
+        initial = self._get("transaction_convert_to_transfer").context["form"].initial
+        self.assertEqual(initial["from_account"], self.account.id)
+        self.assertEqual(initial["from_tags"], ["TestTag"])
+        self.assertNotIn("to_account", initial)
+
+        self.transaction.type = Transaction.Type.INCOME
+        self.transaction.save()
+        initial = self._get("transaction_convert_to_transfer").context["form"].initial
+        self.assertEqual(initial["to_account"], self.account.id)
+        self.assertNotIn("from_account", initial)
+        self.assertEqual(initial["from_amount"], 50)
+        self.assertNotIn("to_amount", initial)
+
+    def test_transfer_replaces_original_transaction(self):
+        other = Account.objects.create(name="Savings", currency=self.currency)
+        response = self._post(
+            "transaction_convert_to_transfer",
+            {
+                "from_account": self.account.id,
+                "to_account": other.id,
+                "from_amount": "50",
+                "date": "2030-01-15",
+                "is_paid": "on",
+            },
+        )
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Transaction.objects.filter(id=self.transaction.id).exists())
+        self.assertEqual(
+            Transaction.objects.filter(linked_transaction__isnull=False).count(), 2
+        )
+        # A transfer can't be converted into one again
+        self.transaction = Transaction.objects.get(account=other)
+        self.assertEqual(self._get("transaction_convert_to_transfer").status_code, 404)
+
+    def test_invalid_transfer_keeps_original_transaction(self):
+        response = self._post(
+            "transaction_convert_to_transfer",
+            {
+                "from_account": self.account.id,
+                "to_account": self.account.id,
+                "from_amount": "50",
+                "date": "2030-01-15",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(Transaction.objects.filter(id=self.transaction.id).exists())
+
     def test_linked_transaction_cannot_be_converted_into_plan(self):
         self._post(
             "transaction_convert_to_installment_plan",
