@@ -15,7 +15,7 @@
     <div class="border-s-4 border-e-0 border-t-0
                 hover:bg-base-200 p-2 {% if transaction.account.is_asset %}border-dashed{% else %}border-solid{% endif %}
                 {% if is_transfer %}border-s-info{% elif transaction.type == "EX" %}border-s-error{% else %}border-s-success{% endif %} relative
-                w-full transaction-item bg-base-100 rounded">
+                w-full min-w-0 transaction-item bg-base-100 rounded">
       <div class="flex flex-wrap lg:flex-nowrap font-mono text-sm items-center">
         <div class="lg:w-auto w-full flex items-center text-2xl lg:text-xl lg:text-center text-center p-0 cursor-pointer">
           {% if not transaction.deleted %}

@@ -17,38 +17,38 @@
           end
         end">
   <div class="card bg-base-300 shadow slide-in-bottom-short max-w-[90vw] card-border mt-5">
-    <div class="card-body flex-row p-2 flex justify-between items-center gap-3 overflow-x-auto">
+    <div class="card-body flex-row p-2 flex justify-between items-center gap-2 sm:gap-3 overflow-x-auto">
       {% spaceless %}
       <div class="font-bold text-md ms-2" id="selected-count">0</div>
-      <div class="divider divider-horizontal m-0"></div>
-      <div>
-        <button role="button" class="btn btn-secondary btn-sm" type="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          <i class="fa-regular fa-square-check fa-fw"></i>
-          <i class="fa-solid fa-chevron-down fa-xs"></i>
+      <div class="divider divider-horizontal m-0 max-sm:hidden"></div>
+      <div class="join">
+        <button class="btn btn-secondary btn-sm join-item" type="button" data-tippy-content="{% translate 'Unselect All' %}"
+          aria-label="{% translate 'Unselect All' %}"
+          _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur() then trigger change">
+          <i class="fa-solid fa-xmark fa-fw"></i>
         </button>
-        <ul class="dropdown-menu menu">
-          <li>
-            <a class="cursor-pointer"
-              _="on click set <#transactions-list .transaction:not([style*='display: none']) input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
-              <i class="fa-regular fa-square-check text-success me-3"></i>{% translate 'Select All' %}
-            </a>
-          </li>
-          <li>
-            <a class="cursor-pointer"
-              _="on click set <#transactions-list input[type='checkbox']/>'s checked to false then call me.blur() then trigger change">
-              <i class="fa-regular fa-square text-error me-3"></i>{% translate 'Unselect All' %}
-            </a>
-          </li>
-          <li>
-            <a class="cursor-pointer"
-              _="on click for checkbox in <#transactions-list input[type='checkbox']/> set checkbox.checked to (not checkbox.checked) end then call me.blur() then trigger change">
-              <i class="fa-solid fa-arrow-right-arrow-left text-info me-3"></i>{% translate 'Invert election' %}
-            </a>
-          </li>
-        </ul>
+        <div>
+          <button role="button" class="btn btn-secondary btn-sm join-item" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa-solid fa-chevron-down fa-xs"></i>
+          </button>
+          <ul class="dropdown-menu menu">
+            <li>
+              <a class="cursor-pointer"
+                _="on click set <#transactions-list .transaction:not([style*='display: none']) input[type='checkbox']/>'s checked to true then call me.blur() then trigger change">
+                <i class="fa-regular fa-square-check text-success me-3"></i>{% translate 'Select All' %}
+              </a>
+            </li>
+            <li>
+              <a class="cursor-pointer"
+                _="on click for checkbox in <#transactions-list input[type='checkbox']/> set checkbox.checked to (not checkbox.checked) end then call me.blur() then trigger change">
+                <i class="fa-solid fa-arrow-right-arrow-left text-info me-3"></i>{% translate 'Invert selection' %}
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="divider divider-horizontal m-0"></div>
+      <div class="divider divider-horizontal m-0 max-sm:hidden"></div>
       <button class="btn btn-secondary btn-sm" hx-get="{% url 'transactions_bulk_undelete' %}" hx-include=".transaction"
         data-tippy-content="{% translate 'Restore' %}">
         <i class="fa-solid fa-trash-arrow-up fa-fw"></i>
@@ -59,7 +59,7 @@
         data-confirm-text="{% translate "Yes, delete them!" %}" _="install prompt_swal">
         <i class="fa-solid fa-trash text-error"></i>
       </button>
-      <div class="divider divider-horizontal m-0"></div>
+      <div class="divider divider-horizontal m-0 max-sm:hidden"></div>
       <div class="join" _="on selected_transactions_updated from #actions-bar
                   set realTotal to math.bignumber(0)
                   set flatTotal to math.bignumber(0)
@@ -102,8 +102,8 @@
                       writeText(original_value) on navigator.clipboard
                       put '{% translate "copied!" %}' into #real-total-front's innerText wait 1s put original_value
           into #real-total-front's innerText end">
-          <i class="fa-solid fa-plus fa-fw me-md-2"></i>
-          <span class="hidden md:inline-block" id="real-total-front">0</span>
+          <i class="fa-solid fa-plus fa-fw sm:me-2"></i>
+          <span class="hidden sm:inline-block" id="real-total-front">0</span>
         </button>
         <div>
           <button class="join-item btn btn-sm btn-secondary" type="button" data-bs-toggle="dropdown"

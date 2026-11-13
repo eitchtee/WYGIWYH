@@ -82,6 +82,21 @@ urlpatterns = [
         name="transactions_bulk_clone",
     ),
     path(
+        "transactions/actions/change-month/<str:change_type>/",
+        views.bulk_change_month,
+        name="transactions_bulk_change_month",
+    ),
+    path(
+        "transactions/actions/move-to-today/",
+        views.bulk_move_to_today,
+        name="transactions_bulk_move_to_today",
+    ),
+    path(
+        "transactions/actions/mute/",
+        views.bulk_mute,
+        name="transactions_bulk_mute",
+    ),
+    path(
         "transaction/<int:transaction_id>/pay/",
         views.transaction_pay,
         name="transaction_pay",
