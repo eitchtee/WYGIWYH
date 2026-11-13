@@ -113,32 +113,30 @@ function isMobile() {
 // swaps the body: AirDatepicker then rebuilds the container, but keeps the old
 // overlay, which is left detached and can't receive the clicks that close a picker.
 let mobileOverlay = null;
+// The container AirDatepicker opens every picker into (its own reference, not a lookup by
+// id: a history restore brings back lifeless copies of it from htmx's snapshot).
 let globalContainer = null;
 
 function createAirDatepicker(element, opts) {
     const datepicker = new AirDatepicker(element, opts);
-    mobileOverlay ??= document.querySelector('.air-datepicker-overlay');
-    const container = document.getElementById(AirDatepicker.defaultGlobalContainerId);
-    if (mobileOverlay && !mobileOverlay.isConnected && container) {
+    globalContainer = datepicker.$container;
+    mobileOverlay ??= globalContainer.querySelector('.air-datepicker-overlay');
+    if (mobileOverlay && !mobileOverlay.isConnected) {
         mobileOverlay.classList.remove('-active-'); // its picker was swapped out while open
-        container.appendChild(mobileOverlay);
+        globalContainer.appendChild(mobileOverlay);
     }
-    globalContainer = document.getElementById(AirDatepicker.defaultGlobalContainerId) ?? globalContainer;
     return datepicker;
 }
 
-// Pickers kept across a boosted navigation by hx-preserve aren't recreated, but the
-// global container they render into was swapped out with the body. htmx:load (which
-// creates the new pickers) runs before htmx:afterSwap, so by now any new container exists.
+// Pickers kept by hx-preserve aren't recreated, so nothing makes AirDatepicker rebuild
+// the container the swap removed: put it back, and drop any snapshot copies of it.
+// Runs after htmx:load, so pickers created by this swap have already set globalContainer.
 document.addEventListener('htmx:afterSwap', () => {
-    if (!globalContainer || globalContainer.isConnected) return;
-    const current = document.getElementById(AirDatepicker.defaultGlobalContainerId);
-    if (current) {
-        current.append(...globalContainer.children);
-        globalContainer = current;
-    } else {
-        document.body.appendChild(globalContainer);
-    }
+    if (!globalContainer) return;
+    document.querySelectorAll(`#${AirDatepicker.defaultGlobalContainerId}`).forEach(c => {
+        if (c !== globalContainer) c.remove();
+    });
+    if (!globalContainer.isConnected) document.body.appendChild(globalContainer);
 });
 
 window.DatePicker = async function createDynamicDatePicker(element) {
