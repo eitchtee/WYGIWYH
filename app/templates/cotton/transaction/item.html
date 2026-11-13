@@ -259,6 +259,16 @@
                                 </div>
                               </a>
                             </li>
+                            <li class="menu-disabled" aria-disabled="true">
+                              <a class="flex items-center">
+                                <i class="fa-solid fa-money-bill-transfer fa-fw mr-2"></i>
+                                <div>
+                                  {% translate 'Transfer' %}
+                                  <div
+                                      class="block text-base-content/60 text-xs font-medium">{% translate 'Already part of a plan or recurrence' %}</div>
+                                </div>
+                              </a>
+                            </li>
                           {% else %}
                             <li><a href="#"
                                    hx-get="{% url 'transaction_convert_to_recurring_transaction' transaction_id=transaction.id %}"
@@ -281,6 +291,11 @@
                                      hx-get="{% url 'transaction_convert_to_installment_plan' transaction_id=transaction.id %}"
                                      hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
                                   class="fa-solid fa-divide fa-fw mr-2"></i>{% translate 'Installment Plan' %}</a>
+                              </li>
+                              <li><a href="#"
+                                     hx-get="{% url 'transaction_convert_to_transfer' transaction_id=transaction.id %}"
+                                     hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
+                                  class="fa-solid fa-money-bill-transfer fa-fw mr-2"></i>{% translate 'Transfer' %}</a>
                               </li>
                             {% endif %}
                           {% endif %}

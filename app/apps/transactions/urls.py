@@ -417,4 +417,9 @@ urlpatterns = [
         views.transaction_convert_to_installment_plan,
         name="transaction_convert_to_installment_plan",
     ),
+    path(
+        "transaction/<int:transaction_id>/convert/transfer/",
+        views.transaction_convert_to_transfer,
+        name="transaction_convert_to_transfer",
+    ),
 ]
