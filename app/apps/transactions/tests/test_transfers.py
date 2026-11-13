@@ -439,3 +439,62 @@ class TransferReviewFixTests(TransferTestBase):
 
         partner.refresh_from_db()
         self.assertIsNone(partner.linked_transaction)
+
+
+class BulkActionTests(TransferTestBase):
+    def _get(self, name, *ids, **kwargs):
+        query = "&".join(f"transactions={pk}" for pk in ids)
+        return self.client.get(
+            reverse(name, kwargs=kwargs) + f"?{query}", HTTP_HX_REQUEST="true"
+        )
+
+    def _expense(self, **fields):
+        return Transaction.objects.create(
+            account=self.checking,
+            type=Transaction.Type.EXPENSE,
+            amount=Decimal("10"),
+            date=date(2026, 3, 10),
+            description="Coffee",
+            **fields,
+        )
+
+    def test_change_month_updates_a_fully_selected_transfer_once_per_side(self):
+        from_t, to_t = self._transfer()
+        updated = []
+        receiver = lambda sender, **kwargs: updated.append(sender.pk)  # noqa: E731
+        transaction_updated.connect(receiver, weak=False)
+        self.addCleanup(transaction_updated.disconnect, receiver)
+
+        response = self._get(
+            "transactions_bulk_change_month", from_t.id, to_t.id, change_type="next"
+        )
+
+        self.assertEqual(response.status_code, 204)
+        from_t.refresh_from_db()
+        to_t.refresh_from_db()
+        self.assertEqual(from_t.reference_date, date(2026, 4, 1))
+        self.assertEqual(to_t.reference_date, date(2026, 4, 1))
+        self.assertEqual(sorted(updated), sorted([from_t.pk, to_t.pk]))  # once per side
+
+    def test_change_month_rejects_unknown_direction(self):
+        t = self._expense()
+        response = self._get("transactions_bulk_change_month", t.id, change_type="sideways")
+        self.assertEqual(response.status_code, 400)
+
+    def test_move_to_today(self):
+        t = self._expense()
+        self._get("transactions_bulk_move_to_today", t.id)
+        t.refresh_from_db()
+        self.assertEqual(t.date, timezone.localdate(timezone.now()))
+
+    def test_mute_skips_transactions_controlled_elsewhere(self):
+        muted_category = TransactionCategory.objects.create(name="Hidden", mute=True)
+        plain = self._expense()
+        by_category = self._expense(category=muted_category)
+
+        self._get("transactions_bulk_mute", plain.id, by_category.id)
+
+        plain.refresh_from_db()
+        by_category.refresh_from_db()
+        self.assertTrue(plain.mute)
+        self.assertFalse(by_category.mute)
