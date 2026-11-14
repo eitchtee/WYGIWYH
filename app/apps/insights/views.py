@@ -308,6 +308,7 @@ def latest_transactions(request):
     transactions = (
         Transaction.objects.filter(created_at__gte=limit)
         .collapse_transfers()
+        .prefetch_related("sub_transactions")
         .order_by("-id")[:30]
     )
 
@@ -325,7 +326,7 @@ def late_transactions(request):
     now = timezone.localdate(timezone.now())
     transactions = Transaction.objects.filter(
         is_paid=False, date__lt=now
-    ).collapse_transfers()
+    ).collapse_transfers().prefetch_related("sub_transactions")
 
     return render(
         request,

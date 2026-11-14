@@ -32,6 +32,7 @@ def _copy(transaction):
 
     new_transaction.tags.add(*transaction.tags.all())
     new_transaction.entities.add(*transaction.entities.all())
+    new_transaction.copy_sub_transactions_from(transaction)
     return new_transaction
 
 

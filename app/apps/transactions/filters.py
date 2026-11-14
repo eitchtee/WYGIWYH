@@ -6,6 +6,7 @@ from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelectMultiple
 from apps.currencies.models import Currency
 from apps.transactions.models import (
+    SubTransaction,
     Transaction,
     TransactionCategory,
     TransactionEntity,
@@ -31,7 +32,10 @@ MUTE_STATUS_CHOICES = (
 
 def content_filter(queryset, name, value):
     queryset = queryset.filter(
-        Q(description__icontains=value) | Q(notes__icontains=value)
+        Q(description__icontains=value)
+        | Q(notes__icontains=value)
+        # a subquery, so a transaction with several matching parts isn't listed twice
+        | Q(pk__in=SubTransaction.objects.filter(name__icontains=value).values("transaction"))
     )
     return queryset
 

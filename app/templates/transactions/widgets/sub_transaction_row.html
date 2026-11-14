@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="sub-row" {% if sub.DELETE.value %}hidden{% endif %}>
+  {{ sub.id }}
+  <input type="checkbox" name="{{ sub.DELETE.html_name }}" class="hidden" {% if sub.DELETE.value %}checked{% endif %}>
+  <div class="join w-full">
+    {{ sub.name }}
+    {{ sub.amount }}
+    <button type="button" class="btn btn-soft btn-error join-item" @click="remove($el.closest('.sub-row'))"
+            aria-label="{% translate 'Remove' %}"><i class="fa-solid fa-xmark fa-fw"></i></button>
+  </div>
+  {% for error in sub.non_field_errors %}<div class="text-error text-sm">{{ error }}</div>{% endfor %}
+  {% for error in sub.name.errors %}<div class="text-error text-sm">{{ error }}</div>{% endfor %}
+  {% for error in sub.amount.errors %}<div class="text-error text-sm">{{ error }}</div>{% endfor %}
+</div>

@@ -67,7 +67,7 @@ def finished_installment_plans_list(request):
 @require_http_methods(["GET"])
 def installment_plan_transactions(request, installment_plan_id):
     installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
-    transactions = installment_plan.transactions.all().order_by("reference_date", "id")
+    transactions = installment_plan.transactions.prefetch_related("sub_transactions").order_by("reference_date", "id")
 
     return render(
         request,

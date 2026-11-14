@@ -2,10 +2,12 @@
 {% load i18n %}
 {# With "Combine transfers" on, a transfer is shown once: its "from" side with the "to" side alongside #}
 {% with transaction=transaction.display_transaction transfer_to=transaction.transfer_to is_transfer=transaction.shown_as_transfer %}
+{% with subs=transaction.saved_sub_transactions %}
 <div
     {% if transaction.id and not dummy %}data-transaction-id="{{ transaction.id }}"{% endif %}
-    class="transaction {% if is_transfer %}transfer{% elif transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction">
-  <div class="flex my-1">
+    class="transaction {% if is_transfer %}transfer{% elif transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction"
+    {% if subs %}x-data="{ subsOpen: false }"{% endif %}>
+  <div class="flex my-1 {% if subs %}mb-6{% endif %}">
     {% if not disable_selection or not dummy %}
       <label class="px-3 flex! items-center justify-center">
         <input class="checkbox" type="checkbox" name="transactions" value="{{ transaction.id }}"
@@ -342,7 +344,34 @@
           </div>
         {% endif %}
       </div>
+      {% if subs %}
+        {# Breakdown, opened from the tab hanging under the card; amounts line up with the total #}
+        <div x-show="subsOpen" x-collapse x-cloak>
+          <ul class="mt-2 pt-2 border-t border-dashed border-base-content/15 font-mono text-sm lg:ps-12">
+            {% for sub in subs %}
+              <li class="flex justify-between gap-4 py-0.5">
+                <span class="truncate text-base-content/80">{{ sub.name }}</span>
+                <span class="whitespace-nowrap text-base-content/70"><c-amount.display
+                    :amount="sub.amount"
+                    :prefix="transaction.account.currency.prefix"
+                    :suffix="transaction.account.currency.suffix"
+                    :decimal_places="transaction.account.currency.decimal_places"
+                    divless></c-amount.display></span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <button type="button"
+                class="absolute top-full left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 pb-0.5 rounded-b-md
+                       bg-base-100 hover:bg-base-200 text-xs font-mono text-base-content/60 hover:text-base-content cursor-pointer"
+                @click="subsOpen = !subsOpen" :aria-expanded="subsOpen">
+          <i class="fa-solid fa-list-ul fa-fw"></i>
+          {% blocktranslate count counter=subs|length %}{{ counter }} item{% plural %}{{ counter }} items{% endblocktranslate %}
+          <i class="fa-solid fa-chevron-down fa-fw transition-transform duration-200" :class="subsOpen && 'rotate-180'"></i>
+        </button>
+      {% endif %}
     </div>
   </div>
 </div>
+{% endwith %}
 {% endwith %}
