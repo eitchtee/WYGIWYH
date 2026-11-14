@@ -10,7 +10,8 @@ from apps.transactions.models import (
 
 @extend_schema_field(
     {
-        "oneOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}],
+        "oneOf": [{"type": "string"}, {"type": "integer"}],
+        "nullable": True,
         "description": "TransactionCategory ID or name. If the name doesn't exist, a new one will be created. Can be null if no category is assigned.",
     }
 )

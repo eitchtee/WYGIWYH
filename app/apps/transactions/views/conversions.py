@@ -12,6 +12,7 @@ from apps.transactions.forms import (
     InstallmentPlanForm,
     QuickTransactionForm,
     RecurringTransactionForm,
+    TransferForm,
 )
 from apps.transactions.models import Transaction
 
@@ -34,6 +35,10 @@ def _initial_from_transaction(transaction: Transaction):
             to_amount=to_transaction.amount,
         )
     return initial
+
+
+def _sub_transactions_initial(transaction: Transaction):
+    return list(transaction.sub_transactions.values("name", "amount"))
 
 
 def _get_unlinked_transaction(transaction_id):
@@ -77,6 +82,7 @@ def transaction_convert_to_quick_transaction(request, transaction_id):
             )
     else:
         form = QuickTransactionForm(
+            sub_transactions_initial=_sub_transactions_initial(transaction),
             initial={
                 **_initial_from_transaction(transaction),
                 "is_paid": transaction.is_paid,
@@ -113,6 +119,7 @@ def transaction_convert_to_recurring_transaction(request, transaction_id):
             )
     else:
         form = RecurringTransactionForm(
+            sub_transactions_initial=_sub_transactions_initial(transaction),
             initial={
                 **_initial_from_transaction(transaction),
                 "amount": transaction.amount,
@@ -153,6 +160,7 @@ def transaction_convert_to_installment_plan(request, transaction_id):
             )
     else:
         form = InstallmentPlanForm(
+            sub_transactions_initial=_sub_transactions_initial(transaction),
             initial={
                 **_initial_from_transaction(transaction),
                 "installment_amount": transaction.amount,
@@ -167,4 +175,55 @@ def transaction_convert_to_installment_plan(request, transaction_id):
         _("Convert into installment plan"),
         transaction_id,
         "transaction_convert_to_installment_plan",
+    )
+
+
+@only_htmx
+@login_required
+@require_http_methods(["GET", "POST"])
+def transaction_convert_to_transfer(request, transaction_id):
+    transaction = _get_unlinked_transaction(transaction_id)
+    if transaction.linked_transaction_id:
+        raise Http404()  # Already a transfer
+
+    if request.method == "POST":
+        form = TransferForm(request.POST)
+        if form.is_valid():
+            with db_transaction.atomic():
+                form.save()
+                transaction.delete()
+            messages.success(request, _("Transaction converted into a transfer"))
+
+            return HttpResponse(
+                status=204,
+                headers={"HX-Trigger": "updated, hide_offcanvas"},
+            )
+    else:
+        # An expense leaves its account (the "from" side), an income enters it ("to")
+        side = "from" if transaction.type == Transaction.Type.EXPENSE else "to"
+        form = TransferForm(
+            initial={
+                f"{side}_account": transaction.account_id,
+                f"{side}_category": transaction.category_id,
+                f"{side}_tags": list(transaction.tags.values_list("name", flat=True)),
+                f"{side}_entities": list(
+                    transaction.entities.values_list("name", flat=True)
+                ),
+                # To amount stays empty, so it follows from amount
+                "from_amount": transaction.amount,
+                "date": transaction.date,
+                "reference_date": transaction.reference_date,
+                "description": transaction.description,
+                "notes": transaction.notes,
+                "mute": transaction.mute,
+                "is_paid": transaction.is_paid,
+            }
+        )
+
+    return _render_convert_form(
+        request,
+        form,
+        _("Convert into transfer"),
+        transaction_id,
+        "transaction_convert_to_transfer",
     )

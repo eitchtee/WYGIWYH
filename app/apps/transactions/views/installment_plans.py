@@ -66,8 +66,8 @@ def finished_installment_plans_list(request):
 @login_required
 @require_http_methods(["GET"])
 def installment_plan_transactions(request, installment_plan_id):
-    installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
-    transactions = installment_plan.transactions.all().order_by("reference_date", "id")
+    installment_plan = get_object_or_404(InstallmentPlan.objects, id=installment_plan_id)
+    transactions = installment_plan.transactions.prefetch_related("sub_transactions").order_by("reference_date", "id")
 
     return render(
         request,
@@ -106,7 +106,7 @@ def installment_plan_add(request):
 @login_required
 @require_http_methods(["GET", "POST"])
 def installment_plan_edit(request, installment_plan_id):
-    installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
+    installment_plan = get_object_or_404(InstallmentPlan.objects, id=installment_plan_id)
 
     if request.method == "POST":
         form = InstallmentPlanForm(request.POST, instance=installment_plan)
@@ -134,7 +134,7 @@ def installment_plan_edit(request, installment_plan_id):
 @login_required
 @require_http_methods(["GET"])
 def installment_plan_refresh(request, installment_plan_id):
-    installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
+    installment_plan = get_object_or_404(InstallmentPlan.objects, id=installment_plan_id)
     installment_plan.update_transactions()
 
     messages.success(request, _("Installment Plan refreshed successfully"))
@@ -151,7 +151,7 @@ def installment_plan_refresh(request, installment_plan_id):
 @login_required
 @require_http_methods(["DELETE"])
 def installment_plan_delete(request, installment_plan_id):
-    installment_plan = get_object_or_404(InstallmentPlan, id=installment_plan_id)
+    installment_plan = get_object_or_404(InstallmentPlan.objects, id=installment_plan_id)
 
     installment_plan.delete()
 

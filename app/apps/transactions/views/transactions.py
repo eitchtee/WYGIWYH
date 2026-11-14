@@ -409,6 +409,8 @@ def transactions_bulk_edit(request):
                             transaction.tags.set(value)
                         elif field_name == "entities":
                             transaction.entities.set(value)
+                        elif field_name == "amount" and transaction.has_sub_transactions:
+                            continue  # its amount is the sum of its parts
                         else:
                             setattr(transaction, field_name, value)
 
@@ -821,6 +823,7 @@ def transaction_all_list(request):
         "installment_plan",
         "entities",
         "dca_expense_entries",
+        "sub_transactions",
         "dca_income_entries",
         "linked_transaction__account__currency",
         "linked_transaction__account__group",
@@ -990,6 +993,7 @@ def transactions_trash_can_list(request):
         "installment_plan",
         "entities",
         "dca_expense_entries",
+        "sub_transactions",
         "dca_income_entries",
         "linked_transaction__account__currency",
         "linked_transaction__account__group",

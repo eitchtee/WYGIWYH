@@ -155,6 +155,7 @@ def quick_transaction_add_as_transaction(request, quick_transaction_id):
         new_transaction.save()
         new_transaction.tags.set(quick_transaction.tags.all())
         new_transaction.entities.set(quick_transaction.entities.all())
+        new_transaction.copy_sub_transactions_from(quick_transaction)
         to_transaction = quick_transaction.complete_transfer(new_transaction)
 
     transaction_created.send(sender=new_transaction)

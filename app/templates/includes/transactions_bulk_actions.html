@@ -1,0 +1,35 @@
+{% load i18n %}
+<li>
+  <a class="cursor-pointer" hx-get="{% url 'transactions_bulk_unpay' %}" hx-include=".transaction">
+    <i class="fa-regular fa-circle text-red-400 fa-fw me-3"></i>{% translate 'Mark as unpaid' %}
+  </a>
+</li>
+<li>
+  <a class="cursor-pointer" hx-get="{% url 'transactions_bulk_pay' %}" hx-include=".transaction">
+    <i class="fa-regular fa-circle-check text-green-400 fa-fw me-3"></i>{% translate 'Mark as paid' %}
+  </a>
+</li>
+<hr class="my-1 hr">
+<li>
+  <a class="cursor-pointer" hx-get="{% url 'transactions_bulk_mute' %}" hx-include=".transaction">
+    <i class="fa-solid fa-eye-slash fa-fw me-3"></i>{% translate 'Hide from summaries' %}
+  </a>
+</li>
+<hr class="my-1 hr">
+<li>
+  <a class="cursor-pointer" hx-get="{% url 'transactions_bulk_change_month' change_type='previous' %}"
+    hx-include=".transaction">
+    <i class="fa-solid fa-calendar-minus fa-fw me-3"></i>{% translate 'Move to previous month' %}
+  </a>
+</li>
+<li>
+  <a class="cursor-pointer" hx-get="{% url 'transactions_bulk_change_month' change_type='next' %}"
+    hx-include=".transaction">
+    <i class="fa-solid fa-calendar-plus fa-fw me-3"></i>{% translate 'Move to next month' %}
+  </a>
+</li>
+<li>
+  <a class="cursor-pointer" hx-get="{% url 'transactions_bulk_move_to_today' %}" hx-include=".transaction">
+    <i class="fa-solid fa-calendar-day fa-fw me-3"></i>{% translate 'Move to today' %}
+  </a>
+</li>

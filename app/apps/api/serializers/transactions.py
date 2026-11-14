@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.db import transaction as db_transaction
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular import openapi
 from drf_spectacular.types import OpenApiTypes
@@ -22,8 +23,83 @@ from apps.transactions.models import (
     InstallmentPlan,
     TransactionEntity,
     RecurringTransaction,
+    SubTransaction,
 )
 from apps.common.middleware.thread_local import get_current_user
+
+
+class SubTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubTransaction
+        fields = ["id", "name", "amount"]
+        read_only_fields = ["id"]
+
+
+class SubTransactionsMixin:
+    """`sub_transactions`, when sent, replaces the parts; a non-empty list sets
+    the amount to their sum. Declare the field on the serializer itself."""
+
+    sub_amount_field = "amount"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields[self.sub_amount_field].required = False
+
+    def is_transfer(self, data):
+        return False
+
+    def validate(self, data):
+        field = self.sub_amount_field
+        subs = data.get("sub_transactions")
+        has_parts = self.instance is not None and self.instance.sub_transactions.exists()
+        if self.is_transfer(data):
+            if subs:
+                raise serializers.ValidationError(
+                    {"sub_transactions": _("Transfers can't have sub-transactions.")}
+                )
+            if has_parts:
+                data["sub_transactions"] = []
+        elif subs:
+            data[field] = sum(sub["amount"] for sub in subs)
+        elif subs is None and field in data and has_parts:
+            raise serializers.ValidationError(
+                {
+                    field: _(
+                        "The amount is the sum of the sub-transactions; "
+                        "send sub_transactions instead."
+                    )
+                }
+            )
+        if not self.partial and data.get(field) is None:
+            raise serializers.ValidationError({field: _("This field is required.")})
+        return super().validate(data)
+
+    @staticmethod
+    def set_sub_transactions(instance, subs):
+        if subs is None:
+            return
+        instance.sub_transactions.all().delete()
+        for sub in subs:
+            instance.sub_transactions.create(**sub)
+
+    def create(self, validated_data):
+        subs = validated_data.pop("sub_transactions", None)
+        with db_transaction.atomic():
+            instance = super().create(validated_data)
+            self.set_sub_transactions(instance, subs)
+            self.after_save(instance, created=True)
+        return instance
+
+    def update(self, instance, validated_data):
+        subs = validated_data.pop("sub_transactions", None)
+        with db_transaction.atomic():
+            instance = super().update(instance, validated_data)
+            self.set_sub_transactions(instance, subs)
+            self.after_save(instance, created=False)
+        return instance
+
+    def after_save(self, instance, created):
+        """Runs once the parts are saved, e.g. to generate transactions from them."""
 
 
 class TransactionCategorySerializer(serializers.ModelSerializer):
@@ -62,7 +138,9 @@ class TransactionEntitySerializer(serializers.ModelSerializer):
         ]
 
 
-class InstallmentPlanSerializer(serializers.ModelSerializer):
+class InstallmentPlanSerializer(SubTransactionsMixin, serializers.ModelSerializer):
+    sub_amount_field = "installment_amount"
+    sub_transactions = SubTransactionSerializer(many=True, required=False)
     category: str | int = TransactionCategoryField(required=False)
     tags: str | int = TransactionTagField(required=False)
     entities: str | int = TransactionEntityField(required=False)
@@ -84,6 +162,7 @@ class InstallmentPlanSerializer(serializers.ModelSerializer):
             "end_date",
             "recurrence",
             "installment_amount",
+            "sub_transactions",
             "category",
             "tags",
             "entities",
@@ -91,18 +170,15 @@ class InstallmentPlanSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["installment_total_number", "end_date"]
 
-    def create(self, validated_data):
-        instance = super().create(validated_data)
-        instance.create_transactions()
-        return instance
-
-    def update(self, instance, validated_data):
-        instance = super().update(instance, validated_data)
-        instance.update_transactions()
-        return instance
+    def after_save(self, instance, created):
+        if created:
+            instance.create_transactions()
+        else:
+            instance.update_transactions()
 
 
-class RecurringTransactionSerializer(serializers.ModelSerializer):
+class RecurringTransactionSerializer(SubTransactionsMixin, serializers.ModelSerializer):
+    sub_transactions = SubTransactionSerializer(many=True, required=False)
     category: str | int = TransactionCategoryField(required=False)
     tags: str | int = TransactionTagField(required=False)
     entities: str | int = TransactionEntityField(required=False)
@@ -115,6 +191,7 @@ class RecurringTransactionSerializer(serializers.ModelSerializer):
             "account",
             "type",
             "amount",
+            "sub_transactions",
             "to_account",
             "to_amount",
             "description",
@@ -142,19 +219,20 @@ class RecurringTransactionSerializer(serializers.ModelSerializer):
             )
         return super().validate(attrs)
 
-    def create(self, validated_data):
-        instance = super().create(validated_data)
-        instance.create_upcoming_transactions()
-        return instance
+    def is_transfer(self, data):
+        type_ = data.get("type", getattr(self.instance, "type", None))
+        return type_ == RecurringTransaction.Type.TRANSFER
 
-    def update(self, instance, validated_data):
-        instance = super().update(instance, validated_data)
-        instance.update_unpaid_transactions()
-        instance.generate_upcoming_transactions()
-        return instance
+    def after_save(self, instance, created):
+        if created:
+            instance.create_upcoming_transactions()
+        else:
+            instance.update_unpaid_transactions()
+            instance.generate_upcoming_transactions()
 
 
-class TransactionSerializer(serializers.ModelSerializer):
+class TransactionSerializer(SubTransactionsMixin, serializers.ModelSerializer):
+    sub_transactions = SubTransactionSerializer(many=True, required=False)
     category: str | int = TransactionCategoryField(required=False)
     tags: str | int = TransactionTagField(required=False)
     entities: str | int = TransactionEntityField(required=False)
@@ -194,6 +272,9 @@ class TransactionSerializer(serializers.ModelSerializer):
 
         self.fields["account_id"].queryset = Account.objects.all()
 
+    def is_transfer(self, data):
+        return bool(self.instance and self.instance.linked_transaction_id)
+
     def validate(self, data):
         if not self.partial:
             if "date" in data and "reference_date" not in data:
@@ -204,12 +285,12 @@ class TransactionSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     _("Either 'date' or 'reference_date' must be provided.")
                 )
-        return data
+        return super().validate(data)
 
     def create(self, validated_data):
         tags = validated_data.pop("tags", [])
         entities = validated_data.pop("entities", [])
-        transaction = Transaction.objects.create(**validated_data)
+        transaction = super().create(validated_data)
         transaction.tags.set(tags)
         transaction.entities.set(entities)
         return transaction
@@ -217,9 +298,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         tags = validated_data.pop("tags", None)
         entities = validated_data.pop("entities", None)
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
+        instance = super().update(instance, validated_data)
 
         if tags is not None:
             instance.tags.set(tags)

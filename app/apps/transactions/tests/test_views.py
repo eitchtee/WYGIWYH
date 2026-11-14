@@ -312,6 +312,54 @@ class TransactionConvertViewTests(TestCase):
             set(plan.transactions.values_list("amount", flat=True)), {70}
         )
 
+    def test_transfer_form_prefills_side_from_type(self):
+        initial = self._get("transaction_convert_to_transfer").context["form"].initial
+        self.assertEqual(initial["from_account"], self.account.id)
+        self.assertEqual(initial["from_tags"], ["TestTag"])
+        self.assertNotIn("to_account", initial)
+
+        self.transaction.type = Transaction.Type.INCOME
+        self.transaction.save()
+        initial = self._get("transaction_convert_to_transfer").context["form"].initial
+        self.assertEqual(initial["to_account"], self.account.id)
+        self.assertNotIn("from_account", initial)
+        self.assertEqual(initial["from_amount"], 50)
+        self.assertNotIn("to_amount", initial)
+
+    def test_transfer_replaces_original_transaction(self):
+        other = Account.objects.create(name="Savings", currency=self.currency)
+        response = self._post(
+            "transaction_convert_to_transfer",
+            {
+                "from_account": self.account.id,
+                "to_account": other.id,
+                "from_amount": "50",
+                "date": "2030-01-15",
+                "is_paid": "on",
+            },
+        )
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Transaction.objects.filter(id=self.transaction.id).exists())
+        self.assertEqual(
+            Transaction.objects.filter(linked_transaction__isnull=False).count(), 2
+        )
+        # A transfer can't be converted into one again
+        self.transaction = Transaction.objects.get(account=other)
+        self.assertEqual(self._get("transaction_convert_to_transfer").status_code, 404)
+
+    def test_invalid_transfer_keeps_original_transaction(self):
+        response = self._post(
+            "transaction_convert_to_transfer",
+            {
+                "from_account": self.account.id,
+                "to_account": self.account.id,
+                "from_amount": "50",
+                "date": "2030-01-15",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(Transaction.objects.filter(id=self.transaction.id).exists())
+
     def test_linked_transaction_cannot_be_converted_into_plan(self):
         self._post(
             "transaction_convert_to_installment_plan",
@@ -332,3 +380,63 @@ class TransactionConvertViewTests(TestCase):
         self.assertEqual(
             self._get("transaction_convert_to_installment_plan").status_code, 404
         )
+
+
+@override_settings(
+    STORAGES={
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    },
+    WHITENOISE_AUTOREFRESH=True,
+)
+class InstallmentRecurringIsolationTests(TestCase):
+    """Per-object plan views must 404 for objects on another user's private account."""
+
+    def setUp(self):
+        User = get_user_model()
+        owner = User.objects.create_user(email="owner@test.com", password="pw")
+        User.objects.create_user(email="other@test.com", password="pw")
+        self.client.login(username="other@test.com", password="pw")
+
+        currency = Currency.objects.create(code="USD", name="US Dollar", decimal_places=2)
+        account = Account.all_objects.create(name="Private", currency=currency, owner=owner)
+        self.plan = InstallmentPlan.all_objects.create(
+            account=account,
+            type=Transaction.Type.EXPENSE,
+            description="Owner plan",
+            number_of_installments=3,
+            start_date=date(2025, 1, 1),
+            installment_amount=100,
+        )
+        self.recurring = RecurringTransaction.all_objects.create(
+            account=account,
+            type=Transaction.Type.EXPENSE,
+            amount=50,
+            description="Owner recurring",
+            start_date=date(2025, 1, 1),
+            recurrence_type=RecurringTransaction.RecurrenceType.MONTH,
+            recurrence_interval=1,
+        )
+
+    def test_other_user_gets_404(self):
+        cases = [
+            ("get", "installment_plan_transactions", "installment_plan_id", self.plan),
+            ("get", "installment_plan_edit", "installment_plan_id", self.plan),
+            ("get", "installment_plan_refresh", "installment_plan_id", self.plan),
+            ("delete", "installment_plan_delete", "installment_plan_id", self.plan),
+            ("get", "recurring_transaction_transactions", "recurring_transaction_id", self.recurring),
+            ("get", "recurring_transaction_edit", "recurring_transaction_id", self.recurring),
+            ("get", "recurring_transaction_toggle_pause", "recurring_transaction_id", self.recurring),
+            ("get", "recurring_transaction_finish", "recurring_transaction_id", self.recurring),
+            ("delete", "recurring_transaction_delete", "recurring_transaction_id", self.recurring),
+        ]
+        for method, name, kwarg, obj in cases:
+            with self.subTest(name=name):
+                url = reverse(name, kwargs={kwarg: obj.id})
+                response = getattr(self.client, method)(url, HTTP_HX_REQUEST="true")
+                self.assertEqual(response.status_code, 404)
+
+        self.assertTrue(InstallmentPlan.all_objects.filter(id=self.plan.id).exists())
+        self.recurring.refresh_from_db()
+        self.assertFalse(self.recurring.is_paused)
+        self.assertIsNone(self.recurring.end_date)

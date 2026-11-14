@@ -17,12 +17,14 @@ from procrastinate.contrib.django import app
 from simpleeval import EvalWithCompoundTypes
 
 from apps.accounts.models import Account
+from apps.common.functions.decimals import truncate_decimal
 from apps.common.middleware.thread_local import write_current_user, delete_current_user
 from apps.rules.models import (
     TransactionRule,
     TransactionRuleAction,
 )
 from apps.transactions.models import (
+    SubTransaction,
     Transaction,
     TransactionCategory,
     TransactionTag,
@@ -31,6 +33,39 @@ from apps.transactions.models import (
 from apps.rules.utils import transactions
 
 logger = logging.getLogger(__name__)
+
+SUB_TRANSACTIONS_SHAPE = (
+    "Sub-transactions must be a list like [{'name': 'Fee', 'amount': 1.5}, ...]"
+)
+
+
+def build_sub_transactions(transaction: Transaction, value) -> list[SubTransaction]:
+    """Validated sub-transactions for `transaction` from a rule expression's result."""
+    if not isinstance(value, (list, tuple)):
+        raise ValueError(SUB_TRANSACTIONS_SHAPE)
+    places = transaction.account.currency.decimal_places
+    subs = []
+    for item in value:
+        if not isinstance(item, dict) or item.get("amount") is None:
+            raise ValueError(SUB_TRANSACTIONS_SHAPE)
+        sub = SubTransaction(
+            transaction=transaction,
+            name=str(item.get("name") or "").strip(),
+            amount=truncate_decimal(
+                value=Decimal(str(item["amount"])), decimal_places=places
+            ),
+        )
+        # the transaction may not be saved yet, so its link isn't checked here
+        sub.full_clean(exclude=["transaction"], validate_constraints=False)
+        subs.append(sub)
+    return subs
+
+
+def _snapshot(transaction: Transaction) -> Transaction:
+    """A copy to show in dry-run results, as the transaction is right now."""
+    copy = transaction.deepcopy()
+    copy.copy_sub_transactions_from(transaction)
+    return copy
 
 
 class DryRunResults:
@@ -49,7 +84,7 @@ class DryRunResults:
         if not self.dry_run:
             return
         if isinstance(instance, Transaction):
-            instance = instance.deepcopy()
+            instance = _snapshot(instance)
         elif isinstance(instance, dict):
             instance = deepcopy(instance)
 
@@ -65,7 +100,7 @@ class DryRunResults:
         if not self.dry_run:
             return
         if isinstance(instance, Transaction):
-            instance = instance.deepcopy()
+            instance = _snapshot(instance)
         elif isinstance(instance, dict):
             instance = deepcopy(instance)
 
@@ -95,7 +130,7 @@ class DryRunResults:
             return
 
         if isinstance(end_instance, Transaction):
-            end_instance = end_instance.deepcopy()
+            end_instance = _snapshot(end_instance)
         elif isinstance(end_instance, dict):
             end_instance = deepcopy(end_instance)
 
@@ -201,6 +236,14 @@ def check_for_transaction_rules(
                 f"{prefix}entities_ids": (
                     [x.id for x in transaction.entities.all()] if transaction.id else []
                 ),
+                f"{prefix}sub_transactions": (
+                    [
+                        {"name": s.name, "amount": s.amount}
+                        for s in transaction.sub_transactions.all()
+                    ]
+                    if transaction.id
+                    else []
+                ),
                 f"{prefix}is_expense": transaction.type == Transaction.Type.EXPENSE,
                 f"{prefix}is_income": transaction.type == Transaction.Type.INCOME,
                 f"{prefix}is_paid": transaction.is_paid,
@@ -250,6 +293,10 @@ def check_for_transaction_rules(
                 f"{prefix}entities_ids": [
                     x[0] for x in transaction.get("entities", [])
                 ],
+                f"{prefix}sub_transactions": [
+                    {"name": s["name"], "amount": Decimal(s["amount"])}
+                    for s in transaction.get("sub_transactions", [])
+                ],
                 f"{prefix}is_expense": transaction.get("type")
                 == Transaction.Type.EXPENSE,
                 f"{prefix}is_income": transaction.get("type")
@@ -274,6 +321,22 @@ def check_for_transaction_rules(
                 f"{prefix}installment_total": transaction.get("installment_total"),
             }
 
+    def _evaluate_sub_transactions(transaction, value):
+        """The parts an expression's `value` gives `transaction`, with its amount set
+        to their sum, or None for a transfer, which can't have any."""
+        if transaction.linked_transaction_id:
+            _log("Skipped: transfers can't have sub-transactions")
+            return None
+        subs = build_sub_transactions(transaction, value)
+        if subs:
+            transaction.amount = sum(s.amount for s in subs)
+        _log(f"Sub-transactions will be set as: {[(s.name, s.amount) for s in subs]}")
+        return subs
+
+    def _save_sub_transactions(transaction, subs):
+        transaction.sub_transactions.all().delete()
+        SubTransaction.objects.bulk_create(subs)
+
     def _process_update_or_create_transaction_action(processed_action):
         """Helper to process a single linked transaction action"""
 
@@ -295,7 +358,7 @@ def check_for_transaction_rules(
                 existing = True
 
                 if dry_run:
-                    starting_instance = transaction.deepcopy()
+                    starting_instance = _snapshot(transaction)
 
                 _log("Found at least one matching transaction, using latest:")
                 _log("{}".format(pformat(model_to_dict(transaction))))
@@ -348,7 +411,15 @@ def check_for_transaction_rules(
                 processed_action.set_reference_date
             )
 
-        if processed_action.set_amount:
+        subs = None
+        if processed_action.set_sub_transactions:
+            subs = _evaluate_sub_transactions(
+                transaction, simple.eval(processed_action.set_sub_transactions)
+            )
+
+        # A transaction with parts gets its amount from them
+        has_parts = bool(subs) if subs is not None else transaction.has_sub_transactions
+        if processed_action.set_amount and not has_parts:
             transaction.amount = simple.eval(processed_action.set_amount)
 
         if processed_action.set_description:
@@ -383,6 +454,8 @@ def check_for_transaction_rules(
             )
         )
         transaction.save()
+        if subs is not None:
+            _save_sub_transactions(transaction, subs)
 
         # Handle M2M fields after save
         tags = []
@@ -441,7 +514,10 @@ def check_for_transaction_rules(
         dry_run_results.header("edit_transaction", action=processed_action)
 
         field = processed_action.field
-        original_value = getattr(transaction, field)
+        if field == TransactionRuleAction.Field.sub_transactions:
+            original_value = list(transaction.sub_transactions.values("name", "amount"))
+        else:
+            original_value = getattr(transaction, field)
         new_value = simple.eval(processed_action.value)
 
         tags = []
@@ -517,6 +593,18 @@ def check_for_transaction_rules(
 
                 transaction.entities.add(entity)
                 entities.append(entity)
+
+        elif field == TransactionRuleAction.Field.sub_transactions:
+            subs = _evaluate_sub_transactions(transaction, new_value)
+            if subs is not None:
+                _save_sub_transactions(transaction, subs)
+                new_value = ", ".join(f"{s.name}: {s.amount}" for s in subs) or "[]"
+
+        elif (
+            field == TransactionRuleAction.Field.amount
+            and transaction.has_sub_transactions
+        ):
+            _log("Skipped: the amount is the sum of the transaction's sub-transactions")
 
         else:
             setattr(

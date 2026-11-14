@@ -2,10 +2,12 @@
 {% load i18n %}
 {# With "Combine transfers" on, a transfer is shown once: its "from" side with the "to" side alongside #}
 {% with transaction=transaction.display_transaction transfer_to=transaction.transfer_to is_transfer=transaction.shown_as_transfer %}
+{% with subs=transaction.saved_sub_transactions %}
 <div
     {% if transaction.id and not dummy %}data-transaction-id="{{ transaction.id }}"{% endif %}
-    class="transaction {% if is_transfer %}transfer{% elif transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction">
-  <div class="flex my-1">
+    class="transaction {% if is_transfer %}transfer{% elif transaction.type == "EX" %}expense{% else %}income{% endif %} group/transaction"
+    {% if subs %}x-data="{ subsOpen: false }"{% endif %}>
+  <div class="flex my-1 {% if subs %}mb-6{% endif %}">
     {% if not disable_selection or not dummy %}
       <label class="px-3 flex! items-center justify-center">
         <input class="checkbox" type="checkbox" name="transactions" value="{{ transaction.id }}"
@@ -15,7 +17,7 @@
     <div class="border-s-4 border-e-0 border-t-0
                 hover:bg-base-200 p-2 {% if transaction.account.is_asset %}border-dashed{% else %}border-solid{% endif %}
                 {% if is_transfer %}border-s-info{% elif transaction.type == "EX" %}border-s-error{% else %}border-s-success{% endif %} relative
-                w-full transaction-item bg-base-100 rounded">
+                w-full min-w-0 transaction-item bg-base-100 rounded">
       <div class="flex flex-wrap lg:flex-nowrap font-mono text-sm items-center">
         <div class="lg:w-auto w-full flex items-center text-2xl lg:text-xl lg:text-center text-center p-0 cursor-pointer">
           {% if not transaction.deleted %}
@@ -259,6 +261,16 @@
                                 </div>
                               </a>
                             </li>
+                            <li class="menu-disabled" aria-disabled="true">
+                              <a class="flex items-center">
+                                <i class="fa-solid fa-money-bill-transfer fa-fw mr-2"></i>
+                                <div>
+                                  {% translate 'Transfer' %}
+                                  <div
+                                      class="block text-base-content/60 text-xs font-medium">{% translate 'Already part of a plan or recurrence' %}</div>
+                                </div>
+                              </a>
+                            </li>
                           {% else %}
                             <li><a href="#"
                                    hx-get="{% url 'transaction_convert_to_recurring_transaction' transaction_id=transaction.id %}"
@@ -281,6 +293,11 @@
                                      hx-get="{% url 'transaction_convert_to_installment_plan' transaction_id=transaction.id %}"
                                      hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
                                   class="fa-solid fa-divide fa-fw mr-2"></i>{% translate 'Installment Plan' %}</a>
+                              </li>
+                              <li><a href="#"
+                                     hx-get="{% url 'transaction_convert_to_transfer' transaction_id=transaction.id %}"
+                                     hx-target="#generic-offcanvas" hx-swap="innerHTML"><i
+                                  class="fa-solid fa-money-bill-transfer fa-fw mr-2"></i>{% translate 'Transfer' %}</a>
                               </li>
                             {% endif %}
                           {% endif %}
@@ -327,7 +344,34 @@
           </div>
         {% endif %}
       </div>
+      {% if subs %}
+        {# Breakdown, opened from the tab hanging under the card; amounts line up with the total #}
+        <div x-show="subsOpen" x-collapse x-cloak>
+          <ul class="mt-2 pt-2 border-t border-dashed border-base-content/15 font-mono text-sm lg:ps-12">
+            {% for sub in subs %}
+              <li class="flex justify-between gap-4 py-0.5">
+                <span class="truncate text-base-content/80">{{ sub.name }}</span>
+                <span class="whitespace-nowrap text-base-content/70"><c-amount.display
+                    :amount="sub.amount"
+                    :prefix="transaction.account.currency.prefix"
+                    :suffix="transaction.account.currency.suffix"
+                    :decimal_places="transaction.account.currency.decimal_places"
+                    divless></c-amount.display></span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <button type="button"
+                class="absolute top-full left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 pb-0.5 rounded-b-md
+                       bg-base-100 hover:bg-base-200 text-xs font-mono text-base-content/60 hover:text-base-content cursor-pointer"
+                @click="subsOpen = !subsOpen" :aria-expanded="subsOpen">
+          <i class="fa-solid fa-list-ul fa-fw"></i>
+          {% blocktranslate count counter=subs|length %}{{ counter }} item{% plural %}{{ counter }} items{% endblocktranslate %}
+          <i class="fa-solid fa-chevron-down fa-fw transition-transform duration-200" :class="subsOpen && 'rotate-180'"></i>
+        </button>
+      {% endif %}
     </div>
   </div>
 </div>
+{% endwith %}
 {% endwith %}

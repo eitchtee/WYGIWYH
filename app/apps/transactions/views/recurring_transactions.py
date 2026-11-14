@@ -88,9 +88,9 @@ def finished_recurring_transactions_list(request):
 @require_http_methods(["GET"])
 def recurring_transaction_transactions(request, recurring_transaction_id):
     recurring_transaction = get_object_or_404(
-        RecurringTransaction, id=recurring_transaction_id
+        RecurringTransaction.objects, id=recurring_transaction_id
     )
-    transactions = recurring_transaction.transactions.collapse_transfers().order_by(
+    transactions = recurring_transaction.transactions.collapse_transfers().prefetch_related("sub_transactions").order_by(
         "reference_date", "id"
     )
 
@@ -132,7 +132,7 @@ def recurring_transaction_add(request):
 @require_http_methods(["GET", "POST"])
 def recurring_transaction_edit(request, recurring_transaction_id):
     recurring_transaction = get_object_or_404(
-        RecurringTransaction, id=recurring_transaction_id
+        RecurringTransaction.objects, id=recurring_transaction_id
     )
 
     if request.method == "POST":
@@ -162,7 +162,7 @@ def recurring_transaction_edit(request, recurring_transaction_id):
 @require_http_methods(["GET"])
 def recurring_transaction_toggle_pause(request, recurring_transaction_id):
     recurring_transaction = get_object_or_404(
-        RecurringTransaction, id=recurring_transaction_id
+        RecurringTransaction.objects, id=recurring_transaction_id
     )
     current_paused = recurring_transaction.is_paused
     recurring_transaction.is_paused = not current_paused
@@ -201,7 +201,7 @@ def recurring_transaction_toggle_pause(request, recurring_transaction_id):
 @require_http_methods(["GET"])
 def recurring_transaction_finish(request, recurring_transaction_id):
     recurring_transaction: RecurringTransaction = get_object_or_404(
-        RecurringTransaction, id=recurring_transaction_id
+        RecurringTransaction.objects, id=recurring_transaction_id
     )
     today = timezone.localdate(timezone.now()) - relativedelta(days=1)
 
@@ -227,7 +227,7 @@ def recurring_transaction_finish(request, recurring_transaction_id):
 @require_http_methods(["DELETE"])
 def recurring_transaction_delete(request, recurring_transaction_id):
     recurring_transaction = get_object_or_404(
-        RecurringTransaction, id=recurring_transaction_id
+        RecurringTransaction.objects, id=recurring_transaction_id
     )
 
     recurring_transaction.delete()

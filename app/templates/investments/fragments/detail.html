@@ -283,8 +283,16 @@
                       {% endif %}
                     {% endif %}
                   </div>
+                  {# Breakdown, e.g. fees and taxes inside a contribution #}
+                  {% with subs=tx.sub_transactions.all %}{% if subs %}
+                    <ul class="mt-1 ps-2 border-s border-base-300 text-xs text-base-content/60">
+                      {% for sub in subs %}
+                        <li class="flex justify-between gap-3"><span>{{ sub.name }}</span><span class="tabular-nums whitespace-nowrap"><c-amount.display :amount="sub.amount" :prefix="a.prefix" :suffix="a.suffix" :decimal_places="a.decimal_places" divless></c-amount.display></span></li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}{% endwith %}
                 </td>
-                <td class="text-end tabular-nums whitespace-nowrap">
+                <td class="text-end tabular-nums whitespace-nowrap align-top">
                   <c-amount.display :amount="tx.amount" :prefix="a.prefix" :suffix="a.suffix" :decimal_places="a.decimal_places" color="{% if tx.type == 'IN' %}green{% else %}red{% endif %}" divless></c-amount.display>
                   {# What the other side paid beats a rate conversion, so it's shown first #}
                   {% if p and p.account.currency != a %}

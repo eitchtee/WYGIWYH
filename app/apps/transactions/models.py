@@ -1,6 +1,8 @@
 import calendar
 import decimal
+import functools
 import logging
+import operator
 import uuid
 from copy import deepcopy
 from pathlib import Path
@@ -447,9 +449,10 @@ class Transaction(OwnedObject):
         if isinstance(self.amount, (str, int, float)):
             self.amount = decimal.Decimal(str(self.amount))
 
-        self.amount = truncate_decimal(
-            value=self.amount, decimal_places=account.currency.decimal_places
-        )
+        if self.amount is not None:  # missing amount is reported by field validation
+            self.amount = truncate_decimal(
+                value=self.amount, decimal_places=account.currency.decimal_places
+            )
 
         # Normalize reference_date
         if self.reference_date:
@@ -575,6 +578,24 @@ class Transaction(OwnedObject):
     def hard_delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
 
+    @property
+    def has_sub_transactions(self):
+        return bool(self.pk) and self.sub_transactions.exists()
+
+    @property
+    def saved_sub_transactions(self):
+        """Sub-transactions, or none for an unsaved preview (which can't query them)."""
+        return self.sub_transactions.all() if self.pk else []
+
+    def copy_sub_transactions_from(self, source):
+        """Makes this transaction's sub-transactions copies of ``source``'s (a
+        transaction or a template that generates them)."""
+        self.sub_transactions.all().delete()
+        SubTransaction.objects.bulk_create(
+            SubTransaction(transaction=self, name=sub.name, amount=sub.amount)
+            for sub in source.sub_transactions.all()
+        )
+
     def exchanged_amount(self):
         return self._exchanged_to(
             self.account.exchange_currency or self.account.currency.exchange_currency
@@ -659,6 +680,81 @@ class Transaction(OwnedObject):
             destination_manager.set(source_manager.all())
 
         return new_obj
+
+
+SUB_TRANSACTION_PARENTS = (
+    "transaction",
+    "recurring_transaction",
+    "installment_plan",
+    "quick_transaction",
+)
+
+
+class SubTransaction(models.Model):
+    """A named part of a transaction, or of a template that generates them; when
+    present, the parts add up to its amount. Exactly one parent is set.
+
+    Soft deletion follows the parent: sub-transactions are only reached through it.
+    """
+
+    transaction = models.ForeignKey(
+        Transaction,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="sub_transactions",
+        verbose_name=_("Transaction"),
+    )
+    recurring_transaction = models.ForeignKey(
+        "RecurringTransaction",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="sub_transactions",
+    )
+    installment_plan = models.ForeignKey(
+        "InstallmentPlan",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="sub_transactions",
+    )
+    quick_transaction = models.ForeignKey(
+        "QuickTransaction",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="sub_transactions",
+    )
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    amount = models.DecimalField(
+        max_digits=42,
+        decimal_places=30,
+        verbose_name=_("Amount"),
+        validators=[validate_non_negative, validate_decimal_places],
+    )
+
+    class Meta:
+        verbose_name = _("Sub-transaction")
+        verbose_name_plural = _("Sub-transactions")
+        db_table = "sub_transactions"
+        ordering = ["id"]
+        constraints = [
+            models.CheckConstraint(
+                # One of: only "transaction" set, only "recurring_transaction" set, ...
+                condition=functools.reduce(
+                    operator.or_,
+                    (
+                        Q(**{f"{p}__isnull": p != parent for p in SUB_TRANSACTION_PARENTS})
+                        for parent in SUB_TRANSACTION_PARENTS
+                    ),
+                ),
+                name="sub_transaction_has_one_parent",
+            )
+        ]
+
+    def __str__(self):
+        return self.name
 
 
 class TransactionAttachment(models.Model):
@@ -858,6 +954,7 @@ class InstallmentPlan(models.Model):
             )
             new_transaction.tags.set(self.tags.all())
             new_transaction.entities.set(self.entities.all())
+            new_transaction.copy_sub_transactions_from(self)
 
     @transaction.atomic
     def update_transactions(self):
@@ -899,6 +996,7 @@ class InstallmentPlan(models.Model):
                     not existing_transaction.is_paid
                 ):  # Don't update value for paid transactions
                     existing_transaction.amount = self.installment_amount
+                    existing_transaction.copy_sub_transactions_from(self)
 
                 existing_transaction.save()
 
@@ -925,6 +1023,7 @@ class InstallmentPlan(models.Model):
                 )
                 new_transaction.tags.set(self.tags.all())
                 new_transaction.entities.set(self.entities.all())
+                new_transaction.copy_sub_transactions_from(self)
 
         # Remove any extra transactions that are no longer part of the plan
         self.transactions.filter(
@@ -1130,6 +1229,7 @@ class RecurringTransaction(TransferTemplate):
         # different one, and the scoped default manager would hide private rows.
         created_transaction.tags.set(self.tags(manager="all_objects").all())
         created_transaction.entities.set(self.entities(manager="all_objects").all())
+        created_transaction.copy_sub_transactions_from(self)
         self.complete_transfer(created_transaction)
 
     def adopt_transaction(self, existing_transaction, date, reference_date):
@@ -1172,6 +1272,7 @@ class RecurringTransaction(TransferTemplate):
         existing_transaction.save()
         existing_transaction.tags.set(self.tags(manager="all_objects").all())
         existing_transaction.entities.set(self.entities(manager="all_objects").all())
+        existing_transaction.copy_sub_transactions_from(self)
 
     def get_recurrence_delta(self):
         if self.recurrence_type == self.RecurrenceType.DAY:
@@ -1261,36 +1362,82 @@ class RecurringTransaction(TransferTemplate):
         """
         Updates all unpaid transactions associated with this RecurringTransaction.
 
-        Only unpaid transactions (`is_paid=False`) are modified. Updates fields like
-        amount, description, category, notes, and many-to-many relationships (tags, entities).
+        Only unpaid transactions (`is_paid=False`) are modified. They keep their dates
+        and take the account, type, amount, description, category, notes, tags and
+        entities of the recurrence; a transfer's "to" side takes the "to" account and
+        amount. Turning the recurrence into a transfer adds the missing "to" sides,
+        and turning it into an income or expense removes them.
         """
-        unpaid_transactions = self.transactions.filter(is_paid=False)
+        unpaid_transactions = list(
+            self.transactions.filter(is_paid=False).select_related(
+                "linked_transaction"
+            )
+        )
+        to_side_ids = {
+            existing_transaction.pk
+            for existing_transaction in unpaid_transactions
+            if self._is_to_side(existing_transaction)
+        }
 
         for existing_transaction in unpaid_transactions:
-            # Update fields based on RecurringTransaction
-            is_to_side = (
-                existing_transaction.linked_transaction_id
-                and existing_transaction.type == Transaction.Type.INCOME
-            )
-            existing_transaction.amount = (
-                self.to_amount or self.amount if is_to_side else self.amount
-            )
-            existing_transaction.description = (
-                self.description if self.add_description_to_transaction else ""
-            )
-            existing_transaction.category = self.category
-            existing_transaction.notes = (
-                self.notes if self.add_notes_to_transaction else ""
-            )
+            if existing_transaction.pk in to_side_ids:
+                if self.is_transfer:
+                    self._apply_to(
+                        existing_transaction,
+                        self.to_account,
+                        Transaction.Type.INCOME,
+                        self.to_amount or self.amount,
+                        existing_transaction.date,
+                        existing_transaction.reference_date,
+                    )
+                # Otherwise its unpaid "from" side removes it below
+                continue
 
-            # Update many-to-many relationships (see create_transaction)
-            existing_transaction.tags.set(self.tags(manager="all_objects").all())
-            existing_transaction.entities.set(
-                self.entities(manager="all_objects").all()
-            )
+            if (
+                not self.is_transfer
+                and existing_transaction.linked_transaction_id in to_side_ids
+            ):
+                to_side = existing_transaction.linked_transaction
+                existing_transaction.linked_transaction = None
+                to_side.linked_transaction = None
+                to_side.delete(_with_partner=False)
 
-            # Save updated transaction
-            existing_transaction.save()
+            partner = existing_transaction.linked_transaction
+            if (
+                partner
+                and partner.recurring_transaction_id != self.pk
+                and (
+                    {self.transaction_type, partner.type}
+                    != {Transaction.Type.INCOME, Transaction.Type.EXPENSE}
+                    or self.account_id == partner.account_id
+                )
+            ):
+                # A link made elsewhere (e.g. a DCA entry) that the new type or account
+                # would break: unlink it and keep the partner
+                Transaction.all_objects.filter(pk=partner.pk).update(
+                    linked_transaction=None
+                )
+                existing_transaction.linked_transaction = None
+
+            self._apply_to(
+                existing_transaction,
+                self.account,
+                self.transaction_type,
+                self.amount,
+                existing_transaction.date,
+                existing_transaction.reference_date,
+            )
+            if not existing_transaction.linked_transaction_id:
+                self.complete_transfer(existing_transaction)
+
+    def _is_to_side(self, existing_transaction):
+        """Whether a transaction is the "to" side of a transfer this generated."""
+        return bool(
+            existing_transaction.linked_transaction_id
+            and existing_transaction.type == Transaction.Type.INCOME
+            and existing_transaction.linked_transaction.recurring_transaction_id
+            == self.pk
+        )
 
     def delete_unpaid_transactions(self):
         """

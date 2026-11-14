@@ -1,10 +1,12 @@
 import json
 from copy import deepcopy
 
+from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _, ngettext_lazy
 
 from apps.common.decorators.htmx import only_htmx
@@ -30,6 +32,7 @@ def _copy(transaction):
 
     new_transaction.tags.add(*transaction.tags.all())
     new_transaction.entities.add(*transaction.entities.all())
+    new_transaction.copy_sub_transactions_from(transaction)
     return new_transaction
 
 
@@ -147,6 +150,80 @@ def bulk_undelete_transactions(request):
         status=204,
         headers={"HX-Trigger": "updated"},
     )
+
+
+def _bulk_update(request, transactions, change):
+    """Applies change to each selected transaction like its single action does.
+
+    A transfer moves as a pair through save(), so a selected partner is skipped.
+    """
+    done = set()
+    for transaction in transactions:
+        if transaction.linked_transaction_id in done:
+            continue
+        old_data = deepcopy(transaction)
+        change(transaction)
+        transaction.save()
+        transaction_updated.send(sender=transaction, old_data=old_data)
+        done.add(transaction.id)
+
+    count = len(done)
+    messages.success(
+        request,
+        ngettext_lazy(
+            "%(count)s transaction updated successfully",
+            "%(count)s transactions updated successfully",
+            count,
+        )
+        % {"count": count},
+    )
+    return HttpResponse(status=204, headers={"HX-Trigger": "updated"})
+
+
+@only_htmx
+@login_required
+def bulk_change_month(request, change_type):
+    months = {"previous": -1, "next": 1}.get(change_type)
+    if months is None:
+        return HttpResponse(status=400)
+
+    def change(transaction):
+        transaction.reference_date += relativedelta(months=months)
+
+    return _bulk_update(
+        request,
+        Transaction.objects.filter(id__in=request.GET.getlist("transactions")),
+        change,
+    )
+
+
+@only_htmx
+@login_required
+def bulk_move_to_today(request):
+    today = timezone.localdate(timezone.now())
+
+    def change(transaction):
+        transaction.date = today
+
+    return _bulk_update(
+        request,
+        Transaction.objects.filter(id__in=request.GET.getlist("transactions")),
+        change,
+    )
+
+
+@only_htmx
+@login_required
+def bulk_mute(request):
+    # Visibility controlled by the account or category can't be changed here.
+    transactions = Transaction.objects.filter(
+        id__in=request.GET.getlist("transactions"), mute=False
+    ).exclude(Q(account__untracked_by=request.user) | Q(category__mute=True))
+
+    def change(transaction):
+        transaction.mute = True
+
+    return _bulk_update(request, transactions, change)
 
 
 @only_htmx
