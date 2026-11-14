@@ -61,6 +61,12 @@ class ExportForm(forms.Form):
         label=_("Installment Plans"),
         initial=True,
     )
+    quick_transactions = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(),
+        label=_("Quick Transactions"),
+        initial=True,
+    )
     exchange_rates = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(),
@@ -116,6 +122,7 @@ class ExportForm(forms.Form):
             "tags",
             "installment_plans",
             "recurring_transactions",
+            "quick_transactions",
             "exchange_rates_services",
             "exchange_rates",
             "bank_sync",
@@ -142,10 +149,12 @@ class RestoreForm(forms.Form):
     transactions_tags = forms.FileField(required=False, label=_("Tags"))
     transactions_entities = forms.FileField(required=False, label=_("Entities"))
     transactions = forms.FileField(required=False, label=_("Transactions"))
+    sub_transactions = forms.FileField(required=False, label=_("Sub-transactions"))
     installment_plans = forms.FileField(required=False, label=_("Installment Plans"))
     recurring_transactions = forms.FileField(
         required=False, label=_("Recurring Transactions")
     )
+    quick_transactions = forms.FileField(required=False, label=_("Quick Transactions"))
     automatic_exchange_rates = forms.FileField(
         required=False, label=_("Automatic Exchange Rates")
     )
@@ -180,11 +189,13 @@ class RestoreForm(forms.Form):
             "accounts",
             "currencies",
             "transactions",
+            "sub_transactions",
             "transactions_categories",
             "transactions_entities",
             "transactions_tags",
             "installment_plans",
             "recurring_transactions",
+            "quick_transactions",
             "automatic_exchange_rates",
             "exchange_rates",
             "bank_sync_services",

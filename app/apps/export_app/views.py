@@ -46,6 +46,8 @@ from apps.export_app.resources.transactions import (
     TransactionCategoyResource,
     InstallmentPlanResource,
     RecurringTransactionResource,
+    QuickTransactionResource,
+    SubTransactionResource,
 )
 from apps.export_app.resources.users import UserResource
 from apps.common.decorators.demo import disabled_on_demo
@@ -83,6 +85,9 @@ def export_form(request):
             export_installment_plans = form.cleaned_data.get("installment_plans", False)
             export_recurring_transactions = form.cleaned_data.get(
                 "recurring_transactions", False
+            )
+            export_quick_transactions = form.cleaned_data.get(
+                "quick_transactions", False
             )
 
             export_exchange_rates_services = form.cleaned_data.get(
@@ -122,6 +127,27 @@ def export_form(request):
             if export_recurring_transactions:
                 exports.append(
                     (RecurringTransactionResource().export(), "recurring_transactions")
+                )
+            if export_quick_transactions:
+                exports.append(
+                    (QuickTransactionResource().export(), "quick_transactions")
+                )
+            sub_transaction_parents = [
+                parent
+                for parent, exported in (
+                    ("transaction", export_transactions),
+                    ("installment_plan", export_installment_plans),
+                    ("recurring_transaction", export_recurring_transactions),
+                    ("quick_transaction", export_quick_transactions),
+                )
+                if exported
+            ]
+            if sub_transaction_parents:
+                exports.append(
+                    (
+                        SubTransactionResource(parents=sub_transaction_parents).export(),
+                        "sub_transactions",
+                    )
                 )
             if export_exchange_rates_services:
                 exports.append(
@@ -250,7 +276,9 @@ def process_imports(request, cleaned_data):
         ("exchange_rates", ExchangeRateResource),
         ("installment_plans", InstallmentPlanResource),
         ("recurring_transactions", RecurringTransactionResource),
+        ("quick_transactions", QuickTransactionResource),
         ("transactions", TransactionResource),
+        ("sub_transactions", SubTransactionResource),
         ("bank_sync_services", BankSyncServiceResource),
         ("bank_sync_accounts", BankSyncAccountResource),
         ("dca_strategies", DCAStrategyResource),
