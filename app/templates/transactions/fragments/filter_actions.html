@@ -13,7 +13,7 @@
     <input id="filter-preset-name" type="hidden" name="name">
     <input id="filter-preset-relative-dates" type="hidden" name="relative_dates">
     <template id="filter-preset-relative-dates-option">
-      <label class="label cursor-pointer justify-center gap-2 whitespace-normal">
+      <label class="label cursor-pointer justify-center gap-2 whitespace-normal mt-4">
         <input type="checkbox" class="checkbox checkbox-sm checkbox-primary">
         <span>{% translate 'Keep dates relative to today' %}</span>
       </label>
@@ -30,13 +30,11 @@
                                  input: 'text',
                                  inputLabel: @data-input-label,
                                  inputAttributes: {maxlength: '100'},
-                                 html: relativeDatesOption,
+                                 didOpen: \ popup -> Swal.getInput().after(relativeDatesOption),
                                  showCancelButton: true,
                                  cancelButtonText: @data-cancel-text,
                                  confirmButtonText: @data-confirm-text,
                                  customClass: {
-                                   htmlContainer: 'order-1',
-                                   actions: 'order-2',
                                    confirmButton: 'btn btn-primary me-3',
                                    cancelButton: 'btn btn-error'
                                  },
