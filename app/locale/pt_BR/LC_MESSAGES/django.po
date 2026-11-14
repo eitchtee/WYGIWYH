@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 14:06+0000\n"
+"POT-Creation-Date: 2026-11-14 14:41+0000\n"
 "PO-Revision-Date: 2026-11-08 19:40+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -75,9 +75,9 @@ msgstr "Novo saldo"
 #: apps/transactions/forms.py:145 apps/transactions/forms.py:415
 #: apps/transactions/forms.py:596 apps/transactions/forms.py:693
 #: apps/transactions/forms.py:700 apps/transactions/forms.py:942
-#: apps/transactions/forms.py:1196 apps/transactions/models.py:360
-#: apps/transactions/models.py:861 apps/transactions/models.py:1120
-#: apps/transactions/models.py:1489
+#: apps/transactions/forms.py:1196 apps/transactions/models.py:363
+#: apps/transactions/models.py:864 apps/transactions/models.py:1123
+#: apps/transactions/models.py:1492
 #: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
@@ -87,13 +87,13 @@ msgstr "Categoria"
 #: apps/export_app/forms.py:43 apps/export_app/forms.py:149
 #: apps/insights/views.py:50 apps/rules/forms.py:184 apps/rules/forms.py:195
 #: apps/rules/models.py:46 apps/rules/models.py:316
-#: apps/transactions/filters.py:95 apps/transactions/filters.py:170
+#: apps/transactions/filters.py:105 apps/transactions/filters.py:180
 #: apps/transactions/forms.py:153 apps/transactions/forms.py:423
 #: apps/transactions/forms.py:604 apps/transactions/forms.py:709
 #: apps/transactions/forms.py:717 apps/transactions/forms.py:935
-#: apps/transactions/forms.py:1189 apps/transactions/models.py:366
-#: apps/transactions/models.py:863 apps/transactions/models.py:1124
-#: apps/transactions/models.py:1495 templates/includes/sidebar.html:162
+#: apps/transactions/forms.py:1189 apps/transactions/models.py:369
+#: apps/transactions/models.py:866 apps/transactions/models.py:1127
+#: apps/transactions/models.py:1498 templates/includes/sidebar.html:162
 #: templates/insights/fragments/month_by_month.html:29
 #: templates/insights/fragments/month_by_month.html:32
 #: templates/insights/fragments/year_by_year.html:24
@@ -122,7 +122,7 @@ msgstr "Balancear contra"
 #: apps/dca/models.py:158 apps/rules/forms.py:176 apps/rules/forms.py:190
 #: apps/rules/models.py:38 apps/rules/models.py:280
 #: apps/transactions/forms.py:169 apps/transactions/forms.py:568
-#: apps/transactions/forms.py:738 apps/transactions/models.py:342
+#: apps/transactions/forms.py:738 apps/transactions/models.py:345
 #: templates/dca/fragments/strategy/details.html:49
 #: templates/exchange_rates/fragments/table.html:10
 #: templates/exchange_rates_services/fragments/table.html:11
@@ -136,9 +136,9 @@ msgstr "Mês de referência"
 #: apps/accounts/models.py:19 apps/accounts/models.py:36
 #: apps/accounts/models.py:84 apps/bank_sync/models.py:14 apps/dca/models.py:13
 #: apps/import_app/models.py:20 apps/rules/models.py:13
-#: apps/transactions/forms.py:64 apps/transactions/models.py:252
-#: apps/transactions/models.py:277 apps/transactions/models.py:301
-#: apps/transactions/models.py:726 apps/transactions/models.py:1457
+#: apps/transactions/forms.py:64 apps/transactions/models.py:255
+#: apps/transactions/models.py:280 apps/transactions/models.py:304
+#: apps/transactions/models.py:729 apps/transactions/models.py:1460
 #: apps/users/models.py:577 templates/account_groups/fragments/list.html:22
 #: templates/accounts/fragments/list.html:22
 #: templates/bank_sync/fragments/list.html:20
@@ -324,8 +324,8 @@ msgstr ""
 #: apps/rules/models.py:268 apps/transactions/forms.py:165
 #: apps/transactions/forms.py:435 apps/transactions/forms.py:563
 #: apps/transactions/forms.py:927 apps/transactions/forms.py:1181
-#: apps/transactions/models.py:332 apps/transactions/models.py:821
-#: apps/transactions/models.py:1102 apps/transactions/models.py:1463
+#: apps/transactions/models.py:335 apps/transactions/models.py:824
+#: apps/transactions/models.py:1105 apps/transactions/models.py:1466
 #: templates/import_app/fragments/runs/list.html:95
 #: templates/installment_plans/fragments/table.html:17
 #: templates/quick_transactions/fragments/list.html:14
@@ -335,8 +335,8 @@ msgid "Account"
 msgstr "Conta"
 
 #: apps/accounts/models.py:191 apps/export_app/forms.py:19
-#: apps/export_app/forms.py:145 apps/transactions/filters.py:79
-#: apps/transactions/filters.py:153 templates/accounts/fragments/list.html:9
+#: apps/export_app/forms.py:145 apps/transactions/filters.py:89
+#: apps/transactions/filters.py:163 templates/accounts/fragments/list.html:9
 #: templates/accounts/pages/index.html:4
 #: templates/bank_sync/fragments/accounts.html:5
 #: templates/bank_sync/fragments/list.html:22
@@ -458,7 +458,7 @@ msgstr ""
 
 #: apps/api/serializers/transactions.py:74
 #: apps/api/serializers/transactions.py:218 apps/dca/forms.py:298
-#: apps/transactions/models.py:1074
+#: apps/transactions/models.py:1077
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
@@ -475,8 +475,8 @@ msgstr ""
 
 #: apps/bank_sync/forms.py:113 apps/bank_sync/models.py:76
 #: apps/currencies/models.py:54 apps/export_app/forms.py:25
-#: apps/export_app/forms.py:147 apps/transactions/filters.py:86
-#: apps/transactions/filters.py:161 templates/currencies/fragments/list.html:9
+#: apps/export_app/forms.py:147 apps/transactions/filters.py:96
+#: apps/transactions/filters.py:171 templates/currencies/fragments/list.html:9
 #: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:196
 #: templates/includes/sidebar.html:198
 #: templates/monthly_overview/pages/overview.html:63
@@ -501,8 +501,8 @@ msgid "Service Type"
 msgstr "Tipo de Serviço"
 
 #: apps/bank_sync/models.py:18 apps/currencies/models.py:130
-#: apps/transactions/filters.py:28 apps/transactions/models.py:256
-#: apps/transactions/models.py:280 apps/transactions/models.py:304
+#: apps/transactions/filters.py:31 apps/transactions/models.py:259
+#: apps/transactions/models.py:283 apps/transactions/models.py:307
 #: templates/categories/fragments/list.html:16
 #: templates/entities/fragments/list.html:16
 #: templates/installment_plans/fragments/list.html:16
@@ -863,7 +863,7 @@ msgstr "Remover"
 #: apps/common/widgets/tom_select.py:18 templates/mini_tools/simulator.html:187
 #: templates/mini_tools/unit_price_calculator.html:180
 #: templates/monthly_overview/pages/overview.html:286
-#: templates/transactions/fragments/filter_actions.html:48
+#: templates/transactions/fragments/filter_actions.html:60
 #: templates/transactions/pages/transactions.html:235
 msgid "Clear"
 msgstr "Limpar"
@@ -1109,14 +1109,14 @@ msgstr "Conta de destino"
 #: apps/dca/forms.py:117 apps/dca/forms.py:125 apps/export_app/forms.py:49
 #: apps/export_app/forms.py:150 apps/insights/views.py:57
 #: apps/rules/forms.py:185 apps/rules/forms.py:196 apps/rules/models.py:47
-#: apps/rules/models.py:308 apps/transactions/filters.py:100
-#: apps/transactions/filters.py:175 apps/transactions/forms.py:161
+#: apps/rules/models.py:308 apps/transactions/filters.py:110
+#: apps/transactions/filters.py:185 apps/transactions/forms.py:161
 #: apps/transactions/forms.py:431 apps/transactions/forms.py:612
 #: apps/transactions/forms.py:726 apps/transactions/forms.py:733
 #: apps/transactions/forms.py:950 apps/transactions/forms.py:1204
-#: apps/transactions/models.py:315 apps/transactions/models.py:371
-#: apps/transactions/models.py:866 apps/transactions/models.py:1127
-#: apps/transactions/models.py:1500 templates/entities/fragments/list.html:9
+#: apps/transactions/models.py:318 apps/transactions/models.py:374
+#: apps/transactions/models.py:869 apps/transactions/models.py:1130
+#: apps/transactions/models.py:1503 templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:168
 #: templates/insights/fragments/month_by_month.html:40
 #: templates/insights/fragments/month_by_month.html:43
@@ -1153,7 +1153,7 @@ msgid "You must provide an account."
 msgstr "Você deve informar uma conta."
 
 #: apps/dca/forms.py:322 apps/transactions/forms.py:866
-#: apps/transactions/models.py:1077
+#: apps/transactions/models.py:1080
 msgid "From and To accounts must be different."
 msgstr "As contas De e Para devem ser diferentes."
 
@@ -1173,8 +1173,8 @@ msgstr "Moeda de pagamento"
 #: apps/dca/models.py:26 apps/dca/models.py:181 apps/rules/forms.py:180
 #: apps/rules/forms.py:197 apps/rules/models.py:44 apps/rules/models.py:296
 #: apps/transactions/forms.py:590 apps/transactions/forms.py:754
-#: apps/transactions/models.py:356 apps/transactions/models.py:870
-#: apps/transactions/models.py:1130 apps/transactions/models.py:1485
+#: apps/transactions/models.py:359 apps/transactions/models.py:873
+#: apps/transactions/models.py:1133 apps/transactions/models.py:1488
 msgid "Notes"
 msgstr "Notas"
 
@@ -1237,7 +1237,7 @@ msgid "Users"
 msgstr "Usuários"
 
 #: apps/export_app/forms.py:31 apps/export_app/forms.py:151
-#: apps/transactions/models.py:425 templates/includes/sidebar.html:81
+#: apps/transactions/models.py:428 templates/includes/sidebar.html:81
 #: templates/includes/sidebar.html:154
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:37
@@ -1246,8 +1246,8 @@ msgid "Transactions"
 msgstr "Transações"
 
 #: apps/export_app/forms.py:37 apps/export_app/forms.py:148
-#: apps/insights/views.py:43 apps/transactions/filters.py:90
-#: apps/transactions/filters.py:165 templates/categories/fragments/list.html:9
+#: apps/insights/views.py:43 apps/transactions/filters.py:100
+#: apps/transactions/filters.py:175 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:156
 #: templates/insights/fragments/month_by_month.html:18
 #: templates/insights/fragments/month_by_month.html:21
@@ -1257,21 +1257,21 @@ msgid "Categories"
 msgstr "Categorias"
 
 #: apps/export_app/forms.py:55 apps/export_app/forms.py:155
-#: apps/transactions/models.py:1167 templates/includes/sidebar.html:110
+#: apps/transactions/models.py:1170 templates/includes/sidebar.html:110
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
 msgid "Recurring Transactions"
 msgstr "Transações Recorrentes"
 
 #: apps/export_app/forms.py:61 apps/export_app/forms.py:153
-#: apps/transactions/models.py:884 templates/includes/sidebar.html:104
+#: apps/transactions/models.py:887 templates/includes/sidebar.html:104
 #: templates/installment_plans/fragments/list.html:9
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
 msgstr "Parcelamentos"
 
 #: apps/export_app/forms.py:67 apps/export_app/forms.py:157
-#: apps/transactions/models.py:1518 templates/includes/sidebar.html:98
+#: apps/transactions/models.py:1521 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
@@ -1322,7 +1322,7 @@ msgid "ZIP File"
 msgstr "Arquivo ZIP"
 
 #: apps/export_app/forms.py:152 apps/rules/forms.py:193 apps/rules/models.py:42
-#: apps/rules/models.py:320 apps/transactions/models.py:736
+#: apps/rules/models.py:320 apps/transactions/models.py:739
 #: templates/transactions/widgets/sub_transactions.html:39
 #, fuzzy
 #| msgid "transactions"
@@ -1453,7 +1453,7 @@ msgstr "Importação apagada com sucesso"
 
 #: apps/insights/forms.py:118 apps/insights/utils/sankey.py:36
 #: apps/insights/utils/sankey.py:167 apps/insights/views.py:45
-#: apps/transactions/filters.py:294
+#: apps/transactions/filters.py:304
 #: templates/insights/fragments/month_by_month.html:119
 #: templates/insights/fragments/year_by_year.html:73
 msgid "Uncategorized"
@@ -1510,24 +1510,24 @@ msgstr "Nenhum categoria"
 msgid "Tag"
 msgstr "Tag"
 
-#: apps/insights/views.py:52 apps/transactions/filters.py:303
+#: apps/insights/views.py:52 apps/transactions/filters.py:313
 #: templates/insights/fragments/month_by_month.html:121
 #: templates/insights/fragments/year_by_year.html:75
 msgid "Untagged"
 msgstr "Sem tag"
 
-#: apps/insights/views.py:53 apps/transactions/models.py:632
+#: apps/insights/views.py:53 apps/transactions/models.py:635
 #: templates/tags/fragments/table.html:69
 msgid "No tags"
 msgstr "Nenhuma tag"
 
-#: apps/insights/views.py:58 apps/transactions/models.py:314
+#: apps/insights/views.py:58 apps/transactions/models.py:317
 #: templates/insights/fragments/month_by_month.html:88
 #: templates/insights/fragments/year_by_year.html:56
 msgid "Entity"
 msgstr "Entidade"
 
-#: apps/insights/views.py:59 apps/transactions/filters.py:311
+#: apps/insights/views.py:59 apps/transactions/filters.py:321
 #: templates/insights/fragments/month_by_month.html:123
 #: templates/insights/fragments/year_by_year.html:77
 msgid "No entity"
@@ -1611,16 +1611,16 @@ msgstr "Operador"
 
 #: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:36
 #: apps/rules/models.py:272 apps/transactions/forms.py:554
-#: apps/transactions/models.py:339 apps/transactions/models.py:826
-#: apps/transactions/models.py:1108 apps/transactions/models.py:1470
+#: apps/transactions/models.py:342 apps/transactions/models.py:829
+#: apps/transactions/models.py:1111 apps/transactions/models.py:1473
 #: templates/mini_tools/simulator.html:63
 msgid "Type"
 msgstr "Tipo"
 
 #: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:37
-#: apps/rules/models.py:276 apps/transactions/filters.py:23
+#: apps/rules/models.py:276 apps/transactions/filters.py:26
 #: apps/transactions/forms.py:558 apps/transactions/forms.py:736
-#: apps/transactions/models.py:341 apps/transactions/models.py:1472
+#: apps/transactions/models.py:344 apps/transactions/models.py:1475
 #: templates/cotton/transaction/item.html:25
 #: templates/cotton/transaction/item.html:36
 #: templates/transactions/widgets/paid_toggle_button.html:10
@@ -1631,16 +1631,16 @@ msgstr "Pago"
 #: apps/rules/forms.py:177 apps/rules/forms.py:191 apps/rules/models.py:39
 #: apps/rules/models.py:284 apps/transactions/forms.py:173
 #: apps/transactions/forms.py:574 apps/transactions/forms.py:741
-#: apps/transactions/forms.py:956 apps/transactions/models.py:343
-#: apps/transactions/models.py:844 apps/transactions/models.py:1132
+#: apps/transactions/forms.py:956 apps/transactions/models.py:346
+#: apps/transactions/models.py:847 apps/transactions/models.py:1135
 msgid "Reference Date"
 msgstr "Data de Referência"
 
 #: apps/rules/forms.py:178 apps/rules/forms.py:192 apps/rules/models.py:41
 #: apps/rules/models.py:288 apps/transactions/forms.py:75
-#: apps/transactions/forms.py:581 apps/transactions/models.py:349
-#: apps/transactions/models.py:730 apps/transactions/models.py:1113
-#: apps/transactions/models.py:1478
+#: apps/transactions/forms.py:581 apps/transactions/models.py:352
+#: apps/transactions/models.py:733 apps/transactions/models.py:1116
+#: apps/transactions/models.py:1481
 #: templates/insights/fragments/sankey.html:102
 #: templates/installment_plans/fragments/table.html:18
 #: templates/mini_tools/simulator.html:70
@@ -1652,27 +1652,27 @@ msgstr "Quantia"
 #: apps/rules/forms.py:179 apps/rules/forms.py:194 apps/rules/models.py:14
 #: apps/rules/models.py:43 apps/rules/models.py:292
 #: apps/transactions/forms.py:585 apps/transactions/forms.py:745
-#: apps/transactions/models.py:354 apps/transactions/models.py:828
-#: apps/transactions/models.py:1116 apps/transactions/models.py:1483
+#: apps/transactions/models.py:357 apps/transactions/models.py:831
+#: apps/transactions/models.py:1119 apps/transactions/models.py:1486
 msgid "Description"
 msgstr "Descrição"
 
 #: apps/rules/forms.py:182 apps/rules/forms.py:199 apps/rules/models.py:48
-#: apps/rules/models.py:300 apps/transactions/models.py:401
-#: apps/transactions/models.py:1505
+#: apps/rules/models.py:300 apps/transactions/models.py:404
+#: apps/transactions/models.py:1508
 msgid "Internal Note"
 msgstr "Nota Interna"
 
 #: apps/rules/forms.py:183 apps/rules/forms.py:200 apps/rules/models.py:49
-#: apps/rules/models.py:304 apps/transactions/models.py:403
-#: apps/transactions/models.py:1507
+#: apps/rules/models.py:304 apps/transactions/models.py:406
+#: apps/transactions/models.py:1510
 msgid "Internal ID"
 msgstr "ID Interna"
 
 #: apps/rules/forms.py:186 apps/rules/forms.py:201 apps/rules/models.py:40
 #: apps/rules/models.py:324 apps/transactions/forms.py:758
-#: apps/transactions/models.py:253 apps/transactions/models.py:344
-#: apps/transactions/models.py:1473
+#: apps/transactions/models.py:256 apps/transactions/models.py:347
+#: apps/transactions/models.py:1476
 msgid "Mute"
 msgstr "Silenciada"
 
@@ -1685,8 +1685,8 @@ msgid "Set Values"
 msgstr "Definir valores"
 
 #: apps/rules/forms.py:409 apps/rules/forms.py:444 apps/rules/forms.py:479
-#: apps/transactions/models.py:424 apps/transactions/models.py:703
-#: apps/transactions/models.py:763
+#: apps/transactions/models.py:427 apps/transactions/models.py:706
+#: apps/transactions/models.py:766
 msgid "Transaction"
 msgstr "Transação"
 
@@ -1826,7 +1826,7 @@ msgstr "Ação Atualizar ou Criar Transação atualizada com sucesso"
 msgid "Update or Create Transaction action deleted successfully"
 msgstr "Ação Atualizar ou Criar Transação apagada com sucesso"
 
-#: apps/transactions/filters.py:24 templates/cotton/transaction/item.html:25
+#: apps/transactions/filters.py:27 templates/cotton/transaction/item.html:25
 #: templates/cotton/transaction/item.html:36
 #: templates/insights/fragments/overview/index.html:68
 #: templates/net_worth/net_worth.html:39 templates/net_worth/net_worth.html:43
@@ -1835,59 +1835,59 @@ msgstr "Ação Atualizar ou Criar Transação apagada com sucesso"
 msgid "Projected"
 msgstr "Previsto"
 
-#: apps/transactions/filters.py:29 templates/categories/fragments/table.html:18
+#: apps/transactions/filters.py:32 templates/categories/fragments/table.html:18
 msgid "Muted"
 msgstr "Silenciada"
 
-#: apps/transactions/filters.py:67 apps/transactions/filters.py:144
+#: apps/transactions/filters.py:77 apps/transactions/filters.py:154
 msgid "Content"
 msgstr "Conteúdo"
 
-#: apps/transactions/filters.py:73
+#: apps/transactions/filters.py:83
 msgid "Transaction Type"
 msgstr "Tipo de Transação"
 
-#: apps/transactions/filters.py:111
+#: apps/transactions/filters.py:121
 msgid "Mute Status"
 msgstr "Status de silenciamento"
 
-#: apps/transactions/filters.py:116
+#: apps/transactions/filters.py:126
 msgid "Date from"
 msgstr "Data de"
 
-#: apps/transactions/filters.py:121 apps/transactions/filters.py:131
+#: apps/transactions/filters.py:131 apps/transactions/filters.py:141
 msgid "Until"
 msgstr "Até"
 
-#: apps/transactions/filters.py:126
+#: apps/transactions/filters.py:136
 msgid "Reference date from"
 msgstr "Data de Referência de"
 
-#: apps/transactions/filters.py:136
+#: apps/transactions/filters.py:146
 msgid "Amount min"
 msgstr "Quantia miníma"
 
-#: apps/transactions/filters.py:141
+#: apps/transactions/filters.py:151
 msgid "Amount max"
 msgstr "Quantia máxima"
 
-#: apps/transactions/filters.py:240
+#: apps/transactions/filters.py:250
 msgid "Include"
 msgstr ""
 
-#: apps/transactions/filters.py:245
+#: apps/transactions/filters.py:255
 msgid "Exclude"
 msgstr ""
 
-#: apps/transactions/filters.py:293
+#: apps/transactions/filters.py:303
 msgid "Categorized"
 msgstr "Categorizada"
 
-#: apps/transactions/filters.py:303
+#: apps/transactions/filters.py:313
 msgid "Tagged"
 msgstr "Com tag"
 
-#: apps/transactions/filters.py:310
+#: apps/transactions/filters.py:320
 msgid "Any entity"
 msgstr "Qualquer entidade"
 
@@ -1920,7 +1920,7 @@ msgid "Upload"
 msgstr "Upload"
 
 #: apps/transactions/forms.py:440 apps/transactions/forms.py:1210
-#: apps/transactions/models.py:1046
+#: apps/transactions/models.py:1049
 msgid "To account"
 msgstr "Conta de destino"
 
@@ -1936,8 +1936,8 @@ msgstr "Quantia de origem"
 msgid "To Amount"
 msgstr "Quantia de destino"
 
-#: apps/transactions/forms.py:827 apps/transactions/models.py:1091
-#: apps/transactions/models.py:1450 templates/cotton/transaction/item.html:54
+#: apps/transactions/forms.py:827 apps/transactions/models.py:1094
+#: apps/transactions/models.py:1453 templates/cotton/transaction/item.html:54
 #: templates/cotton/transaction/item.html:62
 #: templates/cotton/transaction/item.html:272
 #: templates/cotton/transaction/item.html:304
@@ -1970,7 +1970,7 @@ msgstr "transações futuras"
 msgid "End date should be after the start date"
 msgstr "Data final deve ser após data inicial"
 
-#: apps/transactions/models.py:258
+#: apps/transactions/models.py:261
 msgid ""
 "Deactivated categories won't be able to be selected when creating new "
 "transactions"
@@ -1978,25 +1978,25 @@ msgstr ""
 "As categorias desativadas não poderão ser selecionadas ao criar novas "
 "transações"
 
-#: apps/transactions/models.py:266
+#: apps/transactions/models.py:269
 msgid "Transaction Category"
 msgstr "Categoria da Transação"
 
-#: apps/transactions/models.py:267
+#: apps/transactions/models.py:270
 msgid "Transaction Categories"
 msgstr "Categorias da Trasanção"
 
-#: apps/transactions/models.py:282
+#: apps/transactions/models.py:285
 msgid ""
 "Deactivated tags won't be able to be selected when creating new transactions"
 msgstr ""
 "As tags desativadas não poderão ser selecionadas ao criar novas transações"
 
-#: apps/transactions/models.py:290 apps/transactions/models.py:291
+#: apps/transactions/models.py:293 apps/transactions/models.py:294
 msgid "Transaction Tags"
 msgstr "Tags da Transação"
 
-#: apps/transactions/models.py:306
+#: apps/transactions/models.py:309
 msgid ""
 "Deactivated entities won't be able to be selected when creating new "
 "transactions"
@@ -2004,8 +2004,8 @@ msgstr ""
 "As entidades desativadas não poderão ser selecionadas ao criar novas "
 "transações"
 
-#: apps/transactions/models.py:326 apps/transactions/models.py:1090
-#: apps/transactions/models.py:1449
+#: apps/transactions/models.py:329 apps/transactions/models.py:1093
+#: apps/transactions/models.py:1452
 #: templates/calendar_view/fragments/list.html:42
 #: templates/calendar_view/fragments/list.html:44
 #: templates/calendar_view/fragments/list.html:52
@@ -2023,8 +2023,8 @@ msgstr ""
 msgid "Income"
 msgstr "Renda"
 
-#: apps/transactions/models.py:327 apps/transactions/models.py:1092
-#: apps/transactions/models.py:1451
+#: apps/transactions/models.py:330 apps/transactions/models.py:1095
+#: apps/transactions/models.py:1454
 #: templates/calendar_view/fragments/list.html:46
 #: templates/calendar_view/fragments/list.html:48
 #: templates/calendar_view/fragments/list.html:56
@@ -2036,188 +2036,188 @@ msgstr "Renda"
 msgid "Expense"
 msgstr "Despesa"
 
-#: apps/transactions/models.py:382 apps/transactions/models.py:883
+#: apps/transactions/models.py:385 apps/transactions/models.py:886
 #: templates/cotton/transaction/item.html:262
 #: templates/cotton/transaction/item.html:289
 #: templates/cotton/transaction/item.html:299
 msgid "Installment Plan"
 msgstr "Parcelamento"
 
-#: apps/transactions/models.py:391 apps/transactions/models.py:1166
+#: apps/transactions/models.py:394 apps/transactions/models.py:1169
 #: templates/cotton/transaction/item.html:252
 #: templates/cotton/transaction/item.html:282
 msgid "Recurring Transaction"
 msgstr "Transação Recorrente"
 
-#: apps/transactions/models.py:399
+#: apps/transactions/models.py:402
 msgid "Linked Transaction"
 msgstr "Transação vinculada"
 
-#: apps/transactions/models.py:407
+#: apps/transactions/models.py:410
 msgid "Deleted"
 msgstr "Apagado"
 
-#: apps/transactions/models.py:412
+#: apps/transactions/models.py:415
 msgid "Deleted At"
 msgstr "Apagado Em"
 
-#: apps/transactions/models.py:521
+#: apps/transactions/models.py:524
 msgid "A transfer needs one expense and one income."
 msgstr "Uma transferência precisa de uma despesa e uma receita."
 
-#: apps/transactions/models.py:523
+#: apps/transactions/models.py:526
 msgid "A transfer needs two different accounts."
 msgstr "Uma transferência precisa de duas contas diferentes."
 
-#: apps/transactions/models.py:527
+#: apps/transactions/models.py:530
 msgid "This transaction is already part of another transfer."
 msgstr "Esta transação já faz parte de outra transferência."
 
-#: apps/transactions/models.py:634
+#: apps/transactions/models.py:637
 msgid "No category"
 msgstr "Sem categoria"
 
-#: apps/transactions/models.py:636
+#: apps/transactions/models.py:639
 msgid "No description"
 msgstr "Sem descrição"
 
-#: apps/transactions/models.py:735
+#: apps/transactions/models.py:738
 #, fuzzy
 #| msgid "transactions"
 msgid "Sub-transaction"
 msgstr "transações"
 
-#: apps/transactions/models.py:768
+#: apps/transactions/models.py:771
 msgid "File"
 msgstr "Arquivo"
 
-#: apps/transactions/models.py:770
+#: apps/transactions/models.py:773
 msgid "Original Name"
 msgstr "Nome Original"
 
-#: apps/transactions/models.py:772
+#: apps/transactions/models.py:775
 msgid "Content Type"
 msgstr "Tipo de Conteúdo"
 
-#: apps/transactions/models.py:774
+#: apps/transactions/models.py:777
 msgid "Size"
 msgstr "Tamanho"
 
-#: apps/transactions/models.py:779
+#: apps/transactions/models.py:782
 msgid "Uploaded By"
 msgstr "Enviado por"
 
-#: apps/transactions/models.py:784
+#: apps/transactions/models.py:787
 msgid "Transaction Attachment"
 msgstr "Anexo de transação"
 
-#: apps/transactions/models.py:785
+#: apps/transactions/models.py:788
 msgid "Transaction Attachments"
 msgstr "Anexo de transações"
 
-#: apps/transactions/models.py:815 templates/includes/sidebar.html:57
+#: apps/transactions/models.py:818 templates/includes/sidebar.html:57
 msgid "Yearly"
 msgstr "Anual"
 
-#: apps/transactions/models.py:816 apps/users/models.py:469
+#: apps/transactions/models.py:819 apps/users/models.py:469
 #: templates/includes/sidebar.html:51
 msgid "Monthly"
 msgstr "Mensal"
 
-#: apps/transactions/models.py:817
+#: apps/transactions/models.py:820
 msgid "Weekly"
 msgstr "Semanal"
 
-#: apps/transactions/models.py:818
+#: apps/transactions/models.py:821
 msgid "Daily"
 msgstr "Diária"
 
-#: apps/transactions/models.py:831
+#: apps/transactions/models.py:834
 msgid "Number of Installments"
 msgstr "Número de Parcelas"
 
-#: apps/transactions/models.py:836
+#: apps/transactions/models.py:839
 msgid "Installment Start"
 msgstr "Parcela inicial"
 
-#: apps/transactions/models.py:837
+#: apps/transactions/models.py:840
 msgid "The installment number to start counting from"
 msgstr "O número da parcela a partir do qual se inicia a contagem"
 
-#: apps/transactions/models.py:842 apps/transactions/models.py:1136
+#: apps/transactions/models.py:845 apps/transactions/models.py:1139
 msgid "Start Date"
 msgstr "Data de Início"
 
-#: apps/transactions/models.py:846 apps/transactions/models.py:1137
+#: apps/transactions/models.py:849 apps/transactions/models.py:1140
 msgid "End Date"
 msgstr "Data Final"
 
-#: apps/transactions/models.py:851
+#: apps/transactions/models.py:854
 msgid "Recurrence"
 msgstr "Recorrência"
 
-#: apps/transactions/models.py:854
+#: apps/transactions/models.py:857
 msgid "Installment Amount"
 msgstr "Valor da Parcela"
 
-#: apps/transactions/models.py:873 apps/transactions/models.py:1156
+#: apps/transactions/models.py:876 apps/transactions/models.py:1159
 msgid "Add description to transactions"
 msgstr "Adicionar descrição às transações"
 
-#: apps/transactions/models.py:876 apps/transactions/models.py:1159
+#: apps/transactions/models.py:879 apps/transactions/models.py:1162
 msgid "Add notes to transactions"
 msgstr "Adicionar notas às transações"
 
-#: apps/transactions/models.py:1053
+#: apps/transactions/models.py:1056
 msgid "To amount"
 msgstr "Quantia de destino"
 
-#: apps/transactions/models.py:1054
+#: apps/transactions/models.py:1057
 msgid "Leave empty to use the same amount"
 msgstr "Deixe em branco para usar a mesma quantia"
 
-#: apps/transactions/models.py:1095 templates/mini_tools/simulator.html:129
+#: apps/transactions/models.py:1098 templates/mini_tools/simulator.html:129
 msgid "day(s)"
 msgstr "dia(s)"
 
-#: apps/transactions/models.py:1096 templates/mini_tools/simulator.html:130
+#: apps/transactions/models.py:1099 templates/mini_tools/simulator.html:130
 msgid "week(s)"
 msgstr "semana(s)"
 
-#: apps/transactions/models.py:1097 templates/mini_tools/simulator.html:131
+#: apps/transactions/models.py:1100 templates/mini_tools/simulator.html:131
 msgid "month(s)"
 msgstr "mês(es)"
 
-#: apps/transactions/models.py:1098 templates/mini_tools/simulator.html:132
+#: apps/transactions/models.py:1101 templates/mini_tools/simulator.html:132
 msgid "year(s)"
 msgstr "ano(s)"
 
-#: apps/transactions/models.py:1100
+#: apps/transactions/models.py:1103
 #: templates/recurring_transactions/fragments/list.html:18
 msgid "Paused"
 msgstr "Pausado"
 
-#: apps/transactions/models.py:1139
+#: apps/transactions/models.py:1142
 msgid "Recurrence Type"
 msgstr "Tipo de recorrência"
 
-#: apps/transactions/models.py:1142
+#: apps/transactions/models.py:1145
 msgid "Recurrence Interval"
 msgstr "Intervalo de recorrência"
 
-#: apps/transactions/models.py:1145
+#: apps/transactions/models.py:1148
 msgid "Keep at most"
 msgstr "Manter no máximo"
 
-#: apps/transactions/models.py:1149
+#: apps/transactions/models.py:1152
 msgid "Last Generated Date"
 msgstr "Última data gerada"
 
-#: apps/transactions/models.py:1152
+#: apps/transactions/models.py:1155
 msgid "Last Generated Reference Date"
 msgstr "Última data de referência gerada"
 
-#: apps/transactions/models.py:1517 templates/cotton/transaction/item.html:245
+#: apps/transactions/models.py:1520 templates/cotton/transaction/item.html:245
 #: templates/cotton/ui/transactions_fab.html:59
 msgid "Quick Transaction"
 msgstr "Transação Rápida"
@@ -2828,7 +2828,7 @@ msgstr "Compartilhar"
 #: templates/rules/fragments/transaction_rule/view.html:92
 #: templates/rules/fragments/transaction_rule/view.html:133
 #: templates/tags/fragments/table.html:51
-#: templates/transactions/fragments/filter_presets.html:28
+#: templates/transactions/fragments/filter_presets.html:32
 #: templates/users/fragments/api_tokens.html:93
 msgid "Delete"
 msgstr "Apagar"
@@ -4726,7 +4726,11 @@ msgstr "Salvar predefinição de filtro"
 msgid "Preset name"
 msgstr "Nome da predefinição"
 
-#: templates/transactions/fragments/filter_actions.html:40
+#: templates/transactions/fragments/filter_actions.html:18
+msgid "Keep dates relative to today"
+msgstr ""
+
+#: templates/transactions/fragments/filter_actions.html:52
 msgid "Save preset"
 msgstr "Salvar predefinição"
 
@@ -4739,21 +4743,27 @@ msgstr "Limpar filtros"
 msgid "Filter presets"
 msgstr "Predefinições de filtro"
 
-#: templates/transactions/fragments/filter_presets.html:21
+#: templates/transactions/fragments/filter_presets.html:20
+#, fuzzy
+#| msgid "Move to today"
+msgid "Dates relative to today"
+msgstr "Mover para hoje"
+
+#: templates/transactions/fragments/filter_presets.html:25
 #, python-format
 msgid "Delete %(name)s"
 msgstr "Apagar %(name)s"
 
-#: templates/transactions/fragments/filter_presets.html:26
+#: templates/transactions/fragments/filter_presets.html:30
 msgid "Delete filter preset?"
 msgstr "Apagar predefinição de filtro?"
 
-#: templates/transactions/fragments/filter_presets.html:27
+#: templates/transactions/fragments/filter_presets.html:31
 #, python-format
 msgid "Delete “%(name)s”?"
 msgstr "Apagar \"%(name)s\"?"
 
-#: templates/transactions/fragments/filter_presets.html:34
+#: templates/transactions/fragments/filter_presets.html:38
 msgid "No saved presets"
 msgstr "Não há predefinições salvas"
 
