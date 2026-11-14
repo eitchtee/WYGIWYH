@@ -418,6 +418,36 @@ class TransferTemplateTests(TransferTestBase):
         self.assertEqual(income.amount, Decimal("120"))
         self.assertTrue(Transaction.objects.filter(pk=expense.pk).exists())
 
+    def test_recurring_update_unlinks_transfer_linked_by_hand_when_broken(self):
+        for change in ({"type": RecurringTransaction.Type.EXPENSE}, {"account": self.savings}):
+            with self.subTest(change=change):
+                recurring = self._recurring(type=RecurringTransaction.Type.INCOME)
+                recurring.create_upcoming_transactions()
+                income = recurring.transactions.earliest("date")
+                outside = Transaction.objects.create(
+                    account=self.savings,
+                    type=Transaction.Type.EXPENSE,
+                    amount=Decimal("100"),
+                    date=income.date,
+                    description="Outside",
+                    is_paid=False,
+                )
+                outside.link_transfer(income)
+
+                for field, value in change.items():
+                    setattr(recurring, field, value)
+                recurring.save()
+                recurring.update_unpaid_transactions()
+
+                income.refresh_from_db()
+                outside.refresh_from_db()
+                self.assertIsNone(income.linked_transaction)
+                self.assertIsNone(outside.linked_transaction)
+                self.assertEqual(
+                    (outside.account, outside.type, outside.amount),
+                    (self.savings, Transaction.Type.EXPENSE, Decimal("100")),
+                )
+
     def test_edit_view_moves_unpaid_transactions(self):
         recurring = self._recurring(type=RecurringTransaction.Type.EXPENSE)
         recurring.create_upcoming_transactions()

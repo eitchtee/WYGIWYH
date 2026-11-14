@@ -1399,6 +1399,23 @@ class RecurringTransaction(TransferTemplate):
                 to_side.linked_transaction = None
                 to_side.delete(_with_partner=False)
 
+            partner = existing_transaction.linked_transaction
+            if (
+                partner
+                and partner.recurring_transaction_id != self.pk
+                and (
+                    {self.transaction_type, partner.type}
+                    != {Transaction.Type.INCOME, Transaction.Type.EXPENSE}
+                    or self.account_id == partner.account_id
+                )
+            ):
+                # A link made elsewhere (e.g. a DCA entry) that the new type or account
+                # would break: unlink it and keep the partner
+                Transaction.all_objects.filter(pk=partner.pk).update(
+                    linked_transaction=None
+                )
+                existing_transaction.linked_transaction = None
+
             self._apply_to(
                 existing_transaction,
                 self.account,
