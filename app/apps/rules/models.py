@@ -39,6 +39,7 @@ class TransactionRuleAction(models.Model):
         reference_date = "reference_date", _("Reference Date")
         mute = "mute", _("Mute")
         amount = "amount", _("Amount")
+        sub_transactions = "sub_transactions", _("Sub-transactions")
         description = "description", _("Description")
         notes = "notes", _("Notes")
         category = "category", _("Category")
@@ -313,6 +314,10 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
     )
     set_tags = models.TextField(
         verbose_name=_("Tags"),
+        blank=True,
+    )
+    set_sub_transactions = models.TextField(
+        verbose_name=_("Sub-transactions"),
         blank=True,
     )
     set_mute = models.TextField(

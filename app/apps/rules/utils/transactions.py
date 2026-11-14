@@ -86,6 +86,10 @@ def serialize_transaction(sender: Transaction, deleted: bool):
         "notes": sender.notes,
         "tags": list(sender.tags.values_list("id", "name")),
         "entities": list(sender.entities.values_list("id", "name")),
+        "sub_transactions": [
+            {"name": name, "amount": str(amount)}
+            for name, amount in sender.sub_transactions.values_list("name", "amount")
+        ],
         "deleted": deleted,
         "internal_note": sender.internal_note,
         "internal_id": sender.internal_id,
