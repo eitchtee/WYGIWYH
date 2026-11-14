@@ -4,7 +4,9 @@ import logging
 import os
 import re
 import zipfile
+from collections import Counter
 from django.db import transaction
+from django.db.models import Q
 from datetime import datetime, date
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -968,12 +970,28 @@ class ImportService:
                 f"Invalid {self.settings.file_type.upper()} file format: {str(e)}"
             )
 
+    @staticmethod
+    def _qif_internal_id(raw_content: str, account: Account, occurrence: int) -> str:
+        """
+        Builds the internal ID of a QIF transaction from its raw lines.
+
+        The account is part of the hash so the same file can be imported into
+        different accounts, and the occurrence (how many identical transactions
+        came before it in the file) tells identical transactions apart, e.g. two
+        purchases with the same date, amount and payee.
+        """
+        return hashlib.sha256(
+            f"{account.pk}:{occurrence}:{raw_content}".encode("utf-8")
+        ).hexdigest()
+
     def _parse_and_import_qif(self, content_lines: list[str], filename: str) -> None:
         # Infer account from filename (remove extension)
         account_name = os.path.splitext(os.path.basename(filename))[0]
 
         current_transaction = {}
         raw_lines_buffer = []
+        # How many times each transaction's raw lines have been seen in this file
+        occurrences = Counter()
 
         account = (
             self.import_run.account or Account.objects.filter(name=account_name).first()
@@ -994,17 +1012,31 @@ class ImportService:
                 if current_transaction:
                     # Deduplication using hash of raw lines
                     raw_content = "".join(raw_lines_buffer)
-                    internal_id = hashlib.sha256(
-                        raw_content.encode("utf-8")
-                    ).hexdigest()
+                    occurrence = occurrences[raw_content]
+                    occurrences[raw_content] += 1
+                    internal_id = self._qif_internal_id(
+                        raw_content, account, occurrence
+                    )
 
                     # Reset buffer for next transaction
                     raw_lines_buffer = []
 
+                    duplicate_filter = Q(internal_id=internal_id)
+                    if occurrence == 0:
+                        # Transactions imported before the account and the
+                        # occurrence were part of the hash used the raw lines
+                        # alone, and only ever kept the first of identical ones
+                        duplicate_filter |= Q(
+                            internal_id=hashlib.sha256(
+                                raw_content.encode("utf-8")
+                            ).hexdigest(),
+                            account=account,
+                        )
+
                     try:
                         with transaction.atomic():
-                            if Transaction.objects.filter(
-                                internal_id=internal_id
+                            if Transaction.all_objects.filter(
+                                duplicate_filter
                             ).exists():
                                 self._increment_totals("skipped", 1)
                                 self._log(
