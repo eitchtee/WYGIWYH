@@ -2,10 +2,18 @@ import functools
 import inspect
 
 import procrastinate
-from django.db import close_old_connections
+from django.db import close_old_connections as _close_old_connections
+from django.db import connection
 
 
 _CONNECTION_CLEANUP_WRAPPED = "_wygiwyh_connection_cleanup_wrapped"
+
+
+def close_old_connections():
+    # Rule dry runs call tasks directly inside a transaction they roll back;
+    # closing its connection there would break it. Worker jobs never run in one.
+    if not connection.in_atomic_block:
+        _close_old_connections()
 
 
 def _wrap_task_with_django_connection_cleanup(task):

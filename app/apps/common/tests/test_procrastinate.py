@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 import procrastinate
-from django.db import connection
+from django.db import connection, transaction
 from django.test import SimpleTestCase, TransactionTestCase
 from procrastinate.testing import InMemoryConnector
 
@@ -87,3 +87,18 @@ class ProcrastinateConnectionRecoveryTests(TransactionTestCase):
         connection.connection.close()
 
         self.assertEqual(task.func(), 1)
+
+    def test_task_called_inside_a_transaction_keeps_its_connection(self):
+        """Rule dry runs call tasks directly inside a transaction they roll back."""
+
+        def sample_task():
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT 1")
+                return cursor.fetchone()[0]
+
+        app, task = make_app_with_task(sample_task)
+        on_app_ready(app)
+
+        with transaction.atomic():
+            connection.close_at = 0  # obsolete, as with CONN_MAX_AGE=0
+            self.assertEqual(task.func(), 1)
