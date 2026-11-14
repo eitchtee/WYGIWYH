@@ -5,6 +5,7 @@
 {% block title %}{% translate 'Share settings' %}{% endblock %}
 
 {% block body %}
+<p class="text-sm text-base-content/70 mb-3">{% translate "Everyone who can see this account can add, edit and delete its transactions, installment plans and recurring transactions." %}</p>
 <form hx-post="{% url "account_share_settings" pk=object.id %}" hx-target="#generic-offcanvas" novalidate>
     {% crispy form %}
 </form>

@@ -40,9 +40,11 @@ class SharedObjectForm(forms.Form):
         label=_("Visibility"),
         widget=TomSelect(clear_button=False),
         help_text=_(
-            "Private: Only shown for the owner and shared users. Only editable by the owner."
+            "Private: Only shown for the owner and shared users."
             "<br/>"
-            "Public: Shown for all users. Only editable by the owner."
+            "Public: Shown for all users."
+            "<br/>"
+            "Only the owner can edit, share or delete it."
         ),
     )
 
