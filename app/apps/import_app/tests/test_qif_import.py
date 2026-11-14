@@ -1,4 +1,6 @@
+from datetime import date
 from decimal import Decimal
+import hashlib
 import os
 import shutil
 from django.test import TestCase, override_settings
@@ -11,6 +13,30 @@ from apps.import_app.services.v1 import ImportService
 from apps.transactions.models import (
     Transaction,
 )
+
+QIF_YAML_CONFIG = """
+settings:
+  file_type: qif
+  importing: transactions
+  date_format: "%d/%m/%Y"
+mapping: {}
+"""
+
+# A salary, then two purchases with the same date, amount and payee
+IDENTICAL_TRANSACTIONS_CONTENT = """!Type:Bank
+D04/01/2015
+T100.00
+PSalary
+^
+D05/01/2015
+T-4.50
+PCoffee Shop
+^
+D05/01/2015
+T-4.50
+PCoffee Shop
+^
+"""
 
 
 class QIFImportTests(TestCase):
@@ -44,6 +70,23 @@ class QIFImportTests(TestCase):
         delete_current_user()
         if os.path.exists(self.test_dir):
             shutil.rmtree(self.test_dir)
+
+    def _import_qif(self, content, account=None, filename="bradesco-checking.qif"):
+        file_path = os.path.join(self.test_dir, filename)
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+        profile = ImportProfile.objects.create(
+            name="QIF Profile",
+            yaml_config=QIF_YAML_CONFIG,
+            version=ImportProfile.Versions.VERSION_1,
+        )
+        run = ImportRun.objects.create(
+            profile=profile, file_name=filename, account=account
+        )
+        ImportService(run).process_file(file_path)
+        run.refresh_from_db()
+        return run
 
     def test_import_single_qif_valid_mapping(self):
         content = """!Type:Bank
@@ -257,3 +300,210 @@ mapping: {}
         self.assertEqual(
             Transaction.objects.first().description, ""
         )  # empty desc if no memo
+
+    def test_import_same_file_into_two_accounts(self):
+        savings = Account.objects.create(
+            name="bradesco-savings",
+            group=self.group,
+            currency=self.currency,
+            owner=self.user,
+        )
+
+        into_checking = self._import_qif(
+            IDENTICAL_TRANSACTIONS_CONTENT, account=self.account
+        )
+        into_savings = self._import_qif(IDENTICAL_TRANSACTIONS_CONTENT, account=savings)
+        into_savings_again = self._import_qif(
+            IDENTICAL_TRANSACTIONS_CONTENT, account=savings
+        )
+
+        self.assertEqual(into_checking.successful_rows, 3)
+        self.assertEqual(into_savings.successful_rows, 3)
+        self.assertEqual(into_savings.skipped_rows, 0)
+        self.assertEqual(into_savings_again.successful_rows, 0)
+        self.assertEqual(into_savings_again.skipped_rows, 3)
+        self.assertEqual(Transaction.objects.filter(account=self.account).count(), 3)
+        self.assertEqual(Transaction.objects.filter(account=savings).count(), 3)
+
+    def test_import_identical_transactions_in_one_file(self):
+        first_run = self._import_qif(IDENTICAL_TRANSACTIONS_CONTENT)
+
+        self.assertEqual(first_run.successful_rows, 3)
+        self.assertEqual(first_run.skipped_rows, 0)
+        coffees = Transaction.objects.filter(entities__name="Coffee Shop")
+        self.assertEqual(coffees.count(), 2)
+        self.assertEqual(coffees.values("internal_id").distinct().count(), 2)
+
+        # Re-importing the file still recognizes both of them
+        second_run = self._import_qif(IDENTICAL_TRANSACTIONS_CONTENT)
+
+        self.assertEqual(second_run.successful_rows, 0)
+        self.assertEqual(second_run.skipped_rows, 3)
+        self.assertEqual(Transaction.objects.count(), 3)
+
+    def test_import_skips_transactions_imported_with_the_previous_hash(self):
+        # Imports made before the account was part of the hash used the raw
+        # lines alone, and skipped every repeat of identical transactions
+        legacy_internal_id = hashlib.sha256(
+            "D05/01/2015T-4.50PCoffee Shop^".encode("utf-8")
+        ).hexdigest()
+        Transaction.objects.create(
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            date=date(2015, 1, 5),
+            amount=Decimal("4.50"),
+            internal_id=legacy_internal_id,
+        )
+        savings = Account.objects.create(
+            name="bradesco-savings",
+            group=self.group,
+            currency=self.currency,
+            owner=self.user,
+        )
+
+        into_checking = self._import_qif(IDENTICAL_TRANSACTIONS_CONTENT)
+        into_savings = self._import_qif(IDENTICAL_TRANSACTIONS_CONTENT, account=savings)
+
+        # The first coffee is the one imported before, the second one was
+        # skipped back then and is imported now
+        self.assertEqual(into_checking.successful_rows, 2)
+        self.assertEqual(into_checking.skipped_rows, 1)
+        self.assertEqual(Transaction.objects.filter(account=self.account).count(), 3)
+        # The previous hash doesn't say which account it was for, so it only
+        # counts as a duplicate in the account the transaction is in
+        self.assertEqual(into_savings.successful_rows, 3)
+        self.assertEqual(into_savings.skipped_rows, 0)
+        self.assertEqual(Transaction.objects.filter(account=savings).count(), 3)
+
+    def test_import_overlapping_exports_with_a_different_first_transaction(self):
+        # The first coffee opens the second export, right after the header
+        later_export = """!Type:Bank
+D05/01/2015
+T-4.50
+PCoffee Shop
+^
+D06/01/2015
+T-20.00
+PMarket
+^
+"""
+        self._import_qif(IDENTICAL_TRANSACTIONS_CONTENT)
+
+        run = self._import_qif(later_export)
+
+        self.assertEqual(run.successful_rows, 1)
+        self.assertEqual(run.skipped_rows, 1)
+        self.assertEqual(Transaction.objects.count(), 4)
+
+    def test_import_skips_previous_hash_of_a_first_transaction_repeated_later(self):
+        # The previous hash included the header in the first transaction, so a
+        # first transaction and an identical later one were both imported
+        content = """!Type:Bank
+D05/01/2015
+T-4.50
+PCoffee Shop
+^
+D05/01/2015
+T-4.50
+PCoffee Shop
+^
+"""
+        for raw_content in (
+            "!Type:BankD05/01/2015T-4.50PCoffee Shop^",
+            "D05/01/2015T-4.50PCoffee Shop^",
+        ):
+            Transaction.objects.create(
+                account=self.account,
+                type=Transaction.Type.EXPENSE,
+                date=date(2015, 1, 5),
+                amount=Decimal("4.50"),
+                internal_id=hashlib.sha256(raw_content.encode("utf-8")).hexdigest(),
+            )
+
+        run = self._import_qif(content)
+
+        self.assertEqual(run.successful_rows, 0)
+        self.assertEqual(run.skipped_rows, 2)
+        self.assertEqual(Transaction.objects.count(), 2)
+
+    def test_import_skips_account_blocks(self):
+        # Quicken-style export: an account list, then an account block before
+        # the transactions. T and D mean the account type and description there
+        content = """!Option:AutoSwitch
+!Account
+NChecking
+TBank
+DMain checking account
+^
+NSavings
+TBank
+^
+!Clear:AutoSwitch
+!Account
+NChecking
+TBank
+DMain checking account
+^
+!Type:Bank
+D04/01/2015
+T100.00
+PSalary
+^
+"""
+        run = self._import_qif(content)
+
+        self.assertEqual(run.status, ImportRun.Status.FINISHED)
+        self.assertEqual(run.successful_rows, 1)
+        self.assertEqual(run.failed_rows, 0)
+        transaction = Transaction.objects.get()
+        self.assertEqual(transaction.amount, Decimal("100.00"))
+        self.assertEqual(transaction.date, date(2015, 1, 4))
+
+    def test_import_skips_non_transaction_sections(self):
+        # Category and class lists, and memorized transactions (templates, not
+        # real transactions), around a section of real ones
+        content = """!Type:Cat
+NFood
+DGroceries and restaurants
+E
+^
+!Type:Class
+NPersonal
+DPersonal expenses
+^
+!Type:Bank
+D04/01/2015
+T100.00
+PSalary
+^
+!Type:Memorized
+KC
+T-50.00
+PRent
+^
+"""
+        run = self._import_qif(content)
+
+        self.assertEqual(run.status, ImportRun.Status.FINISHED)
+        self.assertEqual(run.successful_rows, 1)
+        self.assertEqual(run.failed_rows, 0)
+        self.assertEqual(Transaction.objects.get().amount, Decimal("100.00"))
+
+    @override_settings(ENABLE_SOFT_DELETE=True)
+    def test_import_skips_soft_deleted_transactions(self):
+        content = """!Type:Bank
+D04/01/2015
+T100.00
+POK
+^
+"""
+        self._import_qif(content)
+        Transaction.objects.get().delete()
+        self.assertTrue(Transaction.deleted_objects.exists())
+
+        run = self._import_qif(content)
+
+        self.assertEqual(run.status, ImportRun.Status.FINISHED)
+        self.assertEqual(run.successful_rows, 0)
+        self.assertEqual(run.skipped_rows, 1)
+        self.assertFalse(Transaction.objects.exists())
