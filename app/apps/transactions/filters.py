@@ -256,20 +256,38 @@ class TransactionsFilter(django_filters.FilterSet):
 
         Dates move by days and reference months by months, so a preset saved
         from today, or for the current month, keeps meaning that later on.
+        A date range of whole months, like the 1st to the 31st, moves by
+        months instead, so it stays whole months.
         """
-        elapsed = {
-            "days": (until - since).days,
-            "months": (until.year - since.year) * 12 + until.month - since.month,
+        months = (until.year - since.year) * 12 + until.month - since.month
+        shifts = {
+            "days": relativedelta(days=(until - since).days),
+            "months": relativedelta(months=months),
         }
 
-        for name, unit in self.relative_date_units.items():
+        dates = {}
+        for name in self.relative_date_units:
             try:
-                value = datetime.date.fromisoformat(self.form[name].data)
+                dates[name] = datetime.date.fromisoformat(self.form[name].data)
             except (TypeError, ValueError):
-                continue
+                pass
 
-            shifted = value + relativedelta(**{unit: elapsed[unit]})
-            self.data[name] = self.form.fields[name].widget.format_value(shifted)
+        start, end = dates.get("date_start"), dates.get("date_end")
+        whole_months = (
+            start
+            and end
+            and start.day == 1
+            and (end + datetime.timedelta(days=1)).day == 1
+        )
+
+        for name, value in dates.items():
+            shift = shifts[self.relative_date_units[name]]
+            if whole_months and name == "date_start":
+                shift = shifts["months"]
+            elif whole_months and name == "date_end":
+                # day=31 lands on the last day of the shifted month, whatever its length
+                shift = shifts["months"] + relativedelta(day=31)
+            self.data[name] = self.form.fields[name].widget.format_value(value + shift)
 
     @staticmethod
     def filter_category(queryset, name, value):

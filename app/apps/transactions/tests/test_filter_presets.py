@@ -166,6 +166,28 @@ class FilterPresetViewTests(TestCase):
         self.assertContains(response, 'data-value="2027-01-01"')
         self.assertContains(response, 'data-value="2027-02-01"')
 
+    def test_apply_keeps_a_whole_month_range_on_whole_months(self):
+        self.user.settings.date_format = "d/m/Y"
+        self.user.settings.save()
+        preset = FilterPreset.objects.create(
+            owner=self.user,
+            name="This month",
+            parameters={"date_start": ["01/01/2027"], "date_end": ["31/01/2027"]},
+            relative_to=datetime.date(2027, 1, 20),
+        )
+
+        with mock.patch(
+            "django.utils.timezone.localdate",
+            return_value=datetime.date(2027, 2, 3),
+        ):
+            response = self.client.get(
+                reverse("filter_preset_apply", args=[preset.pk]),
+                HTTP_HX_REQUEST="true",
+            )
+
+        self.assertContains(response, 'data-value="2027-02-01"')
+        self.assertContains(response, 'data-value="2027-02-28"')
+
     def test_apply_keeps_fixed_dates_unchanged(self):
         self.user.settings.date_format = "d/m/Y"
         self.user.settings.save()
