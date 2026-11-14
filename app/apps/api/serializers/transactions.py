@@ -24,6 +24,7 @@ from apps.transactions.models import (
     TransactionEntity,
     RecurringTransaction,
     SubTransaction,
+    QuickTransaction,
 )
 from apps.common.middleware.thread_local import get_current_user
 
@@ -310,3 +311,60 @@ class TransactionSerializer(SubTransactionsMixin, serializers.ModelSerializer):
     @staticmethod
     def get_exchanged_amount(obj) -> Decimal:
         return obj.exchanged_amount()
+
+
+class QuickTransactionSerializer(SubTransactionsMixin, serializers.ModelSerializer):
+    sub_transactions = SubTransactionSerializer(many=True, required=False)
+    category: str | int = TransactionCategoryField(required=False)
+    tags: str | int = TransactionTagField(required=False)
+    entities: str | int = TransactionEntityField(required=False)
+
+    class Meta:
+        model = QuickTransaction
+        fields = [
+            "id",
+            "name",
+            "account",
+            "type",
+            "is_paid",
+            "mute",
+            "amount",
+            "sub_transactions",
+            "to_account",
+            "to_amount",
+            "description",
+            "notes",
+            "category",
+            "tags",
+            "entities",
+            "internal_note",
+            "internal_id",
+        ]
+
+    def is_transfer(self, data):
+        type_ = data.get("type", getattr(self.instance, "type", None))
+        return type_ == QuickTransaction.Type.TRANSFER
+
+    def validate(self, attrs):
+        # Same rules as the model's, which DRF doesn't run
+        name = attrs.get("name", getattr(self.instance, "name", None))
+        same_name = QuickTransaction.objects.filter(name=name)
+        if self.instance:
+            same_name = same_name.exclude(pk=self.instance.pk)
+        if same_name.exists():
+            raise serializers.ValidationError(
+                {"name": _("A quick transaction with this name already exists.")}
+            )
+        if self.is_transfer(attrs):
+            account = attrs.get("account", getattr(self.instance, "account", None))
+            to_account = attrs.get("to_account", getattr(self.instance, "to_account", None))
+            if not to_account:
+                raise serializers.ValidationError(
+                    {"to_account": _("This field is required.")}
+                )
+            if to_account == account:
+                raise serializers.ValidationError(
+                    {"to_account": _("From and To accounts must be different.")}
+                )
+        return super().validate(attrs)
+

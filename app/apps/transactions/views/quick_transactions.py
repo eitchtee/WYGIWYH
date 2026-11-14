@@ -1,17 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db import transaction as db_transaction
-from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
 
 from apps.common.decorators.htmx import only_htmx
 from apps.transactions.forms import QuickTransactionForm
 from apps.transactions.models import QuickTransaction, transaction_created
-from apps.transactions.models import Transaction
 
 
 @login_required
@@ -126,37 +122,7 @@ def quick_transaction_add_as_transaction(request, quick_transaction_id):
     quick_transaction: QuickTransaction = get_object_or_404(
         QuickTransaction, id=quick_transaction_id
     )
-    today = timezone.localdate(timezone.now())
-
-    quick_transaction_data = model_to_dict(
-        quick_transaction,
-        exclude=[
-            "id",
-            "name",
-            "owner",
-            "account",
-            "category",
-            "tags",
-            "entities",
-            "internal_id",
-            "to_account",
-            "to_amount",
-        ],
-    )
-
-    new_transaction = Transaction(**quick_transaction_data)
-    new_transaction.type = quick_transaction.transaction_type
-    new_transaction.account = quick_transaction.account
-    new_transaction.category = quick_transaction.category
-
-    new_transaction.date = today
-    new_transaction.reference_date = today.replace(day=1)
-    with db_transaction.atomic():
-        new_transaction.save()
-        new_transaction.tags.set(quick_transaction.tags.all())
-        new_transaction.entities.set(quick_transaction.entities.all())
-        new_transaction.copy_sub_transactions_from(quick_transaction)
-        to_transaction = quick_transaction.complete_transfer(new_transaction)
+    new_transaction, to_transaction = quick_transaction.create_transaction()
 
     transaction_created.send(sender=new_transaction)
     if to_transaction:
