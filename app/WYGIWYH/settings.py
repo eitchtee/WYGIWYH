@@ -517,6 +517,11 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "A no-frills expense tracker",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    # Several models have a "type" field with different choices
+    "ENUM_NAME_OVERRIDES": {
+        "TransactionTypeEnum": "apps.transactions.models.Transaction.Type",
+        "TemplateTypeEnum": "apps.transactions.models.QuickTransaction.Type",
+    },
     # OTHER SETTINGS
 }
 
