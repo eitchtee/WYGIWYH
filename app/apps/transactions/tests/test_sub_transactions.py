@@ -221,3 +221,101 @@ class SubTransactionTests(TestCase):
         for transaction in plan.transactions.all():
             self.assertEqual(transaction.amount, Decimal("100"))
             self.assertEqual(len(self._parts(transaction)), 2)
+
+
+class SubTransactionApiTests(TestCase):
+    def setUp(self):
+        user = get_user_model().objects.create_user(
+            email="api@test.com", password="pw", is_superuser=True
+        )
+        self.api = APIClient()
+        self.api.force_authenticate(user=user)
+        currency = Currency.objects.create(code="EUR", name="EUR", decimal_places=2)
+        self.account = Account.objects.create(name="A", currency=currency, owner=user)
+
+    def test_create_read_and_update_sub_transactions(self):
+        response = self.api.post(
+            "/api/transactions/",
+            {"account_id": self.account.id, "type": "EX", "date": "2030-01-10", "description": "Shop",
+             "sub_transactions": [{"name": "A", "amount": "1.50"}, {"name": "B", "amount": "2"}]},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(Decimal(response.data["amount"]), Decimal("3.50"))
+        self.assertEqual([s["name"] for s in response.data["sub_transactions"]], ["A", "B"])
+        url = f"/api/transactions/{response.data['id']}/"
+
+        # The amount can't drift from the parts
+        response = self.api.patch(url, {"amount": "9"}, format="json")
+        self.assertEqual(response.status_code, 400)
+
+        response = self.api.patch(url, {"sub_transactions": [{"name": "C", "amount": "4"}]}, format="json")
+        self.assertEqual(response.status_code, 200, response.data)
+        self.assertEqual(Decimal(response.data["amount"]), Decimal("4"))
+        self.assertEqual(self.api.get(url).data["sub_transactions"][0]["name"], "C")
+
+    def test_amount_required_without_sub_transactions(self):
+        response = self.api.post(
+            "/api/transactions/",
+            {"account_id": self.account.id, "type": "EX", "date": "2030-01-10"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("amount", response.data)
+
+    def _parts(self, owner):
+        return [(s.name, s.amount) for s in owner.sub_transactions.all()]
+
+    def test_installment_plan_parts_reach_every_installment(self):
+        response = self.api.post(
+            "/api/installment-plans/",
+            {"account": self.account.id, "type": "EX", "description": "Laptop",
+             "number_of_installments": 3, "start_date": "2030-01-10", "recurrence": "monthly",
+             "sub_transactions": [{"name": "Principal", "amount": "90"}, {"name": "Interest", "amount": "10"}]},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(Decimal(response.data["installment_amount"]), Decimal("100"))
+        plan = InstallmentPlan.all_objects.get()
+        installments = plan.transactions.all()
+        self.assertEqual(len(installments), 3)
+        for transaction in installments:
+            self.assertEqual(transaction.amount, Decimal("100"))
+            self.assertEqual(len(self._parts(transaction)), 2)
+
+        url = f"/api/installment-plans/{plan.id}/"
+        self.assertEqual(self.api.patch(url, {"installment_amount": "5"}, format="json").status_code, 400)
+        response = self.api.patch(url, {"sub_transactions": [{"name": "Principal", "amount": "80"}]}, format="json")
+        self.assertEqual(response.status_code, 200, response.data)
+        for transaction in plan.transactions.all():
+            self.assertEqual(self._parts(transaction), [("Principal", Decimal("80"))])
+            self.assertEqual(transaction.amount, Decimal("80"))
+
+    def test_recurring_parts_follow_its_transactions_and_transfers_drop_them(self):
+        response = self.api.post(
+            "/api/recurring-transactions/",
+            {"account": self.account.id, "type": "EX", "description": "Internet",
+             "start_date": timezone.localdate().isoformat(), "recurrence_type": "month", "recurrence_interval": 1,
+             "sub_transactions": [{"name": "Plan", "amount": "50"}, {"name": "Router", "amount": "10"}]},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(Decimal(response.data["amount"]), Decimal("60"))
+        self.assertEqual([s["name"] for s in response.data["sub_transactions"]], ["Plan", "Router"])
+        recurring = RecurringTransaction.all_objects.get()
+        generated = Transaction.all_objects.filter(recurring_transaction=recurring)
+        self.assertTrue(generated)
+        for transaction in generated:
+            self.assertEqual(transaction.amount, Decimal("60"))
+            self.assertEqual(len(self._parts(transaction)), 2)
+
+        other = Account.objects.create(name="B", currency=self.account.currency, owner=self.account.owner)
+        url = f"/api/recurring-transactions/{recurring.id}/"
+        self.assertEqual(
+            self.api.patch(url, {"type": "TR", "to_account": other.id,
+                                 "sub_transactions": [{"name": "X", "amount": "1"}]}, format="json").status_code,
+            400,
+        )
+        response = self.api.patch(url, {"type": "TR", "to_account": other.id}, format="json")
+        self.assertEqual(response.status_code, 200, response.data)
+        self.assertEqual(response.data["sub_transactions"], [])
