@@ -380,3 +380,63 @@ class TransactionConvertViewTests(TestCase):
         self.assertEqual(
             self._get("transaction_convert_to_installment_plan").status_code, 404
         )
+
+
+@override_settings(
+    STORAGES={
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    },
+    WHITENOISE_AUTOREFRESH=True,
+)
+class InstallmentRecurringIsolationTests(TestCase):
+    """Per-object plan views must 404 for objects on another user's private account."""
+
+    def setUp(self):
+        User = get_user_model()
+        owner = User.objects.create_user(email="owner@test.com", password="pw")
+        User.objects.create_user(email="other@test.com", password="pw")
+        self.client.login(username="other@test.com", password="pw")
+
+        currency = Currency.objects.create(code="USD", name="US Dollar", decimal_places=2)
+        account = Account.all_objects.create(name="Private", currency=currency, owner=owner)
+        self.plan = InstallmentPlan.all_objects.create(
+            account=account,
+            type=Transaction.Type.EXPENSE,
+            description="Owner plan",
+            number_of_installments=3,
+            start_date=date(2025, 1, 1),
+            installment_amount=100,
+        )
+        self.recurring = RecurringTransaction.all_objects.create(
+            account=account,
+            type=Transaction.Type.EXPENSE,
+            amount=50,
+            description="Owner recurring",
+            start_date=date(2025, 1, 1),
+            recurrence_type=RecurringTransaction.RecurrenceType.MONTH,
+            recurrence_interval=1,
+        )
+
+    def test_other_user_gets_404(self):
+        cases = [
+            ("get", "installment_plan_transactions", "installment_plan_id", self.plan),
+            ("get", "installment_plan_edit", "installment_plan_id", self.plan),
+            ("get", "installment_plan_refresh", "installment_plan_id", self.plan),
+            ("delete", "installment_plan_delete", "installment_plan_id", self.plan),
+            ("get", "recurring_transaction_transactions", "recurring_transaction_id", self.recurring),
+            ("get", "recurring_transaction_edit", "recurring_transaction_id", self.recurring),
+            ("get", "recurring_transaction_toggle_pause", "recurring_transaction_id", self.recurring),
+            ("get", "recurring_transaction_finish", "recurring_transaction_id", self.recurring),
+            ("delete", "recurring_transaction_delete", "recurring_transaction_id", self.recurring),
+        ]
+        for method, name, kwarg, obj in cases:
+            with self.subTest(name=name):
+                url = reverse(name, kwargs={kwarg: obj.id})
+                response = getattr(self.client, method)(url, HTTP_HX_REQUEST="true")
+                self.assertEqual(response.status_code, 404)
+
+        self.assertTrue(InstallmentPlan.all_objects.filter(id=self.plan.id).exists())
+        self.recurring.refresh_from_db()
+        self.assertFalse(self.recurring.is_paused)
+        self.assertIsNone(self.recurring.end_date)
