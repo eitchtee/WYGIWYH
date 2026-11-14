@@ -1,3 +1,5 @@
+import datetime
+
 import django_filters
 from apps.accounts.models import Account
 from apps.common.fields.month_year import MonthYearFormField
@@ -14,6 +16,7 @@ from apps.transactions.models import (
 )
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
+from dateutil.relativedelta import relativedelta
 from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -61,6 +64,13 @@ class TransactionsFilter(django_filters.FilterSet):
         "type": {"IN", "EX"},
         "is_paid": {"1", "0"},
         "mute_status": {"active", "muted"},
+    }
+    # How each date filter moves when a preset keeps its dates relative to today
+    relative_date_units = {
+        "date_start": "days",
+        "date_end": "days",
+        "reference_date_start": "months",
+        "reference_date_end": "months",
     }
 
     description = django_filters.CharFilter(
@@ -331,6 +341,50 @@ class TransactionsFilter(django_filters.FilterSet):
                 continue
             return True
         return False
+
+    def shift_dates(self, since, until):
+        """
+        Move the date filters forward by the time elapsed between two dates.
+
+        Dates move by days and reference months by months, so a preset saved
+        from today, or for the current month, keeps meaning that later on.
+        A date range of whole months, like the 1st to the 31st, moves by
+        months instead, so it stays whole months.
+
+        Dates are read as ISO, or as typed in the user's format by presets saved
+        before they were stored as ISO, and written back in the user's format.
+        """
+        months = (until.year - since.year) * 12 + until.month - since.month
+        shifts = {
+            "days": relativedelta(days=(until - since).days),
+            "months": relativedelta(months=months),
+        }
+
+        dates = {}
+        for name in self.relative_date_units:
+            for value in (self.data.get(name), self.form[name].data):
+                try:
+                    dates[name] = datetime.date.fromisoformat(value)
+                    break
+                except (TypeError, ValueError):
+                    pass
+
+        start, end = dates.get("date_start"), dates.get("date_end")
+        whole_months = (
+            start
+            and end
+            and start.day == 1
+            and (end + datetime.timedelta(days=1)).day == 1
+        )
+
+        for name, value in dates.items():
+            shift = shifts[self.relative_date_units[name]]
+            if whole_months and name == "date_start":
+                shift = shifts["months"]
+            elif whole_months and name == "date_end":
+                # day=31 lands on the last day of the shifted month, whatever its length
+                shift = shifts["months"] + relativedelta(day=31)
+            self.data[name] = self.form.fields[name].widget.format_value(value + shift)
 
     @staticmethod
     def filter_category(queryset, name, value):

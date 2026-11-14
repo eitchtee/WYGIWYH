@@ -15,6 +15,10 @@
                 hx-target="#filter"
                 hx-swap="outerHTML">
           {{ preset.name }}
+          {% if preset.relative_to %}
+            <i class="fa-solid fa-clock-rotate-left fa-fw opacity-60"
+               title="{% translate 'Dates relative to today' %}"></i>
+          {% endif %}
         </button>
         <button class="btn btn-ghost btn-xs opacity-0 group-hover:opacity-100 focus:opacity-100"
                 type="button"
