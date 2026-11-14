@@ -1,6 +1,8 @@
 from copy import deepcopy
 
-from rest_framework import viewsets
+from rest_framework import status, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from apps.api.serializers import (
     TransactionSerializer,
@@ -9,6 +11,7 @@ from apps.api.serializers import (
     InstallmentPlanSerializer,
     TransactionEntitySerializer,
     RecurringTransactionSerializer,
+    QuickTransactionSerializer,
 )
 from apps.transactions.models import (
     Transaction,
@@ -17,6 +20,7 @@ from apps.transactions.models import (
     InstallmentPlan,
     TransactionEntity,
     RecurringTransaction,
+    QuickTransaction,
 )
 from apps.rules.signals import transaction_updated, transaction_created
 from apps.api.permissions import SHARED_OBJECT_PERMISSIONS
@@ -176,3 +180,36 @@ class RecurringTransactionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return RecurringTransaction.objects.prefetch_related("sub_transactions")
+
+
+class QuickTransactionViewSet(viewsets.ModelViewSet):
+    queryset = QuickTransaction.objects.all()
+    serializer_class = QuickTransactionSerializer
+    filterset_fields = {
+        "name": ["exact", "icontains"],
+        "account": ["exact"],
+        "type": ["exact"],
+        "amount": ["exact", "gte", "lte", "gt", "lt"],
+        "description": ["exact", "icontains"],
+        "category": ["exact", "isnull"],
+    }
+    search_fields = ["name", "description", "notes"]
+    ordering_fields = "__all__"
+    ordering = ["name"]
+
+    def get_queryset(self):
+        return QuickTransaction.objects.prefetch_related("sub_transactions")
+
+    @action(detail=True, methods=["post"], serializer_class=TransactionSerializer)
+    def use(self, request, pk=None):
+        """Creates today's transaction from this quick transaction, like its button
+        in the app. For a transfer, returns the "from" (expense) side."""
+        new_transaction, to_transaction = self.get_object().create_transaction()
+        transaction_created.send(sender=new_transaction)
+        if to_transaction:
+            transaction_created.send(sender=to_transaction)
+        return Response(
+            TransactionSerializer(new_transaction, context=self.get_serializer_context()).data,
+            status=status.HTTP_201_CREATED,
+        )
+

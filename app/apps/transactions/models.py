@@ -1484,5 +1484,30 @@ class QuickTransaction(TransferTemplate, OwnedObject):
         self.full_clean()
         super().save(*args, **kwargs)
 
+    def create_transaction(self):
+        """Creates today's transaction from this template, and the "to" side when
+        it's a transfer (None otherwise). Callers send the created signals."""
+        today = timezone.localdate(timezone.now())
+        new_transaction = Transaction(
+            account=self.account,
+            type=self.transaction_type,
+            is_paid=self.is_paid,
+            mute=self.mute,
+            amount=self.amount,
+            description=self.description,
+            notes=self.notes,
+            category=self.category,
+            internal_note=self.internal_note,
+            date=today,
+            reference_date=today.replace(day=1),
+        )
+        with transaction.atomic():
+            new_transaction.save()
+            new_transaction.tags.set(self.tags.all())
+            new_transaction.entities.set(self.entities.all())
+            new_transaction.copy_sub_transactions_from(self)
+            to_transaction = self.complete_transfer(new_transaction)
+        return new_transaction, to_transaction
+
     def __str__(self):
         return self.name

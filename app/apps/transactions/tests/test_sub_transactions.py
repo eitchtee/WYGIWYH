@@ -319,3 +319,48 @@ class SubTransactionApiTests(TestCase):
         response = self.api.patch(url, {"type": "TR", "to_account": other.id}, format="json")
         self.assertEqual(response.status_code, 200, response.data)
         self.assertEqual(response.data["sub_transactions"], [])
+
+    def test_quick_transaction_endpoint_creates_and_uses_templates(self):
+        response = self.api.post(
+            "/api/quick-transactions/",
+            {"name": "Lunch", "account": self.account.id, "type": "EX", "description": "Lunch",
+             "sub_transactions": [{"name": "Meal", "amount": "11.90"}, {"name": "Tip", "amount": "2"}]},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(Decimal(response.data["amount"]), Decimal("13.90"))
+
+        response = self.api.post(f"/api/quick-transactions/{response.data['id']}/use/")
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(Decimal(response.data["amount"]), Decimal("13.90"))
+        self.assertEqual([s["name"] for s in response.data["sub_transactions"]], ["Meal", "Tip"])
+        self.assertEqual(response.data["date"], timezone.localdate().isoformat())
+
+    def test_quick_transaction_endpoint_validates_like_the_app(self):
+        other = Account.objects.create(name="B", currency=self.account.currency, owner=self.account.owner)
+        base = {"account": self.account.id, "amount": "5"}
+        self.assertEqual(
+            self.api.post("/api/quick-transactions/", {**base, "name": "Coffee", "type": "EX"}, format="json").status_code,
+            201,
+        )
+        for data, field in (
+            ({"name": "Coffee", "type": "EX"}, "name"),
+            ({"name": "Move", "type": "TR"}, "to_account"),
+            ({"name": "Move", "type": "TR", "to_account": self.account.id}, "to_account"),
+            ({"name": "Move", "type": "TR", "to_account": other.id,
+              "sub_transactions": [{"name": "X", "amount": "1"}]}, "sub_transactions"),
+        ):
+            with self.subTest(data=data):
+                response = self.api.post("/api/quick-transactions/", {**base, **data}, format="json")
+                self.assertEqual(response.status_code, 400)
+                self.assertIn(field, response.data)
+
+        response = self.api.post(
+            "/api/quick-transactions/",
+            {**base, "name": "Move", "type": "TR", "to_account": other.id}, format="json",
+        )
+        self.assertEqual(response.status_code, 201, response.data)
+        response = self.api.post(f"/api/quick-transactions/{response.data['id']}/use/")
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertTrue(response.data["linked_transaction"])
+
