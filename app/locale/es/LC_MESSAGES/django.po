@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 05:38+0000\n"
+"POT-Creation-Date: 2026-11-14 06:23+0000\n"
 "PO-Revision-Date: 2026-07-10 04:57+0000\n"
 "Last-Translator: Juan David Afanador <juanafanador07@gmail.com>\n"
 "Language-Team: Spanish <https://translations.herculino.com/projects/wygiwyh/"
@@ -734,21 +734,25 @@ msgid "Visibility"
 msgstr "Visibilidad"
 
 #: apps/common/forms.py:43
+#, fuzzy
+#| msgid ""
+#| "Private: Only shown for the owner and shared users. Only editable by the "
+#| "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgid ""
-"Private: Only shown for the owner and shared users. Only editable by the "
-"owner.<br/>Public: Shown for all users. Only editable by the owner."
+"Private: Only shown for the owner and shared users.<br/>Public: Shown for "
+"all users.<br/>Only the owner can edit, share or delete it."
 msgstr ""
 "Privado: Solo visible para el propietario y los usuarios con los que se haya "
 "compartido. Solo el propietario puede editarlo.<br/>Público: Visible para "
 "todos los usuarios. Solo el propietario puede editarlo."
 
-#: apps/common/forms.py:76 apps/users/forms.py:191
+#: apps/common/forms.py:78 apps/users/forms.py:191
 #: templates/bank_sync/fragments/accounts.html:34
 #: templates/transactions/fragments/filter_actions.html:5
 msgid "Save"
 msgstr "Guardar"
 
-#: apps/common/forms.py:90
+#: apps/common/forms.py:92
 msgid "You cannot share this item with its owner."
 msgstr "No puede compartir este item con su propietario."
 
@@ -3016,6 +3020,12 @@ msgstr "Dejar de seguir"
 #: templates/accounts/fragments/list.html:93
 msgid "No accounts"
 msgstr "Sin cuentas"
+
+#: templates/accounts/fragments/share.html:8
+msgid ""
+"Everyone who can see this account can add, edit and delete its transactions, "
+"installment plans and recurring transactions."
+msgstr ""
 
 #: templates/bank_sync/fragments/accounts.html:31
 #, fuzzy

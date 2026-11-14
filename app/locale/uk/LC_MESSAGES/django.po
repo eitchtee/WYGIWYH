@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 05:38+0000\n"
+"POT-Creation-Date: 2026-11-14 06:23+0000\n"
 "PO-Revision-Date: 2025-11-01 01:17+0000\n"
 "Last-Translator: mlystopad <mlystopadt@gmail.com>\n"
 "Language-Team: Ukrainian <https://translations.herculino.com/projects/"
@@ -724,21 +724,25 @@ msgid "Visibility"
 msgstr "Видимість"
 
 #: apps/common/forms.py:43
+#, fuzzy
+#| msgid ""
+#| "Private: Only shown for the owner and shared users. Only editable by the "
+#| "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgid ""
-"Private: Only shown for the owner and shared users. Only editable by the "
-"owner.<br/>Public: Shown for all users. Only editable by the owner."
+"Private: Only shown for the owner and shared users.<br/>Public: Shown for "
+"all users.<br/>Only the owner can edit, share or delete it."
 msgstr ""
 "Private: Відображається лише для власника та користувачів із загальним "
 "доступом. Редагувати може лише власник.<br/> Public: Відображається для всіх "
 "користувачів. Редагувати може лише власник."
 
-#: apps/common/forms.py:76 apps/users/forms.py:191
+#: apps/common/forms.py:78 apps/users/forms.py:191
 #: templates/bank_sync/fragments/accounts.html:34
 #: templates/transactions/fragments/filter_actions.html:5
 msgid "Save"
 msgstr "Зберегти"
 
-#: apps/common/forms.py:90
+#: apps/common/forms.py:92
 msgid "You cannot share this item with its owner."
 msgstr "Ви не можете поділитися цією річчю з її власником."
 
@@ -3004,6 +3008,12 @@ msgstr ""
 
 #: templates/accounts/fragments/list.html:93
 msgid "No accounts"
+msgstr ""
+
+#: templates/accounts/fragments/share.html:8
+msgid ""
+"Everyone who can see this account can add, edit and delete its transactions, "
+"installment plans and recurring transactions."
 msgstr ""
 
 #: templates/bank_sync/fragments/accounts.html:31

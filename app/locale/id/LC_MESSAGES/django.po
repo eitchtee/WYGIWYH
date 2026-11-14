@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 05:38+0000\n"
+"POT-Creation-Date: 2026-11-14 06:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -682,17 +682,17 @@ msgstr ""
 
 #: apps/common/forms.py:43
 msgid ""
-"Private: Only shown for the owner and shared users. Only editable by the "
-"owner.<br/>Public: Shown for all users. Only editable by the owner."
+"Private: Only shown for the owner and shared users.<br/>Public: Shown for "
+"all users.<br/>Only the owner can edit, share or delete it."
 msgstr ""
 
-#: apps/common/forms.py:76 apps/users/forms.py:191
+#: apps/common/forms.py:78 apps/users/forms.py:191
 #: templates/bank_sync/fragments/accounts.html:34
 #: templates/transactions/fragments/filter_actions.html:5
 msgid "Save"
 msgstr ""
 
-#: apps/common/forms.py:90
+#: apps/common/forms.py:92
 msgid "You cannot share this item with its owner."
 msgstr ""
 
@@ -2871,6 +2871,12 @@ msgstr ""
 
 #: templates/accounts/fragments/list.html:93
 msgid "No accounts"
+msgstr ""
+
+#: templates/accounts/fragments/share.html:8
+msgid ""
+"Everyone who can see this account can add, edit and delete its transactions, "
+"installment plans and recurring transactions."
 msgstr ""
 
 #: templates/bank_sync/fragments/accounts.html:31
