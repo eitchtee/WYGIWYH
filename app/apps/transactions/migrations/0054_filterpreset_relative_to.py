@@ -3,7 +3,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("transactions", "0052_transfer_templates"),
+        ("transactions", "0053_sub_transaction"),
     ]
 
     operations = [
