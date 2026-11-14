@@ -55,6 +55,8 @@ class FilterPresetViewTests(TestCase):
         self.assertContains(response, "Account X Unpaid")
 
     def test_create_keeps_dates_relative_to_today_when_asked(self):
+        self.user.settings.date_format = "d/m/Y"
+        self.user.settings.save()
         today = datetime.date(2026, 8, 20)
 
         with mock.patch("django.utils.timezone.localdate", return_value=today):
@@ -70,7 +72,7 @@ class FilterPresetViewTests(TestCase):
 
         preset = FilterPreset.objects.get(owner=self.user, name="Today")
         self.assertEqual(preset.relative_to, today)
-        self.assertEqual(preset.parameters, {"date_start": ["20/08/2026"]})
+        self.assertEqual(preset.parameters, {"date_start": ["2026-08-20"]})
 
     def test_create_keeps_dates_fixed_by_default(self):
         self.client.post(
@@ -187,6 +189,26 @@ class FilterPresetViewTests(TestCase):
 
         self.assertContains(response, 'data-value="2027-02-01"')
         self.assertContains(response, 'data-value="2027-02-28"')
+
+    def test_apply_shows_stored_dates_in_the_users_current_format(self):
+        self.user.settings.date_format = "m/d/Y"
+        self.user.settings.save()
+        preset = FilterPreset.objects.create(
+            owner=self.user,
+            name="August",
+            parameters={
+                "date_start": ["2026-08-20"],
+                "reference_date_start": ["2026-08-01"],
+            },
+        )
+
+        response = self.client.get(
+            reverse("filter_preset_apply", args=[preset.pk]),
+            HTTP_HX_REQUEST="true",
+        )
+
+        self.assertContains(response, 'data-value="2026-08-20"')
+        self.assertContains(response, 'value="August 2026"')
 
     def test_apply_keeps_fixed_dates_unchanged(self):
         self.user.settings.date_format = "d/m/Y"

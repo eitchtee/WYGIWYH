@@ -713,6 +713,13 @@ def filter_preset_create(request):
         for key in TransactionsFilter.base_filters
         if key in request.POST
     }
+    # Dates are stored as ISO, so a later change of date format or language
+    # doesn't stop the preset from reading them
+    date_form = TransactionsFilter(request.POST).form
+    for key in TransactionsFilter.relative_date_units:
+        if date_form[key].data:
+            parameters[key] = [date_form[key].data]
+
     has_dates = any(
         any(parameters.get(key, [])) for key in TransactionsFilter.relative_date_units
     )
@@ -744,10 +751,9 @@ def filter_preset_apply(request, preset_id):
             data.setlist(key, values)
 
     transaction_filter = TransactionsFilter(data)
-    if preset.relative_to:
-        transaction_filter.shift_dates(
-            since=preset.relative_to, until=timezone.localdate(timezone.now())
-        )
+    # Fixed presets shift by nothing, which still puts ISO dates in the user's format
+    today = timezone.localdate(timezone.now())
+    transaction_filter.shift_dates(since=preset.relative_to or today, until=today)
 
     response = render(
         request,

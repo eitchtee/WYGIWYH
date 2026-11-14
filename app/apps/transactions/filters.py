@@ -258,6 +258,9 @@ class TransactionsFilter(django_filters.FilterSet):
         from today, or for the current month, keeps meaning that later on.
         A date range of whole months, like the 1st to the 31st, moves by
         months instead, so it stays whole months.
+
+        Dates are read as ISO, or as typed in the user's format by presets saved
+        before they were stored as ISO, and written back in the user's format.
         """
         months = (until.year - since.year) * 12 + until.month - since.month
         shifts = {
@@ -267,10 +270,12 @@ class TransactionsFilter(django_filters.FilterSet):
 
         dates = {}
         for name in self.relative_date_units:
-            try:
-                dates[name] = datetime.date.fromisoformat(self.form[name].data)
-            except (TypeError, ValueError):
-                pass
+            for value in (self.data.get(name), self.form[name].data):
+                try:
+                    dates[name] = datetime.date.fromisoformat(value)
+                    break
+                except (TypeError, ValueError):
+                    pass
 
         start, end = dates.get("date_start"), dates.get("date_end")
         whole_months = (
