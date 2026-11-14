@@ -1,0 +1,58 @@
+{% load i18n formats %}
+{% with formset=form.sub_transactions %}
+{# The amount is the sum of these rows, so it's hidden while there are any. #}
+{# Transfers don't take them; `type` comes from the form's _type_aware scope when it has one. #}
+<div class="fieldset"
+     x-data="{
+       count: 0,
+       total: '',
+       get transfer() { return this.type === 'TR' },
+       recalc() {
+         const rows = [...$refs.rows.querySelectorAll('.sub-row:not([hidden])')];
+         this.count = rows.length;
+         const sum = rows.reduce((acc, row) => {
+           const raw = row.querySelector('[name$=-amount]').value
+             .replaceAll('{% get_thousand_separator %}', '').replace('{% get_decimal_separator %}', '.');
+           return acc + (parseFloat(raw) || 0);
+         }, 0);
+         this.total = sum.toLocaleString('en-US', {maximumFractionDigits: 20}).replaceAll(',', ' ').replace('.', '{% get_decimal_separator %}').replaceAll(' ', '{% get_thousand_separator %}');
+         document.getElementById('div_id_{{ form.sub_amount_field }}').hidden = this.count > 0 && !this.transfer;
+       },
+       add() {
+         const total = $refs.rows.parentElement.querySelector('[name=sub-TOTAL_FORMS]');
+         $refs.rows.insertAdjacentHTML('beforeend', $refs.tpl.innerHTML.replaceAll('__prefix__', total.value));
+         total.value = +total.value + 1;
+         this.$nextTick(() => { this.recalc(); $refs.rows.lastElementChild.querySelector('input').focus(); });
+       },
+       remove(row) {
+         row.querySelector('[name$=-DELETE]').checked = true;
+         row.hidden = true;
+         this.recalc();
+       },
+     }"
+     x-show="!transfer"
+     x-effect="transfer; recalc()"
+     @input="recalc()">
+  {{ formset.management_form }}
+  {% for error in formset.non_form_errors %}<div class="text-error text-sm mb-2">{{ error }}</div>{% endfor %}
+
+  <span class="fieldset-legend" x-show="count > 0" x-cloak>{% translate 'Sub-transactions' %}</span>
+
+  <div x-ref="rows" class="flex flex-col gap-2">
+    {% for sub in formset %}
+      {% include "transactions/widgets/sub_transaction_row.html" with sub=sub %}
+    {% endfor %}
+  </div>
+
+  <template x-ref="tpl">
+    {% include "transactions/widgets/sub_transaction_row.html" with sub=formset.empty_form %}
+  </template>
+
+  <div class="flex items-center justify-between gap-2">
+    <button type="button" class="btn btn-ghost btn-sm" @click="add()">
+      <i class="fa-solid fa-plus fa-fw"></i>{% translate 'Add sub-transaction' %}
+    </button>
+    <span class="text-sm tabular-nums" x-show="count > 0" x-cloak>{% translate 'Total' %}: <span class="font-semibold" x-text="total"></span></span>
+  </div>
+</div>
+{% endwith %}

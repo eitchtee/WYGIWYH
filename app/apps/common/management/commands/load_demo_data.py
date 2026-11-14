@@ -118,6 +118,12 @@ class Command(BaseCommand):
         out.save()
         return out, inc
 
+    def split(self, owner, *parts):
+        """Breaks `owner` into named parts; call before it generates transactions."""
+        for name, amount in parts:
+            owner.sub_transactions.create(name=name, amount=Decimal(amount))
+        return owner
+
     def rate(self, series, months):
         return series[months + HISTORY_MONTHS]
 
@@ -278,6 +284,7 @@ class Command(BaseCommand):
             notes="12 interest-free installments on the credit card.",
         )
         laptop.entities.set([self.ents["BuyMore"]])
+        self.split(laptop, ("Laptop", "99.90"), ("Extended warranty", "8.35"))
         laptop.create_transactions()
         dental = InstallmentPlan.objects.create(
             account=checking, type=EX, description="Dental treatment",
@@ -289,7 +296,8 @@ class Command(BaseCommand):
 
         # Recurring transactions
         def recurring(account, amount, description, category, start, entity=None,
-                      recurrence=RecurringTransaction.RecurrenceType.MONTH, paused=False):
+                      recurrence=RecurringTransaction.RecurrenceType.MONTH, paused=False,
+                      parts=()):
             r = RecurringTransaction.objects.create(
                 account=account, type=EX, amount=amount, description=description,
                 category=self.cats[category], start_date=start, recurrence_type=recurrence,
@@ -297,6 +305,7 @@ class Command(BaseCommand):
             )
             if entity:
                 r.entities.set([self.ents[entity]])
+            self.split(r, *parts)
             if not paused:
                 r.create_upcoming_transactions()
             return r
@@ -304,7 +313,8 @@ class Command(BaseCommand):
         recurring(card, Decimal("15.99"), "StreamFlix", "Subscriptions",
                   self.day(-HISTORY_MONTHS, 3), "StreamFlix")
         recurring(checking, Decimal("59.99"), "Internet", "Utilities",
-                  self.day(-HISTORY_MONTHS, 15), "FiberNet")
+                  self.day(-HISTORY_MONTHS, 15), "FiberNet",
+                  parts=[("Internet plan", "49.99"), ("Router rental", "10.00")])
         recurring(checking, Decimal("39.90"), "Gym membership", "Health",
                   self.day(-HISTORY_MONTHS, 2), "Iron Gym")
         recurring(card, Decimal("14.99"), "Domain renewal", "Subscriptions",
@@ -458,8 +468,9 @@ class Command(BaseCommand):
         self.transfer(stock_acc, checking, Decimal("3"), self.day(-2, 21), "Sell AAPL",
                       to_amount=q(3 * self.rate(aapl_usd, -2)), mute=False,
                       category="Investments")
-        self.tx(retirement, EX, Decimal("45.00"), self.day(-6, 30), "Annual management fee",
-                "Fees")
+        fee = self.tx(retirement, EX, Decimal("45.00"), self.day(-6, 30),
+                      "Annual management fee", "Fees")
+        self.split(fee, ("Management fee", "40.00"), ("Custody fee", "5.00"))
         for m, spent in ((-9, 1500), (-3, 800)):
             self.transfer(checking, gold_acc, Decimal(spent), self.day(m, 12), "Buy gold",
                           to_amount=q(Decimal(spent) / self.rate(gold_usd, m)), mute=False,
@@ -489,6 +500,11 @@ class Command(BaseCommand):
                 notes="Very old transactions are no problem.")
         self.transfer(old_bank, checking, Decimal("1200.00"), self.day(-HISTORY_MONTHS, 3),
                       "Closing old bank account", category="Transfers")
+        # One receipt, split into what was bought
+        shop = self.tx(card, EX, Decimal("87.35"), self.day(-1, 24), "Big grocery shop",
+                       "Groceries", ["essentials", "home"], ["Fresh Market"])
+        self.split(shop, ("Produce", "24.80"), ("Meat & fish", "38.15"),
+                   ("Household supplies", "16.40"), ("Snacks", "8.00"))
         # Balance reconciliation: the wallet had less cash than recorded
         self.tx(cash, EX, Decimal("12.40"), self.day(-2, 28), "Balance reconciliation")
 
@@ -511,6 +527,7 @@ class Command(BaseCommand):
             description="Lunch", category=self.cats["Dining"],
         )
         lunch.tags.set([self.tags["work"]])
+        self.split(lunch, ("Meal", "11.90"), ("Tip", "2.00"))
 
         # Rules run on transactions you create or edit
         ride = TransactionRule.objects.create(

@@ -10,7 +10,12 @@ from apps.accounts.models import Account
 from apps.common.middleware.thread_local import delete_current_user, write_current_user
 from apps.dca.models import DCAStrategy
 from apps.investments.services import get_holding_performance
-from apps.transactions.models import Transaction
+from apps.transactions.models import (
+    InstallmentPlan,
+    QuickTransaction,
+    RecurringTransaction,
+    Transaction,
+)
 
 
 @override_settings(
@@ -72,6 +77,21 @@ class LoadDemoDataTests(TestCase):
         self.assertGreater(apple.income, 0)  # dividends paid into checking
         self.assertNotEqual(apple.realized, 0)  # partial sale
         self.assertTrue(perfs["Retirement Fund"].results)  # gains and losses
+
+    def test_sub_transactions_add_up(self):
+        self.load(date(2031, 7, 14))
+        owners = [
+            *Transaction.all_objects.filter(sub_transactions__isnull=False).distinct(),
+            *RecurringTransaction.all_objects.filter(sub_transactions__isnull=False).distinct(),
+            *QuickTransaction.objects.filter(sub_transactions__isnull=False).distinct(),
+        ]
+        plans = InstallmentPlan.all_objects.filter(sub_transactions__isnull=False).distinct()
+        self.assertTrue(plans)
+        self.assertGreater(len(owners), len(plans))
+        for owner in [*owners, *plans]:
+            with self.subTest(owner=str(owner)):
+                amount = getattr(owner, "installment_amount", None) or owner.amount
+                self.assertEqual(sum(s.amount for s in owner.sub_transactions.all()), amount)
 
     def test_running_twice_is_a_no_op(self):
         self.load(date(2031, 7, 14))

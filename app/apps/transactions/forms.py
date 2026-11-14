@@ -17,6 +17,7 @@ from apps.transactions.models import (
     TransactionAttachment,
     QuickTransaction,
     RecurringTransaction,
+    SubTransaction,
     Transaction,
     TransactionCategory,
     TransactionEntity,
@@ -54,7 +55,89 @@ class MultipleFileField(forms.FileField):
         return []
 
 
-class TransactionForm(forms.ModelForm):
+class SubTransactionForm(forms.ModelForm):
+    class Meta:
+        model = SubTransaction
+        fields = ["name", "amount"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={"class": "input join-item flex-1", "placeholder": _("Name")}
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Built per request so the mask uses the user's number format
+        self.fields["amount"].widget = ArbitraryDecimalDisplayNumberInput(
+            attrs={
+                "class": "input join-item w-2/5",
+                "inputmode": "decimal",
+                "placeholder": _("Amount"),
+            }
+        )
+
+
+class SubTransactionsFormMixin:
+    """Adds sub-transactions to a transaction or template form; while there are any,
+    the amount field is their sum. Transfers don't take them.
+
+    Rendered by transactions/widgets/sub_transactions.html, placed after the amount.
+    """
+
+    sub_amount_field = "amount"
+
+    def __init__(self, *args, sub_transactions_initial=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        data = self.data if self.is_bound else None
+        if data is not None and "sub-TOTAL_FORMS" not in data:
+            # Posts without the formset (e.g. shortcuts to /add/) leave sub-transactions alone
+            data = {"sub-TOTAL_FORMS": "0", "sub-INITIAL_FORMS": "0"}
+        initial = sub_transactions_initial or []
+        self.sub_transactions = forms.inlineformset_factory(
+            type(self.instance),
+            SubTransaction,
+            form=SubTransactionForm,
+            extra=len(initial),
+            can_delete=True,
+        )(data, instance=self.instance, prefix="sub", initial=initial)
+        # With sub-transactions the amount is their sum, see clean()
+        self.fields[self.sub_amount_field].required = False
+
+    def _takes_sub_transactions(self):
+        return self.cleaned_data.get("type") != "TR"
+
+    def clean(self):
+        cleaned_data = super().clean()
+        field = self.sub_amount_field
+        if self._takes_sub_transactions() and self.sub_transactions.is_valid():
+            amounts = [
+                f.cleaned_data["amount"]
+                for f in self.sub_transactions.forms
+                if f.cleaned_data and not f.cleaned_data.get("DELETE")
+            ]
+            if amounts:
+                cleaned_data[field] = sum(amounts)
+        if cleaned_data.get(field) is None and field not in self.errors:
+            self.add_error(field, self.fields[field].error_messages["required"])
+        return cleaned_data
+
+    def is_valid(self):
+        return super().is_valid() and (
+            not self._takes_sub_transactions() or self.sub_transactions.is_valid()
+        )
+
+    def save(self, *args, **kwargs):
+        with db_transaction.atomic():
+            instance = super().save(*args, **kwargs)
+            if self._takes_sub_transactions():
+                self.sub_transactions.instance = instance
+                self.sub_transactions.save()
+            else:
+                instance.sub_transactions.all().delete()
+        return instance
+
+
+class TransactionForm(SubTransactionsFormMixin, forms.ModelForm):
     category = DynamicModelChoiceField(
         create_field="name",
         model=TransactionCategory,
@@ -164,6 +247,7 @@ class TransactionForm(forms.ModelForm):
             ),
             "description",
             Field("amount", inputmode="decimal"),
+            HTML('{% include "transactions/widgets/sub_transactions.html" %}'),
             Row(
                 Column("category"),
                 Column("tags"),
@@ -187,6 +271,7 @@ class TransactionForm(forms.ModelForm):
             ),
             "description",
             Field("amount", inputmode="decimal"),
+            HTML('{% include "transactions/widgets/sub_transactions.html" %}'),
             Accordion(
                 AccordionGroup(
                     _("More"),
@@ -322,7 +407,7 @@ def _type_aware(form, *layout):
     )
 
 
-class QuickTransactionForm(forms.ModelForm):
+class QuickTransactionForm(SubTransactionsFormMixin, forms.ModelForm):
     category = DynamicModelChoiceField(
         create_field="name",
         model=TransactionCategory,
@@ -432,6 +517,7 @@ class QuickTransactionForm(forms.ModelForm):
                 ),
                 "description",
                 Field("amount", inputmode="decimal"),
+                HTML('{% include "transactions/widgets/sub_transactions.html" %}'),
                 _transfer_fields(self),
                 Row(
                     Column("category"),
@@ -833,7 +919,9 @@ class TransferForm(forms.Form):
         return from_transaction, to_transaction
 
 
-class InstallmentPlanForm(forms.ModelForm):
+class InstallmentPlanForm(SubTransactionsFormMixin, forms.ModelForm):
+    sub_amount_field = "installment_amount"
+
     account = forms.ModelChoiceField(
         queryset=Account.objects.filter(is_archived=False),
         label=_("Account"),
@@ -956,6 +1044,7 @@ class InstallmentPlanForm(forms.ModelForm):
                 Column("recurrence", css_class="col-span-12 md:col-span-4"),
             ),
             "installment_amount",
+            HTML('{% include "transactions/widgets/sub_transactions.html" %}'),
             Row(
                 Column("category"),
                 Column("tags"),
@@ -989,6 +1078,7 @@ class InstallmentPlanForm(forms.ModelForm):
             # Take the amount set on the form, even if already paid
             source_transaction.amount = instance.installment_amount
             source_transaction.save()
+            source_transaction.copy_sub_transactions_from(instance)
             instance.update_transactions()
         elif is_new:
             instance.create_transactions()
@@ -1085,7 +1175,7 @@ class TransactionCategoryForm(forms.ModelForm):
             )
 
 
-class RecurringTransactionForm(forms.ModelForm):
+class RecurringTransactionForm(SubTransactionsFormMixin, forms.ModelForm):
     account = forms.ModelChoiceField(
         queryset=Account.objects.filter(is_archived=False),
         label=_("Account"),
@@ -1209,6 +1299,7 @@ class RecurringTransactionForm(forms.ModelForm):
                 "description",
                 Switch("add_description_to_transaction"),
                 "amount",
+                HTML('{% include "transactions/widgets/sub_transactions.html" %}'),
                 _transfer_fields(self),
                 Row(
                     Column("category"),

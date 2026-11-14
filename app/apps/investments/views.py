@@ -215,6 +215,7 @@ def investment_detail(request, account_id):
             "account__currency__exchange_currency",
             "account__exchange_currency",
         )
+        .prefetch_related("sub_transactions")
         .order_by("-date", "-id")[:50]
     )
     income = []

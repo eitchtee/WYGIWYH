@@ -52,7 +52,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
     ordering = ["-id"]
 
     def get_queryset(self):
-        return Transaction.objects.all()
+        return Transaction.objects.prefetch_related("sub_transactions")
 
     def perform_create(self, serializer):
         instance = serializer.save()
@@ -145,7 +145,7 @@ class InstallmentPlanViewSet(viewsets.ModelViewSet):
     ordering = ["-id"]
 
     def get_queryset(self):
-        return InstallmentPlan.objects.all()
+        return InstallmentPlan.objects.prefetch_related("sub_transactions")
 
 
 class RecurringTransactionViewSet(viewsets.ModelViewSet):
@@ -175,4 +175,4 @@ class RecurringTransactionViewSet(viewsets.ModelViewSet):
     ordering = ["-id"]
 
     def get_queryset(self):
-        return RecurringTransaction.objects.all()
+        return RecurringTransaction.objects.prefetch_related("sub_transactions")

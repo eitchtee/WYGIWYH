@@ -93,6 +93,7 @@ def transactions_list(request, month: int, year: int):
         "installment_plan",
         "entities",
         "dca_expense_entries",
+        "sub_transactions",
         "dca_income_entries",
         "linked_transaction__account__currency",
         "linked_transaction__account__group",
