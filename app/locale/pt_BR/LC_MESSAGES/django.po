@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 14:41+0000\n"
+"POT-Creation-Date: 2026-11-15 19:45+0000\n"
 "PO-Revision-Date: 2026-11-08 19:40+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
@@ -77,7 +77,7 @@ msgstr "Novo saldo"
 #: apps/transactions/forms.py:700 apps/transactions/forms.py:942
 #: apps/transactions/forms.py:1196 apps/transactions/models.py:363
 #: apps/transactions/models.py:864 apps/transactions/models.py:1123
-#: apps/transactions/models.py:1492
+#: apps/transactions/models.py:1526
 #: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
 msgid "Category"
@@ -93,7 +93,7 @@ msgstr "Categoria"
 #: apps/transactions/forms.py:717 apps/transactions/forms.py:935
 #: apps/transactions/forms.py:1189 apps/transactions/models.py:369
 #: apps/transactions/models.py:866 apps/transactions/models.py:1127
-#: apps/transactions/models.py:1498 templates/includes/sidebar.html:162
+#: apps/transactions/models.py:1532 templates/includes/sidebar.html:162
 #: templates/insights/fragments/month_by_month.html:29
 #: templates/insights/fragments/month_by_month.html:32
 #: templates/insights/fragments/year_by_year.html:24
@@ -138,7 +138,7 @@ msgstr "Mês de referência"
 #: apps/import_app/models.py:20 apps/rules/models.py:13
 #: apps/transactions/forms.py:64 apps/transactions/models.py:255
 #: apps/transactions/models.py:280 apps/transactions/models.py:304
-#: apps/transactions/models.py:729 apps/transactions/models.py:1460
+#: apps/transactions/models.py:729 apps/transactions/models.py:1494
 #: apps/users/models.py:577 templates/account_groups/fragments/list.html:22
 #: templates/accounts/fragments/list.html:22
 #: templates/bank_sync/fragments/list.html:20
@@ -325,7 +325,7 @@ msgstr ""
 #: apps/transactions/forms.py:435 apps/transactions/forms.py:563
 #: apps/transactions/forms.py:927 apps/transactions/forms.py:1181
 #: apps/transactions/models.py:335 apps/transactions/models.py:824
-#: apps/transactions/models.py:1105 apps/transactions/models.py:1466
+#: apps/transactions/models.py:1105 apps/transactions/models.py:1500
 #: templates/import_app/fragments/runs/list.html:95
 #: templates/installment_plans/fragments/table.html:17
 #: templates/quick_transactions/fragments/list.html:14
@@ -439,30 +439,34 @@ msgstr "Entidade com esse ID não existe."
 msgid "Invalid entity data. Provide an ID or name."
 msgstr "Dados da entidade inválidos. Forneça um ID ou nome."
 
+#: apps/api/serializers/currencies.py:45
+msgid "The rate must be greater than zero."
+msgstr ""
+
 #: apps/api/serializers/imports.py:61
 #, fuzzy
 #| msgid "Run your transaction rules on synced transactions."
 msgid "Only transaction imports can use an account."
 msgstr "Executar suas regras de transação nas transações sincronizadas."
 
-#: apps/api/serializers/transactions.py:58
+#: apps/api/serializers/transactions.py:56
 #, fuzzy
 #| msgid "Create transaction"
 msgid "Transfers can't have sub-transactions."
 msgstr "Criar transação"
 
-#: apps/api/serializers/transactions.py:68
+#: apps/api/serializers/transactions.py:66
 msgid ""
 "The amount is the sum of the sub-transactions; send sub_transactions instead."
 msgstr ""
 
-#: apps/api/serializers/transactions.py:74
-#: apps/api/serializers/transactions.py:218 apps/dca/forms.py:298
+#: apps/api/serializers/transactions.py:72
+#: apps/api/serializers/transactions.py:222 apps/dca/forms.py:298
 #: apps/transactions/models.py:1077
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
-#: apps/api/serializers/transactions.py:286
+#: apps/api/serializers/transactions.py:290
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "É necessário fornecer “date” ou “reference_date”."
 
@@ -1116,7 +1120,7 @@ msgstr "Conta de destino"
 #: apps/transactions/forms.py:950 apps/transactions/forms.py:1204
 #: apps/transactions/models.py:318 apps/transactions/models.py:374
 #: apps/transactions/models.py:869 apps/transactions/models.py:1130
-#: apps/transactions/models.py:1503 templates/entities/fragments/list.html:9
+#: apps/transactions/models.py:1537 templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:168
 #: templates/insights/fragments/month_by_month.html:40
 #: templates/insights/fragments/month_by_month.html:43
@@ -1174,7 +1178,7 @@ msgstr "Moeda de pagamento"
 #: apps/rules/forms.py:197 apps/rules/models.py:44 apps/rules/models.py:296
 #: apps/transactions/forms.py:590 apps/transactions/forms.py:754
 #: apps/transactions/models.py:359 apps/transactions/models.py:873
-#: apps/transactions/models.py:1133 apps/transactions/models.py:1488
+#: apps/transactions/models.py:1133 apps/transactions/models.py:1522
 msgid "Notes"
 msgstr "Notas"
 
@@ -1271,7 +1275,7 @@ msgid "Installment Plans"
 msgstr "Parcelamentos"
 
 #: apps/export_app/forms.py:67 apps/export_app/forms.py:157
-#: apps/transactions/models.py:1521 templates/includes/sidebar.html:98
+#: apps/transactions/models.py:1555 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
@@ -1612,7 +1616,7 @@ msgstr "Operador"
 #: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:36
 #: apps/rules/models.py:272 apps/transactions/forms.py:554
 #: apps/transactions/models.py:342 apps/transactions/models.py:829
-#: apps/transactions/models.py:1111 apps/transactions/models.py:1473
+#: apps/transactions/models.py:1111 apps/transactions/models.py:1507
 #: templates/mini_tools/simulator.html:63
 msgid "Type"
 msgstr "Tipo"
@@ -1620,7 +1624,7 @@ msgstr "Tipo"
 #: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:37
 #: apps/rules/models.py:276 apps/transactions/filters.py:26
 #: apps/transactions/forms.py:558 apps/transactions/forms.py:736
-#: apps/transactions/models.py:344 apps/transactions/models.py:1475
+#: apps/transactions/models.py:344 apps/transactions/models.py:1509
 #: templates/cotton/transaction/item.html:25
 #: templates/cotton/transaction/item.html:36
 #: templates/transactions/widgets/paid_toggle_button.html:10
@@ -1640,7 +1644,7 @@ msgstr "Data de Referência"
 #: apps/rules/models.py:288 apps/transactions/forms.py:75
 #: apps/transactions/forms.py:581 apps/transactions/models.py:352
 #: apps/transactions/models.py:733 apps/transactions/models.py:1116
-#: apps/transactions/models.py:1481
+#: apps/transactions/models.py:1515
 #: templates/insights/fragments/sankey.html:102
 #: templates/installment_plans/fragments/table.html:18
 #: templates/mini_tools/simulator.html:70
@@ -1653,26 +1657,26 @@ msgstr "Quantia"
 #: apps/rules/models.py:43 apps/rules/models.py:292
 #: apps/transactions/forms.py:585 apps/transactions/forms.py:745
 #: apps/transactions/models.py:357 apps/transactions/models.py:831
-#: apps/transactions/models.py:1119 apps/transactions/models.py:1486
+#: apps/transactions/models.py:1119 apps/transactions/models.py:1520
 msgid "Description"
 msgstr "Descrição"
 
 #: apps/rules/forms.py:182 apps/rules/forms.py:199 apps/rules/models.py:48
 #: apps/rules/models.py:300 apps/transactions/models.py:404
-#: apps/transactions/models.py:1508
+#: apps/transactions/models.py:1542
 msgid "Internal Note"
 msgstr "Nota Interna"
 
 #: apps/rules/forms.py:183 apps/rules/forms.py:200 apps/rules/models.py:49
 #: apps/rules/models.py:304 apps/transactions/models.py:406
-#: apps/transactions/models.py:1510
+#: apps/transactions/models.py:1544
 msgid "Internal ID"
 msgstr "ID Interna"
 
 #: apps/rules/forms.py:186 apps/rules/forms.py:201 apps/rules/models.py:40
 #: apps/rules/models.py:324 apps/transactions/forms.py:758
 #: apps/transactions/models.py:256 apps/transactions/models.py:347
-#: apps/transactions/models.py:1476
+#: apps/transactions/models.py:1510
 msgid "Mute"
 msgstr "Silenciada"
 
@@ -1937,7 +1941,7 @@ msgid "To Amount"
 msgstr "Quantia de destino"
 
 #: apps/transactions/forms.py:827 apps/transactions/models.py:1094
-#: apps/transactions/models.py:1453 templates/cotton/transaction/item.html:54
+#: apps/transactions/models.py:1487 templates/cotton/transaction/item.html:54
 #: templates/cotton/transaction/item.html:62
 #: templates/cotton/transaction/item.html:272
 #: templates/cotton/transaction/item.html:304
@@ -2005,7 +2009,7 @@ msgstr ""
 "transações"
 
 #: apps/transactions/models.py:329 apps/transactions/models.py:1093
-#: apps/transactions/models.py:1452
+#: apps/transactions/models.py:1486
 #: templates/calendar_view/fragments/list.html:42
 #: templates/calendar_view/fragments/list.html:44
 #: templates/calendar_view/fragments/list.html:52
@@ -2024,7 +2028,7 @@ msgid "Income"
 msgstr "Renda"
 
 #: apps/transactions/models.py:330 apps/transactions/models.py:1095
-#: apps/transactions/models.py:1454
+#: apps/transactions/models.py:1488
 #: templates/calendar_view/fragments/list.html:46
 #: templates/calendar_view/fragments/list.html:48
 #: templates/calendar_view/fragments/list.html:56
@@ -2217,7 +2221,7 @@ msgstr "Última data gerada"
 msgid "Last Generated Reference Date"
 msgstr "Última data de referência gerada"
 
-#: apps/transactions/models.py:1520 templates/cotton/transaction/item.html:245
+#: apps/transactions/models.py:1554 templates/cotton/transaction/item.html:245
 #: templates/cotton/ui/transactions_fab.html:59
 msgid "Quick Transaction"
 msgstr "Transação Rápida"
