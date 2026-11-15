@@ -1,6 +1,7 @@
 from datetime import date
 from decimal import Decimal
 
+from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -383,9 +384,49 @@ class TransferTemplateTests(TransferTestBase):
         paid_from.refresh_from_db()
         self.assertEqual(paid_from.linked_transaction, paid_to)
 
+    @override_settings(ENABLE_SOFT_DELETE=False)  # .env may turn it on
     def test_recurring_update_out_of_transfer_removes_to_sides(self):
         self._assert_update_out_of_transfer_removes_to_sides()
         self.assertFalse(Transaction.deleted_objects.exists())
+
+    def _shorten(self, recurring, months):
+        """Ends ``recurring`` after its first ``months`` + 1 occurrences."""
+        recurring.end_date = recurring.start_date + relativedelta(months=months)
+        recurring.save()
+        recurring.update_unpaid_transactions()
+        recurring.refresh_from_db()
+
+    def test_shorter_end_date_removes_later_unpaid_occurrences(self):
+        recurring = self._recurring(type=RecurringTransaction.Type.EXPENSE, keep_at_most=4)
+        recurring.create_upcoming_transactions()
+        last = recurring.transactions.latest("date")
+        last.is_paid = True  # already happened: stays
+        last.save()
+        self.assertEqual(recurring.transactions.count(), 5)
+
+        self._shorten(recurring, 1)
+
+        end = recurring.end_date
+        self.assertEqual(
+            list(recurring.transactions.order_by("date").values_list("date", "is_paid")),
+            [(recurring.start_date, False), (end, False), (last.date, True)],
+        )
+        self.assertEqual(recurring.last_generated_date, last.date)
+
+        last.delete()
+        self._shorten(recurring, 1)
+        self.assertEqual(recurring.last_generated_date, end)
+        self.assertEqual(recurring.last_generated_reference_date, end.replace(day=1))
+
+    def test_shorter_end_date_removes_both_sides_of_later_transfers(self):
+        recurring = self._recurring(keep_at_most=3)
+        recurring.create_upcoming_transactions()
+        self.assertEqual(recurring.transactions.count(), 8)
+
+        self._shorten(recurring, 1)
+
+        self.assertEqual(recurring.transactions.count(), 4)
+        self.assertFalse(recurring.transactions.filter(date__gt=recurring.end_date).exists())
 
     @override_settings(ENABLE_SOFT_DELETE=True)
     def test_recurring_update_out_of_transfer_soft_deletes_to_sides(self):

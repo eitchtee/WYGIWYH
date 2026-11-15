@@ -1366,8 +1366,11 @@ class RecurringTransaction(TransferTemplate):
         and take the account, type, amount, description, category, notes, tags and
         entities of the recurrence; a transfer's "to" side takes the "to" account and
         amount. Turning the recurrence into a transfer adds the missing "to" sides,
-        and turning it into an income or expense removes them.
+        and turning it into an income or expense removes them. Unpaid ones after a
+        new end date are removed.
         """
+        self._remove_occurrences_after_end()
+
         unpaid_transactions = list(
             self.transactions.filter(is_paid=False).select_related(
                 "linked_transaction"
@@ -1429,6 +1432,37 @@ class RecurringTransaction(TransferTemplate):
             )
             if not existing_transaction.linked_transaction_id:
                 self.complete_transfer(existing_transaction)
+
+    def _remove_occurrences_after_end(self):
+        """Removes unpaid occurrences an earlier end date no longer reaches, and
+        moves the generation bookmark back so a later extension fills the gap."""
+        if not self.end_date:
+            return
+
+        removed = set()
+        stale = self.transactions.filter(
+            is_paid=False, date__gt=self.end_date
+        ).select_related("linked_transaction")
+        for existing_transaction in stale:
+            if existing_transaction.pk in removed:
+                continue
+            partner = existing_transaction.linked_transaction
+            own_partner = bool(partner and partner.recurring_transaction_id == self.pk)
+            if partner and not own_partner:
+                # A link made elsewhere (e.g. a DCA entry): keep the partner
+                Transaction.all_objects.filter(pk=partner.pk).update(
+                    linked_transaction=None
+                )
+            existing_transaction.delete(_with_partner=own_partner)
+            removed.update({existing_transaction.pk, partner.pk if own_partner else None})
+
+        if self.last_generated_date and self.last_generated_date > self.end_date:
+            last = self.transactions.order_by("-date").first()
+            self.last_generated_date = last.date if last else None
+            self.last_generated_reference_date = last.reference_date if last else None
+            self.save(
+                update_fields=["last_generated_date", "last_generated_reference_date"]
+            )
 
     def _is_to_side(self, existing_transaction):
         """Whether a transaction is the "to" side of a transfer this generated."""
