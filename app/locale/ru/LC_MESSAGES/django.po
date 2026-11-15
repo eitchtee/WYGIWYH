@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 19:45+0000\n"
+"POT-Creation-Date: 2026-11-15 19:58+0000\n"
 "PO-Revision-Date: 2026-11-10 07:58+0000\n"
 "Last-Translator: masttera <mail.masttera@gmail.com>\n"
 "Language-Team: Russian <https://translations.herculino.com/projects/wygiwyh/"
@@ -3620,6 +3620,7 @@ msgid "Reload"
 msgstr "Перезагрузка"
 
 #: templates/includes/scripts/hyperscript/swal.html:13
+#: templates/oauth2_provider/authorize.html:38
 #: templates/transactions/fragments/filter_actions.html:4
 msgid "Cancel"
 msgstr "Отмена"
@@ -4478,6 +4479,35 @@ msgstr ""
 
 #: templates/net_worth/net_worth.html:377
 msgid "Evolution by account"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:4
+#: templates/oauth2_provider/authorize.html:39
+msgid "Authorize"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:19
+#, python-format
+msgid "Allow %(name)s to use your WYGIWYH?"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:22
+#, python-format
+msgid "Signed in as %(email)s"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:26
+msgid ""
+"It will be able to see and change everything you can: accounts, "
+"transactions, categories and the rest."
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:29
+msgid "Your answer is sent to"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:43
+msgid "This app can't be authorized"
 msgstr ""
 
 #: templates/quick_transactions/fragments/add.html:5
