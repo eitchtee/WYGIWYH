@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
@@ -10,6 +11,11 @@ class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
         model = Currency
         fields = "__all__"
+        # Prefixes and suffixes carry their spacing, e.g. "R$ "
+        extra_kwargs = {
+            "prefix": {"trim_whitespace": False},
+            "suffix": {"trim_whitespace": False},
+        }
 
 
 class ExchangeRateSerializer(serializers.ModelSerializer):
@@ -33,3 +39,8 @@ class ExchangeRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExchangeRate
         fields = "__all__"
+
+    def validate_rate(self, value):
+        if value <= 0:
+            raise serializers.ValidationError(_("The rate must be greater than zero."))
+        return value

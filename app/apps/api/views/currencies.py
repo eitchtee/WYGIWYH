@@ -7,6 +7,9 @@ from apps.currencies.models import ExchangeRate
 
 
 class CurrencyViewSet(viewsets.ModelViewSet):
+    """Currencies and assets (e.g. crypto). `exchange_currency` is the default
+    currency their amounts are converted to."""
+
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
     filterset_fields = {
@@ -23,6 +26,8 @@ class CurrencyViewSet(viewsets.ModelViewSet):
 
 
 class ExchangeRateViewSet(viewsets.ModelViewSet):
+    """How much one unit of `from_currency` is worth in `to_currency` on `date`."""
+
     queryset = ExchangeRate.objects.all()
     serializer_class = ExchangeRateSerializer
     filterset_fields = {

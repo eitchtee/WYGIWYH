@@ -1,6 +1,7 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -18,7 +19,7 @@ from apps.investments.services import get_holding_performance
 
 
 class AccountGroupViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing account groups."""
+    """Groups that organize accounts, e.g. by bank."""
 
     permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = AccountGroup.objects.all()
@@ -36,7 +37,8 @@ class AccountGroupViewSet(viewsets.ModelViewSet):
 
 
 class InvestmentClassViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing asset classes and their target allocation."""
+    """Asset classes (e.g. stocks, fixed income) that group investment accounts,
+    each with a target share of the portfolio in percent."""
 
     queryset = InvestmentClass.objects.all()
     serializer_class = InvestmentClassSerializer
@@ -62,7 +64,9 @@ class InvestmentClassViewSet(viewsets.ModelViewSet):
     ),
 )
 class AccountViewSet(viewsets.ModelViewSet):
-    """ViewSet for managing accounts."""
+    """Accounts hold transactions in one currency; `exchange_currency` is the
+    currency their amounts are converted to. Asset accounts count towards net
+    worth but not towards the month; archived ones count towards neither."""
 
     permission_classes = SHARED_OBJECT_PERMISSIONS
     queryset = Account.objects.all()
@@ -109,6 +113,8 @@ class AccountViewSet(viewsets.ModelViewSet):
     def performance(self, request, pk=None):
         """Get investment performance (cost basis, value, returns) for an account."""
         account = self.get_object()
+        if not account.is_investment:
+            raise ValidationError({"detail": "Only investment accounts have performance."})
         return Response(
             InvestmentPerformanceSerializer(get_holding_performance(account)).data
         )
