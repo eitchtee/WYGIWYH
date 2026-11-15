@@ -474,11 +474,11 @@ if DEBUG:
 
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
+    # Same access as the web UI: any signed-in user, limited by the user-scoped
+    # querysets and, for shared objects, SharedObjectPermission.
     "DEFAULT_PERMISSION_CLASSES": [
         "apps.api.permissions.NotInDemoMode",
-        "rest_framework.permissions.DjangoModelPermissions",
+        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
@@ -512,11 +512,18 @@ OAUTH2_PROVIDER = {
 OAUTH2_DCR_ENABLED = os.getenv("OAUTH2_DCR_ENABLED", "false").lower() == "true"
 OAUTH2_DCR_INITIAL_ACCESS_TOKEN = os.getenv("OAUTH2_DCR_INITIAL_ACCESS_TOKEN", "")
 
+# Native MCP server at /mcp/. Off by default; when off, /mcp/ and its OAuth
+# protected-resource metadata return 404.
+MCP_ENABLED = os.getenv("MCP_ENABLED", "false").lower() == "true"
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "WYGIWYH API",
     "DESCRIPTION": "A no-frills expense tracker",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    # Separate request schemas so read-only fields (id, owner, nested
+    # account...) don't show up as inputs for generated clients.
+    "COMPONENT_SPLIT_REQUEST": True,
     # Several models have a "type" field with different choices
     "ENUM_NAME_OVERRIDES": {
         "TransactionTypeEnum": "apps.transactions.models.Transaction.Type",

@@ -37,6 +37,10 @@ class DCAEntrySerializer(serializers.ModelSerializer):
             "entry_price",
         ]
         read_only_fields = ["created_at", "updated_at"]
+        extra_kwargs = {
+            "amount_paid": {"min_value": 0},
+            "amount_received": {"min_value": 0},
+        }
 
 
 class DCAStrategySerializer(serializers.ModelSerializer):

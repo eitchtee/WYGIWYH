@@ -6,7 +6,7 @@ from secrets import token_urlsafe
 
 from django.conf import settings
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from oauth2_provider.models import get_application_model
@@ -114,6 +114,23 @@ def authorization_server_metadata(request):
     if settings.OAUTH2_DCR_ENABLED:
         metadata["registration_endpoint"] = f"{base_url}/oauth/register/"
     return JsonResponse(metadata)
+
+
+@require_http_methods(["GET"])
+def protected_resource_metadata(request):
+    """OAuth Protected Resource Metadata (RFC 9728) for the MCP endpoint."""
+    if not settings.MCP_ENABLED:
+        raise Http404
+    base_url = _base_url(request)
+    return JsonResponse(
+        {
+            "resource": f"{base_url}/mcp",
+            "resource_name": "WYGIWYH",
+            "authorization_servers": [base_url],
+            "scopes_supported": sorted(settings.OAUTH2_PROVIDER["SCOPES"].keys()),
+            "bearer_methods_supported": ["header"],
+        }
+    )
 
 
 @csrf_exempt

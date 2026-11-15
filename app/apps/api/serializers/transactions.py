@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.db import transaction as db_transaction
 from django.utils.translation import gettext_lazy as _
 from drf_spectacular import openapi
@@ -36,8 +34,8 @@ class SubTransactionSerializer(serializers.ModelSerializer):
 
 
 class SubTransactionsMixin:
-    """`sub_transactions`, when sent, replaces the parts; a non-empty list sets
-    the amount to their sum. Declare the field on the serializer itself."""
+    # `sub_transactions`, when sent, replaces the parts; a non-empty list sets
+    # the amount to their sum. Declare the field on the serializer itself.
 
     sub_amount_field = "amount"
 
@@ -141,7 +139,7 @@ class TransactionEntitySerializer(serializers.ModelSerializer):
 class InstallmentPlanSerializer(SubTransactionsMixin, serializers.ModelSerializer):
     sub_amount_field = "installment_amount"
     sub_transactions = SubTransactionSerializer(many=True, required=False)
-    category: str | int = TransactionCategoryField(required=False)
+    category: str | int = TransactionCategoryField(required=False, allow_null=True)
     tags: str | int = TransactionTagField(required=False)
     entities: str | int = TransactionEntityField(required=False)
 
@@ -169,6 +167,7 @@ class InstallmentPlanSerializer(SubTransactionsMixin, serializers.ModelSerialize
             "notes",
         ]
         read_only_fields = ["installment_total_number", "end_date"]
+        extra_kwargs = {"installment_amount": {"min_value": 0}}
 
     def after_save(self, instance, created):
         if created:
@@ -179,7 +178,7 @@ class InstallmentPlanSerializer(SubTransactionsMixin, serializers.ModelSerialize
 
 class RecurringTransactionSerializer(SubTransactionsMixin, serializers.ModelSerializer):
     sub_transactions = SubTransactionSerializer(many=True, required=False)
-    category: str | int = TransactionCategoryField(required=False)
+    category: str | int = TransactionCategoryField(required=False, allow_null=True)
     tags: str | int = TransactionTagField(required=False)
     entities: str | int = TransactionEntityField(required=False)
 
@@ -208,6 +207,11 @@ class RecurringTransactionSerializer(SubTransactionsMixin, serializers.ModelSeri
             "last_generated_reference_date",
         ]
         read_only_fields = ["last_generated_date", "last_generated_reference_date"]
+        extra_kwargs = {
+            "amount": {"min_value": 0},
+            "to_amount": {"min_value": 0},
+            "recurrence_interval": {"min_value": 1},
+        }
 
     def validate(self, attrs):
         # Same rule as TransferTemplate.clean(), which DRF doesn't run
@@ -233,7 +237,7 @@ class RecurringTransactionSerializer(SubTransactionsMixin, serializers.ModelSeri
 
 class TransactionSerializer(SubTransactionsMixin, serializers.ModelSerializer):
     sub_transactions = SubTransactionSerializer(many=True, required=False)
-    category: str | int = TransactionCategoryField(required=False)
+    category: str | int = TransactionCategoryField(required=False, allow_null=True)
     tags: str | int = TransactionTagField(required=False)
     entities: str | int = TransactionEntityField(required=False)
 
@@ -308,5 +312,6 @@ class TransactionSerializer(SubTransactionsMixin, serializers.ModelSerializer):
         return instance
 
     @staticmethod
-    def get_exchanged_amount(obj) -> Decimal:
+    @extend_schema_field(OpenApiTypes.OBJECT)
+    def get_exchanged_amount(obj):
         return obj.exchanged_amount()

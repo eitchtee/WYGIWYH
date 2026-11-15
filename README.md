@@ -295,7 +295,16 @@ Check out our [Wiki](https://github.com/eitchtee/WYGIWYH/wiki) for more informat
 
 # MCP Server
 
-[IZIme07](https://github.com/IZIme07) has kindly created an MCP Server for WYGIWYH that you can self-host. [Check it out at MCP-WYGIWYH](https://github.com/ReNewator/MCP-WYGIWYH)!
+WYGIWYH has a built-in MCP server, so AI assistants (Claude, ChatGPT, Claude Code, Cursor...) can read and record your transactions. It runs inside the web app; no extra container is needed. Set `MCP_ENABLED=true` to turn it on, then add `https://your.wygiwyh.domain/mcp` as a remote (Streamable HTTP) MCP server in your client.
+
+Clients sign in in one of two ways:
+
+- **OAuth** (Claude.ai, ChatGPT and most desktop clients): the client discovers WYGIWYH's OAuth server from `/.well-known/oauth-protected-resource`, and you log in and approve it in the browser. The client must either register itself, which needs `OAUTH2_DCR_ENABLED=true`, or use an OAuth app you created (see [MCP OAuth Application Bootstrap](#mcp-oauth-application-bootstrap)).
+- **API token** (clients that let you set headers): send `Authorization: Token wygiwyh_pat_...`, created as in [API Tokens](#api-tokens-for-n8n-and-other-automations).
+
+The client sees and changes what the signed-in user can in the app. It can list accounts, categories, tags and entities, check balances, search and summarize transactions, and create, edit or delete transactions.
+
+[IZIme07](https://github.com/IZIme07) has also created a standalone MCP Server for WYGIWYH that you can self-host. [Check it out at MCP-WYGIWYH](https://github.com/ReNewator/MCP-WYGIWYH)!
 
 # Caveats and Warnings
 
