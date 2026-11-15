@@ -1,0 +1,51 @@
+{% extends "layouts/base_auth.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Authorize" %}{% endblock %}
+
+{% block content %}
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <div class="card bg-base-100 shadow-2xl">
+        <div class="card-body">
+          {% if not error %}
+            <form method="post">
+              {% csrf_token %}
+              {% for field in form %}
+                {% if field.is_hidden %}{{ field }}{% endif %}
+              {% endfor %}
+
+              <h1 class="card-title text-2xl mb-1">
+                {% blocktranslate with name=application.name %}Allow {{ name }} to use your WYGIWYH?{% endblocktranslate %}
+              </h1>
+              <p class="text-sm text-base-content/70 mb-4">
+                {% blocktranslate with email=request.user.email %}Signed in as {{ email }}{% endblocktranslate %}
+              </p>
+
+              <p class="mb-3">
+                {% translate "It will be able to see and change everything you can: accounts, transactions, categories and the rest." %}
+              </p>
+              <p class="text-sm text-base-content/70">
+                {% translate "Your answer is sent to" %}
+                <span class="font-mono break-all">{{ form.redirect_uri.value }}</span>
+              </p>
+
+              {% if form.non_field_errors %}
+                <div role="alert" class="alert alert-error mt-4">{{ form.non_field_errors }}</div>
+              {% endif %}
+
+              <div class="flex justify-end gap-2 mt-6">
+                <button type="submit" class="btn btn-ghost">{% translate "Cancel" %}</button>
+                <button type="submit" name="allow" value="true" class="btn btn-primary">{% translate "Authorize" %}</button>
+              </div>
+            </form>
+          {% else %}
+            <h1 class="card-title text-2xl mb-2">{% translate "This app can't be authorized" %}</h1>
+            <p>{{ error.description }}</p>
+            <p class="text-sm text-base-content/70 font-mono mt-2">{{ error.error }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
