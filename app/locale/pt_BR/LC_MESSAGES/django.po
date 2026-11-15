@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 19:58+0000\n"
-"PO-Revision-Date: 2026-11-08 19:40+0000\n"
+"POT-Creation-Date: 2026-11-14 14:41+0000\n"
+"PO-Revision-Date: 2026-11-15 03:21+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.11.1\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #: apps/accounts/forms.py:33
 msgid "Group name"
@@ -77,9 +77,10 @@ msgstr "Novo saldo"
 #: apps/transactions/forms.py:700 apps/transactions/forms.py:942
 #: apps/transactions/forms.py:1196 apps/transactions/models.py:363
 #: apps/transactions/models.py:864 apps/transactions/models.py:1123
-#: apps/transactions/models.py:1526
+#: apps/transactions/models.py:1492
 #: templates/insights/fragments/month_by_month.html:84
 #: templates/insights/fragments/year_by_year.html:52
+#: apps/transactions/models.py:1526
 msgid "Category"
 msgstr "Categoria"
 
@@ -93,12 +94,13 @@ msgstr "Categoria"
 #: apps/transactions/forms.py:717 apps/transactions/forms.py:935
 #: apps/transactions/forms.py:1189 apps/transactions/models.py:369
 #: apps/transactions/models.py:866 apps/transactions/models.py:1127
-#: apps/transactions/models.py:1532 templates/includes/sidebar.html:162
+#: apps/transactions/models.py:1498 templates/includes/sidebar.html:162
 #: templates/insights/fragments/month_by_month.html:29
 #: templates/insights/fragments/month_by_month.html:32
 #: templates/insights/fragments/year_by_year.html:24
 #: templates/insights/fragments/year_by_year.html:27
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
+#: apps/transactions/models.py:1532
 msgid "Tags"
 msgstr "Tags"
 
@@ -138,7 +140,7 @@ msgstr "Mês de referência"
 #: apps/import_app/models.py:20 apps/rules/models.py:13
 #: apps/transactions/forms.py:64 apps/transactions/models.py:255
 #: apps/transactions/models.py:280 apps/transactions/models.py:304
-#: apps/transactions/models.py:729 apps/transactions/models.py:1494
+#: apps/transactions/models.py:729 apps/transactions/models.py:1460
 #: apps/users/models.py:577 templates/account_groups/fragments/list.html:22
 #: templates/accounts/fragments/list.html:22
 #: templates/bank_sync/fragments/list.html:20
@@ -153,7 +155,7 @@ msgstr "Mês de referência"
 #: templates/recurring_transactions/fragments/table.html:18
 #: templates/rules/fragments/list.html:24
 #: templates/tags/fragments/table.html:17
-#: templates/users/fragments/list.html:26
+#: templates/users/fragments/list.html:26 apps/transactions/models.py:1494
 msgid "Name"
 msgstr "Nome"
 
@@ -217,16 +219,16 @@ msgid "Default currency for exchange calculations"
 msgstr "Moeda padrão para os cálculos de câmbio"
 
 #: apps/accounts/models.py:109 apps/currencies/models.py:36
-#, fuzzy
-#| msgid "No exchange rates"
 msgid "Show exchanged amounts"
-msgstr "Nenhuma taxa de câmbio"
+msgstr "Mostrar valores convertidos"
 
 #: apps/accounts/models.py:111
 msgid ""
 "Show amounts converted to this account's exchange currency next to its "
 "transactions and totals."
 msgstr ""
+"Mostrar os valores convertidos para a moeda de câmbio desta conta ao lado "
+"das suas transações e totais."
 
 #: apps/accounts/models.py:118
 msgid "Asset account"
@@ -280,19 +282,14 @@ msgid "Income categories"
 msgstr "Categorias de rendimento"
 
 #: apps/accounts/models.py:161
-#, fuzzy
-#| msgid ""
-#| "Transactions in this account with any of these categories are its result "
-#| "(interest, taxes, fees). On accounts tracked by value, everything else "
-#| "that isn't a transfer counts as money coming in or going out."
 msgid ""
 "Transactions in this account with any of these categories are its result "
 "(interest, taxes, fees). Everything else that isn't a transfer counts as "
 "money coming in or going out."
 msgstr ""
 "Transações nesta conta com qualquer uma destas categorias são o seu "
-"resultado (juros, impostos, taxas). Em contas acompanhadas por valor, todo o "
-"resto que não for transferência conta como dinheiro entrando ou saindo."
+"resultado (juros, impostos, taxas). Todo o resto que não for transferência "
+"conta como dinheiro entrando ou saindo."
 
 #: apps/accounts/models.py:170
 msgid "Income tags"
@@ -325,12 +322,13 @@ msgstr ""
 #: apps/transactions/forms.py:435 apps/transactions/forms.py:563
 #: apps/transactions/forms.py:927 apps/transactions/forms.py:1181
 #: apps/transactions/models.py:335 apps/transactions/models.py:824
-#: apps/transactions/models.py:1105 apps/transactions/models.py:1500
+#: apps/transactions/models.py:1105 apps/transactions/models.py:1466
 #: templates/import_app/fragments/runs/list.html:95
 #: templates/installment_plans/fragments/table.html:17
 #: templates/quick_transactions/fragments/list.html:14
 #: templates/recurring_transactions/fragments/table.html:19
 #: templates/yearly_overview/pages/yearly_overview_base.html:23
+#: apps/transactions/models.py:1500
 msgid "Account"
 msgstr "Conta"
 
@@ -439,33 +437,28 @@ msgstr "Entidade com esse ID não existe."
 msgid "Invalid entity data. Provide an ID or name."
 msgstr "Dados da entidade inválidos. Forneça um ID ou nome."
 
-#: apps/api/serializers/currencies.py:45
-msgid "The rate must be greater than zero."
-msgstr ""
-
 #: apps/api/serializers/imports.py:61
-#, fuzzy
-#| msgid "Run your transaction rules on synced transactions."
 msgid "Only transaction imports can use an account."
-msgstr "Executar suas regras de transação nas transações sincronizadas."
+msgstr "Somente importações de transações podem usar uma conta."
 
-#: apps/api/serializers/transactions.py:56
-#, fuzzy
-#| msgid "Create transaction"
+#: apps/api/serializers/transactions.py:58
 msgid "Transfers can't have sub-transactions."
-msgstr "Criar transação"
+msgstr "Transferências não podem ter subtransações."
 
-#: apps/api/serializers/transactions.py:66
+#: apps/api/serializers/transactions.py:68
 msgid ""
 "The amount is the sum of the sub-transactions; send sub_transactions instead."
 msgstr ""
+"O valor é a soma das subtransações; envie sub_transactions em vez disso."
 
-#: apps/api/serializers/transactions.py:72
-#: apps/api/serializers/transactions.py:222 apps/dca/forms.py:298
-#: apps/transactions/models.py:1077
+#: apps/api/serializers/transactions.py:74
+#: apps/api/serializers/transactions.py:218 apps/dca/forms.py:298
+#: apps/transactions/models.py:1077 apps/api/serializers/transactions.py:72
+#: apps/api/serializers/transactions.py:222
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
+#: apps/api/serializers/transactions.py:286
 #: apps/api/serializers/transactions.py:290
 msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "É necessário fornecer “date” ou “reference_date”."
@@ -735,17 +728,13 @@ msgid "Visibility"
 msgstr "Visibilidade"
 
 #: apps/common/forms.py:43
-#, fuzzy
-#| msgid ""
-#| "Private: Only shown for the owner and shared users. Only editable by the "
-#| "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgid ""
 "Private: Only shown for the owner and shared users.<br/>Public: Shown for "
 "all users.<br/>Only the owner can edit, share or delete it."
 msgstr ""
-"Privado: Exibido somente para o proprietário e usuários compartilhados. "
-"Somente editável pelo proprietário.<br/>Público: Exibido para todos os "
-"usuários. Somente editável pelo proprietário."
+"Privado: Exibido somente para o proprietário e usuários compartilhados.<br/"
+">Público: Exibido para todos os usuários.<br/>Somente o proprietário pode "
+"editar, compartilhar ou apagar."
 
 #: apps/common/forms.py:78 apps/users/forms.py:191
 #: templates/bank_sync/fragments/accounts.html:34
@@ -913,6 +902,10 @@ msgid ""
 "totals in this currency. Accounts with their own exchange currency use their "
 "own setting, and consolidated totals are calculated either way."
 msgstr ""
+"Mostrar os valores convertidos para a moeda de câmbio ao lado das transações "
+"e totais nesta moeda. Contas com sua própria moeda de câmbio usam sua "
+"própria configuração, e os totais consolidados são calculados de qualquer "
+"forma."
 
 #: apps/currencies/models.py:63
 msgid "Currency cannot have itself as exchange currency."
@@ -1120,12 +1113,13 @@ msgstr "Conta de destino"
 #: apps/transactions/forms.py:950 apps/transactions/forms.py:1204
 #: apps/transactions/models.py:318 apps/transactions/models.py:374
 #: apps/transactions/models.py:869 apps/transactions/models.py:1130
-#: apps/transactions/models.py:1537 templates/entities/fragments/list.html:9
+#: apps/transactions/models.py:1503 templates/entities/fragments/list.html:9
 #: templates/entities/pages/index.html:4 templates/includes/sidebar.html:168
 #: templates/insights/fragments/month_by_month.html:40
 #: templates/insights/fragments/month_by_month.html:43
 #: templates/insights/fragments/year_by_year.html:35
 #: templates/insights/fragments/year_by_year.html:38
+#: apps/transactions/models.py:1537
 msgid "Entities"
 msgstr "Entidades"
 
@@ -1146,10 +1140,9 @@ msgid "Link transaction"
 msgstr "Conectar transação"
 
 #: apps/dca/forms.py:289
-#, fuzzy, python-format
-#| msgid "Transaction amounts are now hidden"
+#, python-format
 msgid "Transaction must be in %(currency)s."
-msgstr "Os valores das transações agora estão ocultos"
+msgstr "A transação deve estar em %(currency)s."
 
 #: apps/dca/forms.py:307 apps/dca/forms.py:308 apps/dca/forms.py:313
 #: apps/dca/forms.py:317
@@ -1178,7 +1171,8 @@ msgstr "Moeda de pagamento"
 #: apps/rules/forms.py:197 apps/rules/models.py:44 apps/rules/models.py:296
 #: apps/transactions/forms.py:590 apps/transactions/forms.py:754
 #: apps/transactions/models.py:359 apps/transactions/models.py:873
-#: apps/transactions/models.py:1133 apps/transactions/models.py:1522
+#: apps/transactions/models.py:1133 apps/transactions/models.py:1488
+#: apps/transactions/models.py:1522
 msgid "Notes"
 msgstr "Notas"
 
@@ -1275,9 +1269,10 @@ msgid "Installment Plans"
 msgstr "Parcelamentos"
 
 #: apps/export_app/forms.py:67 apps/export_app/forms.py:157
-#: apps/transactions/models.py:1555 templates/includes/sidebar.html:98
+#: apps/transactions/models.py:1521 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
+#: apps/transactions/models.py:1555
 msgid "Quick Transactions"
 msgstr "Transações Rápidas"
 
@@ -1328,10 +1323,8 @@ msgstr "Arquivo ZIP"
 #: apps/export_app/forms.py:152 apps/rules/forms.py:193 apps/rules/models.py:42
 #: apps/rules/models.py:320 apps/transactions/models.py:739
 #: templates/transactions/widgets/sub_transactions.html:39
-#, fuzzy
-#| msgid "transactions"
 msgid "Sub-transactions"
-msgstr "transações"
+msgstr "Subtransações"
 
 #: apps/export_app/forms.py:166
 msgid "Bank Sync Accounts"
@@ -1384,6 +1377,8 @@ msgid ""
 "Import every transaction into this account. Leave empty to let the profile "
 "pick the account."
 msgstr ""
+"Importar todas as transações para esta conta. Deixe vazio para que o perfil "
+"escolha a conta."
 
 #: apps/import_app/forms.py:75
 #: templates/import_app/fragments/profiles/list.html:75
@@ -1616,19 +1611,20 @@ msgstr "Operador"
 #: apps/rules/forms.py:174 apps/rules/forms.py:188 apps/rules/models.py:36
 #: apps/rules/models.py:272 apps/transactions/forms.py:554
 #: apps/transactions/models.py:342 apps/transactions/models.py:829
-#: apps/transactions/models.py:1111 apps/transactions/models.py:1507
-#: templates/mini_tools/simulator.html:63
+#: apps/transactions/models.py:1111 apps/transactions/models.py:1473
+#: templates/mini_tools/simulator.html:63 apps/transactions/models.py:1507
 msgid "Type"
 msgstr "Tipo"
 
 #: apps/rules/forms.py:175 apps/rules/forms.py:189 apps/rules/models.py:37
 #: apps/rules/models.py:276 apps/transactions/filters.py:26
 #: apps/transactions/forms.py:558 apps/transactions/forms.py:736
-#: apps/transactions/models.py:344 apps/transactions/models.py:1509
+#: apps/transactions/models.py:344 apps/transactions/models.py:1475
 #: templates/cotton/transaction/item.html:25
 #: templates/cotton/transaction/item.html:36
 #: templates/transactions/widgets/paid_toggle_button.html:10
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:13
+#: apps/transactions/models.py:1509
 msgid "Paid"
 msgstr "Pago"
 
@@ -1644,12 +1640,13 @@ msgstr "Data de Referência"
 #: apps/rules/models.py:288 apps/transactions/forms.py:75
 #: apps/transactions/forms.py:581 apps/transactions/models.py:352
 #: apps/transactions/models.py:733 apps/transactions/models.py:1116
-#: apps/transactions/models.py:1515
+#: apps/transactions/models.py:1481
 #: templates/insights/fragments/sankey.html:102
 #: templates/installment_plans/fragments/table.html:18
 #: templates/mini_tools/simulator.html:70
 #: templates/quick_transactions/fragments/list.html:15
 #: templates/recurring_transactions/fragments/table.html:20
+#: apps/transactions/models.py:1515
 msgid "Amount"
 msgstr "Quantia"
 
@@ -1657,26 +1654,27 @@ msgstr "Quantia"
 #: apps/rules/models.py:43 apps/rules/models.py:292
 #: apps/transactions/forms.py:585 apps/transactions/forms.py:745
 #: apps/transactions/models.py:357 apps/transactions/models.py:831
-#: apps/transactions/models.py:1119 apps/transactions/models.py:1520
+#: apps/transactions/models.py:1119 apps/transactions/models.py:1486
+#: apps/transactions/models.py:1520
 msgid "Description"
 msgstr "Descrição"
 
 #: apps/rules/forms.py:182 apps/rules/forms.py:199 apps/rules/models.py:48
 #: apps/rules/models.py:300 apps/transactions/models.py:404
-#: apps/transactions/models.py:1542
+#: apps/transactions/models.py:1508 apps/transactions/models.py:1542
 msgid "Internal Note"
 msgstr "Nota Interna"
 
 #: apps/rules/forms.py:183 apps/rules/forms.py:200 apps/rules/models.py:49
 #: apps/rules/models.py:304 apps/transactions/models.py:406
-#: apps/transactions/models.py:1544
+#: apps/transactions/models.py:1510 apps/transactions/models.py:1544
 msgid "Internal ID"
 msgstr "ID Interna"
 
 #: apps/rules/forms.py:186 apps/rules/forms.py:201 apps/rules/models.py:40
 #: apps/rules/models.py:324 apps/transactions/forms.py:758
 #: apps/transactions/models.py:256 apps/transactions/models.py:347
-#: apps/transactions/models.py:1510
+#: apps/transactions/models.py:1476 apps/transactions/models.py:1510
 msgid "Mute"
 msgstr "Silenciada"
 
@@ -1877,11 +1875,11 @@ msgstr "Quantia máxima"
 
 #: apps/transactions/filters.py:250
 msgid "Include"
-msgstr ""
+msgstr "Incluir"
 
 #: apps/transactions/filters.py:255
 msgid "Exclude"
-msgstr ""
+msgstr "Excluir"
 
 #: apps/transactions/filters.py:303
 msgid "Categorized"
@@ -1941,12 +1939,13 @@ msgid "To Amount"
 msgstr "Quantia de destino"
 
 #: apps/transactions/forms.py:827 apps/transactions/models.py:1094
-#: apps/transactions/models.py:1487 templates/cotton/transaction/item.html:54
+#: apps/transactions/models.py:1453 templates/cotton/transaction/item.html:54
 #: templates/cotton/transaction/item.html:62
 #: templates/cotton/transaction/item.html:272
 #: templates/cotton/transaction/item.html:304
 #: templates/cotton/ui/quick_transactions_buttons.html:40
 #: templates/cotton/ui/transactions_fab.html:44
+#: apps/transactions/models.py:1487
 msgid "Transfer"
 msgstr "Transferir"
 
@@ -2009,7 +2008,7 @@ msgstr ""
 "transações"
 
 #: apps/transactions/models.py:329 apps/transactions/models.py:1093
-#: apps/transactions/models.py:1486
+#: apps/transactions/models.py:1452
 #: templates/calendar_view/fragments/list.html:42
 #: templates/calendar_view/fragments/list.html:44
 #: templates/calendar_view/fragments/list.html:52
@@ -2024,11 +2023,12 @@ msgstr ""
 #: templates/investments/fragments/detail.html:326
 #: templates/mini_tools/simulator.html:66
 #: templates/monthly_overview/fragments/monthly_summary.html:42
+#: apps/transactions/models.py:1486
 msgid "Income"
 msgstr "Renda"
 
 #: apps/transactions/models.py:330 apps/transactions/models.py:1095
-#: apps/transactions/models.py:1488
+#: apps/transactions/models.py:1454
 #: templates/calendar_view/fragments/list.html:46
 #: templates/calendar_view/fragments/list.html:48
 #: templates/calendar_view/fragments/list.html:56
@@ -2036,7 +2036,7 @@ msgstr "Renda"
 #: templates/cotton/ui/quick_transactions_buttons.html:18
 #: templates/cotton/ui/transactions_fab.html:19
 #: templates/insights/fragments/overview/_results.html:13
-#: templates/mini_tools/simulator.html:65
+#: templates/mini_tools/simulator.html:65 apps/transactions/models.py:1488
 msgid "Expense"
 msgstr "Despesa"
 
@@ -2086,10 +2086,8 @@ msgid "No description"
 msgstr "Sem descrição"
 
 #: apps/transactions/models.py:738
-#, fuzzy
-#| msgid "transactions"
 msgid "Sub-transaction"
-msgstr "transações"
+msgstr "Subtransação"
 
 #: apps/transactions/models.py:771
 msgid "File"
@@ -2221,8 +2219,9 @@ msgstr "Última data gerada"
 msgid "Last Generated Reference Date"
 msgstr "Última data de referência gerada"
 
-#: apps/transactions/models.py:1554 templates/cotton/transaction/item.html:245
+#: apps/transactions/models.py:1520 templates/cotton/transaction/item.html:245
 #: templates/cotton/ui/transactions_fab.html:59
+#: apps/transactions/models.py:1554
 msgid "Quick Transaction"
 msgstr "Transação Rápida"
 
@@ -2319,16 +2318,12 @@ msgid "Convert into installment plan"
 msgstr "Converter em parcelamento"
 
 #: apps/transactions/views/conversions.py:195
-#, fuzzy
-#| msgid "This transaction is already part of another transfer."
 msgid "Transaction converted into a transfer"
-msgstr "Esta transação já faz parte de outra transferência."
+msgstr "Transação convertida em transferência"
 
 #: apps/transactions/views/conversions.py:226
-#, fuzzy
-#| msgid "Convert into quick transaction"
 msgid "Convert into transfer"
-msgstr "Converter em transação rápida"
+msgstr "Converter em transferência"
 
 #: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
@@ -2983,6 +2978,8 @@ msgid ""
 "Everyone who can see this account can add, edit and delete its transactions, "
 "installment plans and recurring transactions."
 msgstr ""
+"Todos que podem ver esta conta podem adicionar, editar e apagar suas "
+"transações, parcelamentos e transações recorrentes."
 
 #: templates/bank_sync/fragments/accounts.html:31
 msgid "No accounts found on this service"
@@ -3145,8 +3142,8 @@ msgstr "Duplicar"
 #, python-format
 msgid "%(counter)s item"
 msgid_plural "%(counter)s items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s item"
+msgstr[1] "%(counter)s itens"
 
 #: templates/cotton/ui/account_card.html:10
 #: templates/cotton/ui/currency_card.html:10
@@ -3274,10 +3271,8 @@ msgid "Balance"
 msgstr "Balancear"
 
 #: templates/cotton/ui/transactions_action_bar.html:83
-#, fuzzy
-#| msgid "Transactions"
 msgid "More actions"
-msgstr "Transações"
+msgstr "Mais ações"
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
@@ -3619,8 +3614,8 @@ msgid "Reload"
 msgstr "Recarregar"
 
 #: templates/includes/scripts/hyperscript/swal.html:13
-#: templates/oauth2_provider/authorize.html:38
 #: templates/transactions/fragments/filter_actions.html:4
+#: templates/oauth2_provider/authorize.html:38
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -4018,7 +4013,7 @@ msgstr "Gráfico de alocação"
 #: templates/investments/fragments/_allocation.html:10
 #, python-format
 msgid "target %(target)s%%"
-msgstr ""
+msgstr "alvo %(target)s%%"
 
 #: templates/investments/fragments/_mwr.html:1
 msgid "/yr"
@@ -4026,18 +4021,16 @@ msgstr "/ano"
 
 #: templates/investments/fragments/_totals.html:5
 msgid "Portfolio value"
-msgstr ""
+msgstr "Valor da carteira"
 
 #: templates/investments/fragments/_totals.html:12
 #: templates/investments/fragments/detail.html:57
-#, fuzzy
-#| msgid "One time"
 msgid "all time"
-msgstr "Uma vez"
+msgstr "todo o período"
 
 #: templates/investments/fragments/_totals.html:18
 msgid "Details"
-msgstr ""
+msgstr "Detalhes"
 
 #: templates/investments/fragments/_totals.html:22
 #: templates/investments/fragments/charts.html:96
@@ -4052,17 +4045,14 @@ msgstr "Efeito cambial"
 
 #: templates/investments/fragments/_totals.html:36
 #: templates/investments/fragments/detail.html:254
-#, fuzzy
-#| msgid "No exchange rates"
 msgid "Needs historical exchange rates"
-msgstr "Nenhuma taxa de câmbio"
+msgstr "Requer taxas de câmbio históricas"
 
 #: templates/investments/fragments/_totals.html:44
 #: templates/investments/fragments/detail.html:242
-#, fuzzy, python-format
-#| msgid "Delete %(name)s"
+#, python-format
 msgid "In %(name)s"
-msgstr "Apagar %(name)s"
+msgstr "Em %(name)s"
 
 #: templates/investments/fragments/charts.html:10
 msgid "By asset class"
@@ -4136,24 +4126,20 @@ msgid "Sell"
 msgstr "Venda"
 
 #: templates/investments/fragments/detail.html:191
-#, fuzzy
-#| msgid ""
-#| "Some incoming units have no linked payment, so their cost was estimated "
-#| "from the market price of that day"
 msgid ""
 "Some units moved in or out without a linked payment, so they were valued at "
 "the market price of that day."
 msgstr ""
-"Algumas unidades recebidas não têm pagamento vinculado, então seu custo foi "
-"estimado pelo preço de mercado do dia"
+"Algumas unidades entraram ou saíram sem um pagamento vinculado, então foram "
+"avaliadas pelo preço de mercado daquele dia."
 
 #: templates/investments/fragments/detail.html:198
 msgid "Your position"
-msgstr ""
+msgstr "Sua posição"
 
 #: templates/investments/fragments/detail.html:202
 msgid "Units"
-msgstr ""
+msgstr "Unidades"
 
 #: templates/investments/fragments/detail.html:219
 msgid "Unrealized"
@@ -4165,21 +4151,19 @@ msgstr "Realizado"
 
 #: templates/investments/fragments/detail.html:231
 msgid "Put in"
-msgstr ""
+msgstr "Aportado"
 
 #: templates/investments/fragments/detail.html:235
 msgid "Taken out"
-msgstr ""
+msgstr "Retirado"
 
 #: templates/investments/fragments/detail.html:249
 msgid "Return"
 msgstr "Retorno"
 
 #: templates/investments/fragments/detail.html:253
-#, fuzzy
-#| msgid "No exchange rates"
 msgid "From exchange rates"
-msgstr "Nenhuma taxa de câmbio"
+msgstr "A partir das taxas de câmbio"
 
 #: templates/investments/fragments/detail.html:263
 msgid "Movements"
@@ -4222,10 +4206,8 @@ msgid "Holdings"
 msgstr "Posições"
 
 #: templates/investments/fragments/list.html:27
-#, fuzzy
-#| msgid "Account Group"
 msgid "Account group"
-msgstr "Grupo da Conta"
+msgstr "Grupo da conta"
 
 #: templates/investments/fragments/list.html:77
 msgid "Charts"
@@ -4489,37 +4471,6 @@ msgstr "Evolução por moeda"
 msgid "Evolution by account"
 msgstr "Evolução por conta"
 
-#: templates/oauth2_provider/authorize.html:4
-#: templates/oauth2_provider/authorize.html:39
-#, fuzzy
-#| msgid "Categorized"
-msgid "Authorize"
-msgstr "Categorizada"
-
-#: templates/oauth2_provider/authorize.html:19
-#, python-format
-msgid "Allow %(name)s to use your WYGIWYH?"
-msgstr ""
-
-#: templates/oauth2_provider/authorize.html:22
-#, python-format
-msgid "Signed in as %(email)s"
-msgstr ""
-
-#: templates/oauth2_provider/authorize.html:26
-msgid ""
-"It will be able to see and change everything you can: accounts, "
-"transactions, categories and the rest."
-msgstr ""
-
-#: templates/oauth2_provider/authorize.html:29
-msgid "Your answer is sent to"
-msgstr ""
-
-#: templates/oauth2_provider/authorize.html:43
-msgid "This app can't be authorized"
-msgstr ""
-
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
 msgid "Add quick transaction"
@@ -4764,7 +4715,7 @@ msgstr "Nome da predefinição"
 
 #: templates/transactions/fragments/filter_actions.html:18
 msgid "Keep dates relative to today"
-msgstr ""
+msgstr "Manter datas relativas a hoje"
 
 #: templates/transactions/fragments/filter_actions.html:52
 msgid "Save preset"
@@ -4780,10 +4731,8 @@ msgid "Filter presets"
 msgstr "Predefinições de filtro"
 
 #: templates/transactions/fragments/filter_presets.html:20
-#, fuzzy
-#| msgid "Move to today"
 msgid "Dates relative to today"
-msgstr "Mover para hoje"
+msgstr "Datas relativas a hoje"
 
 #: templates/transactions/fragments/filter_presets.html:25
 #, python-format
@@ -4825,10 +4774,8 @@ msgid "Deleted transactions"
 msgstr "Transações apagadas"
 
 #: templates/transactions/widgets/sub_transactions.html:53
-#, fuzzy
-#| msgid "Add quick transaction"
 msgid "Add sub-transaction"
-msgstr "Adicionar transação rápida"
+msgstr "Adicionar subtransação"
 
 #: templates/transactions/widgets/unselectable_income_expense_toggle_buttons.html:11
 #: templates/transactions/widgets/unselectable_paid_toggle_button.html:7
@@ -4971,6 +4918,40 @@ msgstr "Login com"
 #: templates/yearly_overview/pages/yearly_overview_base.html:6
 msgid "Yearly Overview"
 msgstr "Visão Anual"
+
+#: apps/api/serializers/currencies.py:45
+msgid "The rate must be greater than zero."
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:4
+#: templates/oauth2_provider/authorize.html:39
+#, fuzzy
+msgid "Authorize"
+msgstr "Categorizada"
+
+#: templates/oauth2_provider/authorize.html:19
+#, python-format
+msgid "Allow %(name)s to use your WYGIWYH?"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:22
+#, python-format
+msgid "Signed in as %(email)s"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:26
+msgid ""
+"It will be able to see and change everything you can: accounts, "
+"transactions, categories and the rest."
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:29
+msgid "Your answer is sent to"
+msgstr ""
+
+#: templates/oauth2_provider/authorize.html:43
+msgid "This app can't be authorized"
+msgstr ""
 
 #~ msgid "Invert election"
 #~ msgstr "Inverter seleção"
