@@ -1,7 +1,7 @@
 from rest_framework.permissions import (
     SAFE_METHODS,
     BasePermission,
-    DjangoModelPermissions,
+    IsAuthenticated,
 )
 from django.conf import settings
 
@@ -17,11 +17,9 @@ class NotInDemoMode(BasePermission):
 class SharedObjectPermission(BasePermission):
     """Object-level ownership check for SharedObject-backed viewsets.
 
-    DjangoModelPermissions is model-level: a user holding ``change_account``
-    may write any object the viewset's queryset returns, and for SharedObject
-    that queryset includes other people's public and shared-with-them objects.
-    Sharing grants read access only, so writes are restricted to the owner
-    here as well.
+    The viewset's queryset includes other people's public and shared-with-them
+    objects. Sharing grants read access only, so writes are restricted to the
+    owner here, as the web UI does with ``get_shared_object_or_error``.
 
     Set ``shared_object_via`` on the viewset when the governing SharedObject is
     reached through a relation (e.g. ``"strategy"`` for a DCA entry).
@@ -43,6 +41,6 @@ class SharedObjectPermission(BasePermission):
 #: ``permission_classes`` replaces the defaults, so they are repeated here.
 SHARED_OBJECT_PERMISSIONS = [
     NotInDemoMode,
-    DjangoModelPermissions,
+    IsAuthenticated,
     SharedObjectPermission,
 ]

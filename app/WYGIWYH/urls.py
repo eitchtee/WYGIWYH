@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
@@ -26,7 +26,9 @@ from apps.common.decorators.demo import disabled_on_demo
 from apps.common.oauth_views import (
     authorization_server_metadata,
     dynamic_client_registration,
+    protected_resource_metadata,
 )
+from apps.api.mcp import MCPView
 from oauth2_provider import urls as _dot_urls
 
 
@@ -71,6 +73,13 @@ urlpatterns = [
         disabled_on_demo(authorization_server_metadata),
         name="oauth-authorization-server-metadata",
     ),
+    # Clients may look it up with or without the resource path (RFC 9728)
+    re_path(
+        r"^\.well-known/oauth-protected-resource(?:/mcp)?/?$",
+        disabled_on_demo(protected_resource_metadata),
+        name="oauth-protected-resource-metadata",
+    ),
+    re_path(r"^mcp/?$", MCPView.as_view(), name="mcp"),
     path(
         "oauth/register/",
         disabled_on_demo(dynamic_client_registration),

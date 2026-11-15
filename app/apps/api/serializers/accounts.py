@@ -17,6 +17,7 @@ class AccountGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccountGroup
         fields = "__all__"
+        read_only_fields = ["id", "owner"]
 
 
 class InvestmentClassSerializer(serializers.ModelSerializer):
@@ -44,6 +45,7 @@ class AccountSerializer(serializers.ModelSerializer):
         source="group",
         write_only=True,
         allow_null=True,
+        required=False,
     )
 
     currency = CurrencySerializer(read_only=True)
@@ -56,6 +58,7 @@ class AccountSerializer(serializers.ModelSerializer):
         source="exchange_currency",
         write_only=True,
         allow_null=True,
+        required=False,
     )
 
     investment_class = InvestmentClassSerializer(read_only=True)
@@ -88,6 +91,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "income_entities",
             "income_categories",
             "income_tags",
+            "is_archived",
         ]
 
     def __init__(self, *args, **kwargs):
