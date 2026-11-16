@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-15 19:58+0000\n"
-"PO-Revision-Date: 2026-11-02 17:58+0000\n"
+"PO-Revision-Date: 2026-11-16 04:58+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #: apps/accounts/forms.py:33
 msgid "Group name"
@@ -63,7 +63,7 @@ msgstr "Groep"
 #: apps/accounts/models.py:138 templates/investments/fragments/list.html:32
 #: templates/investments/fragments/rebalance.html:22
 msgid "Asset class"
-msgstr ""
+msgstr "Activaklasse"
 
 #: apps/accounts/forms.py:200
 msgid "New balance"
@@ -169,17 +169,19 @@ msgstr "Accountgroepen"
 
 #: apps/accounts/models.py:43
 msgid "Target allocation (%)"
-msgstr ""
+msgstr "Doelallocatie (%)"
 
 #: apps/accounts/models.py:45
 msgid ""
 "Share of your investments you want in this class. Leave it empty to leave "
 "the class out of the targets."
 msgstr ""
+"Aandeel van uw beleggingen dat u in deze categorie wilt onderbrengen. Laat "
+"dit veld leeg om de categorie buiten de streefwaarden te houden."
 
 #: apps/accounts/models.py:61
 msgid "You already have an asset class with this name."
-msgstr ""
+msgstr "Je hebt al een beleggingscategorie met deze naam."
 
 #: apps/accounts/models.py:66
 #, python-format
@@ -187,6 +189,8 @@ msgid ""
 "Targets can't add up to more than 100%%. Other classes already take "
 "%(taken)s%%."
 msgstr ""
+"Doelstellingen kunnen bij elkaar niet meer dan 100%% bedragen. Andere "
+"categorieën beslaan al %(taken)s%%."
 
 #: apps/accounts/models.py:74 apps/export_app/forms.py:146
 #: templates/includes/sidebar.html:190
@@ -195,7 +199,7 @@ msgstr ""
 #: templates/investments/fragments/rebalance.html:6
 #: templates/investments/fragments/rebalance.html:11
 msgid "Asset classes"
-msgstr ""
+msgstr "Activaklassen"
 
 #: apps/accounts/models.py:94 apps/currencies/models.py:53
 #: templates/accounts/fragments/list.html:24
@@ -214,16 +218,16 @@ msgid "Default currency for exchange calculations"
 msgstr "Standaard munteenheid voor wisselberekeningen"
 
 #: apps/accounts/models.py:109 apps/currencies/models.py:36
-#, fuzzy
-#| msgid "No exchange rates"
 msgid "Show exchanged amounts"
-msgstr "Geen wisselkoersen"
+msgstr "Toon uitgewisselde bedragen"
 
 #: apps/accounts/models.py:111
 msgid ""
 "Show amounts converted to this account's exchange currency next to its "
 "transactions and totals."
 msgstr ""
+"Toon bedragen die zijn omgerekend naar de wisselvaluta van deze rekening, "
+"naast de bijbehorende transacties en totalen."
 
 #: apps/accounts/models.py:118
 msgid "Asset account"
@@ -237,10 +241,8 @@ msgstr ""
 "maand."
 
 #: apps/accounts/models.py:125
-#, fuzzy
-#| msgid "Installment"
 msgid "Investment"
-msgstr "Afbetaling"
+msgstr "Investering"
 
 #: apps/accounts/models.py:127
 msgid ""
@@ -248,18 +250,21 @@ msgid ""
 "price it by units (stocks, ETFs, crypto); leave it empty to track it by "
 "value (fixed income, property, pensions)."
 msgstr ""
+"Toon deze rekening in de Investeringstracker. Stel een wisselvaluta in om "
+"deze per eenheid te prijzen (aandelen, ETF's, crypto); laat het leeg om het "
+"op waarde bij te houden (vast inkomen, onroerend goed, pensioenen)."
 
 #: apps/accounts/models.py:140
 msgid ""
 "Groups investments in the allocation charts, e.g. Fixed income, Stocks, Real "
 "estate."
 msgstr ""
+"Groepeert beleggingen in de verdeelsleutels, b.v. Vastrentende waarden, "
+"aandelen, onroerend goed."
 
 #: apps/accounts/models.py:148
-#, fuzzy
-#| msgid "No entities"
 msgid "Income entities"
-msgstr "Geen bedrijven"
+msgstr "Inkomstenentiteiten"
 
 #: apps/accounts/models.py:150
 msgid ""
@@ -267,12 +272,13 @@ msgid ""
 "return: in this account, and income paid into other accounts (dividends, "
 "rent)."
 msgstr ""
+"Transacties met een van deze entiteiten tellen mee voor het rendement op "
+"deze belegging: zowel binnen deze rekening als in de vorm van inkomsten die "
+"op andere rekeningen worden gestort (dividenden, huur)."
 
 #: apps/accounts/models.py:159
-#, fuzzy
-#| msgid "No categories"
 msgid "Income categories"
-msgstr "Geen categorieën"
+msgstr "Inkomenscategorieën"
 
 #: apps/accounts/models.py:161
 msgid ""
@@ -280,16 +286,19 @@ msgid ""
 "(interest, taxes, fees). Everything else that isn't a transfer counts as "
 "money coming in or going out."
 msgstr ""
+"Transacties op deze rekening die onder een van deze categorieën vallen, zijn "
+"daarvan het gevolg (rente, belastingen, kosten). Al het overige dat geen "
+"overboeking is, wordt geteld als inkomende of uitgaande gelden."
 
 #: apps/accounts/models.py:170
-#, fuzzy
-#| msgid "Income"
 msgid "Income tags"
-msgstr "Ontvangsten Transactie"
+msgstr "Inkomstenlabels"
 
 #: apps/accounts/models.py:172
 msgid "Same as income categories, for transactions with any of these tags."
 msgstr ""
+"Hetzelfde als bij inkomstencategorieën, voor transacties met een van deze "
+"labels."
 
 #: apps/accounts/models.py:177 apps/currencies/models.py:46
 #: templates/accounts/fragments/list.html:27
@@ -430,24 +439,22 @@ msgstr "Ongeldige bedrijfsgegevens. Geef een ID of naam op."
 
 #: apps/api/serializers/currencies.py:45
 msgid "The rate must be greater than zero."
-msgstr ""
+msgstr "Het tarief moet groter zijn dan nul."
 
 #: apps/api/serializers/imports.py:61
-#, fuzzy
-#| msgid "Edit transaction rule action"
 msgid "Only transaction imports can use an account."
-msgstr "Bewerk verrichtingsregel actie"
+msgstr "Alleen bij transactie-importen kan een rekening worden gebruikt."
 
 #: apps/api/serializers/transactions.py:56
-#, fuzzy
-#| msgid "Create transaction"
 msgid "Transfers can't have sub-transactions."
-msgstr "Maak verrichtingen"
+msgstr "Overboekingen kunnen geen sub-transacties bevatten."
 
 #: apps/api/serializers/transactions.py:66
 msgid ""
 "The amount is the sum of the sub-transactions; send sub_transactions instead."
 msgstr ""
+"Het bedrag is de som van de subtransacties; stuur in plaats daarvan "
+"sub_transactions mee."
 
 #: apps/api/serializers/transactions.py:72
 #: apps/api/serializers/transactions.py:222 apps/dca/forms.py:298
@@ -462,7 +469,7 @@ msgstr "'datum' of 'referentiedatum' moet worden opgegeven."
 #: apps/bank_sync/forms.py:88
 #, python-format
 msgid "This service can't sync more often than every %(hours)s hours."
-msgstr ""
+msgstr "Deze dienst kan niet vaker dan elke %(hours)s uur synchroniseren."
 
 #: apps/bank_sync/forms.py:113 apps/bank_sync/models.py:76
 #: apps/currencies/models.py:54 apps/export_app/forms.py:25
@@ -478,14 +485,16 @@ msgstr "Munteenheden"
 #: apps/bank_sync/forms.py:114 apps/bank_sync/models.py:77
 msgid "Only sync transactions in these currencies. Empty syncs all."
 msgstr ""
+"Synchroniseer alleen transacties in deze valuta's. Leeglaten betekent: alles "
+"synchroniseren."
 
 #: apps/bank_sync/forms.py:128
 msgid "Don't sync"
-msgstr ""
+msgstr "Niet synchroniseren"
 
 #: apps/bank_sync/forms.py:139
 msgid "Required when an account is set."
-msgstr ""
+msgstr "Vereist wanneer een account is ingesteld."
 
 #: apps/bank_sync/models.py:16 apps/currencies/models.py:128
 msgid "Service Type"
@@ -509,64 +518,53 @@ msgid "Settings"
 msgstr "Instellingen"
 
 #: apps/bank_sync/models.py:24
-#, fuzzy
-#| msgid "Every X hours"
 msgid "Sync every X hours"
-msgstr "Elke X Uren"
+msgstr "Synchroniseer elke X uur"
 
 #: apps/bank_sync/models.py:25
 msgid "Most banks only update once a day."
-msgstr ""
+msgstr "De meeste banken werken hun gegevens slechts één keer per dag bij."
 
 #: apps/bank_sync/models.py:29
-#, fuzzy
-#| msgid "Transaction rules"
 msgid "Trigger transaction rules"
-msgstr "Verrichtingsregels"
+msgstr "Transactieregels activeren"
 
 #: apps/bank_sync/models.py:30
-#, fuzzy
-#| msgid "Edit transaction rule action"
 msgid "Run your transaction rules on synced transactions."
-msgstr "Bewerk verrichtingsregel actie"
+msgstr "Voer je transactieregels uit op gesynchroniseerde transacties."
 
 #: apps/bank_sync/models.py:34
-#, fuzzy
-#| msgid "Latest Transactions"
 msgid "Match existing transactions"
-msgstr "Laatste Verrichtingen"
+msgstr "Bestaande transacties koppelen"
 
 #: apps/bank_sync/models.py:36
 msgid ""
 "Instead of creating a synced transaction, link it to one you already added "
 "on the same account, with the same type and amount, dated up to 3 days apart."
 msgstr ""
+"In plaats van een gesynchroniseerde transactie aan te maken, kun je deze "
+"koppelen aan een transactie die je al hebt toegevoegd op dezelfde rekening, "
+"met hetzelfde type en bedrag, en een datum die maximaal 3 dagen afwijkt."
 
 #: apps/bank_sync/models.py:42
-#, fuzzy
-#| msgid "Last Successful Fetch"
 msgid "Last Successful Sync"
-msgstr "Laatste Succesvolle Ophaling"
+msgstr "Laatste geslaagde synchronisatie"
 
 #: apps/bank_sync/models.py:50
 msgid "Bank Sync Service"
-msgstr ""
+msgstr "Banksynchronisatieservice"
 
 #: apps/bank_sync/models.py:51 apps/export_app/forms.py:163
-#, fuzzy
-#| msgid "Exchange Rate Services"
 msgid "Bank Sync Services"
-msgstr "Wisselkoersdiensten"
+msgstr "Bank-synchronisatiediensten"
 
 #: apps/bank_sync/models.py:94
 msgid "Sync from"
-msgstr ""
+msgstr "Synchroniseren vanuit"
 
 #: apps/bank_sync/models.py:95
-#, fuzzy
-#| msgid "No transactions for this year"
 msgid "Transactions before this date are never imported."
-msgstr "Geen verrichtingen voor dit jaar"
+msgstr "Transacties van vóór deze datum worden nooit geïmporteerd."
 
 #: apps/bank_sync/providers/lunchflow.py:24 apps/currencies/models.py:135
 msgid "API Key"
@@ -577,6 +575,8 @@ msgid ""
 "Create a REST API destination on Lunch Flow and give it access to the "
 "accounts you want to sync."
 msgstr ""
+"Maak een REST API-bestemming aan in Lunch Flow en geef deze toegang tot de "
+"accounts die je wilt synchroniseren."
 
 #: apps/bank_sync/providers/lunchflow.py:69
 #, python-format
@@ -584,10 +584,12 @@ msgid ""
 "Lunch Flow reports this account as %(status)s, check the connection on Lunch "
 "Flow."
 msgstr ""
+"Lunch Flow meldt dat dit account de status %(status)s heeft; controleer de "
+"verbinding in Lunch Flow."
 
 #: apps/bank_sync/providers/pluggy.py:28
 msgid "Client ID"
-msgstr ""
+msgstr "Klant-ID"
 
 #: apps/bank_sync/providers/pluggy.py:32
 msgid "Client Secret"
