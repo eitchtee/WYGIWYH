@@ -1,17 +1,44 @@
-{% extends "extends/offcanvas.html" %}
-{% load crispy_forms_tags %}
 {% load i18n %}
 
-{% block title %}{% translate 'Restore' %}{% endblock %}
-
-{% block body %}
-  <div class="container">
-    <form hx-post="{% url 'restore_form' %}"
-          hx-target="#generic-offcanvas"
-          id="restore-form"
-          enctype="multipart/form-data"
-          class="show-loading px-1">
-      {% crispy form %}
-    </form>
+<form hx-post="{% url 'restore_form' %}"
+      hx-target="this"
+      hx-swap="outerHTML"
+      hx-encoding="multipart/form-data"
+      hx-disabled-elt="find [type=submit]"
+      hx-indicator="#restore-progress"
+      id="restore-form"
+      class="flex flex-col gap-4">
+  {% csrf_token %}
+  {% for error in form.non_field_errors %}
+    <div role="alert" class="alert alert-error alert-soft">
+      <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>{{ error }}
+    </div>
+  {% endfor %}
+  <div class="tabs tabs-border">
+    <input type="radio" name="restore_source" class="tab" aria-label="{% translate 'ZIP file' %}" checked>
+    <div class="tab-content pt-4">
+      <label class="flex flex-col gap-2">
+        <span class="text-base-content/70">{{ form.zip_file.help_text }}</span>
+        {{ form.zip_file }}
+      </label>
+    </div>
+    <input type="radio" name="restore_source" class="tab" aria-label="{% translate 'Individual CSV files' %}">
+    <div class="tab-content pt-4">
+      <div class="grid gap-4 sm:grid-cols-2">
+        {% for field in form %}
+          {% if field.name != "zip_file" %}
+            <label class="flex flex-col gap-1.5">
+              <span class="text-sm">{{ field.label }}</span>
+              {{ field }}
+            </label>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
   </div>
-{% endblock %}
+  <button type="submit" class="btn btn-primary">{% translate 'Restore' %}</button>
+  <p id="restore-progress" role="status" class="hidden [&.htmx-request]:flex items-center gap-2 text-sm text-base-content/70">
+    <span class="loading loading-spinner loading-sm"></span>
+    {% translate 'Restoring your data. This can take a while for large backups.' %}
+  </p>
+</form>

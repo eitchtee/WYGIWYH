@@ -49,13 +49,11 @@ htmx.defineExtension('htmx-download', {
                 document.body.appendChild(link);
                 link.click();
 
-                // Cleanup
-                setTimeout(() => {
-                    URL.revokeObjectURL(url);
-                    link.remove();
-                }, 100);
+                // Cleanup. Safari still reads the blob after click(), revoking early truncates the file
+                link.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 60000);
 
-            } else {
+            } else if (xhr.status !== 204) {
                 console.warn(`[htmx-download] Unexpected response status: ${xhr.status}`);
             }
 

@@ -1,13 +1,31 @@
-{% extends "extends/offcanvas.html" %}
-{% load crispy_forms_tags %}
 {% load i18n %}
 
-{% block title %}{% translate 'Export' %}{% endblock %}
-
-{% block body %}
-  <div class="container">
-    <form hx-post="{% url 'export_form' %}" hx-ext="htmx-download" hx-swap="none" id="export-form" class="show-loading px-1" target="_blank">
-      {% crispy form %}
-    </form>
+<form hx-post="{% url 'export_form' %}"
+      hx-ext="htmx-download"
+      hx-swap="none"
+      hx-disabled-elt="find [type=submit]"
+      hx-indicator="#export-progress"
+      id="export-form"
+      class="flex flex-col gap-4">
+  {% csrf_token %}
+  <div class="grid gap-1 sm:grid-cols-2">
+    {% for field in form %}
+      <label class="flex items-start gap-3 px-3 py-2 rounded-box cursor-pointer hover:bg-base-200 transition-colors">
+        {{ field }}
+        <span class="flex flex-col gap-1 leading-6">
+          <span>{{ field.label }}</span>
+          {% if field.help_text %}
+            <span id="{{ field.auto_id }}_helptext" class="flex items-baseline gap-1.5 text-sm leading-5 text-warning">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>{{ field.help_text }}
+            </span>
+          {% endif %}
+        </span>
+      </label>
+    {% endfor %}
   </div>
-{% endblock %}
+  <button type="submit" class="btn btn-primary">{% translate 'Export' %}</button>
+  <p id="export-progress" role="status" class="hidden [&.htmx-request]:flex items-center gap-2 text-sm text-base-content/70">
+    <span class="loading loading-spinner loading-sm"></span>
+    {% translate 'Preparing your export. The download starts on its own when it is ready.' %}
+  </p>
+</form>
