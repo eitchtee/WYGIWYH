@@ -99,6 +99,7 @@ msgstr "Categorie"
 #: templates/insights/fragments/year_by_year.html:24
 #: templates/insights/fragments/year_by_year.html:27
 #: templates/tags/fragments/list.html:9 templates/tags/pages/index.html:4
+#: apps/export_app/forms.py:46 apps/export_app/forms.py:117
 msgid "Tags"
 msgstr "Labels"
 
@@ -341,6 +342,7 @@ msgstr "Rekening"
 #: templates/includes/sidebar.html:174 templates/includes/sidebar.html:176
 #: templates/monthly_overview/pages/overview.html:77
 #: templates/transactions/pages/transactions.html:26
+#: apps/export_app/forms.py:16 apps/export_app/forms.py:113
 msgid "Accounts"
 msgstr "Rekeningen"
 
@@ -479,6 +481,7 @@ msgstr "Deze dienst kan niet vaker dan elke %(hours)s uur synchroniseren."
 #: templates/includes/sidebar.html:198
 #: templates/monthly_overview/pages/overview.html:63
 #: templates/transactions/pages/transactions.html:12
+#: apps/export_app/forms.py:22 apps/export_app/forms.py:115
 msgid "Currencies"
 msgstr "Munteenheden"
 
@@ -597,7 +600,6 @@ msgstr ""
 
 #: apps/bank_sync/providers/pluggy.py:37
 #, fuzzy
-#| msgid "Item"
 msgid "Item IDs"
 msgstr "Artikel"
 
@@ -619,7 +621,6 @@ msgstr ""
 
 #: apps/bank_sync/providers/simplefin.py:56
 #, fuzzy
-#| msgid "Create token"
 msgid "Setup Token"
 msgstr "Token aanmaken"
 
@@ -665,7 +666,6 @@ msgstr "Dienst succesvol verwijderd"
 
 #: apps/bank_sync/views.py:108
 #, fuzzy
-#| msgid "Account updated successfully"
 msgid "Accounts updated successfully"
 msgstr "Rekening succesvol bijgewerkt"
 
@@ -676,7 +676,6 @@ msgstr ""
 
 #: apps/bank_sync/views.py:134
 #, fuzzy
-#| msgid "Services queued successfully"
 msgid "Sync queued successfully"
 msgstr "Diensten succesvol in de wachtrij geplaatst"
 
@@ -733,9 +732,6 @@ msgstr "Zichtbaarheid"
 
 #: apps/common/forms.py:43
 #, fuzzy
-#| msgid ""
-#| "Private: Only shown for the owner and shared users. Only editable by the "
-#| "owner.<br/>Public: Shown for all users. Only editable by the owner."
 msgid ""
 "Private: Only shown for the owner and shared users.<br/>Public: Shown for "
 "all users.<br/>Only the owner can edit, share or delete it."
@@ -937,7 +933,8 @@ msgstr "Automatisch"
 #: apps/currencies/models.py:91 apps/export_app/forms.py:73
 #: apps/export_app/forms.py:161 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
-#: templates/includes/sidebar.html:204
+#: templates/includes/sidebar.html:204 apps/export_app/forms.py:76
+#: apps/export_app/forms.py:129
 msgid "Exchange Rates"
 msgstr "Wisselkoersen"
 
@@ -967,7 +964,6 @@ msgstr "API sleutel voor de dienst (indien verplicht)"
 
 #: apps/currencies/models.py:141
 #, fuzzy
-#| msgid "Actions"
 msgid "Options"
 msgstr "Acties"
 
@@ -1014,7 +1010,6 @@ msgstr ""
 
 #: apps/currencies/models.py:180
 #, fuzzy
-#| msgid "Single exchange rate"
 msgid "One exchange rate per day"
 msgstr "Enkele Wisselkoers"
 
@@ -1025,7 +1020,6 @@ msgstr ""
 
 #: apps/currencies/models.py:187
 #, fuzzy
-#| msgid "Exchange Rates"
 msgid "Exchange rates to keep"
 msgstr "Wisselkoersen"
 
@@ -1123,6 +1117,7 @@ msgstr "Naar Rekening"
 #: templates/insights/fragments/month_by_month.html:43
 #: templates/insights/fragments/year_by_year.html:35
 #: templates/insights/fragments/year_by_year.html:38
+#: apps/export_app/forms.py:40 apps/export_app/forms.py:118
 msgid "Entities"
 msgstr "Bedrijven"
 
@@ -1145,7 +1140,6 @@ msgstr "Koppel verrichting"
 
 #: apps/dca/forms.py:289
 #, fuzzy, python-format
-#| msgid "Transaction amounts are now hidden"
 msgid "Transaction must be in %(currency)s."
 msgstr "Verrichtingsbedragen worden nu verborgen"
 
@@ -1185,6 +1179,7 @@ msgid "DCA Strategy"
 msgstr "DCA Strategie"
 
 #: apps/dca/models.py:35 apps/export_app/forms.py:175
+#: apps/export_app/forms.py:143
 msgid "DCA Strategies"
 msgstr "DCA Strategieën"
 
@@ -1205,6 +1200,7 @@ msgid "DCA Entry"
 msgstr "DCA Instap"
 
 #: apps/dca/models.py:187 apps/export_app/forms.py:176
+#: apps/export_app/forms.py:144
 msgid "DCA Entries"
 msgstr "DCA Idems"
 
@@ -1234,7 +1230,8 @@ msgstr "Invoer succesvol verwijderd"
 
 #: apps/export_app/forms.py:13 apps/export_app/forms.py:144
 #: templates/includes/sidebar.html:247 templates/users/fragments/list.html:10
-#: templates/users/pages/index.html:4
+#: templates/users/pages/index.html:4 apps/export_app/forms.py:10
+#: apps/export_app/forms.py:112
 msgid "Users"
 msgstr "Gebruikers"
 
@@ -1243,7 +1240,8 @@ msgstr "Gebruikers"
 #: templates/includes/sidebar.html:154
 #: templates/recurring_transactions/fragments/list_transactions.html:5
 #: templates/recurring_transactions/fragments/table.html:37
-#: templates/transactions/pages/transactions.html:5
+#: templates/transactions/pages/transactions.html:5 apps/export_app/forms.py:28
+#: apps/export_app/forms.py:119
 msgid "Transactions"
 msgstr "Verrichtingen"
 
@@ -1255,6 +1253,7 @@ msgstr "Verrichtingen"
 #: templates/insights/fragments/month_by_month.html:21
 #: templates/insights/fragments/year_by_year.html:13
 #: templates/insights/fragments/year_by_year.html:16
+#: apps/export_app/forms.py:34 apps/export_app/forms.py:116
 msgid "Categories"
 msgstr "Categorieën"
 
@@ -1262,90 +1261,102 @@ msgstr "Categorieën"
 #: apps/transactions/models.py:1170 templates/includes/sidebar.html:110
 #: templates/recurring_transactions/fragments/list.html:9
 #: templates/recurring_transactions/pages/index.html:4
+#: apps/export_app/forms.py:58 apps/export_app/forms.py:123
 msgid "Recurring Transactions"
 msgstr "Terugkerende Verrichtingen"
 
 #: apps/export_app/forms.py:61 apps/export_app/forms.py:153
 #: apps/transactions/models.py:887 templates/includes/sidebar.html:104
 #: templates/installment_plans/fragments/list.html:9
-#: templates/installment_plans/pages/index.html:4
+#: templates/installment_plans/pages/index.html:4 apps/export_app/forms.py:52
+#: apps/export_app/forms.py:121
 msgid "Installment Plans"
 msgstr "Afbetalingsplannen"
 
 #: apps/export_app/forms.py:67 apps/export_app/forms.py:157
 #: apps/transactions/models.py:1555 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
-#: templates/quick_transactions/pages/index.html:15
+#: templates/quick_transactions/pages/index.html:15 apps/export_app/forms.py:64
+#: apps/export_app/forms.py:125
 msgid "Quick Transactions"
 msgstr "Snelle Verrichtingen"
 
 #: apps/export_app/forms.py:79 apps/export_app/forms.py:159
 #: templates/exchange_rates_services/fragments/list.html:10
 #: templates/exchange_rates_services/pages/index.html:4
-#: templates/includes/sidebar.html:232
+#: templates/includes/sidebar.html:232 apps/export_app/forms.py:70
+#: apps/export_app/forms.py:127
 msgid "Automatic Exchange Rates"
 msgstr "Automatische Wisselkoersen"
 
 #: apps/export_app/forms.py:85 templates/bank_sync/fragments/list.html:8
 #: templates/bank_sync/pages/index.html:4 templates/includes/sidebar.html:238
+#: apps/export_app/forms.py:82
 msgid "Bank Sync"
 msgstr ""
 
-#: apps/export_app/forms.py:86
+#: apps/export_app/forms.py:86 apps/export_app/forms.py:83
 msgid "Includes the providers' API keys"
 msgstr ""
 
 #: apps/export_app/forms.py:92 templates/includes/sidebar.html:212
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
+#: apps/export_app/forms.py:89
 msgid "Rules"
 msgstr "Regels"
 
 #: apps/export_app/forms.py:98 templates/cotton/transaction/item.html:68
+#: apps/export_app/forms.py:95
 msgid "DCA"
 msgstr "DCA"
 
 #: apps/export_app/forms.py:104 apps/export_app/forms.py:177
 #: templates/import_app/fragments/profiles/list.html:21
 #: templates/import_app/pages/profiles_index.html:4
+#: apps/export_app/forms.py:101 apps/export_app/forms.py:145
 msgid "Import Profiles"
 msgstr "Profielen importeren"
 
 #: apps/export_app/forms.py:133 templates/export_app/fragments/export.html:5
 #: templates/export_app/pages/index.html:13
+#: templates/export_app/fragments/export.html:26
+#: templates/export_app/pages/index.html:12
 msgid "Export"
 msgstr "Exporteer"
 
-#: apps/export_app/forms.py:141
+#: apps/export_app/forms.py:141 apps/export_app/forms.py:109
 msgid "Import a ZIP file exported from WYGIWYH"
 msgstr "Importeer een ZIP-bestand geëxporteerd vanuit WYGIWYH"
 
-#: apps/export_app/forms.py:142
+#: apps/export_app/forms.py:142 apps/export_app/forms.py:110
 msgid "ZIP File"
 msgstr "ZIP-bestand"
 
 #: apps/export_app/forms.py:152 apps/rules/forms.py:193 apps/rules/models.py:42
 #: apps/rules/models.py:320 apps/transactions/models.py:739
 #: templates/transactions/widgets/sub_transactions.html:39
+#: apps/export_app/forms.py:120
 #, fuzzy
-#| msgid "transactions"
 msgid "Sub-transactions"
 msgstr "verrichtingen"
 
-#: apps/export_app/forms.py:166
+#: apps/export_app/forms.py:166 apps/export_app/forms.py:134
 #, fuzzy
-#| msgid "By account"
 msgid "Bank Sync Accounts"
 msgstr "Op rekening"
 
 #: apps/export_app/forms.py:168 apps/rules/models.py:27
+#: apps/export_app/forms.py:136
 msgid "Transaction rules"
 msgstr "Verrichtingsregels"
 
 #: apps/export_app/forms.py:170 apps/rules/models.py:69
+#: apps/export_app/forms.py:138
 msgid "Edit transaction action"
 msgstr "Bewerk verrichtingsactie"
 
 #: apps/export_app/forms.py:173 apps/rules/models.py:332
+#: apps/export_app/forms.py:141
 msgid "Update or create transaction actions"
 msgstr "Bewerk of maak verrichtingsregel acties"
 
@@ -1353,22 +1364,24 @@ msgstr "Bewerk of maak verrichtingsregel acties"
 #: templates/cotton/ui/deleted_transactions_action_bar.html:53
 #: templates/export_app/fragments/restore.html:5
 #: templates/export_app/pages/index.html:19
+#: templates/export_app/fragments/restore.html:39
+#: templates/export_app/pages/index.html:18
 msgid "Restore"
 msgstr "Herstel"
 
-#: apps/export_app/forms.py:220
+#: apps/export_app/forms.py:220 apps/export_app/forms.py:161
 msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr "Upload een ZIP-bestand of ten minste één CSV-bestand"
 
-#: apps/export_app/views.py:216
+#: apps/export_app/views.py:216 apps/export_app/views.py:232
 msgid "You have to select at least one export"
 msgstr "U moet ten minste één export selecteren"
 
-#: apps/export_app/views.py:236
+#: apps/export_app/views.py:236 apps/export_app/views.py:252
 msgid "Data restored successfully"
 msgstr "Gegevens succesvol hersteld"
 
-#: apps/export_app/views.py:248
+#: apps/export_app/views.py:248 apps/export_app/views.py:259
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
@@ -1551,19 +1564,16 @@ msgstr ""
 
 #: apps/investments/views.py:290
 #, fuzzy
-#| msgid "Installment Plan added successfully"
 msgid "Asset class added successfully"
 msgstr "Afbetalingsplan succesvol toegevoegd"
 
 #: apps/investments/views.py:298
 #, fuzzy
-#| msgid "Tag updated successfully"
 msgid "Asset class updated successfully"
 msgstr "Label succesvol bijgewerkt"
 
 #: apps/investments/views.py:319
 #, fuzzy
-#| msgid "Tag deleted successfully"
 msgid "Asset class deleted successfully"
 msgstr "Label succesvol verwijderd"
 
@@ -2094,7 +2104,6 @@ msgstr "Geen Beschrijving"
 
 #: apps/transactions/models.py:738
 #, fuzzy
-#| msgid "transactions"
 msgid "Sub-transaction"
 msgstr "verrichtingen"
 
@@ -2331,7 +2340,6 @@ msgstr ""
 
 #: apps/transactions/views/conversions.py:226
 #, fuzzy
-#| msgid "Convert into quick transaction"
 msgid "Convert into transfer"
 msgstr "Omzetten in een snelle verrichting"
 
@@ -2991,7 +2999,6 @@ msgstr ""
 
 #: templates/bank_sync/fragments/accounts.html:31
 #, fuzzy
-#| msgid "No transactions for this year"
 msgid "No accounts found on this service"
 msgstr "Geen verrichtingen voor dit jaar"
 
@@ -3002,7 +3009,6 @@ msgstr "Dienst"
 
 #: templates/bank_sync/fragments/list.html:23
 #, fuzzy
-#| msgid "Last fetch"
 msgid "Last sync"
 msgstr "Laatst opgehaald"
 
@@ -3012,7 +3018,6 @@ msgstr ""
 
 #: templates/bank_sync/fragments/list.html:55
 #, fuzzy
-#| msgid "Add transaction rule"
 msgid "Synced transactions are kept."
 msgstr "Verrichtingsregel toevoegen"
 
@@ -3286,7 +3291,6 @@ msgstr "Saldo"
 
 #: templates/cotton/ui/transactions_action_bar.html:83
 #, fuzzy
-#| msgid "Transactions"
 msgid "More actions"
 msgstr "Verrichtingen"
 
@@ -3495,6 +3499,7 @@ msgid "accounts"
 msgstr "rekeningen"
 
 #: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:225
+#: templates/export_app/pages/index.html:8
 msgid "Export and Restore"
 msgstr "Exporteren en Herstellen"
 
@@ -3674,7 +3679,6 @@ msgstr "Hulpmiddelen"
 #: templates/investments/pages/detail.html:4
 #: templates/investments/pages/index.html:4
 #, fuzzy
-#| msgid "Installments"
 msgid "Investments"
 msgstr "Aflossingen"
 
@@ -4014,7 +4018,6 @@ msgstr ""
 #: templates/investment_classes/fragments/list.html:28
 #: templates/investments/fragments/rebalance.html:25
 #, fuzzy
-#| msgid "Targeting"
 msgid "Target"
 msgstr "Gericht op"
 
@@ -4046,7 +4049,6 @@ msgstr ""
 #: templates/investments/fragments/_totals.html:12
 #: templates/investments/fragments/detail.html:57
 #, fuzzy
-#| msgid "One time"
 msgid "all time"
 msgstr "Een Keer"
 
@@ -4059,27 +4061,23 @@ msgstr ""
 #: templates/investments/fragments/detail.html:128
 #: templates/investments/fragments/detail.html:215
 #, fuzzy
-#| msgid "Total Invested"
 msgid "Invested"
 msgstr "Totaal Geïnvesteerd"
 
 #: templates/investments/fragments/_totals.html:31
 #, fuzzy
-#| msgid "Currency Code"
 msgid "Currency effect"
 msgstr "Munteenheids Code"
 
 #: templates/investments/fragments/_totals.html:36
 #: templates/investments/fragments/detail.html:254
 #, fuzzy
-#| msgid "No exchange rates"
 msgid "Needs historical exchange rates"
 msgstr "Geen wisselkoersen"
 
 #: templates/investments/fragments/_totals.html:44
 #: templates/investments/fragments/detail.html:242
 #, fuzzy, python-format
-#| msgid "Delete %(name)s"
 msgid "In %(name)s"
 msgstr "Verwijder %(name)s"
 
@@ -4095,7 +4093,6 @@ msgstr "Op munteenheid"
 
 #: templates/investments/fragments/charts.html:24
 #, fuzzy
-#| msgid "Total Invested"
 msgid "Value and invested"
 msgstr "Totaal Geïnvesteerd"
 
@@ -4105,7 +4102,6 @@ msgstr ""
 
 #: templates/investments/fragments/charts.html:38
 #, fuzzy
-#| msgid "Nothing to see here..."
 msgid "Nothing to chart yet"
 msgstr "Hier is niets te zien..."
 
@@ -4123,7 +4119,6 @@ msgstr ""
 
 #: templates/investments/fragments/detail.html:30
 #, fuzzy
-#| msgid "Updated at"
 msgid "Update value"
 msgstr "Bijgewerkt op"
 
@@ -4136,7 +4131,6 @@ msgstr ""
 #: templates/investments/fragments/detail.html:144
 #: templates/investments/fragments/detail.html:206
 #, fuzzy
-#| msgid "Entry Price"
 msgid "Price"
 msgstr "Ingangsprijs"
 
@@ -4145,7 +4139,6 @@ msgstr "Ingangsprijs"
 #: templates/investments/fragments/detail.html:219
 #: templates/investments/fragments/detail.html:282
 #, fuzzy
-#| msgid "Warning"
 msgid "Earnings"
 msgstr "Waarschuwing"
 
@@ -4157,7 +4150,6 @@ msgstr ""
 #: templates/investments/fragments/detail.html:146
 #: templates/investments/fragments/rebalance.html:40
 #, fuzzy
-#| msgid "By"
 msgid "Buy"
 msgstr "Bij"
 
@@ -4182,7 +4174,6 @@ msgstr ""
 
 #: templates/investments/fragments/detail.html:219
 #, fuzzy
-#| msgid "Uncategorized"
 msgid "Unrealized"
 msgstr "Ongecategoriseerd"
 
@@ -4204,13 +4195,11 @@ msgstr ""
 
 #: templates/investments/fragments/detail.html:253
 #, fuzzy
-#| msgid "No exchange rates"
 msgid "From exchange rates"
 msgstr "Geen wisselkoersen"
 
 #: templates/investments/fragments/detail.html:263
 #, fuzzy
-#| msgid "Management"
 msgid "Movements"
 msgstr "Beheer"
 
@@ -4240,7 +4229,6 @@ msgstr ""
 
 #: templates/investments/fragments/detail.html:320
 #, fuzzy
-#| msgid "No presets yet"
 msgid "No movements yet"
 msgstr "Nog geen voorinstellingen"
 
@@ -4254,7 +4242,6 @@ msgstr ""
 
 #: templates/investments/fragments/list.html:27
 #, fuzzy
-#| msgid "Account Group"
 msgid "Account group"
 msgstr "Accountgroep"
 
@@ -4264,13 +4251,11 @@ msgstr ""
 
 #: templates/investments/fragments/list.html:82
 #, fuzzy
-#| msgid "New balance"
 msgid "Rebalance"
 msgstr "Nieuw saldo"
 
 #: templates/investments/fragments/list.html:90
 #, fuzzy
-#| msgid "No presets yet"
 msgid "No investments yet"
 msgstr "Nog geen voorinstellingen"
 
@@ -4529,7 +4514,6 @@ msgstr "Evolutie per rekening"
 #: templates/oauth2_provider/authorize.html:4
 #: templates/oauth2_provider/authorize.html:39
 #, fuzzy
-#| msgid "Categorized"
 msgid "Authorize"
 msgstr "Gecategoriseerd"
 
@@ -4821,7 +4805,6 @@ msgstr "Filter voorinstelling"
 
 #: templates/transactions/fragments/filter_presets.html:20
 #, fuzzy
-#| msgid "Move to today"
 msgid "Dates relative to today"
 msgstr "Ga naar vandaag"
 
@@ -4866,7 +4849,6 @@ msgstr "Verwijderde verrichtingen"
 
 #: templates/transactions/widgets/sub_transactions.html:53
 #, fuzzy
-#| msgid "Add quick transaction"
 msgid "Add sub-transaction"
 msgstr "Voeg snelle verrichtingen toe"
 
@@ -5012,16 +4994,43 @@ msgstr "Aanmelden met"
 msgid "Yearly Overview"
 msgstr "Jaaroverzicht"
 
+#: apps/export_app/views.py:198
+#, fuzzy
+msgid ""
+"There was an error exporting your data. Check the logs for more details."
+msgstr ""
+"Er is een fout opgetreden bij het herstellen van uw gegevens. Controleer de "
+"logboeken voor meer details."
+
+#: apps/export_app/views.py:203
+msgid "Export ready, your download has started"
+msgstr ""
+
+#: templates/export_app/fragments/export.html:29
+msgid "Preparing your export. The download starts on its own when it is ready."
+msgstr ""
+
+#: templates/export_app/fragments/restore.html:18
+#, fuzzy
+msgid "ZIP file"
+msgstr "ZIP-bestand"
+
+#: templates/export_app/fragments/restore.html:25
+msgid "Individual CSV files"
+msgstr ""
+
+#: templates/export_app/fragments/restore.html:42
+msgid "Restoring your data. This can take a while for large backups."
+msgstr ""
+
 #~ msgid "Invert election"
 #~ msgstr "Electie omkeren"
 
 #, fuzzy
-#~| msgid "Info"
 #~ msgid "In"
 #~ msgstr "Info"
 
 #, fuzzy
-#~| msgid "Currency Code"
 #~ msgid "currency effect"
 #~ msgstr "Munteenheids Code"
 
@@ -5038,7 +5047,6 @@ msgstr "Jaaroverzicht"
 #~ msgstr "Categorieën Overzicht"
 
 #, fuzzy
-#~| msgid "Categories Overview"
 #~ msgid "Entities Overview"
 #~ msgstr "Categorieën Overzicht"
 
@@ -5065,7 +5073,6 @@ msgstr "Jaaroverzicht"
 #~ msgstr "In- Uitklapbaar"
 
 #, fuzzy
-#~| msgid "Automation"
 #~ msgid "Automatic"
 #~ msgstr "Automatisatie"
 
@@ -5073,196 +5080,157 @@ msgstr "Jaaroverzicht"
 #~ msgstr "Profiel"
 
 #, fuzzy
-#~| msgid "No tags"
 #~ msgid "Show tags"
 #~ msgstr "Geen labels"
 
 #, fuzzy
-#~| msgid "From Amount"
 #~ msgid "Principal Amount"
 #~ msgstr "Van Bedrag"
 
 #, fuzzy
-#~| msgid "Interval"
 #~ msgid "Interest"
 #~ msgstr "Interval"
 
 #, fuzzy
-#~| msgid "Management"
 #~ msgid "Loan Payment"
 #~ msgstr "Beheer"
 
 #, fuzzy
-#~| msgid "Management"
 #~ msgid "Loan Payments"
 #~ msgstr "Beheer"
 
 #, fuzzy
-#~| msgid "Installment Plans"
 #~ msgid "Installment Planss"
 #~ msgstr "Afbetalingsplannen"
 
 #, fuzzy
-#~| msgid "Start Date"
 #~ msgid "Search Date"
 #~ msgstr "Startdatum"
 
 #, fuzzy
-#~| msgid "Internal Note"
 #~ msgid "Search Internal Note"
 #~ msgstr "Interne opmerking"
 
 #, fuzzy
-#~| msgid "Set field"
 #~ msgid "Is Paid"
 #~ msgstr "Veld instellen"
 
 #, fuzzy
-#~| msgid "From Account"
 #~ msgid "Search Account"
 #~ msgstr "Van rekening"
 
 #, fuzzy
-#~| msgid "Account Group"
 #~ msgid "Account Operator"
 #~ msgstr "Accountgroep"
 
 #, fuzzy
-#~| msgid "Recurrence Type"
 #~ msgid "Search Type"
 #~ msgstr "Type Terugkeerpatroon"
 
 #, fuzzy
-#~| msgid "Search"
 #~ msgid "Search Is Paid"
 #~ msgstr "Zoeken"
 
 #, fuzzy
-#~| msgid "Add action to transaction rule"
 #~ msgid "Expression to match transaction date"
 #~ msgstr "Actie toevoegen aan verrichtingsregel"
 
 #, fuzzy
-#~| msgid "Date Format"
 #~ msgid "Date Operator"
 #~ msgstr "Datumnotatie"
 
 #, fuzzy
-#~| msgid "Reference Date"
 #~ msgid "Search Reference Date"
 #~ msgstr "Referentiedatum"
 
 #, fuzzy
-#~| msgid "Reference date from"
 #~ msgid "Reference Date Operator"
 #~ msgstr "Referentiedatum vanaf"
 
 #, fuzzy
-#~| msgid "Amount max"
 #~ msgid "Amount Operator"
 #~ msgstr "Maximaal bedrag"
 
 #, fuzzy
-#~| msgid "Description"
 #~ msgid "Search Description"
 #~ msgstr "Beschrijving"
 
 #, fuzzy
-#~| msgid "Edit transaction rule action"
 #~ msgid "Expression to match transaction description"
 #~ msgstr "Bewerk verrichtingsregel actie"
 
 #, fuzzy
-#~| msgid "Description"
 #~ msgid "Description Operator"
 #~ msgstr "Beschrijving"
 
 #, fuzzy
-#~| msgid "Search"
 #~ msgid "Search Notes"
 #~ msgstr "Zoeken"
 
 #, fuzzy
-#~| msgid "Category"
 #~ msgid "Search Category"
 #~ msgstr "Categorie"
 
 #, fuzzy
-#~| msgid "Search"
 #~ msgid "Search Tags"
 #~ msgstr "Zoeken"
 
 #, fuzzy
-#~| msgid "Entities"
 #~ msgid "Search Entities"
 #~ msgstr "Bedrijven"
 
 #, fuzzy
-#~| msgid "Entities"
 #~ msgid "Entities Operator"
 #~ msgstr "Bedrijven"
 
 #, fuzzy
-#~| msgid "Internal Note"
 #~ msgid "Internal Note Operator"
 #~ msgstr "Interne opmerking"
 
 #, fuzzy
-#~| msgid "Internal ID"
 #~ msgid "Search Internal ID"
 #~ msgstr "Interne ID"
 
 #, fuzzy
-#~| msgid "Internal ID"
 #~ msgid "Internal ID Operator"
 #~ msgstr "Interne ID"
 
 #, fuzzy
-#~| msgid "Recurrence Type"
 #~ msgid "Set Type"
 #~ msgstr "Type Terugkeerpatroon"
 
 #, fuzzy
-#~| msgid "Start Date"
 #~ msgid "Set Date"
 #~ msgstr "Startdatum"
 
 #, fuzzy
-#~| msgid "Amount"
 #~ msgid "Set Amount"
 #~ msgstr "Bedrag"
 
 #, fuzzy
-#~| msgid "Notes"
 #~ msgid "Set Notes"
 #~ msgstr "Opmerkingen"
 
 #, fuzzy
-#~| msgid "Internal Note"
 #~ msgid "Set Internal Note"
 #~ msgstr "Interne opmerking"
 
 #, fuzzy
-#~| msgid "Internal ID"
 #~ msgid "Set Internal ID"
 #~ msgstr "Interne ID"
 
 #, fuzzy
-#~| msgid "Entities"
 #~ msgid "Set Entities"
 #~ msgstr "Bedrijven"
 
 #, fuzzy
-#~| msgid "Category"
 #~ msgid "Set Category"
 #~ msgstr "Categorie"
 
 #, fuzzy
-#~| msgid "Tags"
 #~ msgid "Set Tags"
 #~ msgstr "Labels"
 
 #, fuzzy
-#~| msgid "Exchange rate deleted successfully"
 #~ msgid "Exchange rates queued to be fetched successfully"
 #~ msgstr "Wisselkoers succesvol verwijderd"
