@@ -1,21 +1,16 @@
 from import_export.widgets import ManyToManyWidget
 
+from apps.export_app.widgets.foreign_key import get_or_create_for_owner, row_owner_id
+
 
 class AutoCreateManyToManyWidget(ManyToManyWidget):
     def clean(self, value, row=None, *args, **kwargs):
         if not value:
             return []
 
-        values = value.split(self.separator)
-        cleaned_values = []
-
-        for val in values:
-            val = val.strip()
-            if val:
-                try:
-                    obj = self.model.objects.get(**{self.field: val})
-                except self.model.DoesNotExist:
-                    obj = self.model.objects.create(name=val)
-                cleaned_values.append(obj)
-
-        return cleaned_values
+        owner_id = row_owner_id(row)
+        return [
+            get_or_create_for_owner(self.model, val.strip(), owner_id)
+            for val in value.split(self.separator)
+            if val.strip()
+        ]
