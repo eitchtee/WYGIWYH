@@ -7,6 +7,7 @@ from decimal import Decimal
 from unittest.mock import MagicMock, patch
 
 from django.contrib.auth import get_user_model
+from django.contrib.messages import get_messages
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
@@ -879,7 +880,10 @@ class ExportRestoreTests(TestCase):
         response = self.client.post(
             reverse("restore_form"), {"zip_file": upload}, HTTP_HX_REQUEST="true"
         )
-        self.assertEqual(response.status_code, 204)
+        self.assertIn(
+            "Data restored successfully",
+            [m.message for m in get_messages(response.wsgi_request)],
+        )
 
         service = BankSyncService._base_manager.get()
         self.assertEqual(service.owner, self.other)
