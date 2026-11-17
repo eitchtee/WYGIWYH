@@ -1,7 +1,7 @@
 from functools import reduce
 from operator import or_
 
-from django.db.models import Q
+from django.db.models import Prefetch, Q
 from import_export import fields, resources
 from import_export.widgets import ForeignKeyWidget
 
@@ -25,7 +25,22 @@ from apps.transactions.models import (
 from apps.export_app.widgets.numbers import UniversalDecimalWidget
 
 
-class TransactionResource(resources.ModelResource):
+def with_relations(queryset, *related):
+    """Loads relations up front, and every owner's tags and entities, not just the exporter's."""
+    return queryset.select_related(*related).prefetch_related(
+        Prefetch("tags", queryset=TransactionTag.all_objects.all()),
+        Prefetch("entities", queryset=TransactionEntity.all_objects.all()),
+    )
+
+
+class PrefetchedExportResource(resources.ModelResource):
+    def iter_queryset(self, queryset):
+        # import-export pages prefetched querysets with OFFSET, which slows down
+        # quadratically; Django's iterator prefetches per chunk with a cursor instead
+        yield from queryset.iterator(chunk_size=2000)
+
+
+class TransactionResource(PrefetchedExportResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
@@ -64,7 +79,15 @@ class TransactionResource(resources.ModelResource):
         model = Transaction
 
     def get_queryset(self):
-        return Transaction.userless_all_objects.all()
+        return with_relations(
+            Transaction.userless_all_objects.all(),
+            "account",
+            "owner",
+            "category",
+            "installment_plan",
+            "recurring_transaction",
+            "linked_transaction",
+        )
 
 
 class TransactionTagResource(resources.ModelResource):
@@ -91,7 +114,7 @@ class TransactionCategoyResource(resources.ModelResource):
         return TransactionCategory.all_objects.all()
 
 
-class RecurringTransactionResource(resources.ModelResource):
+class RecurringTransactionResource(PrefetchedExportResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
@@ -122,18 +145,23 @@ class RecurringTransactionResource(resources.ModelResource):
         widget=UniversalDecimalWidget(),
     )
 
+    # Lets restore find the account and its names under the right user
+    account_owner = fields.Field(column_name="account_owner", readonly=True)
+
     class Meta:
         model = RecurringTransaction
 
     def get_queryset(self):
-        return RecurringTransaction.all_objects.all()
+        return with_relations(
+            RecurringTransaction.all_objects.all(), "account", "to_account", "category"
+        )
 
     def dehydrate_account_owner(self, obj):
         """Export the account's owner ID for proper import matching."""
         return obj.account.owner_id if obj.account else None
 
 
-class InstallmentPlanResource(resources.ModelResource):
+class InstallmentPlanResource(PrefetchedExportResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
@@ -164,11 +192,16 @@ class InstallmentPlanResource(resources.ModelResource):
         widget=UniversalDecimalWidget(),
     )
 
+    # Lets restore find the account and its names under the right user
+    account_owner = fields.Field(column_name="account_owner", readonly=True)
+
     class Meta:
         model = InstallmentPlan
 
     def get_queryset(self):
-        return InstallmentPlan.all_objects.all()
+        return with_relations(
+            InstallmentPlan.all_objects.all(), "account", "category"
+        )
 
     def dehydrate_account_owner(self, obj):
         """Export the account's owner ID for proper import matching."""
@@ -182,7 +215,7 @@ class AnyOwnerForeignKeyWidget(ForeignKeyWidget):
         return self.model._base_manager.all()
 
 
-class QuickTransactionResource(resources.ModelResource):
+class QuickTransactionResource(PrefetchedExportResource):
     account = fields.Field(
         attribute="account",
         column_name="account",
@@ -226,7 +259,9 @@ class QuickTransactionResource(resources.ModelResource):
         model = QuickTransaction
 
     def get_queryset(self):
-        return QuickTransaction.all_objects.all()
+        return with_relations(
+            QuickTransaction.all_objects.all(), "account", "to_account", "category", "owner"
+        )
 
 
 SUB_TRANSACTION_BACKUP_PARENTS = (

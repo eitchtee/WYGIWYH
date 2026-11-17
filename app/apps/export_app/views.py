@@ -3,7 +3,7 @@ import zipfile
 from io import BytesIO
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -51,21 +51,26 @@ from apps.export_app.resources.transactions import (
 )
 from apps.export_app.resources.users import UserResource
 from apps.common.decorators.demo import disabled_on_demo
+from apps.common.decorators.user import is_superuser
 
 logger = logging.getLogger()
 
 
 @login_required
 @disabled_on_demo
-@user_passes_test(lambda u: u.is_superuser)
+@is_superuser
 @require_http_methods(["GET"])
 def export_index(request):
-    return render(request, "export_app/pages/index.html")
+    return render(
+        request,
+        "export_app/pages/index.html",
+        {"form": ExportForm(), "restore_form": RestoreForm()},
+    )
 
 
 @login_required
 @disabled_on_demo
-@user_passes_test(lambda u: u.is_superuser)
+@is_superuser
 @require_http_methods(["GET", "POST"])
 def export_form(request):
     timestamp = timezone.localtime(timezone.now()).strftime("%Y-%m-%dT%H-%M-%S")
@@ -98,93 +103,104 @@ def export_form(request):
             export_dca = form.cleaned_data.get("dca", False)
             export_import_profiles = form.cleaned_data.get("import_profiles", False)
 
-            exports = []
-            if export_users:
-                exports.append((UserResource().export(), "users"))
-            if export_accounts:
-                exports.append((AccountResource().export(), "accounts"))
-                exports.append(
-                    (InvestmentClassResource().export(), "investment_classes")
-                )
-            if export_currencies:
-                exports.append((CurrencyResource().export(), "currencies"))
-            if export_transactions:
-                exports.append((TransactionResource().export(), "transactions"))
-            if export_categories:
-                exports.append(
-                    (TransactionCategoyResource().export(), "transactions_categories")
-                )
-            if export_tags:
-                exports.append((TransactionTagResource().export(), "transactions_tags"))
-            if export_entities:
-                exports.append(
-                    (TransactionEntityResource().export(), "transactions_entities")
-                )
-            if export_installment_plans:
-                exports.append(
-                    (InstallmentPlanResource().export(), "installment_plans")
-                )
-            if export_recurring_transactions:
-                exports.append(
-                    (RecurringTransactionResource().export(), "recurring_transactions")
-                )
-            if export_quick_transactions:
-                exports.append(
-                    (QuickTransactionResource().export(), "quick_transactions")
-                )
-            sub_transaction_parents = [
-                parent
-                for parent, exported in (
-                    ("transaction", export_transactions),
-                    ("installment_plan", export_installment_plans),
-                    ("recurring_transaction", export_recurring_transactions),
-                    ("quick_transaction", export_quick_transactions),
-                )
-                if exported
-            ]
-            if sub_transaction_parents:
-                exports.append(
-                    (
-                        SubTransactionResource(parents=sub_transaction_parents).export(),
-                        "sub_transactions",
+            try:
+                exports = []
+                if export_users:
+                    exports.append((UserResource().export(), "users"))
+                if export_accounts:
+                    exports.append((AccountResource().export(), "accounts"))
+                    exports.append(
+                        (InvestmentClassResource().export(), "investment_classes")
                     )
-                )
-            if export_exchange_rates_services:
-                exports.append(
-                    (ExchangeRateServiceResource().export(), "automatic_exchange_rates")
-                )
-            if export_exchange_rates:
-                exports.append((ExchangeRateResource().export(), "exchange_rates"))
-            if form.cleaned_data.get("bank_sync"):
-                exports.append((BankSyncServiceResource().export(), "bank_sync_services"))
-                exports.append((BankSyncAccountResource().export(), "bank_sync_accounts"))
-            if export_rules:
-                exports.append(
-                    (TransactionRuleResource().export(), "transaction_rules")
-                )
-                exports.append(
-                    (
-                        TransactionRuleActionResource().export(),
-                        "transaction_rules_actions",
+                if export_currencies:
+                    exports.append((CurrencyResource().export(), "currencies"))
+                if export_transactions:
+                    exports.append((TransactionResource().export(), "transactions"))
+                if export_categories:
+                    exports.append(
+                        (TransactionCategoyResource().export(), "transactions_categories")
                     )
-                )
-                exports.append(
-                    (
-                        UpdateOrCreateTransactionRuleResource().export(),
-                        "transaction_rules_update_or_create",
+                if export_tags:
+                    exports.append((TransactionTagResource().export(), "transactions_tags"))
+                if export_entities:
+                    exports.append(
+                        (TransactionEntityResource().export(), "transactions_entities")
                     )
-                )
-            if export_dca:
-                exports.append((DCAStrategyResource().export(), "dca_strategies"))
-                exports.append(
-                    (
-                        DCAEntryResource().export(),
-                        "dca_entries",
+                if export_installment_plans:
+                    exports.append(
+                        (InstallmentPlanResource().export(), "installment_plans")
                     )
-                )
-            if export_import_profiles:
-                exports.append((ImportProfileResource().export(), "import_profiles"))
+                if export_recurring_transactions:
+                    exports.append(
+                        (RecurringTransactionResource().export(), "recurring_transactions")
+                    )
+                if export_quick_transactions:
+                    exports.append(
+                        (QuickTransactionResource().export(), "quick_transactions")
+                    )
+                sub_transaction_parents = [
+                    parent
+                    for parent, exported in (
+                        ("transaction", export_transactions),
+                        ("installment_plan", export_installment_plans),
+                        ("recurring_transaction", export_recurring_transactions),
+                        ("quick_transaction", export_quick_transactions),
+                    )
+                    if exported
+                ]
+                if sub_transaction_parents:
+                    exports.append(
+                        (
+                            SubTransactionResource(parents=sub_transaction_parents).export(),
+                            "sub_transactions",
+                        )
+                    )
+                if export_exchange_rates_services:
+                    exports.append(
+                        (ExchangeRateServiceResource().export(), "automatic_exchange_rates")
+                    )
+                if export_exchange_rates:
+                    exports.append((ExchangeRateResource().export(), "exchange_rates"))
+                if form.cleaned_data.get("bank_sync"):
+                    exports.append((BankSyncServiceResource().export(), "bank_sync_services"))
+                    exports.append((BankSyncAccountResource().export(), "bank_sync_accounts"))
+                if export_rules:
+                    exports.append(
+                        (TransactionRuleResource().export(), "transaction_rules")
+                    )
+                    exports.append(
+                        (
+                            TransactionRuleActionResource().export(),
+                            "transaction_rules_actions",
+                        )
+                    )
+                    exports.append(
+                        (
+                            UpdateOrCreateTransactionRuleResource().export(),
+                            "transaction_rules_update_or_create",
+                        )
+                    )
+                if export_dca:
+                    exports.append((DCAStrategyResource().export(), "dca_strategies"))
+                    exports.append(
+                        (
+                            DCAEntryResource().export(),
+                            "dca_entries",
+                        )
+                    )
+                if export_import_profiles:
+                    exports.append((ImportProfileResource().export(), "import_profiles"))
 
+            except Exception as e:
+                logger.error("Error exporting", exc_info=e)
+                messages.error(
+                    request,
+                    _("There was an error exporting your data. Check the logs for more details."),
+                )
+                return HttpResponse(status=204, headers={"HX-Trigger": "updated"})
+
+            if exports:
+                messages.success(request, _("Export ready, your download has started"))
             if len(exports) >= 2:
                 with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
                     for dataset, name in exports:
@@ -212,9 +228,9 @@ def export_form(request):
                 )
                 return response
             else:
-                return HttpResponse(
-                    _("You have to select at least one export"),
-                )
+                # 204, or the download extension would save this message as a file
+                messages.warning(request, _("You have to select at least one export"))
+                return HttpResponse(status=204, headers={"HX-Trigger": "updated"})
 
     else:
         form = ExportForm()
@@ -225,7 +241,7 @@ def export_form(request):
 @only_htmx
 @login_required
 @disabled_on_demo
-@user_passes_test(lambda u: u.is_superuser)
+@is_superuser
 @require_http_methods(["GET", "POST"])
 def import_form(request):
     if request.method == "POST":
@@ -234,12 +250,7 @@ def import_form(request):
             try:
                 process_imports(request, form.cleaned_data)
                 messages.success(request, _("Data restored successfully"))
-                return HttpResponse(
-                    status=204,
-                    headers={
-                        "HX-Trigger": "hide_offcanvas, updated",
-                    },
-                )
+                form = RestoreForm()  # a fresh form clears the chosen files and old errors
             except Exception as e:
                 logger.error("Error importing", exc_info=e)
                 messages.error(

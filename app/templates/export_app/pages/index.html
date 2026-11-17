@@ -4,20 +4,21 @@
 {% block title %}{% translate 'Export and Restore' %}{% endblock %}
 
 {% block content %}
-  <div class="flex items-center justify-center min-h-[90dvh]">
-    <div class="flex gap-4">
-      <button class="btn btn-error btn-square w-24 h-24 flex flex-col items-center justify-center"
-              hx-get="{% url 'export_form' %}"
-              hx-target="#generic-offcanvas">
-        <i class="fa-solid fa-download mb-1"></i>
-        <span class="text-sm">{% trans 'Export' %}</span>
-      </button>
-      <button class="btn btn-success btn-square w-24 h-24 flex flex-col items-center justify-center"
-              hx-get="{% url 'restore_form' %}"
-              hx-target="#generic-offcanvas">
-        <i class="fa-solid fa-upload mb-1"></i>
-        <span class="text-sm">{% trans 'Restore' %}</span>
-      </button>
+  <div class="container">
+    <div class="text-3xl font-bold font-mono w-full mb-3">{% translate 'Export and Restore' %}</div>
+    <div class="grid gap-4 lg:grid-cols-2 items-start">
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body gap-4 p-6 sm:p-8">
+          <h2 class="card-title"><i class="fa-solid fa-download"></i>{% translate 'Export' %}</h2>
+          {% include "export_app/fragments/export.html" %}
+        </div>
+      </div>
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body gap-4 p-6 sm:p-8">
+          <h2 class="card-title"><i class="fa-solid fa-upload"></i>{% translate 'Restore' %}</h2>
+          {% include "export_app/fragments/restore.html" with form=restore_form %}
+        </div>
+      </div>
     </div>
   </div>
 {% endblock %}
