@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 19:58+0000\n"
+"POT-Creation-Date: 2026-11-17 16:06+0000\n"
 "PO-Revision-Date: 2025-12-28 22:24+0000\n"
 "Last-Translator: icovada <federico.tabbo@networktocode.com>\n"
 "Language-Team: Italian <https://translations.herculino.com/projects/wygiwyh/"
@@ -84,7 +84,7 @@ msgid "Category"
 msgstr "Categoria"
 
 #: apps/accounts/forms.py:213 apps/dca/forms.py:100 apps/dca/forms.py:108
-#: apps/export_app/forms.py:43 apps/export_app/forms.py:149
+#: apps/export_app/forms.py:46 apps/export_app/forms.py:117
 #: apps/insights/views.py:50 apps/rules/forms.py:184 apps/rules/forms.py:195
 #: apps/rules/models.py:46 apps/rules/models.py:316
 #: apps/transactions/filters.py:105 apps/transactions/filters.py:180
@@ -198,7 +198,7 @@ msgid ""
 "%(taken)s%%."
 msgstr ""
 
-#: apps/accounts/models.py:74 apps/export_app/forms.py:146
+#: apps/accounts/models.py:74 apps/export_app/forms.py:114
 #: templates/includes/sidebar.html:190
 #: templates/investment_classes/fragments/list.html:9
 #: templates/investment_classes/pages/index.html:4
@@ -331,8 +331,8 @@ msgstr ""
 msgid "Account"
 msgstr "Conto"
 
-#: apps/accounts/models.py:191 apps/export_app/forms.py:19
-#: apps/export_app/forms.py:145 apps/transactions/filters.py:89
+#: apps/accounts/models.py:191 apps/export_app/forms.py:16
+#: apps/export_app/forms.py:113 apps/transactions/filters.py:89
 #: apps/transactions/filters.py:163 templates/accounts/fragments/list.html:9
 #: templates/accounts/pages/index.html:4
 #: templates/bank_sync/fragments/accounts.html:5
@@ -475,8 +475,8 @@ msgid "This service can't sync more often than every %(hours)s hours."
 msgstr ""
 
 #: apps/bank_sync/forms.py:113 apps/bank_sync/models.py:76
-#: apps/currencies/models.py:54 apps/export_app/forms.py:25
-#: apps/export_app/forms.py:147 apps/transactions/filters.py:96
+#: apps/currencies/models.py:54 apps/export_app/forms.py:22
+#: apps/export_app/forms.py:115 apps/transactions/filters.py:96
 #: apps/transactions/filters.py:171 templates/currencies/fragments/list.html:9
 #: templates/currencies/pages/index.html:4 templates/includes/sidebar.html:196
 #: templates/includes/sidebar.html:198
@@ -562,7 +562,7 @@ msgstr "Ultimo scaricamento riuscito"
 msgid "Bank Sync Service"
 msgstr ""
 
-#: apps/bank_sync/models.py:51 apps/export_app/forms.py:163
+#: apps/bank_sync/models.py:51 apps/export_app/forms.py:131
 #, fuzzy
 #| msgid "Exchange Rate Services"
 msgid "Bank Sync Services"
@@ -942,8 +942,8 @@ msgstr "Data e ora"
 msgid "Auto"
 msgstr "Automatico"
 
-#: apps/currencies/models.py:91 apps/export_app/forms.py:73
-#: apps/export_app/forms.py:161 templates/exchange_rates/fragments/list.html:10
+#: apps/currencies/models.py:91 apps/export_app/forms.py:76
+#: apps/export_app/forms.py:129 templates/exchange_rates/fragments/list.html:10
 #: templates/exchange_rates/pages/index.html:4
 #: templates/includes/sidebar.html:204
 msgid "Exchange Rates"
@@ -1115,8 +1115,8 @@ msgstr "Da conto"
 msgid "To Account"
 msgstr "A conto"
 
-#: apps/dca/forms.py:117 apps/dca/forms.py:125 apps/export_app/forms.py:49
-#: apps/export_app/forms.py:150 apps/insights/views.py:57
+#: apps/dca/forms.py:117 apps/dca/forms.py:125 apps/export_app/forms.py:40
+#: apps/export_app/forms.py:118 apps/insights/views.py:57
 #: apps/rules/forms.py:185 apps/rules/forms.py:196 apps/rules/models.py:47
 #: apps/rules/models.py:308 apps/transactions/filters.py:110
 #: apps/transactions/filters.py:185 apps/transactions/forms.py:161
@@ -1191,7 +1191,7 @@ msgstr "Note"
 msgid "DCA Strategy"
 msgstr "Piano d'Accumulo del Capitale"
 
-#: apps/dca/models.py:35 apps/export_app/forms.py:175
+#: apps/dca/models.py:35 apps/export_app/forms.py:143
 msgid "DCA Strategies"
 msgstr "Piani d'Accumulo del Capitale"
 
@@ -1211,7 +1211,7 @@ msgstr "Importo ricevuto"
 msgid "DCA Entry"
 msgstr "Rata del PAC"
 
-#: apps/dca/models.py:187 apps/export_app/forms.py:176
+#: apps/dca/models.py:187 apps/export_app/forms.py:144
 msgid "DCA Entries"
 msgstr "Rate del PAC"
 
@@ -1239,13 +1239,13 @@ msgstr "Voce aggiornata con successo"
 msgid "Entry deleted successfully"
 msgstr "Voce eliminata con successo"
 
-#: apps/export_app/forms.py:13 apps/export_app/forms.py:144
+#: apps/export_app/forms.py:10 apps/export_app/forms.py:112
 #: templates/includes/sidebar.html:247 templates/users/fragments/list.html:10
 #: templates/users/pages/index.html:4
 msgid "Users"
 msgstr "Utenti"
 
-#: apps/export_app/forms.py:31 apps/export_app/forms.py:151
+#: apps/export_app/forms.py:28 apps/export_app/forms.py:119
 #: apps/transactions/models.py:428 templates/includes/sidebar.html:81
 #: templates/includes/sidebar.html:154
 #: templates/recurring_transactions/fragments/list_transactions.html:5
@@ -1254,7 +1254,7 @@ msgstr "Utenti"
 msgid "Transactions"
 msgstr "Transazioni"
 
-#: apps/export_app/forms.py:37 apps/export_app/forms.py:148
+#: apps/export_app/forms.py:34 apps/export_app/forms.py:116
 #: apps/insights/views.py:43 apps/transactions/filters.py:100
 #: apps/transactions/filters.py:175 templates/categories/fragments/list.html:9
 #: templates/categories/pages/index.html:4 templates/includes/sidebar.html:156
@@ -1265,72 +1265,67 @@ msgstr "Transazioni"
 msgid "Categories"
 msgstr "Categorie"
 
-#: apps/export_app/forms.py:55 apps/export_app/forms.py:155
-#: apps/transactions/models.py:1170 templates/includes/sidebar.html:110
-#: templates/recurring_transactions/fragments/list.html:9
-#: templates/recurring_transactions/pages/index.html:4
-msgid "Recurring Transactions"
-msgstr "Pagamenti ricorrenti"
-
-#: apps/export_app/forms.py:61 apps/export_app/forms.py:153
+#: apps/export_app/forms.py:52 apps/export_app/forms.py:121
 #: apps/transactions/models.py:887 templates/includes/sidebar.html:104
 #: templates/installment_plans/fragments/list.html:9
 #: templates/installment_plans/pages/index.html:4
 msgid "Installment Plans"
 msgstr "Pagamenti a rate"
 
-#: apps/export_app/forms.py:67 apps/export_app/forms.py:157
+#: apps/export_app/forms.py:58 apps/export_app/forms.py:123
+#: apps/transactions/models.py:1170 templates/includes/sidebar.html:110
+#: templates/recurring_transactions/fragments/list.html:9
+#: templates/recurring_transactions/pages/index.html:4
+msgid "Recurring Transactions"
+msgstr "Pagamenti ricorrenti"
+
+#: apps/export_app/forms.py:64 apps/export_app/forms.py:125
 #: apps/transactions/models.py:1555 templates/includes/sidebar.html:98
 #: templates/quick_transactions/pages/index.html:5
 #: templates/quick_transactions/pages/index.html:15
 msgid "Quick Transactions"
 msgstr "Transazioni rapide"
 
-#: apps/export_app/forms.py:79 apps/export_app/forms.py:159
+#: apps/export_app/forms.py:70 apps/export_app/forms.py:127
 #: templates/exchange_rates_services/fragments/list.html:10
 #: templates/exchange_rates_services/pages/index.html:4
 #: templates/includes/sidebar.html:232
 msgid "Automatic Exchange Rates"
 msgstr "Cambio valuta automatico"
 
-#: apps/export_app/forms.py:85 templates/bank_sync/fragments/list.html:8
+#: apps/export_app/forms.py:82 templates/bank_sync/fragments/list.html:8
 #: templates/bank_sync/pages/index.html:4 templates/includes/sidebar.html:238
 msgid "Bank Sync"
 msgstr ""
 
-#: apps/export_app/forms.py:86
+#: apps/export_app/forms.py:83
 msgid "Includes the providers' API keys"
 msgstr ""
 
-#: apps/export_app/forms.py:92 templates/includes/sidebar.html:212
+#: apps/export_app/forms.py:89 templates/includes/sidebar.html:212
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
 msgid "Rules"
 msgstr "Regole"
 
-#: apps/export_app/forms.py:98 templates/cotton/transaction/item.html:68
+#: apps/export_app/forms.py:95 templates/cotton/transaction/item.html:68
 msgid "DCA"
 msgstr "Piano d'Accumulo del Capitale"
 
-#: apps/export_app/forms.py:104 apps/export_app/forms.py:177
+#: apps/export_app/forms.py:101 apps/export_app/forms.py:145
 #: templates/import_app/fragments/profiles/list.html:21
 #: templates/import_app/pages/profiles_index.html:4
 msgid "Import Profiles"
 msgstr "Importa Profili"
 
-#: apps/export_app/forms.py:133 templates/export_app/fragments/export.html:5
-#: templates/export_app/pages/index.html:13
-msgid "Export"
-msgstr "Esporta"
-
-#: apps/export_app/forms.py:141
+#: apps/export_app/forms.py:109
 msgid "Import a ZIP file exported from WYGIWYH"
 msgstr "Importa un file ZIP esportato da WYGIWYH"
 
-#: apps/export_app/forms.py:142
+#: apps/export_app/forms.py:110
 msgid "ZIP File"
 msgstr "File ZIP"
 
-#: apps/export_app/forms.py:152 apps/rules/forms.py:193 apps/rules/models.py:42
+#: apps/export_app/forms.py:120 apps/rules/forms.py:193 apps/rules/models.py:42
 #: apps/rules/models.py:320 apps/transactions/models.py:739
 #: templates/transactions/widgets/sub_transactions.html:39
 #, fuzzy
@@ -1338,44 +1333,51 @@ msgstr "File ZIP"
 msgid "Sub-transactions"
 msgstr "transazioni"
 
-#: apps/export_app/forms.py:166
+#: apps/export_app/forms.py:134
 #, fuzzy
 #| msgid "By account"
 msgid "Bank Sync Accounts"
 msgstr "Per conto"
 
-#: apps/export_app/forms.py:168 apps/rules/models.py:27
+#: apps/export_app/forms.py:136 apps/rules/models.py:27
 msgid "Transaction rules"
 msgstr "Regole di transazione"
 
-#: apps/export_app/forms.py:170 apps/rules/models.py:69
+#: apps/export_app/forms.py:138 apps/rules/models.py:69
 msgid "Edit transaction action"
 msgstr "Modifica azione transazione"
 
-#: apps/export_app/forms.py:173 apps/rules/models.py:332
+#: apps/export_app/forms.py:141 apps/rules/models.py:332
 msgid "Update or create transaction actions"
 msgstr "Aggiorna o crea azioni di transazione"
 
-#: apps/export_app/forms.py:210 templates/cotton/transaction/item.html:327
-#: templates/cotton/ui/deleted_transactions_action_bar.html:53
-#: templates/export_app/fragments/restore.html:5
-#: templates/export_app/pages/index.html:19
-msgid "Restore"
-msgstr "Ripristina"
-
-#: apps/export_app/forms.py:220
+#: apps/export_app/forms.py:161
 msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr "Carica un file ZIP o CSV"
 
-#: apps/export_app/views.py:216
+#: apps/export_app/views.py:198
+#, fuzzy
+#| msgid ""
+#| "There was an error restoring your data. Check the logs for more details."
+msgid ""
+"There was an error exporting your data. Check the logs for more details."
+msgstr ""
+"Si è verificato un errore durante il ripristino dei dati. Controlla i log "
+"per maggiori dettagli."
+
+#: apps/export_app/views.py:203
+msgid "Export ready, your download has started"
+msgstr ""
+
+#: apps/export_app/views.py:232
 msgid "You have to select at least one export"
 msgstr "Devi selezionare almeno un export"
 
-#: apps/export_app/views.py:236
+#: apps/export_app/views.py:252
 msgid "Data restored successfully"
 msgstr "Dati ripristinati con successo"
 
-#: apps/export_app/views.py:248
+#: apps/export_app/views.py:259
 msgid ""
 "There was an error restoring your data. Check the logs for more details."
 msgstr ""
@@ -3227,6 +3229,13 @@ msgstr "Vai a oggi"
 msgid "Duplicate"
 msgstr "Duplica"
 
+#: templates/cotton/transaction/item.html:327
+#: templates/cotton/ui/deleted_transactions_action_bar.html:53
+#: templates/export_app/fragments/restore.html:39
+#: templates/export_app/pages/index.html:18
+msgid "Restore"
+msgstr "Ripristina"
+
 #: templates/cotton/transaction/item.html:373
 #, python-format
 msgid "%(counter)s item"
@@ -3571,7 +3580,31 @@ msgstr "valute"
 msgid "accounts"
 msgstr "conti"
 
-#: templates/export_app/pages/index.html:4 templates/includes/sidebar.html:225
+#: templates/export_app/fragments/export.html:26
+#: templates/export_app/pages/index.html:12
+msgid "Export"
+msgstr "Esporta"
+
+#: templates/export_app/fragments/export.html:29
+msgid "Preparing your export. The download starts on its own when it is ready."
+msgstr ""
+
+#: templates/export_app/fragments/restore.html:18
+#, fuzzy
+#| msgid "ZIP File"
+msgid "ZIP file"
+msgstr "File ZIP"
+
+#: templates/export_app/fragments/restore.html:25
+msgid "Individual CSV files"
+msgstr ""
+
+#: templates/export_app/fragments/restore.html:42
+msgid "Restoring your data. This can take a while for large backups."
+msgstr ""
+
+#: templates/export_app/pages/index.html:4
+#: templates/export_app/pages/index.html:8 templates/includes/sidebar.html:225
 msgid "Export and Restore"
 msgstr "Esporta e ripristina"
 
