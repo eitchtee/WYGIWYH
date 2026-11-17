@@ -1,138 +1,106 @@
-from apps.common.widgets.crispy.submit import NoClassSubmit
-from crispy_forms.bootstrap import FormActions
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import HTML, Layout
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
 
 class ExportForm(forms.Form):
+    # Rendered by export_app/fragments/export.html, in declaration order
     users = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Users"),
         initial=True,
     )
     accounts = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Accounts"),
         initial=True,
     )
     currencies = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Currencies"),
         initial=True,
     )
     transactions = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Transactions"),
         initial=True,
     )
     categories = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Categories"),
         initial=True,
     )
-    tags = forms.BooleanField(
-        required=False,
-        widget=forms.CheckboxInput(),
-        label=_("Tags"),
-        initial=False,
-    )
     entities = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Entities"),
         initial=False,
     )
-    recurring_transactions = forms.BooleanField(
+    tags = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
-        label=_("Recurring Transactions"),
-        initial=True,
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
+        label=_("Tags"),
+        initial=False,
     )
     installment_plans = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Installment Plans"),
+        initial=True,
+    )
+    recurring_transactions = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
+        label=_("Recurring Transactions"),
         initial=True,
     )
     quick_transactions = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Quick Transactions"),
         initial=True,
     )
-    exchange_rates = forms.BooleanField(
-        required=False,
-        widget=forms.CheckboxInput(),
-        label=_("Exchange Rates"),
-        initial=False,
-    )
     exchange_rates_services = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Automatic Exchange Rates"),
+        initial=False,
+    )
+    exchange_rates = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
+        label=_("Exchange Rates"),
         initial=False,
     )
     bank_sync = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Bank Sync"),
         help_text=_("Includes the providers' API keys"),
         initial=False,
     )
     rules = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Rules"),
         initial=True,
     )
     dca = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("DCA"),
         initial=False,
     )
     import_profiles = forms.BooleanField(
         required=False,
-        widget=forms.CheckboxInput(),
+        widget=forms.CheckboxInput(attrs={"class": "checkbox"}),
         label=_("Import Profiles"),
         initial=True,
     )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        self.helper.form_method = "post"
-        self.helper.layout = Layout(
-            "users",
-            "accounts",
-            "investment_classes",
-            "currencies",
-            "transactions",
-            "categories",
-            "entities",
-            "tags",
-            "installment_plans",
-            "recurring_transactions",
-            "quick_transactions",
-            "exchange_rates_services",
-            "exchange_rates",
-            "bank_sync",
-            "rules",
-            "dca",
-            "import_profiles",
-            FormActions(
-                NoClassSubmit("submit", _("Export"), css_class="btn btn-primary"),
-            ),
-        )
 
 
 class RestoreForm(forms.Form):
@@ -178,38 +146,11 @@ class RestoreForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        self.helper.form_method = "post"
-        self.helper.layout = Layout(
-            "zip_file",
-            HTML('<hr class="hr my-3"/>'),
-            "users",
-            "accounts",
-            "currencies",
-            "transactions",
-            "sub_transactions",
-            "transactions_categories",
-            "transactions_entities",
-            "transactions_tags",
-            "installment_plans",
-            "recurring_transactions",
-            "quick_transactions",
-            "automatic_exchange_rates",
-            "exchange_rates",
-            "bank_sync_services",
-            "bank_sync_accounts",
-            "transaction_rules",
-            "transaction_rules_actions",
-            "transaction_rules_update_or_create",
-            "dca_strategies",
-            "dca_entries",
-            "import_profiles",
-            FormActions(
-                NoClassSubmit("submit", _("Restore"), css_class="btn btn-primary"),
-            ),
-        )
+        # Rendered by export_app/fragments/restore.html
+        for name, field in self.fields.items():
+            field.widget.attrs.update(
+                {"class": "file-input w-full", "accept": ".zip" if name == "zip_file" else ".csv"}
+            )
 
     def clean(self):
         cleaned_data = super().clean()
