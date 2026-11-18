@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-15 19:58+0000\n"
-"PO-Revision-Date: 2026-11-16 04:58+0000\n"
+"PO-Revision-Date: 2026-11-18 05:58+0000\n"
 "Last-Translator: Dimitri Decrock <dj.flashpower@gmail.com>\n"
 "Language-Team: Dutch <https://translations.herculino.com/projects/wygiwyh/"
 "app/nl/>\n"
@@ -596,33 +596,35 @@ msgstr "Klant-ID"
 
 #: apps/bank_sync/providers/pluggy.py:32
 msgid "Client Secret"
-msgstr ""
+msgstr "Klantgeheim"
 
 #: apps/bank_sync/providers/pluggy.py:37
-#, fuzzy
 msgid "Item IDs"
-msgstr "Artikel"
+msgstr "Artikel ID's"
 
 #: apps/bank_sync/providers/pluggy.py:40
 msgid ""
 "The IDs of your Pluggy connections (items), separated by commas. Meu Pluggy "
 "shows them for each connected institution."
 msgstr ""
+"De ID's van je Pluggy-verbindingen (artikels), gescheiden door komma's. "
+"Pluggy toont deze voor elke gekoppelde instelling."
 
 #: apps/bank_sync/providers/pluggy.py:80
 #, python-format
 msgid "Pluggy reports this connection as %(status)s, reconnect it on Pluggy."
 msgstr ""
+"Pluggy meldt dat deze verbinding de status %(status)s heeft; herstel de "
+"verbinding via Pluggy."
 
 #: apps/bank_sync/providers/simplefin.py:35
 #, python-format
 msgid "SimpleFIN server %(host)s isn't allowed on this instance."
-msgstr ""
+msgstr "SimpleFIN-server %(host)s is niet toegestaan op deze instantie."
 
 #: apps/bank_sync/providers/simplefin.py:56
-#, fuzzy
 msgid "Setup Token"
-msgstr "Token aanmaken"
+msgstr "Configuratietoken"
 
 #: apps/bank_sync/providers/simplefin.py:59
 msgid ""
@@ -630,16 +632,21 @@ msgid ""
 "save it's exchanged for an access URL, which is what you'll see here "
 "afterwards."
 msgstr ""
+"Plak hier een configuratietoken van uw SimpleFIN-server. Dit token kan "
+"slechts één keer worden gebruikt: bij het opslaan wordt het ingewisseld voor "
+"een toegangs-URL, die je vervolgens hier zult zien."
 
 #: apps/bank_sync/providers/simplefin.py:83
 msgid "This isn't a valid SimpleFIN setup token."
-msgstr ""
+msgstr "Dit is geen geldig SimpleFIN-configuratietoken."
 
 #: apps/bank_sync/providers/simplefin.py:91
 #, python-format
 msgid ""
 "Couldn't claim the setup token, it may have been used already: %(error)s"
 msgstr ""
+"Kon de configuratietoken niet claimen, mogelijk is deze al gebruikt: %(error)"
+"s"
 
 #: apps/bank_sync/views.py:57
 #: apps/currencies/views/exchange_rates_services.py:50
@@ -648,7 +655,7 @@ msgstr "Dienst succesvol toegevoegd"
 
 #: apps/bank_sync/views.py:63
 msgid "Add bank sync service"
-msgstr ""
+msgstr "Banksynchronisatieservice toevoegen"
 
 #: apps/bank_sync/views.py:76
 #: apps/currencies/views/exchange_rates_services.py:79
@@ -657,7 +664,7 @@ msgstr "Dienst succesvol bijgewerkt"
 
 #: apps/bank_sync/views.py:82
 msgid "Edit bank sync service"
-msgstr ""
+msgstr "Banksynchronisatieservice bewerken"
 
 #: apps/bank_sync/views.py:92
 #: apps/currencies/views/exchange_rates_services.py:106
@@ -665,19 +672,17 @@ msgid "Service deleted successfully"
 msgstr "Dienst succesvol verwijderd"
 
 #: apps/bank_sync/views.py:108
-#, fuzzy
 msgid "Accounts updated successfully"
-msgstr "Rekening succesvol bijgewerkt"
+msgstr "Rekeningen succesvol bijgewerkt"
 
 #: apps/bank_sync/views.py:115
 #, python-format
 msgid "Couldn't load the accounts from the provider: %(error)s"
-msgstr ""
+msgstr "Kon de rekeningen van de aanbieder niet laden: %(error)s"
 
 #: apps/bank_sync/views.py:134
-#, fuzzy
 msgid "Sync queued successfully"
-msgstr "Diensten succesvol in de wachtrij geplaatst"
+msgstr "Synchronisatie succesvol in de wachtrij geplaatst"
 
 #: apps/common/admin.py:5
 msgid "Make public"
@@ -731,14 +736,13 @@ msgid "Visibility"
 msgstr "Zichtbaarheid"
 
 #: apps/common/forms.py:43
-#, fuzzy
 msgid ""
 "Private: Only shown for the owner and shared users.<br/>Public: Shown for "
 "all users.<br/>Only the owner can edit, share or delete it."
 msgstr ""
-"Privé: Alleen weergegeven voor de eigenaar en gedeelde gebruikers. Alleen "
-"bewerkbaar door de eigenaar.<br/>Publiek: Weergegeven voor alle gebruikers. "
-"Alleen bewerkbaar door de eigenaar."
+"Privé: Alleen zichtbaar voor de eigenaar en gedeelde gebruikers.<br/>"
+"Openbaar: Zichtbaar voor alle gebruikers.<br/>Alleen de eigenaar kan het "
+"item bewerken, delen of verwijderen."
 
 #: apps/common/forms.py:78 apps/users/forms.py:191
 #: templates/bank_sync/fragments/accounts.html:34
@@ -873,10 +877,12 @@ msgstr "Geen resultaten..."
 msgid ""
 "Central bank code, e.g. 'bcb' or 'rbi'. Leave empty to use the ECB table."
 msgstr ""
+"Code van de centrale bank, bijv. 'bcb' of 'rbi'. Laat leeg om de tabel van "
+"de ECB te gebruiken."
 
 #: apps/currencies/exchange_rates/providers.py:735
 msgid "Invalid bank code, it should look like 'bcb'."
-msgstr ""
+msgstr "Ongeldige bankcode;,deze moet eruitzien als 'bcb'."
 
 #: apps/currencies/forms.py:20 apps/currencies/models.py:22
 msgid "Prefix"
@@ -904,6 +910,10 @@ msgid ""
 "totals in this currency. Accounts with their own exchange currency use their "
 "own setting, and consolidated totals are calculated either way."
 msgstr ""
+"Toon bedragen omgerekend naar de wisselvaluta naast transacties, evenals "
+"totalen in deze valuta. Voor rekeningen met een eigen wisselvaluta wordt de "
+"daarvoor geldende instelling gebruikt, en geconsolideerde totalen worden op "
+"basis daarvan berekend."
 
 #: apps/currencies/models.py:63
 msgid "Currency cannot have itself as exchange currency."
@@ -963,13 +973,12 @@ msgid "API key for the service (if required)"
 msgstr "API sleutel voor de dienst (indien verplicht)"
 
 #: apps/currencies/models.py:141
-#, fuzzy
 msgid "Options"
-msgstr "Acties"
+msgstr "Opties"
 
 #: apps/currencies/models.py:142
 msgid "Provider specific settings"
-msgstr ""
+msgstr "Aanbieder-specifieke instellingen"
 
 #: apps/currencies/models.py:147
 msgid "Interval Type"
@@ -1009,25 +1018,27 @@ msgstr ""
 "ingestelde wisselkoers."
 
 #: apps/currencies/models.py:180
-#, fuzzy
 msgid "One exchange rate per day"
-msgstr "Enkele Wisselkoers"
+msgstr "Eén wisselkoers per dag"
 
 #: apps/currencies/models.py:183
 msgid ""
 "Update the day's exchange rate on each fetch instead of adding a new one."
 msgstr ""
+"Update de wisselkoers van de dag bij elke ophaalactie in plaats van een "
+"nieuwe toe te voegen."
 
 #: apps/currencies/models.py:187
-#, fuzzy
 msgid "Exchange rates to keep"
-msgstr "Wisselkoersen"
+msgstr "Wisselkoersen om te behouden"
 
 #: apps/currencies/models.py:192
 msgid ""
 "Keep at most this many automatic exchange rates per currency pair, deleting "
 "the oldest first. Leave empty to keep all."
 msgstr ""
+"Bewaar maximaal dit aantal automatische wisselkoersen per valutapaar; de "
+"oudste worden als eerste verwijderd. Laat leeg om alle koersen te bewaren."
 
 #: apps/currencies/models.py:197
 msgid "Exchange Rate Service"
@@ -1139,9 +1150,9 @@ msgid "Link transaction"
 msgstr "Koppel verrichting"
 
 #: apps/dca/forms.py:289
-#, fuzzy, python-format
+#, python-format
 msgid "Transaction must be in %(currency)s."
-msgstr "Verrichtingsbedragen worden nu verborgen"
+msgstr "De transactie moet in %(currency)s zijn."
 
 #: apps/dca/forms.py:307 apps/dca/forms.py:308 apps/dca/forms.py:313
 #: apps/dca/forms.py:317
@@ -1293,11 +1304,11 @@ msgstr "Automatische Wisselkoersen"
 #: templates/bank_sync/pages/index.html:4 templates/includes/sidebar.html:238
 #: apps/export_app/forms.py:82
 msgid "Bank Sync"
-msgstr ""
+msgstr "Banksynchronisatie"
 
 #: apps/export_app/forms.py:86 apps/export_app/forms.py:83
 msgid "Includes the providers' API keys"
-msgstr ""
+msgstr "Bevat de API-sleutels van de aanbieders"
 
 #: apps/export_app/forms.py:92 templates/includes/sidebar.html:212
 #: templates/rules/fragments/list.html:9 templates/rules/pages/index.html:4
@@ -1336,14 +1347,12 @@ msgstr "ZIP-bestand"
 #: apps/rules/models.py:320 apps/transactions/models.py:739
 #: templates/transactions/widgets/sub_transactions.html:39
 #: apps/export_app/forms.py:120
-#, fuzzy
 msgid "Sub-transactions"
-msgstr "verrichtingen"
+msgstr "Deeltransacties"
 
 #: apps/export_app/forms.py:166 apps/export_app/forms.py:134
-#, fuzzy
 msgid "Bank Sync Accounts"
-msgstr "Op rekening"
+msgstr "Bankrekeningen synchroniseren"
 
 #: apps/export_app/forms.py:168 apps/rules/models.py:27
 #: apps/export_app/forms.py:136
@@ -1397,6 +1406,8 @@ msgid ""
 "Import every transaction into this account. Leave empty to let the profile "
 "pick the account."
 msgstr ""
+"Importeer elke transactie naar deze rekening. Laat dit leeg om het profiel "
+"de rekening te laten kiezen."
 
 #: apps/import_app/forms.py:75
 #: templates/import_app/fragments/profiles/list.html:75
@@ -1556,26 +1567,23 @@ msgstr "Geen bedrijven"
 
 #: apps/investments/views.py:120
 msgid "Other"
-msgstr ""
+msgstr "Ander"
 
 #: apps/investments/views.py:151 templates/investments/fragments/list.html:39
 msgid "Unclassified"
-msgstr ""
+msgstr "Niet geclassificeerd"
 
 #: apps/investments/views.py:290
-#, fuzzy
 msgid "Asset class added successfully"
-msgstr "Afbetalingsplan succesvol toegevoegd"
+msgstr "Activaklasse succesvol toegevoegd"
 
 #: apps/investments/views.py:298
-#, fuzzy
 msgid "Asset class updated successfully"
-msgstr "Label succesvol bijgewerkt"
+msgstr "Activaklasse succesvol bijgewerkt"
 
 #: apps/investments/views.py:319
-#, fuzzy
 msgid "Asset class deleted successfully"
-msgstr "Label succesvol verwijderd"
+msgstr "Activaklasse succesvol verwijderd"
 
 #: apps/net_worth/views.py:137 templates/net_worth/net_worth.html:89
 #: templates/net_worth/net_worth.html:91
@@ -1893,11 +1901,11 @@ msgstr "Maximaal bedrag"
 
 #: apps/transactions/filters.py:250
 msgid "Include"
-msgstr ""
+msgstr "meerekenen"
 
 #: apps/transactions/filters.py:255
 msgid "Exclude"
-msgstr ""
+msgstr "Uitsluiten"
 
 #: apps/transactions/filters.py:303
 msgid "Categorized"
@@ -2084,15 +2092,15 @@ msgstr "Verwijderd Op"
 
 #: apps/transactions/models.py:524
 msgid "A transfer needs one expense and one income."
-msgstr ""
+msgstr "Een overboeking vereist één uitgave en één inkomst."
 
 #: apps/transactions/models.py:526
 msgid "A transfer needs two different accounts."
-msgstr ""
+msgstr "Voor een overboeking zijn twee verschillende rekeningen nodig."
 
 #: apps/transactions/models.py:530
 msgid "This transaction is already part of another transfer."
-msgstr ""
+msgstr "Deze transactie maakt al deel uit van een andere overdracht."
 
 #: apps/transactions/models.py:637
 msgid "No category"
@@ -2103,9 +2111,8 @@ msgid "No description"
 msgstr "Geen Beschrijving"
 
 #: apps/transactions/models.py:738
-#, fuzzy
 msgid "Sub-transaction"
-msgstr "verrichtingen"
+msgstr "Subtransactie"
 
 #: apps/transactions/models.py:771
 msgid "File"
@@ -2336,12 +2343,11 @@ msgstr "Omzetten in een Afbetalingsplan"
 
 #: apps/transactions/views/conversions.py:195
 msgid "Transaction converted into a transfer"
-msgstr ""
+msgstr "Transactie omgezet in een overboeking"
 
 #: apps/transactions/views/conversions.py:226
-#, fuzzy
 msgid "Convert into transfer"
-msgstr "Omzetten in een snelle verrichting"
+msgstr "Omzetten in een overboeking"
 
 #: apps/transactions/views/entities.py:72
 msgid "Entity added successfully"
@@ -2996,11 +3002,12 @@ msgid ""
 "Everyone who can see this account can add, edit and delete its transactions, "
 "installment plans and recurring transactions."
 msgstr ""
+"Iedereen die dit account kan inzien, kan transacties, afbetalingsplannen en "
+"terugkerende transacties toevoegen, bewerken en verwijderen."
 
 #: templates/bank_sync/fragments/accounts.html:31
-#, fuzzy
 msgid "No accounts found on this service"
-msgstr "Geen verrichtingen voor dit jaar"
+msgstr "Geen accounts gevonden op deze dienst"
 
 #: templates/bank_sync/fragments/list.html:21
 #: templates/exchange_rates_services/fragments/list.html:29
@@ -3008,18 +3015,16 @@ msgid "Service"
 msgstr "Dienst"
 
 #: templates/bank_sync/fragments/list.html:23
-#, fuzzy
 msgid "Last sync"
-msgstr "Laatst opgehaald"
+msgstr "Laatste synchronisatie"
 
 #: templates/bank_sync/fragments/list.html:45
 msgid "Sync now"
-msgstr ""
+msgstr "Nu synchroniseren"
 
 #: templates/bank_sync/fragments/list.html:55
-#, fuzzy
 msgid "Synced transactions are kept."
-msgstr "Verrichtingsregel toevoegen"
+msgstr "Gesynchroniseerde transacties blijven bewaard."
 
 #: templates/bank_sync/fragments/list.html:80
 #: templates/exchange_rates_services/fragments/list.html:77
@@ -3161,8 +3166,8 @@ msgstr "Dupliceren"
 #, python-format
 msgid "%(counter)s item"
 msgid_plural "%(counter)s items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(counter)s item"
+msgstr[1] "%(counter)s items"
 
 #: templates/cotton/ui/account_card.html:10
 #: templates/cotton/ui/currency_card.html:10
@@ -3290,9 +3295,8 @@ msgid "Balance"
 msgstr "Saldo"
 
 #: templates/cotton/ui/transactions_action_bar.html:83
-#, fuzzy
 msgid "More actions"
-msgstr "Verrichtingen"
+msgstr "Meer acties"
 
 #: templates/currencies/fragments/add.html:5
 msgid "Add currency"
@@ -3678,9 +3682,8 @@ msgstr "Hulpmiddelen"
 #: templates/investments/fragments/list.html:9
 #: templates/investments/pages/detail.html:4
 #: templates/investments/pages/index.html:4
-#, fuzzy
 msgid "Investments"
-msgstr "Aflossingen"
+msgstr "Investeringen"
 
 #: templates/includes/sidebar.html:124
 msgid "Dollar Cost Average Tracker"
@@ -4003,40 +4006,41 @@ msgstr "Geen afbetalingsplannen"
 
 #: templates/investment_classes/fragments/form.html:5
 msgid "Edit asset class"
-msgstr ""
+msgstr "Activaklasse bewerken"
 
 #: templates/investment_classes/fragments/form.html:5
 msgid "Add asset class"
-msgstr ""
+msgstr "Activaklasse toevoegen"
 
 #: templates/investment_classes/fragments/list.html:19
 #: templates/investments/fragments/rebalance.html:10
 #, python-format
 msgid "Targets add up to %(total)s%%. Set them to 100%% to see the rebalance."
 msgstr ""
+"De doelstellingen vormen samen %(total)s%%. Stel ze in op 100%% om de "
+"herbalancering te zien."
 
 #: templates/investment_classes/fragments/list.html:28
 #: templates/investments/fragments/rebalance.html:25
-#, fuzzy
 msgid "Target"
-msgstr "Gericht op"
+msgstr "Doel"
 
 #: templates/investment_classes/fragments/list.html:50
 msgid "Its investments will be left without an asset class."
-msgstr ""
+msgstr "De beleggingen zullen zonder activaklasse komen te zitten."
 
 #: templates/investment_classes/fragments/list.html:74
 msgid "No asset classes"
-msgstr ""
+msgstr "Geen activaklassen"
 
 #: templates/investments/fragments/_allocation.html:3
 msgid "Allocation chart"
-msgstr ""
+msgstr "Toewijzingsoverzicht"
 
 #: templates/investments/fragments/_allocation.html:10
 #, python-format
 msgid "target %(target)s%%"
-msgstr ""
+msgstr "doel %(target)s%%"
 
 #: templates/investments/fragments/_mwr.html:1
 msgid "/yr"
