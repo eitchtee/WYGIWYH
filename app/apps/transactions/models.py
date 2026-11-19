@@ -261,6 +261,13 @@ class TransactionCategory(SharedObject):
             "Deactivated categories won't be able to be selected when creating new transactions"
         ),
     )
+    auto_match = models.BooleanField(
+        default=True,
+        verbose_name=_("Auto-match"),
+        help_text=_(
+            "Allow auto-tagging to automatically assign this category based on past transactions"
+        ),
+    )
 
     objects = SharedObjectManager()
     all_objects = models.Manager()  # Unfiltered manager
@@ -285,6 +292,13 @@ class TransactionTag(SharedObject):
             "Deactivated tags won't be able to be selected when creating new transactions"
         ),
     )
+    auto_match = models.BooleanField(
+        default=True,
+        verbose_name=_("Auto-match"),
+        help_text=_(
+            "Allow auto-tagging to automatically assign this tag based on past transactions"
+        ),
+    )
 
     objects = SharedObjectManager()
     all_objects = models.Manager()  # Unfiltered manager
@@ -307,6 +321,13 @@ class TransactionEntity(SharedObject):
         verbose_name=_("Active"),
         help_text=_(
             "Deactivated entities won't be able to be selected when creating new transactions"
+        ),
+    )
+    auto_match = models.BooleanField(
+        default=True,
+        verbose_name=_("Auto-match"),
+        help_text=_(
+            "Allow auto-tagging to automatically assign this entity based on past transactions"
         ),
     )
 
@@ -1567,3 +1588,23 @@ class QuickTransaction(TransferTemplate, OwnedObject):
 
     def __str__(self):
         return self.name
+
+
+class AutoTaggerModel(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="auto_tagger_model",
+    )
+    data = models.BinaryField(default=b"")
+    transaction_count = models.PositiveIntegerField(default=0)
+    version = models.PositiveSmallIntegerField(default=1)
+    trained_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("Auto-Tagger Model")
+        verbose_name_plural = _("Auto-Tagger Models")
+        db_table = "auto_tagger_models"
+
+    def __str__(self):
+        return f"AutoTaggerModel({self.user_id}, n={self.transaction_count})"
