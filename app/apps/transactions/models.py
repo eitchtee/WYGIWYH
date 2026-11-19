@@ -50,9 +50,19 @@ class FilterPreset(models.Model):
     # When set, the saved dates are moved along with today when the preset is
     # applied, keeping the distance they had to this date
     relative_to = models.DateField(null=True, blank=True)
+    # Applied when a page with the transaction filter opens without filters
+    # of its own. A user has at most one.
+    is_default = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["name", "id"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["owner"],
+                condition=Q(is_default=True),
+                name="unique_default_filter_preset",
+            ),
+        ]
 
     def __str__(self):
         return self.name

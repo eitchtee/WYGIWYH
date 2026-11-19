@@ -45,7 +45,7 @@ def monthly_overview(request, month: int, year: int):
     previous_month = 12 if month == 1 else month - 1
     previous_year = year - 1 if previous_month == 12 and month == 1 else year
 
-    f = TransactionsFilter(request.GET)
+    f = TransactionsFilter.for_page(request)
 
     return render(
         request,

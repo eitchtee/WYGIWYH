@@ -28,6 +28,7 @@ from dateutil.relativedelta import relativedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db import transaction as db_transaction
 from django.db.models import Case, F, IntegerField, Q, Value, When
 from django.http import FileResponse, Http404, HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
@@ -688,7 +689,7 @@ def transaction_all_index(request):
     order = request.session.get("all_transactions_order", "default")
     summary_tab = request.session.get("transaction_all_summary_tab", "currency")
 
-    f = TransactionsFilter(request.GET)
+    f = TransactionsFilter.for_page(request)
     return render(
         request,
         "transactions/pages/transactions.html",
@@ -747,15 +748,7 @@ def filter_preset_create(request):
 @require_http_methods(["GET"])
 def filter_preset_apply(request, preset_id):
     preset = get_object_or_404(FilterPreset, pk=preset_id, owner=request.user)
-    data = QueryDict(mutable=True)
-    for key, values in preset.parameters.items():
-        if key in TransactionsFilter.base_filters:
-            data.setlist(key, values)
-
-    transaction_filter = TransactionsFilter(data)
-    # Fixed presets shift by nothing, which still puts ISO dates in the user's format
-    today = timezone.localdate(timezone.now())
-    transaction_filter.shift_dates(since=preset.relative_to or today, until=today)
+    transaction_filter = TransactionsFilter.from_preset(preset)
 
     response = render(
         request,
@@ -768,6 +761,25 @@ def filter_preset_apply(request, preset_id):
     )
     response.headers["HX-Trigger-After-Settle"] = "updated"
     return response
+
+
+@only_htmx
+@login_required
+@require_http_methods(["POST"])
+def filter_preset_toggle_default(request, preset_id):
+    preset = get_object_or_404(FilterPreset, pk=preset_id, owner=request.user)
+    with db_transaction.atomic():
+        # A user has a single default preset
+        FilterPreset.objects.filter(owner=request.user, is_default=True).exclude(
+            pk=preset.pk
+        ).update(is_default=False)
+        preset.is_default = not preset.is_default
+        preset.save(update_fields=["is_default"])
+    return render(
+        request,
+        "transactions/fragments/filter_presets.html",
+        {"filter_presets": FilterPreset.objects.filter(owner=request.user)},
+    )
 
 
 @only_htmx
