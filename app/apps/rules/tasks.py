@@ -12,6 +12,7 @@ from typing import Literal
 from cachalot.api import cachalot_disabled
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.forms import model_to_dict
 from procrastinate.contrib.django import app
 from simpleeval import EvalWithCompoundTypes
@@ -676,23 +677,29 @@ def check_for_transaction_rules(
             if signal == "transaction_updated" and old_data:
                 simple.names.update(_get_names(old_data, "old_"))
 
+            # Public rules are readable by everyone but only run for their owner
+            # and the users they are explicitly shared with.
+            runnable_rules = TransactionRule.all_objects.filter(
+                Q(owner=user) | Q(shared_with=user) | Q(owner=None)
+            ).distinct()
+
             # Select rules based on the signal type
             if dry_run and rule_id:
                 rules = TransactionRule.objects.filter(id=rule_id)
             elif signal == "transaction_created":
-                rules = TransactionRule.objects.filter(
+                rules = runnable_rules.filter(
                     active=True, on_create=True
                 ).order_by("order", "id")
             elif signal == "transaction_updated":
-                rules = TransactionRule.objects.filter(
+                rules = runnable_rules.filter(
                     active=True, on_update=True
                 ).order_by("order", "id")
             elif signal == "transaction_deleted":
-                rules = TransactionRule.objects.filter(
+                rules = runnable_rules.filter(
                     active=True, on_delete=True
                 ).order_by("order", "id")
             else:
-                rules = TransactionRule.objects.filter(active=True).order_by(
+                rules = runnable_rules.filter(active=True).order_by(
                     "order", "id"
                 )
 

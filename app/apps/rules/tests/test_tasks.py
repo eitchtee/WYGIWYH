@@ -228,3 +228,57 @@ class SubTransactionRuleTests(TransactionTestCase):
             list(copy.sub_transactions.values_list("name", "amount")),
             [("A", Decimal("3")), ("Fee", Decimal("1"))],
         )
+
+
+class RuleScopeTests(TransactionTestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.rule_owner = User.objects.create_user(email="owner@example.com", password="x")
+        self.other = User.objects.create_user(email="other@example.com", password="x")
+        currency = Currency.objects.create(code="USD", name="US Dollar", decimal_places=2)
+        self.account = Account.all_objects.create(
+            name="Other's account", currency=currency, owner=self.other
+        )
+
+    def _run_rule(self, **rule_kwargs):
+        rule = TransactionRule.all_objects.create(
+            active=True,
+            on_update=True,
+            name="Rewrite",
+            trigger="True",
+            owner=self.rule_owner,
+            **rule_kwargs,
+        )
+        TransactionRuleAction.objects.create(
+            rule=rule, field="description", value="'Rewritten'"
+        )
+        with patch("apps.rules.signals.check_for_transaction_rules.defer"):
+            transaction = Transaction.userless_all_objects.create(
+                account=self.account,
+                type=Transaction.Type.EXPENSE,
+                amount=Decimal("10.00"),
+                date=date(2026, 5, 4),
+                reference_date=date(2026, 5, 1),
+                description="Original",
+                owner=self.other,
+            )
+            return rule, transaction
+
+    def _trigger(self, transaction):
+        with patch("apps.rules.signals.check_for_transaction_rules.defer"):
+            run_check_for_transaction_rules_without_worker_wrapper(
+                instance_id=transaction.id,
+                user_id=self.other.id,
+                signal="transaction_updated",
+            )
+        transaction.refresh_from_db()
+        return transaction.description
+
+    def test_public_rule_does_not_run_on_other_users_transactions(self):
+        _, transaction = self._run_rule(visibility="public")
+        self.assertEqual(self._trigger(transaction), "Original")
+
+    def test_shared_rule_runs_for_users_it_is_shared_with(self):
+        rule, transaction = self._run_rule()
+        rule.shared_with.add(self.other)
+        self.assertEqual(self._trigger(transaction), "Rewritten")
