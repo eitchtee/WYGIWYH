@@ -17,6 +17,11 @@ urlpatterns = [
         name="filter_preset_apply",
     ),
     path(
+        "transactions/filter-presets/<int:preset_id>/toggle-default/",
+        views.filter_preset_toggle_default,
+        name="filter_preset_toggle_default",
+    ),
+    path(
         "transactions/filter-presets/<int:preset_id>/delete/",
         views.filter_preset_delete,
         name="filter_preset_delete",

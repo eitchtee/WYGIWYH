@@ -20,6 +20,16 @@
                title="{% translate 'Dates relative to today' %}"></i>
           {% endif %}
         </button>
+        <button class="btn btn-ghost btn-xs {% if not preset.is_default %}opacity-0 group-hover:opacity-100 focus:opacity-100{% endif %}"
+                type="button"
+                title="{% if preset.is_default %}{% translate 'Default preset, applied when the page opens' %}{% else %}{% translate 'Set as default' %}{% endif %}"
+                aria-label="{% blocktranslate with name=preset.name %}Use {{ name }} as default{% endblocktranslate %}"
+                aria-pressed="{{ preset.is_default|yesno:'true,false' }}"
+                hx-post="{% url 'filter_preset_toggle_default' preset.id %}"
+                hx-target="#filter-presets"
+                hx-swap="outerHTML">
+          <i class="{% if preset.is_default %}fa-solid text-warning{% else %}fa-regular{% endif %} fa-star fa-fw"></i>
+        </button>
         <button class="btn btn-ghost btn-xs opacity-0 group-hover:opacity-100 focus:opacity-100"
                 type="button"
                 aria-label="{% blocktranslate with name=preset.name %}Delete {{ name }}{% endblocktranslate %}"

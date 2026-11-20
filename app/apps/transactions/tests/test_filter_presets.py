@@ -2,6 +2,7 @@ import datetime
 from unittest import mock
 
 from django.contrib.auth import get_user_model
+from django.db import IntegrityError
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -272,7 +273,7 @@ class FilterPresetViewTests(TestCase):
             "updated",
         )
 
-    def test_other_users_cannot_apply_or_delete_a_preset(self):
+    def test_other_users_cannot_apply_delete_or_default_a_preset(self):
         self.client.force_login(self.other_user)
 
         apply_response = self.client.get(
@@ -283,10 +284,119 @@ class FilterPresetViewTests(TestCase):
             reverse("filter_preset_delete", args=[self.preset.pk]),
             HTTP_HX_REQUEST="true",
         )
+        default_response = self.client.post(
+            reverse("filter_preset_toggle_default", args=[self.preset.pk]),
+            HTTP_HX_REQUEST="true",
+        )
 
         self.assertEqual(apply_response.status_code, 404)
         self.assertEqual(delete_response.status_code, 404)
-        self.assertTrue(FilterPreset.objects.filter(pk=self.preset.pk).exists())
+        self.assertEqual(default_response.status_code, 404)
+        self.preset.refresh_from_db()
+        self.assertFalse(self.preset.is_default)
+
+    def test_toggle_default_sets_and_unsets_the_default_preset(self):
+        url = reverse("filter_preset_toggle_default", args=[self.preset.pk])
+
+        response = self.client.post(url, HTTP_HX_REQUEST="true")
+
+        self.assertEqual(response.status_code, 200)
+        self.preset.refresh_from_db()
+        self.assertTrue(self.preset.is_default)
+        self.assertContains(response, 'id="filter-presets"')
+        self.assertContains(response, 'aria-pressed="true"', count=1)
+
+        response = self.client.post(url, HTTP_HX_REQUEST="true")
+
+        self.preset.refresh_from_db()
+        self.assertFalse(self.preset.is_default)
+        self.assertNotContains(response, 'aria-pressed="true"')
+
+    def test_toggle_default_moves_the_default_from_the_previous_preset(self):
+        self.preset.is_default = True
+        self.preset.save()
+        other_users_default = FilterPreset.objects.create(
+            owner=self.other_user, name="Theirs", is_default=True
+        )
+        income = FilterPreset.objects.create(
+            owner=self.user, name="Income", parameters={"type": ["IN"]}
+        )
+
+        self.client.post(
+            reverse("filter_preset_toggle_default", args=[income.pk]),
+            HTTP_HX_REQUEST="true",
+        )
+
+        self.assertEqual(
+            list(FilterPreset.objects.filter(owner=self.user, is_default=True)),
+            [income],
+        )
+        other_users_default.refresh_from_db()
+        self.assertTrue(other_users_default.is_default)
+
+    def test_a_user_cannot_have_two_default_presets(self):
+        self.preset.is_default = True
+        self.preset.save()
+
+        with self.assertRaises(IntegrityError):
+            FilterPreset.objects.create(
+                owner=self.user, name="Second default", is_default=True
+            )
+
+    def test_all_transactions_page_opens_with_the_default_preset(self):
+        self.user.settings.date_format = "d/m/Y"
+        self.user.settings.save()
+        FilterPreset.objects.create(
+            owner=self.user,
+            name="From today",
+            parameters={"is_paid": ["1"], "date_start": ["2026-08-20"]},
+            relative_to=datetime.date(2026, 8, 20),
+            is_default=True,
+        )
+
+        with mock.patch(
+            "django.utils.timezone.localdate",
+            return_value=datetime.date(2027, 1, 5),
+        ):
+            response = self.client.get(reverse("transactions_all_index"))
+
+        data = response.context["filter"].data
+        self.assertEqual(data.getlist("is_paid"), ["1"])
+        self.assertEqual(data["date_start"], "05/01/2027")
+        self.assertContains(response, 'data-value="2027-01-05"')
+        self.assertIs(response.context["filter_is_active"], True)
+
+    def test_filters_in_the_url_take_precedence_over_the_default_preset(self):
+        self.preset.is_default = True
+        self.preset.save()
+
+        response = self.client.get(reverse("transactions_all_index"), {"type": ["IN"]})
+
+        data = response.context["filter"].data
+        self.assertEqual(data.getlist("type"), ["IN"])
+        self.assertEqual(data.getlist("is_paid"), ["1", "0"])
+
+    def test_all_transactions_page_ignores_presets_that_are_not_default(self):
+        response = self.client.get(reverse("transactions_all_index"))
+
+        self.assertIs(response.context["filter_is_active"], False)
+
+    def test_monthly_page_opens_with_the_default_preset(self):
+        self.preset.is_default = True
+        self.preset.save()
+        FilterPreset.objects.create(
+            owner=self.other_user,
+            name="Theirs",
+            parameters={"type": ["IN"]},
+            is_default=True,
+        )
+
+        response = self.client.get(reverse("monthly_overview", args=[8, 2026]))
+
+        data = response.context["filter"].data
+        self.assertEqual(data.getlist("is_paid"), ["0"])
+        self.assertEqual(data.getlist("type"), ["IN", "EX"])
+        self.assertIs(response.context["filter_is_active"], True)
 
     def test_delete_removes_the_current_users_preset(self):
         response = self.client.post(

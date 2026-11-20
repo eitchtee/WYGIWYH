@@ -8,6 +8,7 @@ from apps.common.widgets.decimal import ArbitraryDecimalDisplayNumberInput
 from apps.common.widgets.tom_select import TomSelectMultiple
 from apps.currencies.models import Currency
 from apps.transactions.models import (
+    FilterPreset,
     SubTransaction,
     Transaction,
     TransactionCategory,
@@ -19,6 +20,8 @@ from crispy_forms.layout import HTML, Column, Div, Field, Layout, Row
 from dateutil.relativedelta import relativedelta
 from django import forms
 from django.db.models import Q
+from django.http import QueryDict
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_filters import Filter
 
@@ -324,6 +327,34 @@ class TransactionsFilter(django_filters.FilterSet):
         self.form.fields["exclude_entities"].choices = (
             custom_entity_choices + entity_choices
         )
+
+    @classmethod
+    def from_preset(cls, preset):
+        """The filter a preset saved, with relative dates moved to today."""
+        data = QueryDict(mutable=True)
+        for key, values in preset.parameters.items():
+            if key in cls.base_filters:
+                data.setlist(key, values)
+
+        transaction_filter = cls(data)
+        # Fixed presets shift by nothing, which still puts ISO dates in the user's format
+        today = timezone.localdate(timezone.now())
+        transaction_filter.shift_dates(since=preset.relative_to or today, until=today)
+        return transaction_filter
+
+    @classmethod
+    def for_page(cls, request):
+        """
+        The filter a page opens with: the one in its URL or, when the URL
+        has none, the user's default preset.
+        """
+        if not any(key in request.GET for key in cls.base_filters):
+            preset = FilterPreset.objects.filter(
+                owner=request.user, is_default=True
+            ).first()
+            if preset:
+                return cls.from_preset(preset)
+        return cls(request.GET)
 
     @property
     def has_active_filters(self):
