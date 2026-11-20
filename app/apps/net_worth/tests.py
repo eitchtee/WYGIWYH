@@ -1,3 +1,4 @@
+import re
 import tempfile
 from datetime import date
 from decimal import Decimal
@@ -71,7 +72,7 @@ class NetWorthCurrencyChartTests(TestCase):
         self.assertEqual(consolidated["pointHitRadius"], 8)
         self.assertContains(
             response,
-            "showOnlyCurrencyDataset('US Dollar Consolidated', 'US Dollar')",
+            'data-dataset="US Dollar Consolidated" data-difference="US Dollar"',
             html=False,
         )
         self.assertContains(
@@ -156,3 +157,8 @@ class NetWorthChartEscapingTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "<script>alert(1)")
+        # Entities in an attribute are decoded before hyperscript parses it, so
+        # names must never be interpolated into ``_="..."`` code.
+        hyperscript = re.findall(r'\s_="([^"]*)"', response.content.decode())
+        self.assertTrue(hyperscript)
+        self.assertFalse([code for code in hyperscript if "alert(1)" in code])
