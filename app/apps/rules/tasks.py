@@ -23,6 +23,7 @@ from apps.rules.models import (
     TransactionRule,
     TransactionRuleAction,
 )
+from apps.transactions.auto_tagging.service import apply_auto_tagging
 from apps.transactions.models import (
     SubTransaction,
     Transaction,
@@ -849,6 +850,16 @@ def check_for_transaction_rules(
                         error="Initial trigger didn't match, this rule will be skipped",
                     )
                     _log("Initial trigger didn't match, this rule will be skipped")
+
+            if not dry_run and signal == "transaction_created":
+                try:
+                    apply_auto_tagging(instance, user)
+                except Exception:
+                    logger.error(
+                        "Error while applying auto-tagging for transaction %s",
+                        instance.id,
+                        exc_info=True,
+                    )
     except Exception as e:
         _log(
             "** Error while executing 'check_for_transaction_rules' task",
