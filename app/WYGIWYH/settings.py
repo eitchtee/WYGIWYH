@@ -147,7 +147,12 @@ WSGI_APPLICATION = "WYGIWYH.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-THREADS = int(os.getenv("GUNICORN_THREADS", 1))
+# Web and task worker share these settings, so size every pool for whichever runs more threads.
+# The pool opens connections on demand (min_size=1), so the larger cap costs nothing when idle.
+THREADS = max(
+    int(os.getenv("WEB_THREADS") or os.getenv("GUNICORN_THREADS") or 1),
+    int(os.getenv("PROCRASTINATE_WORKER_CONCURRENCY") or 1),
+)
 MAX_POOL_SIZE = THREADS + 1
 
 DATABASES = {
