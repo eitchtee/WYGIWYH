@@ -21,4 +21,5 @@ python manage.py setup_oauth
 # Check for updates on startup instead of waiting for the next periodic run; never block boot on it
 python manage.py procrastinate defer check_for_updates || true
 
-exec gunicorn WYGIWYH.wsgi:application --bind 0.0.0.0:$INTERNAL_PORT --timeout 600
+# Only pass --threads when WEB_THREADS is set, so a --threads in GUNICORN_CMD_ARGS still applies otherwise
+exec gunicorn WYGIWYH.wsgi:application --bind 0.0.0.0:$INTERNAL_PORT --timeout 600 ${WEB_THREADS:+--threads "$WEB_THREADS"}
