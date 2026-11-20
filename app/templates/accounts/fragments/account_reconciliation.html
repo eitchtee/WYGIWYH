@@ -78,10 +78,12 @@
               <div class="fieldset">
                 <span class="fieldset-legend">{% translate 'Difference' %}</span>
                 <div  class="text-base"
+                      data-prefix="{{ form.currency_prefix }}"
+                      data-suffix="{{ form.currency_suffix }}"
                       _="on input from #id_form-{{ forloop.counter0 }}-new_balance
                         set original_amount to parseFloat('{{ form.current_balance|floatformat:"-40u" }}')
-                        then set prefix to '{{ form.currency_prefix }}'
-                        then set suffix to '{{ form.currency_suffix }}'
+                        then set prefix to @data-prefix
+                        then set suffix to @data-suffix
                         then set decimal_places to {{ form.currency_decimal_places }}
                         then call parseLocaleNumber(#id_form-{{ forloop.counter0 }}-new_balance.value)
                         then set new_amount to result

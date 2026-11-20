@@ -5,9 +5,10 @@
     <canvas id="currencyChart"></canvas>
   </div>
 
+  {{ currency_data|json_script:"categoryCurrencyData" }}
   <script>
       // Get the data from your Django view (passed as JSON)
-      var currencyData = {{ currency_data|safe }};
+      var currencyData = JSON.parse(document.getElementById('categoryCurrencyData').textContent);
 
       function setupCurrencyChart() {
           var chartOptions = {

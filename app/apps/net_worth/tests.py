@@ -1,4 +1,4 @@
-import json
+import re
 import tempfile
 from datetime import date
 from decimal import Decimal
@@ -58,7 +58,7 @@ class NetWorthCurrencyChartTests(TestCase):
         response = self.client.get(reverse("net_worth"))
 
         self.assertEqual(response.status_code, 200)
-        chart_data = json.loads(response.context["chart_data_currency_json"])
+        chart_data = response.context["chart_data_currency"]
         datasets = {dataset["label"]: dataset for dataset in chart_data["datasets"]}
         self.assertIn("US Dollar Consolidated", datasets)
         regular = datasets["US Dollar"]
@@ -72,7 +72,7 @@ class NetWorthCurrencyChartTests(TestCase):
         self.assertEqual(consolidated["pointHitRadius"], 8)
         self.assertContains(
             response,
-            "showOnlyCurrencyDataset('US Dollar Consolidated', 'US Dollar')",
+            'data-dataset="US Dollar Consolidated" data-difference="US Dollar"',
             html=False,
         )
         self.assertContains(
@@ -121,3 +121,44 @@ class NetWorthCurrencyChartTests(TestCase):
         )
         self.assertContains(response, "75.0%")
         self.assertContains(response, "25.0%")
+
+
+@override_settings(
+    STATIC_ROOT=tempfile.gettempdir(),
+    STORAGES={
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
+        },
+    },
+)
+class NetWorthChartEscapingTests(TestCase):
+    def test_currency_and_account_names_cannot_break_out_of_the_chart_scripts(self):
+        user = get_user_model().objects.create_user(
+            email="xss@example.com", password="password"
+        )
+        payload = "</script><script>alert(1)</script>'"
+        currency = Currency.objects.create(code="XSS", name=payload, prefix="$ ")
+        account = Account.all_objects.create(
+            name=payload, currency=currency, owner=user
+        )
+        Transaction.userless_all_objects.create(
+            account=account,
+            owner=user,
+            type=Transaction.Type.INCOME,
+            amount=Decimal("10"),
+            date=date(2026, 1, 15),
+            reference_date=date(2026, 1, 1),
+            is_paid=True,
+        )
+
+        self.client.force_login(user)
+        response = self.client.get(reverse("net_worth"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "<script>alert(1)")
+        # Entities in an attribute are decoded before hyperscript parses it, so
+        # names must never be interpolated into ``_="..."`` code.
+        hyperscript = re.findall(r'\s_="([^"]*)"', response.content.decode())
+        self.assertTrue(hyperscript)
+        self.assertFalse([code for code in hyperscript if "alert(1)" in code])

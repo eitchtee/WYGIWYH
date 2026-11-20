@@ -56,7 +56,7 @@
                   <li>
                     {% if currency.consolidated and currency.consolidated.total_final != currency.total_final %}
                       <a class="cursor-pointer select-auto flex justify-between items-center w-full"
-                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}', '{{ currency.currency.name }}')">
+                         data-dataset="{{ currency.currency.name }}" data-difference="{{ currency.currency.name }}" _="on click showOnlyCurrencyDataset(@data-dataset, @data-difference)">
                         <span
                             class="currency-name text-start font-mono shrink text-ellipsis">{{ currency.currency.name }}</span>
                         <span class="text-end shrink-0">
@@ -86,7 +86,7 @@
                                       else call localStorage.setItem('net-worth-consolidated-{{ currency.currency.id }}', 'closed') end
                                       catch e log e end">
                           <summary class="cursor-pointer text-base-content/60 select-auto flex"
-                             _="on click showOnlyCurrencyDataset('{{ currency.currency.name }} {% trans "Consolidated" %}', '{{ currency.currency.name }}')">
+                             data-dataset="{{ currency.currency.name }} {% trans "Consolidated" %}" data-difference="{{ currency.currency.name }}" _="on click showOnlyCurrencyDataset(@data-dataset, @data-difference)">
                             <span class="flex justify-between items-center w-full">
                             <span class="text-start shrink">{% trans "Consolidated" %}</span>
                             <span class="text-end shrink-0">
@@ -104,7 +104,7 @@
                             {% for component in currency.consolidated.components %}
                               <li class="col-span-3 grid grid-cols-subgrid">
                                 <a class="col-span-3 grid grid-cols-subgrid items-center cursor-pointer text-base-content/60 select-auto text-sm"
-                                   _="on click showOnlyCurrencyDataset('{{ component.currency.name }}', '{{ component.currency.name }}')">
+                                   data-dataset="{{ component.currency.name }}" data-difference="{{ component.currency.name }}" _="on click showOnlyCurrencyDataset(@data-dataset, @data-difference)">
                                   <span class="currency-name text-start font-mono truncate">{{ component.currency.name }}</span>
                                   <span class="justify-self-start">
                                   {% if component.share is not None %}
@@ -128,7 +128,7 @@
                       </ul>
                     {% else %}
                       <a class="cursor-pointer select-auto flex justify-between items-center w-full"
-                         _="on click showOnlyCurrencyDataset('{{ currency.currency.name }}', '{{ currency.currency.name }}')">
+                         data-dataset="{{ currency.currency.name }}" data-difference="{{ currency.currency.name }}" _="on click showOnlyCurrencyDataset(@data-dataset, @data-difference)">
                         <span class="currency-name text-start font-mono shrink">{{ currency.currency.name }}</span>
                         <span class="text-end shrink-0">
                         <div>
@@ -207,7 +207,7 @@
                           {% for account in data.list %}
                             <li>
                               <a class="cursor-pointer select-auto flex justify-between items-center w-full"
-                                 _="on click showOnlyAccountDataset('{{ account.account.name }}')">
+                                 data-dataset="{{ account.account.name }}" _="on click showOnlyAccountDataset(@data-dataset)">
                                 <span
                                     class="account-name text-start font-mono shrink text-ellipsis">{{ account.account.name }}</span>
                                 <span class="text-end shrink-0">
@@ -237,7 +237,7 @@
                     {% for account in data.list %}
                       <li>
                         <a class="cursor-pointer flex select-auto justify-between items-center w-full"
-                           _="on click showOnlyAccountDataset('{{ account.account.name }}')">
+                           data-dataset="{{ account.account.name }}" _="on click showOnlyAccountDataset(@data-dataset)">
                           <span class="account-name text-start font-mono shrink">{{ account.account.name }}</span>
                           <span class="text-end shrink-0">
                           <div>
@@ -274,6 +274,8 @@
         </div>
       </div>
     </div>
+    {{ chart_data_currency|json_script:"currencyChartData" }}
+    {{ currencies|json_script:"currencyChartCurrencies" }}
     <script>
         var currencyChart;
 
@@ -283,8 +285,8 @@
                 currencyChart.destroy();
             }
 
-            var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
-            var currencies = {{ currencies|safe }};
+            var chartData = JSON.parse(document.getElementById('currencyChartData').textContent);
+            var currencies = JSON.parse(document.getElementById('currencyChartCurrencies').textContent);
             var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
 
             currencyChart = new Chart(ctx, {
@@ -347,6 +349,8 @@
             currencyChart.update('none');
         }
     </script>
+    {{ chart_data_accounts|json_script:"accountChartData" }}
+    {{ accounts|json_script:"accountChartAccounts" }}
     <script id="accountBalanceChartScript">
         var accountChart;
 
@@ -356,8 +360,8 @@
                 accountChart.destroy();
             }
 
-            var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
-            var accounts = {{ accounts|safe }};
+            var chartData = JSON.parse(document.getElementById('accountChartData').textContent);
+            var accounts = JSON.parse(document.getElementById('accountChartAccounts').textContent);
             var ctx = document.getElementById('accountBalanceChart').getContext('2d');
 
             accountChart = new Chart(ctx, {
@@ -412,6 +416,7 @@
             });
         }
     </script>
+    {{ chart_data_monthly_difference|json_script:"monthlyDifferenceChartData" }}
     <script id="monthlyDifferenceChartScript">
         var monthlyDifferenceChart;
 
@@ -420,7 +425,7 @@
                 monthlyDifferenceChart.destroy();
             }
 
-            var chartData = JSON.parse('{{ chart_data_monthly_difference_json|safe }}');
+            var chartData = JSON.parse(document.getElementById('monthlyDifferenceChartData').textContent);
             var ctx = document.getElementById('monthlyDifferenceChart').getContext('2d');
 
             monthlyDifferenceChart = new Chart(ctx, {
