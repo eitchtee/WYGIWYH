@@ -1091,7 +1091,7 @@ class InstallmentPlanForm(SubTransactionsFormMixin, forms.ModelForm):
 class TransactionTagForm(forms.ModelForm):
     class Meta:
         model = TransactionTag
-        fields = ["name", "active"]
+        fields = ["name", "active", "auto_match"]
         labels = {"name": _("Tag name")}
 
     def __init__(self, *args, **kwargs):
@@ -1100,7 +1100,11 @@ class TransactionTagForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        self.helper.layout = Layout(Field("name", css_class="mb-3"), Switch("active"))
+        self.helper.layout = Layout(
+            Field("name", css_class="mb-3"),
+            Switch("active"),
+            Switch("auto_match"),
+        )
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(
@@ -1119,7 +1123,7 @@ class TransactionTagForm(forms.ModelForm):
 class TransactionEntityForm(forms.ModelForm):
     class Meta:
         model = TransactionEntity
-        fields = ["name", "active"]
+        fields = ["name", "active", "auto_match"]
         labels = {"name": _("Entity name")}
 
     def __init__(self, *args, **kwargs):
@@ -1128,7 +1132,11 @@ class TransactionEntityForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        self.helper.layout = Layout(Field("name"), Switch("active"))
+        self.helper.layout = Layout(
+            Field("name"),
+            Switch("active"),
+            Switch("auto_match"),
+        )
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(
@@ -1147,7 +1155,7 @@ class TransactionEntityForm(forms.ModelForm):
 class TransactionCategoryForm(forms.ModelForm):
     class Meta:
         model = TransactionCategory
-        fields = ["name", "mute", "active"]
+        fields = ["name", "mute", "active", "auto_match"]
         labels = {"name": _("Category name")}
         help_texts = {
             "mute": _("Muted categories won't be displayed on monthly summaries")
@@ -1159,7 +1167,12 @@ class TransactionCategoryForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.form_method = "post"
-        self.helper.layout = Layout(Field("name"), Switch("mute"), Switch("active"))
+        self.helper.layout = Layout(
+            Field("name"),
+            Switch("mute"),
+            Switch("active"),
+            Switch("auto_match"),
+        )
 
         if self.instance and self.instance.pk:
             self.helper.layout.append(

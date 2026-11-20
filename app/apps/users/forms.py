@@ -158,6 +158,7 @@ class UserSettingsForm(forms.ModelForm):
             "number_format",
             "default_account",
             "combine_transfers",
+            "auto_tagging",
             "volume",
         ]
         widgets = {
@@ -185,6 +186,7 @@ class UserSettingsForm(forms.ModelForm):
             "start_page",
             "default_account",
             Switch("combine_transfers"),
+            Switch("auto_tagging"),
             HTML('<hr class="hr my-3" />'),
             Range("volume"),
             FormActions(
