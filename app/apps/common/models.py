@@ -79,9 +79,11 @@ class SharedObject(models.Model):
     def is_editable_by(self, user):
         """Whether ``user`` may mutate this object.
 
-        Sharing grants read access only; mutation stays with the owner. Objects
-        with no owner remain editable by everyone, preserving the behaviour of
-        legacy/unowned objects.
+        Only the owner may edit, re-share or delete the object itself. This does
+        not cover what lives inside it: anyone who can see a shared or public
+        account may change its transactions, by design. Objects with no owner
+        remain editable by everyone, preserving the behaviour of legacy/unowned
+        objects.
         """
         if self.owner is None:
             return True

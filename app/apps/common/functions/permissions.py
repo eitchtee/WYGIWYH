@@ -20,7 +20,9 @@ def get_shared_object_or_error(klass, request, *, level=EDIT, via=None, **kwargs
         The object must be visible to the user. Denial raises :class:`Http404`
         so the response does not confirm that the id exists.
     ``EDIT``
-        The object must be owned by the user. Denial raises
+        The object must be owned by the user. Use this for changes to the
+        shared object itself, not for records inside it (a shared account's
+        transactions are writable by everyone who can see it). Denial raises
         :class:`~django.core.exceptions.PermissionDenied` (HTTP 403), which the
         frontend surfaces as an "Access Denied" dialog. An object the user
         cannot even see raises :class:`Http404` instead, so 403 never confirms
