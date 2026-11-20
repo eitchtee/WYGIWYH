@@ -37,7 +37,9 @@ INSTRUCTIONS = (
     "transaction counts toward: YYYY-MM in these tools, YYYY-MM-DD for recurring "
     "transactions and installment plans in call_api. Use summarize_transactions for totals instead "
     "of adding up search results. Look up ids with list_accounts and "
-    "list_categories/list_tags/list_entities. For anything else, find the "
+    "list_categories/list_tags/list_entities. Shared expenses with other people "
+    "(trips, flats) live under /api/splits/: an event's balances and who should pay "
+    "whom are at /api/splits/events/{id}/summary/. For anything else, find the "
     "endpoint with search_api and run it with call_api."
 )
 
