@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "apps.calendar_view.apps.CalendarViewConfig",
     "apps.dca.apps.DcaConfig",
     "apps.investments.apps.InvestmentsConfig",
+    "apps.splits.apps.SplitsConfig",
     "pwa",
     "allauth",
     "allauth.account",

@@ -3,4 +3,4 @@ from .accounts import *
 from .currencies import *
 from .dca import *
 from .imports import *
-
+from .splits import *

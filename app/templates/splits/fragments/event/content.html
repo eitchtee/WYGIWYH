@@ -1,0 +1,188 @@
+{% load i18n %}
+{% load l10n %}
+{% with c=event.currency %}
+<c-components.fab>
+  <c-components.fab_menu_button
+      color="error" hx_target="#generic-offcanvas" hx_trigger="click"
+      url="{{ urls.expense_add }}"
+      icon="fa-solid fa-receipt"
+      title="{% translate 'Expense' %}"></c-components.fab_menu_button>
+  <c-components.fab_menu_button
+      color="success" hx_target="#generic-offcanvas" hx_trigger="click"
+      url="{{ urls.payment_add }}"
+      icon="fa-solid fa-hand-holding-dollar"
+      title="{% translate 'Payment' %}"></c-components.fab_menu_button>
+</c-components.fab>
+
+<div class="container pb-20">
+  <div class="flex items-center gap-2 mb-1">
+    {% if not actor.is_external_portal %}
+      <a href="{% url 'split_event_index' %}" hx-boost="true"
+         class="btn btn-ghost btn-sm btn-square text-base-content/50 hover:text-base-content"
+         aria-label="{% translate 'Split Expenses' %}"><i class="fa-solid fa-arrow-left"></i></a>
+    {% endif %}
+    <h1 class="text-2xl font-bold truncate text-balance">{{ event.name }}</h1>
+    {% if event.is_archived %}<span class="badge badge-warning badge-sm">{% translate 'Archived' %}</span>{% endif %}
+    {% if actor.is_creator %}
+      <button class="btn btn-ghost btn-sm btn-square text-base-content/40 hover:text-base-content"
+              data-tippy-content="{% translate 'People' %}" aria-label="{% translate 'People' %}"
+              hx-get="{% url 'split_participants_manage' event_id=event.id %}" hx-target="#generic-offcanvas">
+        <i class="fa-solid fa-user-group"></i>
+      </button>
+      <button class="btn btn-ghost btn-sm btn-square text-base-content/40 hover:text-base-content"
+              data-tippy-content="{% translate 'Edit event' %}" aria-label="{% translate 'Edit event' %}"
+              hx-get="{% url 'split_event_edit' event_id=event.id %}" hx-target="#generic-offcanvas">
+        <i class="fa-solid fa-pencil"></i>
+      </button>
+    {% elif actor.is_wygiwyh_user %}
+      <button class="btn btn-ghost btn-sm btn-square text-base-content/40 hover:text-error"
+              data-tippy-content="{% translate 'Leave event' %}" aria-label="{% translate 'Leave event' %}"
+              hx-post="{% url 'split_event_leave' event_id=event.id %}"
+              hx-trigger="confirmed"
+              data-title="{% translate 'Leave this event?' %}"
+              data-text="{% translate 'It disappears from your list. Expenses and payments you were part of stay, so the others still see correct balances.' %}"
+              data-confirm-text="{% translate 'Leave' %}"
+              _="install prompt_swal">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    {% endif %}
+    {% include 'splits/fragments/event/share_menu.html' %}
+  </div>
+  <div class="text-sm text-base-content/50 mb-6 {% if not actor.is_external_portal %}ps-10{% endif %}">
+    {% blocktranslate count counter=active_participants_count %}{{ counter }} person{% plural %}{{ counter }} people{% endblocktranslate %}
+    {% if event.description %}<div class="text-pretty whitespace-pre-line mt-1">{{ event.description }}</div>{% endif %}
+  </div>
+
+  <div class="hidden" data-export="header">
+    <div class="text-2xl font-bold text-balance">{{ event.name }}</div>
+    <div class="text-sm text-base-content/60 tabular-nums">
+      {% blocktranslate count counter=active_participants_count %}{{ counter }} person{% plural %}{{ counter }} people{% endblocktranslate %}
+      · {% translate 'Group total' %} <c-amount.display :amount="total_spent" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+    </div>
+  </div>
+
+  {# The one number people open this page for #}
+  {% if my_balance %}
+    <div class="card bg-base-100 card-border shadow mb-4">
+      <div class="card-body p-5 flex-row flex-wrap items-end justify-between gap-4">
+        <div>
+          {% if not my_balance.net_balance %}
+            <div class="text-2xl font-bold"><i class="fa-solid fa-circle-check text-success me-2"></i>{% if transfers %}{% translate 'You are settled up' %}{% else %}{% translate 'Everyone is settled up' %}{% endif %}</div>
+          {% else %}
+          <div class="text-sm text-base-content/60">
+            {% if my_balance.net_balance > 0 %}{% translate 'You are owed' %}{% else %}{% translate 'You owe' %}{% endif %}
+          </div>
+          <div class="text-3xl sm:text-4xl font-bold tabular-nums tracking-tight whitespace-nowrap">
+            {# Show the magnitude; the sentence above carries the direction #}
+            <c-amount.display :amount="my_balance_abs" :prefix="c.prefix" :suffix="c.suffix"
+                              :decimal_places="c.decimal_places" color="{% if my_balance.net_balance > 0 %}green{% elif my_balance.net_balance < 0 %}red{% endif %}" divless></c-amount.display>
+          </div>
+          {% endif %}
+        </div>
+        <div class="text-sm sm:text-end tabular-nums">
+          <div class="text-base-content/60">{% translate 'Group total' %}</div>
+          <c-amount.display :amount="total_spent" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="flex flex-col gap-4">
+      {% if transfers %}
+      <div class="card bg-base-100 card-border shadow" data-export="settle">
+        <div class="px-5 pt-4 pb-1 font-semibold">{% translate 'Settle up' %}</div>
+          <ul class="px-5 pb-3 flex flex-col divide-y divide-base-content/10 text-sm">
+            {% for item in transfers %}{% with t=item.transfer %}
+              <li class="py-3 flex flex-col gap-2">
+                <div class="flex items-baseline justify-between gap-3">
+                  <span class="min-w-0">
+                    <span class="font-medium" data-export-name="{{ t.from_participant.name }}">{% if t.from_participant.id == me_id %}{% translate 'You' %}{% else %}{{ t.from_participant.name }}{% endif %}</span>
+                    <i class="fa-solid fa-arrow-right text-xs text-base-content/40 mx-1"></i>
+                    <span class="font-medium" data-export-name="{{ t.to_participant.name }}">{% if t.to_participant.id == me_id %}{% translate 'You' %}{% else %}{{ t.to_participant.name }}{% endif %}</span>
+                  </span>
+                  <span class="tabular-nums whitespace-nowrap font-semibold">
+                    <c-amount.display :amount="t.amount" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+                  </span>
+                </div>
+                {% if item.tx_links %}
+                  <div class="flex flex-wrap gap-1" data-export-hide>{% include 'splits/fragments/tx_links.html' with links=item.tx_links %}</div>
+                {% endif %}
+                {% if item.can_record or item.user_direction %}
+                <div class="flex gap-2" data-export-hide>
+                  {% if item.can_record %}
+                  <button type="button" class="btn btn-sm btn-soft btn-success flex-1"
+                          hx-get="{{ urls.payment_add }}?from={{ t.from_participant.id }}&to={{ t.to_participant.id }}&amount={{ t.amount|unlocalize }}"
+                          hx-target="#generic-offcanvas">
+                    <i class="fa-solid fa-check"></i>{% translate 'Record as paid' %}
+                  </button>
+                  {% endif %}
+                  {% if item.user_direction %}
+                    <button type="button" class="btn btn-sm btn-ghost btn-square"
+                            data-tippy-content="{% if item.user_direction == 'out' %}{% translate 'Add as planned expense in my transactions' %}{% else %}{% translate 'Add as expected income in my transactions' %}{% endif %}"
+                            aria-label="{% translate 'Add to my transactions' %}"
+                            hx-get="{% url 'split_sync_settlement' event_id=event.id %}?direction={{ item.user_direction }}&counterparty={{ item.counterparty.id }}&amount={{ t.amount|unlocalize }}"
+                            hx-target="#generic-offcanvas">
+                      <i class="fa-solid fa-wallet"></i>
+                    </button>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </li>
+            {% endwith %}{% endfor %}
+          </ul>
+      </div>
+      {% endif %}
+
+      <div class="card bg-base-100 card-border shadow" data-export="balances">
+        <div class="px-5 pt-4 pb-1 font-semibold">{% translate 'Balances' %}</div>
+        <ul class="px-5 pb-3 flex flex-col divide-y divide-base-content/10 text-sm">
+          {% for row in balance_rows %}{% with b=row.balance %}
+            <li class="py-2.5 {% if not b.participant.is_active %}opacity-50{% endif %}">
+              <div class="flex items-baseline justify-between gap-3">
+                <span class="min-w-0 truncate">
+                  {{ b.participant.name }}
+                  {% if b.participant.id == me_id %}<span class="badge badge-xs badge-primary align-middle" data-export-hide>{% translate 'you' %}</span>{% endif %}
+                  {% if not b.participant.is_active %}<span class="badge badge-xs badge-ghost align-middle">{% translate 'inactive' %}</span>{% endif %}
+                </span>
+                <span class="tabular-nums whitespace-nowrap">
+                  <c-amount.display :amount="b.net_balance" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display>
+                </span>
+              </div>
+              {# Diverging bar: right of center is owed money, left owes #}
+              <div class="relative h-1 mt-1.5 rounded-full bg-base-content/10" aria-hidden="true">
+                <div class="absolute inset-y-0 left-1/2 w-px bg-base-content/20"></div>
+                {% if row.bar %}
+                  <div class="absolute inset-y-0 rounded-full {% if b.net_balance > 0 %}left-1/2 bg-success{% else %}right-1/2 bg-error{% endif %}"
+                       style="width: {{ row.bar }}%"></div>
+                {% endif %}
+              </div>
+              <div class="text-xs text-base-content/50 tabular-nums mt-1">
+                {% translate 'paid' %} <c-amount.display :amount="b.total_paid" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+                · {% translate 'share' %} <c-amount.display :amount="b.total_owed" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+              </div>
+            </li>
+          {% endwith %}{% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="card bg-base-100 card-border shadow">
+        <div class="px-5 pt-4 pb-1 font-semibold">{% translate 'Activity' %}</div>
+        {% if activity %}
+          <ul class="px-3 pb-2 flex flex-col">
+            {% for item in activity %}
+              {% include 'splits/fragments/event/activity_item.html' %}
+            {% endfor %}
+          </ul>
+        {% else %}
+          <c-msg.empty icon="fa-solid fa-receipt"
+                       title="{% translate 'Nothing here yet' %}"
+                       subtitle="{% translate 'Add the first expense with the + button' %}"></c-msg.empty>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endwith %}

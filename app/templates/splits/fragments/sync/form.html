@@ -1,0 +1,66 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_filters %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<form hx-post="{{ post_url }}"
+      hx-target="#generic-offcanvas"
+      novalidate
+      id="split-sync-form">
+  {% if form.non_field_errors %}
+    <div class="alert alert-error mb-3">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <div class="join w-full mb-3">
+    <input type="radio" name="mode" value="create" aria-label="{% translate 'Create new' %}"
+           class="join-item btn btn-sm flex-1 sync-mode-radio"
+           {% if form.mode.value != 'link' %}checked{% endif %} />
+    <input type="radio" name="mode" value="link" aria-label="{% translate 'Link existing' %}"
+           class="join-item btn btn-sm flex-1 sync-mode-radio"
+           {% if form.mode.value == 'link' %}checked{% endif %} />
+  </div>
+
+  <div id="sync-create-fields">
+    <p class="text-sm text-base-content/70 mb-2">
+      {% if tx_type == 'IN' %}
+        {% translate 'Creates an income transaction in one of your accounts.' %}
+      {% else %}
+        {% translate 'Creates an expense transaction in one of your accounts.' %}
+      {% endif %}
+      {% blocktranslate with code=event.currency.code %}Amounts are in {{ code }}.{% endblocktranslate %}
+    </p>
+    {{ form.account|as_crispy_field }}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-3">
+      {{ form.amount|as_crispy_field }}
+      {{ form.date|as_crispy_field }}
+    </div>
+    {{ form.description|as_crispy_field }}
+    {{ form.is_paid|as_crispy_field }}
+    {{ form.category|as_crispy_field }}
+    {{ form.tags|as_crispy_field }}
+    {{ form.entities|as_crispy_field }}
+    {{ form.notes|as_crispy_field }}
+  </div>
+
+  <div id="sync-link-fields" class="hidden">
+    {{ form.existing_transaction|as_crispy_field }}
+  </div>
+
+  <button type="submit" class="btn btn-primary w-full mt-3">{% translate 'Save' %}</button>
+</form>
+
+<script>
+  (function () {
+    const form = document.getElementById('split-sync-form');
+    function update() {
+      const linking = form.querySelector('.sync-mode-radio:checked').value === 'link';
+      document.getElementById('sync-create-fields').classList.toggle('hidden', linking);
+      document.getElementById('sync-link-fields').classList.toggle('hidden', !linking);
+    }
+    form.querySelectorAll('.sync-mode-radio').forEach((r) => r.addEventListener('change', update));
+    update();
+  })();
+</script>
+{% endblock %}

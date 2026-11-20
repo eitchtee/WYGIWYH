@@ -1,0 +1,17 @@
+{% extends "layouts/base_auth.html" %}
+{% load i18n %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block content %}
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="card bg-base-100 shadow-2xl w-full max-w-md">
+      <div class="card-body">
+        <h1 class="text-2xl card-title text-balance">{{ event.name }}</h1>
+        <p class="text-base-content/70">
+          <i class="fa-solid fa-lock me-1"></i>{% translate 'The organizer turned off link access for this event.' %}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

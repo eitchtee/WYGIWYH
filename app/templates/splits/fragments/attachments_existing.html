@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load split_urls %}
+{% if item and item.attachments.all %}
+  <div class="flex flex-wrap gap-2 mb-3">
+    {% for att in item.attachments.all %}
+      <span class="badge badge-outline gap-1">
+        <a href="{% split_portal_url urls 'attachment_download_name' attachment_id=att.id %}"
+           target="_blank" rel="noopener" class="no-underline hover:underline">
+          <i class="fa-solid fa-paperclip fa-fw"></i>{{ att.original_name }}
+        </a>
+        <button type="button"
+                class="text-error cursor-pointer"
+                aria-label="{% translate 'Delete' %}"
+                hx-delete="{% split_portal_url urls 'attachment_delete_name' attachment_id=att.id %}"
+                hx-trigger="confirmed"
+                hx-swap="none"
+                data-title="{% translate 'Are you sure?' %}"
+                data-text="{% translate "You won't be able to revert this!" %}"
+                data-confirm-text="{% translate 'Yes, delete it!' %}"
+                _="install prompt_swal
+                   on htmx:afterRequest[detail.successful] remove closest .badge">
+          <i class="fa-solid fa-xmark fa-fw"></i>
+        </button>
+      </span>
+    {% endfor %}
+  </div>
+{% endif %}

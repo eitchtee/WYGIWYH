@@ -12,3 +12,4 @@ import './js/style.js';
 import './js/_utils.js';
 import './js/hide_amounts.js';
 import './js/pulltorefresh.js';
+import './js/screenshot.js';

@@ -1,0 +1,16 @@
+{% load i18n %}
+{% for link in links %}
+  <span class="badge badge-sm {% if link.transaction.is_paid %}badge-success{% else %}badge-info{% endif %} gap-1"
+        data-tippy-content="{% if link.transaction.is_paid %}{% translate 'Linked transaction' %}{% else %}{% translate 'Linked transaction, not paid yet' %}{% endif %}">
+    <i class="fa-solid fa-link fa-fw"></i>{{ link.transaction.account.name }}
+    <button type="button" class="cursor-pointer" aria-label="{% translate 'Unlink' %}"
+            hx-delete="{% url 'split_sync_unlink' event_id=event.id link_id=link.id %}"
+            hx-trigger="confirmed"
+            data-title="{% translate 'Unlink this transaction?' %}"
+            data-text="{% translate 'The transaction itself is kept.' %}"
+            data-confirm-text="{% translate 'Unlink' %}"
+            _="install prompt_swal">
+      <i class="fa-solid fa-xmark fa-fw"></i>
+    </button>
+  </span>
+{% endfor %}

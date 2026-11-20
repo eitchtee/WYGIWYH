@@ -1,0 +1,66 @@
+{% extends "layouts/base_auth.html" %}
+{% load i18n %}
+{% load crispy_forms_filters %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block content %}
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+      <div class="card bg-base-100 shadow-2xl">
+        <div class="card-body">
+          <h1 class="text-2xl card-title text-balance">{{ event.name }}</h1>
+          {% if event.description %}
+            <p class="text-sm text-base-content/60 text-pretty whitespace-pre-line">{{ event.description }}</p>
+          {% endif %}
+
+          {% if not external_participants %}
+            <p class="mt-2 text-base-content/70">
+              {% translate 'Nobody without an account has been added yet. Ask the organizer to add your name.' %}
+            </p>
+          {% else %}
+            <form method="post" class="mt-2" id="external-auth-form" novalidate>
+              {% csrf_token %}
+              {% if form.non_field_errors %}<div class="alert alert-error mb-3">{{ form.non_field_errors }}</div>{% endif %}
+              {{ form.participant|as_crispy_field }}
+              <p id="first-time-hint" class="text-sm text-base-content/70 my-2 hidden">
+                {% translate 'First time here: pick a password so only you can sign in as this person.' %}
+              </p>
+              <div id="first-time-fields" class="hidden">
+                {{ form.username|as_crispy_field }}
+              </div>
+              {{ form.password|as_crispy_field }}
+              <div id="confirm-field" class="hidden">
+                {{ form.password_confirm|as_crispy_field }}
+              </div>
+              <button type="submit" class="btn btn-primary w-full mt-4" id="auth-submit">{% translate 'Continue' %}</button>
+            </form>
+            {{ claimed_ids|json_script:"split-claimed-ids" }}
+            <script>
+              (function () {
+                const claimed = new Set(JSON.parse(document.getElementById('split-claimed-ids').textContent).map(String));
+                const select = document.getElementById('id_participant');
+                const submit = document.getElementById('auth-submit');
+                function update() {
+                  const firstTime = !!select.value && !claimed.has(select.value);
+                  ['first-time-hint', 'first-time-fields', 'confirm-field'].forEach(
+                    (id) => document.getElementById(id).classList.toggle('hidden', !firstTime)
+                  );
+                  submit.textContent = firstTime ? "{% translate 'Set password and join' %}"
+                    : select.value ? "{% translate 'Sign in' %}" : "{% translate 'Continue' %}";
+                }
+                select.addEventListener('change', update);
+                update();
+                // base_auth loads scripts after the content, so set up Tom Select once they're in
+                window.addEventListener('load', () => {
+                  select.classList.remove('select');
+                  if (!select.tomselect) new TomSelect(select);
+                });
+              })();
+            </script>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

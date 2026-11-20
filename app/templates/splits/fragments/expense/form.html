@@ -1,0 +1,87 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  {% if expense %}{% translate 'Edit expense' %}{% else %}{% translate 'Add expense' %}{% endif %}
+{% endblock %}
+
+{% block body %}
+<form hx-post="{{ post_url }}"
+      hx-target="#generic-offcanvas"
+      hx-encoding="multipart/form-data"
+      novalidate>
+  {% if form.non_field_errors %}
+    <div class="alert alert-error mb-3">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  {{ form.description|as_crispy_field }}
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-3">
+    {{ form.amount|as_crispy_field }}
+    {{ form.date|as_crispy_field }}
+    {{ form.paid_by|as_crispy_field }}
+    {{ form.split_type|as_crispy_field }}
+  </div>
+
+  <fieldset class="fieldset my-3">
+    <legend class="fieldset-legend">{% translate 'Split between' %}</legend>
+    <div class="flex flex-col gap-2">
+      {% for row in participant_rows %}
+        <div class="flex items-center justify-between gap-2">
+          <label class="label cursor-pointer flex-1 text-base-content">
+            <input type="checkbox"
+                   name="share_participants"
+                   value="{{ row.participant.id }}"
+                   class="checkbox checkbox-sm"
+                   {% if row.selected %}checked{% endif %} />
+            {{ row.participant.name }}
+          </label>
+          <input type="number"
+                 step="any"
+                 min="0"
+                 inputmode="decimal"
+                 name="share_value_{{ row.participant.id }}"
+                 value="{{ row.value }}"
+                 aria-label="{{ row.participant.name }}"
+                 class="input input-sm w-32 split-value-input" />
+        </div>
+      {% endfor %}
+    </div>
+    <p class="label" id="split-mode-hint"></p>
+  </fieldset>
+
+  {{ form.notes|as_crispy_field }}
+  {{ form.attachments|as_crispy_field }}
+  {% include 'splits/fragments/attachments_existing.html' with item=expense %}
+
+  <button type="submit" class="btn btn-primary w-full mt-3">
+    {% if expense %}{% translate 'Update' %}{% else %}{% translate 'Add' %}{% endif %}
+  </button>
+</form>
+
+<script>
+  (function () {
+    const modeSelect = document.getElementById('id_split_type');
+    const hint = document.getElementById('split-mode-hint');
+    const hints = {
+      EQUAL: "{% translate 'Divided equally between the people checked' %}",
+      EXACT: "{% translate 'Amounts must add up to the total' %}",
+      PERCENTAGE: "{% translate 'Percentages must add up to 100' %}",
+      SHARES: "{% translate 'Weights, e.g. 2 pays twice as much as 1' %}",
+    };
+    const placeholders = {EXACT: "{{ event.currency.code }}", PERCENTAGE: "%", SHARES: "×"};
+
+    function update() {
+      const mode = modeSelect.value;
+      hint.textContent = hints[mode] || '';
+      document.querySelectorAll('.split-value-input').forEach((inp) => {
+        inp.classList.toggle('hidden', mode === 'EQUAL');
+        inp.placeholder = placeholders[mode] || '';
+      });
+    }
+
+    modeSelect.addEventListener('change', update);
+    update();
+  })();
+</script>
+{% endblock %}
