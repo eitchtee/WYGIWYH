@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from apps.transactions.models import (
+    AutoTaggerModel,
     Transaction,
     TransactionCategory,
     TransactionTag,
@@ -79,3 +80,10 @@ class TransactionTagModelAdmin(SharedObjectModelAdmin):
 @admin.register(TransactionEntity)
 class TransactionEntityModelAdmin(SharedObjectModelAdmin):
     pass
+
+
+@admin.register(AutoTaggerModel)
+class AutoTaggerModelAdmin(admin.ModelAdmin):
+    list_display = ["user", "transaction_count", "version", "trained_at"]
+    readonly_fields = ["trained_at", "transaction_count", "version"]
+    exclude = ["data"]

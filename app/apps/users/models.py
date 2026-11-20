@@ -484,6 +484,13 @@ class UserSettings(models.Model):
         verbose_name=_("Combine transfers"),
         help_text=_("Show both sides of a transfer as a single item"),
     )
+    auto_tagging = models.BooleanField(
+        default=True,
+        verbose_name=_("Auto-tagging"),
+        help_text=_(
+            "Automatically assign categories, tags, and entities to new unclassified transactions based on your past transactions"
+        ),
+    )
     volume = models.PositiveIntegerField(
         default=10,
         validators=[MinValueValidator(0), MaxValueValidator(10)],
