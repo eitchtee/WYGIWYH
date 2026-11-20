@@ -1,0 +1,114 @@
+{% load i18n %}
+{% load split_urls %}
+<li>
+  <details name="split-activity" class="group">
+    <summary class="list-none [&::-webkit-details-marker]:hidden flex items-center gap-3 px-2 py-2.5 rounded-box cursor-pointer
+                    hover:bg-base-content/5 transition-colors duration-150
+                    focus-visible:outline-2 focus-visible:outline-primary">
+      <div class="w-10 shrink-0 text-center leading-tight {% if item.is_payment %}text-base-content/50{% endif %}">
+        <div class="text-xs uppercase text-base-content/50">{{ item.date|date:"M" }}</div>
+        <div class="text-lg font-semibold tabular-nums">{{ item.date|date:"j" }}</div>
+      </div>
+
+      <div class="min-w-0 flex-1">
+        {% if item.is_payment %}
+          <div class="line-clamp-2 wrap-anywhere">
+            <i class="fa-solid fa-hand-holding-dollar text-success me-1"></i>
+            {% if item.from_participant_id == me_id %}{% blocktranslate with to=item.to_participant.name %}You paid {{ to }}{% endblocktranslate %}
+            {% elif item.to_participant_id == me_id %}{% blocktranslate with from=item.from_participant.name %}{{ from }} paid you{% endblocktranslate %}
+            {% else %}{% blocktranslate with from=item.from_participant.name to=item.to_participant.name %}{{ from }} paid {{ to }}{% endblocktranslate %}{% endif %}
+            {% include 'splits/fragments/event/activity_flags.html' %}
+          </div>
+          {% if item.notes %}<div class="text-xs text-base-content/50 truncate">{{ item.notes }}</div>{% endif %}
+        {% else %}
+          <div class="truncate font-medium">{{ item.description }}{% include 'splits/fragments/event/activity_flags.html' %}</div>
+          <div class="text-xs text-base-content/50 truncate tabular-nums">
+            {% if item.paid_by_id == me_id %}{% translate 'You paid' %}{% else %}{% blocktranslate with name=item.paid_by.name %}{{ name }} paid{% endblocktranslate %}{% endif %}
+            <c-amount.display :amount="item.amount" :prefix="event.currency.prefix" :suffix="event.currency.suffix" :decimal_places="event.currency.decimal_places" divless></c-amount.display>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="shrink-0 text-end text-sm tabular-nums">
+        {% if item.is_payment %}
+          <c-amount.display :amount="item.amount" :prefix="event.currency.prefix" :suffix="event.currency.suffix" :decimal_places="event.currency.decimal_places" divless></c-amount.display>
+        {% elif item.my_delta is None %}
+          <div class="text-xs text-base-content/40">{% translate 'not involved' %}</div>
+        {% elif item.my_delta > 0 %}
+          <div class="text-xs text-base-content/50">{% translate 'you lent' %}</div>
+          <c-amount.display :amount="item.my_delta_abs" :prefix="event.currency.prefix" :suffix="event.currency.suffix" :decimal_places="event.currency.decimal_places" color="green" divless></c-amount.display>
+        {% elif item.my_delta < 0 %}
+          <div class="text-xs text-base-content/50">{% translate 'you borrowed' %}</div>
+          <c-amount.display :amount="item.my_delta_abs" :prefix="event.currency.prefix" :suffix="event.currency.suffix" :decimal_places="event.currency.decimal_places" color="red" divless></c-amount.display>
+        {% else %}
+          <div class="text-xs text-base-content/40">{% translate 'settled' %}</div>
+        {% endif %}
+      </div>
+
+      <div class="w-4 shrink-0 text-xs text-base-content/40">
+        <i class="fa-solid fa-chevron-down transition-[rotate] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-open:rotate-180"></i>
+      </div>
+    </summary>
+
+    <div class="ms-15 me-2 mb-3 flex flex-col gap-3 text-sm
+                transition-[opacity,translate] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]
+                starting:opacity-0 motion-safe:starting:-translate-y-1">
+      {% if not item.is_payment %}
+        <dl class="flex flex-col divide-y divide-base-content/10 tabular-nums">
+          {% for s in item.shares.all %}
+            <div class="flex justify-between gap-4 py-1.5">
+              <dt class="text-base-content/60 min-w-0 truncate">{% if s.participant_id == me_id %}{% translate 'You' %}{% else %}{{ s.participant.name }}{% endif %}</dt>
+              <dd class="whitespace-nowrap"><c-amount.display :amount="s.amount" :prefix="event.currency.prefix" :suffix="event.currency.suffix" :decimal_places="event.currency.decimal_places" divless></c-amount.display></dd>
+            </div>
+          {% endfor %}
+        </dl>
+        {% if item.split_type != 'EQUAL' %}
+          <div class="text-xs text-base-content/50 -mt-2">{% blocktranslate with mode=item.get_split_type_display %}Split by {{ mode }}{% endblocktranslate %}</div>
+        {% endif %}
+      {% endif %}
+
+      {% if item.notes %}<p class="text-base-content/70 whitespace-pre-line text-pretty">{{ item.notes }}</p>{% endif %}
+
+      {% if item.attachments.all or item.user_tx_links %}
+        <div class="flex flex-wrap gap-1">
+          {% for att in item.attachments.all %}
+            <a href="{% split_portal_url urls 'attachment_download_name' attachment_id=att.id %}"
+               target="_blank" rel="noopener" class="badge badge-sm badge-outline no-underline">
+              <i class="fa-solid fa-paperclip"></i>{{ att.original_name }}
+            </a>
+          {% endfor %}
+          {% include 'splits/fragments/tx_links.html' with links=item.user_tx_links %}
+        </div>
+      {% endif %}
+
+      {% if item.can_sync or item.can_edit %}
+        <div class="flex flex-wrap gap-1 -ms-3">
+          {% if item.can_sync %}
+            <button type="button" class="btn btn-ghost btn-sm"
+                    hx-get="{% if item.is_payment %}{% url 'split_sync_payment' event_id=event.id payment_id=item.id %}{% else %}{% url 'split_sync_expense' event_id=event.id expense_id=item.id %}{% endif %}"
+                    hx-target="#generic-offcanvas">
+              <i class="fa-solid fa-wallet"></i>{% translate 'Add to my transactions' %}
+            </button>
+          {% endif %}
+          {% if item.can_edit %}
+            <button type="button" class="btn btn-ghost btn-sm"
+                    hx-get="{% if item.is_payment %}{% split_portal_url urls 'payment_edit_name' payment_id=item.id %}{% else %}{% split_portal_url urls 'expense_edit_name' expense_id=item.id %}{% endif %}"
+                    hx-target="#generic-offcanvas">
+              <i class="fa-solid fa-pencil"></i>{% translate 'Edit' %}
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm text-error"
+                    hx-delete="{% if item.is_payment %}{% split_portal_url urls 'payment_delete_name' payment_id=item.id %}{% else %}{% split_portal_url urls 'expense_delete_name' expense_id=item.id %}{% endif %}"
+                    hx-trigger="confirmed"
+                    data-bypass-on-ctrl="true"
+                    data-title="{% translate 'Are you sure?' %}"
+                    data-text="{% translate "You won't be able to revert this!" %}"
+                    data-confirm-text="{% translate 'Yes, delete it!' %}"
+                    _="install prompt_swal">
+              <i class="fa-solid fa-trash"></i>{% translate 'Delete' %}
+            </button>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </details>
+</li>

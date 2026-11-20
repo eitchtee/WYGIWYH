@@ -1,0 +1,149 @@
+{% load i18n %}
+{% load title %}
+{% with c=event.currency %}
+<!doctype html>
+<html lang="en" data-theme="wygiwyh_light" class="bg-base-100">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% filter site_title %}{{ event.name }} :: {% translate 'Report' %}{% endfilter %}</title>
+  {% include 'includes/head/favicons.html' %}
+  {% include 'includes/styles.html' %}
+  <style>
+    @page { size: A4; margin: 14mm; }
+    tr, li { break-inside: avoid; }
+    h2 { break-after: avoid; }
+  </style>
+</head>
+<body class="font-mono bg-base-100 text-base-content">
+  <div class="max-w-3xl mx-auto p-6 print:p-0 flex flex-col gap-8">
+    <div class="flex justify-end gap-2 print:hidden">
+      <button type="button" class="btn btn-primary btn-sm" onclick="window.print()">
+        <i class="fa-solid fa-file-pdf"></i>{% translate 'Save as PDF' %}
+      </button>
+    </div>
+
+    <header>
+      <h1 class="text-3xl font-bold text-balance">{{ event.name }}</h1>
+      {% if event.description %}<p class="text-base-content/70 whitespace-pre-line text-pretty mt-1">{{ event.description }}</p>{% endif %}
+      <p class="text-sm text-base-content/60 mt-2 tabular-nums">
+        {% blocktranslate count counter=active_participants_count %}{{ counter }} person{% plural %}{{ counter }} people{% endblocktranslate %}
+        · {% translate 'Group total' %} <c-amount.display :amount="total_spent" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>
+        · {% now "SHORT_DATE_FORMAT" %}
+      </p>
+    </header>
+
+    <section>
+      <h2 class="text-lg font-semibold mb-2">{% translate 'Settle up' %}</h2>
+      {% if transfers %}
+        <table class="table table-sm tabular-nums">
+          <tbody>
+            {% for item in transfers %}{% with t=item.transfer %}
+              <tr>
+                <td>{{ t.from_participant.name }} <i class="fa-solid fa-arrow-right text-xs text-base-content/40 mx-1"></i> {{ t.to_participant.name }}</td>
+                <td class="text-end whitespace-nowrap font-semibold"><c-amount.display :amount="t.amount" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+              </tr>
+            {% endwith %}{% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="text-base-content/70">{% translate 'Everyone is settled up.' %}</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold mb-2">{% translate 'Balances' %}</h2>
+      <table class="table table-sm tabular-nums">
+        <thead>
+          <tr>
+            <th>{% translate 'Person' %}</th>
+            <th class="text-end">{% translate 'Paid' %}</th>
+            <th class="text-end">{% translate 'Share' %}</th>
+            <th class="text-end">{% translate 'Sent' %}</th>
+            <th class="text-end">{% translate 'Received' %}</th>
+            <th class="text-end">{% translate 'Balance' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in balance_rows %}{% with b=row.balance %}
+            <tr>
+              <td>{{ b.participant.name }}{% if not b.participant.is_active %} <span class="text-base-content/50">({% translate 'inactive' %})</span>{% endif %}</td>
+              <td class="text-end whitespace-nowrap"><c-amount.display :amount="b.total_paid" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+              <td class="text-end whitespace-nowrap"><c-amount.display :amount="b.total_owed" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+              <td class="text-end whitespace-nowrap"><c-amount.display :amount="b.payments_sent" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+              <td class="text-end whitespace-nowrap"><c-amount.display :amount="b.payments_received" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+              <td class="text-end whitespace-nowrap font-semibold"><c-amount.display :amount="b.net_balance" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" color="auto" divless></c-amount.display></td>
+            </tr>
+          {% endwith %}{% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold mb-2">{% translate 'Expenses' %}</h2>
+      <table class="table table-sm tabular-nums">
+        <thead>
+          <tr>
+            <th>{% translate 'Date' %}</th>
+            <th>{% translate 'Expense' %}</th>
+            <th class="text-end">{% translate 'Amount' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in activity %}{% if not item.is_payment %}
+            <tr>
+              <td class="whitespace-nowrap align-top">{{ item.date|date:"SHORT_DATE_FORMAT" }}</td>
+              <td>
+                <div class="font-medium">{{ item.description }}</div>
+                <div class="text-xs text-base-content/60">
+                  {% blocktranslate with name=item.paid_by.name %}Paid by {{ name }}{% endblocktranslate %}
+                  {% if item.split_type != 'EQUAL' %}· {{ item.get_split_type_display }}{% endif %}
+                </div>
+                <div class="text-xs text-base-content/60">
+                  {% for s in item.shares.all %}{{ s.participant.name }} <c-amount.display :amount="s.amount" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display>{% if not forloop.last %} · {% endif %}{% endfor %}
+                </div>
+                {% if item.notes %}<div class="text-xs text-base-content/60 italic whitespace-pre-line">{{ item.notes }}</div>{% endif %}
+              </td>
+              <td class="text-end whitespace-nowrap align-top"><c-amount.display :amount="item.amount" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+            </tr>
+          {% endif %}{% endfor %}
+          {% if not expense_count %}<tr><td colspan="3" class="text-base-content/60">{% translate 'No expenses.' %}</td></tr>{% endif %}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold mb-2">{% translate 'Payments' %}</h2>
+      <table class="table table-sm tabular-nums">
+        <thead>
+          <tr>
+            <th>{% translate 'Date' %}</th>
+            <th>{% translate 'Payment' %}</th>
+            <th class="text-end">{% translate 'Amount' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in activity %}{% if item.is_payment %}
+            <tr>
+              <td class="whitespace-nowrap align-top">{{ item.date|date:"SHORT_DATE_FORMAT" }}</td>
+              <td>
+                {{ item.from_participant.name }} <i class="fa-solid fa-arrow-right text-xs text-base-content/40 mx-1"></i> {{ item.to_participant.name }}
+                {% if item.notes %}<div class="text-xs text-base-content/60 italic whitespace-pre-line">{{ item.notes }}</div>{% endif %}
+              </td>
+              <td class="text-end whitespace-nowrap align-top"><c-amount.display :amount="item.amount" :prefix="c.prefix" :suffix="c.suffix" :decimal_places="c.decimal_places" divless></c-amount.display></td>
+            </tr>
+          {% endif %}{% endfor %}
+          {% if not payment_count %}<tr><td colspan="3" class="text-base-content/60">{% translate 'No payments.' %}</td></tr>{% endif %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  {% include 'includes/scripts.html' %}
+  <script>
+    // Opened from "Full report (PDF)": go straight to the print dialog once amounts and fonts are in
+    window.addEventListener('load', () => setTimeout(() => window.print(), 300));
+  </script>
+</body>
+</html>
+{% endwith %}

@@ -1,0 +1,23 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Edit event' %}{% endblock %}
+
+{% block body %}
+<form hx-post="{% url 'split_event_edit' event_id=event.id %}" hx-target="#generic-offcanvas" novalidate>
+  {% crispy form %}
+</form>
+
+<div class="divider"></div>
+<button type="button"
+        class="btn btn-error btn-outline w-full"
+        hx-delete="{% url 'split_event_delete' event_id=event.id %}"
+        hx-trigger="confirmed"
+        data-title="{% translate 'Delete this event?' %}"
+        data-text="{% translate 'All its expenses, payments and attachments are deleted. Transactions you linked in your accounts are kept.' %}"
+        data-confirm-text="{% translate 'Yes, delete it!' %}"
+        _="install prompt_swal">
+  <i class="fa-solid fa-trash fa-fw"></i>{% translate 'Delete event' %}
+</button>
+{% endblock %}

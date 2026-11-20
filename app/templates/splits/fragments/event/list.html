@@ -1,0 +1,71 @@
+{% load i18n %}
+<c-ui.fab-single-action
+    url="{% url 'split_event_add' %}"
+    hx_target="#generic-offcanvas">
+</c-ui.fab-single-action>
+<div class="container">
+  <div class="flex flex-wrap justify-between items-center gap-3 mb-3">
+    <div class="text-3xl font-bold font-mono">{% translate 'Split Expenses' %}</div>
+    <label class="label cursor-pointer text-sm">
+      <input type="checkbox" class="toggle toggle-sm"
+             {% if show_archived %}checked{% endif %}
+             hx-get="{% url 'split_event_list' %}{% if not show_archived %}?archived=1{% endif %}"
+             hx-target="closest .show-loading"
+             hx-trigger="change">
+      {% translate 'Show archived' %}
+    </label>
+  </div>
+
+  {% if not event_cards %}
+    <c-msg.empty
+        icon="fa-solid fa-people-arrows"
+        title="{% translate 'No events yet' %}"
+        subtitle="{% translate 'Create one for a trip, a shared flat or a dinner' %}"></c-msg.empty>
+  {% else %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+      {% for card in event_cards %}
+        <a href="{% url 'split_event_detail' event_id=card.event.id %}" hx-boost="true"
+           class="card bg-base-100 card-border shadow no-underline hover:shadow-lg transition-shadow">
+          <div class="card-body">
+            <div class="flex justify-between items-start gap-2">
+              <div class="card-title text-xl min-w-0"><span class="truncate">{{ card.event.name }}</span></div>
+              <div class="flex gap-1 shrink-0">
+                {% if card.event.is_archived %}<span class="badge badge-warning">{% translate 'Archived' %}</span>{% endif %}
+                <span class="badge badge-secondary rounded-full">{{ card.event.currency.code }}</span>
+              </div>
+            </div>
+            {% if card.event.description %}
+              <div class="text-base-content/60 line-clamp-2">{{ card.event.description }}</div>
+            {% endif %}
+            <div class="grid grid-cols-2 gap-2 mt-2">
+              <div>
+                <div class="text-sm text-base-content/60">{% translate 'Total spent' %}</div>
+                <c-amount.display
+                    :amount="card.total_spent"
+                    :prefix="card.event.currency.prefix"
+                    :suffix="card.event.currency.suffix"
+                    :decimal_places="card.event.currency.decimal_places"></c-amount.display>
+              </div>
+              {% if card.my_balance %}
+                <div class="text-right">
+                  <div class="text-sm text-base-content/60">{% translate 'Your balance' %}</div>
+                  <c-amount.display
+                      :amount="card.my_balance.net_balance"
+                      :prefix="card.event.currency.prefix"
+                      :suffix="card.event.currency.suffix"
+                      :decimal_places="card.event.currency.decimal_places"
+                      color="auto"></c-amount.display>
+                </div>
+              {% endif %}
+            </div>
+            <div class="text-sm text-base-content/60 mt-2">
+              <i class="fa-solid fa-users fa-fw"></i>
+              {% blocktranslate count counter=card.participant_count %}{{ counter }} person{% plural %}{{ counter }} people{% endblocktranslate %}
+              {% if card.is_creator %}· {% translate 'Organizer' %}{% endif %}
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

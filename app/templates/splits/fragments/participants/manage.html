@@ -1,0 +1,141 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+
+{% block title %}{% translate 'People' %}{% endblock %}
+
+{% block body %}
+<fieldset class="fieldset">
+  <legend class="fieldset-legend">{% translate 'Share link' %}</legend>
+  {% if event.allow_external_access %}
+    <div class="join w-full">
+      <input type="text" id="split-share-url-input" class="input join-item w-full" value="{{ share_url }}" readonly
+             aria-label="{% translate 'Share link' %}" />
+      {# navigator.clipboard needs HTTPS; self-hosted instances often run on plain HTTP #}
+      <button type="button" class="btn btn-primary join-item"
+              onclick="const i = document.getElementById('split-share-url-input'), b = this;
+                       const done = () => { b.innerText = '{% translate "Copied!" %}'; setTimeout(() => b.innerText = '{% translate "Copy" %}', 1500); };
+                       if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(i.value).then(done);
+                       else { i.select(); document.execCommand('copy'); done(); }">{% translate 'Copy' %}</button>
+    </div>
+    <p class="label whitespace-normal">
+      {% translate 'People without an account open this link, pick their name and set a password the first time.' %}
+    </p>
+    <div>
+      <button type="button" class="btn btn-ghost btn-sm text-warning"
+              hx-post="{% url 'split_event_regenerate_link' event_id=event.id %}"
+              hx-target="#generic-offcanvas"
+              hx-trigger="confirmed"
+              data-title="{% translate 'Regenerate share link?' %}"
+              data-text="{% translate 'The current link stops working and everyone signed in through it is signed out.' %}"
+              data-confirm-text="{% translate 'Regenerate' %}"
+              _="install prompt_swal">
+        <i class="fa-solid fa-rotate fa-fw"></i>{% translate 'Regenerate link' %}
+      </button>
+    </div>
+  {% else %}
+    <p class="text-sm text-base-content/70">
+      {% translate 'Link sharing is off. Turn on "Allow external access" in the event settings to share it.' %}
+    </p>
+  {% endif %}
+</fieldset>
+
+<fieldset class="fieldset">
+  <legend class="fieldset-legend">{% translate 'Add person without an account' %}</legend>
+  <form hx-post="{% url 'split_participant_add_external' event_id=event.id %}" hx-target="#generic-offcanvas"
+        class="join w-full">
+    <input type="text" name="name" value="{{ external_form.name.value|default:'' }}"
+           placeholder="{% translate 'Name' %}" aria-label="{% translate 'Name' %}"
+           class="input join-item w-full {% if external_form.name.errors %}input-error{% endif %}" required />
+    <button type="submit" class="btn btn-primary join-item">{% translate 'Add' %}</button>
+  </form>
+  {% if external_form.name.errors %}<p class="label text-error">{{ external_form.name.errors.0 }}</p>{% endif %}
+</fieldset>
+
+{% if wygiwyh_form.fields.user.queryset.exists %}
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">{% translate 'Add user' %}</legend>
+    <form hx-post="{% url 'split_participant_add_wygiwyh' event_id=event.id %}" hx-target="#generic-offcanvas"
+          class="flex gap-2 items-start">
+      <div class="flex-1 min-w-0">{{ wygiwyh_form.user }}</div>
+      <button type="submit" class="btn btn-primary">{% translate 'Add' %}</button>
+    </form>
+    {% if wygiwyh_form.user.errors %}<p class="label text-error">{{ wygiwyh_form.user.errors.0 }}</p>{% endif %}
+  </fieldset>
+{% endif %}
+
+<fieldset class="fieldset">
+  <legend class="fieldset-legend">{% translate 'Participants' %}</legend>
+  <ul class="list bg-base-200 rounded-box">
+    {% for p in participants %}
+      <li class="list-row items-center {% if not p.is_active %}opacity-60{% endif %}">
+        <div class="list-col-grow min-w-0">
+          <div class="truncate">{{ p.display_name }}</div>
+          <div class="flex flex-wrap gap-1 mt-1">
+            {% if p.is_creator %}<span class="badge badge-xs badge-primary">{% translate 'Organizer' %}</span>{% endif %}
+            {% if p.is_external %}
+              {% if p.is_claimed %}
+                <span class="badge badge-xs badge-ghost">{% translate 'Password set' %}</span>
+              {% else %}
+                <span class="badge badge-xs badge-ghost">{% translate 'Never signed in' %}</span>
+              {% endif %}
+            {% endif %}
+            {% if not p.is_active %}<span class="badge badge-xs badge-warning">{% translate 'Inactive' %}</span>{% endif %}
+          </div>
+        </div>
+        <div class="join">
+          {% if p.is_external and p.is_claimed %}
+            <button type="button" class="btn btn-sm btn-secondary join-item"
+                    data-tippy-content="{% translate 'Reset password' %}"
+                    aria-label="{% translate 'Reset password' %}"
+                    hx-post="{% url 'split_participant_reset_password' event_id=event.id participant_id=p.id %}"
+                    hx-target="#generic-offcanvas"
+                    hx-trigger="confirmed"
+                    data-title="{% translate 'Reset password?' %}"
+                    data-text="{% translate 'They will choose a new one the next time they sign in.' %}"
+                    data-confirm-text="{% translate 'Reset' %}"
+                    _="install prompt_swal">
+              <i class="fa-solid fa-key fa-fw"></i>
+            </button>
+          {% endif %}
+          {% if not p.is_creator %}
+            {% if p.is_active %}
+              <button type="button" class="btn btn-sm btn-secondary join-item"
+                      data-tippy-content="{% translate 'Deactivate' %}"
+                      aria-label="{% translate 'Deactivate' %}"
+                      hx-post="{% url 'split_participant_toggle_active' event_id=event.id participant_id=p.id %}"
+                      hx-target="#generic-offcanvas">
+                <i class="fa-solid fa-user-slash fa-fw"></i>
+              </button>
+            {% else %}
+              <button type="button" class="btn btn-sm btn-secondary join-item"
+                      data-tippy-content="{% translate 'Reactivate' %}"
+                      aria-label="{% translate 'Reactivate' %}"
+                      hx-post="{% url 'split_participant_toggle_active' event_id=event.id participant_id=p.id %}"
+                      hx-target="#generic-offcanvas">
+                <i class="fa-solid fa-user-check fa-fw"></i>
+              </button>
+            {% endif %}
+            {% if p.deletable %}
+              <button type="button" class="btn btn-sm btn-error join-item"
+                      data-tippy-content="{% translate 'Remove' %}"
+                      aria-label="{% translate 'Remove' %}"
+                      hx-delete="{% url 'split_participant_delete' event_id=event.id participant_id=p.id %}"
+                      hx-target="#generic-offcanvas"
+                      hx-trigger="confirmed"
+                      data-title="{% translate 'Are you sure?' %}"
+                      data-text="{% translate "You won't be able to revert this!" %}"
+                      data-confirm-text="{% translate 'Yes, delete it!' %}"
+                      _="install prompt_swal">
+                <i class="fa-solid fa-trash fa-fw"></i>
+              </button>
+            {% endif %}
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  <p class="label whitespace-normal">
+    {% translate "People with expenses or payments can't be removed, only deactivated." %}
+  </p>
+</fieldset>
+{% endblock %}

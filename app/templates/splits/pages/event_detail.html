@@ -1,0 +1,9 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ event.name }} :: {% translate 'Split Expenses' %}{% endblock %}
+
+{% block content %}
+<div hx-get="{{ urls.event_content }}" hx-trigger="load, updated from:window" class="show-loading"></div>
+{% include 'splits/fragments/event/export_script.html' %}
+{% endblock %}

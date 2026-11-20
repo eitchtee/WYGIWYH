@@ -1,0 +1,34 @@
+{% load i18n %}
+<div class="dropdown dropdown-end ms-auto shrink-0">
+  <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
+    <i class="fa-solid fa-arrow-up-from-bracket"></i><span class="hidden sm:inline">{% translate 'Share' %}</span>
+  </div>
+  <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-10 w-60 p-2 shadow-lg mt-1">
+    <li>
+      <a href="{{ urls.report }}" target="_blank" rel="noopener" class="no-underline">
+        <i class="fa-solid fa-file-pdf fa-fw"></i>{% translate 'Full report (PDF)' %}
+      </a>
+    </li>
+    <li class="menu-title">{% translate 'Image' %}</li>
+    <li>
+      <button type="button" onclick="splitExportImage(this)"
+              data-sections="{% if transfers %}settle,{% endif %}balances" data-filename="{{ event.name|slugify }}-summary.png">
+        <i class="fa-solid fa-image fa-fw"></i>{% translate 'Summary' %}
+      </button>
+    </li>
+    {% if transfers %}
+      <li>
+        <button type="button" onclick="splitExportImage(this)"
+                data-sections="settle" data-filename="{{ event.name|slugify }}-settle-up.png">
+          <i class="fa-solid fa-arrow-right-arrow-left fa-fw"></i>{% translate 'Settle up' %}
+        </button>
+      </li>
+    {% endif %}
+    <li>
+      <button type="button" onclick="splitExportImage(this)"
+              data-sections="balances" data-filename="{{ event.name|slugify }}-balances.png">
+        <i class="fa-solid fa-scale-balanced fa-fw"></i>{% translate 'Balances' %}
+      </button>
+    </li>
+  </ul>
+</div>

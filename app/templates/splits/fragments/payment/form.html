@@ -1,0 +1,32 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  {% if payment %}{% translate 'Edit payment' %}{% else %}{% translate 'Record payment' %}{% endif %}
+{% endblock %}
+
+{% block body %}
+<form hx-post="{{ post_url }}"
+      hx-target="#generic-offcanvas"
+      hx-encoding="multipart/form-data"
+      novalidate>
+  {% if form.non_field_errors %}
+    <div class="alert alert-error mb-3">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-3">
+    {{ form.from_participant|as_crispy_field }}
+    {{ form.to_participant|as_crispy_field }}
+    {{ form.amount|as_crispy_field }}
+    {{ form.date|as_crispy_field }}
+  </div>
+  {{ form.notes|as_crispy_field }}
+  {{ form.attachments|as_crispy_field }}
+  {% include 'splits/fragments/attachments_existing.html' with item=payment %}
+
+  <button type="submit" class="btn btn-primary w-full mt-3">
+    {% if payment %}{% translate 'Update' %}{% else %}{% translate 'Record' %}{% endif %}
+  </button>
+</form>
+{% endblock %}

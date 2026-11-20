@@ -1,0 +1,64 @@
+{% load pwa %}
+{% load i18n %}
+{% load title %}
+<!DOCTYPE html>
+<html lang="en"
+  data-theme="{% if request.session.theme == 'wygiwyh_light' %}wygiwyh_light{% else %}wygiwyh_dark{% endif %}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>
+    {% filter site_title %}
+      {% block title %}{% translate 'Split Expenses' %}{% endblock title %}
+    {% endfilter %}
+  </title>
+  {% include 'includes/head/favicons.html' %}
+  {% progressive_web_app_meta %}
+  {% block extra_styles %}{% endblock %}
+  {% include 'includes/scripts.html' %}
+  {% block extra_js_head %}{% endblock %}
+</head>
+<body class="font-mono">
+  <div _="install htmx_error_handler" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    {% if actor %}
+    <header class="navbar border-b border-base-content/10 px-4">
+      <div class="flex-1 flex items-center gap-3 min-w-0">
+        <div class="logo"></div>
+        <div class="truncate">
+          <span class="font-bold text-lg">{{ event.name }}</span>
+        </div>
+      </div>
+      <div class="flex-none flex items-center gap-3">
+        <span class="text-sm text-base-content/70 hidden sm:inline">
+          <i class="fa-solid fa-user mr-1"></i>{{ actor.participant.display_name }}
+        </span>
+        <form method="post" action="{% url 'split_external_logout' share_token=event.share_token %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-ghost btn-sm">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="hidden sm:inline">{% translate 'Sign out' %}</span>
+          </button>
+        </form>
+      </div>
+    </header>
+    {% endif %}
+
+    <main class="max-w-6xl mx-auto my-6 px-3">
+      <div id="content">
+        {% block content %}{% endblock content %}
+      </div>
+      {% include "includes/offcanvas.html" %}
+      {% if actor %}
+      <div id="toasts">
+        <div class="toast toast-top toast-end toast-container z-1050"
+             hx-trigger="load, updated from:window, toasts from:window"
+             hx-get="{% url 'split_external_toasts' share_token=event.share_token %}"
+             hx-swap="beforeend">
+        </div>
+      </div>
+      {% endif %}
+    </main>
+  </div>
+  {% block extra_js_body %}{% endblock extra_js_body %}
+</body>
+</html>

@@ -1,0 +1,58 @@
+{% load i18n %}
+<script>
+  // Renders tagged sections ([data-export]) into one phone-width PNG, then shares (touch devices) or downloads it
+  async function splitExportImage(button) {
+    if (button.disabled) return;
+    button.disabled = true;
+    document.activeElement?.blur(); // closes the daisyUI dropdown
+
+    const card = document.createElement('div');
+    card.className = 'bg-base-200 text-base-content font-mono p-6 flex flex-col gap-4';
+    // Off-screen but laid out, so it renders at a fixed phone-friendly width
+    card.style.cssText = 'position: fixed; left: -10000px; top: 0; width: 480px;';
+
+    for (const name of ['header', ...button.dataset.sections.split(',')]) {
+      const source = document.querySelector(`[data-export="${name}"]`);
+      if (!source) continue;
+      const clone = source.cloneNode(true);
+      clone.classList.remove('hidden', 'shadow');
+      clone.querySelectorAll('[data-export-hide]').forEach((el) => el.remove());
+      clone.querySelectorAll('[data-export-name]').forEach((el) => (el.textContent = el.dataset.exportName));
+      // Font Awesome 7's `content: "…" / ""` alt syntax renders a stray "/" in the capture
+      clone.querySelectorAll('.fa-arrow-right').forEach((el) => el.replaceWith(' → '));
+      card.append(clone);
+    }
+    const footer = document.createElement('div');
+    footer.className = 'text-xs text-base-content/40 text-end';
+    footer.textContent = 'WYGIWYH';
+    card.append(footer);
+    document.body.append(card);
+
+    try {
+      const blob = await window.domToBlob(card, {
+        scale: 2,
+        backgroundColor: getComputedStyle(card).backgroundColor,
+      });
+      const file = new File([blob], button.dataset.filename, {type: 'image/png'});
+      if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({files: [file]})) {
+        try {
+          await navigator.share({files: [file]});
+          return;
+        } catch (e) {
+          if (e.name === 'AbortError') return;
+        }
+      }
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(file);
+      link.download = file.name;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    } catch (e) {
+      console.error(e);
+      Swal.fire({icon: 'error', text: "{% translate "Couldn't create the image." %}"});
+    } finally {
+      card.remove();
+      button.disabled = false;
+    }
+  }
+</script>
