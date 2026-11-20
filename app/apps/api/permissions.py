@@ -18,8 +18,10 @@ class SharedObjectPermission(BasePermission):
     """Object-level ownership check for SharedObject-backed viewsets.
 
     The viewset's queryset includes other people's public and shared-with-them
-    objects. Sharing grants read access only, so writes are restricted to the
-    owner here, as the web UI does with ``get_shared_object_or_error``.
+    objects. Writes to the shared object itself are restricted to its owner
+    here, as the web UI does with ``get_shared_object_or_error``. Records inside
+    a shared or public account (transactions and the like) are not governed by
+    this check.
 
     Set ``shared_object_via`` on the viewset when the governing SharedObject is
     reached through a relation (e.g. ``"strategy"`` for a DCA entry).
