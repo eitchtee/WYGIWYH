@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('transactions', '0054_filterpreset_relative_to'),
+        ('transactions', '0055_transactioncategory_auto_match_and_more'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
