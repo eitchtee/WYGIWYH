@@ -274,6 +274,8 @@
         </div>
       </div>
     </div>
+    {{ chart_data_currency|json_script:"currencyChartData" }}
+    {{ currencies|json_script:"currencyChartCurrencies" }}
     <script>
         var currencyChart;
 
@@ -283,8 +285,8 @@
                 currencyChart.destroy();
             }
 
-            var chartData = JSON.parse('{{ chart_data_currency_json|safe }}');
-            var currencies = {{ currencies|safe }};
+            var chartData = JSON.parse(document.getElementById('currencyChartData').textContent);
+            var currencies = JSON.parse(document.getElementById('currencyChartCurrencies').textContent);
             var ctx = document.getElementById('currencyBalanceChart').getContext('2d');
 
             currencyChart = new Chart(ctx, {
@@ -347,6 +349,8 @@
             currencyChart.update('none');
         }
     </script>
+    {{ chart_data_accounts|json_script:"accountChartData" }}
+    {{ accounts|json_script:"accountChartAccounts" }}
     <script id="accountBalanceChartScript">
         var accountChart;
 
@@ -356,8 +360,8 @@
                 accountChart.destroy();
             }
 
-            var chartData = JSON.parse('{{ chart_data_accounts_json|safe }}');
-            var accounts = {{ accounts|safe }};
+            var chartData = JSON.parse(document.getElementById('accountChartData').textContent);
+            var accounts = JSON.parse(document.getElementById('accountChartAccounts').textContent);
             var ctx = document.getElementById('accountBalanceChart').getContext('2d');
 
             accountChart = new Chart(ctx, {
@@ -412,6 +416,7 @@
             });
         }
     </script>
+    {{ chart_data_monthly_difference|json_script:"monthlyDifferenceChartData" }}
     <script id="monthlyDifferenceChartScript">
         var monthlyDifferenceChart;
 
@@ -420,7 +425,7 @@
                 monthlyDifferenceChart.destroy();
             }
 
-            var chartData = JSON.parse('{{ chart_data_monthly_difference_json|safe }}');
+            var chartData = JSON.parse(document.getElementById('monthlyDifferenceChartData').textContent);
             var ctx = document.getElementById('monthlyDifferenceChart').getContext('2d');
 
             monthlyDifferenceChart = new Chart(ctx, {

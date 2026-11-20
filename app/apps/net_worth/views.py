@@ -1,7 +1,4 @@
-import json
-
 from django.contrib.auth.decorators import login_required
-from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext
 from django.views.decorators.http import require_http_methods
@@ -148,8 +145,6 @@ def net_worth(request):
 
     chart_data_currency = {"labels": labels, "datasets": datasets}
 
-    chart_data_currency_json = json.dumps(chart_data_currency, cls=DjangoJSONEncoder)
-
     monthly_difference_data = calculate_monthly_net_worth_difference(
         historical_net_worth=historical_currency_net_worth
     )
@@ -178,9 +173,6 @@ def net_worth(request):
         )
 
     chart_data_monthly_difference = {"labels": diff_labels, "datasets": diff_datasets}
-    chart_data_monthly_difference_json = json.dumps(
-        chart_data_monthly_difference, cls=DjangoJSONEncoder
-    )
 
     historical_account_balance = calculate_historical_account_balance(
         queryset=transactions_account_queryset
@@ -213,20 +205,18 @@ def net_worth(request):
 
     chart_data_accounts = {"labels": labels, "datasets": datasets}
 
-    chart_data_accounts_json = json.dumps(chart_data_accounts, cls=DjangoJSONEncoder)
-
     return render(
         request,
         "net_worth/net_worth.html",
         {
             "currency_net_worth": currency_net_worth,
             "account_net_worth": account_net_worth,
-            "chart_data_currency_json": chart_data_currency_json,
+            "chart_data_currency": chart_data_currency,
             "currencies": currencies,
-            "chart_data_accounts_json": chart_data_accounts_json,
+            "chart_data_accounts": chart_data_accounts,
             "accounts": accounts,
             "type": view_type,
-            "chart_data_monthly_difference_json": chart_data_monthly_difference_json,
+            "chart_data_monthly_difference": chart_data_monthly_difference,
         },
     )
 

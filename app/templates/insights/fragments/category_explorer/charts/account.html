@@ -5,9 +5,10 @@
     <canvas id="accountChart"></canvas>
   </div>
 
+  {{ account_data|json_script:"categoryAccountData" }}
   <script>
       // Get the data from your Django view (passed as JSON)
-      var accountData = {{ account_data|safe }};
+      var accountData = JSON.parse(document.getElementById('categoryAccountData').textContent);
 
       function setupAccountChart() {
           var chartOptions = {
