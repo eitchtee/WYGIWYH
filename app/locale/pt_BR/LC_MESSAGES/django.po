@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-20 23:33+0000\n"
-"PO-Revision-Date: 2026-11-15 03:21+0000\n"
+"PO-Revision-Date: 2026-11-21 21:58+0000\n"
 "Last-Translator: Herculino Trotta <netotrotta@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.herculino.com/"
 "projects/wygiwyh/app/pt_BR/>\n"
@@ -450,37 +450,34 @@ msgstr "Dados da entidade inválidos. Forneça um ID ou nome."
 
 #: apps/api/serializers/currencies.py:45
 msgid "The rate must be greater than zero."
-msgstr ""
+msgstr "A taxa deve ser maior que zero."
 
 #: apps/api/serializers/imports.py:61
 msgid "Only transaction imports can use an account."
 msgstr "Somente importações de transações podem usar uma conta."
 
 #: apps/api/serializers/splits.py:40
-#, fuzzy, python-format
-#| msgid "%(value)s is not a non-negative number"
+#, python-format
 msgid "%(name)s is not part of this event."
-msgstr "%(value)s não é um número positivo"
+msgstr "%(name)s não faz parte deste evento."
 
 #: apps/api/serializers/splits.py:44
 #, python-format
 msgid "%(name)s is inactive."
-msgstr ""
+msgstr "%(name)s está inativo."
 
 #: apps/api/serializers/splits.py:90 apps/api/serializers/splits.py:232
 #: apps/api/serializers/splits.py:327
-#, fuzzy
-#| msgid "Unchanged"
 msgid "Can't be changed."
-msgstr "Inalterado"
+msgstr "Não pode ser alterado."
 
 #: apps/api/serializers/splits.py:93 apps/splits/views.py:636
 msgid "The event creator cannot be deactivated."
-msgstr ""
+msgstr "O criador do evento não pode ser desativado."
 
 #: apps/api/serializers/splits.py:102
 msgid "Already in this event."
-msgstr ""
+msgstr "Já está neste evento."
 
 #: apps/api/serializers/splits.py:106 apps/api/serializers/transactions.py:72
 #: apps/api/serializers/transactions.py:222 apps/dca/forms.py:298
@@ -489,40 +486,37 @@ msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
 #: apps/api/serializers/splits.py:117 apps/splits/forms.py:147
-#, fuzzy, python-format
-#| msgid "A value for this field already exists in the rule."
+#, python-format
 msgid "A participant named '%(name)s' already exists in this event."
-msgstr "Já existe um valor para esse campo na regra."
+msgstr "Já existe um participante chamado '%(name)s' neste evento."
 
 #: apps/api/serializers/splits.py:165 apps/splits/forms.py:77
 msgid "The currency can't be changed after expenses or payments are added."
 msgstr ""
+"A moeda não pode ser alterada depois que despesas ou pagamentos forem "
+"adicionados."
 
 #: apps/api/serializers/splits.py:251
 msgid "Required unless split_type is EQUAL."
-msgstr ""
+msgstr "Obrigatório, a menos que split_type seja EQUAL."
 
 #: apps/api/serializers/splits.py:258
-#, fuzzy
-#| msgid "Required when an account is set."
 msgid "Required when changing split_type."
-msgstr "Obrigatório quando uma conta é definida."
+msgstr "Obrigatório ao alterar split_type."
 
 #: apps/api/serializers/splits.py:277
 #, python-format
 msgid "Participant %(id)s is not part of this event."
-msgstr ""
+msgstr "O participante %(id)s não faz parte deste evento."
 
 #: apps/api/serializers/splits.py:334 apps/splits/forms.py:296
 #: apps/splits/models.py:367
-#, fuzzy
-#| msgid "From and To accounts must be different."
 msgid "Sender and recipient must be different participants."
-msgstr "As contas De e Para devem ser diferentes."
+msgstr "Remetente e destinatário devem ser participantes diferentes."
 
 #: apps/api/serializers/splits.py:339 apps/splits/forms.py:305
 msgid "You can only record payments you sent or received."
-msgstr ""
+msgstr "Você só pode registrar pagamentos que enviou ou recebeu."
 
 #: apps/api/serializers/transactions.py:56
 msgid "Transfers can't have sub-transactions."
@@ -539,14 +533,12 @@ msgid "Either 'date' or 'reference_date' must be provided."
 msgstr "É necessário fornecer “date” ou “reference_date”."
 
 #: apps/api/views/splits.py:33
-#, fuzzy
-#| msgid "Only the owner can change this"
 msgid "Only the event organizer can do this."
-msgstr "Somente o proprietário pode mudar isso"
+msgstr "Somente o organizador do evento pode fazer isso."
 
 #: apps/api/views/splits.py:127
 msgid "The organizer can't leave their own event."
-msgstr ""
+msgstr "O organizador não pode sair do próprio evento."
 
 #: apps/api/views/splits.py:158
 #, python-format
@@ -554,10 +546,12 @@ msgid ""
 "%(name)s has expenses or payments and can't be removed. Deactivate them "
 "instead."
 msgstr ""
+"%(name)s tem despesas ou pagamentos e não pode ser removido. Desative-o em "
+"vez disso."
 
 #: apps/api/views/splits.py:170
 msgid "Only the organizer, whoever added it, or whoever paid can change this."
-msgstr ""
+msgstr "Somente o organizador, quem adicionou ou quem pagou pode alterar isso."
 
 #: apps/bank_sync/forms.py:88
 #, python-format
@@ -1440,18 +1434,15 @@ msgid "Please upload either a ZIP file or at least one CSV file"
 msgstr "Carregue um arquivo ZIP ou pelo menos um arquivo CSV"
 
 #: apps/export_app/views.py:198
-#, fuzzy
-#| msgid ""
-#| "There was an error restoring your data. Check the logs for more details."
 msgid ""
 "There was an error exporting your data. Check the logs for more details."
 msgstr ""
-"Ocorreu um erro ao restaurar seus dados. Verifique o log para obter mais "
+"Ocorreu um erro ao exportar seus dados. Verifique o log para obter mais "
 "detalhes."
 
 #: apps/export_app/views.py:203
 msgid "Export ready, your download has started"
-msgstr ""
+msgstr "Exportação pronta, seu download começou"
 
 #: apps/export_app/views.py:232
 msgid "You have to select at least one export"
@@ -1940,27 +1931,25 @@ msgstr "Ação Atualizar ou Criar Transação apagada com sucesso"
 #: templates/splits/pages/event_index.html:4
 #: templates/splits/pages/external_base.html:12
 #: templates/splits/pages/external_event_detail.html:4
-#, fuzzy
-#| msgid "Expenses"
 msgid "Split Expenses"
-msgstr "Despesas"
+msgstr "Divisão de despesas"
 
 #: apps/splits/forms.py:45
 #, python-format
 msgid "%(name)s (inactive)"
-msgstr ""
+msgstr "%(name)s (inativo)"
 
 #: apps/splits/forms.py:108 apps/splits/models.py:96
 msgid "WYGIWYH User"
-msgstr ""
+msgstr "Usuário do WYGIWYH"
 
 #: apps/splits/forms.py:134
 msgid "e.g. Alex"
-msgstr ""
+msgstr "ex.: Alex"
 
 #: apps/splits/forms.py:144
 msgid "Name cannot be empty."
-msgstr ""
+msgstr "O nome não pode ficar vazio."
 
 #: apps/splits/forms.py:156 apps/splits/forms.py:256 apps/splits/forms.py:313
 #: apps/transactions/forms.py:356 templates/cotton/transaction/item.html:186
@@ -1970,80 +1959,66 @@ msgstr "Anexos"
 
 #: apps/splits/forms.py:157
 msgid "Optional receipts or files."
-msgstr ""
+msgstr "Recibos ou arquivos opcionais."
 
 #: apps/splits/forms.py:197 apps/splits/forms.py:285
 #, python-format
 msgid "Amount (%(code)s)"
-msgstr ""
+msgstr "Valor (%(code)s)"
 
 #: apps/splits/forms.py:240
 #, python-format
 msgid "Invalid split value for %(name)s."
-msgstr ""
+msgstr "Valor de divisão inválido para %(name)s."
 
 #: apps/splits/forms.py:257
 msgid "Optional proof of payment."
-msgstr ""
+msgstr "Comprovante de pagamento opcional."
 
 #: apps/splits/forms.py:336
-#, fuzzy
-#| msgid "Create transaction"
 msgid "Create new WYGIWYH transaction"
-msgstr "Criar transação"
+msgstr "Criar nova transação no WYGIWYH"
 
 #: apps/splits/forms.py:337
-#, fuzzy
-#| msgid "Match existing transactions"
 msgid "Link existing WYGIWYH transaction"
-msgstr "Associar a transações existentes"
+msgstr "Vincular transação existente do WYGIWYH"
 
 #: apps/splits/forms.py:343
-#, fuzzy
-#| msgid "Actions"
 msgid "Action"
-msgstr "Ações"
+msgstr "Ação"
 
 #: apps/splits/forms.py:394 templates/includes/transactions_bulk_actions.html:9
 msgid "Mark as paid"
 msgstr "Marcar como pago"
 
 #: apps/splits/forms.py:410
-#, fuzzy
-#| msgid "Type to search for a transaction"
 msgid "Type to search for a transaction to link"
-msgstr "Digite para buscar uma transação"
+msgstr "Digite para buscar uma transação para vincular"
 
 #: apps/splits/forms.py:453
-#, fuzzy
-#| msgid "Asset account"
 msgid "Please select an account."
-msgstr "Conta de ativos"
+msgstr "Selecione uma conta."
 
 #: apps/splits/forms.py:455
 msgid "Amount must be greater than zero."
-msgstr ""
+msgstr "O valor deve ser maior que zero."
 
 #: apps/splits/forms.py:463
-#, fuzzy
-#| msgid "No deleted transactions to show"
 msgid "Please select a transaction to link."
-msgstr "Nenhuma transação apagada para mostrar"
+msgstr "Selecione uma transação para vincular."
 
 #: apps/splits/forms.py:468
-#, fuzzy, python-format
-#| msgid "Transaction must be in %(currency)s."
+#, python-format
 msgid "Pick a %(type)s in %(currency)s."
-msgstr "A transação deve estar em %(currency)s."
+msgstr "Escolha uma %(type)s em %(currency)s."
 
 #: apps/splits/forms.py:480
-#, fuzzy
 msgid "Who are you?"
-msgstr "Tem certeza?"
+msgstr "Quem é você?"
 
 #: apps/splits/forms.py:485
 msgid "Username / nickname (optional)"
-msgstr ""
+msgstr "Nome de usuário / apelido (opcional)"
 
 #: apps/splits/forms.py:490 apps/users/forms.py:41 apps/users/forms.py:46
 #: templates/users/login.html:19
@@ -2051,143 +2026,119 @@ msgid "Password"
 msgstr "Senha"
 
 #: apps/splits/forms.py:495
-#, fuzzy
-#| msgid "Confirm New Password"
 msgid "Confirm password"
-msgstr "Confirmar nova senha"
+msgstr "Confirmar senha"
 
 #: apps/splits/forms.py:517
 msgid "Incorrect password."
-msgstr ""
+msgstr "Senha incorreta."
 
 #: apps/splits/forms.py:521
 msgid "Password must be at least 4 characters long."
-msgstr ""
+msgstr "A senha deve ter pelo menos 4 caracteres."
 
 #: apps/splits/forms.py:524
-#, fuzzy
-#| msgid "The two password fields didn't match."
 msgid "Passwords do not match."
-msgstr "Os dois campos de senha não coincidem."
+msgstr "As senhas não coincidem."
 
 #: apps/splits/models.py:34
-#, fuzzy
-#| msgid "Create"
 msgid "Creator"
-msgstr "Criar"
+msgstr "Criador"
 
 #: apps/splits/models.py:40
-#, fuzzy
-#| msgid "Create token"
 msgid "Share token"
-msgstr "Criar token"
+msgstr "Token de compartilhamento"
 
 #: apps/splits/models.py:44
 msgid "Allow external access"
-msgstr ""
+msgstr "Permitir acesso externo"
 
 #: apps/splits/models.py:46
 msgid "Allow external participants to access this event via the shared link."
 msgstr ""
+"Permitir que participantes externos acessem este evento pelo link "
+"compartilhado."
 
 #: apps/splits/models.py:54
 msgid "Split Event"
-msgstr ""
+msgstr "Evento de divisão"
 
 #: apps/splits/models.py:55
 msgid "Split Events"
-msgstr ""
+msgstr "Eventos de divisão"
 
 #: apps/splits/models.py:88 apps/splits/models.py:210 apps/splits/models.py:316
 #: apps/splits/models.py:394 apps/splits/models.py:461
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: apps/splits/models.py:99
-#, fuzzy
-#| msgid "Internal ID"
 msgid "External"
-msgstr "ID Interna"
+msgstr "Externo"
 
 #: apps/splits/models.py:104
 msgid "External username"
-msgstr ""
+msgstr "Nome de usuário externo"
 
 #: apps/splits/models.py:109
 msgid "External password hash"
-msgstr ""
+msgstr "Hash da senha externa"
 
 #: apps/splits/models.py:114
-#, fuzzy
-#| msgid "Created at"
 msgid "Claimed at"
-msgstr "Criado em"
+msgstr "Reivindicado em"
 
 #: apps/splits/models.py:119
 msgid "Split Participant"
-msgstr ""
+msgstr "Participante da divisão"
 
 #: apps/splits/models.py:120
 msgid "Split Participants"
-msgstr ""
+msgstr "Participantes da divisão"
 
 #: apps/splits/models.py:191
 msgid "An external participant cannot be linked to a WYGIWYH user."
-msgstr ""
+msgstr "Um participante externo não pode ser vinculado a um usuário do WYGIWYH."
 
 #: apps/splits/models.py:195
 msgid "A non-external participant must be linked to a WYGIWYH user."
-msgstr ""
+msgstr "Um participante não externo deve ser vinculado a um usuário do WYGIWYH."
 
 #: apps/splits/models.py:201
-#, fuzzy
-#| msgid "equals"
 msgid "Equal"
-msgstr "igual"
+msgstr "Igual"
 
 #: apps/splits/models.py:202
-#, fuzzy
-#| msgid "Item amount"
 msgid "Exact amounts"
-msgstr "Quantidade"
+msgstr "Valores exatos"
 
 #: apps/splits/models.py:203
-#, fuzzy
-#| msgid "Percentage"
 msgid "Percentages"
-msgstr "Porcentagem"
+msgstr "Porcentagens"
 
 #: apps/splits/models.py:204 apps/splits/models.py:292
-#, fuzzy
-#| msgid "Share"
 msgid "Shares"
-msgstr "Compartilhar"
+msgstr "Cotas"
 
 #: apps/splits/models.py:216
-#, fuzzy
-#| msgid "Paid"
 msgid "Paid by"
-msgstr "Pago"
+msgstr "Pago por"
 
 #: apps/splits/models.py:224 apps/splits/models.py:336
-#, fuzzy
-#| msgid "Created at"
 msgid "Created by"
-msgstr "Criado em"
+msgstr "Criado por"
 
 #: apps/splits/models.py:238
 msgid "Split type"
-msgstr ""
+msgstr "Tipo de divisão"
 
 #: apps/splits/models.py:245
-#, fuzzy
-#| msgid "Expense"
 msgid "Split Expense"
-msgstr "Despesa"
+msgstr "Despesa dividida"
 
 #: apps/splits/models.py:257
 msgid "Payer must be a participant of this event."
-msgstr ""
+msgstr "O pagador deve ser participante deste evento."
 
 #: apps/splits/models.py:266 apps/splits/models.py:402
 #: apps/splits/models.py:486 apps/transactions/models.py:361
@@ -2206,9 +2157,8 @@ msgid "Expense"
 msgstr "Despesa"
 
 #: apps/splits/models.py:272
-#, fuzzy
 msgid "Participant"
-msgstr "Quantia de origem"
+msgstr "Participante"
 
 #: apps/splits/models.py:285 templates/insights/fragments/sankey.html:104
 msgid "Percentage"
@@ -2216,11 +2166,11 @@ msgstr "Porcentagem"
 
 #: apps/splits/models.py:296
 msgid "Split Expense Share"
-msgstr ""
+msgstr "Parte da despesa dividida"
 
 #: apps/splits/models.py:297
 msgid "Split Expense Shares"
-msgstr ""
+msgstr "Partes da despesa dividida"
 
 #: apps/splits/models.py:322 templates/cotton/transaction/item.html:125
 #: templates/insights/fragments/sankey.html:101
@@ -2228,29 +2178,26 @@ msgid "From"
 msgstr "De"
 
 #: apps/splits/models.py:350
-#, fuzzy
 msgid "Split Payment"
-msgstr "Gerenciar"
+msgstr "Pagamento de divisão"
 
 #: apps/splits/models.py:351
-#, fuzzy
 msgid "Split Payments"
-msgstr "Gerenciar"
+msgstr "Pagamentos de divisão"
 
 #: apps/splits/models.py:375
 msgid "Sender must be a participant of this event."
-msgstr ""
+msgstr "O remetente deve ser participante deste evento."
 
 #: apps/splits/models.py:382
 msgid "Recipient must be a participant of this event."
-msgstr ""
+msgstr "O destinatário deve ser participante deste evento."
 
 #: apps/splits/models.py:410 apps/splits/models.py:494
 #: templates/splits/fragments/event/content.html:14
 #: templates/splits/pages/event_report.html:121
-#, fuzzy
 msgid "Payment"
-msgstr "Gerenciar"
+msgstr "Pagamento"
 
 #: apps/splits/models.py:415 apps/transactions/models.py:802
 msgid "File"
@@ -2273,46 +2220,36 @@ msgid "Uploaded By"
 msgstr "Enviado por"
 
 #: apps/splits/models.py:433
-#, fuzzy
-#| msgid "Attachments"
 msgid "Split Attachment"
-msgstr "Anexos"
+msgstr "Anexo de divisão"
 
 #: apps/splits/models.py:434
-#, fuzzy
-#| msgid "Attachments"
 msgid "Split Attachments"
-msgstr "Anexos"
+msgstr "Anexos de divisão"
 
 #: apps/splits/models.py:445
 msgid "An attachment must belong to either an expense or a payment."
-msgstr ""
+msgstr "Um anexo deve pertencer a uma despesa ou a um pagamento."
 
 #: apps/splits/models.py:451
-#, fuzzy
-#| msgid "Expense"
 msgid "Expense paid"
-msgstr "Despesa"
+msgstr "Despesa paga"
 
 #: apps/splits/models.py:452
-#, fuzzy
-#| msgid "Payment Currency"
 msgid "Payment sent"
-msgstr "Moeda de pagamento"
+msgstr "Pagamento enviado"
 
 #: apps/splits/models.py:453
-#, fuzzy
-#| msgid "Amount Received"
 msgid "Payment received"
-msgstr "Quantia recebida"
+msgstr "Pagamento recebido"
 
 #: apps/splits/models.py:454
 msgid "Planned payment to send"
-msgstr ""
+msgstr "Pagamento planejado a enviar"
 
 #: apps/splits/models.py:455
 msgid "Planned payment to receive"
-msgstr ""
+msgstr "Pagamento planejado a receber"
 
 #: apps/splits/models.py:467 apps/users/models.py:582
 msgid "User"
@@ -2320,116 +2257,104 @@ msgstr "Usuário"
 
 #: apps/splits/models.py:478
 msgid "Kind"
-msgstr ""
+msgstr "Tipo"
 
 #: apps/splits/models.py:502
 msgid "Counterparty"
-msgstr ""
+msgstr "Contraparte"
 
 #: apps/splits/models.py:507
-#, fuzzy
-#| msgid "Edit Transaction"
 msgid "Split Transaction Link"
-msgstr "Editar Transação"
+msgstr "Vínculo de transação da divisão"
 
 #: apps/splits/models.py:508
-#, fuzzy
-#| msgid "Edit transaction actions"
 msgid "Split Transaction Links"
-msgstr "Ações de editar de transação"
+msgstr "Vínculos de transação da divisão"
 
 #: apps/splits/services/splitting.py:76
 msgid "Select at least one participant for this expense."
-msgstr ""
+msgstr "Selecione pelo menos um participante para esta despesa."
 
 #: apps/splits/services/splitting.py:81
 msgid "Expense amount must be greater than zero."
-msgstr ""
+msgstr "O valor da despesa deve ser maior que zero."
 
 #: apps/splits/services/splitting.py:100
 #, python-format
 msgid "Exact amount for %(name)s cannot be negative."
-msgstr ""
+msgstr "O valor exato para %(name)s não pode ser negativo."
 
 #: apps/splits/services/splitting.py:108
 #, python-format
 msgid "Exact amounts sum to %(entered)s, but the expense total is %(total)s."
 msgstr ""
+"Os valores exatos somam %(entered)s, mas o total da despesa é %(total)s."
 
 #: apps/splits/services/splitting.py:123
 #, python-format
 msgid "Percentage for %(name)s cannot be negative."
-msgstr ""
+msgstr "A porcentagem para %(name)s não pode ser negativa."
 
 #: apps/splits/services/splitting.py:130
 #, python-format
 msgid "Percentages must sum to 100%% (currently %(sum)s%%)."
-msgstr ""
+msgstr "As porcentagens devem somar 100%% (atualmente %(sum)s%%)."
 
 #: apps/splits/services/splitting.py:150
 #, python-format
 msgid "Shares for %(name)s cannot be negative."
-msgstr ""
+msgstr "As cotas para %(name)s não podem ser negativas."
 
 #: apps/splits/services/splitting.py:155
 msgid "Total shares must be greater than zero."
-msgstr ""
+msgstr "O total de cotas deve ser maior que zero."
 
 #: apps/splits/services/splitting.py:167
 #, python-format
 msgid "Unsupported split type: %(type)s"
-msgstr ""
+msgstr "Tipo de divisão não suportado: %(type)s"
 
 #: apps/splits/views.py:425
-#, fuzzy
-#| msgid "API token created successfully"
 msgid "Split event created successfully"
-msgstr "Token de API criado com sucesso"
+msgstr "Evento de divisão criado com sucesso"
 
 #: apps/splits/views.py:477
-#, fuzzy
-#| msgid "Entry updated successfully"
 msgid "Event updated successfully"
-msgstr "Entrada atualizada com sucesso"
+msgstr "Evento atualizado com sucesso"
 
 #: apps/splits/views.py:500
-#, fuzzy
-#| msgid "Entry deleted successfully"
 msgid "Event deleted successfully"
-msgstr "Entrada apagada com sucesso"
+msgstr "Evento apagado com sucesso"
 
 #: apps/splits/views.py:519
-#, fuzzy, python-format
-#| msgid "Delete %(name)s"
+#, python-format
 msgid "You left %(name)s"
-msgstr "Apagar %(name)s"
+msgstr "Você saiu de %(name)s"
 
 #: apps/splits/views.py:587
 #, python-format
 msgid "Added %(name)s to the event"
-msgstr ""
+msgstr "%(name)s adicionado ao evento"
 
 #: apps/splits/views.py:615
 #, python-format
 msgid "Added external participant %(name)s"
-msgstr ""
+msgstr "Participante externo %(name)s adicionado"
 
 #: apps/splits/views.py:642
-#, fuzzy, python-format
-#| msgid "Delete %(name)s"
+#, python-format
 msgid "Reactivated %(name)s"
-msgstr "Apagar %(name)s"
+msgstr "%(name)s reativado"
 
 #: apps/splits/views.py:647
 #, python-format
 msgid "Deactivated %(name)s (contributions preserved)"
-msgstr ""
+msgstr "%(name)s desativado (contribuições preservadas)"
 
 #: apps/splits/views.py:670
-#, fuzzy, python-format
-#| msgid "Delete %(name)s"
+#, python-format
 msgid "Removed %(name)s"
-msgstr "Apagar %(name)s"
+msgstr "%(name)s removido"
 
 #: apps/splits/views.py:675
 #, python-format
@@ -2437,104 +2362,83 @@ msgid ""
 "%(name)s has existing contributions and cannot be deleted. Deactivate them "
 "instead."
 msgstr ""
+"%(name)s tem contribuições e não pode ser apagado. Desative-o em vez disso."
 
 #: apps/splits/views.py:699
 #, python-format
 msgid "Password reset for %(name)s. They can set a new password on next login."
 msgstr ""
+"Senha de %(name)s redefinida. Uma nova senha poderá ser definida no próximo "
+"login."
 
 #: apps/splits/views.py:718
 msgid ""
 "Share link regenerated. Existing external sessions have been signed out."
 msgstr ""
+"Link de compartilhamento gerado novamente. As sessões externas existentes "
+"foram encerradas."
 
 #: apps/splits/views.py:745
-#, fuzzy
-#| msgid "Entry added successfully"
 msgid "Expense added successfully"
-msgstr "Entrada adicionada com sucesso"
+msgstr "Despesa adicionada com sucesso"
 
 #: apps/splits/views.py:788
-#, fuzzy
-#| msgid "Entry updated successfully"
 msgid "Expense updated successfully"
-msgstr "Entrada atualizada com sucesso"
+msgstr "Despesa atualizada com sucesso"
 
 #: apps/splits/views.py:811
-#, fuzzy
-#| msgid "Entry deleted successfully"
 msgid "Expense deleted successfully"
-msgstr "Entrada apagada com sucesso"
+msgstr "Despesa apagada com sucesso"
 
 #: apps/splits/views.py:842
-#, fuzzy
-#| msgid "Data restored successfully"
 msgid "Payment recorded successfully"
-msgstr "Dados restaurados com sucesso"
+msgstr "Pagamento registrado com sucesso"
 
 #: apps/splits/views.py:892
-#, fuzzy
-#| msgid "Entry updated successfully"
 msgid "Payment updated successfully"
-msgstr "Entrada atualizada com sucesso"
+msgstr "Pagamento atualizado com sucesso"
 
 #: apps/splits/views.py:925
-#, fuzzy
-#| msgid "Attachment deleted successfully"
 msgid "Payment deleted successfully"
-msgstr "Anexo apagado com sucesso"
+msgstr "Pagamento apagado com sucesso"
 
 #: apps/splits/views.py:972
-#, fuzzy
-#| msgid "Attachment deleted successfully"
 msgid "Attachment deleted"
-msgstr "Anexo apagado com sucesso"
+msgstr "Anexo apagado"
 
 #: apps/splits/views.py:1087
-#, fuzzy
-#| msgid "Transaction converted into a transfer"
 msgid "Transaction created and linked"
-msgstr "Transação convertida em transferência"
+msgstr "Transação criada e vinculada"
 
 #: apps/splits/views.py:1100
-#, fuzzy
-#| msgid "Transaction rule"
 msgid "Transaction linked"
-msgstr "Regra da transação"
+msgstr "Transação vinculada"
 
 #: apps/splits/views.py:1156
-#, fuzzy
-#| msgid "Add notes to transactions"
 msgid "Add expense to my transactions"
-msgstr "Adicionar notas às transações"
+msgstr "Adicionar despesa às minhas transações"
 
 #: apps/splits/views.py:1175
-#, fuzzy
-#| msgid "Add description to transactions"
 msgid "Add received payment to my transactions"
-msgstr "Adicionar descrição às transações"
+msgstr "Adicionar pagamento recebido às minhas transações"
 
 #: apps/splits/views.py:1179
-#, fuzzy
-#| msgid "Add notes to transactions"
 msgid "Add sent payment to my transactions"
-msgstr "Adicionar notas às transações"
+msgstr "Adicionar pagamento enviado às minhas transações"
 
 #: apps/splits/views.py:1219
 #, python-format
 msgid "Expected payment from %(name)s"
-msgstr ""
+msgstr "Pagamento esperado de %(name)s"
 
 #: apps/splits/views.py:1224
 #, python-format
 msgid "Planned payment to %(name)s"
-msgstr ""
+msgstr "Pagamento planejado para %(name)s"
 
 #: apps/splits/views.py:1258
-#, fuzzy
-#| msgid "Transaction rule"
 msgid "Transaction unlinked"
-msgstr "Regra da transação"
+msgstr "Transação desvinculada"
 
 #: apps/transactions/filters.py:30 templates/cotton/transaction/item.html:25
 #: templates/cotton/transaction/item.html:36
@@ -2685,15 +2589,16 @@ msgstr ""
 
 #: apps/transactions/models.py:276 apps/transactions/models.py:307
 #: apps/transactions/models.py:338
-#, fuzzy
 msgid "Auto-match"
-msgstr "Automação"
+msgstr "Correspondência automática"
 
 #: apps/transactions/models.py:278
 msgid ""
 "Allow auto-tagging to automatically assign this category based on past "
 "transactions"
 msgstr ""
+"Permitir que a classificação automática atribua esta categoria com base em "
+"transações anteriores"
 
 #: apps/transactions/models.py:286
 msgid "Transaction Category"
@@ -2714,6 +2619,8 @@ msgid ""
 "Allow auto-tagging to automatically assign this tag based on past "
 "transactions"
 msgstr ""
+"Permitir que a classificação automática atribua esta tag com base em "
+"transações anteriores"
 
 #: apps/transactions/models.py:317 apps/transactions/models.py:318
 msgid "Transaction Tags"
@@ -2732,6 +2639,8 @@ msgid ""
 "Allow auto-tagging to automatically assign this entity based on past "
 "transactions"
 msgstr ""
+"Permitir que a classificação automática atribua esta entidade com base em "
+"transações anteriores"
 
 #: apps/transactions/models.py:360 apps/transactions/models.py:1124
 #: apps/transactions/models.py:1517
@@ -2918,11 +2827,11 @@ msgstr "Transação Rápida"
 
 #: apps/transactions/models.py:1615
 msgid "Auto-Tagger Model"
-msgstr ""
+msgstr "Modelo de classificação automática"
 
 #: apps/transactions/models.py:1616
 msgid "Auto-Tagger Models"
-msgstr ""
+msgstr "Modelos de classificação automática"
 
 #: apps/transactions/validators.py:8
 #, python-format
@@ -3321,16 +3230,16 @@ msgid "Show both sides of a transfer as a single item"
 msgstr "Mostrar os dois lados de uma transferência como um único item"
 
 #: apps/users/models.py:489
-#, fuzzy
-#| msgid "Automation"
 msgid "Auto-tagging"
-msgstr "Automação"
+msgstr "Classificação automática"
 
 #: apps/users/models.py:491
 msgid ""
 "Automatically assign categories, tags, and entities to new unclassified "
 "transactions based on your past transactions"
 msgstr ""
+"Atribuir automaticamente categorias, tags e entidades às novas transações "
+"não classificadas com base nas suas transações anteriores"
 
 #: apps/users/models.py:516
 msgid "Language"
@@ -4208,20 +4117,19 @@ msgstr "Exportar"
 #: templates/export_app/fragments/export.html:29
 msgid "Preparing your export. The download starts on its own when it is ready."
 msgstr ""
+"Preparando sua exportação. O download começará sozinho quando estiver pronta."
 
 #: templates/export_app/fragments/restore.html:18
-#, fuzzy
-#| msgid "ZIP File"
 msgid "ZIP file"
 msgstr "Arquivo ZIP"
 
 #: templates/export_app/fragments/restore.html:25
 msgid "Individual CSV files"
-msgstr ""
+msgstr "Arquivos CSV individuais"
 
 #: templates/export_app/fragments/restore.html:42
 msgid "Restoring your data. This can take a while for large backups."
-msgstr ""
+msgstr "Restaurando seus dados. Isso pode demorar para backups grandes."
 
 #: templates/export_app/pages/index.html:4
 #: templates/export_app/pages/index.html:8 templates/includes/sidebar.html:231
@@ -5212,33 +5120,34 @@ msgstr "Evolução por conta"
 
 #: templates/oauth2_provider/authorize.html:4
 #: templates/oauth2_provider/authorize.html:39
-#, fuzzy
 msgid "Authorize"
-msgstr "Categorizada"
+msgstr "Autorizar"
 
 #: templates/oauth2_provider/authorize.html:19
 #, python-format
 msgid "Allow %(name)s to use your WYGIWYH?"
-msgstr ""
+msgstr "Permitir que %(name)s use seu WYGIWYH?"
 
 #: templates/oauth2_provider/authorize.html:22
 #, python-format
 msgid "Signed in as %(email)s"
-msgstr ""
+msgstr "Conectado como %(email)s"
 
 #: templates/oauth2_provider/authorize.html:26
 msgid ""
 "It will be able to see and change everything you can: accounts, "
 "transactions, categories and the rest."
 msgstr ""
+"Ele poderá ver e alterar tudo o que você pode: contas, transações, "
+"categorias e todo o resto."
 
 #: templates/oauth2_provider/authorize.html:29
 msgid "Your answer is sent to"
-msgstr ""
+msgstr "Sua resposta será enviada para"
 
 #: templates/oauth2_provider/authorize.html:43
 msgid "This app can't be authorized"
-msgstr ""
+msgstr "Este app não pode ser autorizado"
 
 #: templates/quick_transactions/fragments/add.html:5
 #: templates/quick_transactions/fragments/create_menu.html:5
@@ -5432,332 +5341,277 @@ msgid "Update or Create Transaction"
 msgstr "Atualizar ou Criar Transação"
 
 #: templates/splits/fragments/event/activity_flags.html:1
-#, fuzzy
-#| msgid "Attachments"
 msgid "Has attachments"
-msgstr "Anexos"
+msgstr "Tem anexos"
 
 #: templates/splits/fragments/event/activity_flags.html:1
-#, fuzzy
-#| msgid "Linked Transaction"
 msgid "Linked to your transactions"
-msgstr "Transação vinculada"
+msgstr "Vinculado às suas transações"
 
 #: templates/splits/fragments/event/activity_item.html:17
 #, python-format
 msgid "You paid %(to)s"
-msgstr ""
+msgstr "Você pagou %(to)s"
 
 #: templates/splits/fragments/event/activity_item.html:18
 #, python-format
 msgid "%(from)s paid you"
-msgstr ""
+msgstr "%(from)s pagou você"
 
 #: templates/splits/fragments/event/activity_item.html:19
 #, python-format
 msgid "%(from)s paid %(to)s"
-msgstr ""
+msgstr "%(from)s pagou %(to)s"
 
 #: templates/splits/fragments/event/activity_item.html:26
 msgid "You paid"
-msgstr ""
+msgstr "Você pagou"
 
 #: templates/splits/fragments/event/activity_item.html:26
-#, fuzzy, python-format
-#| msgid "In %(name)s"
+#, python-format
 msgid "%(name)s paid"
-msgstr "Em %(name)s"
+msgstr "%(name)s pagou"
 
 #: templates/splits/fragments/event/activity_item.html:36
 msgid "not involved"
-msgstr ""
+msgstr "não envolvido"
 
 #: templates/splits/fragments/event/activity_item.html:38
 msgid "you lent"
-msgstr ""
+msgstr "você emprestou"
 
 #: templates/splits/fragments/event/activity_item.html:41
-#, fuzzy
-#| msgid "tomorrow"
 msgid "you borrowed"
-msgstr "amanhã"
+msgstr "você pegou emprestado"
 
 #: templates/splits/fragments/event/activity_item.html:44
 msgid "settled"
-msgstr ""
+msgstr "quitado"
 
 #: templates/splits/fragments/event/activity_item.html:60
 #: templates/splits/fragments/event/content.html:100
 #: templates/splits/fragments/event/content.html:102
 msgid "You"
-msgstr ""
+msgstr "Você"
 
 #: templates/splits/fragments/event/activity_item.html:66
 #, python-format
 msgid "Split by %(mode)s"
-msgstr ""
+msgstr "Dividido por %(mode)s"
 
 #: templates/splits/fragments/event/activity_item.html:90
 #: templates/splits/fragments/event/content.html:123
-#, fuzzy
-#| msgid "Add notes to transactions"
 msgid "Add to my transactions"
-msgstr "Adicionar notas às transações"
+msgstr "Adicionar às minhas transações"
 
 #: templates/splits/fragments/event/add.html:5
-#, fuzzy
-#| msgid "Add entity"
 msgid "Add event"
-msgstr "Adicionar entidade"
+msgstr "Adicionar evento"
 
 #: templates/splits/fragments/event/content.html:28
 #: templates/splits/fragments/participants/manage.html:4
 msgid "People"
-msgstr ""
+msgstr "Pessoas"
 
 #: templates/splits/fragments/event/content.html:33
 #: templates/splits/fragments/event/edit.html:5
-#, fuzzy
-#| msgid "Edit entity"
 msgid "Edit event"
-msgstr "Editar entidade"
+msgstr "Editar evento"
 
 #: templates/splits/fragments/event/content.html:39
-#, fuzzy
-#| msgid "Save preset"
 msgid "Leave event"
-msgstr "Salvar predefinição"
+msgstr "Sair do evento"
 
 #: templates/splits/fragments/event/content.html:42
-#, fuzzy
-#| msgid "Delete this attachment?"
 msgid "Leave this event?"
-msgstr "Apagar este anexo?"
+msgstr "Sair deste evento?"
 
 #: templates/splits/fragments/event/content.html:43
 msgid ""
 "It disappears from your list. Expenses and payments you were part of stay, "
 "so the others still see correct balances."
 msgstr ""
+"Ele desaparece da sua lista. As despesas e pagamentos dos quais você "
+"participou permanecem, para que os outros continuem vendo os saldos corretos."
 
 #: templates/splits/fragments/event/content.html:44
 msgid "Leave"
-msgstr ""
+msgstr "Sair"
 
 #: templates/splits/fragments/event/content.html:52
 #: templates/splits/fragments/event/content.html:59
 #: templates/splits/fragments/event/list.html:63
 #: templates/splits/pages/event_report.html:30
-#, fuzzy, python-format
-#| msgid "%(counter)s item"
-#| msgid_plural "%(counter)s items"
+#, python-format
 msgid "%(counter)s person"
 msgid_plural "%(counter)s people"
-msgstr[0] "%(counter)s item"
-msgstr[1] "%(counter)s itens"
+msgstr[0] "%(counter)s pessoa"
+msgstr[1] "%(counter)s pessoas"
 
 #: templates/splits/fragments/event/content.html:60
 #: templates/splits/fragments/event/content.html:83
 #: templates/splits/pages/event_report.html:31
-#, fuzzy
-#| msgid "Group name"
 msgid "Group total"
-msgstr "Nome do grupo"
+msgstr "Total do grupo"
 
 #: templates/splits/fragments/event/content.html:70
 msgid "You are settled up"
-msgstr ""
+msgstr "Suas contas estão acertadas"
 
 #: templates/splits/fragments/event/content.html:70
 msgid "Everyone is settled up"
-msgstr ""
+msgstr "Todos estão quites"
 
 #: templates/splits/fragments/event/content.html:73
-#, fuzzy
-#| msgid "Sounds are now muted"
 msgid "You are owed"
-msgstr "Os sons agora estão silenciados"
+msgstr "Devem a você"
 
 #: templates/splits/fragments/event/content.html:73
 msgid "You owe"
-msgstr ""
+msgstr "Você deve"
 
 #: templates/splits/fragments/event/content.html:94
 #: templates/splits/fragments/event/share_menu.html:23
 #: templates/splits/pages/event_report.html:37
 msgid "Settle up"
-msgstr ""
+msgstr "Acertar contas"
 
 #: templates/splits/fragments/event/content.html:117
-#, fuzzy
-#| msgid "Mark as paid"
 msgid "Record as paid"
-msgstr "Marcar como pago"
+msgstr "Registrar como pago"
 
 #: templates/splits/fragments/event/content.html:122
-#, fuzzy
-#| msgid "Add description to transactions"
 msgid "Add as planned expense in my transactions"
-msgstr "Adicionar descrição às transações"
+msgstr "Adicionar como despesa planejada nas minhas transações"
 
 #: templates/splits/fragments/event/content.html:122
-#, fuzzy
-#| msgid "Add description to transactions"
 msgid "Add as expected income in my transactions"
-msgstr "Adicionar descrição às transações"
+msgstr "Adicionar como receita esperada nas minhas transações"
 
 #: templates/splits/fragments/event/content.html:138
 #: templates/splits/fragments/event/share_menu.html:30
 #: templates/splits/pages/event_report.html:55
-#, fuzzy
-#| msgid "Balance"
 msgid "Balances"
-msgstr "Balancear"
+msgstr "Saldos"
 
 #: templates/splits/fragments/event/content.html:145
 msgid "you"
-msgstr ""
+msgstr "você"
 
 #: templates/splits/fragments/event/content.html:146
 #: templates/splits/pages/event_report.html:70
-#, fuzzy
-#| msgid "Active"
 msgid "inactive"
-msgstr "Ativo"
+msgstr "inativo"
 
 #: templates/splits/fragments/event/content.html:161
 msgid "paid"
-msgstr ""
+msgstr "pago"
 
 #: templates/splits/fragments/event/content.html:162
-#, fuzzy
-#| msgid "Share"
 msgid "share"
-msgstr "Compartilhar"
+msgstr "parte"
 
 #: templates/splits/fragments/event/content.html:172
-#, fuzzy
-#| msgid "Activate"
 msgid "Activity"
-msgstr "Ativar"
+msgstr "Atividade"
 
 #: templates/splits/fragments/event/content.html:181
-#, fuzzy
-#| msgid "Nothing to chart yet"
 msgid "Nothing here yet"
-msgstr "Nada para exibir no gráfico ainda"
+msgstr "Nada aqui ainda"
 
 #: templates/splits/fragments/event/content.html:182
 msgid "Add the first expense with the + button"
-msgstr ""
+msgstr "Adicione a primeira despesa com o botão +"
 
 #: templates/splits/fragments/event/edit.html:17
-#, fuzzy
-#| msgid "Delete this attachment?"
 msgid "Delete this event?"
-msgstr "Apagar este anexo?"
+msgstr "Apagar este evento?"
 
 #: templates/splits/fragments/event/edit.html:18
 msgid ""
 "All its expenses, payments and attachments are deleted. Transactions you "
 "linked in your accounts are kept."
 msgstr ""
+"Todas as despesas, pagamentos e anexos dele serão apagados. As transações "
+"que você vinculou nas suas contas são mantidas."
 
 #: templates/splits/fragments/event/edit.html:21
-#, fuzzy
-#| msgid "Deleted At"
 msgid "Delete event"
-msgstr "Apagado Em"
+msgstr "Apagar evento"
 
 #: templates/splits/fragments/event/export_script.html:52
 msgid "Couldn't create the image."
-msgstr ""
+msgstr "Não foi possível criar a imagem."
 
 #: templates/splits/fragments/event/list.html:15
-#, fuzzy
-#| msgid "Archived"
 msgid "Show archived"
-msgstr "Arquivada"
+msgstr "Mostrar arquivados"
 
 #: templates/splits/fragments/event/list.html:22
-#, fuzzy
-#| msgid "No movements yet"
 msgid "No events yet"
-msgstr "Nenhuma movimentação ainda"
+msgstr "Nenhum evento ainda"
 
 #: templates/splits/fragments/event/list.html:23
 msgid "Create one for a trip, a shared flat or a dinner"
-msgstr ""
+msgstr "Crie um para uma viagem, um apartamento compartilhado ou um jantar"
 
 #: templates/splits/fragments/event/list.html:42
-#, fuzzy
-#| msgid "Total impact"
 msgid "Total spent"
-msgstr "Impacto total"
+msgstr "Total gasto"
 
 #: templates/splits/fragments/event/list.html:51
-#, fuzzy
-#| msgid "Current balance"
 msgid "Your balance"
-msgstr "Saldo atual"
+msgstr "Seu saldo"
 
 #: templates/splits/fragments/event/list.html:64
 #: templates/splits/fragments/participants/manage.html:74
 msgid "Organizer"
-msgstr ""
+msgstr "Organizador"
 
 #: templates/splits/fragments/event/share_menu.html:9
 msgid "Full report (PDF)"
-msgstr ""
+msgstr "Relatório completo (PDF)"
 
 #: templates/splits/fragments/event/share_menu.html:12
 msgid "Image"
-msgstr ""
+msgstr "Imagem"
 
 #: templates/splits/fragments/expense/form.html:6
-#, fuzzy
-#| msgid "Expense"
 msgid "Edit expense"
-msgstr "Despesa"
+msgstr "Editar despesa"
 
 #: templates/splits/fragments/expense/form.html:6
-#, fuzzy
-#| msgid "Expense"
 msgid "Add expense"
-msgstr "Despesa"
+msgstr "Adicionar despesa"
 
 #: templates/splits/fragments/expense/form.html:27
 msgid "Split between"
-msgstr ""
+msgstr "Dividir entre"
 
 #: templates/splits/fragments/expense/form.html:67
 msgid "Divided equally between the people checked"
-msgstr ""
+msgstr "Dividido igualmente entre as pessoas marcadas"
 
 #: templates/splits/fragments/expense/form.html:68
 msgid "Amounts must add up to the total"
-msgstr ""
+msgstr "Os valores devem somar o total"
 
 #: templates/splits/fragments/expense/form.html:69
 msgid "Percentages must add up to 100"
-msgstr ""
+msgstr "As porcentagens devem somar 100"
 
 #: templates/splits/fragments/expense/form.html:70
 msgid "Weights, e.g. 2 pays twice as much as 1"
-msgstr ""
+msgstr "Pesos, ex.: 2 paga o dobro de 1"
 
 #: templates/splits/fragments/participants/manage.html:8
 #: templates/splits/fragments/participants/manage.html:12
-#, fuzzy
-#| msgid "Share settings"
 msgid "Share link"
-msgstr "Configurações de compartilhamento"
+msgstr "Link de compartilhamento"
 
 #: templates/splits/fragments/participants/manage.html:16
-#, fuzzy
-#| msgid "copied!"
 msgid "Copied!"
-msgstr "copiado!"
+msgstr "Copiado!"
 
 #: templates/splits/fragments/participants/manage.html:16
 #: templates/splits/fragments/participants/manage.html:18
@@ -5770,36 +5624,40 @@ msgid ""
 "People without an account open this link, pick their name and set a password "
 "the first time."
 msgstr ""
+"Pessoas sem conta abrem este link, escolhem o próprio nome e definem uma "
+"senha na primeira vez."
 
 #: templates/splits/fragments/participants/manage.html:28
 msgid "Regenerate share link?"
-msgstr ""
+msgstr "Gerar novo link de compartilhamento?"
 
 #: templates/splits/fragments/participants/manage.html:29
 msgid ""
 "The current link stops working and everyone signed in through it is signed "
 "out."
 msgstr ""
+"O link atual deixa de funcionar e todos que entraram por ele são "
+"desconectados."
 
 #: templates/splits/fragments/participants/manage.html:30
 msgid "Regenerate"
-msgstr ""
+msgstr "Gerar novamente"
 
 #: templates/splits/fragments/participants/manage.html:32
 msgid "Regenerate link"
-msgstr ""
+msgstr "Gerar novo link"
 
 #: templates/splits/fragments/participants/manage.html:37
 msgid ""
 "Link sharing is off. Turn on \"Allow external access\" in the event settings "
 "to share it."
 msgstr ""
+"O compartilhamento por link está desativado. Ative \"Permitir acesso "
+"externo\" nas configurações do evento para compartilhá-lo."
 
 #: templates/splits/fragments/participants/manage.html:43
-#, fuzzy
-#| msgid "Add description to transactions"
 msgid "Add person without an account"
-msgstr "Adicionar descrição às transações"
+msgstr "Adicionar pessoa sem conta"
 
 #: templates/splits/fragments/participants/manage.html:56
 #: templates/users/fragments/add.html:5
@@ -5807,214 +5665,179 @@ msgid "Add user"
 msgstr "Adicionar usuário"
 
 #: templates/splits/fragments/participants/manage.html:67
-#, fuzzy
 msgid "Participants"
-msgstr "Quantia de origem"
+msgstr "Participantes"
 
 #: templates/splits/fragments/participants/manage.html:77
-#, fuzzy
-#| msgid "Password"
 msgid "Password set"
-msgstr "Senha"
+msgstr "Senha definida"
 
 #: templates/splits/fragments/participants/manage.html:79
-#, fuzzy
-#| msgid "never used"
 msgid "Never signed in"
-msgstr "nunca usado"
+msgstr "Nunca entrou"
 
 #: templates/splits/fragments/participants/manage.html:82
-#, fuzzy
-#| msgid "Active"
 msgid "Inactive"
-msgstr "Ativo"
+msgstr "Inativo"
 
 #: templates/splits/fragments/participants/manage.html:88
 #: templates/splits/fragments/participants/manage.html:89
-#, fuzzy
-#| msgid "New Password"
 msgid "Reset password"
-msgstr "Nova senha"
+msgstr "Redefinir senha"
 
 #: templates/splits/fragments/participants/manage.html:93
-#, fuzzy
-#| msgid "New Password"
 msgid "Reset password?"
-msgstr "Nova senha"
+msgstr "Redefinir senha?"
 
 #: templates/splits/fragments/participants/manage.html:94
 msgid "They will choose a new one the next time they sign in."
-msgstr ""
+msgstr "Uma nova senha será escolhida no próximo login."
 
 #: templates/splits/fragments/participants/manage.html:95
 msgid "Reset"
-msgstr ""
+msgstr "Redefinir"
 
 #: templates/splits/fragments/participants/manage.html:111
 #: templates/splits/fragments/participants/manage.html:112
-#, fuzzy
-#| msgid "Deactivate"
 msgid "Reactivate"
-msgstr "Desativar"
+msgstr "Reativar"
 
 #: templates/splits/fragments/participants/manage.html:138
 msgid "People with expenses or payments can't be removed, only deactivated."
 msgstr ""
+"Pessoas com despesas ou pagamentos não podem ser removidas, apenas "
+"desativadas."
 
 #: templates/splits/fragments/payment/form.html:6
-#, fuzzy
-#| msgid "Edit entity"
 msgid "Edit payment"
-msgstr "Editar entidade"
+msgstr "Editar pagamento"
 
 #: templates/splits/fragments/payment/form.html:6
-#, fuzzy
 msgid "Record payment"
-msgstr "Gerenciar"
+msgstr "Registrar pagamento"
 
 #: templates/splits/fragments/payment/form.html:29
 msgid "Record"
-msgstr ""
+msgstr "Registrar"
 
 #: templates/splits/fragments/sync/form.html:17
-#, fuzzy
-#| msgid "Create"
 msgid "Create new"
-msgstr "Criar"
+msgstr "Criar nova"
 
 #: templates/splits/fragments/sync/form.html:20
-#, fuzzy
-#| msgid "Link transaction"
 msgid "Link existing"
-msgstr "Conectar transação"
+msgstr "Vincular existente"
 
 #: templates/splits/fragments/sync/form.html:28
 msgid "Creates an income transaction in one of your accounts."
-msgstr ""
+msgstr "Cria uma transação de renda em uma das suas contas."
 
 #: templates/splits/fragments/sync/form.html:30
 msgid "Creates an expense transaction in one of your accounts."
-msgstr ""
+msgstr "Cria uma transação de despesa em uma das suas contas."
 
 #: templates/splits/fragments/sync/form.html:32
 #, python-format
 msgid "Amounts are in %(code)s."
-msgstr ""
+msgstr "Os valores estão em %(code)s."
 
 #: templates/splits/fragments/tx_links.html:4
-#, fuzzy
-#| msgid "Linked Transaction"
 msgid "Linked transaction"
 msgstr "Transação vinculada"
 
 #: templates/splits/fragments/tx_links.html:4
-#, fuzzy
-#| msgid "Linked Transaction"
 msgid "Linked transaction, not paid yet"
-msgstr "Transação vinculada"
+msgstr "Transação vinculada, ainda não paga"
 
 #: templates/splits/fragments/tx_links.html:6
 #: templates/splits/fragments/tx_links.html:11
 msgid "Unlink"
-msgstr ""
+msgstr "Desvincular"
 
 #: templates/splits/fragments/tx_links.html:9
-#, fuzzy
-#| msgid "Link transaction"
 msgid "Unlink this transaction?"
-msgstr "Conectar transação"
+msgstr "Desvincular esta transação?"
 
 #: templates/splits/fragments/tx_links.html:10
-#, fuzzy
-#| msgid "Synced transactions are kept."
 msgid "The transaction itself is kept."
-msgstr "As transações sincronizadas são mantidas."
+msgstr "A transação em si é mantida."
 
 #: templates/splits/pages/event_report.html:9
-#, fuzzy
-#| msgid "Import"
 msgid "Report"
-msgstr "Importar"
+msgstr "Relatório"
 
 #: templates/splits/pages/event_report.html:22
 msgid "Save as PDF"
-msgstr ""
+msgstr "Salvar como PDF"
 
 #: templates/splits/pages/event_report.html:50
 msgid "Everyone is settled up."
-msgstr ""
+msgstr "Todos estão quites."
 
 #: templates/splits/pages/event_report.html:59
-#, fuzzy
-#| msgid "Personal info"
 msgid "Person"
-msgstr "Dados pessoais"
+msgstr "Pessoa"
 
 #: templates/splits/pages/event_report.html:62
 msgid "Sent"
-msgstr ""
+msgstr "Enviado"
 
 #: templates/splits/pages/event_report.html:63
-#, fuzzy
-#| msgid "Total Received"
 msgid "Received"
-msgstr "Total recebido"
+msgstr "Recebido"
 
 #: templates/splits/pages/event_report.html:99
-#, fuzzy, python-format
-#| msgid "In %(name)s"
+#, python-format
 msgid "Paid by %(name)s"
-msgstr "Em %(name)s"
+msgstr "Pago por %(name)s"
 
 #: templates/splits/pages/event_report.html:110
-#, fuzzy
-#| msgid "Expenses"
 msgid "No expenses."
-msgstr "Despesas"
+msgstr "Nenhuma despesa."
 
 #: templates/splits/pages/event_report.html:116
-#, fuzzy
 msgid "Payments"
-msgstr "Gerenciar"
+msgstr "Pagamentos"
 
 #: templates/splits/pages/event_report.html:136
-#, fuzzy
 msgid "No payments."
-msgstr "Gerenciar"
+msgstr "Nenhum pagamento."
 
 #: templates/splits/pages/external_auth.html:19
 msgid ""
 "Nobody without an account has been added yet. Ask the organizer to add your "
 "name."
 msgstr ""
+"Ninguém sem conta foi adicionado ainda. Peça ao organizador para adicionar "
+"seu nome."
 
 #: templates/splits/pages/external_auth.html:27
 msgid ""
 "First time here: pick a password so only you can sign in as this person."
 msgstr ""
+"Primeira vez aqui: escolha uma senha para que só você possa entrar como esta "
+"pessoa."
 
 #: templates/splits/pages/external_auth.html:36
 #: templates/splits/pages/external_auth.html:50
-#, fuzzy
-#| msgid "Content"
 msgid "Continue"
-msgstr "Conteúdo"
+msgstr "Continuar"
 
 #: templates/splits/pages/external_auth.html:49
 msgid "Set password and join"
-msgstr ""
+msgstr "Definir senha e participar"
 
 #: templates/splits/pages/external_auth.html:50
 msgid "Sign in"
-msgstr ""
+msgstr "Entrar"
 
 #: templates/splits/pages/external_base.html:39
 msgid "Sign out"
-msgstr ""
+msgstr "Sair"
 
 #: templates/splits/pages/external_disabled.html:12
 msgid "The organizer turned off link access for this event."
-msgstr ""
+msgstr "O organizador desativou o acesso por link para este evento."
 
 #: templates/tags/fragments/add.html:5
 msgid "Add tag"
@@ -6092,16 +5915,16 @@ msgstr "Datas relativas a hoje"
 
 #: templates/transactions/fragments/filter_presets.html:25
 msgid "Default preset, applied when the page opens"
-msgstr ""
+msgstr "Predefinição padrão, aplicada quando a página é aberta"
 
 #: templates/transactions/fragments/filter_presets.html:25
 msgid "Set as default"
-msgstr ""
+msgstr "Definir como padrão"
 
 #: templates/transactions/fragments/filter_presets.html:26
 #, python-format
 msgid "Use %(name)s as default"
-msgstr ""
+msgstr "Usar %(name)s como padrão"
 
 #: templates/transactions/fragments/filter_presets.html:35
 #, python-format
