@@ -1,5 +1,4 @@
-
-# StudentSpend
+2# StudentSpend
 # College Student Financial Tracker
 
 print("=====================================")
@@ -48,7 +47,22 @@ while True:
 
     # Option 2: Add Expense
     elif choice == "2":
-        print("\nYou selected Add Expense!")
+        print("\n========== ADD EXPENSE ==========")
+
+        source = input("What did you purchase? ")
+        category = input("Enter expense category: ")
+        amount = float(input("Enter expense amount: $"))
+
+        transaction = {
+            "type": "expense",
+            "source": source,
+            "category": category,
+            "amount": amount
+        }
+
+        transactions.append(transaction)
+
+        print("\nExpense successfully recorded!")
 
     # Option 3: View Current Balance
     elif choice == "3":
@@ -68,7 +82,7 @@ while True:
 
     # Option 7: Exit
     elif choice == "7":
-        print("\nThank you for using StudentSpend!")
+        print("\nThank you for using FinanceTracker!")
         break
 
     # Invalid menu selection
