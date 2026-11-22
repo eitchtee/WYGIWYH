@@ -327,3 +327,24 @@ WYGIWYH is possible thanks to a lot of amazing open source tools, to name a few:
 * PostgreSQL
 * Django REST framework
 * Alpine.js
+
+
+### Project Overview
+
+Our team is exploring the FinanceTracker application to understand its functionality, code structure, and development process.
+
+### Project Goals
+
+- Evaluate the existing application's code.
+- Understand how the different components work together.
+- Test the application and its installation process.
+- Identify features that could be useful for our project.
+- Document any issues or potential improvements.
+
+### Sprint 1 Roadmap
+
+- [ ] Review the existing repository.
+- [ ] Evaluate the application's code structure.
+- [ ] Research the technologies used.
+- [ ] Test the application and document any issues.
+- [ ] Discuss potential features for our project.
