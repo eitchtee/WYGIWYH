@@ -507,3 +507,37 @@ POK
         self.assertEqual(run.successful_rows, 0)
         self.assertEqual(run.skipped_rows, 1)
         self.assertFalse(Transaction.objects.exists())
+
+    def test_import_comma_decimal_amounts(self):
+        content = """!Type:Bank
+D05/01/2015
+T-19,78
+MCoffee
+^
+D06/01/2015
+T-1.234,56
+MRent
+^
+D07/01/2015
+T1,234.56
+MSalary
+^
+D08/01/2015
+T2,500
+MBonus
+^
+"""
+        self._import_qif(content, account=self.account)
+
+        amounts = {
+            t.description: (t.type, t.amount) for t in Transaction.objects.all()
+        }
+        self.assertEqual(
+            amounts,
+            {
+                "Coffee": (Transaction.Type.EXPENSE, Decimal("19.78")),
+                "Rent": (Transaction.Type.EXPENSE, Decimal("1234.56")),
+                "Salary": (Transaction.Type.INCOME, Decimal("1234.56")),
+                "Bonus": (Transaction.Type.INCOME, Decimal("2500")),
+            },
+        )
