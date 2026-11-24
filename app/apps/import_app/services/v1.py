@@ -722,6 +722,18 @@ class ImportService:
         return mapped_data
 
     @staticmethod
+    def _parse_qif_amount(value: str) -> Decimal:
+        # QIF does not declare a number format. Digit groups have three digits, so a
+        # comma followed by one or two final digits can only be a decimal mark
+        # ("-19,78", "1.234,56"); otherwise commas separate thousands.
+        value = value.strip()
+        if re.search(r",\d{1,2}$", value):
+            value = value.replace(".", "").replace(",", ".")
+        else:
+            value = value.replace(",", "")
+        return Decimal(value)
+
+    @staticmethod
     def _prepare_numeric_value(
         value: str, thousand_separator: str, decimal_separator: str
     ) -> Decimal:
@@ -1204,8 +1216,7 @@ class ImportService:
 
             elif code == "T":
                 try:
-                    cleaned_value = value.replace(",", "")
-                    amount = Decimal(cleaned_value)
+                    amount = self._parse_qif_amount(value)
                     if amount < 0:
                         current_transaction["type"] = Transaction.Type.EXPENSE
                         current_transaction["amount"] = abs(amount)
