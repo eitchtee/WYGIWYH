@@ -1,0 +1,88 @@
+{% load i18n %}
+<div class="flex justify-between items-center mb-2">
+  {% include 'rules/fragments/runs/status.html' %}
+  <span class="text-sm">
+    {% blocktranslate with processed=run.processed total=run.total %}{{ processed }} of {{ total }} transactions{% endblocktranslate %}
+  </span>
+</div>
+<progress class="progress progress-primary w-full"
+          aria-label="{% translate 'Progress' %}"
+          value="{% if run.status == run.Status.FINISHED and not run.total %}1{% else %}{{ run.processed }}{% endif %}"
+          max="{{ run.total|default:1 }}"></progress>
+
+{% if run.status == run.Status.QUEUED %}
+  <p class="text-subtle mt-2">{% translate 'Waiting for the background worker to start this run.' %}</p>
+{% elif run.status == run.Status.FAILED %}
+  <div class="alert alert-error mt-2" role="alert">
+    {% translate 'The run stopped before finishing. Check the server logs for details.' %}
+  </div>
+{% endif %}
+{% if not run.is_done %}
+  <p class="text-subtle mt-2">{% translate 'You can close this panel, the run continues in the background.' %}</p>
+{% endif %}
+
+<div class="stats stats-vertical sm:stats-horizontal shadow w-full mt-3">
+  <div class="stat">
+    <div class="stat-title">{% translate 'Applied' %}</div>
+    <div class="stat-value text-2xl text-success">{{ run.applied }}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-title">{% translate 'Failed' %}</div>
+    <div class="stat-value text-2xl {% if run.failed %}text-error{% endif %}">{{ run.failed }}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-title">{% translate 'No match' %}</div>
+    <div class="stat-value text-2xl">{{ run.unchanged }}</div>
+  </div>
+  {% if run.skipped %}
+    <div class="stat">
+      <div class="stat-title">{% translate 'Skipped' %}</div>
+      <div class="stat-value text-2xl">{{ run.skipped }}</div>
+    </div>
+  {% endif %}
+</div>
+
+<div class="text-xl mt-4 mb-2">{% translate 'Results by rule' %}</div>
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">{% translate 'Rule' %}</th>
+      <th scope="col" class="text-end">{% translate 'Applied' %}</th>
+      <th scope="col" class="text-end">{% translate 'Failed' %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for rule in run.rules %}
+      <tr>
+        <td class="break-words">{{ rule.name }}</td>
+        <td class="text-end">{{ rule.applied }}</td>
+        <td class="text-end">{{ rule.failed }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if run.failures %}
+  <div class="text-xl mt-4 mb-1">{% translate 'Errors' %}</div>
+  <p class="text-subtle mb-2">
+    {% translate "A rule that failed made no changes to that transaction." %}
+    {% if run.failures|length >= run.MAX_FAILURES %}
+      {% blocktranslate with limit=run.MAX_FAILURES %}Only the first {{ limit }} errors are listed.{% endblocktranslate %}
+    {% endif %}
+  </p>
+  <div class="flex flex-col gap-2">
+    {% for failure in run.failures %}
+      <div class="card bg-base-100 card-border shadow">
+        <div class="card-body p-3 break-words">
+          <div class="font-medium">
+            #{{ failure.transaction_id }} · {{ failure.date|default_if_none:"" }} · {{ failure.description }}
+          </div>
+          {% if failure.rule %}<div class="text-subtle">{{ failure.rule }}</div>{% endif %}
+          <div class="text-error text-sm">{{ failure.error }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

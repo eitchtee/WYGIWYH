@@ -2,7 +2,11 @@ from crispy_forms.bootstrap import Alert
 from apps.common.fields.forms.dynamic_select import DynamicModelChoiceField
 from apps.common.widgets.crispy.daisyui import Switch
 from apps.common.widgets.crispy.submit import NoClassSubmit
-from apps.common.widgets.tom_select import TomSelect, TransactionSelect
+from apps.common.widgets.tom_select import (
+    TomSelect,
+    TomSelectMultiple,
+    TransactionSelect,
+)
 from apps.rules.models import (
     TransactionRule,
     TransactionRuleAction,
@@ -400,6 +404,30 @@ class UpdateOrCreateTransactionRuleActionForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+class RunRulesForm(forms.Form):
+    rules = forms.ModelMultipleChoiceField(
+        queryset=TransactionRule.objects.none(),
+        label=_("Rules"),
+        widget=TomSelectMultiple(remove_button=True, checkboxes=True),
+    )
+
+    def __init__(self, *args, user, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["rules"].queryset = TransactionRule.runnable_by(user).order_by(
+            "order", "id"
+        )
+
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            "rules",
+            FormActions(
+                NoClassSubmit("submit", _("Run"), css_class="btn btn-primary"),
+            ),
+        )
 
 
 class DryRunCreatedTransacion(forms.Form):

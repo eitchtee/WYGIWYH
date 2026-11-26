@@ -1,0 +1,28 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+
+{% block title %}{% translate 'Run history' %}{% endblock %}
+
+{% block body %}
+  <div class="flex flex-col gap-2">
+    {% for run in runs %}
+      <button class="card bg-base-100 card-border shadow text-start cursor-pointer"
+              type="button"
+              hx-get="{% url 'rule_run_detail' pk=run.id %}"
+              hx-target="#generic-offcanvas">
+        <div class="card-body p-3 w-full">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">#{{ run.id }} · {{ run.created_at|date:"SHORT_DATETIME_FORMAT" }}</span>
+            {% include 'rules/fragments/runs/status.html' %}
+          </div>
+          <div class="text-subtle break-words">{% for rule in run.rules %}{{ rule.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+          <div class="text-sm">
+            {% translate 'Applied' %}: {{ run.applied }} · {% translate 'Failed' %}: {{ run.failed }}
+          </div>
+        </div>
+      </button>
+    {% empty %}
+      <c-msg.empty title="{% translate "No runs yet" %}"></c-msg.empty>
+    {% endfor %}
+  </div>
+{% endblock %}

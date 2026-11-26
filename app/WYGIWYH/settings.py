@@ -599,7 +599,12 @@ else:
         },
     }
 
-CACHALOT_UNCACHABLE_TABLES = ("django_migrations", "procrastinate_jobs")
+CACHALOT_UNCACHABLE_TABLES = (
+    "django_migrations",
+    "procrastinate_jobs",
+    # Polled for progress while the worker writes to it
+    "rules_rulerun",
+)
 
 # Procrastinate
 PROCRASTINATE_ON_APP_READY = "apps.common.procrastinate.on_app_ready"

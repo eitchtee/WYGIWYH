@@ -6,10 +6,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
+from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_http_methods
+from procrastinate.exceptions import AlreadyEnqueued
 
 from apps.common.decorators.htmx import only_htmx
 from apps.common.functions.permissions import (
@@ -24,8 +26,10 @@ from apps.rules.forms import (
     DryRunCreatedTransacion,
     DryRunDeletedTransacion,
     DryRunUpdatedTransactionForm,
+    RunRulesForm,
 )
 from apps.rules.models import (
+    RuleRun,
     TransactionRule,
     TransactionRuleAction,
     UpdateOrCreateTransactionRuleAction,
@@ -33,7 +37,10 @@ from apps.rules.models import (
 from apps.common.models import SharedObject
 from apps.common.forms import SharedObjectForm
 from apps.common.decorators.demo import disabled_on_demo
-from apps.rules.tasks import check_for_transaction_rules
+from apps.rules.tasks import (
+    check_for_transaction_rules,
+    run_rules_on_all_transactions,
+)
 from apps.common.middleware.thread_local import get_current_user
 from apps.rules.signals import transaction_created, transaction_updated
 from apps.rules.utils.transactions import serialize_transaction
@@ -59,7 +66,103 @@ def rules_list(request):
     return render(
         request,
         "rules/fragments/list.html",
-        {"transaction_rules": transaction_rules},
+        {
+            "transaction_rules": transaction_rules,
+            "runnable_rule_ids": set(
+                TransactionRule.runnable_by(request.user).values_list("id", flat=True)
+            ),
+        },
+    )
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET", "POST"])
+def rules_run(request):
+    """Run the chosen rules against all existing transactions, in the background."""
+    if request.method == "POST":
+        form = RunRulesForm(request.POST, user=request.user)
+        if form.is_valid():
+            lock = f"run_rules_on_all_transactions_{request.user.id}"
+            try:
+                # Together, so a rejected job doesn't leave a run behind
+                with transaction.atomic():
+                    run = RuleRun.objects.create(
+                        owner=request.user,
+                        rules=[
+                            {
+                                "id": rule.id,
+                                "name": rule.name,
+                                "applied": 0,
+                                "failed": 0,
+                            }
+                            for rule in form.cleaned_data["rules"]
+                        ],
+                    )
+                    # One run per user at a time, with at most one more waiting
+                    run_rules_on_all_transactions.configure(
+                        lock=lock, queueing_lock=lock
+                    ).defer(run_id=run.id)
+            except AlreadyEnqueued:
+                messages.error(
+                    request,
+                    _("A run is already waiting to start, try again later"),
+                )
+                return HttpResponse(
+                    status=204,
+                    headers={"HX-Trigger": "updated, hide_offcanvas"},
+                )
+
+            return render(request, "rules/fragments/runs/detail.html", {"run": run})
+    else:
+        rule_id = request.GET.get("rule", "")
+        if rule_id.isdigit():
+            initial = [int(rule_id)]
+        else:
+            # Delete-only rules are left unchecked: their transactions weren't deleted
+            initial = TransactionRule.runnable_by(request.user).filter(
+                Q(on_create=True) | Q(on_update=True), active=True
+            )
+        form = RunRulesForm(initial={"rules": initial}, user=request.user)
+
+    return render(
+        request,
+        "rules/fragments/run.html",
+        {"form": form, "transaction_count": Transaction.objects.count()},
+    )
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET"])
+def rule_runs_list(request):
+    runs = RuleRun.objects.filter(owner=request.user)[:20]
+    return render(request, "rules/fragments/runs/list.html", {"runs": runs})
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET"])
+def rule_run_detail(request, pk):
+    run = get_object_or_404(RuleRun, id=pk, owner=request.user)
+    return render(request, "rules/fragments/runs/detail.html", {"run": run})
+
+
+@only_htmx
+@login_required
+@disabled_on_demo
+@require_http_methods(["GET"])
+def rule_run_progress(request, pk):
+    run = get_object_or_404(RuleRun, id=pk, owner=request.user)
+    return render(
+        request,
+        "rules/fragments/runs/progress.html",
+        {"run": run},
+        # 286 tells htmx to stop polling
+        status=286 if run.is_done else 200,
     )
 
 
@@ -168,7 +271,13 @@ def transaction_rule_view(request, transaction_rule_id):
     return render(
         request,
         "rules/fragments/transaction_rule/view.html",
-        {"transaction_rule": transaction_rule, "all_actions": all_actions},
+        {
+            "transaction_rule": transaction_rule,
+            "all_actions": all_actions,
+            "can_run": TransactionRule.runnable_by(request.user)
+            .filter(id=transaction_rule.id)
+            .exists(),
+        },
     )
 
 

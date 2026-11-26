@@ -1,0 +1,25 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% translate 'Run on all transactions' %}{% endblock %}
+
+{% block body %}
+  <div class="alert alert-warning mb-3" role="alert">
+    <div>
+      <p>
+        {% blocktranslate count count=transaction_count %}The selected rules will be applied to {{ count }} transaction, old and new.{% plural %}The selected rules will be applied to all {{ count }} transactions, old and new.{% endblocktranslate %}
+      </p>
+      <p class="mt-2">{% translate "This changes your data and can't be undone." %}</p>
+    </div>
+  </div>
+  <ul class="list-disc ps-5 mb-3 text-subtle">
+    <li>{% translate 'This includes transactions in shared and public accounts you have access to.' %}</li>
+    <li>{% translate 'Inactive rules also run if you select them.' %}</li>
+    <li>{% translate 'is_on_create, is_on_update and is_on_delete are all False, and old_ values are not available.' %}</li>
+    <li>{% translate 'Update or create actions can create duplicates if run more than once.' %}</li>
+  </ul>
+  <form hx-post="{% url 'rules_run' %}" hx-target="#generic-offcanvas" novalidate>
+    {% crispy form %}
+  </form>
+{% endblock %}

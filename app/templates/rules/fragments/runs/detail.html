@@ -1,0 +1,21 @@
+{% extends 'extends/offcanvas.html' %}
+{% load i18n %}
+
+{% block title %}{% translate 'Rule run' %} #{{ run.id }}{% endblock %}
+
+{% block body %}
+  {# Polls until the run is done. Its swaps must not bubble up, or they could reopen a panel being closed #}
+  <div {% if not run.is_done %}hx-get="{% url 'rule_run_progress' pk=run.id %}"
+       hx-trigger="every 2s"
+       hx-target="this"
+       hx-swap="innerHTML"
+       _="on htmx:afterSettle halt the event's bubbling"{% endif %}>
+    {% include 'rules/fragments/runs/progress.html' %}
+  </div>
+  <button class="btn btn-ghost btn-sm mt-3"
+          type="button"
+          hx-get="{% url 'rule_runs_list' %}"
+          hx-target="#generic-offcanvas">
+    <i class="fa-solid fa-clock-rotate-left fa-fw me-2"></i>{% translate 'Run history' %}
+  </button>
+{% endblock %}

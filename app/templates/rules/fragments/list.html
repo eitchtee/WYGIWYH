@@ -12,6 +12,22 @@
 
   <div class="card bg-base-100 shadow-xl">
     <div class="card-body overflow-x-auto">
+      <div class="flex flex-wrap justify-end gap-2">
+        <button class="btn btn-ghost btn-sm"
+                type="button"
+                hx-get="{% url 'rule_runs_list' %}"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-clock-rotate-left fa-fw me-2"></i>{% translate 'Run history' %}
+        </button>
+        {% if transaction_rules %}
+          <button class="btn btn-secondary btn-sm"
+                  type="button"
+                  hx-get="{% url 'rules_run' %}"
+                  hx-target="#generic-offcanvas">
+            <i class="fa-solid fa-play fa-fw me-2"></i>{% translate 'Run on all transactions' %}
+          </button>
+        {% endif %}
+      </div>
       {% if transaction_rules %}
         <c-config.search></c-config.search>
         <div class="overflow-x-auto">
@@ -35,6 +51,14 @@
                        hx-get="{% url 'transaction_rule_view' transaction_rule_id=rule.id %}"
                        hx-target="#persistent-generic-offcanvas-left">
                       <i class="fa-solid fa-eye fa-fw"></i></a>
+                    {% if rule.id in runnable_rule_ids %}
+                      <a class="btn btn-secondary btn-sm join-item"
+                         role="button"
+                         data-tippy-content="{% translate "Run on all transactions" %}"
+                         hx-get="{% url 'rules_run' %}?rule={{ rule.id }}"
+                         hx-target="#generic-offcanvas">
+                        <i class="fa-solid fa-play fa-fw"></i></a>
+                    {% endif %}
                     {% if not rule.owner %}
                       <a class="btn btn-secondary btn-sm join-item"
                          role="button"

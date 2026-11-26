@@ -1,5 +1,6 @@
 import decimal
 import logging
+import sys
 import traceback
 from copy import deepcopy
 from datetime import datetime, date
@@ -7,13 +8,15 @@ from decimal import Decimal
 from itertools import chain
 from pprint import pformat
 from random import randint, random
+from time import monotonic
 from typing import Literal
 
 from cachalot.api import cachalot_disabled
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth import get_user_model
-from django.db.models import Q
+from django.db import transaction as db_transaction
 from django.forms import model_to_dict
+from django.utils import timezone
 from procrastinate.contrib.django import app
 from simpleeval import EvalWithCompoundTypes
 
@@ -21,6 +24,7 @@ from apps.accounts.models import Account
 from apps.common.functions.decimals import truncate_decimal
 from apps.common.middleware.thread_local import write_current_user, delete_current_user
 from apps.rules.models import (
+    RuleRun,
     TransactionRule,
     TransactionRuleAction,
 )
@@ -171,8 +175,15 @@ def check_for_transaction_rules(
     is_hard_deleted=False,
     dry_run=False,
     rule_id=None,
+    rule_ids=None,
 ):
+    # Kept so a manual run knows whether a rule applied cleanly, and why not
+    errors = []
+
     def _log(message: str, level="info"):
+        if level == "error":
+            errors.append(str(sys.exc_info()[1] or message))
+
         if dry_run:
             if logs is not None:
                 logs.append(message)
@@ -629,6 +640,164 @@ def check_for_transaction_rules(
 
         return transaction
 
+    def _process_rule(rule) -> bool:
+        """Runs a rule against the instance. Returns whether its trigger matched."""
+        nonlocal instance
+
+        _log("Testing rule: {}".format(rule.name))
+        if simple.eval(rule.trigger):
+            _log("Initial trigger matched!")
+            # For deleted transactions, we want to limit what actions can be performed
+            if signal == "transaction_deleted":
+                _log(
+                    "Event is of type 'delete'. Only processing Update or Create actions..."
+                )
+                # Process only create/update actions, not edit actions
+                for action in rule.update_or_create_transaction_actions.all():
+                    try:
+                        _log(
+                            "Processing action with id {} and order {}...".format(
+                                action.id, action.order
+                            )
+                        )
+                        _process_update_or_create_transaction_action(
+                            processed_action=action,
+                        )
+                    except Exception as e:
+                        dry_run_results.error(
+                            "Error raised: '{}'. Check the logs tab for more "
+                            "information".format(e)
+                        )
+                        _log(
+                            f"Error processing update or create transaction action {action.id} on deletion",
+                            level="error",
+                        )
+            else:
+                # Normal processing for non-deleted transactions
+                edit_actions = list(rule.transaction_actions.all())
+                update_or_create_actions = list(
+                    rule.update_or_create_transaction_actions.all()
+                )
+
+                # Check if any action has a non-zero order
+                has_custom_order = any(a.order > 0 for a in edit_actions) or any(
+                    a.order > 0 for a in update_or_create_actions
+                )
+
+                if has_custom_order:
+                    _log(
+                        "One or more actions have a custom order, actions will be processed ordered by "
+                        "order and creation date..."
+                    )
+                    # Combine and sort actions by order
+                    all_actions = sorted(
+                        chain(edit_actions, update_or_create_actions),
+                        key=lambda a: (a.order, a.id),
+                    )
+
+                    for action in all_actions:
+                        try:
+                            if isinstance(action, TransactionRuleAction):
+                                _log(
+                                    "Processing 'edit_transaction' action with id {} and order {}...".format(
+                                        action.id, action.order
+                                    )
+                                )
+                                instance = _process_edit_transaction_action(
+                                    transaction=instance,
+                                    processed_action=action,
+                                )
+
+                                if rule.sequenced:
+                                    # Update names for next actions
+                                    simple.names.update(_get_names(instance))
+                            else:
+                                _log(
+                                    "Processing 'update_or_create_transaction' action with id {} and order {}...".format(
+                                        action.id, action.order
+                                    )
+                                )
+                                _process_update_or_create_transaction_action(
+                                    processed_action=action,
+                                )
+                                _clear_names("my_")
+                        except Exception as e:
+                            dry_run_results.error(
+                                "Error raised: '{}'. Check the logs tab for more "
+                                "information".format(e)
+                            )
+                            _log(
+                                f"Error processing action {action.id}",
+                                level="error",
+                            )
+                    # Save at the end
+                    if signal != "transaction_deleted":
+                        instance.save()
+                else:
+                    _log(
+                        "No actions have a custom order, actions will be processed ordered by creation "
+                        "date, with Edit actions running first, then Update or Create actions..."
+                    )
+                    # Original behavior
+                    for action in edit_actions:
+                        _log(
+                            "Processing 'edit_transaction' action with id {}...".format(
+                                action.id
+                            )
+                        )
+                        try:
+                            instance = _process_edit_transaction_action(
+                                transaction=instance,
+                                processed_action=action,
+                            )
+                            if rule.sequenced:
+                                # Update names for next actions
+                                simple.names.update(_get_names(instance))
+                        except Exception as e:
+                            dry_run_results.error(
+                                "Error raised: '{}'. Check the logs tab for more "
+                                "information".format(e)
+                            )
+                            _log(
+                                f"Error processing edit transaction action {action.id}",
+                                level="error",
+                            )
+
+                    if rule.sequenced:
+                        # Update names for next actions
+                        simple.names.update(_get_names(instance))
+                    if signal != "transaction_deleted":
+                        instance.save()
+
+                    for action in update_or_create_actions:
+                        _log(
+                            "Processing 'update_or_create_transaction' action with id {}...".format(
+                                action.id
+                            )
+                        )
+                        try:
+                            _process_update_or_create_transaction_action(
+                                processed_action=action,
+                            )
+                            _clear_names("my_")
+                        except Exception as e:
+                            dry_run_results.error(
+                                "Error raised: '{}'. Check the logs tab for more "
+                                "information".format(e)
+                            )
+                            _log(
+                                f"Error processing update or create transaction action {action.id}",
+                                level="error",
+                            )
+        else:
+            dry_run_results.error(
+                error="Initial trigger didn't match, this rule will be skipped",
+            )
+            _log("Initial trigger didn't match, this rule will be skipped")
+            return False
+
+        return True
+
     user = get_user_model().objects.get(id=user_id)
     if not dry_run:
         write_current_user(user)
@@ -677,186 +846,61 @@ def check_for_transaction_rules(
             if signal == "transaction_updated" and old_data:
                 simple.names.update(_get_names(old_data, "old_"))
 
-            # Public rules are readable by everyone but only run for their owner
-            # and the users they are explicitly shared with.
-            runnable_rules = TransactionRule.all_objects.filter(
-                Q(owner=user) | Q(shared_with=user) | Q(owner=None)
-            ).distinct()
+            runnable_rules = TransactionRule.runnable_by(user)
 
             # Select rules based on the signal type
             if dry_run and rule_id:
                 rules = TransactionRule.objects.filter(id=rule_id)
-            elif signal == "transaction_created":
-                rules = runnable_rules.filter(
-                    active=True, on_create=True
-                ).order_by("order", "id")
-            elif signal == "transaction_updated":
-                rules = runnable_rules.filter(
-                    active=True, on_update=True
-                ).order_by("order", "id")
-            elif signal == "transaction_deleted":
-                rules = runnable_rules.filter(
-                    active=True, on_delete=True
-                ).order_by("order", "id")
-            else:
-                rules = runnable_rules.filter(active=True).order_by(
+            elif signal == "transaction_manual":
+                # Chosen by the user, so "active" and the "run on" switches don't apply
+                rules = runnable_rules.filter(id__in=rule_ids or []).order_by(
                     "order", "id"
                 )
+            elif signal == "transaction_created":
+                rules = runnable_rules.filter(active=True, on_create=True).order_by(
+                    "order", "id"
+                )
+            elif signal == "transaction_updated":
+                rules = runnable_rules.filter(active=True, on_update=True).order_by(
+                    "order", "id"
+                )
+            elif signal == "transaction_deleted":
+                rules = runnable_rules.filter(active=True, on_delete=True).order_by(
+                    "order", "id"
+                )
+            else:
+                rules = runnable_rules.filter(active=True).order_by("order", "id")
 
             _log("Testing {} rule(s)...".format(len(rules)))
 
             # Process the rules as before
+            applied_rule_ids = []
+            failed_rules = {}
             for rule in rules:
-                _log("Testing rule: {}".format(rule.name))
-                if simple.eval(rule.trigger):
-                    _log("Initial trigger matched!")
-                    # For deleted transactions, we want to limit what actions can be performed
-                    if signal == "transaction_deleted":
+                if signal != "transaction_manual":
+                    _process_rule(rule)
+                    continue
+
+                # A manual run touches the whole history, so a rule that fails is
+                # rolled back for this transaction instead of being half applied
+                names_before = dict(simple.names)
+                errors_before = len(errors)
+                try:
+                    with db_transaction.atomic():
+                        matched = _process_rule(rule)
+                        if len(errors) > errors_before:
+                            raise _RuleFailed
+                    if matched:
+                        applied_rule_ids.append(rule.id)
+                except Exception as e:
+                    if not isinstance(e, _RuleFailed):
                         _log(
-                            "Event is of type 'delete'. Only processing Update or Create actions..."
+                            f"Error processing rule {rule.id} on transaction {instance_id}",
+                            level="error",
                         )
-                        # Process only create/update actions, not edit actions
-                        for action in rule.update_or_create_transaction_actions.all():
-                            try:
-                                _log(
-                                    "Processing action with id {} and order {}...".format(
-                                        action.id, action.order
-                                    )
-                                )
-                                _process_update_or_create_transaction_action(
-                                    processed_action=action,
-                                )
-                            except Exception as e:
-                                dry_run_results.error(
-                                    "Error raised: '{}'. Check the logs tab for more "
-                                    "information".format(e)
-                                )
-                                _log(
-                                    f"Error processing update or create transaction action {action.id} on deletion",
-                                    level="error",
-                                )
-                    else:
-                        # Normal processing for non-deleted transactions
-                        edit_actions = list(rule.transaction_actions.all())
-                        update_or_create_actions = list(
-                            rule.update_or_create_transaction_actions.all()
-                        )
-
-                        # Check if any action has a non-zero order
-                        has_custom_order = any(
-                            a.order > 0 for a in edit_actions
-                        ) or any(a.order > 0 for a in update_or_create_actions)
-
-                        if has_custom_order:
-                            _log(
-                                "One or more actions have a custom order, actions will be processed ordered by "
-                                "order and creation date..."
-                            )
-                            # Combine and sort actions by order
-                            all_actions = sorted(
-                                chain(edit_actions, update_or_create_actions),
-                                key=lambda a: (a.order, a.id),
-                            )
-
-                            for action in all_actions:
-                                try:
-                                    if isinstance(action, TransactionRuleAction):
-                                        _log(
-                                            "Processing 'edit_transaction' action with id {} and order {}...".format(
-                                                action.id, action.order
-                                            )
-                                        )
-                                        instance = _process_edit_transaction_action(
-                                            transaction=instance,
-                                            processed_action=action,
-                                        )
-
-                                        if rule.sequenced:
-                                            # Update names for next actions
-                                            simple.names.update(_get_names(instance))
-                                    else:
-                                        _log(
-                                            "Processing 'update_or_create_transaction' action with id {} and order {}...".format(
-                                                action.id, action.order
-                                            )
-                                        )
-                                        _process_update_or_create_transaction_action(
-                                            processed_action=action,
-                                        )
-                                        _clear_names("my_")
-                                except Exception as e:
-                                    dry_run_results.error(
-                                        "Error raised: '{}'. Check the logs tab for more "
-                                        "information".format(e)
-                                    )
-                                    _log(
-                                        f"Error processing action {action.id}",
-                                        level="error",
-                                    )
-                            # Save at the end
-                            if signal != "transaction_deleted":
-                                instance.save()
-                        else:
-                            _log(
-                                "No actions have a custom order, actions will be processed ordered by creation "
-                                "date, with Edit actions running first, then Update or Create actions..."
-                            )
-                            # Original behavior
-                            for action in edit_actions:
-                                _log(
-                                    "Processing 'edit_transaction' action with id {}...".format(
-                                        action.id
-                                    )
-                                )
-                                try:
-                                    instance = _process_edit_transaction_action(
-                                        transaction=instance,
-                                        processed_action=action,
-                                    )
-                                    if rule.sequenced:
-                                        # Update names for next actions
-                                        simple.names.update(_get_names(instance))
-                                except Exception as e:
-                                    dry_run_results.error(
-                                        "Error raised: '{}'. Check the logs tab for more "
-                                        "information".format(e)
-                                    )
-                                    _log(
-                                        f"Error processing edit transaction action {action.id}",
-                                        level="error",
-                                    )
-
-                            if rule.sequenced:
-                                # Update names for next actions
-                                simple.names.update(_get_names(instance))
-                            if signal != "transaction_deleted":
-                                instance.save()
-
-                            for action in update_or_create_actions:
-                                _log(
-                                    "Processing 'update_or_create_transaction' action with id {}...".format(
-                                        action.id
-                                    )
-                                )
-                                try:
-                                    _process_update_or_create_transaction_action(
-                                        processed_action=action,
-                                    )
-                                    _clear_names("my_")
-                                except Exception as e:
-                                    dry_run_results.error(
-                                        "Error raised: '{}'. Check the logs tab for more "
-                                        "information".format(e)
-                                    )
-                                    _log(
-                                        f"Error processing update or create transaction action {action.id}",
-                                        level="error",
-                                    )
-                else:
-                    dry_run_results.error(
-                        error="Initial trigger didn't match, this rule will be skipped",
-                    )
-                    _log("Initial trigger didn't match, this rule will be skipped")
+                    failed_rules[rule.id] = "; ".join(errors[errors_before:])
+                    instance = Transaction.objects.get(id=instance_id)
+                    simple.names = names_before
 
             if not dry_run and signal == "transaction_created":
                 try:
@@ -879,6 +923,105 @@ def check_for_transaction_rules(
     if not dry_run:
         delete_current_user()
 
+    if signal == "transaction_manual":
+        return {"applied_rule_ids": applied_rule_ids, "failed_rules": failed_rules}
+
     return logs, dry_run_results.results
 
-    return None
+
+class _RuleFailed(Exception):
+    pass
+
+
+@app.task(name="run_rules_on_all_transactions")
+def run_rules_on_all_transactions(run_id: int):
+    """
+    Applies the rules of a RuleRun to every transaction its owner has access to,
+    oldest first, recording progress and results on the run.
+    """
+    run = RuleRun.objects.get(id=run_id)
+    run.status = RuleRun.Status.PROCESSING
+    run.save()
+
+    try:
+        _apply_run(run)
+    except Exception:
+        run.status = RuleRun.Status.FAILED
+        raise
+    else:
+        run.status = RuleRun.Status.FINISHED
+        logger.info(
+            f"Finished rule run {run.id}: {run.total} transactions, "
+            f"{run.applied} applied, {run.failed} failed, {run.skipped} skipped"
+        )
+    finally:
+        run.finished_at = timezone.now()
+        run.save()
+
+
+def _apply_run(run: RuleRun):
+    rules = {rule["id"]: rule for rule in run.rules}
+
+    write_current_user(run.owner)
+    try:
+        with cachalot_disabled():
+            # Taken up front: transactions created by the rules are not processed
+            transaction_ids = list(
+                Transaction.objects.order_by("date", "id").values_list("id", flat=True)
+            )
+    finally:
+        delete_current_user()
+
+    run.total = len(transaction_ids)
+    run.save()
+    last_saved = monotonic()
+
+    for transaction_id in transaction_ids:
+        try:
+            result = check_for_transaction_rules(
+                instance_id=transaction_id,
+                user_id=run.owner_id,
+                signal="transaction_manual",
+                rule_ids=list(rules),
+            )
+        except Transaction.DoesNotExist:
+            # Deleted while the run was in progress
+            run.skipped += 1
+        except Exception as e:
+            # Already logged by the task, carry on with the remaining transactions
+            run.failed += 1
+            _record_failure(run, transaction_id, None, str(e))
+        else:
+            for rule_id in result["applied_rule_ids"]:
+                rules[rule_id]["applied"] += 1
+            for rule_id, error in result["failed_rules"].items():
+                rules[rule_id]["failed"] += 1
+                _record_failure(run, transaction_id, rules[rule_id]["name"], error)
+
+            if result["failed_rules"]:
+                run.failed += 1
+            elif result["applied_rule_ids"]:
+                run.applied += 1
+
+        run.processed += 1
+
+        # Throttled, the page polls every couple of seconds anyway
+        if monotonic() - last_saved >= 1:
+            run.save()
+            last_saved = monotonic()
+
+
+def _record_failure(run: RuleRun, transaction_id: int, rule_name, error: str):
+    if len(run.failures) >= RuleRun.MAX_FAILURES:
+        return
+
+    transaction = Transaction.userless_all_objects.filter(id=transaction_id).first()
+    run.failures.append(
+        {
+            "transaction_id": transaction_id,
+            "date": transaction.date.isoformat() if transaction else None,
+            "description": transaction.description if transaction else "",
+            "rule": rule_name,
+            "error": error[:500],
+        }
+    )
