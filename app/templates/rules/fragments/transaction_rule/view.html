@@ -110,7 +110,15 @@
         </div>
       {% endfor %}
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-5">
+      {% if can_run %}
+        <button class="btn btn-secondary w-full mt-5"
+                type="button"
+                hx-get="{% url 'rules_run' %}?rule={{ transaction_rule.id }}"
+                hx-target="#generic-offcanvas">
+          <i class="fa-solid fa-play fa-fw me-2"></i>{% translate 'Run on all transactions' %}
+        </button>
+      {% endif %}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-2">
         <div class="dropdown">
           <button class="btn btn-secondary w-full" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">

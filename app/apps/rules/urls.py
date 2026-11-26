@@ -13,6 +13,26 @@ urlpatterns = [
         name="rules_list",
     ),
     path(
+        "rules/run/",
+        views.rules_run,
+        name="rules_run",
+    ),
+    path(
+        "rules/runs/",
+        views.rule_runs_list,
+        name="rule_runs_list",
+    ),
+    path(
+        "rules/runs/<int:pk>/",
+        views.rule_run_detail,
+        name="rule_run_detail",
+    ),
+    path(
+        "rules/runs/<int:pk>/progress/",
+        views.rule_run_progress,
+        name="rule_run_progress",
+    ),
+    path(
         "rules/transaction/<int:transaction_rule_id>/view/",
         views.transaction_rule_view,
         name="transaction_rule_view",

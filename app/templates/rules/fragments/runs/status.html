@@ -1,0 +1,3 @@
+<span class="badge {% if run.status == run.Status.FINISHED %}{% if run.failed %}badge-warning{% else %}badge-success{% endif %}{% elif run.status == run.Status.FAILED %}badge-error{% else %}badge-info{% endif %}">
+  {{ run.get_status_display }}
+</span>

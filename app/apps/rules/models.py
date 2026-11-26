@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -25,6 +26,17 @@ class TransactionRule(SharedObject):
     class Meta:
         verbose_name = _("Transaction rule")
         verbose_name_plural = _("Transaction rules")
+
+    @classmethod
+    def runnable_by(cls, user):
+        """Rules that may change ``user``'s transactions.
+
+        Public rules are readable by everyone but only run for their owner and
+        the users they are explicitly shared with.
+        """
+        return cls.all_objects.filter(
+            Q(owner=user) | Q(shared_with=user) | Q(owner=None)
+        ).distinct()
 
     def __str__(self):
         return self.name
@@ -446,3 +458,49 @@ class UpdateOrCreateTransactionRuleAction(models.Model):
                     search_query &= Q(entities__name__iexact=entities_value)
 
         return search_query
+
+
+class RuleRun(models.Model):
+    """A manual run of rules against all existing transactions, and its results."""
+
+    class Status(models.TextChoices):
+        QUEUED = "QUEUED", _("Queued")
+        PROCESSING = "PROCESSING", _("Processing")
+        FINISHED = "FINISHED", _("Finished")
+        FAILED = "FAILED", _("Failed")
+
+    # Enough to find out what is wrong without storing one entry per transaction
+    MAX_FAILURES = 100
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="rule_runs",
+    )
+    status = models.CharField(
+        max_length=10, choices=Status.choices, default=Status.QUEUED
+    )
+    # [{"id", "name", "applied", "failed"}], kept even if the rule is later deleted
+    rules = models.JSONField(default=list)
+    total = models.PositiveIntegerField(default=0)
+    processed = models.PositiveIntegerField(default=0)
+    applied = models.PositiveIntegerField(default=0)
+    failed = models.PositiveIntegerField(default=0)
+    skipped = models.PositiveIntegerField(default=0)
+    # [{"transaction_id", "date", "description", "rule", "error"}]
+    failures = models.JSONField(default=list)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-id"]
+
+    @property
+    def is_done(self):
+        return self.status in (self.Status.FINISHED, self.Status.FAILED)
+
+    @property
+    def unchanged(self):
+        """Processed transactions that no selected rule matched."""
+        return self.processed - self.applied - self.failed - self.skipped
