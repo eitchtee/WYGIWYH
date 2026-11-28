@@ -445,6 +445,68 @@ class WygiwyhSyncTests(SplitTestBase):
         self.assertFalse(SplitTransactionLink.objects.filter(id=link.id).exists())
         self.assertTrue(Transaction.objects.filter(id=existing_tx.id).exists())
 
+    @patch("apps.rules.signals.check_for_transaction_rules.defer")
+    def test_created_transaction_triggers_rules(self, defer):
+        self.client.force_login(self.creator)
+        exp = SplitExpense.objects.create(
+            event=self.event,
+            paid_by=self.p_alice,
+            description="Dinner",
+            amount=Decimal("30.00"),
+        )
+
+        resp = self.client.post(
+            reverse(
+                "split_sync_expense",
+                kwargs={"event_id": self.event.id, "expense_id": exp.id},
+            ),
+            {
+                "mode": "create",
+                "account": self.account.id,
+                "amount": "30.00",
+                "date": str(timezone.localdate()),
+                "description": "Dinner",
+                "is_paid": "on",
+            },
+            HTTP_HX_REQUEST="true",
+        )
+        self.assertEqual(resp.status_code, 204)
+
+        link = SplitTransactionLink.objects.get(event=self.event, expense=exp)
+        defer.assert_called_once()
+        self.assertEqual(defer.call_args.kwargs["instance_id"], link.transaction_id)
+        self.assertEqual(defer.call_args.kwargs["signal"], "transaction_created")
+        self.assertEqual(defer.call_args.kwargs["user_id"], self.creator.id)
+
+    @patch("apps.rules.signals.check_for_transaction_rules.defer")
+    def test_linking_existing_transaction_does_not_trigger_rules(self, defer):
+        self.client.force_login(self.creator)
+        exp = SplitExpense.objects.create(
+            event=self.event,
+            paid_by=self.p_alice,
+            description="Dinner",
+            amount=Decimal("30.00"),
+        )
+        existing_tx = Transaction.objects.create(
+            owner=self.creator,
+            account=self.account,
+            type=Transaction.Type.EXPENSE,
+            amount=Decimal("30.00"),
+            date=timezone.localdate(),
+            description="Restaurant",
+        )
+
+        resp = self.client.post(
+            reverse(
+                "split_sync_expense",
+                kwargs={"event_id": self.event.id, "expense_id": exp.id},
+            ),
+            {"mode": "link", "existing_transaction": existing_tx.id},
+            HTTP_HX_REQUEST="true",
+        )
+        self.assertEqual(resp.status_code, 204)
+        defer.assert_not_called()
+
     def test_creator_can_remove_unused_or_deactivate_used_participant(self):
         self.client.force_login(self.creator)
         unused = SplitParticipant.objects.create(

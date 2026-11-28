@@ -4,6 +4,7 @@ from django.db import transaction as db_transaction
 from django.utils import timezone
 
 from apps.accounts.models import Account
+from apps.rules.signals import transaction_created
 from apps.splits.models import (
     SplitEvent,
     SplitExpense,
@@ -44,7 +45,6 @@ def build_default_sync_description(
     return f"[{event.name}] Split transaction"
 
 
-@db_transaction.atomic
 def create_and_link_transaction(
     *,
     user,
@@ -64,30 +64,36 @@ def create_and_link_transaction(
     counterparty: SplitParticipant | None = None,
 ) -> SplitTransactionLink:
     tx_type = expected_transaction_type_for_kind(kind)
-    tx = Transaction(
-        owner=user,
-        account=account,
-        type=tx_type,
-        is_paid=is_paid,
-        date=date or timezone.localdate(),
-        amount=amount,
-        description=description[:500],
-        notes=notes,
-        category=category,
-    )
-    tx.save()
-    tx.tags.set(tags)
-    tx.entities.set(entities)
+    with db_transaction.atomic():
+        tx = Transaction(
+            owner=user,
+            account=account,
+            type=tx_type,
+            is_paid=is_paid,
+            date=date or timezone.localdate(),
+            amount=amount,
+            description=description[:500],
+            notes=notes,
+            category=category,
+        )
+        tx.save()
+        tx.tags.set(tags)
+        tx.entities.set(entities)
 
-    return SplitTransactionLink.objects.create(
-        event=event,
-        user=user,
-        transaction=tx,
-        kind=kind,
-        expense=expense,
-        payment=payment,
-        counterparty=counterparty,
-    )
+        link = SplitTransactionLink.objects.create(
+            event=event,
+            user=user,
+            transaction=tx,
+            kind=kind,
+            expense=expense,
+            payment=payment,
+            counterparty=counterparty,
+        )
+
+    # Like any other new transaction, run the user's rules and auto-tagging on it
+    transaction_created.send(sender=tx)
+
+    return link
 
 
 @db_transaction.atomic
